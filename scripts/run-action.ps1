@@ -47,13 +47,23 @@ function Log([string]$msg) {
   $script:LogLines.Add("[$ts] $msg") | Out-Null
 }
 
-function Add-StepResult([string]$type, [string]$label, [bool]$ok, $details) {
+function Add-StepResult($typeOrObject, [string]$label = "", [bool]$ok = $true, $details = $null) {
   try {
+    if ($typeOrObject -is [hashtable] -or $typeOrObject -is [pscustomobject]) {
+      $obj = [pscustomobject]$typeOrObject
+      $script:StepResults.Add($obj) | Out-Null
+      return
+    }
     $script:StepResults.Add([pscustomobject]@{
-      type = $type
-      label = $label
+      stepIndex = -1
+      type = [string]$typeOrObject
+      commandSummary = $label
+      exitCode = ($(if($ok){0}else{-1}))
+      stdout = ""
+      stderr = ""
       ok = $ok
-      details = $details
+      verified = $false
+      verifyDetails = $details
     }) | Out-Null
   } catch {}
 }
@@ -154,6 +164,89 @@ if ($payload -and $payload.steps) { $steps = @($payload.steps) }
 
 # ---------------- helpers ----------------
 
+
+function Get-StepCommandSummary([object]$step) {
+  try {
+    $t = [string]$step.type
+    if ([string]::IsNullOrWhiteSpace($t)) { return "unknown" }
+    if ($step.PSObject.Properties.Name -contains "command" -and $step.command) { return ("{0}: {1}" -f $t, (Expand-String $step.command)) }
+    if ($step.PSObject.Properties.Name -contains "path" -and $step.path) { return ("{0}: {1}" -f $t, (Expand-String $step.path)) }
+    if ($step.PSObject.Properties.Name -contains "name" -and $step.name) { return ("{0}: {1}" -f $t, [string]$step.name) }
+    if ($step.PSObject.Properties.Name -contains "guid" -and $step.guid) { return ("{0}: {1}" -f $t, [string]$step.guid) }
+    return $t
+  } catch { return "unknown" }
+}
+
+function Verify-StepOutcome([object]$step) {
+  $type = [string]$step.type
+  try {
+    switch ($type) {
+      "registry.set" {
+        $p = Normalize-RegPath (Expand-String $step.path)
+        $n = [string]$step.name
+        $expected = $step.value
+        $actual = (Get-ItemProperty -Path $p -Name $n -ErrorAction Stop).$n
+        $ok = ([string]$actual -eq [string]$expected)
+        return [pscustomobject]@{ verified = $ok; verifyDetails = ("registry value expected={0} actual={1}" -f [string]$expected, [string]$actual) }
+      }
+      "registry.remove" {
+        $p = Normalize-RegPath (Expand-String $step.path)
+        $n = [string]$step.name
+        $exists = $false
+        try {
+          $obj = Get-ItemProperty -Path $p -ErrorAction Stop
+          $exists = ($obj.PSObject.Properties.Name -contains $n)
+        } catch { $exists = $false }
+        return [pscustomobject]@{ verified = (-not $exists); verifyDetails = ("registry value removed={0}" -f (-not $exists)) }
+      }
+      "service.disable" {
+        $info = Get-ServiceInfoSafe ([string]$step.name)
+        $ok = ($info.exists -and [string]$info.startMode -eq "Disabled")
+        return [pscustomobject]@{ verified = $ok; verifyDetails = ("service startMode=" + [string]$info.startMode + " state=" + [string]$info.state) }
+      }
+      "service.enable" {
+        $info = Get-ServiceInfoSafe ([string]$step.name)
+        $ok = ($info.exists -and ([string]$info.startMode -eq "Auto" -or [string]$info.startMode -eq "Automatic"))
+        return [pscustomobject]@{ verified = $ok; verifyDetails = ("service startMode=" + [string]$info.startMode + " state=" + [string]$info.state) }
+      }
+      "service.startup" {
+        $info = Get-ServiceInfoSafe ([string]$step.name)
+        $exp = [string]($step.startupType)
+        if ([string]::IsNullOrWhiteSpace($exp)) { $exp = [string]($step.mode) }
+        if ([string]::IsNullOrWhiteSpace($exp)) { $exp = [string]($step.value) }
+        $ok = $info.exists
+        if ($ok -and -not [string]::IsNullOrWhiteSpace($exp)) {
+          $actual = [string]$info.startMode
+          if ($actual -eq "Auto") { $actual = "Automatic" }
+          $ok = ($actual -eq $exp)
+        }
+        return [pscustomobject]@{ verified = $ok; verifyDetails = ("service startMode=" + [string]$info.startMode + " expected=" + [string]$exp) }
+      }
+      "task" {
+        $tn = [string]$step.name
+        $act = [string]$step.action
+        $expectedEnabled = $null
+        if ($act -eq "disable") { $expectedEnabled = $false }
+        if ($act -eq "enable") { $expectedEnabled = $true }
+        if ($null -eq $expectedEnabled) { return [pscustomobject]@{ verified = $true; verifyDetails = "task action has no verify target" } }
+        $q = schtasks /Query /TN "$tn" /FO LIST /V 2>&1 | Out-String
+        $enabled = ($q -match "Scheduled Task State:\s*Enabled")
+        return [pscustomobject]@{ verified = ($enabled -eq $expectedEnabled); verifyDetails = ("task enabled=" + $enabled + " expected=" + $expectedEnabled) }
+      }
+      "powercfg.set" {
+        $guid = [string](Expand-String $step.guid)
+        if ([string]::IsNullOrWhiteSpace($guid)) { return [pscustomobject]@{ verified = $true; verifyDetails = "powercfg.set had no guid to verify" } }
+        $o = (powercfg /GETACTIVESCHEME | Out-String)
+        $ok = ($o.ToLowerInvariant().Contains($guid.ToLowerInvariant()))
+        return [pscustomobject]@{ verified = $ok; verifyDetails = ("activeScheme=" + $o.Trim()) }
+      }
+      default { return [pscustomobject]@{ verified = $true; verifyDetails = "verification not required for step type" } }
+    }
+  } catch {
+    return [pscustomobject]@{ verified = $false; verifyDetails = ("verification failed: " + $_.Exception.Message) }
+  }
+}
+
 function Get-StepLabel([object]$step) {
   try {
     if ($null -eq $step) { return "" }
@@ -234,6 +327,15 @@ for ($i = 0; $i -lt $steps.Count; $i++) {
     $script:Errors.Add("Step missing type at index $i") | Out-Null
     continue
   }
+
+  $continueOnError = $false
+  try { if ($s.PSObject.Properties.Name -contains "continueOnError") { $continueOnError = [bool]$s.continueOnError } } catch {}
+  $stepOk = $true
+  $stepExitCode = 0
+  $stepStdout = ""
+  $stepStderr = ""
+  $commandSummary = Get-StepCommandSummary $s
+  $verifyResult = [pscustomobject]@{ verified = $true; verifyDetails = "not-verified" }
 
   try {
     switch ($type) {
@@ -1080,20 +1182,44 @@ default {
         $script:Warnings.Add("Unknown step type: $type") | Out-Null
       }
     }
+    $verifyResult = Verify-StepOutcome $s
+    if (-not $verifyResult.verified) {
+      $stepOk = $false
+      $stepExitCode = 2
+      $stepStderr = [string]$verifyResult.verifyDetails
+      $script:Errors.Add("$type verification failed: " + [string]$verifyResult.verifyDetails) | Out-Null
+      Log ("VERIFY FAIL $type : " + [string]$verifyResult.verifyDetails)
+      if (-not $continueOnError) {
+        Add-StepResult ([pscustomobject]@{ stepIndex=$i; type=$type; commandSummary=$commandSummary; exitCode=$stepExitCode; stdout=$stepStdout; stderr=$stepStderr; ok=$false; verified=$false; verifyDetails=[string]$verifyResult.verifyDetails })
+        break
+      }
+    }
   } catch {
+    $stepOk = $false
+    $stepExitCode = -1
+    $stepStderr = $_.Exception.Message
     Log ("ERROR step $type : " + $_.Exception.Message)
     $script:Errors.Add("$type : " + $_.Exception.Message) | Out-Null
+    if (-not $continueOnError) {
+      Add-StepResult ([pscustomobject]@{ stepIndex=$i; type=$type; commandSummary=$commandSummary; exitCode=$stepExitCode; stdout=$stepStdout; stderr=$stepStderr; ok=$false; verified=$false; verifyDetails="not-verified" })
+      break
+    }
   }
+
+  Add-StepResult ([pscustomobject]@{ stepIndex=$i; type=$type; commandSummary=$commandSummary; exitCode=$stepExitCode; stdout=$stepStdout; stderr=$stepStderr; ok=$stepOk; verified=[bool]$verifyResult.verified; verifyDetails=[string]$verifyResult.verifyDetails })
 }
 
 # write log and return
 $script:LogLines | Out-File -FilePath $logFile -Encoding UTF8 -Force
+$verifyTotal = @($script:StepResults | Where-Object { $_.verified -eq $true }).Count
+$failedTotal = @($script:StepResults | Where-Object { $_.ok -eq $false }).Count
 $out = [pscustomobject]@{
   ok = ($script:Errors.Count -eq 0)
   errors = $script:Errors
   warnings = $script:Warnings
   logFile = $logFile
   stepResults = $script:StepResults
+  verifySummary = [pscustomobject]@{ verified = $verifyTotal; failed = $failedTotal; total = $script:StepResults.Count }
 }
 
 if ($ResultFile -and $ResultFile.Trim().Length -gt 0) {
