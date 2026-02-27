@@ -234,9 +234,32 @@ function createWindow() {
 
 // --- Local file readers for renderer (fixes file:// fetch issues) ---
 function getProjectRoot(){
+  return app.isPackaged ? app.getAppPath() : __dirname;
+}
+
+function getUnpackedRoot(){
   return app.isPackaged
     ? path.join(process.resourcesPath, "app.asar.unpacked")
     : __dirname;
+}
+
+function getPathDebug(){
+  const appPath = app.getAppPath();
+  const unpackedPath = getUnpackedRoot();
+  const manifestRel = path.join("tweaks", "_manifest.json");
+  const appManifest = path.join(appPath, manifestRel);
+  const unpackedManifest = path.join(unpackedPath, manifestRel);
+  return {
+    isPackaged: !!app.isPackaged,
+    appPath,
+    unpackedPath,
+    manifest: {
+      appPath: appManifest,
+      appPathExists: fs.existsSync(appManifest),
+      unpackedPath: unpackedManifest,
+      unpackedPathExists: fs.existsSync(unpackedManifest)
+    }
+  };
 }
 
 function resolveRelPath(rel){
@@ -251,12 +274,26 @@ function resolveRelPath(rel){
   const ok = allowedRoots.some(r => p.toLowerCase().startsWith(r));
   if (!ok) throw new Error("Path not allowed: " + p);
 
-  const root = getProjectRoot();
-  const abs = path.join(root, p);
-  const normRoot = path.resolve(root) + path.sep;
-  const normAbs = path.resolve(abs);
-  if (!normAbs.startsWith(normRoot)) throw new Error("Resolved path escaped root.");
-  return normAbs;
+  const roots = [getProjectRoot(), getUnpackedRoot()];
+  const compatPaths = [p];
+  if (/^tweaks\/.+\.comp$/i.test(p)) {
+    compatPaths.push(p.replace(/\.comp$/i, ".competitive.json"));
+    compatPaths.push(p.replace(/\.comp$/i, ".json"));
+  }
+
+  const attempted = [];
+  for (const root of roots) {
+    for (const relPath of compatPaths) {
+      const abs = path.join(root, relPath);
+      const normRoot = path.resolve(root) + path.sep;
+      const normAbs = path.resolve(abs);
+      if (!normAbs.startsWith(normRoot)) continue;
+      attempted.push(normAbs);
+      if (fs.existsSync(normAbs)) return normAbs;
+    }
+  }
+  const detail = attempted.length ? attempted.join(" | ") : "no candidate path generated";
+  throw new Error(`File not found for "${p}". Attempted: ${detail}`);
 }
 
 if (!_fileReaderIpcRegistered) {
@@ -276,6 +313,14 @@ ipcMain.handle("falcon:readJson", async (_evt, payload) => {
     const raw = fs.readFileSync(abs, "utf8");
     const obj = JSON.parse(raw);
     return { ok: true, json: obj };
+  } catch (e) {
+    return { ok: false, error: String(e && e.message ? e.message : e) };
+  }
+});
+
+ipcMain.handle("falcon:getPathDebug", async () => {
+  try {
+    return { ok: true, debug: getPathDebug() };
   } catch (e) {
     return { ok: false, error: String(e && e.message ? e.message : e) };
   }
@@ -1796,6 +1841,18 @@ ipcMain.handle('falcon:toolLaunch', async (event, { toolId }) => {
     const res = await runPowerShellJson(ps, ['-Command','launch','-ToolId', toolId]);
     return res;
   } catch (e) { return { ok:false, error:String(e) }; }
+});
+
+ipcMain.handle("falcon:checkForUpdates", async () => {
+  if (!app.isPackaged) {
+    return { ok: false, message: "Update checks are only available in packaged builds." };
+  }
+  try {
+    await autoUpdater.checkForUpdates();
+    return { ok: true };
+  } catch (e) {
+    return { ok: false, message: String((e && e.message) || e || "Failed to check updates") };
+  }
 });
 
 app.whenReady().then(() => {

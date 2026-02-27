@@ -12,8 +12,17 @@ function Out-Json([bool]$Ok, [string[]]$Warnings = @(), [string[]]$Errors = @(),
 
 try {
   $root = Resolve-Path (Join-Path $PSScriptRoot '..')
-  $driverDir = Join-Path $root 'tools\third_party\controller_overclock_ps\DRIVER'
-  $setupExe = Join-Path $driverDir 'Setup.exe'
+  $driverCandidates = @(
+    (Join-Path $root 'tools\third_party\controller_overclock_ps\DRIVER'),
+    (Join-Path $root 'tools\third_party\controller_overclock_ps\controller_overclock_ps\DRIVER')
+  )
+  $driverDir = $driverCandidates | Where-Object { Test-Path $_ } | Select-Object -First 1
+  $setupExe = if($driverDir){ Join-Path $driverDir 'Setup.exe' } else { $null }
+
+  if (-not $driverDir) {
+    Write-Output (Out-Json $false @() @("HidUSBF driver folder missing. Looked in: $($driverCandidates -join '; ')") )
+    exit 1
+  }
 
   if (-not (Test-Path $setupExe)) {
     Write-Output (Out-Json $false @() @("Missing HidUSBF Setup.exe at: $setupExe") )
@@ -37,7 +46,7 @@ try {
   # For apply/revert/open we intentionally open HidUSBF Setup.
   # HidUSBF requires selecting the device in its UI and choosing a polling rate.
   # We do not auto-write unknown registry/device values to avoid misconfiguring input devices.
-  Start-Process -FilePath $setupExe -Verb RunAs | Out-Null
+  Start-Process -FilePath $setupExe -Verb RunAs -WorkingDirectory $driverDir | Out-Null
 
   $warn = @(
     'HidUSBF Setup opened. In the list, select your controller (DualShock 4 / DualSense recommended).',
@@ -45,6 +54,8 @@ try {
     'Xbox controllers are typically firmware-locked; 1000 Hz may not apply.'
   )
 
+  $warn += "Executable: $setupExe"
+  $warn += "Working directory: $driverDir"
   Write-Output (Out-Json $true $warn @())
   exit 0
 

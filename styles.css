@@ -4562,3 +4562,10 @@ html, body{ height:100% !important; overflow:hidden !important; }
 
 /* Readability hard floor */
 label, .badge, .chip, .pill, .hint { font-size: 13px; }
+
+/* Diagnostics + contrast hardening */
+.notice{ border:1px solid rgba(148,163,184,0.35); background:#0f172a; color:#e2e8f0; border-radius:10px; padding:12px; }
+.notice.notice-warning{ border-color:#facc15; background:#3a2f00; color:#fff8db; }
+.notice.notice-error{ border-color:#f87171; background:#3b1111; color:#ffe2e2; }
+.notice.notice-success{ border-color:#34d399; background:#03281f; color:#dcfce7; }
+.theme-qa-grid .notice{ margin-top:8px; }

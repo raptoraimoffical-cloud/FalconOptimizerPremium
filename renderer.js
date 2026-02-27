@@ -105,6 +105,7 @@ function shouldHideFromExplore(item){
   if (!id) return true;
   if (id.endsWith('__revert')) return true;
   if (isOpenOnlyItem(item)) return true;
+  if (item && item.exploreType === 'guide') return true;
   const file = String(item && item.file || '').toLowerCase();
   if (file.includes('stretchres')) return true;
   const pathText = String(item && item.path || '').toLowerCase();
@@ -112,6 +113,21 @@ function shouldHideFromExplore(item){
   return false;
 }
 
+
+
+function classifyExploreType(node){
+  const directType = String((node && (node.type || node.kind || node.entryType)) || '').toLowerCase();
+  if (directType === 'guide' || (node && node.isGuide === true)) return 'guide';
+  const steps = (node && node.apply && Array.isArray(node.apply.steps)) ? node.apply.steps : (Array.isArray(node && node.steps) ? node.steps : []);
+  if (!steps.length) return 'guide';
+  const hasRealStep = steps.some((s) => {
+    const t = String(s && s.type || '').toLowerCase();
+    if (!t || EXPLORE_NON_ACTIONABLE_STEP_TYPES.has(t)) return false;
+    if (t === 'ps.run' && /set-clipboard/i.test(String(s.command || ''))) return false;
+    return true;
+  });
+  return hasRealStep ? 'tweak' : 'guide';
+}
 
 // Build apply steps + optional verify steps (avoids recursive self-call bug).
 function getApplyStepsWithVerify(item){
@@ -5738,10 +5754,11 @@ card.innerHTML = `
       const checkbox = card.querySelector('.boost-select');
       if (checkbox) {
         card.addEventListener('click', (ev) => {
-          // Ignore clicks on actual buttons inside the card
           const target = ev.target;
-          if (target.closest && target.closest('.card-actions')) return;
+          if (!target) return;
+          if (target.closest && target.closest('.card-actions, .boost-check, .fo-switch, .inline-panel, a, button, input, select, textarea, label')) return;
           checkbox.checked = !checkbox.checked;
+          checkbox.dispatchEvent(new Event('change', { bubbles: true }));
         });
       }
     }
@@ -7177,7 +7194,9 @@ async function refresh(resetTabs=true){
     els.panel.innerHTML = `<div class="notice"><strong>Missing data:</strong> No items configured for this section yet.</div>`;
   } catch (e) {
     console.error('Refresh/navigation error', e);
-    els.panel.innerHTML = `<div class="notice notice-error"><strong>Navigation error:</strong> ` + escapeHtml(String(e && e.message ? e.message : e)) + `</div>`;
+    const msg = escapeHtml(String(e && e.message ? e.message : e));
+    const stack = escapeHtml(String(e && e.stack ? e.stack : 'No stack available.'));
+    els.panel.innerHTML = `<div class="notice notice-error"><strong>Navigation error:</strong> ${msg}<details style="margin-top:8px;"><summary>Show details</summary><pre class="log" style="margin-top:8px;">${stack}</pre></details></div>`;
   }
 }
 function setRoute(route){
@@ -7300,7 +7319,8 @@ async function renderExplore(){
         reboot: !!(node.rebootRequired || node.reboot || node.requiresReboot),
         hasRevert: !!hasRevert,
         steps: (hasApply ? node.apply.steps : (Array.isArray(node.steps) ? node.steps : [])),
-        revertSteps: (hasRevert ? node.revert.steps : [])
+        revertSteps: (hasRevert ? node.revert.steps : []),
+        exploreType: classifyExploreType(node)
       };
       if (!shouldHideFromExplore(item)) out.push(item);
     }
@@ -8164,10 +8184,12 @@ async function buildNetworkPriorityPanel(){
     }
     listEl.innerHTML = filtered.map(g => {
       const img = `images/games/${encodeURIComponent(g.id)}.png`;
+      const imgJpg = `images/games/${encodeURIComponent(g.name || g.id)}.jpg`;
+      const imgJpeg = `images/games/${encodeURIComponent(g.name || g.id)}.jpeg`;
       return `
         <div class="card game-tile">
           <div class="game-thumb">
-            <img src="${img}" alt="" onerror="this.style.display='none'; this.parentElement.classList.add('noimg');" />
+            <img src="${img}" alt="" onerror="if(!this.dataset.tryJpg){this.dataset.tryJpg='1';this.src='${imgJpg}';return;} if(!this.dataset.tryJpeg){this.dataset.tryJpeg='1';this.src='${imgJpeg}';return;} this.style.display='none'; this.parentElement.classList.add('noimg');" />
             <div class="game-thumb-fallback">${__eh(String(g.name||g.id||'Game'))}</div>
           </div>
           <div class="card-title" style="margin-top:10px;">${__eh(String(g.name||g.id))}</div>
@@ -8693,6 +8715,53 @@ async function openSystemInfoModal(){
   // default tab
   const firstTab = document.querySelector('.sysinfo-tab[data-sys-tab="cpu"]');
   if(firstTab) firstTab.click();
+}
+
+
+let updateUnsubscribe = null;
+function attachUpdateStatusListener(statusEl){
+  if (updateUnsubscribe) return;
+  if (!window.falconUpdates || !window.falconUpdates.onStatus) return;
+  updateUnsubscribe = window.falconUpdates.onStatus((payload) => {
+    if (!statusEl) return;
+    const status = String((payload && payload.status) || 'unknown');
+    const extra = payload && payload.message ? ` – ${payload.message}` : (payload && payload.version ? ` – ${payload.version}` : '');
+    statusEl.textContent = `Updater: ${status}${extra}`;
+  });
+}
+
+async function renderLanguage(){
+  els.panel.innerHTML = `
+    <div class="panel">
+      <div class="card-title">Settings & Diagnostics</div>
+      <div class="card-desc">Packaged-path diagnostics, updater status, and theme contrast QA.</div>
+      <div class="card-actions" style="margin-top:10px; gap:8px; flex-wrap:wrap;">
+        <button class="btn" id="dbgReload">Refresh path debug</button>
+        <button class="btn primary" id="updCheckNow">Check for updates now</button>
+      </div>
+      <div id="updStatus" class="muted" style="margin-top:10px;">Updater: waiting for events…</div>
+      <pre id="pathDebugOut" class="log" style="margin-top:10px;">Loading…</pre>
+    </div>
+    <div class="panel theme-qa-grid">
+      <div class="card-title">Theme QA</div>
+      <div class="notice notice-warning">Warning contrast sample — should remain readable.</div>
+      <div class="notice notice-error">Error contrast sample — should remain readable.</div>
+      <div class="notice notice-success">Success contrast sample — should remain readable.</div>
+    </div>
+  `;
+  const pathOut = document.getElementById('pathDebugOut');
+  const updStatus = document.getElementById('updStatus');
+  attachUpdateStatusListener(updStatus);
+  const loadDebug = async () => {
+    try { pathOut.textContent = JSON.stringify(await window.falcon.getPathDebug(), null, 2); }
+    catch (e) { pathOut.textContent = 'Failed to load path debug: ' + String(e && e.message ? e.message : e); }
+  };
+  document.getElementById('dbgReload').onclick = loadDebug;
+  document.getElementById('updCheckNow').onclick = async () => {
+    const r = await window.falcon.checkForUpdates();
+    updStatus.textContent = (r && r.ok) ? 'Updater: check requested.' : ('Updater: check failed – ' + String((r && r.message) || 'Unknown error'));
+  };
+  await loadDebug();
 }
 
 // ---------- Game Profiles (Paragon-like) ----------

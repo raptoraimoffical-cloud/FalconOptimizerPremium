@@ -105,6 +105,12 @@ removePowerPlans: () => ipcRenderer.invoke("falcon:removePowerPlans"),
   // local asset readers (renderer-safe way to load tweaks/*.json under file://)
   readText: async (relPath) => { const r = await ipcRenderer.invoke("falcon:readText", { path: relPath }); if(!r||!r.ok) throw new Error((r&&r.error)||"readText failed"); return r.text; },
   readJson: async (relPath) => { const r = await ipcRenderer.invoke("falcon:readJson", { path: relPath }); if(!r||!r.ok) throw new Error((r&&r.error)||"readJson failed"); return r.json; },
+  getPathDebug: async () => {
+    const r = await ipcRenderer.invoke("falcon:getPathDebug");
+    if (!r || !r.ok) throw new Error((r && r.error) || "getPathDebug failed");
+    return r.debug;
+  },
+  checkForUpdates: () => ipcRenderer.invoke("falcon:checkForUpdates"),
 
   securityHealthCheck: () => ipcRenderer.invoke("falcon:securityHealthCheck"),
   // Tool manager
