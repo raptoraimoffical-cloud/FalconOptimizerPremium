@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "profiles": [
     {
       "id": "safe_competitive",
@@ -37,6 +37,33 @@
       "includeExcluded": true,
       "requireTypedPhrase": "I UNDERSTAND",
       "applyStretchDefault": true
+    },
+    {
+      "id": "laptop_gaming_thermal_safe",
+      "name": "Laptop Gaming (Thermal-Safe)",
+      "includeRiskLevels": [
+        "Safe",
+        "Warning",
+        "High"
+      ],
+      "includeExcluded": false,
+      "applyStretchDefault": true,
+      "machineProfiles": [
+        "laptop"
+      ]
+    },
+    {
+      "id": "laptop_balanced",
+      "name": "Laptop Balanced (Battery + Performance)",
+      "includeRiskLevels": [
+        "Safe",
+        "Warning"
+      ],
+      "includeExcluded": false,
+      "applyStretchDefault": true,
+      "machineProfiles": [
+        "laptop"
+      ]
     }
   ]
 }

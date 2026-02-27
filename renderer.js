@@ -592,11 +592,25 @@ function debounce(fn, waitMs){
   };
 }
 
+function normalizeRiskLabel(input){
+  const raw = (typeof input === "string") ? input : (input && (input.riskLevel || input.risk));
+  const key = String(raw || "Safe").trim().toLowerCase();
+  if (!key || key === "unknown") return "Safe";
+  if (key === "safe" || key === "info" || key === "low") return "Safe";
+  if (key === "warning" || key === "caution" || key === "medium") return "Warning";
+  if (key === "high" || key === "danger" || key === "extreme") return "High";
+  if (key === "critical") return "Critical";
+  return "Safe";
+}
 function normRisk(item){
-  return (item && (item.riskLevel || item.risk)) ? String(item.riskLevel || item.risk) : "Safe";
+  return normalizeRiskLabel(item);
+}
+function riskRank(value){
+  const rank = { Safe:0, Warning:1, High:2, Critical:3 };
+  return rank[normalizeRiskLabel(value)] || 0;
 }
 function isHighOrCritical(risk){
-  const r = String(risk||"Safe");
+  const r = normalizeRiskLabel(risk);
   return r === "High" || r === "Critical";
 }
 function getConfirmPhrase(risk){
@@ -750,6 +764,100 @@ Laptop – Balanced performance while respecting mobile thermals and power. Reco
     }
   });
 }
+
+
+const PERFORMANCE_ALLOWLIST_KEYWORDS = [
+  "latency", "dpc", "timer", "scheduler", "interrupt", "msi", "gpu", "nvidia", "amd", "cpu",
+  "power plan", "bcdedit", "network", "tcp", "ping", "input", "usb", "mouse", "keyboard", "controller",
+  "audio latency", "debloat", "game mode", "fullscreen optimizations", "fullscreen optimization"
+];
+
+const LAPTOP_SAFETY_EXCLUSION_KEYWORDS = [
+  "dptf", "dynamic tuning", "intel thermal", "ipf", "pmf", "acpi", "battery", "embedded controller", "fan",
+  "thermal", "armoury", "asus", "vantage", "lenovo", "msi center", "dragon center", "omen", "alienware",
+  "nitrosense", "hotkey"
+];
+
+const LAPTOP_BALANCED_SLEEP_EXCLUSIONS = [
+  "sleep", "hibernate", "hibernation", "modern standby", "s0ix", "connected standby", "away mode"
+];
+
+function buildItemSearchText(it){
+  const tags = Array.isArray(it && it.tags) ? it.tags.join(" ") : String((it && it.tags) || "");
+  return [it && it.id, it && it.name, it && it.category, it && it.description, tags].map(v => String(v || "")).join(" ").toLowerCase();
+}
+
+function hasFocusTag(item){
+  const desc = String((item && item.description) || "").toLowerCase();
+  return desc.includes("[focus:");
+}
+
+function matchesAnyKeyword(text, keywords){
+  return keywords.some((kw) => text.includes(String(kw || "").toLowerCase()));
+}
+
+function matchesPerformanceAllowlist(item){
+  return matchesAnyKeyword(buildItemSearchText(item), PERFORMANCE_ALLOWLIST_KEYWORDS);
+}
+
+function isTaggedSafePerformance(item){
+  const desc = String((item && item.description) || "").toLowerCase();
+  const tags = Array.isArray(item && item.tags) ? item.tags.join(" ").toLowerCase() : String((item && item.tags) || "").toLowerCase();
+  return desc.includes("[safe_performance]") || desc.includes("[safe-performance]") || tags.includes("safe_performance") || tags.includes("safe-performance");
+}
+
+function shouldExcludeForLaptopSafety(item, machineProfile, profileId){
+  if (machineProfile !== "laptop") return false;
+  const text = buildItemSearchText(item);
+  if (matchesAnyKeyword(text, LAPTOP_SAFETY_EXCLUSION_KEYWORDS)) return true;
+  if (String(profileId || "") === "laptop_balanced") {
+    const sleepRisk = matchesAnyKeyword(text, LAPTOP_BALANCED_SLEEP_EXCLUSIONS);
+    if (sleepRisk && !isTaggedSafePerformance(item)) return true;
+  }
+  return false;
+}
+
+function detectMachineProfileFromSystemInfo(info){
+  if (!info || typeof info !== "object") return "desktop";
+
+  const boolBatteryKeys = ["HasBattery", "hasBattery", "BatteryPresent", "batteryPresent", "IsLaptop", "isLaptop", "IsMobile", "isMobile"];
+  for (const k of boolBatteryKeys) {
+    if (info[k] === true || info[k] === 1 || String(info[k] || "").toLowerCase() === "true") return "laptop";
+  }
+
+  const numericSystemType = Number(info.PCSystemType || info.pcSystemType || info.SystemTypeCode || 0);
+  if ([2, 8, 9, 10, 14].includes(numericSystemType)) return "laptop";
+
+  const text = [
+    info.ChassisType, info.chassisType, info.ChassisTypes, info.SystemEnclosureChassisTypes,
+    info.Model, info.SystemModel, info.ProductName, info.DeviceType
+  ].map(v => String(v || "")).join(" ").toLowerCase();
+
+  if (/laptop|notebook|portable|mobile|ultrabook|netbook|tablet/.test(text)) return "laptop";
+  return "desktop";
+}
+
+async function getStoredOrDetectedMachineProfile(){
+  let stored = "";
+  try { stored = String(localStorage.getItem("falcon.machineProfile") || "").toLowerCase(); } catch(_e) {}
+  if (stored === "desktop" || stored === "laptop") return stored;
+
+  let detected = detectMachineProfileFromSystemInfo(lastSystemInfo || null);
+  if (!lastSystemInfo && window.falcon && window.falcon.getSystemInfo) {
+    try {
+      const sys = await window.falcon.getSystemInfo();
+      if (sys && sys.info) {
+        lastSystemInfo = sys.info;
+        detected = detectMachineProfileFromSystemInfo(sys.info);
+      }
+    } catch(_e) {}
+  }
+
+  try { localStorage.setItem("falcon.machineProfile", detected); } catch(_e) {}
+  if (window.falcon) window.falcon.machineProfile = detected;
+  return detected;
+}
+
 
 let simulationMode = (localStorage.getItem("falcon_simulation") === "1");
 function setSimulationMode(on){
@@ -3269,13 +3377,57 @@ refreshSecurityHome();
     try { prof = await loadJSON('tweaks/profiles.json'); } catch(_) { prof = { profiles: [] }; }
     const btnWrap = document.getElementById('profileButtons');
     const logEl = document.getElementById('profileLog');
-    (prof.profiles||[]).forEach(p => {
+    const reasonLabel = {
+      hidden: 'hidden/missing verification',
+      low_hw_tier_risk: 'hardware tier risk guard',
+      low_hw_tier_advanced: 'hardware tier advanced guard',
+      risk_mismatch: 'risk mismatch',
+      excluded_applyall: 'excludeFromApplyAll',
+      not_toggle: 'not toggle',
+      not_performance: 'not performance-targeted',
+      vendor_mismatch: 'vendor mismatch',
+      appearance: 'appearance/qol excluded',
+      utility: 'utility/external excluded',
+      delivery_optimization: 'delivery optimization excluded',
+      desktop_machine_mismatch: 'desktop/laptop specialization mismatch',
+      laptop_machine_mismatch: 'desktop/laptop specialization mismatch',
+      laptop_safety_exclusion: 'laptop safety exclusion'
+    };
+
+    const machineProfile = await getStoredOrDetectedMachineProfile();
+
+    const machineBtn = document.createElement('button');
+    machineBtn.className = 'btn';
+    machineBtn.textContent = machineProfile === 'laptop' ? 'Machine: Laptop (change)' : 'Machine: Desktop (change)';
+    machineBtn.onclick = async () => {
+      const chosen = await chooseMachineProfileForRun(await getStoredOrDetectedMachineProfile());
+      const finalChoice = (chosen === 'laptop' ? 'laptop' : 'desktop');
+      try { localStorage.setItem('falcon.machineProfile', finalChoice); } catch(_e) {}
+      if (window.falcon) window.falcon.machineProfile = finalChoice;
+      showToast('Machine profile set to ' + (finalChoice === 'laptop' ? 'Laptop' : 'Desktop') + '.', 'info');
+      setTimeout(() => { window.location.reload(); }, 80);
+    };
+    btnWrap.appendChild(machineBtn);
+
+    const rawProfiles = (prof.profiles || []).slice();
+    const visibleProfiles = rawProfiles.filter((p) => {
+      if (!Array.isArray(p.machineProfiles) || !p.machineProfiles.length) return true;
+      return p.machineProfiles.includes(machineProfile);
+    });
+
+    visibleProfiles.sort((a, b) => {
+      const aLaptop = Array.isArray(a.machineProfiles) && a.machineProfiles.includes('laptop');
+      const bLaptop = Array.isArray(b.machineProfiles) && b.machineProfiles.includes('laptop');
+      if (machineProfile === 'laptop' && aLaptop !== bLaptop) return aLaptop ? -1 : 1;
+      return 0;
+    });
+
+    visibleProfiles.forEach(p => {
       const b = document.createElement('button');
       b.className = 'btn primary';
       b.textContent = p.name;
       b.onclick = async () => {
         try {
-        // For "All In" require typed confirmation
         if(p.requireTypedPhrase){
           const ok = await showConfirmModal({
             title: "All In (Risky)",
@@ -3285,7 +3437,6 @@ refreshSecurityHome();
           });
           if(!ok) return;
         }
-        // Build list of sources (all tabs)
         const sources = [];
         Object.values(routes).forEach(r => (r.tabs||[]).forEach(t => sources.push(t.source)));
         const uniqueSources = [...new Set(sources)].filter(Boolean);
@@ -3295,66 +3446,61 @@ refreshSecurityHome();
           try{
             const data = await loadJSON(src);
             (data.items||[]).forEach(it => allItems.push(normalizeLibraryItem(it, src)));
-          }catch(_){}
+          }catch(_){ }
         }
 
-        // Ask for machine type for this batch: desktop vs laptop (once per session).
-        let machineProfile = (window.falcon && window.falcon.machineProfile) || null;
-        if (!machineProfile) {
-          const initial = "desktop";
-          machineProfile = await chooseMachineProfileForRun(initial);
-          if (window.falcon) {
-            window.falcon.machineProfile = machineProfile;
-          }
-        }
-        const msg = machineProfile === 'desktop'
+        const machineProfileForRun = await getStoredOrDetectedMachineProfile();
+        const msg = machineProfileForRun === 'desktop'
           ? 'Machine profile: Desktop – maximum FPS and lowest latency.'
           : 'Machine profile: Laptop – balanced performance while respecting mobile power/thermals.';
         showToast(msg, 'info');
 
+        const filterStats = {
+          discovered: allItems.length,
+          filteredIn: 0,
+          reasons: {}
+        };
+        const bumpReason = (key) => {
+          filterStats.reasons[key] = (filterStats.reasons[key] || 0) + 1;
+        };
+
         const filtered = allItems.filter(it => {
-          if(it && it.__hiddenReason) return false;
+          if(it && it.__hiddenReason) { bumpReason('hidden'); return false; }
           const risk = normRisk(it);
 
-          // Hardware tier gating: Low-end avoids High/Critical + aggressive scheduler/GPU hacks,
-          // Mid-end avoids Critical-only, High-end can use full aggressive set.
           const hwTierRaw = (window.falcon && window.falcon.hardwareTier) || "mid";
           const hwTier = String(hwTierRaw || "mid").toLowerCase();
-          const riskKey = String(risk || "Safe").toLowerCase();
-          const riskOrder = { safe:0, warning:1, high:2, critical:3 };
-          const riskRank = Object.prototype.hasOwnProperty.call(riskOrder, riskKey) ? riskOrder[riskKey] : 0;
-
-          if (hwTier === "low" && riskRank >= 2) return false;      // no High/Critical on low-end
-          if (hwTier === "mid" && riskRank >= 3) return false;      // no Critical on mid-end
 
           const id = String(it.id || "").toLowerCase();
           const cat = String(it.category || "").toLowerCase();
           const desc = String(it.description || "").toLowerCase();
 
-          // Extra safety for very low-end rigs: skip advanced GPU/scheduler experiments entirely.
+          if (hwTier === "low" && riskRank(risk) >= 2) { bumpReason('low_hw_tier_risk'); return false; }
+          if (hwTier === "mid" && riskRank(risk) >= 3) { bumpReason('low_hw_tier_risk'); return false; }
+
           if (hwTier === "low") {
             if (id.includes("gpu_nvidia_advanced") || id.includes("msi_mode") || id.includes("scheduler") || id.includes("paradime_advanced")) {
+              bumpReason('low_hw_tier_advanced');
               return false;
             }
           }
 
-          const allowed = (p.includeRiskLevels||[]).includes(risk);
-          if(!allowed) return false;
-          if(!p.includeExcluded && it.excludeFromApplyAll) return false;
-          if(it.type !== "toggle") return false; // apply toggles only
+          const allowed = (p.includeRiskLevels||[]).map(normalizeRiskLabel).includes(risk);
+          if(!allowed) { bumpReason('risk_mismatch'); return false; }
+          if(!p.includeExcluded && it.excludeFromApplyAll) { bumpReason('excluded_applyall'); return false; }
+          if(it.type !== "toggle") { bumpReason('not_toggle'); return false; }
 
-          // Require a Focus tag so we only mass-apply true performance tweaks (FPS / latency / ping / background noise).
-          if (!desc.includes("[focus:")) return false;
+          const isPerformanceItem = hasFocusTag(it) || matchesPerformanceAllowlist(it);
+          if(!isPerformanceItem) { bumpReason('not_performance'); return false; }
 
-          // GPU vendor gating: avoid running NVIDIA-only tweaks on AMD and vice versa in Apply All / Profiles
           if (currentGpuVendor && currentGpuVendor !== "auto" && currentGpuVendor !== "unknown") {
             const isNvidiaTweak = id.startsWith("gpu.nvidia");
             const isAmdTweak = id.startsWith("gpu.amd");
-            if (currentGpuVendor === "nvidia" && isAmdTweak) return false;
-            if (currentGpuVendor === "amd" && isNvidiaTweak) return false;
+            if ((currentGpuVendor === "nvidia" && isAmdTweak) || (currentGpuVendor === "amd" && isNvidiaTweak)) {
+              bumpReason('vendor_mismatch');
+              return false;
+            }
           }
-
-          // Skip pure preference / QoL / appearance-only items in Apply All
 
           const isAppearance =
             cat.includes("ui & background") ||
@@ -3365,27 +3511,35 @@ refreshSecurityHome();
             id.includes("exp.ui.") ||
             id.includes("qol.") ||
             id.includes("appearance") ||
-            id.includes("dark_mode");
+            id.includes("dark_mode") ||
+            desc.includes("dark mode") ||
+            desc.includes("theme");
 
-          if(isAppearance) return false;
+          if(isAppearance) { bumpReason('appearance'); return false; }
 
-          // Exclude explicit utilities/external helper tools from Apply-All, they must be opened manually.
           const isUtility = cat.includes("utility") || cat.includes("utilities") || id.startsWith("util.") || id.startsWith("external.");
-          if (isUtility) return false;
+          if (isUtility) { bumpReason('utility'); return false; }
 
-          // Avoid auto-running Delivery Optimization, as it can hang on some systems
           if(id.includes("core_disable_delivery_optimization") || id.includes("delivery_optimization")) {
+            bumpReason('delivery_optimization');
             return false;
           }
 
-          // Laptop vs Desktop specialization heuristics:
-          if(machineProfile === "desktop" && (id.includes("laptop") || id.includes("_mobile") || id.includes("battery_saver"))) {
+          if(machineProfileForRun === "desktop" && (id.includes("laptop") || id.includes("_mobile") || id.includes("battery_saver"))) {
+            bumpReason('desktop_machine_mismatch');
             return false;
           }
-          if(machineProfile === "laptop" && (id.includes("desktop") || id.includes("_desktop_only"))) {
+          if(machineProfileForRun === "laptop" && (id.includes("desktop") || id.includes("_desktop_only"))) {
+            bumpReason('laptop_machine_mismatch');
             return false;
           }
 
+          if (shouldExcludeForLaptopSafety(it, machineProfileForRun, p.id)) {
+            bumpReason('laptop_safety_exclusion');
+            return false;
+          }
+
+          filterStats.filteredIn++;
           return true;
         });
 
@@ -3399,7 +3553,6 @@ refreshSecurityHome();
           }
         }
 
-        // If any require snapshot, take one up front
         const needsSnap = filtered.some(it => it.requiresSnapshot);
         if(needsSnap){
           const snap = await window.falcon.createBackup({});
@@ -3417,6 +3570,28 @@ refreshSecurityHome();
           out += `SKIP (conflict) ${conf.skipped.length} item(s) due to conflictGroup (kept first per group)
 `;
         }
+
+        const topReasons = Object.entries(filterStats.reasons)
+          .sort((a,b) => b[1] - a[1])
+          .slice(0, 8)
+          .map(([k,v]) => `${reasonLabel[k] || k}: ${v}`)
+          .join("\n");
+
+        out += `FILTER SUMMARY
+`;
+        out += `- discovered: ${filterStats.discovered}
+`;
+        out += `- filtered in: ${filterStats.filteredIn}
+`;
+        out += `- after conflict resolution: ${finalList.length}
+`;
+        out += topReasons ? `- top filtered-out reasons:
+${topReasons}
+
+` : `- top filtered-out reasons: none
+
+`;
+
         let idxRun = 0;
         let attempted = 0;
         let okCount = 0;
@@ -3455,62 +3630,56 @@ ${JSON.stringify(plan.plan,null,2)}
               meta: { profile: p.id, riskLevel: risk, hwProfile: currentHwProfile || 'auto' }
             }, 90000);
             const okFlag = !!(res && res.ok);
-            if (okFlag) {
-              okCount++;
-            } else {
-              failCount++;
-            }
-            if (res && res.timeout) {
-              timeoutCount++;
-            }
+            if (okFlag) okCount++; else failCount++;
+            if (res && res.timeout) timeoutCount++;
 
             out += `${res.ok ? "OK" : "ERR"} ${it.id}
 `;
             try {
-              const ok = !!(res && res.ok);
               const nm = it && it.name ? it.name : it.id;
-              showToast((nm || "Optimization") + (ok ? " applied successfully." : " failed or partially applied. Check log."), ok ? "success" : "error");
+              showToast((nm || "Optimization") + (okFlag ? " applied successfully." : " failed or partially applied. Check log."), okFlag ? "success" : "error");
             } catch (toastErr) {
               console && console.warn && console.warn("profile tweak toast error", toastErr);
             }
           }
         }
         const summaryLine = `SUMMARY Profile ${p.id || p.name || "(unnamed)"}: ${attempted} attempted, ${okCount} OK, ${failCount} failed, ${timeoutCount} timeouts.`;
-        out += `\n${summaryLine}\n`;
+        out += `
+${summaryLine}
+`;
         try {
-          const mpLabel = machineProfile === "desktop" ? "Desktop" : "Laptop";
+          const mpLabel = machineProfileForRun === "desktop" ? "Desktop" : "Laptop";
           const toastText = `Profile ${p.name || p.id || "(unnamed)"} (${mpLabel}) completed: ${attempted} attempted, ${okCount} OK, ${failCount} failed, ${timeoutCount} timeouts.`;
           const hasError = (failCount > 0 || timeoutCount > 0);
           showToast(toastText, hasError ? "error" : "success");
-
-        try{
-          const ok2 = !!(res && res.ok);
-          const id2 = payload && payload.id ? payload.id : "Profile";
-          const label2 = payload && payload.meta && payload.meta.profile ? payload.meta.profile : id2;
-          lastLogFile = res && res.logFile ? res.logFile : lastLogFile;
-          __pushRunHistory({ ts: Date.now(), ok: ok2, label: 'Profile: ' + label2, logFile: (res && res.logFile) ? res.logFile : null, note: (Date.now()-startedAt) + ' ms' });
-        }catch(e2){}
         } catch (e) {
           console && console.warn && console.warn("profile summary toast error", e);
         }
 
-                // Auto-Apply integration: apply default Stretch preset (optional)
         try {
           if (p && p.applyStretchDefault) {
             const applied = await applyDefaultStretchPreset();
             if (applied && applied.ok) {
-              out += `\nSTRETCH OK  ${applied.label||''}\n`;
+              out += `
+STRETCH OK  ${applied.label||''}
+`;
             } else if (applied && applied.skipped) {
-              out += `\nSTRETCH SKIP  ${applied.reason||''}\n`;
+              out += `
+STRETCH SKIP  ${applied.reason||''}
+`;
             } else if (applied && applied.error) {
-              out += `\nSTRETCH ERR  ${applied.error||''}\n`;
+              out += `
+STRETCH ERR  ${applied.error||''}
+`;
             }
           }
         } catch(_e) {
-          out += `\nSTRETCH ERR  unexpected error\n`;
+          out += `
+STRETCH ERR  unexpected error
+`;
         }
 
-logEl.innerHTML = `<pre class="log">${__eh(out.trim()||"(no actions)")}</pre>`;
+        logEl.innerHTML = `<pre class="log">${__eh(out.trim()||"(no actions)")}</pre>`;
         } catch (e) {
           console && console.error && console.error('profile run failed', e);
           try { showToast('Profile run failed. Check log for details.', 'error'); } catch(_e) {}
@@ -8021,7 +8190,7 @@ async function buildPowerPlansPanel(){
       if (autoEnable) autoEnable.checked = !!st.enabled;
       if (autoPlan) autoPlan.value = (st.plan || 'competitive');
       if (autoFallback) autoFallback.value = (st.fallback || 'balanced');
-      if (autoExes) autoExes.value = Array.isArray(st.exes) ? st.exes.join('\n') : '';
+      if (autoExes) autoExes.value = Array.isArray(st.exes) ? st.exes.join("\n") : '';
       if (autoStatus) autoStatus.textContent = st.enabled ? 'Enabled' : 'Disabled';
     } catch(_e) {}
   })();
@@ -8079,7 +8248,7 @@ async function buildPowerPlansPanel(){
         `P90: ${r.p90_ms} ms`,
         `P99: ${r.p99_ms} ms`,
         `Max: ${r.max_ms} ms`,
-      ].join('\n');
+      ].join("\n");
       setLog(out);
       showToast('Benchmark complete.', 'success');
     } else {
