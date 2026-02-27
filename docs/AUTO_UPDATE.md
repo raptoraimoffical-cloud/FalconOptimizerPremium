@@ -2,34 +2,45 @@
 
 Falcon Optimizer uses `electron-updater` + `electron-builder` to update packaged Windows installs.
 
-> Auto-update **does not** work from commits alone. It pulls update metadata + installers from release assets (for example, GitHub Releases).
+> Auto-update only runs from packaged builds. Dev (`electron .`) intentionally skips updater checks.
 
-## One-time setup
+## Publish config used by updater
 
-1. Open `package.json` and replace these placeholders in `build.publish`:
-   - `<REPLACE_WITH_OWNER>` → your GitHub org/user (example: `FalconTools`)
-   - `<REPLACE_WITH_REPO>` → the releases repo name (example: `FalconOptimizerPremium-main`)
-2. Ensure Releases are enabled for that repository.
+`package.json` contains the default release feed target:
+
+- `build.publish[0].owner`
+- `build.publish[0].repo`
+
+Runtime overrides are also supported for testing/build pipelines:
+
+- `FALCON_UPDATER_OWNER` (or `UPDATER_OWNER`)
+- `FALCON_UPDATER_REPO` (or `UPDATER_REPO`)
+
+The app validates owner/repo on startup and reports clear diagnostics in the **Updater** page.
+
+## Public vs private GitHub repo behavior
+
+### Public repo
+- No token is required.
+- Feed URL should resolve: `https://github.com/<owner>/<repo>/releases.atom`
+
+### Private repo
+- Unauthenticated requests can return HTTP 404.
+- You must provide `GH_TOKEN` or `GITHUB_TOKEN` (runtime `FALCON_GH_TOKEN` is also accepted and mapped to `GH_TOKEN`).
+- If updater sees 404, diagnostics surface: **"Repo appears private or not found"**.
 
 ## Release workflow (every update)
 
-1. Bump version in `package.json` (example: `1.4.2` → `1.4.3`).
+1. Bump `version` in `package.json`.
 2. Build distributables:
    ```bash
    npm run dist
    ```
-3. Create a GitHub Release with tag `v1.4.3` (tag should match the app version with `v` prefix).
-4. Upload files from `dist/` to that release:
+3. Create GitHub Release tag `v<version>`.
+4. Upload `dist/` assets:
    - NSIS installer `.exe`
    - `latest.yml`
-   - Any generated `.blockmap` files
-5. Publish the release.
+   - generated `.blockmap` files
+5. Publish release.
 
-After users install a packaged build, the app checks GitHub Releases on startup and every 6 hours, downloads updates automatically, then installs with `quitAndInstall()` when fully downloaded.
-
-## Private repo note
-
-For private repositories, auto-update needs authenticated requests for release assets. For premium/private distribution, use either:
-
-- A public releases repository, or
-- A generic HTTPS host you control (with corresponding updater configuration)
+Packaged installs check updates at startup and every 6 hours.

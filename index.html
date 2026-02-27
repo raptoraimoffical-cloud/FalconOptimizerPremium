@@ -63,6 +63,7 @@
 <div class="nav-section">Visual</div>
         <button class="nav-item" data-route="themes">Themes</button>
         <button class="nav-item" data-route="language">Language</button>
+        <button class="nav-item" data-route="updates">Updater</button>
       </nav>
 
       <div class="userbox" title="Account status">
@@ -142,6 +143,9 @@
         <div class="modal-body" id="confirmBody"></div>
         <div class="modal-check">
           <label><input type="checkbox" id="confirmCheck" /> <span id="confirmCheckText">I understand the risk.</span></label>
+        </div>
+        <div class="modal-check" id="confirmSkipWrap" style="display:none;">
+          <label><input type="checkbox" id="confirmSkipRisk" /> <span id="confirmSkipRiskText">Don't show again for this risk level.</span></label>
         </div>
         <div class="modal-type" id="confirmTypeWrap" style="display:none;">
           <div class="modal-type-label" id="confirmTypeLabel">Type to confirm:</div>

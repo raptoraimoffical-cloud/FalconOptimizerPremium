@@ -4569,3 +4569,11 @@ label, .badge, .chip, .pill, .hint { font-size: 13px; }
 .notice.notice-error{ border-color:#f87171; background:#3b1111; color:#ffe2e2; }
 .notice.notice-success{ border-color:#34d399; background:#03281f; color:#dcfce7; }
 .theme-qa-grid .notice{ margin-top:8px; }
+
+/* Confirm modal readability improvements */
+#confirmBackdrop .modal-title { font-size: 20px; }
+#confirmBackdrop .modal-body { font-size: 15px; line-height: 1.5; color: #eaf2ff !important; }
+#confirmBackdrop .modal { background: #182131 !important; border: 1px solid #2c3d57 !important; }
+#confirmBackdrop .modal-check { font-size: 14px; line-height: 1.45; color: #f8fbff !important; }
+#confirmBackdrop .modal-check label { display: flex; align-items: center; gap: 8px; }
+#confirmBackdrop input[type="checkbox"] { width: 16px; height: 16px; accent-color: #4ea1ff; }
