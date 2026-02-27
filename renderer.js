@@ -3464,6 +3464,10 @@ refreshSecurityHome();
           filterStats.reasons[key] = (filterStats.reasons[key] || 0) + 1;
         };
 
+        const allowedRiskLevels = (Array.isArray(p.includeRiskLevels) && p.includeRiskLevels.length)
+          ? p.includeRiskLevels.map(normalizeRiskLabel)
+          : ["Safe", "Warning"].map(normalizeRiskLabel);
+
         const filtered = allItems.filter(it => {
           if(it && it.__hiddenReason) { bumpReason('hidden'); return false; }
           const risk = normRisk(it);
@@ -3485,7 +3489,7 @@ refreshSecurityHome();
             }
           }
 
-          const allowed = (p.includeRiskLevels||[]).map(normalizeRiskLabel).includes(risk);
+          const allowed = allowedRiskLevels.includes(risk);
           if(!allowed) { bumpReason('risk_mismatch'); return false; }
           if(!p.includeExcluded && it.excludeFromApplyAll) { bumpReason('excluded_applyall'); return false; }
           if(it.type !== "toggle") { bumpReason('not_toggle'); return false; }
@@ -3599,48 +3603,70 @@ ${topReasons}
         let timeoutCount = 0;
         for(const it of finalList){
           idxRun++;
-          attempted++;
           setBatchProgress(true, idxRun, finalList.length, `${idxRun}/${finalList.length}  ${it.name}`);
-          const risk = normRisk(it);
 
-          if(isHighOrCritical(risk) || it.requireExplicitConfirm || it.requiresSnapshot){
-            const ok = await showConfirmModal({
-              title: it.warningTitle || `${risk} risk`,
-              body: it.warningBody || it.description || it.name,
-              risk,
-              requireTyped: !!it.requireExplicitConfirm || risk==="Critical"
-            });
-            if(!ok) { out += `SKIP ${it.id}
+          try {
+            const risk = normRisk(it);
+
+            if(isHighOrCritical(risk) || it.requireExplicitConfirm || it.requiresSnapshot){
+              const ok = await showConfirmModal({
+                title: it.warningTitle || `${risk} risk`,
+                body: it.warningBody || it.description || it.name,
+                risk,
+                requireTyped: !!it.requireExplicitConfirm || risk==="Critical"
+              });
+              if(!ok) { out += `SKIP ${it.id}
 `; continue; }
-          }
-          const applySteps = adjustStepsForHwProfile(it, 'apply', getStepsFor(it,'apply'));
-          const revertSteps = adjustStepsForHwProfile(it, 'revert', getStepsFor(it,'revert'));
-          if(simulationMode){
-            const plan = await window.falcon.dryRunSteps(applySteps);
-            out += `SIM ${it.id} ${it.name}
+            }
+
+            const applySteps = adjustStepsForHwProfile(it, 'apply', getStepsFor(it,'apply'));
+            const revertSteps = adjustStepsForHwProfile(it, 'revert', getStepsFor(it,'revert'));
+
+            if (!Array.isArray(applySteps) || applySteps.length === 0) {
+              failCount++;
+              out += `ERR ${it.id} (no apply steps)
+`;
+              continue;
+            }
+
+            attempted++;
+
+            if(simulationMode){
+              const plan = await window.falcon.dryRunSteps(applySteps);
+              out += `SIM ${it.id} ${it.name}
 ${JSON.stringify(plan.plan,null,2)}
 
 `;
-          } else {
-            const res = await runTweakWithTimeout({
-              id: it.id,
-              mode: "apply",
-              steps: applySteps,
-              revertSteps,
-              meta: { profile: p.id, riskLevel: risk, hwProfile: currentHwProfile || 'auto' }
-            }, 90000);
-            const okFlag = !!(res && res.ok);
-            if (okFlag) okCount++; else failCount++;
-            if (res && res.timeout) timeoutCount++;
+            } else {
+              const res = await runTweakWithTimeout({
+                id: it.id,
+                mode: "apply",
+                steps: applySteps,
+                revertSteps,
+                meta: { profile: p.id, riskLevel: risk, hwProfile: currentHwProfile || 'auto' }
+              }, 90000);
+              const okFlag = !!(res && res.ok);
+              if (okFlag) okCount++; else failCount++;
+              if (res && res.timeout) timeoutCount++;
 
-            out += `${res.ok ? "OK" : "ERR"} ${it.id}
+              out += `${res && res.ok ? "OK" : "ERR"} ${it.id}`;
+              if (res && res.timeout) out += ' (timeout)';
+              out += `
 `;
-            try {
-              const nm = it && it.name ? it.name : it.id;
-              showToast((nm || "Optimization") + (okFlag ? " applied successfully." : " failed or partially applied. Check log."), okFlag ? "success" : "error");
-            } catch (toastErr) {
-              console && console.warn && console.warn("profile tweak toast error", toastErr);
+              try {
+                const nm = it && it.name ? it.name : it.id;
+                showToast((nm || "Optimization") + (okFlag ? " applied successfully." : " failed or partially applied. Check log."), okFlag ? "success" : "error");
+              } catch (toastErr) {
+                console && console.warn && console.warn("profile tweak toast error", toastErr);
+              }
             }
+          } catch (itemErr) {
+            failCount++;
+            const itemMsg = String((itemErr && (itemErr.stack || itemErr.message)) || itemErr || 'Unknown item error');
+            out += `ERR ${it && it.id ? it.id : '(unknown)'}
+${itemMsg}
+`;
+            console && console.error && console.error('profile item failed', it && it.id, itemErr);
           }
         }
         const summaryLine = `SUMMARY Profile ${p.id || p.name || "(unnamed)"}: ${attempted} attempted, ${okCount} OK, ${failCount} failed, ${timeoutCount} timeouts.`;
@@ -3681,7 +3707,11 @@ STRETCH ERR  unexpected error
 
         logEl.innerHTML = `<pre class="log">${__eh(out.trim()||"(no actions)")}</pre>`;
         } catch (e) {
+          const errorText = String((e && (e.stack || e.message)) || e || 'Unknown profile error');
           console && console.error && console.error('profile run failed', e);
+          try {
+            logEl.innerHTML = `<pre class="log">${__eh("Profile run failed.\n\n" + errorText)}</pre>`;
+          } catch(_logErr) {}
           try { showToast('Profile run failed. Check log for details.', 'error'); } catch(_e) {}
         } finally {
           setBatchProgress(false, 0, 0, "");
@@ -8642,4 +8672,3 @@ async function revertGameProfile(tab){
     showToast('Failed to revert profile: ' + String(e?.message||e));
   }
 }
-
