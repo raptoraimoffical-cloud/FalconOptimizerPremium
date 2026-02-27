@@ -46,6 +46,52 @@ let actionRunner = null;
 let currentSessionId = null;
 let _fileReaderIpcRegistered = false;
 let autoUpdateInterval = null;
+let updaterDiagnostics = {
+  enabled: false,
+  owner: "",
+  repo: "",
+  feedUrl: "",
+  source: "package.json",
+  tokenConfigured: false,
+  configError: null,
+  lastCheckResult: "idle",
+  lastCheckedAt: null,
+  lastError: null
+};
+
+function detectGithubConfigSource(owner, repo) {
+  if (process.env.FALCON_UPDATER_OWNER || process.env.FALCON_UPDATER_REPO) return "env";
+  if (process.env.UPDATER_OWNER || process.env.UPDATER_REPO) return "env";
+  return "package.json";
+}
+
+function loadUpdaterConfig() {
+  const pkgPath = app && app.getAppPath ? path.join(app.getAppPath(), "package.json") : "";
+  const pkg = pkgPath ? safeJsonRead(pkgPath, null) : null;
+  const publishCfg = pkg && pkg.build && Array.isArray(pkg.build.publish) ? pkg.build.publish[0] : null;
+  const pkgOwner = publishCfg && publishCfg.owner ? String(publishCfg.owner).trim() : "";
+  const pkgRepo = publishCfg && publishCfg.repo ? String(publishCfg.repo).trim() : "";
+  const owner = String(process.env.FALCON_UPDATER_OWNER || process.env.UPDATER_OWNER || pkgOwner || "").trim();
+  const repo = String(process.env.FALCON_UPDATER_REPO || process.env.UPDATER_REPO || pkgRepo || "").trim();
+  const source = detectGithubConfigSource(owner, repo);
+  return { owner, repo, source };
+}
+
+function validateUpdaterConfig({ owner, repo }) {
+  const issues = [];
+  const hasEncodingArtifacts = (value) => /%[0-9a-f]{2}|&(?:amp|lt|gt);/i.test(String(value || ""));
+  if (!owner) issues.push("GitHub owner is missing.");
+  if (!repo) issues.push("GitHub repo is missing.");
+  if (/\s/.test(owner)) issues.push("GitHub owner contains whitespace.");
+  if (/\s/.test(repo)) issues.push("GitHub repo contains whitespace.");
+  if (hasEncodingArtifacts(owner)) issues.push("GitHub owner appears to include encoded artifacts.");
+  if (hasEncodingArtifacts(repo)) issues.push("GitHub repo appears to include encoded artifacts.");
+  return { ok: issues.length === 0, issues };
+}
+
+function updateUpdaterDiagnostics(patch = {}) {
+  updaterDiagnostics = { ...updaterDiagnostics, ...patch };
+}
 
 function broadcastUpdateStatus(status, extra = {}) {
   const payload = { status, ...extra };
@@ -61,36 +107,59 @@ function broadcastUpdateStatus(status, extra = {}) {
 function setupAutoUpdater() {
   if (!app.isPackaged) {
     console.log("[auto-update] Skipping update checks in development mode.");
+    updateUpdaterDiagnostics({ enabled: false, lastCheckResult: "skipped-dev" });
     return;
   }
 
-  const pkg = app && app.getAppPath ? safeJsonRead(path.join(app.getAppPath(), "package.json"), null) : null;
-  const publishCfg = pkg && pkg.build && Array.isArray(pkg.build.publish) ? pkg.build.publish[0] : null;
-  const owner = publishCfg && publishCfg.owner ? String(publishCfg.owner).trim() : "";
-  const repo = publishCfg && publishCfg.repo ? String(publishCfg.repo).trim() : "";
-  const invalidOwner = !owner || /[<>\s]/.test(owner);
-  const invalidRepo = !repo || /[<>\s]/.test(repo);
-  if (invalidOwner || invalidRepo) {
-    const message = `Auto-update is disabled due to invalid publish config (owner=\"${owner || "(missing)"}\" repo=\"${repo || "(missing)"}\")`;
+  const { owner, repo, source } = loadUpdaterConfig();
+  const validation = validateUpdaterConfig({ owner, repo });
+  const tokenConfigured = !!(process.env.GH_TOKEN || process.env.GITHUB_TOKEN || process.env.FALCON_GH_TOKEN);
+  updateUpdaterDiagnostics({
+    enabled: true,
+    owner,
+    repo,
+    feedUrl: owner && repo ? `https://github.com/${owner}/${repo}/releases.atom` : "",
+    source,
+    tokenConfigured,
+    configError: validation.ok ? null : validation.issues.join(" "),
+    lastCheckResult: "ready"
+  });
+
+  if (!validation.ok) {
+    const message = `Auto-update is disabled due to invalid publish config (owner=\"${owner || "(missing)"}\" repo=\"${repo || "(missing)"}\"). ${validation.issues.join(" ")}`;
     console.error("[auto-update]", message);
+    updateUpdaterDiagnostics({ lastCheckResult: "invalid-config", lastError: { message, url: updaterDiagnostics.feedUrl, statusCode: null, at: nowIso() } });
     broadcastUpdateStatus("error", { message });
     return;
+  }
+
+  if (process.env.FALCON_GH_TOKEN && !process.env.GH_TOKEN) {
+    process.env.GH_TOKEN = process.env.FALCON_GH_TOKEN;
+  }
+
+  try {
+    autoUpdater.setFeedURL({ provider: "github", owner, repo, private: tokenConfigured });
+  } catch (e) {
+    console.warn("[auto-update] failed to apply runtime feed override", e);
   }
 
   autoUpdater.autoDownload = true;
 
   autoUpdater.on("checking-for-update", () => {
     console.log("[auto-update] checking for update");
+    updateUpdaterDiagnostics({ lastCheckResult: "checking", lastCheckedAt: nowIso(), lastError: null });
     broadcastUpdateStatus("checking");
   });
   autoUpdater.on("update-available", (info) => {
     const version = info && info.version ? String(info.version) : null;
     console.log("[auto-update] update available", version || "");
+    updateUpdaterDiagnostics({ lastCheckResult: "available" });
     broadcastUpdateStatus("available", { version });
   });
   autoUpdater.on("update-not-available", (info) => {
     const version = info && info.version ? String(info.version) : null;
     console.log("[auto-update] no update available", version || "");
+    updateUpdaterDiagnostics({ lastCheckResult: "not-available" });
     broadcastUpdateStatus("not-available", { version });
   });
   autoUpdater.on("download-progress", (progress) => {
@@ -100,6 +169,7 @@ function setupAutoUpdater() {
   autoUpdater.on("update-downloaded", (info) => {
     const version = info && info.version ? String(info.version) : null;
     console.log("[auto-update] update downloaded", version || "");
+    updateUpdaterDiagnostics({ lastCheckResult: "downloaded" });
     broadcastUpdateStatus("downloaded", { version });
     try {
       autoUpdater.quitAndInstall();
@@ -109,8 +179,16 @@ function setupAutoUpdater() {
   });
   autoUpdater.on("error", (err) => {
     const message = String((err && err.message) || err || "Unknown update error");
+    const statusCode = err && Number.isFinite(err.statusCode) ? Number(err.statusCode) : null;
+    const urlMatch = message.match(/https?:\/\/\S+/i);
+    const url = (err && err.url) || (urlMatch ? urlMatch[0] : updaterDiagnostics.feedUrl);
+    const privateHint = statusCode === 404 ? "Repo appears private or not found. For private repos configure GH_TOKEN/GITHUB_TOKEN." : null;
+    updateUpdaterDiagnostics({
+      lastCheckResult: "error",
+      lastError: { message: privateHint ? `${message} ${privateHint}` : message, statusCode, url: url || null, at: nowIso() }
+    });
     console.error("[auto-update] error", message);
-    broadcastUpdateStatus("error", { message });
+    broadcastUpdateStatus("error", { message: privateHint ? `${message} ${privateHint}` : message, statusCode, url: url || null });
   });
 
   autoUpdater.checkForUpdatesAndNotify().catch((e) => {
@@ -256,8 +334,11 @@ function getPathDebug(){
     manifest: {
       appPath: appManifest,
       appPathExists: fs.existsSync(appManifest),
+      expectedLocation: app.isPackaged ? "inside app.asar" : "project root",
       unpackedPath: unpackedManifest,
-      unpackedPathExists: fs.existsSync(unpackedManifest)
+      unpackedPathExists: fs.existsSync(unpackedManifest),
+      unpackedRequired: false,
+      note: "tweaks/_manifest.json is expected in app.asar. Only scripts/tools must exist in app.asar.unpacked."
     }
   };
 }
@@ -1845,14 +1926,25 @@ ipcMain.handle('falcon:toolLaunch', async (event, { toolId }) => {
 
 ipcMain.handle("falcon:checkForUpdates", async () => {
   if (!app.isPackaged) {
+    updateUpdaterDiagnostics({ lastCheckResult: "skipped-dev" });
     return { ok: false, message: "Update checks are only available in packaged builds." };
   }
+  if (updaterDiagnostics.configError) {
+    return { ok: false, message: updaterDiagnostics.configError };
+  }
   try {
+    updateUpdaterDiagnostics({ lastCheckResult: "manual-check-requested", lastCheckedAt: nowIso() });
     await autoUpdater.checkForUpdates();
     return { ok: true };
   } catch (e) {
-    return { ok: false, message: String((e && e.message) || e || "Failed to check updates") };
+    const message = String((e && e.message) || e || "Failed to check updates");
+    updateUpdaterDiagnostics({ lastCheckResult: "error", lastError: { message, at: nowIso(), statusCode: null, url: updaterDiagnostics.feedUrl || null } });
+    return { ok: false, message };
   }
+});
+
+ipcMain.handle("falcon:getUpdaterDiagnostics", async () => {
+  return { ok: true, diagnostics: updaterDiagnostics };
 });
 
 app.whenReady().then(() => {

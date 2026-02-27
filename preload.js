@@ -111,6 +111,7 @@ removePowerPlans: () => ipcRenderer.invoke("falcon:removePowerPlans"),
     return r.debug;
   },
   checkForUpdates: () => ipcRenderer.invoke("falcon:checkForUpdates"),
+  getUpdaterDiagnostics: () => ipcRenderer.invoke("falcon:getUpdaterDiagnostics"),
 
   securityHealthCheck: () => ipcRenderer.invoke("falcon:securityHealthCheck"),
   // Tool manager

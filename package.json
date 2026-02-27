@@ -39,7 +39,7 @@
     "publish": [
       {
         "provider": "github",
-        "owner": "raptoraimofficial-cloud",
+        "owner": "raptoraimoffical-cloud",
         "repo": "FalconOptimizerPremium"
       }
     ],

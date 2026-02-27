@@ -104,7 +104,6 @@ function shouldHideFromExplore(item){
   const id = String(item && item.id || '').toLowerCase();
   if (!id) return true;
   if (id.endsWith('__revert')) return true;
-  if (isOpenOnlyItem(item)) return true;
   if (item && item.exploreType === 'guide') return true;
   const file = String(item && item.file || '').toLowerCase();
   if (file.includes('stretchres')) return true;
@@ -126,7 +125,10 @@ function classifyExploreType(node){
     if (t === 'ps.run' && /set-clipboard/i.test(String(s.command || ''))) return false;
     return true;
   });
-  return hasRealStep ? 'tweak' : 'guide';
+  if (hasRealStep) return 'tweak';
+  const helperText = String((node && (node.title || node.label || node.name || node.id)) || '').toLowerCase();
+  if (/helper|launch opt|copy|open|guide/.test(helperText)) return 'helper';
+  return 'helper';
 }
 
 // Build apply steps + optional verify steps (avoids recursive self-call bug).
@@ -716,7 +718,31 @@ function getConfirmPhrase(risk){
   return risk === "Critical" ? "I UNDERSTAND" : "";
 }
 
+function getConfirmSkipKey(risk){
+  return `confirmSkip.${normalizeRiskLabel(risk)}`;
+}
+
+function shouldSkipConfirmForRisk(risk){
+  const normalized = normalizeRiskLabel(risk);
+  if (normalized === "Critical") return false;
+  try { return window.localStorage.getItem(getConfirmSkipKey(normalized)) === "1"; } catch (_) { return false; }
+}
+
+function persistSkipConfirmRisk(risk, value){
+  const normalized = normalizeRiskLabel(risk);
+  if (normalized === "Critical") return;
+  try {
+    const key = getConfirmSkipKey(normalized);
+    if (value) window.localStorage.setItem(key, "1");
+    else window.localStorage.removeItem(key);
+  } catch (_) {}
+}
+
 function showConfirmModal({ title, body, risk, requireTyped }){
+  const normalizedRisk = normalizeRiskLabel(risk);
+  if (normalizedRisk === "High" && shouldSkipConfirmForRisk(normalizedRisk)) {
+    return Promise.resolve(true);
+  }
   return new Promise((resolve) => {
     const backdrop = document.getElementById("confirmBackdrop");
     const t = document.getElementById("confirmTitle");
@@ -728,14 +754,22 @@ function showConfirmModal({ title, body, risk, requireTyped }){
     const typeWrap = document.getElementById("confirmTypeWrap");
     const typeInput = document.getElementById("confirmTypeInput");
     const typeHint = document.getElementById("confirmTypeHint");
+    const skipWrap = document.getElementById("confirmSkipWrap");
+    const skipRisk = document.getElementById("confirmSkipRisk");
+    const skipRiskText = document.getElementById("confirmSkipRiskText");
 
     t.textContent = title || "Warning";
     b.textContent = body || "";
     chk.checked = false;
-    chkText.textContent = (risk === "Critical") ? "I understand this can make the PC unbootable or unstable." : "I understand and want to continue.";
+    chkText.textContent = (normalizedRisk === "Critical") ? "I understand this can make the PC unbootable or unstable." : "I understand and want to continue.";
     typeInput.value = "";
 
-    const phrase = (requireTyped ? getConfirmPhrase(risk) : "");
+    const canSkip = normalizedRisk !== "Critical";
+    if (skipWrap) skipWrap.style.display = canSkip ? "block" : "none";
+    if (skipRisk) skipRisk.checked = false;
+    if (skipRiskText) skipRiskText.textContent = `Don't show again for ${normalizedRisk}-level actions.`;
+
+    const phrase = (requireTyped ? getConfirmPhrase(normalizedRisk) : "");
     typeWrap.style.display = phrase ? "block" : "none";
     if(phrase){
       typeHint.textContent = `Required phrase: ${phrase}`;
@@ -758,6 +792,7 @@ function showConfirmModal({ title, body, risk, requireTyped }){
           return alert(`Type exactly: ${phrase}`);
         }
       }
+      if (canSkip && skipRisk && skipRisk.checked) persistSkipConfirmRisk(normalizedRisk, true);
       cleanup(true);
     };
     cancelBtn.onclick = () => cleanup(false);
@@ -1100,6 +1135,7 @@ processLab: { title: 'Process Lab', sub: 'Audit and close non-essential backgrou
 bios: { title: 'BIOS / UEFI Helper', sub: 'Motherboard detection and firmware shortcuts.', tabs: [] },
   themes: { title: 'Themes', sub: 'Switch visual presets for Falcon Optimizer.', tabs: [] },
   language: { title: 'Language', sub: 'Choose language preferences for Falcon Optimizer.', tabs: [] },
+  updates: { title: 'Updater', sub: 'Update feed diagnostics and last updater checks.', tabs: [] },
   utilities: { title: 'Apps / Utilities', sub: 'Installers and utilities.', tabs: [
     { id:'tools', label:'Tools', source:'tweaks/utilities.json' },
     { id:'audit', label:'Pro Gamer Audit', source:'tweaks/audit.progamer.json' }
@@ -7183,6 +7219,7 @@ async function refresh(resetTabs=true){
     if (currentRoute === 'explore')    return await renderExplore();
     if (currentRoute === 'fortnite')   return await renderGameProfiles();
     if (currentRoute === 'language')   return await renderLanguage();
+    if (currentRoute === 'updates')    return await renderUpdates();
 
     if (currentRoute === 'thermal' && currentTab && currentTab.id === 'cooling') return await renderCoolingDashboard();
 
@@ -7224,7 +7261,12 @@ async function renderExplore(){
   els.panel.innerHTML = `
     <div class="panel" style="margin-top:14px;">
       <div class="card-title">Explore</div>
-      <div class="card-desc">Search and run optimizations across the entire catalog. Balanced-safe by default.</div>
+      <div class="card-desc">Search and run optimizations across the entire catalog. Optimizations are prioritized by default.</div>
+
+      <div style="display:flex; gap:8px; margin-top:12px;">
+        <button id="exModeOpt" class="btn primary">Optimizations</button>
+        <button id="exModeTools" class="btn">Tools / Helpers</button>
+      </div>
 
       <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;">
         <input id="exSearch" class="input" placeholder="Search all optimizations…" style="flex:1; min-width:220px;" />
@@ -7265,6 +7307,8 @@ async function renderExplore(){
   `;
 
   const els2 = {
+    modeOpt: document.getElementById('exModeOpt'),
+    modeTools: document.getElementById('exModeTools'),
     q: document.getElementById('exSearch'),
     risk: document.getElementById('exRisk'),
     hasRevert: document.getElementById('exHasRevert'),
@@ -7361,6 +7405,7 @@ async function renderExplore(){
   let index = [];
   let lastQuery = '';
   let selected = null;
+  let exploreMode = 'optimizations';
 
   function matches(item, q){
     if(!q) return true;
@@ -7381,6 +7426,12 @@ async function renderExplore(){
     return sc;
   }
 
+
+  function syncModeButtons(){
+    if (els2.modeOpt) els2.modeOpt.classList.toggle('primary', exploreMode === 'optimizations');
+    if (els2.modeTools) els2.modeTools.classList.toggle('primary', exploreMode === 'tools');
+  }
+
   function renderResults(){
     const q = String(els2.q.value||'').trim().toLowerCase();
     const risk = String(els2.risk.value||'');
@@ -7389,6 +7440,8 @@ async function renderExplore(){
     const sort = String(els2.sort.value||'relevance');
 
     let items = index.filter(it=>{
+      if (exploreMode === 'optimizations' && it.exploreType !== 'tweak') return false;
+      if (exploreMode === 'tools' && it.exploreType === 'tweak') return false;
       if(risk && it.risk !== risk) return false;
       if(wantRevert && !it.hasRevert) return false;
       if(wantReboot && !it.reboot) return false;
@@ -7492,6 +7545,7 @@ async function renderExplore(){
   async function init(){
     els2.results.innerHTML = `<div class="muted" style="padding:8px;">Indexing…</div>`;
     index = await loadIndex();
+    syncModeButtons();
     renderResults();
   }
 
@@ -7501,6 +7555,8 @@ async function renderExplore(){
     el.addEventListener('input', debounce(renderResults, 120));
     el.addEventListener('change', debounce(renderResults, 120));
   });
+  if (els2.modeOpt) els2.modeOpt.onclick = () => { exploreMode = 'optimizations'; syncModeButtons(); renderResults(); };
+  if (els2.modeTools) els2.modeTools.onclick = () => { exploreMode = 'tools'; syncModeButtons(); renderResults(); };
   if(els2.reload) els2.reload.onclick = ()=>init();
 
   await init();
@@ -8719,49 +8775,89 @@ async function openSystemInfoModal(){
 
 
 let updateUnsubscribe = null;
-function attachUpdateStatusListener(statusEl){
-  if (updateUnsubscribe) return;
-  if (!window.falconUpdates || !window.falconUpdates.onStatus) return;
-  updateUnsubscribe = window.falconUpdates.onStatus((payload) => {
-    if (!statusEl) return;
-    const status = String((payload && payload.status) || 'unknown');
-    const extra = payload && payload.message ? ` – ${payload.message}` : (payload && payload.version ? ` – ${payload.version}` : '');
-    statusEl.textContent = `Updater: ${status}${extra}`;
-  });
+let updaterLastStatus = null;
+
+function renderUpdaterStatusLine(statusEl, payload){
+  if (!statusEl) return;
+  const status = String((payload && payload.status) || 'unknown');
+  const bits = [];
+  if (payload && payload.version) bits.push(`version ${payload.version}`);
+  if (payload && payload.statusCode) bits.push(`HTTP ${payload.statusCode}`);
+  if (payload && payload.url) bits.push(payload.url);
+  if (payload && payload.message) bits.push(payload.message);
+  statusEl.textContent = `Updater: ${status}${bits.length ? ` – ${bits.join(' | ')}` : ''}`;
 }
 
-async function renderLanguage(){
+function attachUpdateStatusListener(statusEl){
+  if (!window.falconUpdates || !window.falconUpdates.onStatus) return;
+  if (!updateUnsubscribe) {
+    updateUnsubscribe = window.falconUpdates.onStatus((payload) => {
+      updaterLastStatus = payload || null;
+      renderUpdaterStatusLine(statusEl, updaterLastStatus || {});
+    });
+  }
+  if (updaterLastStatus) renderUpdaterStatusLine(statusEl, updaterLastStatus);
+}
+
+async function renderUpdates(){
   els.panel.innerHTML = `
     <div class="panel">
-      <div class="card-title">Settings & Diagnostics</div>
-      <div class="card-desc">Packaged-path diagnostics, updater status, and theme contrast QA.</div>
+      <div class="card-title">Updater Diagnostics</div>
+      <div class="card-desc">Validate update feed configuration and view latest updater health.</div>
       <div class="card-actions" style="margin-top:10px; gap:8px; flex-wrap:wrap;">
-        <button class="btn" id="dbgReload">Refresh path debug</button>
+        <button class="btn" id="updRefreshDiag">Refresh diagnostics</button>
         <button class="btn primary" id="updCheckNow">Check for updates now</button>
       </div>
       <div id="updStatus" class="muted" style="margin-top:10px;">Updater: waiting for events…</div>
-      <pre id="pathDebugOut" class="log" style="margin-top:10px;">Loading…</pre>
+      <div id="updSummary" class="muted" style="margin-top:10px;"></div>
+      <pre id="updDiagOut" class="log" style="margin-top:10px;">Loading…</pre>
     </div>
     <div class="panel theme-qa-grid">
-      <div class="card-title">Theme QA</div>
-      <div class="notice notice-warning">Warning contrast sample — should remain readable.</div>
-      <div class="notice notice-error">Error contrast sample — should remain readable.</div>
-      <div class="notice notice-success">Success contrast sample — should remain readable.</div>
+      <div class="card-title">Path Debug</div>
+      <div class="card-desc">tweaks/_manifest.json is expected inside app.asar in packaged builds. scripts/tools are expected under app.asar.unpacked.</div>
+      <pre id="pathDebugOut" class="log" style="margin-top:10px;">Loading…</pre>
     </div>
   `;
-  const pathOut = document.getElementById('pathDebugOut');
   const updStatus = document.getElementById('updStatus');
+  const updSummary = document.getElementById('updSummary');
+  const updOut = document.getElementById('updDiagOut');
+  const pathOut = document.getElementById('pathDebugOut');
   attachUpdateStatusListener(updStatus);
-  const loadDebug = async () => {
-    try { pathOut.textContent = JSON.stringify(await window.falcon.getPathDebug(), null, 2); }
-    catch (e) { pathOut.textContent = 'Failed to load path debug: ' + String(e && e.message ? e.message : e); }
+
+  const loadDiagnostics = async () => {
+    try {
+      const diagRes = await window.falcon.getUpdaterDiagnostics();
+      const diag = (diagRes && diagRes.ok && diagRes.diagnostics) ? diagRes.diagnostics : {};
+      const summary = [
+        `Owner/Repo: ${diag.owner || '(missing)'}/${diag.repo || '(missing)'}`,
+        `Feed URL: ${diag.feedUrl || '(n/a)'}`,
+        `Config source: ${diag.source || 'package.json'}`,
+        `Last check result: ${diag.lastCheckResult || 'idle'}`,
+        `Last error: ${diag.lastError ? `${diag.lastError.message || 'unknown'}${diag.lastError.statusCode ? ` (HTTP ${diag.lastError.statusCode})` : ''}${diag.lastError.url ? ` @ ${diag.lastError.url}` : ''}` : 'none'}`,
+        `Token configured: ${diag.tokenConfigured ? 'yes' : 'no'}`
+      ];
+      if (diag.lastError && Number(diag.lastError.statusCode) === 404) {
+        summary.push('Hint: Repo appears private or not found. Private repos require GH_TOKEN/GITHUB_TOKEN.');
+      }
+      updSummary.innerHTML = summary.map((line) => `<div>${escapeHtml(line)}</div>`).join('');
+      updOut.textContent = JSON.stringify(diag, null, 2);
+    } catch (e) {
+      updOut.textContent = 'Failed to load updater diagnostics: ' + String(e && e.message ? e.message : e);
+    }
+    try {
+      pathOut.textContent = JSON.stringify(await window.falcon.getPathDebug(), null, 2);
+    } catch (e) {
+      pathOut.textContent = 'Failed to load path debug: ' + String(e && e.message ? e.message : e);
+    }
   };
-  document.getElementById('dbgReload').onclick = loadDebug;
+
+  document.getElementById('updRefreshDiag').onclick = loadDiagnostics;
   document.getElementById('updCheckNow').onclick = async () => {
     const r = await window.falcon.checkForUpdates();
     updStatus.textContent = (r && r.ok) ? 'Updater: check requested.' : ('Updater: check failed – ' + String((r && r.message) || 'Unknown error'));
+    await loadDiagnostics();
   };
-  await loadDebug();
+  await loadDiagnostics();
 }
 
 // ---------- Game Profiles (Paragon-like) ----------
