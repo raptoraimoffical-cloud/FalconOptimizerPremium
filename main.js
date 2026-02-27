@@ -64,6 +64,19 @@ function setupAutoUpdater() {
     return;
   }
 
+  const pkg = app && app.getAppPath ? safeJsonRead(path.join(app.getAppPath(), "package.json"), null) : null;
+  const publishCfg = pkg && pkg.build && Array.isArray(pkg.build.publish) ? pkg.build.publish[0] : null;
+  const owner = publishCfg && publishCfg.owner ? String(publishCfg.owner).trim() : "";
+  const repo = publishCfg && publishCfg.repo ? String(publishCfg.repo).trim() : "";
+  const invalidOwner = !owner || /[<>\s]/.test(owner);
+  const invalidRepo = !repo || /[<>\s]/.test(repo);
+  if (invalidOwner || invalidRepo) {
+    const message = `Auto-update is disabled due to invalid publish config (owner=\"${owner || "(missing)"}\" repo=\"${repo || "(missing)"}\")`;
+    console.error("[auto-update]", message);
+    broadcastUpdateStatus("error", { message });
+    return;
+  }
+
   autoUpdater.autoDownload = true;
 
   autoUpdater.on("checking-for-update", () => {
