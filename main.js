@@ -3,6 +3,7 @@ const { autoUpdater } = require("electron-updater");
 const os = require("os");
 const path = require("path");
 const fs = require("fs");
+const https = require("https");
 const { spawn } = require("child_process");
 
 function runCommand(command, args = [], options = {}) {
@@ -56,8 +57,14 @@ let updaterDiagnostics = {
   configError: null,
   lastCheckResult: "idle",
   lastCheckedAt: null,
-  lastError: null
+  lastError: null,
+  latestTagDetected: null,
+  cachedTag: null,
+  assetUrlUsed: null,
+  retryAttempted: false
 };
+let updaterRecoveryAttempted = false;
+let runUpdateCheck = async () => autoUpdater.checkForUpdates();
 
 function detectGithubConfigSource(owner, repo) {
   if (process.env.FALCON_UPDATER_OWNER || process.env.FALCON_UPDATER_REPO) return "env";
@@ -150,14 +157,124 @@ function updateUpdaterDiagnostics(patch = {}) {
   updaterDiagnostics = { ...updaterDiagnostics, ...patch };
 }
 
+function getUpdaterCacheDir() {
+  return path.join(app.getPath("userData"), "pending");
+}
+
+function clearUpdaterCache() {
+  const dirs = [
+    getUpdaterCacheDir(),
+    path.join(app.getPath("userData"), "update"),
+    path.join(app.getPath("userData"), "updater"),
+    path.join(app.getPath("temp"), "falcon-updater")
+  ];
+  for (const dir of dirs) {
+    try {
+      if (fs.existsSync(dir)) fs.rmSync(dir, { recursive: true, force: true });
+    } catch (_) {}
+  }
+  updateUpdaterDiagnostics({ cachedTag: null });
+}
+
+function detectTagFromString(value) {
+  const text = String(value || "");
+  const match = text.match(/\/releases\/download\/([^/\s]+)\//i);
+  return match ? match[1] : null;
+}
+
+function getCachedTagFromError(err) {
+  const message = String((err && err.message) || err || "");
+  return detectTagFromString(message) || detectTagFromString(err && err.url);
+}
+
+function getLatestTagFromInfo(info) {
+  if (!info || typeof info !== "object") return null;
+  const files = Array.isArray(info.files) ? info.files : [];
+  for (const f of files) {
+    const tag = detectTagFromString((f && f.url) || "");
+    if (tag) return tag;
+  }
+  return null;
+}
+
+function isVersionTag(tag) {
+  return /^v?\d+\.\d+\.\d+(?:[-+][0-9A-Za-z.-]+)?$/i.test(String(tag || "").trim());
+}
+
+function fetchLatestGithubTag(owner, repo, token) {
+  return new Promise((resolve) => {
+    if (!owner || !repo) return resolve(null);
+    const req = https.request({
+      hostname: "api.github.com",
+      path: `/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/releases/latest`,
+      method: "GET",
+      headers: {
+        "User-Agent": "FalconOptimizer-Updater",
+        "Accept": "application/vnd.github+json",
+        ...(token ? { Authorization: `Bearer ${token}` } : {})
+      }
+    }, (res) => {
+      let data = "";
+      res.on("data", (chunk) => { data += chunk.toString(); });
+      res.on("end", () => {
+        try {
+          if (res.statusCode && res.statusCode >= 200 && res.statusCode < 300) {
+            const parsed = JSON.parse(data || "{}");
+            return resolve(parsed && parsed.tag_name ? String(parsed.tag_name).trim() : null);
+          }
+        } catch (_) {}
+        resolve(null);
+      });
+    });
+    req.on("error", () => resolve(null));
+    req.end();
+  });
+}
+
+function shouldTreatAsStaleMetadataError(err) {
+  const message = String((err && err.message) || err || "").toLowerCase();
+  const statusCode = err && Number.isFinite(err.statusCode) ? Number(err.statusCode) : null;
+  return statusCode === 404
+    || message.includes("cannot find latest.yml")
+    || message.includes("latest.yml")
+    || message.includes("release not found");
+}
+
 function classifyUpdaterError(err, tokenConfigured) {
   const rawMessage = String((err && err.message) || err || "Unknown update error");
   const statusCode = err && Number.isFinite(err.statusCode) ? Number(err.statusCode) : null;
+  const lower = rawMessage.toLowerCase();
+  const latestYml404 = statusCode === 404 && lower.includes("latest.yml");
+
+  if (latestYml404) {
+    return {
+      lastCheckResult: "latest-yml-missing",
+      message: "Release asset missing OR stale cache. Try resetting updater cache."
+    };
+  }
+  if (lower.includes("latest.yml")) {
+    return {
+      lastCheckResult: "latest-yml-not-attached",
+      message: "latest.yml not attached to newest release."
+    };
+  }
   if (statusCode === 404 && !tokenConfigured) {
-    return { lastCheckResult: "private-repo-no-token", message: `${rawMessage} Repository not found or private repository requires GH_TOKEN/GITHUB_TOKEN.` };
+    return {
+      lastCheckResult: "private-repo-no-token",
+      message: "Repo private or owner/repo incorrect. Add GH_TOKEN/GITHUB_TOKEN for private repositories."
+    };
   }
   if (statusCode === 404) {
-    return { lastCheckResult: "repo-not-found", message: `${rawMessage} Repository not found (check owner/repo for typos).` };
+    return {
+      lastCheckResult: "repo-not-found",
+      message: "Repo private or owner/repo incorrect."
+    };
+  }
+  if (lower.includes("econnrefused") || lower.includes("enotfound") || lower.includes("releases.atom")) {
+    return {
+      lastCheckResult: "feed-failed",
+      message: "Repo private or owner/repo incorrect."
+    };
   }
   return { lastCheckResult: "error", message: rawMessage };
 }
@@ -207,7 +324,47 @@ function setupAutoUpdater() {
     process.env.GH_TOKEN = process.env.FALCON_GH_TOKEN;
   }
 
-  autoUpdater.autoDownload = true;
+  autoUpdater.allowDowngrade = false;
+  autoUpdater.autoDownload = false;
+
+  async function runUpdateCheckWithRecovery(sourceLabel) {
+    try {
+      updateUpdaterDiagnostics({ retryAttempted: updaterRecoveryAttempted });
+      await autoUpdater.checkForUpdates();
+    } catch (err) {
+      const staleError = shouldTreatAsStaleMetadataError(err);
+      const cachedTag = getCachedTagFromError(err);
+      const ghToken = process.env.GH_TOKEN || process.env.GITHUB_TOKEN || process.env.FALCON_GH_TOKEN || "";
+      const newestTag = await fetchLatestGithubTag(owner, repo, ghToken);
+      if (cachedTag) updateUpdaterDiagnostics({ cachedTag });
+      if (newestTag) {
+        updateUpdaterDiagnostics({ latestTagDetected: newestTag });
+        if (!isVersionTag(newestTag)) {
+          console.warn(`[auto-update] Latest release tag is not version formatted: ${newestTag}. Recommended format: vX.Y.Z`);
+        }
+      }
+
+      if (staleError && !updaterRecoveryAttempted && cachedTag && newestTag && cachedTag !== newestTag) {
+        updaterRecoveryAttempted = true;
+        clearUpdaterCache();
+        updateUpdaterDiagnostics({
+          lastCheckResult: "cache-reset-retry",
+          retryAttempted: true,
+          lastError: {
+            message: `Detected stale updater cache (${cachedTag} -> ${newestTag}). Cache was cleared and update check retried.`,
+            statusCode: err && Number.isFinite(err.statusCode) ? Number(err.statusCode) : null,
+            url: (err && err.url) || updaterDiagnostics.feedUrl || null,
+            at: nowIso()
+          }
+        });
+        broadcastUpdateStatus("cache-reset", { message: "Updater cache was stale and has been refreshed." });
+        return await autoUpdater.checkForUpdates();
+      }
+      throw err;
+    }
+  }
+
+  runUpdateCheck = runUpdateCheckWithRecovery;
 
   autoUpdater.on("checking-for-update", () => {
     console.log("[auto-update] checking for update");
@@ -216,14 +373,21 @@ function setupAutoUpdater() {
   });
   autoUpdater.on("update-available", (info) => {
     const version = info && info.version ? String(info.version) : null;
+    const latestTagDetected = getLatestTagFromInfo(info);
     console.log("[auto-update] update available", version || "");
-    updateUpdaterDiagnostics({ lastCheckResult: "available" });
-    broadcastUpdateStatus("available", { version });
+    if (latestTagDetected && !isVersionTag(latestTagDetected)) {
+      console.warn(`[auto-update] Latest release tag is not version formatted: ${latestTagDetected}. Recommended format: vX.Y.Z`);
+    }
+    updateUpdaterDiagnostics({ lastCheckResult: "available", latestTagDetected: latestTagDetected || updaterDiagnostics.latestTagDetected, assetUrlUsed: (info && info.path) || updaterDiagnostics.assetUrlUsed });
+    updaterRecoveryAttempted = false;
+    broadcastUpdateStatus("available", { version, latestTagDetected: latestTagDetected || null });
   });
   autoUpdater.on("update-not-available", (info) => {
     const version = info && info.version ? String(info.version) : null;
+    const latestTagDetected = getLatestTagFromInfo(info);
     console.log("[auto-update] no update available", version || "");
-    updateUpdaterDiagnostics({ lastCheckResult: "not-available" });
+    updateUpdaterDiagnostics({ lastCheckResult: "not-available", latestTagDetected: latestTagDetected || updaterDiagnostics.latestTagDetected });
+    updaterRecoveryAttempted = false;
     broadcastUpdateStatus("not-available", { version });
   });
   autoUpdater.on("download-progress", (progress) => {
@@ -233,7 +397,7 @@ function setupAutoUpdater() {
   autoUpdater.on("update-downloaded", (info) => {
     const version = info && info.version ? String(info.version) : null;
     console.log("[auto-update] update downloaded", version || "");
-    updateUpdaterDiagnostics({ lastCheckResult: "downloaded" });
+    updateUpdaterDiagnostics({ lastCheckResult: "downloaded", assetUrlUsed: (info && info.path) || updaterDiagnostics.assetUrlUsed });
     broadcastUpdateStatus("downloaded", { version });
     try {
       autoUpdater.quitAndInstall();
@@ -241,12 +405,14 @@ function setupAutoUpdater() {
       console.error("[auto-update] quitAndInstall failed", e);
     }
   });
-  autoUpdater.on("error", (err) => {
+  autoUpdater.on("error", async (err) => {
     const classified = classifyUpdaterError(err, tokenConfigured);
     const message = String((err && err.message) || err || "Unknown update error");
     const statusCode = err && Number.isFinite(err.statusCode) ? Number(err.statusCode) : null;
     const urlMatch = message.match(/https?:\/\/\S+/i);
     const url = (err && err.url) || (urlMatch ? urlMatch[0] : updaterDiagnostics.feedUrl);
+    const cachedTag = getCachedTagFromError(err);
+    if (cachedTag) updateUpdaterDiagnostics({ cachedTag, assetUrlUsed: url || updaterDiagnostics.assetUrlUsed });
     updateUpdaterDiagnostics({
       lastCheckResult: classified.lastCheckResult,
       lastError: { message: classified.message, statusCode, url: url || null, at: nowIso() }
@@ -255,14 +421,14 @@ function setupAutoUpdater() {
     broadcastUpdateStatus("error", { message: classified.message, statusCode, url: url || null });
   });
 
-  autoUpdater.checkForUpdatesAndNotify().catch((e) => {
+  runUpdateCheckWithRecovery("initial").catch((e) => {
     const message = String((e && e.message) || e || "Failed to check updates");
     console.error("[auto-update] initial check failed", message);
     broadcastUpdateStatus("error", { message });
   });
 
   autoUpdateInterval = setInterval(() => {
-    autoUpdater.checkForUpdatesAndNotify().catch((e) => {
+    runUpdateCheckWithRecovery("periodic").catch((e) => {
       const message = String((e && e.message) || e || "Failed to check updates");
       console.error("[auto-update] periodic check failed", message);
       broadcastUpdateStatus("error", { message });
@@ -1998,13 +2164,18 @@ ipcMain.handle("falcon:checkForUpdates", async () => {
   }
   try {
     updateUpdaterDiagnostics({ lastCheckResult: "manual-check-requested", lastCheckedAt: nowIso() });
-    await autoUpdater.checkForUpdates();
+    await runUpdateCheck("manual");
     return { ok: true };
   } catch (e) {
     const message = String((e && e.message) || e || "Failed to check updates");
     updateUpdaterDiagnostics({ lastCheckResult: "error", lastError: { message, at: nowIso(), statusCode: null, url: updaterDiagnostics.feedUrl || null } });
     return { ok: false, message };
   }
+});
+
+ipcMain.handle("updater:resetCache", async () => {
+  clearUpdaterCache();
+  return { ok: true };
 });
 
 ipcMain.handle("updater:getStatus", async () => {
