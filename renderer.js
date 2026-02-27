@@ -41,6 +41,8 @@ async function executeToolSteps(steps){
 
 let lastLog = '';
 let lastLogFile = null;
+let lastSystemInfo = null;
+let currentGpuVendor = 'auto';
 
 let gameModePhotoOptimizations = [];
 
