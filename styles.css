@@ -505,7 +505,8 @@ pre.log{
   position: fixed; inset: 0;
   background: rgba(0,0,0,0.65);
   display:flex; align-items:center; justify-content:center;
-  z-index: 9999;
+  padding: 24px;
+  z-index: 50000;
   /* Must be clickable (consent checkbox + modal buttons). */
   pointer-events: auto;
 }
@@ -4053,7 +4054,7 @@ label, .muted{
 
 
 /* --- MEGA PROMPT HOTFIXES: readability + confirm checkbox --- */
-#confirmBackdrop{ z-index: 9999; }
+#confirmBackdrop, #sysInfoBackdrop{ z-index: 50001; }
 #confirmBackdrop .modal, #confirmBackdrop .confirm-modal, #confirmBackdrop .confirm-panel{
   background: rgba(20,20,24,0.96) !important;
   color: #f5f6fa !important;
