@@ -1135,7 +1135,7 @@ processLab: { title: 'Process Lab', sub: 'Audit and close non-essential backgrou
 bios: { title: 'BIOS / UEFI Helper', sub: 'Motherboard detection and firmware shortcuts.', tabs: [] },
   themes: { title: 'Themes', sub: 'Switch visual presets for Falcon Optimizer.', tabs: [] },
   language: { title: 'Language', sub: 'Choose language preferences for Falcon Optimizer.', tabs: [] },
-  updates: { title: 'Updater', sub: 'Update feed diagnostics and last updater checks.', tabs: [] },
+  updates: { title: 'Updates', sub: 'Update feed diagnostics and last updater checks.', tabs: [] },
   utilities: { title: 'Apps / Utilities', sub: 'Installers and utilities.', tabs: [
     { id:'tools', label:'Tools', source:'tweaks/utilities.json' },
     { id:'audit', label:'Pro Gamer Audit', source:'tweaks/audit.progamer.json' }
@@ -8826,8 +8826,9 @@ async function renderUpdates(){
 
   const loadDiagnostics = async () => {
     try {
-      const diagRes = await window.falcon.getUpdaterDiagnostics();
-      const diag = (diagRes && diagRes.ok && diagRes.diagnostics) ? diagRes.diagnostics : {};
+      const diag = (window.falconUpdates && window.falconUpdates.getStatus)
+        ? await window.falconUpdates.getStatus()
+        : ((await window.falcon.getUpdaterDiagnostics()) || {}).diagnostics || {};
       const summary = [
         `Owner/Repo: ${diag.owner || '(missing)'}/${diag.repo || '(missing)'}`,
         `Feed URL: ${diag.feedUrl || '(n/a)'}`,
@@ -8836,8 +8837,14 @@ async function renderUpdates(){
         `Last error: ${diag.lastError ? `${diag.lastError.message || 'unknown'}${diag.lastError.statusCode ? ` (HTTP ${diag.lastError.statusCode})` : ''}${diag.lastError.url ? ` @ ${diag.lastError.url}` : ''}` : 'none'}`,
         `Token configured: ${diag.tokenConfigured ? 'yes' : 'no'}`
       ];
-      if (diag.lastError && Number(diag.lastError.statusCode) === 404) {
-        summary.push('Hint: Repo appears private or not found. Private repos require GH_TOKEN/GITHUB_TOKEN.');
+      if (diag.lastCheckResult === 'repo-not-found') {
+        summary.push('Hint: Repository was not found. Verify owner/repo spelling and repository existence.');
+      }
+      if (diag.lastCheckResult === 'private-repo-no-token') {
+        summary.push('Hint: Repository is private or inaccessible without GH_TOKEN/GITHUB_TOKEN.');
+      }
+      if (diag.configError) {
+        summary.push('Config error: ' + diag.configError);
       }
       updSummary.innerHTML = summary.map((line) => `<div>${escapeHtml(line)}</div>`).join('');
       updOut.textContent = JSON.stringify(diag, null, 2);

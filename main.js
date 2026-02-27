@@ -65,16 +65,73 @@ function detectGithubConfigSource(owner, repo) {
   return "package.json";
 }
 
+function extractGithubPublishConfig(pkg) {
+  const publish = pkg && pkg.build ? pkg.build.publish : null;
+  let selected = null;
+
+  if (Array.isArray(publish)) {
+    selected = publish.find((entry) => entry && entry.provider === "github")
+      || publish.find((entry) => entry && (!entry.provider) && (entry.owner || entry.repo))
+      || publish[0]
+      || null;
+  } else if (publish && typeof publish === "object") {
+    selected = publish;
+  }
+
+  return {
+    owner: selected && selected.owner ? String(selected.owner).trim() : "",
+    repo: selected && selected.repo ? String(selected.repo).trim() : "",
+    provider: selected && selected.provider ? String(selected.provider).trim() : "github",
+    source: "package.json"
+  };
+}
+
+function parseSimpleYml(ymlRaw) {
+  const out = {};
+  const lines = String(ymlRaw || "").split(/\r?\n/);
+  for (const rawLine of lines) {
+    const line = rawLine.trim();
+    if (!line || line.startsWith("#")) continue;
+    const m = line.match(/^([A-Za-z0-9_-]+)\s*:\s*(.*)$/);
+    if (!m) continue;
+    const key = m[1];
+    let value = m[2].trim();
+    if ((value.startsWith('"') && value.endsWith('"')) || (value.startsWith("'") && value.endsWith("'"))) {
+      value = value.slice(1, -1);
+    }
+    out[key] = value;
+  }
+  return out;
+}
+
+function readAppUpdateYmlIfPresent() {
+  try {
+    const ymlPath = path.join(process.resourcesPath, "app-update.yml");
+    if (!fs.existsSync(ymlPath)) return null;
+    const parsed = parseSimpleYml(fs.readFileSync(ymlPath, "utf8"));
+    const provider = String(parsed.provider || "").trim();
+    const owner = String(parsed.owner || "").trim();
+    const repo = String(parsed.repo || "").trim();
+    const url = String(parsed.url || "").trim();
+    if (!provider && !owner && !repo && !url) return null;
+    return { provider, owner, repo, url, source: "app-update.yml" };
+  } catch (_) {
+    return null;
+  }
+}
+
 function loadUpdaterConfig() {
   const pkgPath = app && app.getAppPath ? path.join(app.getAppPath(), "package.json") : "";
   const pkg = pkgPath ? safeJsonRead(pkgPath, null) : null;
-  const publishCfg = pkg && pkg.build && Array.isArray(pkg.build.publish) ? pkg.build.publish[0] : null;
-  const pkgOwner = publishCfg && publishCfg.owner ? String(publishCfg.owner).trim() : "";
-  const pkgRepo = publishCfg && publishCfg.repo ? String(publishCfg.repo).trim() : "";
-  const owner = String(process.env.FALCON_UPDATER_OWNER || process.env.UPDATER_OWNER || pkgOwner || "").trim();
-  const repo = String(process.env.FALCON_UPDATER_REPO || process.env.UPDATER_REPO || pkgRepo || "").trim();
-  const source = detectGithubConfigSource(owner, repo);
-  return { owner, repo, source };
+  const pkgCfg = extractGithubPublishConfig(pkg);
+  const ymlCfg = app.isPackaged ? readAppUpdateYmlIfPresent() : null;
+  const preferredCfg = (ymlCfg && ymlCfg.provider === "github" && ymlCfg.owner && ymlCfg.repo) ? ymlCfg : pkgCfg;
+
+  const owner = String(process.env.FALCON_UPDATER_OWNER || process.env.UPDATER_OWNER || preferredCfg.owner || "").trim();
+  const repo = String(process.env.FALCON_UPDATER_REPO || process.env.UPDATER_REPO || preferredCfg.repo || "").trim();
+  const source = detectGithubConfigSource(owner, repo) === "env" ? "env" : String(preferredCfg.source || "package.json");
+  const provider = String(preferredCfg.provider || "github").trim() || "github";
+  return { owner, repo, source, provider, url: preferredCfg.url || "" };
 }
 
 function validateUpdaterConfig({ owner, repo }) {
@@ -91,6 +148,18 @@ function validateUpdaterConfig({ owner, repo }) {
 
 function updateUpdaterDiagnostics(patch = {}) {
   updaterDiagnostics = { ...updaterDiagnostics, ...patch };
+}
+
+function classifyUpdaterError(err, tokenConfigured) {
+  const rawMessage = String((err && err.message) || err || "Unknown update error");
+  const statusCode = err && Number.isFinite(err.statusCode) ? Number(err.statusCode) : null;
+  if (statusCode === 404 && !tokenConfigured) {
+    return { lastCheckResult: "private-repo-no-token", message: `${rawMessage} Repository not found or private repository requires GH_TOKEN/GITHUB_TOKEN.` };
+  }
+  if (statusCode === 404) {
+    return { lastCheckResult: "repo-not-found", message: `${rawMessage} Repository not found (check owner/repo for typos).` };
+  }
+  return { lastCheckResult: "error", message: rawMessage };
 }
 
 function broadcastUpdateStatus(status, extra = {}) {
@@ -111,14 +180,15 @@ function setupAutoUpdater() {
     return;
   }
 
-  const { owner, repo, source } = loadUpdaterConfig();
+  const { owner, repo, source, provider } = loadUpdaterConfig();
   const validation = validateUpdaterConfig({ owner, repo });
   const tokenConfigured = !!(process.env.GH_TOKEN || process.env.GITHUB_TOKEN || process.env.FALCON_GH_TOKEN);
+  const feedUrl = provider === "github" && owner && repo ? `https://github.com/${owner}/${repo}/releases.atom` : "";
   updateUpdaterDiagnostics({
     enabled: true,
     owner,
     repo,
-    feedUrl: owner && repo ? `https://github.com/${owner}/${repo}/releases.atom` : "",
+    feedUrl,
     source,
     tokenConfigured,
     configError: validation.ok ? null : validation.issues.join(" "),
@@ -135,12 +205,6 @@ function setupAutoUpdater() {
 
   if (process.env.FALCON_GH_TOKEN && !process.env.GH_TOKEN) {
     process.env.GH_TOKEN = process.env.FALCON_GH_TOKEN;
-  }
-
-  try {
-    autoUpdater.setFeedURL({ provider: "github", owner, repo, private: tokenConfigured });
-  } catch (e) {
-    console.warn("[auto-update] failed to apply runtime feed override", e);
   }
 
   autoUpdater.autoDownload = true;
@@ -178,17 +242,17 @@ function setupAutoUpdater() {
     }
   });
   autoUpdater.on("error", (err) => {
+    const classified = classifyUpdaterError(err, tokenConfigured);
     const message = String((err && err.message) || err || "Unknown update error");
     const statusCode = err && Number.isFinite(err.statusCode) ? Number(err.statusCode) : null;
     const urlMatch = message.match(/https?:\/\/\S+/i);
     const url = (err && err.url) || (urlMatch ? urlMatch[0] : updaterDiagnostics.feedUrl);
-    const privateHint = statusCode === 404 ? "Repo appears private or not found. For private repos configure GH_TOKEN/GITHUB_TOKEN." : null;
     updateUpdaterDiagnostics({
-      lastCheckResult: "error",
-      lastError: { message: privateHint ? `${message} ${privateHint}` : message, statusCode, url: url || null, at: nowIso() }
+      lastCheckResult: classified.lastCheckResult,
+      lastError: { message: classified.message, statusCode, url: url || null, at: nowIso() }
     });
-    console.error("[auto-update] error", message);
-    broadcastUpdateStatus("error", { message: privateHint ? `${message} ${privateHint}` : message, statusCode, url: url || null });
+    console.error("[auto-update] error", classified.message);
+    broadcastUpdateStatus("error", { message: classified.message, statusCode, url: url || null });
   });
 
   autoUpdater.checkForUpdatesAndNotify().catch((e) => {
@@ -1941,6 +2005,10 @@ ipcMain.handle("falcon:checkForUpdates", async () => {
     updateUpdaterDiagnostics({ lastCheckResult: "error", lastError: { message, at: nowIso(), statusCode: null, url: updaterDiagnostics.feedUrl || null } });
     return { ok: false, message };
   }
+});
+
+ipcMain.handle("updater:getStatus", async () => {
+  return { ...updaterDiagnostics };
 });
 
 ipcMain.handle("falcon:getUpdaterDiagnostics", async () => {
