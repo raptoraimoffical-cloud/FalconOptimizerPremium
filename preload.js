@@ -122,6 +122,7 @@ removePowerPlans: () => ipcRenderer.invoke("falcon:removePowerPlans"),
 });
 
 contextBridge.exposeInMainWorld("falconUpdates", {
+  getStatus: () => ipcRenderer.invoke("updater:getStatus"),
   onStatus: (callback) => {
     if (typeof callback !== "function") return () => {};
     const listener = (_event, payload) => {
