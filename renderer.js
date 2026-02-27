@@ -8794,6 +8794,9 @@ function attachUpdateStatusListener(statusEl){
     updateUnsubscribe = window.falconUpdates.onStatus((payload) => {
       updaterLastStatus = payload || null;
       renderUpdaterStatusLine(statusEl, updaterLastStatus || {});
+      if (payload && payload.status === 'cache-reset') {
+        showToast('Updater cache was stale and has been refreshed.', 'info');
+      }
     });
   }
   if (updaterLastStatus) renderUpdaterStatusLine(statusEl, updaterLastStatus);
@@ -8807,6 +8810,7 @@ async function renderUpdates(){
       <div class="card-actions" style="margin-top:10px; gap:8px; flex-wrap:wrap;">
         <button class="btn" id="updRefreshDiag">Refresh diagnostics</button>
         <button class="btn primary" id="updCheckNow">Check for updates now</button>
+        <button class="btn" id="updResetCache">Reset Updater Cache</button>
       </div>
       <div id="updStatus" class="muted" style="margin-top:10px;">Updater: waiting for events…</div>
       <div id="updSummary" class="muted" style="margin-top:10px;"></div>
@@ -8832,10 +8836,14 @@ async function renderUpdates(){
       const summary = [
         `Owner/Repo: ${diag.owner || '(missing)'}/${diag.repo || '(missing)'}`,
         `Feed URL: ${diag.feedUrl || '(n/a)'}`,
+        `Latest tag detected: ${diag.latestTagDetected || '(unknown)'}`,
+        `Cached tag: ${diag.cachedTag || '(none)'}`,
+        `Asset URL used: ${diag.assetUrlUsed || '(n/a)'}`,
         `Config source: ${diag.source || 'package.json'}`,
         `Last check result: ${diag.lastCheckResult || 'idle'}`,
         `Last error: ${diag.lastError ? `${diag.lastError.message || 'unknown'}${diag.lastError.statusCode ? ` (HTTP ${diag.lastError.statusCode})` : ''}${diag.lastError.url ? ` @ ${diag.lastError.url}` : ''}` : 'none'}`,
-        `Token configured: ${diag.tokenConfigured ? 'yes' : 'no'}`
+        `Token configured: ${diag.tokenConfigured ? 'yes' : 'no'}`,
+        `Retry attempted: ${diag.retryAttempted ? 'yes' : 'no'}`
       ];
       if (diag.lastCheckResult === 'repo-not-found') {
         summary.push('Hint: Repository was not found. Verify owner/repo spelling and repository existence.');
@@ -8862,6 +8870,16 @@ async function renderUpdates(){
   document.getElementById('updCheckNow').onclick = async () => {
     const r = await window.falcon.checkForUpdates();
     updStatus.textContent = (r && r.ok) ? 'Updater: check requested.' : ('Updater: check failed – ' + String((r && r.message) || 'Unknown error'));
+    await loadDiagnostics();
+  };
+  document.getElementById('updResetCache').onclick = async () => {
+    const r = await window.falcon.resetUpdaterCache();
+    if (r && r.ok) {
+      showToast('Updater cache cleared. Restart app.', 'success');
+      updStatus.textContent = 'Updater: cache cleared. Restart app.';
+    } else {
+      showToast('Failed to clear updater cache.', 'error');
+    }
     await loadDiagnostics();
   };
   await loadDiagnostics();
