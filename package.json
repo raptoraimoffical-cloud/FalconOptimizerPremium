@@ -39,8 +39,8 @@
     "publish": [
       {
         "provider": "github",
-        "owner": "<REPLACE_WITH_OWNER>",
-        "repo": "<REPLACE_WITH_REPO>"
+        "owner": "<raptoraimoffical-cloud>",
+        "repo": "FalconOptimizerPremium"
       }
     ],
     "nsis": {
