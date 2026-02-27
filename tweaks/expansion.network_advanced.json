@@ -1,0 +1,600 @@
+{
+  "items": [
+    {
+      "id": "exp.net.show_tcp_global",
+      "type": "action",
+      "name": "Show TCP Global Settings",
+      "category": "Expansion / Network Advanced",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Runs netsh int tcp show global.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "netsh int tcp show global"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe"
+    },
+    {
+      "id": "exp.net.ping_test_cloudflare",
+      "type": "action",
+      "name": "Ping Test (1.1.1.1 x20)",
+      "category": "Expansion / Network Advanced",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Runs a simple ping test to 1.1.1.1 (20 packets).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "ping -n 20 1.1.1.1"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe"
+    },
+    {
+      "id": "exp.net.docs.001",
+      "type": "button",
+      "name": "Run Windows TCP/IP tuning reference",
+      "category": "Expansion / Network Advanced",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Reference for TCP/IP performance topics.",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/troubleshoot/windows-server/networking/tcpip-performance-known-issues"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.net.docs.002",
+      "type": "button",
+      "name": "Run Wi-Fi troubleshooting guide",
+      "category": "Expansion / Network Advanced",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Reference for Wi‑Fi issues.",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://support.microsoft.com/windows/fix-wi-fi-connection-issues-in-windows-9424d067-1d00-0a56-6b63-2c3d2c49f1b3"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.net.placeholder_005",
+      "type": "button",
+      "name": "Network Checklist Item",
+      "category": "Expansion / Network Advanced",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/troubleshoot/windows-server/networking/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.net.placeholder_006",
+      "type": "button",
+      "name": "Network Checklist Item",
+      "category": "Expansion / Network Advanced",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/troubleshoot/windows-server/networking/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.net.placeholder_007",
+      "type": "button",
+      "name": "Network Checklist Item",
+      "category": "Expansion / Network Advanced",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/troubleshoot/windows-server/networking/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.net.placeholder_008",
+      "type": "button",
+      "name": "Network Checklist Item",
+      "category": "Expansion / Network Advanced",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/troubleshoot/windows-server/networking/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.net.placeholder_009",
+      "type": "button",
+      "name": "Network Checklist Item",
+      "category": "Expansion / Network Advanced",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/troubleshoot/windows-server/networking/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.net.placeholder_010",
+      "type": "button",
+      "name": "Network Checklist Item",
+      "category": "Expansion / Network Advanced",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/troubleshoot/windows-server/networking/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.net.placeholder_011",
+      "type": "button",
+      "name": "Network Checklist Item",
+      "category": "Expansion / Network Advanced",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/troubleshoot/windows-server/networking/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.net.placeholder_012",
+      "type": "button",
+      "name": "Network Checklist Item",
+      "category": "Expansion / Network Advanced",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/troubleshoot/windows-server/networking/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.net.placeholder_013",
+      "type": "button",
+      "name": "Network Checklist Item",
+      "category": "Expansion / Network Advanced",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/troubleshoot/windows-server/networking/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.net.placeholder_014",
+      "type": "button",
+      "name": "Network Checklist Item",
+      "category": "Expansion / Network Advanced",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/troubleshoot/windows-server/networking/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.net.placeholder_015",
+      "type": "button",
+      "name": "Network Checklist Item",
+      "category": "Expansion / Network Advanced",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/troubleshoot/windows-server/networking/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.net.placeholder_016",
+      "type": "button",
+      "name": "Network Checklist Item",
+      "category": "Expansion / Network Advanced",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/troubleshoot/windows-server/networking/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.net.placeholder_017",
+      "type": "button",
+      "name": "Network Checklist Item",
+      "category": "Expansion / Network Advanced",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/troubleshoot/windows-server/networking/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.net.placeholder_018",
+      "type": "button",
+      "name": "Network Checklist Item",
+      "category": "Expansion / Network Advanced",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/troubleshoot/windows-server/networking/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.net.placeholder_019",
+      "type": "button",
+      "name": "Network Checklist Item",
+      "category": "Expansion / Network Advanced",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/troubleshoot/windows-server/networking/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.net.placeholder_020",
+      "type": "button",
+      "name": "Network Checklist Item",
+      "category": "Expansion / Network Advanced",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/troubleshoot/windows-server/networking/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.net.placeholder_021",
+      "type": "button",
+      "name": "Network Checklist Item",
+      "category": "Expansion / Network Advanced",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/troubleshoot/windows-server/networking/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.net.placeholder_022",
+      "type": "button",
+      "name": "Network Checklist Item",
+      "category": "Expansion / Network Advanced",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/troubleshoot/windows-server/networking/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.net.placeholder_023",
+      "type": "button",
+      "name": "Network Checklist Item",
+      "category": "Expansion / Network Advanced",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/troubleshoot/windows-server/networking/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.net.placeholder_024",
+      "type": "button",
+      "name": "Network Checklist Item",
+      "category": "Expansion / Network Advanced",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/troubleshoot/windows-server/networking/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.net.placeholder_025",
+      "type": "button",
+      "name": "Network Checklist Item",
+      "category": "Expansion / Network Advanced",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/troubleshoot/windows-server/networking/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    }
+  ]
+}

@@ -1,0 +1,237 @@
+{
+  "items": [
+    {
+      "id": "debloat.services.basic",
+      "name": "Basic Service Preset",
+      "category": "Debloat / Services",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables common telemetry/location services while keeping Windows Update/Defender/Store enabled.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "DiagTrack",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "dmwappushservice",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "lfsvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "MapsBroker",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "DiagTrack",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "dmwappushservice",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "lfsvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "MapsBroker",
+            "startType": "Manual"
+          }
+        ]
+      },
+      "type": "toggle",
+      "riskLevel": "Warning",
+      "excludeFromApplyAll": true,
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "DiagTrack",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "debloat.services.advanced",
+      "name": "Advanced Service Preset",
+      "category": "Debloat / Services",
+      "risk": "Extreme",
+      "description": "[Focus: FPS, Latency / Input Delay] Aggressive latency profile. Disables Windows Update/Store/Bluetooth/Xbox-related services. May break features.",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "DiagTrack",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "dmwappushservice",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "lfsvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "MapsBroker",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "wuauserv",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "bits",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "DoSvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "ClipSVC",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "InstallService",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "BthServ",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "XboxGipSvc",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "DiagTrack",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "dmwappushservice",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "lfsvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "MapsBroker",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "wuauserv",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "bits",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "DoSvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "ClipSVC",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "InstallService",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "BthServ",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "XboxGipSvc",
+            "startType": "Manual"
+          }
+        ]
+      },
+      "type": "toggle",
+      "riskLevel": "Safe",
+      "excludeFromApplyAll": true,
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "DiagTrack",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "debloat.services.custom",
+      "name": "Custom Service Configuration",
+      "category": "Debloat / Services",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Opens Services management console so you can manually tune services.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "services.msc",
+            "args": [],
+            "wait": false
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "excludeFromApplyAll": true,
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    }
+  ]
+}

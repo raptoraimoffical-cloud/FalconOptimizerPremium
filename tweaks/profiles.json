@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "profiles": [
+    {
+      "id": "safe_competitive",
+      "name": "Safe Competitive",
+      "description": "Safe performance + latency improvements. Excludes High/Critical and excludes items flagged excludeFromApplyAll.",
+      "includeRiskLevels": [
+        "Safe",
+        "Warning"
+      ],
+      "includeExcluded": false,
+      "applyStretchDefault": true
+    },
+    {
+      "id": "aggressive_competitive",
+      "name": "Aggressive Competitive",
+      "description": "Includes most performance tweaks including some High risk. Still excludes Critical and excluded items by default.",
+      "includeRiskLevels": [
+        "Safe",
+        "Warning",
+        "High"
+      ],
+      "includeExcluded": false,
+      "applyStretchDefault": true
+    },
+    {
+      "id": "all_in_risky",
+      "name": "All In (Risky)",
+      "description": "Includes everything including excluded items. Requires typed confirmation.",
+      "includeRiskLevels": [
+        "Safe",
+        "Warning",
+        "High",
+        "Critical"
+      ],
+      "includeExcluded": true,
+      "requireTypedPhrase": "I UNDERSTAND",
+      "applyStretchDefault": true
+    }
+  ]
+}

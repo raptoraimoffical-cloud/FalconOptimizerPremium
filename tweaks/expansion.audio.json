@@ -1,0 +1,362 @@
+{
+  "items": [
+    {
+      "id": "exp.audio.open_sound_settings",
+      "type": "action",
+      "name": "Open Sound Settings",
+      "category": "Expansion / Audio",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Opens Windows sound settings.",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "start ms-settings:sound"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe"
+    },
+    {
+      "id": "exp.audio.docs_audio_troubleshoot",
+      "type": "button",
+      "name": "Run Audio Troubleshooting Guide",
+      "category": "Expansion / Audio",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Reference for resolving audio glitches/latency.",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://support.microsoft.com/windows/fix-sound-or-audio-problems-in-windows-73025246-b61c-40fb-671a-2535c7cd56c8"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.audio.placeholder_003",
+      "type": "button",
+      "name": "Audio Checklist Item",
+      "category": "Expansion / Audio",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://support.microsoft.com/windows/fix-sound-or-audio-problems-in-windows-73025246-b61c-40fb-671a-2535c7cd56c8"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.audio.placeholder_004",
+      "type": "button",
+      "name": "Audio Checklist Item",
+      "category": "Expansion / Audio",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://support.microsoft.com/windows/fix-sound-or-audio-problems-in-windows-73025246-b61c-40fb-671a-2535c7cd56c8"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.audio.placeholder_005",
+      "type": "button",
+      "name": "Audio Checklist Item",
+      "category": "Expansion / Audio",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://support.microsoft.com/windows/fix-sound-or-audio-problems-in-windows-73025246-b61c-40fb-671a-2535c7cd56c8"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.audio.placeholder_006",
+      "type": "button",
+      "name": "Audio Checklist Item",
+      "category": "Expansion / Audio",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://support.microsoft.com/windows/fix-sound-or-audio-problems-in-windows-73025246-b61c-40fb-671a-2535c7cd56c8"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.audio.placeholder_007",
+      "type": "button",
+      "name": "Audio Checklist Item",
+      "category": "Expansion / Audio",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://support.microsoft.com/windows/fix-sound-or-audio-problems-in-windows-73025246-b61c-40fb-671a-2535c7cd56c8"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.audio.placeholder_008",
+      "type": "button",
+      "name": "Audio Checklist Item",
+      "category": "Expansion / Audio",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://support.microsoft.com/windows/fix-sound-or-audio-problems-in-windows-73025246-b61c-40fb-671a-2535c7cd56c8"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.audio.placeholder_009",
+      "type": "button",
+      "name": "Audio Checklist Item",
+      "category": "Expansion / Audio",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://support.microsoft.com/windows/fix-sound-or-audio-problems-in-windows-73025246-b61c-40fb-671a-2535c7cd56c8"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.audio.placeholder_010",
+      "type": "button",
+      "name": "Audio Checklist Item",
+      "category": "Expansion / Audio",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://support.microsoft.com/windows/fix-sound-or-audio-problems-in-windows-73025246-b61c-40fb-671a-2535c7cd56c8"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.audio.placeholder_011",
+      "type": "button",
+      "name": "Audio Checklist Item",
+      "category": "Expansion / Audio",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://support.microsoft.com/windows/fix-sound-or-audio-problems-in-windows-73025246-b61c-40fb-671a-2535c7cd56c8"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.audio.placeholder_012",
+      "type": "button",
+      "name": "Audio Checklist Item",
+      "category": "Expansion / Audio",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://support.microsoft.com/windows/fix-sound-or-audio-problems-in-windows-73025246-b61c-40fb-671a-2535c7cd56c8"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.audio.placeholder_013",
+      "type": "button",
+      "name": "Audio Checklist Item",
+      "category": "Expansion / Audio",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://support.microsoft.com/windows/fix-sound-or-audio-problems-in-windows-73025246-b61c-40fb-671a-2535c7cd56c8"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.audio.placeholder_014",
+      "type": "button",
+      "name": "Audio Checklist Item",
+      "category": "Expansion / Audio",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://support.microsoft.com/windows/fix-sound-or-audio-problems-in-windows-73025246-b61c-40fb-671a-2535c7cd56c8"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.audio.placeholder_015",
+      "type": "button",
+      "name": "Audio Checklist Item",
+      "category": "Expansion / Audio",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://support.microsoft.com/windows/fix-sound-or-audio-problems-in-windows-73025246-b61c-40fb-671a-2535c7cd56c8"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    }
+  ]
+}

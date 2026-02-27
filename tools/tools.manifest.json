@@ -1,0 +1,40 @@
+{
+  "tools": [
+    {
+      "id": "fancontrol",
+      "name": "FanControl",
+      "kind": "zip",
+      "downloadUrl": "https://github.com/Rem0o/FanControl.Releases/releases/latest/download/FanControl.zip",
+      "extractTo": "tools/FanControl",
+      "launch": "tools/FanControl/FanControl.exe"
+    },
+    {
+      "id": "nvcleanstall",
+      "name": "NVCleanstall",
+      "kind": "exe",
+      "downloadUrl": "https://www.techpowerup.com/download/techpowerup-nvcleanstall/",
+      "downloadDirectHint": "This site may require manual download if direct link changes.",
+      "launch": "tools/NVCleanstall/NVCleanstall.exe"
+    },
+    {
+      "id": "npi",
+      "name": "NvidiaProfileInspector",
+      "kind": "zip",
+      "downloadUrl": "https://github.com/Orbmu2k/nvidiaProfileInspector/releases/latest/download/nvidiaProfileInspector.zip",
+      "extractTo": "tools/NvidiaProfileInspector",
+      "launch": "tools/NvidiaProfileInspector/nvidiaProfileInspector.exe"
+    },
+    {
+      "id": "process_destroyer",
+      "name": "Process Destroyer",
+      "kind": "local",
+      "path": "tools/BoostPack/Process-Destroyer-V2.5.bat"
+    },
+    {
+      "id": "process_destroyer_extreme",
+      "name": "Process Destroyer Extreme",
+      "kind": "local",
+      "path": "tools/BoostPack/Process-Destroyer-Extreme-V2.5.bat"
+    }
+  ]
+}

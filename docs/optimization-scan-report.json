@@ -1,0 +1,6478 @@
+{
+  "generatedAt": "2026-02-19T07:48:34.850178",
+  "openOnlyCount": 718,
+  "actionNamedButOpenOnlyCount": 169,
+  "items": [
+    {
+      "file": "tweaks/hardware.cpu.intel.json",
+      "id": "cpu.disable_coalescable_timer",
+      "title": "Disable Coalescable Timer",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/hardware.cpu.intel.json",
+      "id": "cpu_disable_c_states_guidance",
+      "title": "Disable Deep C-States (Guided)",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/hardware.gpu.nvidia.json",
+      "id": "gpu.nvidia.driver.installer",
+      "title": "Advanced NVIDIA GPU Driver Installer",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/hardware.gpu.nvidia.json",
+      "id": "gpu.nvidia.driver_installer",
+      "title": "Advanced NVIDIA GPU Driver Installer",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/hardware.gpu.nvidia.json",
+      "id": "gpu.nvidia.disable_driver_update",
+      "title": "Disable Geforce Driver Update",
+      "applyStepTypes": [
+        "shell.start",
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/hardware.gpu.nvidia.json",
+      "id": "gpu.nvidia.disable_nvidia_logging",
+      "title": "Disable NVIDIA Logging",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/hardware.gpu.nvidia.json",
+      "id": "gpu.nvidia.optimize_geforce_experience",
+      "title": "Optimize NVIDIA Geforce Experience",
+      "applyStepTypes": [
+        "shell.start",
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/hardware.memory.json",
+      "id": "mem_open_pagefile",
+      "title": "Open Virtual Memory (Page File) Settings",
+      "applyStepTypes": [
+        "process.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/hardware.memory.json",
+      "id": "mem_numa_guidance",
+      "title": "NUMA Locality (Guided)",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "guide_open_only"
+    },
+    {
+      "file": "tweaks/hardware.peripherals.json",
+      "id": "open_device_manager",
+      "title": "Open Device Manager",
+      "applyStepTypes": [
+        "process.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/hardware.storage.json",
+      "id": "stor_optimize_drives_gui",
+      "title": "Open Optimize Drives",
+      "applyStepTypes": [
+        "process.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/hardware.storage.json",
+      "id": "stor_open_temp",
+      "title": "Open Temp Folder",
+      "applyStepTypes": [
+        "open.path"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/debloat.services.json",
+      "id": "debloat.services.custom",
+      "title": "Custom Service Configuration",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/debloat.autoruns.json",
+      "id": "debloat.autoruns.opera_gx_assistant",
+      "title": "Opera GX Browser Assistant",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/fortnite.competitive.json",
+      "id": "fn_open_config",
+      "title": "Open Fortnite Config Folder",
+      "applyStepTypes": [
+        "open.path"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/fortnite.competitive.json",
+      "id": "fn_open_epic_launch_options_help",
+      "title": "Open Epic: How to set Launch Options",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/fortnite.competitive.json",
+      "id": "fn_high_performance_gpu",
+      "title": "Open Windows: Graphics Settings (set Fortnite to High performance)",
+      "applyStepTypes": [
+        "process.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/utilities.json",
+      "id": "util.autoruns.page",
+      "title": "Autoruns (Sysinternals) \u2014 download page",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/utilities.json",
+      "id": "util.autoruns.run",
+      "title": "Autoruns (Download)",
+      "applyStepTypes": [
+        "open.path"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/utilities.json",
+      "id": "util.bcu.page",
+      "title": "Bulk Crap Uninstaller \u2014 download page",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/utilities.json",
+      "id": "util.bcu.run",
+      "title": "Install/Run BCU (bundled)",
+      "applyStepTypes": [
+        "open.path"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/utilities.json",
+      "id": "util.openshell.page",
+      "title": "Open-Shell \u2014 releases",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/utilities.json",
+      "id": "util.openshell.run",
+      "title": "Install Open-Shell (bundled)",
+      "applyStepTypes": [
+        "open.path"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/utilities.json",
+      "id": "util.ddu.page",
+      "title": "DDU \u2014 download page",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/utilities.json",
+      "id": "util.ddu.run",
+      "title": "Open DDU folder (bundled)",
+      "applyStepTypes": [
+        "open.path"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/utilities.json",
+      "id": "util.defendercontrol.run",
+      "title": "Run Defender Control (bundled)",
+      "applyStepTypes": [
+        "open.path"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/utilities.json",
+      "id": "util.msi_utility_v3.run",
+      "title": "MSI Utility V3 (Download)",
+      "applyStepTypes": [
+        "process.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/utilities.json",
+      "id": "util.nvidia_profile_inspector.run",
+      "title": "NVIDIA Profile Inspector (bundled)",
+      "applyStepTypes": [
+        "process.start",
+        "open.path"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/utilities.json",
+      "id": "util.rweverything.run",
+      "title": "RWEverything (Download)",
+      "applyStepTypes": [
+        "process.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/utilities.json",
+      "id": "util.system_diag_home",
+      "title": "System Temperature Quick-Check (UserDiag Home)",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/advanced.devices.json",
+      "id": "adv.devices.disable_communication_ports_com1-com2",
+      "title": "Disable Communication Ports (COM1\u2013COM2)",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/advanced.devices.json",
+      "id": "adv.devices.disable_eisa_programmable_interrupt_controller",
+      "title": "Disable EISA Programmable Interrupt Controller",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/advanced.devices.json",
+      "id": "adv.devices.disable_high_precision_event_timer_hpet",
+      "title": "Disable High Precision Event Timer (HPET)",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/advanced.devices.json",
+      "id": "adv.devices.disable_microsoft_gs_wavetable_synth",
+      "title": "Disable Microsoft GS Wavetable Synth",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/advanced.devices.json",
+      "id": "adv.devices.disable_microsoft_hyper-v_infrastructure_driver",
+      "title": "Disable Microsoft Hyper-V Infrastructure Driver",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/advanced.devices.json",
+      "id": "adv.devices.disable_remote_desktop_device_redirector_bus",
+      "title": "Disable Remote Desktop Device Redirector Bus",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/advanced.msi_mode.json",
+      "id": "adv.msi.network_adapter_msi_toggle",
+      "title": "Network Adapter (MSI toggle)",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/advanced.msi_mode.json",
+      "id": "adv.msi.nvme_msi_toggle",
+      "title": "NVMe (MSI toggle)",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/advanced.msi_mode.json",
+      "id": "adv.msi.sata_msi_toggle",
+      "title": "SATA (MSI toggle)",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/advanced.security.json",
+      "id": "adv.security.allow_dynamic_code",
+      "title": "Allow Dynamic Code",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/advanced.security.json",
+      "id": "adv.security.disable_bottomup_high_entropy_aslr",
+      "title": "Disable Bottomup / High-Entropy ASLR",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/advanced.security.json",
+      "id": "adv.security.disable_code_signing_requirements",
+      "title": "Disable Code-Signing Requirements",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/advanced.security.json",
+      "id": "adv.security.disable_control_flow_guard_cfg",
+      "title": "Disable Control Flow Guard (CFG)",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/advanced.security.json",
+      "id": "adv.security.disable_core_isolation_memory_integrity",
+      "title": "Disable Core Isolation (Memory Integrity)",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/debloat.cleaner.json",
+      "id": "clean.device_cleanup",
+      "title": "Device Cleanup",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/debloat.cleaner.json",
+      "id": "clean.general_cleanup",
+      "title": "General Cleanup",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/debloat.cleaner.json",
+      "id": "clean.logs_&_crash_reports",
+      "title": "Logs & Crash Reports",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/debloat.uninstall.json",
+      "id": "debloat.uninstall.open_apps",
+      "title": "Open Installed Apps",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.nvidia.tools.json",
+      "id": "exp_nv_open_nvidia_control_panel",
+      "title": "Open NVIDIA Control Panel",
+      "applyStepTypes": [
+        "process.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.nvidia.tools.json",
+      "id": "exp_nv_open_windows_graphics_settings_gpu_preference",
+      "title": "Open Windows Graphics settings (GPU preference)",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/expansion.nvidia.tools.json",
+      "id": "exp_nv_open_game_bar_settings",
+      "title": "Open Game Bar settings",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/expansion.nvidia.tools.json",
+      "id": "exp_nv_open_game_mode_settings",
+      "title": "Open Game Mode settings",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/expansion.nvidia.tools.json",
+      "id": "exp_nv_open_xbox_settings",
+      "title": "Open Xbox settings",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/expansion.nvidia.tools.json",
+      "id": "exp_nv_open_windows_update_page",
+      "title": "Open Windows update page",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.nvidia.tools.json",
+      "id": "exp_nv_open_power_battery",
+      "title": "Open Power & Battery",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.nvidia.tools.json",
+      "id": "exp_nv_open_display_settings",
+      "title": "Open Display settings",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/expansion.nvidia.tools.json",
+      "id": "exp_nv_open_advanced_display_settings",
+      "title": "Open Advanced display settings",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/expansion.nvidia.tools.json",
+      "id": "exp_nv_open_ms_settings_display_advancedgraphics",
+      "title": "Open ms-settings:display-advancedgraphics",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/expansion.nvidia.tools.json",
+      "id": "exp_nv_open_ms_settings_gaming_gamedvr",
+      "title": "Open ms-settings:gaming-gamedvr",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/expansion.nvidia.tools.json",
+      "id": "exp_nv_open_ms_settings_gaming_broadcasting",
+      "title": "Open ms-settings:gaming-broadcasting",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/expansion.nvidia.tools.json",
+      "id": "exp_nv_open_ms_settings_privacy_backgroundapps",
+      "title": "Open ms-settings:privacy-backgroundapps",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/expansion.nvidia.tools.json",
+      "id": "exp_nv_open_ms_settings_privacy_general",
+      "title": "Open ms-settings:privacy-general",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/expansion.nvidia.tools.json",
+      "id": "exp_nv_open_ms_settings_privacy_motion",
+      "title": "Open ms-settings:privacy-motion",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/expansion.nvidia.tools.json",
+      "id": "exp_nv_open_ms_settings_privacy_speech",
+      "title": "Open ms-settings:privacy-speech",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/expansion.nvidia.tools.json",
+      "id": "exp_nv_open_ms_settings_privacy_feedback",
+      "title": "Open ms-settings:privacy-feedback",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/expansion.nvidia.tools.json",
+      "id": "exp_nv_open_ms_settings_privacy_location",
+      "title": "Open ms-settings:privacy-location",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/expansion.nvidia.tools.json",
+      "id": "exp_nv_open_ms_settings_network_ethernet",
+      "title": "Open ms-settings:network-ethernet",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/expansion.nvidia.tools.json",
+      "id": "exp_nv_open_ms_settings_network_wifi",
+      "title": "Open ms-settings:network-wifi",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/expansion.nvidia.tools.json",
+      "id": "exp_nv_open_ms_settings_network_status",
+      "title": "Open ms-settings:network-status",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/expansion.nvidia.tools.json",
+      "id": "exp_nv_open_ms_settings_bluetooth",
+      "title": "Open ms-settings:bluetooth",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/expansion.nvidia.tools.json",
+      "id": "exp_nv_open_ms_settings_appsfeatures",
+      "title": "Open ms-settings:appsfeatures",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/expansion.nvidia.tools.json",
+      "id": "exp_nv_open_ms_settings_startupapps",
+      "title": "Open ms-settings:startupapps",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/expansion.nvidia.tools.json",
+      "id": "exp_nv_open_ms_settings_optionalfeatures",
+      "title": "Open ms-settings:optionalfeatures",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/expansion.nvidia.tools.json",
+      "id": "exp_nv_open_ms_settings_storage",
+      "title": "Open ms-settings:storage",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/expansion.nvidia.tools.json",
+      "id": "exp_nv_open_ms_settings_about",
+      "title": "Open ms-settings:about",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/expansion.nvidia.tools.json",
+      "id": "exp_nv_open_ms_settings_notifications",
+      "title": "Open ms-settings:notifications",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/expansion.nvidia.tools.json",
+      "id": "exp_nv_open_ms_settings_tabletmode",
+      "title": "Open ms-settings:tabletmode",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/expansion.nvidia.tools.json",
+      "id": "exp_nv_open_ms_settings_taskbar",
+      "title": "Open ms-settings:taskbar",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/expansion.nvidia.tools.json",
+      "id": "exp_nv_open_ms_settings_personalization_background",
+      "title": "Open ms-settings:personalization-background",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/expansion.nvidia.tools.json",
+      "id": "exp_nv_open_ms_settings_personalization_colors",
+      "title": "Open ms-settings:personalization-colors",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/expansion.nvidia.tools.json",
+      "id": "exp_nv_open_ms_settings_personalization_start",
+      "title": "Open ms-settings:personalization-start",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/expansion.nvidia.tools.json",
+      "id": "exp_nv_open_ms_settings_fonts",
+      "title": "Open ms-settings:fonts",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/expansion.nvidia.tools.json",
+      "id": "exp_nv_open_ms_settings_easeofaccess_display",
+      "title": "Open ms-settings:easeofaccess-display",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/expansion.nvidia.tools.json",
+      "id": "exp_nv_open_ms_settings_easeofaccess_keyboard",
+      "title": "Open ms-settings:easeofaccess-keyboard",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/expansion.nvidia.tools.json",
+      "id": "exp_nv_open_ms_settings_sign_in_options",
+      "title": "Open ms-settings:sign-in-options",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/expansion.nvidia.tools.json",
+      "id": "exp_nv_open_ms_settings_recovery",
+      "title": "Open ms-settings:recovery",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/expansion.nvidia.tools.json",
+      "id": "exp_nv_open_ms_settings_windowsdefender",
+      "title": "Open ms-settings:windowsdefender",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/expansion.nvidia.tools.json",
+      "id": "exp_nv_open_ms_settings_family_group",
+      "title": "Open ms-settings:family-group",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/expansion.nvidia.tools.json",
+      "id": "exp_nv_open_ms_settings_gaming_trueplay",
+      "title": "Open ms-settings:gaming-trueplay",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/expansion.nvidia.tools.json",
+      "id": "exp_nv_open_ms_settings_gaming_xboxnetworking",
+      "title": "Open ms-settings:gaming-xboxnetworking",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/expansion.nvidia.tools.json",
+      "id": "exp_nv_run_nvidia_smi_if_available",
+      "title": "Run nvidia-smi (if available)",
+      "applyStepTypes": [
+        "process.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.boot_timer.bcdedit.json",
+      "id": "exp.boot.timerhelper_persistent_0p5ms",
+      "title": "Timer Helper Persistent (0.5ms request)",
+      "applyStepTypes": [
+        "process.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.boot_timer.bcdedit.json",
+      "id": "exp.boot.docs_bcdedit",
+      "title": "Open BCDEdit Documentation",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.boot_timer.bcdedit.json",
+      "id": "exp.boot.docs_timer_resolution",
+      "title": "Open Timer Resolution Background",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.boot_timer.bcdedit.json",
+      "id": "exp.boot.docs_safe_mode",
+      "title": "Open Safe Mode Recovery Guide",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "guide_open_only"
+    },
+    {
+      "file": "tweaks/expansion.boot_timer.bcdedit.json",
+      "id": "exp.boot.docs_hpet_bios",
+      "title": "HPET / BIOS Checklist (Reference)",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.boot_timer.bcdedit.json",
+      "id": "exp.boot.docs_etw",
+      "title": "ETW / Windows Performance Recorder Guide",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "guide_open_only"
+    },
+    {
+      "file": "tweaks/expansion.boot_timer.bcdedit.json",
+      "id": "exp.boot.open_reports_folder",
+      "title": "Open Reports Folder",
+      "applyStepTypes": [
+        "open.path"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.boot_timer.bcdedit.json",
+      "id": "exp.boot.open_backups_folder",
+      "title": "Open Backups Folder",
+      "applyStepTypes": [
+        "open.path"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.mmcss_scheduling.json",
+      "id": "exp.mmcss.docs.001",
+      "title": "Open MMCSS Overview (Microsoft)",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.mmcss_scheduling.json",
+      "id": "exp.mmcss.docs.002",
+      "title": "Open Game Mode Documentation",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.mmcss_scheduling.json",
+      "id": "exp.mmcss.docs.003",
+      "title": "Open Process Priority Guidance",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.mmcss_scheduling.json",
+      "id": "exp.mmcss.docs.004",
+      "title": "Open Fullscreen Optimizations Guidance",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.mmcss_scheduling.json",
+      "id": "exp.mmcss.more.001",
+      "title": "Open Xbox Game Bar Settings",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/expansion.mmcss_scheduling.json",
+      "id": "exp.mmcss.more.002",
+      "title": "Open NVIDIA Reflex Guide",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "guide_open_only"
+    },
+    {
+      "file": "tweaks/expansion.mmcss_scheduling.json",
+      "id": "exp.mmcss.ref.001",
+      "title": "Open Windows Performance Analyzer (WPA)",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.mmcss_scheduling.json",
+      "id": "exp.mmcss.ref.002",
+      "title": "Open Windows Performance Recorder (WPR)",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.mmcss_scheduling.json",
+      "id": "exp.mmcss.ref.003",
+      "title": "Open LatencyMon (third-party)",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.mmcss_scheduling.json",
+      "id": "exp.mmcss.ref.004",
+      "title": "Open PresentMon",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.mmcss_scheduling.json",
+      "id": "exp.mmcss.ref.005",
+      "title": "Open Windows Scheduler Concepts",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.mmcss_scheduling.json",
+      "id": "exp.mmcss.placeholder_15",
+      "title": "MMCSS Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.mmcss_scheduling.json",
+      "id": "exp.mmcss.placeholder_16",
+      "title": "MMCSS Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.mmcss_scheduling.json",
+      "id": "exp.mmcss.placeholder_17",
+      "title": "MMCSS Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.mmcss_scheduling.json",
+      "id": "exp.mmcss.placeholder_18",
+      "title": "MMCSS Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.mmcss_scheduling.json",
+      "id": "exp.mmcss.placeholder_19",
+      "title": "MMCSS Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.mmcss_scheduling.json",
+      "id": "exp.mmcss.placeholder_20",
+      "title": "MMCSS Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.power_advanced.json",
+      "id": "exp.power.docs.001",
+      "title": "Open powercfg documentation",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.power_advanced.json",
+      "id": "exp.power.docs.002",
+      "title": "Open Power Plans guidance",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.power_advanced.json",
+      "id": "exp.power.docs.003",
+      "title": "Open Energy Report guide",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "guide_open_only"
+    },
+    {
+      "file": "tweaks/expansion.power_advanced.json",
+      "id": "exp.power.placeholder_008",
+      "title": "Power Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.power_advanced.json",
+      "id": "exp.power.placeholder_009",
+      "title": "Power Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.power_advanced.json",
+      "id": "exp.power.placeholder_010",
+      "title": "Power Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.power_advanced.json",
+      "id": "exp.power.placeholder_011",
+      "title": "Power Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.power_advanced.json",
+      "id": "exp.power.placeholder_012",
+      "title": "Power Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.power_advanced.json",
+      "id": "exp.power.placeholder_013",
+      "title": "Power Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.power_advanced.json",
+      "id": "exp.power.placeholder_014",
+      "title": "Power Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.power_advanced.json",
+      "id": "exp.power.placeholder_015",
+      "title": "Power Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.power_advanced.json",
+      "id": "exp.power.placeholder_016",
+      "title": "Power Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.power_advanced.json",
+      "id": "exp.power.placeholder_017",
+      "title": "Power Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.power_advanced.json",
+      "id": "exp.power.placeholder_018",
+      "title": "Power Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.power_advanced.json",
+      "id": "exp.power.placeholder_019",
+      "title": "Power Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.power_advanced.json",
+      "id": "exp.power.placeholder_020",
+      "title": "Power Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.power_advanced.json",
+      "id": "exp.power.placeholder_021",
+      "title": "Power Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.power_advanced.json",
+      "id": "exp.power.placeholder_022",
+      "title": "Power Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.power_advanced.json",
+      "id": "exp.power.placeholder_023",
+      "title": "Power Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.power_advanced.json",
+      "id": "exp.power.placeholder_024",
+      "title": "Power Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.power_advanced.json",
+      "id": "exp.power.placeholder_025",
+      "title": "Power Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.gpu_nvidia_advanced.json",
+      "id": "exp.gpu.open_nip_profiles",
+      "title": "Open NVIDIA profile folder",
+      "applyStepTypes": [
+        "open.path"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.gpu_nvidia_advanced.json",
+      "id": "exp.gpu.docs.001",
+      "title": "Open NVIDIA Reflex (low latency)",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.gpu_nvidia_advanced.json",
+      "id": "exp.gpu.docs.002",
+      "title": "Open NVIDIA Control Panel help",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.gpu_nvidia_advanced.json",
+      "id": "exp.gpu.docs.003",
+      "title": "Open G-SYNC setup guide",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/expansion.gpu_nvidia_advanced.json",
+      "id": "exp.gpu.docs.004",
+      "title": "Open NVIDIA App / GeForce Experience overlays info",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.gpu_nvidia_advanced.json",
+      "id": "exp.gpu.placeholder_007",
+      "title": "GPU Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.gpu_nvidia_advanced.json",
+      "id": "exp.gpu.placeholder_008",
+      "title": "GPU Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.gpu_nvidia_advanced.json",
+      "id": "exp.gpu.placeholder_009",
+      "title": "GPU Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.gpu_nvidia_advanced.json",
+      "id": "exp.gpu.placeholder_010",
+      "title": "GPU Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.gpu_nvidia_advanced.json",
+      "id": "exp.gpu.placeholder_011",
+      "title": "GPU Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.gpu_nvidia_advanced.json",
+      "id": "exp.gpu.placeholder_012",
+      "title": "GPU Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.gpu_nvidia_advanced.json",
+      "id": "exp.gpu.placeholder_013",
+      "title": "GPU Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.gpu_nvidia_advanced.json",
+      "id": "exp.gpu.placeholder_014",
+      "title": "GPU Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.gpu_nvidia_advanced.json",
+      "id": "exp.gpu.placeholder_015",
+      "title": "GPU Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.gpu_nvidia_advanced.json",
+      "id": "exp.gpu.placeholder_016",
+      "title": "GPU Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.gpu_nvidia_advanced.json",
+      "id": "exp.gpu.placeholder_017",
+      "title": "GPU Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.gpu_nvidia_advanced.json",
+      "id": "exp.gpu.placeholder_018",
+      "title": "GPU Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.gpu_nvidia_advanced.json",
+      "id": "exp.gpu.placeholder_019",
+      "title": "GPU Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.gpu_nvidia_advanced.json",
+      "id": "exp.gpu.placeholder_020",
+      "title": "GPU Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.gpu_nvidia_advanced.json",
+      "id": "exp.gpu.placeholder_021",
+      "title": "GPU Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.gpu_nvidia_advanced.json",
+      "id": "exp.gpu.placeholder_022",
+      "title": "GPU Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.gpu_nvidia_advanced.json",
+      "id": "exp.gpu.placeholder_023",
+      "title": "GPU Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.gpu_nvidia_advanced.json",
+      "id": "exp.gpu.placeholder_024",
+      "title": "GPU Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.gpu_nvidia_advanced.json",
+      "id": "exp.gpu.placeholder_025",
+      "title": "GPU Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.gpu_nvidia_advanced.json",
+      "id": "exp.gpu.placeholder_026",
+      "title": "GPU Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.gpu_nvidia_advanced.json",
+      "id": "exp.gpu.placeholder_027",
+      "title": "GPU Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.gpu_nvidia_advanced.json",
+      "id": "exp.gpu.placeholder_028",
+      "title": "GPU Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.gpu_nvidia_advanced.json",
+      "id": "exp.gpu.placeholder_029",
+      "title": "GPU Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.gpu_nvidia_advanced.json",
+      "id": "exp.gpu.placeholder_030",
+      "title": "GPU Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.storage_io.json",
+      "id": "exp.storage.docs.001",
+      "title": "Open Microsoft storage performance guidance",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.storage_io.json",
+      "id": "exp.storage.docs.002",
+      "title": "Open Defender exclusions documentation",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.storage_io.json",
+      "id": "exp.storage.placeholder_005",
+      "title": "Storage Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.storage_io.json",
+      "id": "exp.storage.placeholder_006",
+      "title": "Storage Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.storage_io.json",
+      "id": "exp.storage.placeholder_007",
+      "title": "Storage Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.storage_io.json",
+      "id": "exp.storage.placeholder_008",
+      "title": "Storage Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.storage_io.json",
+      "id": "exp.storage.placeholder_009",
+      "title": "Storage Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.storage_io.json",
+      "id": "exp.storage.placeholder_010",
+      "title": "Storage Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.storage_io.json",
+      "id": "exp.storage.placeholder_011",
+      "title": "Storage Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.storage_io.json",
+      "id": "exp.storage.placeholder_012",
+      "title": "Storage Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.storage_io.json",
+      "id": "exp.storage.placeholder_013",
+      "title": "Storage Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.storage_io.json",
+      "id": "exp.storage.placeholder_014",
+      "title": "Storage Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.storage_io.json",
+      "id": "exp.storage.placeholder_015",
+      "title": "Storage Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.storage_io.json",
+      "id": "exp.storage.placeholder_016",
+      "title": "Storage Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.storage_io.json",
+      "id": "exp.storage.placeholder_017",
+      "title": "Storage Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.storage_io.json",
+      "id": "exp.storage.placeholder_018",
+      "title": "Storage Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.storage_io.json",
+      "id": "exp.storage.placeholder_019",
+      "title": "Storage Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.storage_io.json",
+      "id": "exp.storage.placeholder_020",
+      "title": "Storage Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.network_advanced.json",
+      "id": "exp.net.docs.001",
+      "title": "Open Windows TCP/IP tuning reference",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.network_advanced.json",
+      "id": "exp.net.docs.002",
+      "title": "Open Wi-Fi troubleshooting guide",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "guide_open_only"
+    },
+    {
+      "file": "tweaks/expansion.network_advanced.json",
+      "id": "exp.net.placeholder_005",
+      "title": "Network Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.network_advanced.json",
+      "id": "exp.net.placeholder_006",
+      "title": "Network Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.network_advanced.json",
+      "id": "exp.net.placeholder_007",
+      "title": "Network Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.network_advanced.json",
+      "id": "exp.net.placeholder_008",
+      "title": "Network Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.network_advanced.json",
+      "id": "exp.net.placeholder_009",
+      "title": "Network Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.network_advanced.json",
+      "id": "exp.net.placeholder_010",
+      "title": "Network Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.network_advanced.json",
+      "id": "exp.net.placeholder_011",
+      "title": "Network Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.network_advanced.json",
+      "id": "exp.net.placeholder_012",
+      "title": "Network Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.network_advanced.json",
+      "id": "exp.net.placeholder_013",
+      "title": "Network Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.network_advanced.json",
+      "id": "exp.net.placeholder_014",
+      "title": "Network Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.network_advanced.json",
+      "id": "exp.net.placeholder_015",
+      "title": "Network Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.network_advanced.json",
+      "id": "exp.net.placeholder_016",
+      "title": "Network Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.network_advanced.json",
+      "id": "exp.net.placeholder_017",
+      "title": "Network Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.network_advanced.json",
+      "id": "exp.net.placeholder_018",
+      "title": "Network Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.network_advanced.json",
+      "id": "exp.net.placeholder_019",
+      "title": "Network Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.network_advanced.json",
+      "id": "exp.net.placeholder_020",
+      "title": "Network Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.network_advanced.json",
+      "id": "exp.net.placeholder_021",
+      "title": "Network Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.network_advanced.json",
+      "id": "exp.net.placeholder_022",
+      "title": "Network Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.network_advanced.json",
+      "id": "exp.net.placeholder_023",
+      "title": "Network Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.network_advanced.json",
+      "id": "exp.net.placeholder_024",
+      "title": "Network Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.network_advanced.json",
+      "id": "exp.net.placeholder_025",
+      "title": "Network Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.usb_input.json",
+      "id": "exp.usb.placeholder_003",
+      "title": "USB/Input Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.usb_input.json",
+      "id": "exp.usb.placeholder_004",
+      "title": "USB/Input Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.usb_input.json",
+      "id": "exp.usb.placeholder_005",
+      "title": "USB/Input Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.usb_input.json",
+      "id": "exp.usb.placeholder_006",
+      "title": "USB/Input Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.usb_input.json",
+      "id": "exp.usb.placeholder_007",
+      "title": "USB/Input Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.usb_input.json",
+      "id": "exp.usb.placeholder_008",
+      "title": "USB/Input Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.usb_input.json",
+      "id": "exp.usb.placeholder_009",
+      "title": "USB/Input Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.usb_input.json",
+      "id": "exp.usb.placeholder_010",
+      "title": "USB/Input Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.usb_input.json",
+      "id": "exp.usb.placeholder_011",
+      "title": "USB/Input Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.usb_input.json",
+      "id": "exp.usb.placeholder_012",
+      "title": "USB/Input Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.usb_input.json",
+      "id": "exp.usb.placeholder_013",
+      "title": "USB/Input Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.usb_input.json",
+      "id": "exp.usb.placeholder_014",
+      "title": "USB/Input Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.usb_input.json",
+      "id": "exp.usb.placeholder_015",
+      "title": "USB/Input Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.usb_input.json",
+      "id": "exp.usb.placeholder_016",
+      "title": "USB/Input Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.usb_input.json",
+      "id": "exp.usb.placeholder_017",
+      "title": "USB/Input Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.usb_input.json",
+      "id": "exp.usb.placeholder_018",
+      "title": "USB/Input Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.usb_input.json",
+      "id": "exp.usb.placeholder_019",
+      "title": "USB/Input Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.usb_input.json",
+      "id": "exp.usb.placeholder_020",
+      "title": "USB/Input Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.audio.json",
+      "id": "exp.audio.docs_audio_troubleshoot",
+      "title": "Open Audio Troubleshooting Guide",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "guide_open_only"
+    },
+    {
+      "file": "tweaks/expansion.audio.json",
+      "id": "exp.audio.placeholder_003",
+      "title": "Audio Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.audio.json",
+      "id": "exp.audio.placeholder_004",
+      "title": "Audio Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.audio.json",
+      "id": "exp.audio.placeholder_005",
+      "title": "Audio Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.audio.json",
+      "id": "exp.audio.placeholder_006",
+      "title": "Audio Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.audio.json",
+      "id": "exp.audio.placeholder_007",
+      "title": "Audio Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.audio.json",
+      "id": "exp.audio.placeholder_008",
+      "title": "Audio Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.audio.json",
+      "id": "exp.audio.placeholder_009",
+      "title": "Audio Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.audio.json",
+      "id": "exp.audio.placeholder_010",
+      "title": "Audio Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.audio.json",
+      "id": "exp.audio.placeholder_011",
+      "title": "Audio Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.audio.json",
+      "id": "exp.audio.placeholder_012",
+      "title": "Audio Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.audio.json",
+      "id": "exp.audio.placeholder_013",
+      "title": "Audio Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.audio.json",
+      "id": "exp.audio.placeholder_014",
+      "title": "Audio Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.audio.json",
+      "id": "exp.audio.placeholder_015",
+      "title": "Audio Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.ui_background.json",
+      "id": "exp.ui.placeholder_004",
+      "title": "UI/Background Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.ui_background.json",
+      "id": "exp.ui.placeholder_005",
+      "title": "UI/Background Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.ui_background.json",
+      "id": "exp.ui.placeholder_006",
+      "title": "UI/Background Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.ui_background.json",
+      "id": "exp.ui.placeholder_007",
+      "title": "UI/Background Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.ui_background.json",
+      "id": "exp.ui.placeholder_008",
+      "title": "UI/Background Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.ui_background.json",
+      "id": "exp.ui.placeholder_009",
+      "title": "UI/Background Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.ui_background.json",
+      "id": "exp.ui.placeholder_010",
+      "title": "UI/Background Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.ui_background.json",
+      "id": "exp.ui.placeholder_011",
+      "title": "UI/Background Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.ui_background.json",
+      "id": "exp.ui.placeholder_012",
+      "title": "UI/Background Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.ui_background.json",
+      "id": "exp.ui.placeholder_013",
+      "title": "UI/Background Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.ui_background.json",
+      "id": "exp.ui.placeholder_014",
+      "title": "UI/Background Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.ui_background.json",
+      "id": "exp.ui.placeholder_015",
+      "title": "UI/Background Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.ui_background.json",
+      "id": "exp.ui.placeholder_016",
+      "title": "UI/Background Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.ui_background.json",
+      "id": "exp.ui.placeholder_017",
+      "title": "UI/Background Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.ui_background.json",
+      "id": "exp.ui.placeholder_018",
+      "title": "UI/Background Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.ui_background.json",
+      "id": "exp.ui.placeholder_019",
+      "title": "UI/Background Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.ui_background.json",
+      "id": "exp.ui.placeholder_020",
+      "title": "UI/Background Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.security_tradeoffs.json",
+      "id": "exp.sec.docs_defender_exclusions",
+      "title": "Defender Exclusions (Docs)",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.security_tradeoffs.json",
+      "id": "exp.sec.docs_vbs",
+      "title": "VBS / Memory Integrity (Docs)",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.security_tradeoffs.json",
+      "id": "exp.sec.placeholder_004",
+      "title": "Security Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.security_tradeoffs.json",
+      "id": "exp.sec.placeholder_005",
+      "title": "Security Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.security_tradeoffs.json",
+      "id": "exp.sec.placeholder_006",
+      "title": "Security Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.security_tradeoffs.json",
+      "id": "exp.sec.placeholder_007",
+      "title": "Security Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.security_tradeoffs.json",
+      "id": "exp.sec.placeholder_008",
+      "title": "Security Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.security_tradeoffs.json",
+      "id": "exp.sec.placeholder_009",
+      "title": "Security Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.security_tradeoffs.json",
+      "id": "exp.sec.placeholder_010",
+      "title": "Security Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.security_tradeoffs.json",
+      "id": "exp.sec.placeholder_011",
+      "title": "Security Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.security_tradeoffs.json",
+      "id": "exp.sec.placeholder_012",
+      "title": "Security Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.security_tradeoffs.json",
+      "id": "exp.sec.placeholder_013",
+      "title": "Security Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.security_tradeoffs.json",
+      "id": "exp.sec.placeholder_014",
+      "title": "Security Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.security_tradeoffs.json",
+      "id": "exp.sec.placeholder_015",
+      "title": "Security Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.measurement_validation.json",
+      "id": "exp.meas.docs.001",
+      "title": "Open Windows Performance Toolkit (WPT)",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.measurement_validation.json",
+      "id": "exp.meas.docs.002",
+      "title": "Open PresentMon",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.measurement_validation.json",
+      "id": "exp.meas.placeholder_005",
+      "title": "Measurement Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.measurement_validation.json",
+      "id": "exp.meas.placeholder_006",
+      "title": "Measurement Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.measurement_validation.json",
+      "id": "exp.meas.placeholder_007",
+      "title": "Measurement Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.measurement_validation.json",
+      "id": "exp.meas.placeholder_008",
+      "title": "Measurement Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.measurement_validation.json",
+      "id": "exp.meas.placeholder_009",
+      "title": "Measurement Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.measurement_validation.json",
+      "id": "exp.meas.placeholder_010",
+      "title": "Measurement Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.measurement_validation.json",
+      "id": "exp.meas.placeholder_011",
+      "title": "Measurement Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.measurement_validation.json",
+      "id": "exp.meas.placeholder_012",
+      "title": "Measurement Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.measurement_validation.json",
+      "id": "exp.meas.placeholder_013",
+      "title": "Measurement Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.measurement_validation.json",
+      "id": "exp.meas.placeholder_014",
+      "title": "Measurement Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.measurement_validation.json",
+      "id": "exp.meas.placeholder_015",
+      "title": "Measurement Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.measurement_validation.json",
+      "id": "exp.meas.placeholder_016",
+      "title": "Measurement Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.measurement_validation.json",
+      "id": "exp.meas.placeholder_017",
+      "title": "Measurement Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.measurement_validation.json",
+      "id": "exp.meas.placeholder_018",
+      "title": "Measurement Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.measurement_validation.json",
+      "id": "exp.meas.placeholder_019",
+      "title": "Measurement Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.measurement_validation.json",
+      "id": "exp.meas.placeholder_020",
+      "title": "Measurement Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.measurement_validation.json",
+      "id": "exp.meas.placeholder_021",
+      "title": "Measurement Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.measurement_validation.json",
+      "id": "exp.meas.placeholder_022",
+      "title": "Measurement Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.measurement_validation.json",
+      "id": "exp.meas.placeholder_023",
+      "title": "Measurement Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.measurement_validation.json",
+      "id": "exp.meas.placeholder_024",
+      "title": "Measurement Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/expansion.measurement_validation.json",
+      "id": "exp.meas.placeholder_025",
+      "title": "Measurement Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/speed.boost.json",
+      "id": "boost.clear_cache",
+      "title": "Clear Cache",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/speed.boost.json",
+      "id": "boost.clear_chrome_temp",
+      "title": "Clear Chrome Temp Files",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/speed.boost.json",
+      "id": "boost.clear_games_temp",
+      "title": "Clear Games Temp Files",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/speed.boost.json",
+      "id": "boost.clear_history_recent",
+      "title": "Clear Recent History",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/speed.boost.json",
+      "id": "boost.clear_installer_caches",
+      "title": "Clear Installer & App Caches",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/speed.boost.json",
+      "id": "boost.clear_prefetch",
+      "title": "Clear Prefetch",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/speed.boost.json",
+      "id": "boost.clear_thumbnail_cache",
+      "title": "Clean Thumbnail Cache",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/speed.boost.json",
+      "id": "boost.clear_font_cache",
+      "title": "Clean Font Cache",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/speed.boost.json",
+      "id": "boost.clear_discord_cache",
+      "title": "Clean Discord Cache",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/speed.boost.json",
+      "id": "boost.clear_steam_cache",
+      "title": "Clean Steam Cache",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/speed.boost.json",
+      "id": "boost.clear_epic_cache",
+      "title": "Clean Epic Games Cache",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/speed.boost.json",
+      "id": "boost.clear_temp_files_bundle",
+      "title": "Temp Files Bundle",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/speed.boost.json",
+      "id": "boost.empty_recycle_bin",
+      "title": "Empty Recycle Bin",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/speed.boost.json",
+      "id": "boost.clear_directx_shader",
+      "title": "Clear DirectX Shader Cache",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/speed.boost.json",
+      "id": "boost.clear_delivery_optimization",
+      "title": "Clear Delivery Optimization Cache",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/speed.boost.json",
+      "id": "boost.clear_crash_dumps",
+      "title": "Clear Crash Dumps",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/speed.boost.json",
+      "id": "boost.clear_wer_reports",
+      "title": "Clear Error Reporting Logs",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/speed.boost.json",
+      "id": "boost.clear_store_cache",
+      "title": "Clear Microsoft Store Cache",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/speed.boost.json",
+      "id": "boost.clear_edge_cache",
+      "title": "Clear Edge Temp Files",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/speed.boost.json",
+      "id": "boost.clear_firefox_cache",
+      "title": "Clear Firefox Temp Files",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/speed.boost.json",
+      "id": "boost.clear_webview2_cache",
+      "title": "Clear WebView2 Cache",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/speed.boost.json",
+      "id": "boost.clear_quick_access",
+      "title": "Clear Quick Access History",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/speed.boost.json",
+      "id": "boost.clear_spotify_cache",
+      "title": "Clean Spotify Cache",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/speed.boost.json",
+      "id": "boost.clear_telegram_cache",
+      "title": "Clean Telegram Cache",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/speed.boost.json",
+      "id": "boost.clear_temp_prefetch_mru",
+      "title": "Temp + Prefetch MRU Bundle",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/speed.boost.json",
+      "id": "boost.clear_battlenet_cache",
+      "title": "Clean Battle.net Cache",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/speed.boost.json",
+      "id": "boost.clear_riot_cache",
+      "title": "Clean Riot Games Cache",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/speed.boost.json",
+      "id": "boost.clear_xbox_cache",
+      "title": "Clean Xbox Game Bar Cache",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/speed.boost.json",
+      "id": "boost.clear_minecraft_cache",
+      "title": "Clean Minecraft Cache & Logs",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/speed.boost.json",
+      "id": "boost.clear_unreal_ddc",
+      "title": "Clean Unreal Derived Data Cache",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/speed.boost.json",
+      "id": "boost.clear_opera_cache",
+      "title": "Clear Opera Browser Cache",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/speed.boost.json",
+      "id": "boost.clear_brave_cache",
+      "title": "Clear Brave Browser Cache",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/speed.boost.json",
+      "id": "boost.clear_windows_logs",
+      "title": "Clear Windows Log Files",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/speed.boost.json",
+      "id": "boost.clear_event_logs",
+      "title": "Clear Windows Event Logs",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/speed.boost.json",
+      "id": "boost.clear_network_logs",
+      "title": "Clear Network Log Files",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/speed.boost.json",
+      "id": "boost.clear_nvidia_installer_leftovers",
+      "title": "Clean NVIDIA Installer Leftovers",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/speed.boost.json",
+      "id": "boost.clear_amd_installer_leftovers",
+      "title": "Clean AMD Installer Leftovers",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/speed.boost.json",
+      "id": "boost.clear_windows_upgrade_logs",
+      "title": "Clear Windows Upgrade Logs",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/speed.boost.json",
+      "id": "boost.clear_office_cache",
+      "title": "Clean Microsoft Office Cache",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/speed.boost.json",
+      "id": "boost.clear_adobe_cache",
+      "title": "Clean Adobe Media Cache",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/speed.boost.json",
+      "id": "boost.clear_roblox_cache",
+      "title": "Clean Roblox Cache & Logs",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/speed.boost.json",
+      "id": "boost.clear_geforce_logs",
+      "title": "Clean GeForce Experience Logs",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/speed.boost.json",
+      "id": "boost.clear_onedrive_logs",
+      "title": "Clear OneDrive Logs",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/speed.boost.json",
+      "id": "boost.clear_msix_temp",
+      "title": "Clear Store App Temp Files",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/speed.boost.json",
+      "id": "boost.clear_browser_crash_reports",
+      "title": "Clear Browser Crash Reports",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/speed.integrity.json",
+      "id": "integrity.sfc_scannow",
+      "title": "Run SFC /scannow",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/speed.integrity.json",
+      "id": "integrity.chkdsk_scan",
+      "title": "Check Disk (Scan Only)",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/speed.integrity.json",
+      "id": "integrity.chkdsk_fix",
+      "title": "Check Disk (Fix Errors)",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/speed.integrity.json",
+      "id": "integrity.reset_network_stack",
+      "title": "Reset Network Stack",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/speed.integrity.json",
+      "id": "integrity.rebuild_icon_cache",
+      "title": "Rebuild Icon Cache",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/speed.integrity.json",
+      "id": "integrity.rebuild_font_cache",
+      "title": "Rebuild Font Cache",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/speed.integrity.json",
+      "id": "integrity.dism_full_health",
+      "title": "Run DISM full health repair",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/game.specific.json",
+      "id": "game.fortnite.open_config",
+      "title": "Fortnite Config Folder (WindowsClient)",
+      "applyStepTypes": [
+        "open.path"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/hardcore.tweaks.json",
+      "id": "hc_hardware.cpu.intel_cpu.disable_coalescable_timer",
+      "title": "Disable Coalescable Timer",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/hardcore.tweaks.json",
+      "id": "hc_hardware.gpu.nvidia_gpu.nvidia.clean.install",
+      "title": "NV Clean Install (helper)",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/hardcore.tweaks.json",
+      "id": "hc_hardware.gpu.nvidia_gpu.nvidia.disable_driver_update",
+      "title": "Disable Geforce Driver Update",
+      "applyStepTypes": [
+        "shell.start",
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/hardcore.tweaks.json",
+      "id": "hc_hardware.gpu.nvidia_gpu.nvidia.optimize_geforce_experience",
+      "title": "Optimize NVIDIA Geforce Experience",
+      "applyStepTypes": [
+        "shell.start",
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/hardcore.tweaks.json",
+      "id": "hc_utilities_util.autoruns.run",
+      "title": "Run Autoruns (bundled)",
+      "applyStepTypes": [
+        "open.path"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/hardcore.tweaks.json",
+      "id": "hc_utilities_util.bcu.run",
+      "title": "Install/Run BCU (bundled)",
+      "applyStepTypes": [
+        "open.path"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/hardcore.tweaks.json",
+      "id": "hc_utilities_util.openshell.run",
+      "title": "Install Open-Shell (bundled)",
+      "applyStepTypes": [
+        "open.path"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/hardcore.tweaks.json",
+      "id": "hc_utilities_util.ddu.run",
+      "title": "Open DDU folder (bundled)",
+      "applyStepTypes": [
+        "open.path"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/hardcore.tweaks.json",
+      "id": "hc_utilities_util.defendercontrol.run",
+      "title": "Run Defender Control (bundled)",
+      "applyStepTypes": [
+        "open.path"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/thermal.cooling.json",
+      "id": "cooling_open_logs",
+      "title": "Open Falcon logs folder",
+      "applyStepTypes": [
+        "open.path"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "gpu.nvidia.driver.installer",
+      "title": "Advanced NVIDIA GPU Driver Installer",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "gpu.nvidia.driver_installer",
+      "title": "Advanced NVIDIA GPU Driver Installer",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "gpu.nvidia.disable_driver_update",
+      "title": "Disable Geforce Driver Update",
+      "applyStepTypes": [
+        "shell.start",
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "gpu.nvidia.disable_nvidia_logging",
+      "title": "Disable NVIDIA Logging",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "gpu.nvidia.optimize_geforce_experience",
+      "title": "Optimize NVIDIA Geforce Experience",
+      "applyStepTypes": [
+        "shell.start",
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "fn_high_performance_gpu",
+      "title": "Open Windows: Graphics Settings (set Fortnite to High performance)",
+      "applyStepTypes": [
+        "process.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "adv.msi.gpu_msi_toggle",
+      "title": "GPU (MSI toggle)",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp_nv_open_nvidia_control_panel",
+      "title": "Open NVIDIA Control Panel",
+      "applyStepTypes": [
+        "process.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp_nv_open_nvidia_profile_inspector_if_present",
+      "title": "Open NVIDIA Profile Inspector (if present)",
+      "applyStepTypes": [
+        "process.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp_nv_open_windows_graphics_settings_gpu_preference",
+      "title": "Open Windows Graphics settings (GPU preference)",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp_nv_open_game_bar_settings",
+      "title": "Open Game Bar settings",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp_nv_open_game_mode_settings",
+      "title": "Open Game Mode settings",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp_nv_open_xbox_settings",
+      "title": "Open Xbox settings",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp_nv_open_windows_update_page",
+      "title": "Open Windows update page",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp_nv_open_power_battery",
+      "title": "Open Power & Battery",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp_nv_open_display_settings",
+      "title": "Open Display settings",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp_nv_open_advanced_display_settings",
+      "title": "Open Advanced display settings",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp_nv_open_ms_settings_display_advancedgraphics",
+      "title": "Open ms-settings:display-advancedgraphics",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp_nv_open_ms_settings_gaming_gamedvr",
+      "title": "Open ms-settings:gaming-gamedvr",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp_nv_open_ms_settings_gaming_broadcasting",
+      "title": "Open ms-settings:gaming-broadcasting",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp_nv_open_ms_settings_privacy_backgroundapps",
+      "title": "Open ms-settings:privacy-backgroundapps",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp_nv_open_ms_settings_privacy_general",
+      "title": "Open ms-settings:privacy-general",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp_nv_open_ms_settings_privacy_motion",
+      "title": "Open ms-settings:privacy-motion",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp_nv_open_ms_settings_privacy_speech",
+      "title": "Open ms-settings:privacy-speech",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp_nv_open_ms_settings_privacy_feedback",
+      "title": "Open ms-settings:privacy-feedback",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp_nv_open_ms_settings_privacy_location",
+      "title": "Open ms-settings:privacy-location",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp_nv_open_ms_settings_network_ethernet",
+      "title": "Open ms-settings:network-ethernet",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp_nv_open_ms_settings_network_wifi",
+      "title": "Open ms-settings:network-wifi",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp_nv_open_ms_settings_network_status",
+      "title": "Open ms-settings:network-status",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp_nv_open_ms_settings_bluetooth",
+      "title": "Open ms-settings:bluetooth",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp_nv_open_ms_settings_appsfeatures",
+      "title": "Open ms-settings:appsfeatures",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp_nv_open_ms_settings_startupapps",
+      "title": "Open ms-settings:startupapps",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp_nv_open_ms_settings_optionalfeatures",
+      "title": "Open ms-settings:optionalfeatures",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp_nv_open_ms_settings_storage",
+      "title": "Open ms-settings:storage",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp_nv_open_ms_settings_about",
+      "title": "Open ms-settings:about",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp_nv_open_ms_settings_notifications",
+      "title": "Open ms-settings:notifications",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp_nv_open_ms_settings_tabletmode",
+      "title": "Open ms-settings:tabletmode",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp_nv_open_ms_settings_taskbar",
+      "title": "Open ms-settings:taskbar",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp_nv_open_ms_settings_personalization_background",
+      "title": "Open ms-settings:personalization-background",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp_nv_open_ms_settings_personalization_colors",
+      "title": "Open ms-settings:personalization-colors",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp_nv_open_ms_settings_personalization_start",
+      "title": "Open ms-settings:personalization-start",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp_nv_open_ms_settings_fonts",
+      "title": "Open ms-settings:fonts",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp_nv_open_ms_settings_easeofaccess_display",
+      "title": "Open ms-settings:easeofaccess-display",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp_nv_open_ms_settings_easeofaccess_keyboard",
+      "title": "Open ms-settings:easeofaccess-keyboard",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp_nv_open_ms_settings_sign_in_options",
+      "title": "Open ms-settings:sign-in-options",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp_nv_open_ms_settings_recovery",
+      "title": "Open ms-settings:recovery",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp_nv_open_ms_settings_windowsdefender",
+      "title": "Open ms-settings:windowsdefender",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp_nv_open_ms_settings_family_group",
+      "title": "Open ms-settings:family-group",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp_nv_open_ms_settings_gaming_trueplay",
+      "title": "Open ms-settings:gaming-trueplay",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp_nv_open_ms_settings_gaming_xboxnetworking",
+      "title": "Open ms-settings:gaming-xboxnetworking",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp_nv_run_nvidia_smi_if_available",
+      "title": "Run nvidia-smi (if available)",
+      "applyStepTypes": [
+        "process.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp.mmcss.more.002",
+      "title": "Open NVIDIA Reflex Guide",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "guide_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp.gpu.open_nip_profiles",
+      "title": "Open NVIDIA profile folder",
+      "applyStepTypes": [
+        "open.path"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp.gpu.docs.001",
+      "title": "Open NVIDIA Reflex (low latency)",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp.gpu.docs.002",
+      "title": "Open NVIDIA Control Panel help",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp.gpu.docs.003",
+      "title": "Open G-SYNC setup guide",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp.gpu.docs.004",
+      "title": "Open NVIDIA App / GeForce Experience overlays info",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp.gpu.placeholder_007",
+      "title": "GPU Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp.gpu.placeholder_008",
+      "title": "GPU Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp.gpu.placeholder_009",
+      "title": "GPU Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp.gpu.placeholder_010",
+      "title": "GPU Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp.gpu.placeholder_011",
+      "title": "GPU Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp.gpu.placeholder_012",
+      "title": "GPU Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp.gpu.placeholder_013",
+      "title": "GPU Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp.gpu.placeholder_014",
+      "title": "GPU Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp.gpu.placeholder_015",
+      "title": "GPU Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp.gpu.placeholder_016",
+      "title": "GPU Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp.gpu.placeholder_017",
+      "title": "GPU Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp.gpu.placeholder_018",
+      "title": "GPU Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp.gpu.placeholder_019",
+      "title": "GPU Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp.gpu.placeholder_020",
+      "title": "GPU Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp.gpu.placeholder_021",
+      "title": "GPU Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp.gpu.placeholder_022",
+      "title": "GPU Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp.gpu.placeholder_023",
+      "title": "GPU Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp.gpu.placeholder_024",
+      "title": "GPU Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp.gpu.placeholder_025",
+      "title": "GPU Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp.gpu.placeholder_026",
+      "title": "GPU Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp.gpu.placeholder_027",
+      "title": "GPU Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp.gpu.placeholder_028",
+      "title": "GPU Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp.gpu.placeholder_029",
+      "title": "GPU Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "exp.gpu.placeholder_030",
+      "title": "GPU Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "hc_hardware.gpu.nvidia_gpu.nvidia.clean.install",
+      "title": "NV Clean Install (helper)",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "hc_hardware.gpu.nvidia_gpu.nvidia.disable_driver_update",
+      "title": "Disable Geforce Driver Update",
+      "applyStepTypes": [
+        "shell.start",
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.gpu.json",
+      "id": "hc_hardware.gpu.nvidia_gpu.nvidia.optimize_geforce_experience",
+      "title": "Optimize NVIDIA Geforce Experience",
+      "applyStepTypes": [
+        "shell.start",
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.cpu.json",
+      "id": "cpu.disable_coalescable_timer",
+      "title": "Disable Coalescable Timer",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.cpu.json",
+      "id": "cpu_disable_c_states_guidance",
+      "title": "Disable Deep C-States (Guided)",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.memory.json",
+      "id": "mem_open_pagefile",
+      "title": "Open Virtual Memory (Page File) Settings",
+      "applyStepTypes": [
+        "process.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.memory.json",
+      "id": "mem_numa_guidance",
+      "title": "NUMA Locality (Guided)",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "guide_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.storage.json",
+      "id": "stor_optimize_drives_gui",
+      "title": "Open Optimize Drives",
+      "applyStepTypes": [
+        "process.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.storage.json",
+      "id": "stor_open_temp",
+      "title": "Open Temp Folder",
+      "applyStepTypes": [
+        "open.path"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.hardware.peripherals.json",
+      "id": "open_device_manager",
+      "title": "Open Device Manager",
+      "applyStepTypes": [
+        "process.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.network.json",
+      "id": "adv.devices.disable_communication_ports_com1-com2",
+      "title": "Disable Communication Ports (COM1\u2013COM2)",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.network.json",
+      "id": "adv.msi.network_adapter_msi_toggle",
+      "title": "Network Adapter (MSI toggle)",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.network.json",
+      "id": "exp.net.docs.001",
+      "title": "Open Windows TCP/IP tuning reference",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.network.json",
+      "id": "exp.net.docs.002",
+      "title": "Open Wi-Fi troubleshooting guide",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "guide_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.network.json",
+      "id": "exp.net.placeholder_005",
+      "title": "Network Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.network.json",
+      "id": "exp.net.placeholder_006",
+      "title": "Network Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.network.json",
+      "id": "exp.net.placeholder_007",
+      "title": "Network Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.network.json",
+      "id": "exp.net.placeholder_008",
+      "title": "Network Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.network.json",
+      "id": "exp.net.placeholder_009",
+      "title": "Network Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.network.json",
+      "id": "exp.net.placeholder_010",
+      "title": "Network Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.network.json",
+      "id": "exp.net.placeholder_011",
+      "title": "Network Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.network.json",
+      "id": "exp.net.placeholder_012",
+      "title": "Network Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.network.json",
+      "id": "exp.net.placeholder_013",
+      "title": "Network Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.network.json",
+      "id": "exp.net.placeholder_014",
+      "title": "Network Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.network.json",
+      "id": "exp.net.placeholder_015",
+      "title": "Network Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.network.json",
+      "id": "exp.net.placeholder_016",
+      "title": "Network Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.network.json",
+      "id": "exp.net.placeholder_017",
+      "title": "Network Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.network.json",
+      "id": "exp.net.placeholder_018",
+      "title": "Network Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.network.json",
+      "id": "exp.net.placeholder_019",
+      "title": "Network Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.network.json",
+      "id": "exp.net.placeholder_020",
+      "title": "Network Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.network.json",
+      "id": "exp.net.placeholder_021",
+      "title": "Network Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.network.json",
+      "id": "exp.net.placeholder_022",
+      "title": "Network Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.network.json",
+      "id": "exp.net.placeholder_023",
+      "title": "Network Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.network.json",
+      "id": "exp.net.placeholder_024",
+      "title": "Network Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.network.json",
+      "id": "exp.net.placeholder_025",
+      "title": "Network Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.speed.cleanup.json",
+      "id": "debloat.autoruns.opera_gx_assistant",
+      "title": "Opera GX Browser Assistant",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.speed.cleanup.json",
+      "id": "clean.device_cleanup",
+      "title": "Device Cleanup",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.speed.cleanup.json",
+      "id": "clean.general_cleanup",
+      "title": "General Cleanup",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.speed.cleanup.json",
+      "id": "clean.logs_&_crash_reports",
+      "title": "Logs & Crash Reports",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.speed.cleanup.json",
+      "id": "boost.clear_cache",
+      "title": "Clear Cache",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.speed.cleanup.json",
+      "id": "boost.clear_chrome_temp",
+      "title": "Clear Chrome Temp Files",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.speed.cleanup.json",
+      "id": "boost.clear_games_temp",
+      "title": "Clear Games Temp Files",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.speed.cleanup.json",
+      "id": "boost.clear_history_recent",
+      "title": "Clear Recent History",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.speed.cleanup.json",
+      "id": "boost.clear_installer_caches",
+      "title": "Clear Installer & App Caches",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.speed.cleanup.json",
+      "id": "boost.clear_prefetch",
+      "title": "Clear Prefetch",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.speed.cleanup.json",
+      "id": "boost.clear_thumbnail_cache",
+      "title": "Clean Thumbnail Cache",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.speed.cleanup.json",
+      "id": "boost.clear_font_cache",
+      "title": "Clean Font Cache",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.speed.cleanup.json",
+      "id": "boost.clear_discord_cache",
+      "title": "Clean Discord Cache",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.speed.cleanup.json",
+      "id": "boost.clear_steam_cache",
+      "title": "Clean Steam Cache",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.speed.cleanup.json",
+      "id": "boost.clear_epic_cache",
+      "title": "Clean Epic Games Cache",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.speed.cleanup.json",
+      "id": "boost.clear_temp_files_bundle",
+      "title": "Temp Files Bundle",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.speed.cleanup.json",
+      "id": "boost.empty_recycle_bin",
+      "title": "Empty Recycle Bin",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.speed.cleanup.json",
+      "id": "boost.clear_directx_shader",
+      "title": "Clear DirectX Shader Cache",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.speed.cleanup.json",
+      "id": "boost.clear_delivery_optimization",
+      "title": "Clear Delivery Optimization Cache",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.speed.cleanup.json",
+      "id": "boost.clear_crash_dumps",
+      "title": "Clear Crash Dumps",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.speed.cleanup.json",
+      "id": "boost.clear_wer_reports",
+      "title": "Clear Error Reporting Logs",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.speed.cleanup.json",
+      "id": "boost.clear_store_cache",
+      "title": "Clear Microsoft Store Cache",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.speed.cleanup.json",
+      "id": "boost.clear_edge_cache",
+      "title": "Clear Edge Temp Files",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.speed.cleanup.json",
+      "id": "boost.clear_firefox_cache",
+      "title": "Clear Firefox Temp Files",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.speed.cleanup.json",
+      "id": "boost.clear_webview2_cache",
+      "title": "Clear WebView2 Cache",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.speed.cleanup.json",
+      "id": "boost.clear_quick_access",
+      "title": "Clear Quick Access History",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.speed.cleanup.json",
+      "id": "boost.clear_spotify_cache",
+      "title": "Clean Spotify Cache",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.speed.cleanup.json",
+      "id": "boost.clear_telegram_cache",
+      "title": "Clean Telegram Cache",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.speed.cleanup.json",
+      "id": "boost.clear_temp_prefetch_mru",
+      "title": "Temp + Prefetch MRU Bundle",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.speed.cleanup.json",
+      "id": "boost.clear_battlenet_cache",
+      "title": "Clean Battle.net Cache",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.speed.cleanup.json",
+      "id": "boost.clear_riot_cache",
+      "title": "Clean Riot Games Cache",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.speed.cleanup.json",
+      "id": "boost.clear_xbox_cache",
+      "title": "Clean Xbox Game Bar Cache",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.speed.cleanup.json",
+      "id": "boost.clear_minecraft_cache",
+      "title": "Clean Minecraft Cache & Logs",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.speed.cleanup.json",
+      "id": "boost.clear_unreal_ddc",
+      "title": "Clean Unreal Derived Data Cache",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.speed.cleanup.json",
+      "id": "boost.clear_opera_cache",
+      "title": "Clear Opera Browser Cache",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.speed.cleanup.json",
+      "id": "boost.clear_brave_cache",
+      "title": "Clear Brave Browser Cache",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.speed.cleanup.json",
+      "id": "boost.clear_windows_logs",
+      "title": "Clear Windows Log Files",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.speed.cleanup.json",
+      "id": "boost.clear_event_logs",
+      "title": "Clear Windows Event Logs",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.speed.cleanup.json",
+      "id": "boost.clear_network_logs",
+      "title": "Clear Network Log Files",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.speed.cleanup.json",
+      "id": "boost.clear_nvidia_installer_leftovers",
+      "title": "Clean NVIDIA Installer Leftovers",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.speed.cleanup.json",
+      "id": "boost.clear_amd_installer_leftovers",
+      "title": "Clean AMD Installer Leftovers",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.speed.cleanup.json",
+      "id": "boost.clear_windows_upgrade_logs",
+      "title": "Clear Windows Upgrade Logs",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.speed.cleanup.json",
+      "id": "boost.clear_office_cache",
+      "title": "Clean Microsoft Office Cache",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.speed.cleanup.json",
+      "id": "boost.clear_adobe_cache",
+      "title": "Clean Adobe Media Cache",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.speed.cleanup.json",
+      "id": "boost.clear_roblox_cache",
+      "title": "Clean Roblox Cache & Logs",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.speed.cleanup.json",
+      "id": "boost.clear_geforce_logs",
+      "title": "Clean GeForce Experience Logs",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.speed.cleanup.json",
+      "id": "boost.clear_onedrive_logs",
+      "title": "Clear OneDrive Logs",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.speed.cleanup.json",
+      "id": "boost.clear_msix_temp",
+      "title": "Clear Store App Temp Files",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.speed.cleanup.json",
+      "id": "boost.clear_browser_crash_reports",
+      "title": "Clear Browser Crash Reports",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.speed.integrity.json",
+      "id": "integrity.sfc_scannow",
+      "title": "Run SFC /scannow",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.speed.integrity.json",
+      "id": "integrity.chkdsk_scan",
+      "title": "Check Disk (Scan Only)",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.speed.integrity.json",
+      "id": "integrity.chkdsk_fix",
+      "title": "Check Disk (Fix Errors)",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.speed.integrity.json",
+      "id": "integrity.reset_network_stack",
+      "title": "Reset Network Stack",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.speed.integrity.json",
+      "id": "integrity.rebuild_icon_cache",
+      "title": "Rebuild Icon Cache",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.speed.integrity.json",
+      "id": "integrity.rebuild_font_cache",
+      "title": "Rebuild Font Cache",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.speed.integrity.json",
+      "id": "integrity.dism_full_health",
+      "title": "Run DISM full health repair",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "debloat.services.custom",
+      "title": "Custom Service Configuration",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "fn_open_config",
+      "title": "Open Fortnite Config Folder",
+      "applyStepTypes": [
+        "open.path"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "fn_open_epic_launch_options_help",
+      "title": "Open Epic: How to set Launch Options",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "util.autoruns.page",
+      "title": "Autoruns (Sysinternals) \u2014 download page",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "util.autoruns.run",
+      "title": "Run Autoruns (bundled)",
+      "applyStepTypes": [
+        "open.path"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "util.bcu.page",
+      "title": "Bulk Crap Uninstaller \u2014 download page",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "util.bcu.run",
+      "title": "Install/Run BCU (bundled)",
+      "applyStepTypes": [
+        "open.path"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "util.openshell.page",
+      "title": "Open-Shell \u2014 releases",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "util.openshell.run",
+      "title": "Install Open-Shell (bundled)",
+      "applyStepTypes": [
+        "open.path"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "util.ddu.page",
+      "title": "DDU \u2014 download page",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "util.ddu.run",
+      "title": "Open DDU folder (bundled)",
+      "applyStepTypes": [
+        "open.path"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "util.defendercontrol.run",
+      "title": "Run Defender Control (bundled)",
+      "applyStepTypes": [
+        "open.path"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "adv.devices.disable_eisa_programmable_interrupt_controller",
+      "title": "Disable EISA Programmable Interrupt Controller",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "adv.devices.disable_high_precision_event_timer_hpet",
+      "title": "Disable High Precision Event Timer (HPET)",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "adv.devices.disable_microsoft_gs_wavetable_synth",
+      "title": "Disable Microsoft GS Wavetable Synth",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "adv.devices.disable_microsoft_hyper-v_infrastructure_driver",
+      "title": "Disable Microsoft Hyper-V Infrastructure Driver",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "adv.devices.disable_remote_desktop_device_redirector_bus",
+      "title": "Disable Remote Desktop Device Redirector Bus",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "adv.msi.high_definition_audio_controllers_msi_toggle",
+      "title": "High Definition Audio Controllers (MSI toggle)",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "adv.msi.nvme_msi_toggle",
+      "title": "NVMe (MSI toggle)",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "adv.msi.sata_msi_toggle",
+      "title": "SATA (MSI toggle)",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "adv.security.allow_dynamic_code",
+      "title": "Allow Dynamic Code",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "adv.security.disable_bottomup_high_entropy_aslr",
+      "title": "Disable Bottomup / High-Entropy ASLR",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "adv.security.disable_code_signing_requirements",
+      "title": "Disable Code-Signing Requirements",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "adv.security.disable_control_flow_guard_cfg",
+      "title": "Disable Control Flow Guard (CFG)",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "adv.security.disable_core_isolation_memory_integrity",
+      "title": "Disable Core Isolation (Memory Integrity)",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "debloat.uninstall.open_apps",
+      "title": "Open Installed Apps",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.boot.timerhelper_persistent_0p5ms",
+      "title": "Timer Helper Persistent (0.5ms request)",
+      "applyStepTypes": [
+        "process.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.boot.docs_bcdedit",
+      "title": "Open BCDEdit Documentation",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.boot.docs_timer_resolution",
+      "title": "Open Timer Resolution Background",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.boot.docs_safe_mode",
+      "title": "Open Safe Mode Recovery Guide",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "guide_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.boot.docs_hpet_bios",
+      "title": "HPET / BIOS Checklist (Reference)",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.boot.docs_etw",
+      "title": "ETW / Windows Performance Recorder Guide",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "guide_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.boot.open_reports_folder",
+      "title": "Open Reports Folder",
+      "applyStepTypes": [
+        "open.path"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.boot.open_backups_folder",
+      "title": "Open Backups Folder",
+      "applyStepTypes": [
+        "open.path"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.mmcss.docs.001",
+      "title": "Open MMCSS Overview (Microsoft)",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.mmcss.docs.002",
+      "title": "Open Game Mode Documentation",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.mmcss.docs.003",
+      "title": "Open Process Priority Guidance",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.mmcss.docs.004",
+      "title": "Open Fullscreen Optimizations Guidance",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.mmcss.more.001",
+      "title": "Open Xbox Game Bar Settings",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.mmcss.ref.001",
+      "title": "Open Windows Performance Analyzer (WPA)",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.mmcss.ref.002",
+      "title": "Open Windows Performance Recorder (WPR)",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.mmcss.ref.003",
+      "title": "Open LatencyMon (third-party)",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.mmcss.ref.004",
+      "title": "Open PresentMon",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.mmcss.ref.005",
+      "title": "Open Windows Scheduler Concepts",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.mmcss.placeholder_15",
+      "title": "MMCSS Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.mmcss.placeholder_16",
+      "title": "MMCSS Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.mmcss.placeholder_17",
+      "title": "MMCSS Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.mmcss.placeholder_18",
+      "title": "MMCSS Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.mmcss.placeholder_19",
+      "title": "MMCSS Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.mmcss.placeholder_20",
+      "title": "MMCSS Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.power.docs.001",
+      "title": "Open powercfg documentation",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.power.docs.002",
+      "title": "Open Power Plans guidance",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.power.docs.003",
+      "title": "Open Energy Report guide",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "guide_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.power.placeholder_008",
+      "title": "Power Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.power.placeholder_009",
+      "title": "Power Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.power.placeholder_010",
+      "title": "Power Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.power.placeholder_011",
+      "title": "Power Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.power.placeholder_012",
+      "title": "Power Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.power.placeholder_013",
+      "title": "Power Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.power.placeholder_014",
+      "title": "Power Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.power.placeholder_015",
+      "title": "Power Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.power.placeholder_016",
+      "title": "Power Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.power.placeholder_017",
+      "title": "Power Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.power.placeholder_018",
+      "title": "Power Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.power.placeholder_019",
+      "title": "Power Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.power.placeholder_020",
+      "title": "Power Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.power.placeholder_021",
+      "title": "Power Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.power.placeholder_022",
+      "title": "Power Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.power.placeholder_023",
+      "title": "Power Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.power.placeholder_024",
+      "title": "Power Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.power.placeholder_025",
+      "title": "Power Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.storage.docs.001",
+      "title": "Open Microsoft storage performance guidance",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.storage.docs.002",
+      "title": "Open Defender exclusions documentation",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.storage.placeholder_005",
+      "title": "Storage Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.storage.placeholder_006",
+      "title": "Storage Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.storage.placeholder_007",
+      "title": "Storage Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.storage.placeholder_008",
+      "title": "Storage Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.storage.placeholder_009",
+      "title": "Storage Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.storage.placeholder_010",
+      "title": "Storage Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.storage.placeholder_011",
+      "title": "Storage Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.storage.placeholder_012",
+      "title": "Storage Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.storage.placeholder_013",
+      "title": "Storage Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.storage.placeholder_014",
+      "title": "Storage Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.storage.placeholder_015",
+      "title": "Storage Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.storage.placeholder_016",
+      "title": "Storage Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.storage.placeholder_017",
+      "title": "Storage Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.storage.placeholder_018",
+      "title": "Storage Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.storage.placeholder_019",
+      "title": "Storage Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.storage.placeholder_020",
+      "title": "Storage Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.usb.placeholder_003",
+      "title": "USB/Input Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.usb.placeholder_004",
+      "title": "USB/Input Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.usb.placeholder_005",
+      "title": "USB/Input Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.usb.placeholder_006",
+      "title": "USB/Input Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.usb.placeholder_007",
+      "title": "USB/Input Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.usb.placeholder_008",
+      "title": "USB/Input Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.usb.placeholder_009",
+      "title": "USB/Input Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.usb.placeholder_010",
+      "title": "USB/Input Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.usb.placeholder_011",
+      "title": "USB/Input Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.usb.placeholder_012",
+      "title": "USB/Input Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.usb.placeholder_013",
+      "title": "USB/Input Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.usb.placeholder_014",
+      "title": "USB/Input Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.usb.placeholder_015",
+      "title": "USB/Input Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.usb.placeholder_016",
+      "title": "USB/Input Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.usb.placeholder_017",
+      "title": "USB/Input Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.usb.placeholder_018",
+      "title": "USB/Input Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.usb.placeholder_019",
+      "title": "USB/Input Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.usb.placeholder_020",
+      "title": "USB/Input Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.audio.docs_audio_troubleshoot",
+      "title": "Open Audio Troubleshooting Guide",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "guide_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.audio.placeholder_003",
+      "title": "Audio Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.audio.placeholder_004",
+      "title": "Audio Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.audio.placeholder_005",
+      "title": "Audio Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.audio.placeholder_006",
+      "title": "Audio Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.audio.placeholder_007",
+      "title": "Audio Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.audio.placeholder_008",
+      "title": "Audio Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.audio.placeholder_009",
+      "title": "Audio Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.audio.placeholder_010",
+      "title": "Audio Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.audio.placeholder_011",
+      "title": "Audio Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.audio.placeholder_012",
+      "title": "Audio Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.audio.placeholder_013",
+      "title": "Audio Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.audio.placeholder_014",
+      "title": "Audio Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.audio.placeholder_015",
+      "title": "Audio Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.ui.placeholder_004",
+      "title": "UI/Background Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.ui.placeholder_005",
+      "title": "UI/Background Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.ui.placeholder_006",
+      "title": "UI/Background Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.ui.placeholder_007",
+      "title": "UI/Background Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.ui.placeholder_008",
+      "title": "UI/Background Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.ui.placeholder_009",
+      "title": "UI/Background Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.ui.placeholder_010",
+      "title": "UI/Background Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.ui.placeholder_011",
+      "title": "UI/Background Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.ui.placeholder_012",
+      "title": "UI/Background Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.ui.placeholder_013",
+      "title": "UI/Background Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.ui.placeholder_014",
+      "title": "UI/Background Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.ui.placeholder_015",
+      "title": "UI/Background Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.ui.placeholder_016",
+      "title": "UI/Background Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.ui.placeholder_017",
+      "title": "UI/Background Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.ui.placeholder_018",
+      "title": "UI/Background Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.ui.placeholder_019",
+      "title": "UI/Background Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.ui.placeholder_020",
+      "title": "UI/Background Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.sec.docs_defender_exclusions",
+      "title": "Defender Exclusions (Docs)",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.sec.docs_vbs",
+      "title": "VBS / Memory Integrity (Docs)",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.sec.placeholder_004",
+      "title": "Security Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.sec.placeholder_005",
+      "title": "Security Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.sec.placeholder_006",
+      "title": "Security Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.sec.placeholder_007",
+      "title": "Security Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.sec.placeholder_008",
+      "title": "Security Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.sec.placeholder_009",
+      "title": "Security Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.sec.placeholder_010",
+      "title": "Security Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.sec.placeholder_011",
+      "title": "Security Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.sec.placeholder_012",
+      "title": "Security Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.sec.placeholder_013",
+      "title": "Security Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.sec.placeholder_014",
+      "title": "Security Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.sec.placeholder_015",
+      "title": "Security Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.meas.docs.001",
+      "title": "Open Windows Performance Toolkit (WPT)",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.meas.docs.002",
+      "title": "Open PresentMon",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.meas.placeholder_005",
+      "title": "Measurement Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.meas.placeholder_006",
+      "title": "Measurement Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.meas.placeholder_007",
+      "title": "Measurement Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.meas.placeholder_008",
+      "title": "Measurement Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.meas.placeholder_009",
+      "title": "Measurement Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.meas.placeholder_010",
+      "title": "Measurement Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.meas.placeholder_011",
+      "title": "Measurement Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.meas.placeholder_012",
+      "title": "Measurement Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.meas.placeholder_013",
+      "title": "Measurement Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.meas.placeholder_014",
+      "title": "Measurement Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.meas.placeholder_015",
+      "title": "Measurement Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.meas.placeholder_016",
+      "title": "Measurement Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.meas.placeholder_017",
+      "title": "Measurement Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.meas.placeholder_018",
+      "title": "Measurement Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.meas.placeholder_019",
+      "title": "Measurement Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.meas.placeholder_020",
+      "title": "Measurement Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.meas.placeholder_021",
+      "title": "Measurement Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.meas.placeholder_022",
+      "title": "Measurement Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.meas.placeholder_023",
+      "title": "Measurement Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.meas.placeholder_024",
+      "title": "Measurement Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "exp.meas.placeholder_025",
+      "title": "Measurement Checklist Item",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "game.fortnite.open_config",
+      "title": "Fortnite Config Folder (WindowsClient)",
+      "applyStepTypes": [
+        "open.path"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "hc_hardware.cpu.intel_cpu.disable_coalescable_timer",
+      "title": "Disable Coalescable Timer",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "hc_utilities_util.autoruns.run",
+      "title": "Run Autoruns (bundled)",
+      "applyStepTypes": [
+        "open.path"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "hc_utilities_util.bcu.run",
+      "title": "Install/Run BCU (bundled)",
+      "applyStepTypes": [
+        "open.path"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "hc_utilities_util.openshell.run",
+      "title": "Install Open-Shell (bundled)",
+      "applyStepTypes": [
+        "open.path"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "hc_utilities_util.ddu.run",
+      "title": "Open DDU folder (bundled)",
+      "applyStepTypes": [
+        "open.path"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "hc_utilities_util.defendercontrol.run",
+      "title": "Run Defender Control (bundled)",
+      "applyStepTypes": [
+        "open.path"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/performance.lib.misc.json",
+      "id": "cooling_open_logs",
+      "title": "Open Falcon logs folder",
+      "applyStepTypes": [
+        "open.path"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/windows.graphics.json",
+      "id": "gfx_open_advanced_display",
+      "title": "Open Advanced Display (refresh rate)",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/windows.graphics.json",
+      "id": "gfx_open_default_graphics_settings",
+      "title": "Open Default Graphics Settings (HAGS / windowed optimizations)",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/windows.apps.json",
+      "id": "apps_open_advanced_app_settings",
+      "title": "Open Advanced App Settings (Archive apps toggle)",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/network.legacy.json",
+      "id": "net_open_ncpa_cpl_checklist",
+      "title": "Open Network Connections (adapter checklist)",
+      "applyStepTypes": [
+        "process.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/controller.lab.json",
+      "id": "controller.usb.power_mgmt_checklist",
+      "title": "USB Power Management Checklist",
+      "applyStepTypes": [
+        "shell.start"
+      ],
+      "kind": "open_only"
+    },
+    {
+      "file": "tweaks/controller.lab.json",
+      "id": "controller.steam_input",
+      "title": "Steam Input (recommended settings)",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "action_named_but_open_only"
+    },
+    {
+      "file": "tweaks/controller.lab.json",
+      "id": "controller.ds4windows",
+      "title": "DS4Windows (DualShock/DualSense wrapper)",
+      "applyStepTypes": [
+        "open.url"
+      ],
+      "kind": "open_only"
+    }
+  ]
+}

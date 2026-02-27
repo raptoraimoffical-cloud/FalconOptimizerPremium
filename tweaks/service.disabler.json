@@ -1,0 +1,40 @@
+{
+  "items": [
+    {
+      "id": "service_disabler.apply_pack__service.disabler",
+      "type": "action",
+      "name": "Apply Service Disabler Pack",
+      "riskLevel": "Danger",
+      "risk": "Danger",
+      "description": "Disables a large set of Windows services. Creates a backup of current startup types so you can restore later.",
+      "requiresAdmin": true,
+      "category": "Service Impact Lab",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \"%~dp0\\scripts\\service-disabler\\apply.ps1\" -ServiceFile \"%~dp0\\scripts\\service-disabler\\services.json\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "service_disabler.restore_pack__service.disabler",
+      "type": "action",
+      "name": "Restore Service Disabler Backup",
+      "riskLevel": "Warning",
+      "risk": "Warning",
+      "description": "Restores service startup types from the Service Disabler backup file.",
+      "requiresAdmin": true,
+      "category": "Service Impact Lab",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \"%~dp0\\scripts\\service-disabler\\restore.ps1\""
+          }
+        ]
+      }
+    }
+  ]
+}

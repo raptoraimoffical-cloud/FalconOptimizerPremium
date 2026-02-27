@@ -1,0 +1,502 @@
+{
+  "items": [
+    {
+      "id": "exp.ui.disable_transparency",
+      "type": "toggle",
+      "name": "Disable Transparency Effects",
+      "category": "Expansion / UI & Background",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables transparency effects for current user.",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize",
+            "name": "EnableTransparency",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize",
+            "name": "EnableTransparency",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize",
+            "name": "EnableTransparency",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp.ui.open_performance_options",
+      "type": "action",
+      "name": "Open Performance Options (Visual Effects)",
+      "category": "Expansion / UI & Background",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Opens SystemPropertiesPerformance.exe for visual effects tuning.",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "run.exe",
+            "file": "SystemPropertiesPerformance.exe",
+            "args": [],
+            "wait": false
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe"
+    },
+    {
+      "id": "exp.ui.open_startup_apps",
+      "type": "action",
+      "name": "Open Startup Apps",
+      "category": "Expansion / UI & Background",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Opens Startup Apps settings page.",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "start ms-settings:startupapps"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe"
+    },
+    {
+      "id": "exp.ui.placeholder_004",
+      "type": "button",
+      "name": "UI/Background Checklist Item",
+      "category": "Expansion / UI & Background",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://support.microsoft.com/windows/customize-windows-8b8f50d7-71a7-2c3b-5c98-0da2c85b0e4f"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.ui.placeholder_005",
+      "type": "button",
+      "name": "UI/Background Checklist Item",
+      "category": "Expansion / UI & Background",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://support.microsoft.com/windows/customize-windows-8b8f50d7-71a7-2c3b-5c98-0da2c85b0e4f"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.ui.placeholder_006",
+      "type": "button",
+      "name": "UI/Background Checklist Item",
+      "category": "Expansion / UI & Background",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://support.microsoft.com/windows/customize-windows-8b8f50d7-71a7-2c3b-5c98-0da2c85b0e4f"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.ui.placeholder_007",
+      "type": "button",
+      "name": "UI/Background Checklist Item",
+      "category": "Expansion / UI & Background",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://support.microsoft.com/windows/customize-windows-8b8f50d7-71a7-2c3b-5c98-0da2c85b0e4f"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.ui.placeholder_008",
+      "type": "button",
+      "name": "UI/Background Checklist Item",
+      "category": "Expansion / UI & Background",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://support.microsoft.com/windows/customize-windows-8b8f50d7-71a7-2c3b-5c98-0da2c85b0e4f"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.ui.placeholder_009",
+      "type": "button",
+      "name": "UI/Background Checklist Item",
+      "category": "Expansion / UI & Background",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://support.microsoft.com/windows/customize-windows-8b8f50d7-71a7-2c3b-5c98-0da2c85b0e4f"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.ui.placeholder_010",
+      "type": "button",
+      "name": "UI/Background Checklist Item",
+      "category": "Expansion / UI & Background",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://support.microsoft.com/windows/customize-windows-8b8f50d7-71a7-2c3b-5c98-0da2c85b0e4f"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.ui.placeholder_011",
+      "type": "button",
+      "name": "UI/Background Checklist Item",
+      "category": "Expansion / UI & Background",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://support.microsoft.com/windows/customize-windows-8b8f50d7-71a7-2c3b-5c98-0da2c85b0e4f"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.ui.placeholder_012",
+      "type": "button",
+      "name": "UI/Background Checklist Item",
+      "category": "Expansion / UI & Background",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://support.microsoft.com/windows/customize-windows-8b8f50d7-71a7-2c3b-5c98-0da2c85b0e4f"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.ui.placeholder_013",
+      "type": "button",
+      "name": "UI/Background Checklist Item",
+      "category": "Expansion / UI & Background",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://support.microsoft.com/windows/customize-windows-8b8f50d7-71a7-2c3b-5c98-0da2c85b0e4f"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.ui.placeholder_014",
+      "type": "button",
+      "name": "UI/Background Checklist Item",
+      "category": "Expansion / UI & Background",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://support.microsoft.com/windows/customize-windows-8b8f50d7-71a7-2c3b-5c98-0da2c85b0e4f"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.ui.placeholder_015",
+      "type": "button",
+      "name": "UI/Background Checklist Item",
+      "category": "Expansion / UI & Background",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://support.microsoft.com/windows/customize-windows-8b8f50d7-71a7-2c3b-5c98-0da2c85b0e4f"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.ui.placeholder_016",
+      "type": "button",
+      "name": "UI/Background Checklist Item",
+      "category": "Expansion / UI & Background",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://support.microsoft.com/windows/customize-windows-8b8f50d7-71a7-2c3b-5c98-0da2c85b0e4f"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.ui.placeholder_017",
+      "type": "button",
+      "name": "UI/Background Checklist Item",
+      "category": "Expansion / UI & Background",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://support.microsoft.com/windows/customize-windows-8b8f50d7-71a7-2c3b-5c98-0da2c85b0e4f"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.ui.placeholder_018",
+      "type": "button",
+      "name": "UI/Background Checklist Item",
+      "category": "Expansion / UI & Background",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://support.microsoft.com/windows/customize-windows-8b8f50d7-71a7-2c3b-5c98-0da2c85b0e4f"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.ui.placeholder_019",
+      "type": "button",
+      "name": "UI/Background Checklist Item",
+      "category": "Expansion / UI & Background",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://support.microsoft.com/windows/customize-windows-8b8f50d7-71a7-2c3b-5c98-0da2c85b0e4f"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.ui.placeholder_020",
+      "type": "button",
+      "name": "UI/Background Checklist Item",
+      "category": "Expansion / UI & Background",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://support.microsoft.com/windows/customize-windows-8b8f50d7-71a7-2c3b-5c98-0da2c85b0e4f"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    }
+  ]
+}

@@ -1,0 +1,1966 @@
+{
+  "items": [
+    {
+      "id": "memory_stability_scan",
+      "type": "action",
+      "name": "Scan RAM Stability / Config",
+      "description": "[Analyzer] Shows RAM sticks, sizes, speeds, configured clocks, mismatch warnings, and basic OS memory usage.",
+      "requiresAdmin": false,
+      "riskLevel": "Safe",
+      "category": "Memory Lab / Analyzer",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"=== FALCON MEMORY LAB: RAM STABILITY & CONFIG SCAN ===\"\nWrite-Output \"\"\n\n# Basic physical memory layout\ntry {\n  $sticks = Get-CimInstance Win32_PhysicalMemory -ErrorAction SilentlyContinue\n  if ($sticks) {\n    Write-Output (\"Detected RAM modules: {0}\" -f $sticks.Count)\n    $i = 0\n    foreach ($m in $sticks) {\n      $i++\n      $sizeGB = [math]::Round(($m.Capacity / 1GB), 2)\n      $speed  = $m.Speed\n      $cfg    = $m.ConfiguredClockSpeed\n      $manu   = $m.Manufacturer\n      $part   = $m.PartNumber\n      $bank   = $m.BankLabel\n      Write-Output (\"  Stick #{0}: {1} GB @ {2} MHz (Configured: {3} MHz) | {4} {5} | Bank: {6}\" -f $i, $sizeGB, $speed, $cfg, $manu, $part, $bank)\n    }\n\n    # Heuristic mismatch checks\n    $sizes = $sticks | ForEach-Object { [math]::Round(($_.Capacity / 1GB), 2) }\n    $speeds = $sticks | ForEach-Object { $_.Speed }\n    if (($sizes | Select-Object -Unique).Count -gt 1) {\n      Write-Output \"\"\n      Write-Output \"Warning: Detected mixed RAM sizes. Dual-channel symmetry and stability may be reduced.\"\n    }\n    if (($speeds | Select-Object -Unique).Count -gt 1) {\n      Write-Output \"\"\n      Write-Output \"Warning: Detected mixed RAM speeds. All sticks will run at the slowest speed; stability can vary.\"\n    }\n  } else {\n    Write-Output \"No physical memory modules reported by Win32_PhysicalMemory.\"\n  }\n} catch {\n  Write-Output \"Failed to query Win32_PhysicalMemory.\"\n}\n\nWrite-Output \"\"\n\n# Approximate XMP / frequency sanity hints\ntry {\n  if ($sticks -and $sticks.Count -gt 0) {\n    $avgCfg = ($sticks | Where-Object { $_.ConfiguredClockSpeed -gt 0 } | Measure-Object ConfiguredClockSpeed -Average).Average\n    if ($avgCfg) {\n      $avgCfg = [math]::Round($avgCfg,0)\n      Write-Output (\"Average ConfiguredClockSpeed: {0} MHz\" -f $avgCfg)\n      if ($avgCfg -lt 2600) {\n        Write-Output \"Hint: Configured clock looks like JEDEC/base profile. If you have an XMP/DOCP/EXPO kit, enable it in BIOS.\"\n      }\n    } else {\n      Write-Output \"ConfiguredClockSpeed not exposed; cannot approximate XMP state.\"\n    }\n  }\n} catch {\n  Write-Output \"Failed to analyze ConfiguredClockSpeed.\"\n}\n\nWrite-Output \"\"\n\n# OS memory state\ntry {\n  $os = Get-CimInstance Win32_OperatingSystem -ErrorAction SilentlyContinue\n  if ($os) {\n    $total = [double]$os.TotalVisibleMemorySize\n    $free  = [double]$os.FreePhysicalMemory\n    $usedMB = ($total - $free) / 1024.0\n    $totalMB = $total / 1024.0\n    $usedPct = ($usedMB / $totalMB) * 100.0\n    Write-Output (\"OS Memory: Used {0:N1} / {1:N1} MB ({2:N1} %)\" -f $usedMB, $totalMB, $usedPct)\n  }\n} catch {\n  Write-Output \"Failed to query OS memory usage.\"\n}\n\nWrite-Output \"\"\nWrite-Output \"Note: Gear Mode (Intel) and BankGroupSwap are BIOS-level and not reliably exposed to Windows.\"\nWrite-Output \"      Use this scan to spot obvious mismatches and XMP issues; tune deep memory timings in BIOS.\"\nWrite-Output \"\"\nWrite-Output \"=== END OF RAM STABILITY & CONFIG SCAN ===\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nRAM scan is read-only and needs no revert.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "id": "memory_disable_compression_pagecombining",
+      "type": "button",
+      "name": "Apply: Disable Memory Compression & Page Combining",
+      "description": "[Focus: Latency] Disables Windows memory compression and page combining via MMAgent for more predictable memory behavior.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Memory Lab / Low-Latency Tweaks",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"=== FALCON MEMORY LAB: DISABLE MEMORY COMPRESSION & PAGE COMBINING ===\"\nWrite-Output \"\"\nWrite-Output \"Disabling OS-side memory compression and page combining (MMAgent) for lower-latency behavior.\"\nWrite-Output \"This may increase RAM usage but can reduce stutters on high-refresh gaming systems.\"\nWrite-Output \"\"\n\ntry {\n  if (Get-Command -Name Disable-MMAgent -ErrorAction SilentlyContinue) {\n    try {\n      Disable-MMAgent -MemoryCompression -ErrorAction SilentlyContinue\n      Write-Output \"Disabled MemoryCompression via MMAgent.\"\n    } catch {\n      Write-Output (\"Failed to disable MemoryCompression: {0}\" -f $_.Exception.Message)\n    }\n    try {\n      Disable-MMAgent -PageCombining -ErrorAction SilentlyContinue\n      Write-Output \"Disabled PageCombining via MMAgent.\"\n    } catch {\n      Write-Output (\"Failed to disable PageCombining: {0}\" -f $_.Exception.Message)\n    }\n  } else {\n    Write-Output \"MMAgent cmdlets not available. Cannot control memory compression/page combining on this build.\"\n  }\n} catch {\n  Write-Output (\"Error while toggling MMAgent: {0}\" -f $_.Exception.Message)\n}\n\nWrite-Output \"\"\nWrite-Output \"To re-enable, you can run 'Enable-MMAgent -MemoryCompression' and 'Enable-MMAgent -PageCombining' manually.\"\nWrite-Output \"=== END OF MEMORY COMPRESSION & PAGE COMBINING TWEAK ===\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nTo revert, run Enable-MMAgent -MemoryCompression and Enable-MMAgent -PageCombining manually.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "description": "[Focus: Latency] Disables Windows memory compression and page combining via MMAgent for more predictable memory behavior.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Memory Lab / Low-Latency Tweaks",
+      "id": "memory_disable_compression_pagecombining__revert",
+      "type": "button",
+      "name": "Revert: Disable Memory Compression & Page Combining",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nTo revert, run Enable-MMAgent -MemoryCompression and Enable-MMAgent -PageCombining manually.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "id": "memory_low_latency_mode",
+      "type": "button",
+      "name": "Apply: Low-Latency Memory Mode (Aggressive)",
+      "description": "[Focus: FPS / 0-delay] Sets registry values to keep more code in RAM and avoid heavy paging. Best for high-RAM gaming systems.",
+      "requiresAdmin": true,
+      "riskLevel": "Danger",
+      "category": "Memory Lab / Low-Latency Tweaks",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"=== FALCON MEMORY LAB: LOW-LATENCY MEMORY MODE (AGGRESSIVE) ===\"\nWrite-Output \"\"\nWrite-Output \"Applying registry tweaks aimed at keeping more code in RAM and avoiding heavy paging behavior.\"\nWrite-Output \"This is best for systems with plenty of RAM and SSDs. It can increase RAM usage.\"\nWrite-Output \"\"\n\n$mmKey = \"HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management\"\n\ntry {\n  if (-not (Test-Path $mmKey)) {\n    Write-Output \"Memory Management key not found; aborting.\"\n    return\n  }\n\n  # DisablePagingExecutive = 1 (keep kernel & drivers in memory)\n  try {\n    New-ItemProperty -Path $mmKey -Name \"DisablePagingExecutive\" -PropertyType DWord -Value 1 -Force | Out-Null\n    Write-Output \"Set DisablePagingExecutive = 1\"\n  } catch {\n    Write-Output (\"Failed to set DisablePagingExecutive: {0}\" -f $_.Exception.Message)\n  }\n\n  # LargeSystemCache = 0 (prefer programs vs huge file cache for gaming desktops)\n  try {\n    New-ItemProperty -Path $mmKey -Name \"LargeSystemCache\" -PropertyType DWord -Value 0 -Force | Out-Null\n    Write-Output \"Set LargeSystemCache = 0 (programs prioritized).\"\n  } catch {\n    Write-Output (\"Failed to set LargeSystemCache: {0}\" -f $_.Exception.Message)\n  }\n\n  # ClearPageFileAtShutdown = 0 (avoid long shutdowns)\n  try {\n    New-ItemProperty -Path $mmKey -Name \"ClearPageFileAtShutdown\" -PropertyType DWord -Value 0 -Force | Out-Null\n    Write-Output \"Set ClearPageFileAtShutdown = 0 (no full pagefile wipe on shutdown).\"\n  } catch {\n    Write-Output (\"Failed to set ClearPageFileAtShutdown: {0}\" -f $_.Exception.Message)\n  }\n\n} catch {\n  Write-Output (\"Error while writing Memory Management registry values: {0}\" -f $_.Exception.Message)\n}\n\nWrite-Output \"\"\nWrite-Output \"A reboot is recommended for all memory management changes to fully apply.\"\nWrite-Output \"=== END OF LOW-LATENCY MEMORY MODE APPLY ===\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nTo revert, set DisablePagingExecutive=0, LargeSystemCache=0/1 per preference, and ClearPageFileAtShutdown back to your previous value.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "description": "[Focus: FPS / 0-delay] Sets registry values to keep more code in RAM and avoid heavy paging. Best for high-RAM gaming systems.",
+      "requiresAdmin": true,
+      "riskLevel": "Danger",
+      "category": "Memory Lab / Low-Latency Tweaks",
+      "id": "memory_low_latency_mode__revert",
+      "type": "button",
+      "name": "Revert: Low-Latency Memory Mode (Aggressive)",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nTo revert, set DisablePagingExecutive=0, LargeSystemCache=0/1 per preference, and ClearPageFileAtShutdown back to your previous value.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "id": "memory_standby_purge_helper",
+      "type": "action",
+      "name": "Purge Standby List (with Helper Tool)",
+      "description": "[Advanced] Tries to call EmptyStandbyList.exe/empty_standby.exe if present next to Falcon to purge standby lists. Does nothing if not found.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Memory Lab / Advanced",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"=== FALCON MEMORY LAB: STANDBY LIST PURGE (BEST-EFFORT) ===\"\nWrite-Output \"\"\nWrite-Output \"Attempting to clear standby/working sets using common helper tools if present.\"\nWrite-Output \"Falcon will NOT fake this; if the tools are missing, it will tell you.\"\nWrite-Output \"\"\n\n$root = Split-Path -Parent $PSScriptRoot\n\n# Common helper exe names some users keep next to optimizers\n$candidates = @(\n  \"EmptyStandbyList.exe\",\n  \"empty_standby.exe\"\n)\n\n$found = $null\nforeach ($c in $candidates) {\n  $p = Join-Path $root $c\n  if (Test-Path $p) {\n    $found = $p\n    break\n  }\n}\n\nif (-not $found) {\n  Write-Output \"No standby-list helper executable found next to Falcon (EmptyStandbyList.exe / empty_standby.exe).\"\n  Write-Output \"To enable full standby purging, place such a tool next to the Falcon executable and rerun this action.\"\n  Write-Output \"=== END OF STANDBY LIST PURGE (NO TOOL FOUND) ===\"\n  return\n}\n\nWrite-Output (\"Using standby helper: {0}\" -f $found)\ntry {\n  & $found workingsets 2>$null\n  & $found standbylist 2>$null\n  Write-Output \"Requested purge of working sets and standby list via helper tool.\"\n} catch {\n  Write-Output (\"Failed to run standby helper: {0}\" -f $_.Exception.Message)\n}\n\nWrite-Output \"\"\nWrite-Output \"=== END OF STANDBY LIST PURGE ===\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nStandby purge is one-time and has no revert. Memory will refill as you use the system.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "id": "mem_mmagent_disable",
+      "type": "button",
+      "name": "Apply: Disable Memory Compression + Page Combining",
+      "description": "[Focus: Latency] Disables MMAgent memory compression and page combining (more predictable latency; uses more RAM).",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Memory Lab / Low-Latency",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Disable-MMAgent -MemoryCompression -ErrorAction SilentlyContinue; Disable-MMAgent -PageCombining -ErrorAction SilentlyContinue; Write-Output 'MMAgent disabled (compression+combining).'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Enable-MMAgent -MemoryCompression -ErrorAction SilentlyContinue; Enable-MMAgent -PageCombining -ErrorAction SilentlyContinue; Write-Output 'MMAgent enabled (compression+combining).'"
+          }
+        ]
+      }
+    },
+    {
+      "description": "[Focus: Latency] Disables MMAgent memory compression and page combining (more predictable latency; uses more RAM).",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Memory Lab / Low-Latency",
+      "id": "mem_mmagent_disable__revert",
+      "type": "button",
+      "name": "Revert: Disable Memory Compression + Page Combining",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Enable-MMAgent -MemoryCompression -ErrorAction SilentlyContinue; Enable-MMAgent -PageCombining -ErrorAction SilentlyContinue; Write-Output 'MMAgent enabled (compression+combining).'"
+          }
+        ]
+      }
+    },
+    {
+      "id": "mem_reg_disablepagingexecutive",
+      "type": "toggle",
+      "name": "Set DisablePagingExecutive = 1",
+      "description": "[Focus: Latency] Keep kernel in RAM (can reduce paging stutter).",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Memory Lab / Memory Management",
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\\\SYSTEM\\\\CurrentControlSet\\\\Control\\\\Session Manager\\\\Memory Management",
+            "name": "DisablePagingExecutive",
+            "value": 1,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\\\SYSTEM\\\\CurrentControlSet\\\\Control\\\\Session Manager\\\\Memory Management",
+            "name": "DisablePagingExecutive"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\\\SYSTEM\\\\CurrentControlSet\\\\Control\\\\Session Manager\\\\Memory Management",
+            "name": "DisablePagingExecutive",
+            "valueType": "DWORD",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "mem_reg_largesystemcache",
+      "type": "toggle",
+      "name": "Set LargeSystemCache = 0",
+      "description": "[Focus: Latency] Favor apps over system cache (gaming).",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Memory Lab / Memory Management",
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\\\SYSTEM\\\\CurrentControlSet\\\\Control\\\\Session Manager\\\\Memory Management",
+            "name": "LargeSystemCache",
+            "value": 0,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\\\SYSTEM\\\\CurrentControlSet\\\\Control\\\\Session Manager\\\\Memory Management",
+            "name": "LargeSystemCache"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\\\SYSTEM\\\\CurrentControlSet\\\\Control\\\\Session Manager\\\\Memory Management",
+            "name": "LargeSystemCache",
+            "valueType": "DWORD",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "mem_reg_clearpagefileatshutdown",
+      "type": "toggle",
+      "name": "Set ClearPageFileAtShutdown = 0",
+      "description": "[Focus: Latency] Disable pagefile clear at shutdown (faster shutdown).",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Memory Lab / Memory Management",
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\\\SYSTEM\\\\CurrentControlSet\\\\Control\\\\Session Manager\\\\Memory Management",
+            "name": "ClearPageFileAtShutdown",
+            "value": 0,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\\\SYSTEM\\\\CurrentControlSet\\\\Control\\\\Session Manager\\\\Memory Management",
+            "name": "ClearPageFileAtShutdown"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\\\SYSTEM\\\\CurrentControlSet\\\\Control\\\\Session Manager\\\\Memory Management",
+            "name": "ClearPageFileAtShutdown",
+            "valueType": "DWORD",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "mem_reg_enableprefetcher",
+      "type": "toggle",
+      "name": "Set EnablePrefetcher = 0",
+      "description": "Disable Prefetcher (may reduce background disk reads).",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Memory Lab / Prefetch",
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\\\SYSTEM\\\\CurrentControlSet\\\\Control\\\\Session Manager\\\\Memory Management\\\\PrefetchParameters",
+            "name": "EnablePrefetcher",
+            "value": 0,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\\\SYSTEM\\\\CurrentControlSet\\\\Control\\\\Session Manager\\\\Memory Management\\\\PrefetchParameters",
+            "name": "EnablePrefetcher"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\\\SYSTEM\\\\CurrentControlSet\\\\Control\\\\Session Manager\\\\Memory Management\\\\PrefetchParameters",
+            "name": "EnablePrefetcher",
+            "valueType": "DWORD",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "mem_reg_enablesuperfetch",
+      "type": "toggle",
+      "name": "Set EnableSuperfetch = 0",
+      "description": "Disable Superfetch behavior (legacy).",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Memory Lab / Prefetch",
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\\\SYSTEM\\\\CurrentControlSet\\\\Control\\\\Session Manager\\\\Memory Management\\\\PrefetchParameters",
+            "name": "EnableSuperfetch",
+            "value": 0,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\\\SYSTEM\\\\CurrentControlSet\\\\Control\\\\Session Manager\\\\Memory Management\\\\PrefetchParameters",
+            "name": "EnableSuperfetch"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\\\SYSTEM\\\\CurrentControlSet\\\\Control\\\\Session Manager\\\\Memory Management\\\\PrefetchParameters",
+            "name": "EnableSuperfetch",
+            "valueType": "DWORD",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "mem_svc_disable_sysmain",
+      "type": "toggle",
+      "name": "Disable service SysMain",
+      "description": "Disable SysMain (Superfetch) to reduce background paging spikes.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Memory Lab / Services",
+      "apply": {
+        "steps": [
+          {
+            "type": "service.disable",
+            "name": "SysMain"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.enable",
+            "name": "SysMain"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "SysMain",
+            "startupType": "disabled"
+          }
+        ]
+      }
+    },
+    {
+      "id": "mem_svc_disable_wsearch",
+      "type": "toggle",
+      "name": "Disable service WSearch",
+      "description": "Disable Windows Search indexing service.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Memory Lab / Services",
+      "apply": {
+        "steps": [
+          {
+            "type": "service.disable",
+            "name": "WSearch"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.enable",
+            "name": "WSearch"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "WSearch",
+            "startupType": "disabled"
+          }
+        ]
+      }
+    },
+    {
+      "id": "mem_svc_disable_diagtrack",
+      "type": "toggle",
+      "name": "Disable service DiagTrack",
+      "description": "Disable telemetry service (less background churn).",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Memory Lab / Services",
+      "apply": {
+        "steps": [
+          {
+            "type": "service.disable",
+            "name": "DiagTrack"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.enable",
+            "name": "DiagTrack"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "DiagTrack",
+            "startupType": "disabled"
+          }
+        ]
+      }
+    },
+    {
+      "id": "mem_svc_disable_wersvc",
+      "type": "toggle",
+      "name": "Disable service WerSvc",
+      "description": "Disable Windows Error Reporting service (reduces background).",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Memory Lab / Services",
+      "apply": {
+        "steps": [
+          {
+            "type": "service.disable",
+            "name": "WerSvc"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.enable",
+            "name": "WerSvc"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "WerSvc",
+            "startupType": "disabled"
+          }
+        ]
+      }
+    },
+    {
+      "id": "mem_svc_disable_wecsvc",
+      "type": "toggle",
+      "name": "Disable service Wecsvc",
+      "description": "Disable Windows Event Collector (if unused).",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Memory Lab / Services",
+      "apply": {
+        "steps": [
+          {
+            "type": "service.disable",
+            "name": "Wecsvc"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.enable",
+            "name": "Wecsvc"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "Wecsvc",
+            "startupType": "disabled"
+          }
+        ]
+      }
+    },
+    {
+      "id": "mem_task_disable_processmemorydiagnosticevents",
+      "type": "toggle",
+      "name": "Disable task ProcessMemoryDiagnosticEvents",
+      "description": "Disables a background scheduled task that can trigger disk/CPU work.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Memory Lab / Tasks",
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\MemoryDiagnostic\\ProcessMemoryDiagnosticEvents",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\MemoryDiagnostic\\ProcessMemoryDiagnosticEvents",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\MemoryDiagnostic\\ProcessMemoryDiagnosticEvents",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "mem_task_disable_runfullmemorydiagnostic",
+      "type": "toggle",
+      "name": "Disable task RunFullMemoryDiagnostic",
+      "description": "Disables a background scheduled task that can trigger disk/CPU work.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Memory Lab / Tasks",
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\MemoryDiagnostic\\RunFullMemoryDiagnostic",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\MemoryDiagnostic\\RunFullMemoryDiagnostic",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\MemoryDiagnostic\\RunFullMemoryDiagnostic",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "mem_task_disable_microsoft_compatibility_appraiser",
+      "type": "toggle",
+      "name": "Disable task Microsoft Compatibility Appraiser",
+      "description": "Disables a background scheduled task that can trigger disk/CPU work.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Memory Lab / Tasks",
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Application Experience\\Microsoft Compatibility Appraiser",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Application Experience\\Microsoft Compatibility Appraiser",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Application Experience\\Microsoft Compatibility Appraiser",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "mem_task_disable_programdataupdater",
+      "type": "toggle",
+      "name": "Disable task ProgramDataUpdater",
+      "description": "Disables a background scheduled task that can trigger disk/CPU work.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Memory Lab / Tasks",
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Application Experience\\ProgramDataUpdater",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Application Experience\\ProgramDataUpdater",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Application Experience\\ProgramDataUpdater",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "mem_task_disable_consolidator",
+      "type": "toggle",
+      "name": "Disable task Consolidator",
+      "description": "Disables a background scheduled task that can trigger disk/CPU work.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Memory Lab / Tasks",
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Customer Experience Improvement Program\\Consolidator",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Customer Experience Improvement Program\\Consolidator",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Customer Experience Improvement Program\\Consolidator",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "mem_task_disable_kernelceiptask",
+      "type": "toggle",
+      "name": "Disable task KernelCeipTask",
+      "description": "Disables a background scheduled task that can trigger disk/CPU work.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Memory Lab / Tasks",
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Customer Experience Improvement Program\\KernelCeipTask",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Customer Experience Improvement Program\\KernelCeipTask",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Customer Experience Improvement Program\\KernelCeipTask",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "mem_task_disable_microsoft_windows_diskdiagnosticdatacollector",
+      "type": "toggle",
+      "name": "Disable task Microsoft-Windows-DiskDiagnosticDataCollector",
+      "description": "Disables a background scheduled task that can trigger disk/CPU work.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Memory Lab / Tasks",
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\DiskDiagnostic\\Microsoft-Windows-DiskDiagnosticDataCollector",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\DiskDiagnostic\\Microsoft-Windows-DiskDiagnosticDataCollector",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\DiskDiagnostic\\Microsoft-Windows-DiskDiagnosticDataCollector",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "mem_task_disable_winsat",
+      "type": "toggle",
+      "name": "Disable task WinSAT",
+      "description": "Disables a background scheduled task that can trigger disk/CPU work.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Memory Lab / Tasks",
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Maintenance\\WinSAT",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Maintenance\\WinSAT",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Maintenance\\WinSAT",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "mem_kill_onedrive",
+      "type": "button",
+      "name": "Apply: Close OneDrive (if running)",
+      "description": "Closes OneDrive if running to free RAM before gaming.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Memory Lab / Background Kill",
+      "apply": {
+        "steps": [
+          {
+            "type": "process.kill",
+            "name": "OneDrive"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"OneDrive was closed. Re-open manually if needed.\""
+          }
+        ]
+      }
+    },
+    {
+      "description": "Closes OneDrive if running to free RAM before gaming.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Memory Lab / Background Kill",
+      "id": "mem_kill_onedrive__revert",
+      "type": "button",
+      "name": "Revert: Close OneDrive (if running)",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"OneDrive was closed. Re-open manually if needed.\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "mem_kill_teams",
+      "type": "button",
+      "name": "Apply: Close Teams (if running)",
+      "description": "Closes Teams if running to free RAM before gaming.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Memory Lab / Background Kill",
+      "apply": {
+        "steps": [
+          {
+            "type": "process.kill",
+            "name": "Teams"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Teams was closed. Re-open manually if needed.\""
+          }
+        ]
+      }
+    },
+    {
+      "description": "Closes Teams if running to free RAM before gaming.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Memory Lab / Background Kill",
+      "id": "mem_kill_teams__revert",
+      "type": "button",
+      "name": "Revert: Close Teams (if running)",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Teams was closed. Re-open manually if needed.\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "mem_kill_discord",
+      "type": "button",
+      "name": "Apply: Close Discord (if running)",
+      "description": "Closes Discord if running to free RAM before gaming.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Memory Lab / Background Kill",
+      "apply": {
+        "steps": [
+          {
+            "type": "process.kill",
+            "name": "Discord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Discord was closed. Re-open manually if needed.\""
+          }
+        ]
+      }
+    },
+    {
+      "description": "Closes Discord if running to free RAM before gaming.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Memory Lab / Background Kill",
+      "id": "mem_kill_discord__revert",
+      "type": "button",
+      "name": "Revert: Close Discord (if running)",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Discord was closed. Re-open manually if needed.\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "mem_kill_steam",
+      "type": "button",
+      "name": "Apply: Close Steam (if running)",
+      "description": "Closes Steam if running to free RAM before gaming.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Memory Lab / Background Kill",
+      "apply": {
+        "steps": [
+          {
+            "type": "process.kill",
+            "name": "Steam"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Steam was closed. Re-open manually if needed.\""
+          }
+        ]
+      }
+    },
+    {
+      "description": "Closes Steam if running to free RAM before gaming.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Memory Lab / Background Kill",
+      "id": "mem_kill_steam__revert",
+      "type": "button",
+      "name": "Revert: Close Steam (if running)",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Steam was closed. Re-open manually if needed.\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "mem_kill_epicgameslauncher",
+      "type": "button",
+      "name": "Apply: Close EpicGamesLauncher (if running)",
+      "description": "Closes EpicGamesLauncher if running to free RAM before gaming.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Memory Lab / Background Kill",
+      "apply": {
+        "steps": [
+          {
+            "type": "process.kill",
+            "name": "EpicGamesLauncher"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"EpicGamesLauncher was closed. Re-open manually if needed.\""
+          }
+        ]
+      }
+    },
+    {
+      "description": "Closes EpicGamesLauncher if running to free RAM before gaming.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Memory Lab / Background Kill",
+      "id": "mem_kill_epicgameslauncher__revert",
+      "type": "button",
+      "name": "Revert: Close EpicGamesLauncher (if running)",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"EpicGamesLauncher was closed. Re-open manually if needed.\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "mem_kill_riotclientservices",
+      "type": "button",
+      "name": "Apply: Close RiotClientServices (if running)",
+      "description": "Closes RiotClientServices if running to free RAM before gaming.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Memory Lab / Background Kill",
+      "apply": {
+        "steps": [
+          {
+            "type": "process.kill",
+            "name": "RiotClientServices"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"RiotClientServices was closed. Re-open manually if needed.\""
+          }
+        ]
+      }
+    },
+    {
+      "description": "Closes RiotClientServices if running to free RAM before gaming.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Memory Lab / Background Kill",
+      "id": "mem_kill_riotclientservices__revert",
+      "type": "button",
+      "name": "Revert: Close RiotClientServices (if running)",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"RiotClientServices was closed. Re-open manually if needed.\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "mem_kill_battle_net",
+      "type": "button",
+      "name": "Apply: Close Battle.net (if running)",
+      "description": "Closes Battle.net if running to free RAM before gaming.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Memory Lab / Background Kill",
+      "apply": {
+        "steps": [
+          {
+            "type": "process.kill",
+            "name": "Battle.net"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Battle.net was closed. Re-open manually if needed.\""
+          }
+        ]
+      }
+    },
+    {
+      "description": "Closes Battle.net if running to free RAM before gaming.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Memory Lab / Background Kill",
+      "id": "mem_kill_battle_net__revert",
+      "type": "button",
+      "name": "Revert: Close Battle.net (if running)",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Battle.net was closed. Re-open manually if needed.\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "mem_kill_adobegcclient",
+      "type": "button",
+      "name": "Apply: Close AdobeGCClient (if running)",
+      "description": "Closes AdobeGCClient if running to free RAM before gaming.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Memory Lab / Background Kill",
+      "apply": {
+        "steps": [
+          {
+            "type": "process.kill",
+            "name": "AdobeGCClient"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"AdobeGCClient was closed. Re-open manually if needed.\""
+          }
+        ]
+      }
+    },
+    {
+      "description": "Closes AdobeGCClient if running to free RAM before gaming.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Memory Lab / Background Kill",
+      "id": "mem_kill_adobegcclient__revert",
+      "type": "button",
+      "name": "Revert: Close AdobeGCClient (if running)",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"AdobeGCClient was closed. Re-open manually if needed.\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "mem_kill_searchindexer",
+      "type": "button",
+      "name": "Apply: Close SearchIndexer (if running)",
+      "description": "Closes SearchIndexer if running to free RAM before gaming.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Memory Lab / Background Kill",
+      "apply": {
+        "steps": [
+          {
+            "type": "process.kill",
+            "name": "SearchIndexer"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"SearchIndexer was closed. Re-open manually if needed.\""
+          }
+        ]
+      }
+    },
+    {
+      "description": "Closes SearchIndexer if running to free RAM before gaming.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Memory Lab / Background Kill",
+      "id": "mem_kill_searchindexer__revert",
+      "type": "button",
+      "name": "Revert: Close SearchIndexer (if running)",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"SearchIndexer was closed. Re-open manually if needed.\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "mem_kill_runtimebroker",
+      "type": "button",
+      "name": "Apply: Close RuntimeBroker (if running)",
+      "description": "Closes RuntimeBroker if running to free RAM before gaming.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Memory Lab / Background Kill",
+      "apply": {
+        "steps": [
+          {
+            "type": "process.kill",
+            "name": "RuntimeBroker"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"RuntimeBroker was closed. Re-open manually if needed.\""
+          }
+        ]
+      }
+    },
+    {
+      "description": "Closes RuntimeBroker if running to free RAM before gaming.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Memory Lab / Background Kill",
+      "id": "mem_kill_runtimebroker__revert",
+      "type": "button",
+      "name": "Revert: Close RuntimeBroker (if running)",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"RuntimeBroker was closed. Re-open manually if needed.\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "mem_kill_xboxpcapp",
+      "type": "button",
+      "name": "Apply: Close XboxPcApp (if running)",
+      "description": "Closes XboxPcApp if running to free RAM before gaming.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Memory Lab / Background Kill",
+      "apply": {
+        "steps": [
+          {
+            "type": "process.kill",
+            "name": "XboxPcApp"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"XboxPcApp was closed. Re-open manually if needed.\""
+          }
+        ]
+      }
+    },
+    {
+      "description": "Closes XboxPcApp if running to free RAM before gaming.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Memory Lab / Background Kill",
+      "id": "mem_kill_xboxpcapp__revert",
+      "type": "button",
+      "name": "Revert: Close XboxPcApp (if running)",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"XboxPcApp was closed. Re-open manually if needed.\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "mem_kill_gamebar",
+      "type": "button",
+      "name": "Apply: Close GameBar (if running)",
+      "description": "Closes GameBar if running to free RAM before gaming.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Memory Lab / Background Kill",
+      "apply": {
+        "steps": [
+          {
+            "type": "process.kill",
+            "name": "GameBar"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"GameBar was closed. Re-open manually if needed.\""
+          }
+        ]
+      }
+    },
+    {
+      "description": "Closes GameBar if running to free RAM before gaming.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Memory Lab / Background Kill",
+      "id": "mem_kill_gamebar__revert",
+      "type": "button",
+      "name": "Revert: Close GameBar (if running)",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"GameBar was closed. Re-open manually if needed.\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "mem_kill_widgets",
+      "type": "button",
+      "name": "Apply: Close Widgets (if running)",
+      "description": "Closes Widgets if running to free RAM before gaming.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Memory Lab / Background Kill",
+      "apply": {
+        "steps": [
+          {
+            "type": "process.kill",
+            "name": "Widgets"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Widgets was closed. Re-open manually if needed.\""
+          }
+        ]
+      }
+    },
+    {
+      "description": "Closes Widgets if running to free RAM before gaming.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Memory Lab / Background Kill",
+      "id": "mem_kill_widgets__revert",
+      "type": "button",
+      "name": "Revert: Close Widgets (if running)",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Widgets was closed. Re-open manually if needed.\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "mem_kill_phoneexperiencehost",
+      "type": "button",
+      "name": "Apply: Close PhoneExperienceHost (if running)",
+      "description": "Closes PhoneExperienceHost if running to free RAM before gaming.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Memory Lab / Background Kill",
+      "apply": {
+        "steps": [
+          {
+            "type": "process.kill",
+            "name": "PhoneExperienceHost"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"PhoneExperienceHost was closed. Re-open manually if needed.\""
+          }
+        ]
+      }
+    },
+    {
+      "description": "Closes PhoneExperienceHost if running to free RAM before gaming.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Memory Lab / Background Kill",
+      "id": "mem_kill_phoneexperiencehost__revert",
+      "type": "button",
+      "name": "Revert: Close PhoneExperienceHost (if running)",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"PhoneExperienceHost was closed. Re-open manually if needed.\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "mem_kill_yourphone",
+      "type": "button",
+      "name": "Apply: Close YourPhone (if running)",
+      "description": "Closes YourPhone if running to free RAM before gaming.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Memory Lab / Background Kill",
+      "apply": {
+        "steps": [
+          {
+            "type": "process.kill",
+            "name": "YourPhone"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"YourPhone was closed. Re-open manually if needed.\""
+          }
+        ]
+      }
+    },
+    {
+      "description": "Closes YourPhone if running to free RAM before gaming.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Memory Lab / Background Kill",
+      "id": "mem_kill_yourphone__revert",
+      "type": "button",
+      "name": "Revert: Close YourPhone (if running)",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"YourPhone was closed. Re-open manually if needed.\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "mem_kill_microsoftedgeupdate",
+      "type": "button",
+      "name": "Apply: Close MicrosoftEdgeUpdate (if running)",
+      "description": "Closes MicrosoftEdgeUpdate if running to free RAM before gaming.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Memory Lab / Background Kill",
+      "apply": {
+        "steps": [
+          {
+            "type": "process.kill",
+            "name": "MicrosoftEdgeUpdate"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"MicrosoftEdgeUpdate was closed. Re-open manually if needed.\""
+          }
+        ]
+      }
+    },
+    {
+      "description": "Closes MicrosoftEdgeUpdate if running to free RAM before gaming.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Memory Lab / Background Kill",
+      "id": "mem_kill_microsoftedgeupdate__revert",
+      "type": "button",
+      "name": "Revert: Close MicrosoftEdgeUpdate (if running)",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"MicrosoftEdgeUpdate was closed. Re-open manually if needed.\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "mem_kill_msedge",
+      "type": "button",
+      "name": "Apply: Close msedge (if running)",
+      "description": "Closes msedge if running to free RAM before gaming.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Memory Lab / Background Kill",
+      "apply": {
+        "steps": [
+          {
+            "type": "process.kill",
+            "name": "msedge"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"msedge was closed. Re-open manually if needed.\""
+          }
+        ]
+      }
+    },
+    {
+      "description": "Closes msedge if running to free RAM before gaming.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Memory Lab / Background Kill",
+      "id": "mem_kill_msedge__revert",
+      "type": "button",
+      "name": "Revert: Close msedge (if running)",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"msedge was closed. Re-open manually if needed.\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "mem_kill_chrome",
+      "type": "button",
+      "name": "Apply: Close Chrome (if running)",
+      "description": "Closes Chrome if running to free RAM before gaming.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Memory Lab / Background Kill",
+      "apply": {
+        "steps": [
+          {
+            "type": "process.kill",
+            "name": "Chrome"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Chrome was closed. Re-open manually if needed.\""
+          }
+        ]
+      }
+    },
+    {
+      "description": "Closes Chrome if running to free RAM before gaming.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Memory Lab / Background Kill",
+      "id": "mem_kill_chrome__revert",
+      "type": "button",
+      "name": "Revert: Close Chrome (if running)",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Chrome was closed. Re-open manually if needed.\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "mem_kill_cefsharp_browsersubprocess",
+      "type": "button",
+      "name": "Apply: Close CefSharp.BrowserSubprocess (if running)",
+      "description": "Closes CefSharp.BrowserSubprocess if running to free RAM before gaming.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Memory Lab / Background Kill",
+      "apply": {
+        "steps": [
+          {
+            "type": "process.kill",
+            "name": "CefSharp.BrowserSubprocess"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"CefSharp.BrowserSubprocess was closed. Re-open manually if needed.\""
+          }
+        ]
+      }
+    },
+    {
+      "description": "Closes CefSharp.BrowserSubprocess if running to free RAM before gaming.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Memory Lab / Background Kill",
+      "id": "mem_kill_cefsharp_browsersubprocess__revert",
+      "type": "button",
+      "name": "Revert: Close CefSharp.BrowserSubprocess (if running)",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"CefSharp.BrowserSubprocess was closed. Re-open manually if needed.\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "mem_timer_0p5ms",
+      "type": "button",
+      "name": "Apply: Request 0.5ms timer resolution",
+      "description": "[Focus: Latency] Requests a 0.5ms system timer resolution (can improve frametime consistency on some systems).",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Memory Lab / Latency",
+      "apply": {
+        "steps": [
+          {
+            "type": "timer.set",
+            "microseconds": 5000
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "timer.reset"
+          }
+        ]
+      }
+    },
+    {
+      "description": "[Focus: Latency] Requests a 0.5ms system timer resolution (can improve frametime consistency on some systems).",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Memory Lab / Latency",
+      "id": "mem_timer_0p5ms__revert",
+      "type": "button",
+      "name": "Revert: Request 0.5ms timer resolution",
+      "apply": {
+        "steps": [
+          {
+            "type": "timer.reset"
+          }
+        ]
+      }
+    },
+    {
+      "id": "mem_sec_featuresettingsoverride",
+      "type": "toggle",
+      "name": "Mitigations: set FeatureSettingsOverride = 3",
+      "description": "Disable some mitigations for performance (security tradeoff).",
+      "requiresAdmin": true,
+      "riskLevel": "Danger",
+      "category": "Memory Lab / Security Tradeoffs",
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\\\SYSTEM\\\\CurrentControlSet\\\\Control\\\\Session Manager\\\\Memory Management",
+            "name": "FeatureSettingsOverride",
+            "value": 3,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\\\SYSTEM\\\\CurrentControlSet\\\\Control\\\\Session Manager\\\\Memory Management",
+            "name": "FeatureSettingsOverride"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\\\SYSTEM\\\\CurrentControlSet\\\\Control\\\\Session Manager\\\\Memory Management",
+            "name": "FeatureSettingsOverride",
+            "valueType": "DWORD",
+            "equals": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "mem_sec_featuresettingsoverridemask",
+      "type": "toggle",
+      "name": "Mitigations: set FeatureSettingsOverrideMask = 3",
+      "description": "Mask for FeatureSettingsOverride (security tradeoff).",
+      "requiresAdmin": true,
+      "riskLevel": "Danger",
+      "category": "Memory Lab / Security Tradeoffs",
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\\\SYSTEM\\\\CurrentControlSet\\\\Control\\\\Session Manager\\\\Memory Management",
+            "name": "FeatureSettingsOverrideMask",
+            "value": 3,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\\\SYSTEM\\\\CurrentControlSet\\\\Control\\\\Session Manager\\\\Memory Management",
+            "name": "FeatureSettingsOverrideMask"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\\\SYSTEM\\\\CurrentControlSet\\\\Control\\\\Session Manager\\\\Memory Management",
+            "name": "FeatureSettingsOverrideMask",
+            "valueType": "DWORD",
+            "equals": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "mem_disable_memory_compression_only",
+      "type": "button",
+      "name": "Apply: Disable Memory Compression (Only)",
+      "description": "[Focus: Latency] Disables Windows memory compression. Can reduce CPU overhead; may increase RAM usage.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Memory Lab / Compression",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Disable-MMAgent -MemoryCompression -ErrorAction SilentlyContinue; Write-Output 'Memory compression disabled.'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Enable-MMAgent -MemoryCompression -ErrorAction SilentlyContinue; Write-Output 'Memory compression enabled.'"
+          }
+        ]
+      }
+    },
+    {
+      "description": "[Focus: Latency] Disables Windows memory compression. Can reduce CPU overhead; may increase RAM usage.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Memory Lab / Compression",
+      "id": "mem_disable_memory_compression_only__revert",
+      "type": "button",
+      "name": "Revert: Disable Memory Compression (Only)",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Enable-MMAgent -MemoryCompression -ErrorAction SilentlyContinue; Write-Output 'Memory compression enabled.'"
+          }
+        ]
+      }
+    },
+    {
+      "id": "mem_disable_page_combining_only",
+      "type": "button",
+      "name": "Apply: Disable Page Combining (Only)",
+      "description": "[Focus: Latency] Disables page combining (dedup). Minor CPU savings on some systems; may increase RAM usage.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Memory Lab / Compression",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Disable-MMAgent -PageCombining -ErrorAction SilentlyContinue; Write-Output 'Page combining disabled.'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Enable-MMAgent -PageCombining -ErrorAction SilentlyContinue; Write-Output 'Page combining enabled.'"
+          }
+        ]
+      }
+    },
+    {
+      "description": "[Focus: Latency] Disables page combining (dedup). Minor CPU savings on some systems; may increase RAM usage.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Memory Lab / Compression",
+      "id": "mem_disable_page_combining_only__revert",
+      "type": "button",
+      "name": "Revert: Disable Page Combining (Only)",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Enable-MMAgent -PageCombining -ErrorAction SilentlyContinue; Write-Output 'Page combining enabled.'"
+          }
+        ]
+      }
+    },
+    {
+      "id": "mem_pagefile_system_managed",
+      "type": "button",
+      "name": "Apply: Set Pagefile = System Managed",
+      "description": "Sets all pagefiles to system-managed size (recommended baseline for stability).",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Memory Lab / Pagefile",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Setting pagefile to System Managed...\"\ntry {\n  wmic computersystem where name=\"%computername%\" set AutomaticManagedPagefile=True | Out-Null\n  Write-Output \"AutomaticManagedPagefile = True\"\n} catch {\n  Write-Output (\"Failed: {0}\" -f $_.Exception.Message)\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Revert: leaving system-managed pagefile enabled (no-op).\"\nWrite-Output \"If you want a custom pagefile, use the Custom Size items.\""
+          }
+        ]
+      }
+    },
+    {
+      "description": "Sets all pagefiles to system-managed size (recommended baseline for stability).",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Memory Lab / Pagefile",
+      "id": "mem_pagefile_system_managed__revert",
+      "type": "button",
+      "name": "Revert: Set Pagefile = System Managed",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Revert: leaving system-managed pagefile enabled (no-op).\"\nWrite-Output \"If you want a custom pagefile, use the Custom Size items.\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "mem_pagefile_disable",
+      "type": "button",
+      "name": "Apply: Disable Pagefile (Not Recommended)",
+      "description": "Attempts to disable the pagefile. Can cause crashes/out-of-memory in some games/apps.",
+      "requiresAdmin": true,
+      "riskLevel": "Danger",
+      "category": "Memory Lab / Pagefile",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Disabling pagefile (danger)...\"\ntry {\n  wmic computersystem where name=\"%computername%\" set AutomaticManagedPagefile=False | Out-Null\n  # Remove explicit pagefile settings (best-effort)\n  wmic pagefileset delete | Out-Null\n  Write-Output \"Requested pagefile disable. Reboot required.\"\n} catch {\n  Write-Output (\"Failed: {0}\" -f $_.Exception.Message)\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Re-enabling system-managed pagefile...\"\ntry {\n  wmic computersystem where name=\"%computername%\" set AutomaticManagedPagefile=True | Out-Null\n  Write-Output \"System-managed pagefile re-enabled. Reboot recommended.\"\n} catch {\n  Write-Output (\"Failed: {0}\" -f $_.Exception.Message)\n}"
+          }
+        ]
+      }
+    },
+    {
+      "description": "Attempts to disable the pagefile. Can cause crashes/out-of-memory in some games/apps.",
+      "requiresAdmin": true,
+      "riskLevel": "Danger",
+      "category": "Memory Lab / Pagefile",
+      "id": "mem_pagefile_disable__revert",
+      "type": "button",
+      "name": "Revert: Disable Pagefile (Not Recommended)",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Re-enabling system-managed pagefile...\"\ntry {\n  wmic computersystem where name=\"%computername%\" set AutomaticManagedPagefile=True | Out-Null\n  Write-Output \"System-managed pagefile re-enabled. Reboot recommended.\"\n} catch {\n  Write-Output (\"Failed: {0}\" -f $_.Exception.Message)\n}"
+          }
+        ]
+      }
+    },
+    {
+      "id": "mem_pagefile_custom_4096_16384",
+      "type": "button",
+      "name": "Apply: Set Pagefile Custom (4GB min / 16GB max)",
+      "description": "Sets a fixed custom pagefile on C:. Helps avoid fragmentation on some setups.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Memory Lab / Pagefile",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Setting custom pagefile on C: (4096-16384 MB)...\"\ntry {\n  wmic computersystem where name=\"%computername%\" set AutomaticManagedPagefile=False | Out-Null\n  wmic pagefileset where name=\"C:\\\\pagefile.sys\" set InitialSize=4096,MaximumSize=16384 | Out-Null\n  Write-Output \"Custom pagefile set. Reboot required.\"\n} catch {\n  # If pagefile setting doesn't exist yet, create it\n  try {\n    wmic pagefileset create name=\"C:\\\\pagefile.sys\" InitialSize=4096,MaximumSize=16384 | Out-Null\n    Write-Output \"Custom pagefile created. Reboot required.\"\n  } catch {\n    Write-Output (\"Failed: {0}\" -f $_.Exception.Message)\n  }\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Reverting to system-managed pagefile...\"\ntry {\n  wmic computersystem where name=\"%computername%\" set AutomaticManagedPagefile=True | Out-Null\n  Write-Output \"System-managed pagefile enabled. Reboot recommended.\"\n} catch {\n  Write-Output (\"Failed: {0}\" -f $_.Exception.Message)\n}"
+          }
+        ]
+      }
+    },
+    {
+      "description": "Sets a fixed custom pagefile on C:. Helps avoid fragmentation on some setups.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Memory Lab / Pagefile",
+      "id": "mem_pagefile_custom_4096_16384__revert",
+      "type": "button",
+      "name": "Revert: Set Pagefile Custom (4GB min / 16GB max)",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Reverting to system-managed pagefile...\"\ntry {\n  wmic computersystem where name=\"%computername%\" set AutomaticManagedPagefile=True | Out-Null\n  Write-Output \"System-managed pagefile enabled. Reboot recommended.\"\n} catch {\n  Write-Output (\"Failed: {0}\" -f $_.Exception.Message)\n}"
+          }
+        ]
+      }
+    }
+  ]
+}

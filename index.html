@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self';">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Falcon Optimizer</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="phase4.css" />
+</head>
+<body>
+  <div id="themeFxOverlay"></div>
+  <div id="themeFxToastHost"></div>
+
+
+
+  <div id="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark"></div>
+        <div class="brand-text">
+          <div class="brand-name">FALCON</div>
+          <div class="brand-sub">OPTIMIZER</div>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <div class="nav-section">General</div>
+        <button class="nav-item" data-route="home">Home</button>
+<button class="nav-item" data-route="backups">Backups</button>
+        <button class="nav-item" data-route="fixes">Fixes</button>
+        <button class="nav-item" data-route="explore">Explore</button>
+
+        <div class="nav-section">Main</div>
+        <button class="nav-item" data-route="general">General</button>
+        <button class="nav-item" data-route="hardware">Hardware</button>
+        <button class="nav-item" data-route="network">Network</button>
+
+        <div class="nav-section">More</div>
+        <button class="nav-item" data-route="performanceLibrary">Performance Library</button>
+        <button class="nav-item" data-route="debloat">Debloat</button>
+        <button class="nav-item" data-route="speedCore">Speed &amp; Integrity Core</button>
+        <button class="nav-item" data-route="processLab">Process Lab</button>
+        <button class="nav-item" data-route="advanced">Advanced</button>
+        <button class="nav-item" data-route="bios">BIOS / UEFI Helper</button>
+        <button class="nav-item" data-route="thermal">Thermal Engine</button>
+        <button class="nav-item" data-route="driverLab">Driver Lab</button>
+        <button class="nav-item" data-route="serviceLab">Service Impact Lab</button>
+        <button class="nav-item" data-route="safeguardLab">Safeguard / Failsafe</button>
+        <button class="nav-item" data-route="registryLab">Registry Lab</button>
+        <button class="nav-item" data-route="memoryLab">Memory Lab</button>
+        <button class="nav-item" data-route="dpcLab">DPC Latency Lab</button>
+        <button class="nav-item" data-route="gameMode">Game Mode</button>
+        <button class="nav-item" data-route="audio">Audio Lab</button>
+        <button class="nav-item" data-route="controller">Controller</button>
+        <button class="nav-item" data-route="stretchLab">StretchLab</button>
+        <button class="nav-item" data-route="fortnite">Game Specific</button>
+        <button class="nav-item" data-route="utilities">Apps / Utilities</button>
+
+        <div class="nav-section">Hardcore</div>
+<button class="nav-item" data-route="hardcore">Hardcore Tweaks</button>
+
+<div class="nav-section">Visual</div>
+        <button class="nav-item" data-route="themes">Themes</button>
+        <button class="nav-item" data-route="language">Language</button>
+      </nav>
+
+      <div class="userbox" title="Account status">
+        <div class="userbadge">T</div>
+        <div class="userinfo">
+          <div class="userid">Titan</div>
+          <div class="userplan">Premium</div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button id="sidebarToggle" class="icon-btn" title="Toggle sidebar" aria-label="Toggle sidebar">
+            <span class="icon icon-menu" aria-hidden="true"></span>
+          </button>
+          <div class="page-title" id="pageTitle">Home</div>
+          <div class="page-sub" id="pageSub">Ready to enhance your system performance.</div>
+          <input id="globalSearch" class="global-search" placeholder="Search optimizations..." autocomplete="off" />
+          <div id="globalSearchResults" class="global-search-results" style="display:none;"></div>
+        </div>
+        <div class="topbar-right">
+          <div id="globalRunIndicator" class="run-indicator" style="display:none;">Running…</div>
+          <button id="btnRunHistory" class="btn btn-ghost btn-sm" type="button">Run History</button>
+          <div class="chip-label">Hardware profile</div>
+          <div class="chip-group" id="hwProfileGroup">
+            <button class="chip active" data-hw="auto">Auto</button>
+            <button class="chip" data-hw="low">Low-end</button>
+            <button class="chip" data-hw="mid">Mid</button>
+            <button class="chip" data-hw="high">High-End</button>
+          </div>
+        </div>
+      </header>
+      <section class="runstatus" id="runStatus" style="display:none;">
+        <div class="runstatus-row">
+          <div id="runStatusTitle" class="runstatus-title">Running...</div>
+          <div class="muted" id="runStatusMeta"></div>
+        </div>
+        <progress id="runProgress" max="100" value="0" style="width:100%;"></progress>
+        <pre id="runOutput" class="logbox"></pre>
+        <div class="row" style="gap:8px;">
+          <button id="openLogBtn" class="btn">Open Log</button>
+          <button id="clearRunBtn" class="btn secondary">Clear</button>
+        </div>
+      </section>
+
+
+      <section class="content">
+        <div class="tabs" id="tabs"></div>
+
+        <div class="toolbar">
+          <div class="searchbox">
+            <span class="icon">⌕</span>
+            <input id="searchInput" placeholder="Search" />
+          </div>
+          <button class="toolbtn" id="filterBtn">Filter</button>
+          <button class="toolbtn" id="sortBtn">Sort</button>
+          <button class="toolbtn" id="refreshBtn">Refresh</button>
+        </div>
+
+        <div id="panel"></div>
+      </section>
+
+      <footer class="footer">
+        <div class="muted">Logs in ./logs • Backups in ./backups</div>
+        <div class="muted">Falcon Optimizer v1.0</div>
+      </footer>
+    </main>
+  </div>
+
+  <script src="renderer.js"></script>
+
+    <div class="modal-backdrop" id="confirmBackdrop" style="display:none;">
+      <div class="modal" id="confirmModal" role="dialog" aria-modal="true">
+        <div class="modal-title" id="confirmTitle">Warning</div>
+        <div class="modal-body" id="confirmBody"></div>
+        <div class="modal-check">
+          <label><input type="checkbox" id="confirmCheck" /> <span id="confirmCheckText">I understand the risk.</span></label>
+        </div>
+        <div class="modal-type" id="confirmTypeWrap" style="display:none;">
+          <div class="modal-type-label" id="confirmTypeLabel">Type to confirm:</div>
+          <input class="input" id="confirmTypeInput" placeholder="Type confirmation phrase" />
+          <div class="hint" id="confirmTypeHint"></div>
+        </div>
+        <div class="modal-actions">
+          <button class="btn" id="confirmCancel">Cancel</button>
+          <button class="btn primary" id="confirmOk">Continue</button>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="modal-backdrop" id="sysInfoBackdrop" style="display:none;">
+      <div class="modal modal-wide" id="sysInfoModal" role="dialog" aria-modal="true">
+        <div class="modal-head">
+          <div class="modal-title">System Information</div>
+          <button class="iconbtn" id="sysInfoClose" aria-label="Close">✕</button>
+        </div>
+        <div class="sysinfo-layout">
+          <div class="sysinfo-nav">
+            <button class="sysinfo-tab active" data-sys-tab="cpu">CPU</button>
+            <button class="sysinfo-tab" data-sys-tab="mainboard">Mainboard</button>
+            <button class="sysinfo-tab" data-sys-tab="memory">Memory</button>
+            <button class="sysinfo-tab" data-sys-tab="graphics">Graphics</button>
+            <button class="sysinfo-tab" data-sys-tab="storage">Storage</button>
+            <button class="sysinfo-tab" data-sys-tab="network">Network</button>
+            <button class="sysinfo-tab" data-sys-tab="os">OS</button>
+          </div>
+          <div class="sysinfo-body">
+            <div class="sysinfo-section" data-sys-panel="cpu"></div>
+            <div class="sysinfo-section" data-sys-panel="mainboard" style="display:none;"></div>
+            <div class="sysinfo-section" data-sys-panel="memory" style="display:none;"></div>
+            <div class="sysinfo-section" data-sys-panel="graphics" style="display:none;"></div>
+            <div class="sysinfo-section" data-sys-panel="storage" style="display:none;"></div>
+            <div class="sysinfo-section" data-sys-panel="network" style="display:none;"></div>
+            <div class="sysinfo-section" data-sys-panel="os" style="display:none;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  <div id="runHistoryDrawer" class="drawer" style="display:none;">
+    <div class="drawer-header">
+      <div class="drawer-title">Run History</div>
+      <button id="btnRunHistoryClose" class="btn btn-ghost btn-sm" type="button">Close</button>
+    </div>
+    <div class="drawer-body">
+      <div id="runHistoryList" class="run-history-list"></div>
+      <div class="muted" style="margin-top:10px;">Click an entry to open its log.</div>
+    </div>
+  </div>
+
+</body>
+</html>

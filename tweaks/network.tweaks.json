@@ -1,0 +1,788 @@
+{
+  "items": [
+    {
+      "id": "net.optimize_network_priority",
+      "type": "button",
+      "name": "Optimize Network Priority",
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Optimizes network provider order (Local → Hosts → DNS → NetBT).",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\ServiceProvider",
+            "name": "LocalPriority",
+            "value": 4,
+            "valueType": "DWord"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\ServiceProvider",
+            "name": "HostsPriority",
+            "value": 5,
+            "valueType": "DWord"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\ServiceProvider",
+            "name": "DnsPriority",
+            "value": 6,
+            "valueType": "DWord"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\ServiceProvider",
+            "name": "NetbtPriority",
+            "value": 7,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "Network",
+      "note": "Converted from toggle (missing revert)."
+    },
+    {
+      "id": "net.optimize_smb_lan",
+      "type": "button",
+      "name": "Optimize SMB & LAN Server Tweaks",
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Tunes SMB settings for LAN performance.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\LanmanServer\\Parameters",
+            "name": "autodisconnect",
+            "value": 0,
+            "valueType": "DWord"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\LanmanServer\\Parameters",
+            "name": "SizReqBuf",
+            "value": 17424,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "Network",
+      "note": "Converted from toggle (missing revert)."
+    },
+    {
+      "id": "net.optimize_udp_firewall",
+      "type": "button",
+      "name": "Optimize UDP Firewall Settings",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Applies conservative UDP firewall behavior tweaks.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "netsh advfirewall set allprofiles settings unicastresponsetomulticast enable"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "Network",
+      "note": "Converted from toggle (missing revert)."
+    },
+    {
+      "id": "net.remove_qos_limits",
+      "type": "toggle",
+      "name": "Remove Limits on QoS",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Sets NonBestEffortLimit to 0%.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Psched",
+            "name": "NonBestEffortLimit",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Psched",
+            "name": "NonBestEffortLimit"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "Network",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Psched",
+            "name": "NonBestEffortLimit",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "net.tune_tcp_acks",
+      "type": "toggle",
+      "name": "Tune TCP Acknowledgements Settings",
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Tunes TCP ACK latency settings.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters",
+            "name": "TcpAckFrequency",
+            "value": 1,
+            "valueType": "DWord"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters",
+            "name": "TCPNoDelay",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters",
+            "name": "TcpAckFrequency"
+          },
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters",
+            "name": "TCPNoDelay"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "Network",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters",
+            "name": "TcpAckFrequency",
+            "valueType": "DWord",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "net.disable_heuristics",
+      "type": "button",
+      "name": "Apply: Disable Heuristics",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Disables TCP heuristics.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "netsh interface tcp set heuristics disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "netsh interface tcp set heuristics enabled"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "Network"
+    },
+    {
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Disables TCP heuristics.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Network",
+      "id": "net.disable_heuristics__revert",
+      "type": "button",
+      "name": "Revert: Disable Heuristics",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "netsh interface tcp set heuristics enabled"
+          }
+        ]
+      }
+    },
+    {
+      "id": "net.optimize_mpp",
+      "type": "button",
+      "name": "Apply: Optimize MPP",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Disables TCP timestamps to reduce overhead.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "netsh interface tcp set global timestamps=disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "netsh interface tcp set global timestamps=enabled"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "Network"
+    },
+    {
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Disables TCP timestamps to reduce overhead.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Network",
+      "id": "net.optimize_mpp__revert",
+      "type": "button",
+      "name": "Revert: Optimize MPP",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "netsh interface tcp set global timestamps=enabled"
+          }
+        ]
+      }
+    },
+    {
+      "id": "net_disable_nagle",
+      "type": "button",
+      "name": "Apply: Disable Nagle (All Interfaces)",
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Disables Nagle algorithm for all interfaces (low latency).",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$ifs=Get-ChildItem 'HKLM:\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces'; foreach($i in $ifs){ New-ItemProperty -Path $i.PSPath -Name TcpNoDelay -PropertyType DWord -Value 1 -Force | Out-Null }"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$ifs=Get-ChildItem 'HKLM:\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces'; foreach($i in $ifs){ Remove-ItemProperty -Path $i.PSPath -Name TcpNoDelay -ErrorAction SilentlyContinue }"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "Network"
+    },
+    {
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Disables Nagle algorithm for all interfaces (low latency).",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Network",
+      "id": "net_disable_nagle__revert",
+      "type": "button",
+      "name": "Revert: Disable Nagle (All Interfaces)",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$ifs=Get-ChildItem 'HKLM:\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces'; foreach($i in $ifs){ Remove-ItemProperty -Path $i.PSPath -Name TcpNoDelay -ErrorAction SilentlyContinue }"
+          }
+        ]
+      }
+    },
+    {
+      "id": "net_disable_delayed_ack",
+      "type": "button",
+      "name": "Apply: Disable Delayed ACK (All Interfaces)",
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Reduces ACK delay for lower latency.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$ifs=Get-ChildItem 'HKLM:\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces'; foreach($i in $ifs){ New-ItemProperty -Path $i.PSPath -Name TcpAckFrequency -PropertyType DWord -Value 1 -Force | Out-Null; New-ItemProperty -Path $i.PSPath -Name TCPDelAckTicks -PropertyType DWord -Value 0 -Force | Out-Null }"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$ifs=Get-ChildItem 'HKLM:\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces'; foreach($i in $ifs){ Remove-ItemProperty -Path $i.PSPath -Name TcpAckFrequency -ErrorAction SilentlyContinue; Remove-ItemProperty -Path $i.PSPath -Name TCPDelAckTicks -ErrorAction SilentlyContinue }"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "Network"
+    },
+    {
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Reduces ACK delay for lower latency.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Network",
+      "id": "net_disable_delayed_ack__revert",
+      "type": "button",
+      "name": "Revert: Disable Delayed ACK (All Interfaces)",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$ifs=Get-ChildItem 'HKLM:\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces'; foreach($i in $ifs){ Remove-ItemProperty -Path $i.PSPath -Name TcpAckFrequency -ErrorAction SilentlyContinue; Remove-ItemProperty -Path $i.PSPath -Name TCPDelAckTicks -ErrorAction SilentlyContinue }"
+          }
+        ]
+      }
+    },
+    {
+      "id": "net_disable_tcp_autotuning",
+      "type": "button",
+      "name": "Apply: Disable TCP Auto-Tuning",
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Disables TCP receive window auto-tuning.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "netsh int tcp set global autotuninglevel=disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "netsh int tcp set global autotuninglevel=normal"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "Network"
+    },
+    {
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Disables TCP receive window auto-tuning.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Network",
+      "id": "net_disable_tcp_autotuning__revert",
+      "type": "button",
+      "name": "Revert: Disable TCP Auto-Tuning",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "netsh int tcp set global autotuninglevel=normal"
+          }
+        ]
+      }
+    },
+    {
+      "id": "net_disable_ecn",
+      "type": "button",
+      "name": "Apply: Disable ECN",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Disables Explicit Congestion Notification.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "netsh int tcp set global ecncapability=disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "netsh int tcp set global ecncapability=default"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "Network"
+    },
+    {
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Disables Explicit Congestion Notification.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Network",
+      "id": "net_disable_ecn__revert",
+      "type": "button",
+      "name": "Revert: Disable ECN",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "netsh int tcp set global ecncapability=default"
+          }
+        ]
+      }
+    },
+    {
+      "id": "net_disable_rsc",
+      "type": "button",
+      "name": "Apply: Disable Receive Segment Coalescing (RSC)",
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Disables RSC to reduce latency.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "netsh int tcp set global rsc=disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "netsh int tcp set global rsc=enabled"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "Network"
+    },
+    {
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Disables RSC to reduce latency.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Network",
+      "id": "net_disable_rsc__revert",
+      "type": "button",
+      "name": "Revert: Disable Receive Segment Coalescing (RSC)",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "netsh int tcp set global rsc=enabled"
+          }
+        ]
+      }
+    },
+    {
+      "id": "net_disable_tcp_timestamps",
+      "type": "button",
+      "name": "Apply: Disable TCP Timestamps",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Disables TCP timestamps.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "netsh int tcp set global timestamps=disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "netsh int tcp set global timestamps=enabled"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "Network"
+    },
+    {
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Disables TCP timestamps.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Network",
+      "id": "net_disable_tcp_timestamps__revert",
+      "type": "button",
+      "name": "Revert: Disable TCP Timestamps",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "netsh int tcp set global timestamps=enabled"
+          }
+        ]
+      }
+    },
+    {
+      "id": "net_set_congestion_provider_ctcp",
+      "type": "button",
+      "name": "Apply: Set Congestion Provider (CTCP)",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Sets congestion provider to CTCP.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "netsh int tcp set global congestionprovider=ctcp"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "netsh int tcp set global congestionprovider=default"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "Network"
+    },
+    {
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Sets congestion provider to CTCP.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Network",
+      "id": "net_set_congestion_provider_ctcp__revert",
+      "type": "button",
+      "name": "Revert: Set Congestion Provider (CTCP)",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "netsh int tcp set global congestionprovider=default"
+          }
+        ]
+      }
+    },
+    {
+      "id": "net_disable_isatap_teredo",
+      "type": "button",
+      "name": "Apply: Disable ISATAP/Teredo/6to4",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Disables IPv6 transition tunnels.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "netsh interface isatap set state disabled"
+          },
+          {
+            "type": "cmd.run",
+            "command": "netsh interface teredo set state disabled"
+          },
+          {
+            "type": "cmd.run",
+            "command": "netsh interface 6to4 set state disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "netsh interface isatap set state default"
+          },
+          {
+            "type": "cmd.run",
+            "command": "netsh interface teredo set state default"
+          },
+          {
+            "type": "cmd.run",
+            "command": "netsh interface 6to4 set state default"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "Network"
+    },
+    {
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Disables IPv6 transition tunnels.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Network",
+      "id": "net_disable_isatap_teredo__revert",
+      "type": "button",
+      "name": "Revert: Disable ISATAP/Teredo/6to4",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "netsh interface isatap set state default"
+          },
+          {
+            "type": "cmd.run",
+            "command": "netsh interface teredo set state default"
+          },
+          {
+            "type": "cmd.run",
+            "command": "netsh interface 6to4 set state default"
+          }
+        ]
+      }
+    },
+    {
+      "id": "net_disable_dns_cache_flush_button",
+      "type": "button",
+      "name": "Flush DNS Cache",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Flushes DNS resolver cache.",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "ipconfig /flushdns"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "category": "Network"
+    },
+    {
+      "id": "net_disable_large_send_offload_guidance",
+      "type": "button",
+      "name": "NIC Offloads (Guided)",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Guided: open NIC advanced settings to disable LSO/interrupt moderation for low latency.",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Start-Process 'ncpa.cpl'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "category": "Network"
+    },
+    {
+      "id": "net.disable_lso",
+      "type": "button",
+      "name": "Apply: Disable Large Send Offload (LSO)",
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Disables Large Send Offload v2 (IPv4/IPv6) on all up adapters to reduce packet batching and latency.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Get-NetAdapter | Where-Object {$_.Status -eq 'Up'} | ForEach-Object { try { Set-NetAdapterAdvancedProperty -Name $_.Name -DisplayName 'Large Send Offload v2 (IPv4)' -DisplayValue 'Disabled' -ErrorAction SilentlyContinue } catch {} try { Set-NetAdapterAdvancedProperty -Name $_.Name -DisplayName 'Large Send Offload v2 (IPv6)' -DisplayValue 'Disabled' -ErrorAction SilentlyContinue } catch {} }"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Get-NetAdapter | Where-Object {$_.Status -eq 'Up'} | ForEach-Object { try { Set-NetAdapterAdvancedProperty -Name $_.Name -DisplayName 'Large Send Offload v2 (IPv4)' -DisplayValue 'Enabled' -ErrorAction SilentlyContinue } catch {} try { Set-NetAdapterAdvancedProperty -Name $_.Name -DisplayName 'Large Send Offload v2 (IPv6)' -DisplayValue 'Enabled' -ErrorAction SilentlyContinue } catch {} }"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "Network"
+    },
+    {
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Disables Large Send Offload v2 (IPv4/IPv6) on all up adapters to reduce packet batching and latency.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Network",
+      "id": "net.disable_lso__revert",
+      "type": "button",
+      "name": "Revert: Disable Large Send Offload (LSO)",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Get-NetAdapter | Where-Object {$_.Status -eq 'Up'} | ForEach-Object { try { Set-NetAdapterAdvancedProperty -Name $_.Name -DisplayName 'Large Send Offload v2 (IPv4)' -DisplayValue 'Enabled' -ErrorAction SilentlyContinue } catch {} try { Set-NetAdapterAdvancedProperty -Name $_.Name -DisplayName 'Large Send Offload v2 (IPv6)' -DisplayValue 'Enabled' -ErrorAction SilentlyContinue } catch {} }"
+          }
+        ]
+      }
+    },
+    {
+      "id": "imported.imported.amd_gpu_tweaks",
+      "type": "button",
+      "name": "Amd Gpu Tweaks",
+      "category": "Network / Tweaks",
+      "riskLevel": "Warning",
+      "risk": "Warning",
+      "description": "[Imported] Runnable tweak extracted from your V8.3. This runs a command pack under Admin. Risk: Warning.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_amd_gpu_tweaks.bat\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "imported.imported.network_tweaks",
+      "type": "button",
+      "name": "Network Tweaks",
+      "category": "Network / Tweaks",
+      "riskLevel": "Safe",
+      "risk": "Safe",
+      "description": "[Imported] Runnable tweak extracted from your V8.3. This runs a command pack under Admin. Risk: Safe.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_network_tweaks.bat\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    }
+  ]
+}

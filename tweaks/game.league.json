@@ -1,0 +1,785 @@
+{
+  "items": [
+    {
+      "id": "game.league.of.legends.qos_dscp46",
+      "type": "button",
+      "name": "Apply: QoS: Prioritize League of Legends (DSCP 46 UDP/TCP)",
+      "category": "Game Specific / League of Legends",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "[Focus: Ping / Network, Latency / Input Delay]\nSets a QoS UDP/TCP policy which prioritizes League of Legends's network traffic by tagging packets with DSCP 46 (Expedited Forwarding). This helps your router process the game's packets first, which can stabilize ping and reduce packet loss on congested networks. Notes:\n- Policy is created in the ActiveStore and is fully reversible from Falcon Optimizer.\n- Works best if your router respects DSCP tags and your ISP does not strip them.\n- If you see any weird network behavior, simply toggle this off to remove the policy.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"New-NetQosPolicy -Name 'Falcon League of Legends DSCP46' -AppPathNameMatchCondition '*League of Legends.exe' -DSCPAction 46 -PolicyStore ActiveStore -ErrorAction SilentlyContinue\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"Remove-NetQosPolicy -Name 'Falcon League of Legends DSCP46' -PolicyStore ActiveStore -Confirm:$false -ErrorAction SilentlyContinue\""
+          }
+        ]
+      }
+    },
+    {
+      "category": "Game Specific / League of Legends",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "[Focus: Ping / Network, Latency / Input Delay]\nSets a QoS UDP/TCP policy which prioritizes League of Legends's network traffic by tagging packets with DSCP 46 (Expedited Forwarding). This helps your router process the game's packets first, which can stabilize ping and reduce packet loss on congested networks. Notes:\n- Policy is created in the ActiveStore and is fully reversible from Falcon Optimizer.\n- Works best if your router respects DSCP tags and your ISP does not strip them.\n- If you see any weird network behavior, simply toggle this off to remove the policy.",
+      "id": "game.league.of.legends.qos_dscp46__revert",
+      "type": "button",
+      "name": "Revert: QoS: Prioritize League of Legends (DSCP 46 UDP/TCP)",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"Remove-NetQosPolicy -Name 'Falcon League of Legends DSCP46' -PolicyStore ActiveStore -Confirm:$false -ErrorAction SilentlyContinue\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "game.league.of.legends.priority_high",
+      "type": "button",
+      "name": "Set League of Legends Priority to High (while running)",
+      "category": "Game Specific / League of Legends",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "[Focus: FPS, Latency / Input Delay] If the game process is running, sets its process priority to High for this Windows session.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$p=Get-Process League of Legends -ErrorAction SilentlyContinue; if($p){$p.PriorityClass='High'} else {throw 'League of Legends is not running'}"
+          }
+        ]
+      },
+      "note": "Converted from toggle (missing revert)."
+    },
+    {
+      "id": "game.league.qos_dscp46_main",
+      "type": "button",
+      "name": "Apply: QoS: Prioritize Game Traffic (DSCP 46)",
+      "category": "Game Specific / League of Legends",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "[Focus: Ping / network stability, jitter, packet loss]\nCreates a Windows QoS policy that tags **League of Legends** packets with DSCP 46 (Expedited Forwarding). If your network gets congested (someone streaming/updates), routers that honor DSCP can schedule game packets first. What to expect:\n- Best case: smoother ping under load, fewer spikes.\n- Worst case: no change (ISP/router strips DSCP). How to test:\n- Turn this on.\n- Start a download/stream on the same network.\n- Compare in-game ping/jitter with and without. Notes:\n- Ethernet usually beats Wi‑Fi for jitter.\n- Fully reversible: toggle off removes the policy.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"New-NetQosPolicy -Name 'Falcon League of Legends DSCP46' -AppPathNameMatchCondition '*League of Legends.exe' -DSCPAction 46 -PolicyStore ActiveStore -ErrorAction SilentlyContinue\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"Remove-NetQosPolicy -Name 'Falcon League of Legends DSCP46' -PolicyStore ActiveStore -Confirm:$false -ErrorAction SilentlyContinue\""
+          }
+        ]
+      }
+    },
+    {
+      "category": "Game Specific / League of Legends",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "[Focus: Ping / network stability, jitter, packet loss]\nCreates a Windows QoS policy that tags **League of Legends** packets with DSCP 46 (Expedited Forwarding). If your network gets congested (someone streaming/updates), routers that honor DSCP can schedule game packets first. What to expect:\n- Best case: smoother ping under load, fewer spikes.\n- Worst case: no change (ISP/router strips DSCP). How to test:\n- Turn this on.\n- Start a download/stream on the same network.\n- Compare in-game ping/jitter with and without. Notes:\n- Ethernet usually beats Wi‑Fi for jitter.\n- Fully reversible: toggle off removes the policy.",
+      "id": "game.league.qos_dscp46_main__revert",
+      "type": "button",
+      "name": "Revert: QoS: Prioritize Game Traffic (DSCP 46)",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"Remove-NetQosPolicy -Name 'Falcon League of Legends DSCP46' -PolicyStore ActiveStore -Confirm:$false -ErrorAction SilentlyContinue\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "game.league.qos_dscp46_launcher",
+      "type": "button",
+      "name": "Apply: QoS: Prioritize Launcher / Anti‑Cheat Traffic (DSCP 46)",
+      "category": "Game Specific / League of Legends",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "[Focus: matchmaking stability]\nAdds a second QoS policy for the launcher/anti‑cheat process commonly used with **League of Legends**. When it helps:\n- Party/matchmaking traffic shares a busy connection. If unsure:\n- Leave this off and only use the main game policy.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"New-NetQosPolicy -Name 'Falcon League of Legends Launcher DSCP46' -AppPathNameMatchCondition '*LeagueClientUx.exe' -DSCPAction 46 -PolicyStore ActiveStore -ErrorAction SilentlyContinue\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"Remove-NetQosPolicy -Name 'Falcon League of Legends Launcher DSCP46' -PolicyStore ActiveStore -Confirm:$false -ErrorAction SilentlyContinue\""
+          }
+        ]
+      }
+    },
+    {
+      "category": "Game Specific / League of Legends",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "[Focus: matchmaking stability]\nAdds a second QoS policy for the launcher/anti‑cheat process commonly used with **League of Legends**. When it helps:\n- Party/matchmaking traffic shares a busy connection. If unsure:\n- Leave this off and only use the main game policy.",
+      "id": "game.league.qos_dscp46_launcher__revert",
+      "type": "button",
+      "name": "Revert: QoS: Prioritize Launcher / Anti‑Cheat Traffic (DSCP 46)",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"Remove-NetQosPolicy -Name 'Falcon League of Legends Launcher DSCP46' -PolicyStore ActiveStore -Confirm:$false -ErrorAction SilentlyContinue\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "game.league.ingame_settings_comp",
+      "type": "action",
+      "name": "Competitive In‑Game Settings (FPS + Clarity)",
+      "category": "Game Specific / League of Legends",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "primaryLabel": "View",
+      "description": "[Focus: FPS, reduced input delay, visual clarity]\nA competitive baseline that usually gives the biggest gains without breaking the game: Display / sync\n- Prefer **Fullscreen Exclusive** (if available). If the game only supports borderless, keep it and rely on a good FPS cap.\n- **V‑Sync: Off** (adds latency). If tearing bothers you, use an FPS cap instead of V‑Sync.\n- **FPS cap:** cap slightly below your refresh (ex: 237 for 240Hz, 162 for 165Hz). This reduces frametime spikes and keeps latency consistent. Graphics (highest ROI)\n- Motion blur / depth of field / film grain: **Off**.\n- Shadows: **Low/Off** (shadows are one of the most expensive settings).\n- Effects/particles/post‑processing: reduce first when fights cause drops.\n- Textures: keep within VRAM (too high → hitching). Latency features\n- If the game supports **Reflex / Low‑Latency**: enable it. Test On vs On+Boost. Rule:\n- Change one cluster at a time, then play 2–3 matches to confirm the gain.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nRead the guide in the description.\n\"@"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "game.league.windows_driver_stack",
+      "type": "action",
+      "name": "Windows + Driver Setup (Low‑Latency Baseline)",
+      "category": "Game Specific / League of Legends",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "primaryLabel": "View",
+      "description": "[Focus: input delay / frametime consistency]\nThis is the “don’t sabotage yourself” checklist: Windows\n- Set the correct **monitor refresh rate** in Windows display settings.\n- Disable background recording you don’t use (Game Bar captures, DVR features).\n- Disable overlays you don’t need (Discord overlay, Steam overlay, GeForce overlay, Overwolf).\n- Keep 10–20% free space on the drive the game uses (SSD cache + updates). GPU driver\n- Keep drivers reasonably current (not necessarily day‑1 if they’re unstable).\n- Prefer a stable driver branch you’ve tested. Network\n- Ethernet > Wi‑Fi for jitter.\n- If your ping spikes when others use the internet, you likely have **bufferbloat** (router QoS/SQM helps more than any Windows tweak). Performance truth:\n- If a “tweak” doesn’t change frametime graphs, it’s probably placebo.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nRead the guide in the description.\n\"@"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "game.league.config_launch_options",
+      "type": "action",
+      "name": "Launch Options + Config Hygiene (Stutter Reduction)",
+      "category": "Game Specific / League of Legends",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "primaryLabel": "View",
+      "description": "[Focus: stutter reduction / consistent frametimes]\nUse launch options sparingly and intentionally: API choice\n- Test DX11 vs DX12 (and Vulkan if supported): - DX11 often = smoother on older systems. - DX12 often = higher peak FPS but can stutter during shader compilation. Shader/cache reality\n- Clearing shader cache is a **troubleshooting tool**. The first few matches after clearing can stutter more while shaders rebuild. After updates\n- Verify game files after major patches.\n- If you suddenly stutter after an update, reset only the settings that changed recently. Avoid\n- Random “all launch options” lists. Some flags are outdated, ignored, or actively harmful.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nRead the guide in the description.\n\"@"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "game.league.input_tuning",
+      "type": "action",
+      "name": "Input Tuning (Mouse / Controller / Polling)",
+      "category": "Game Specific / League of Legends",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "primaryLabel": "View",
+      "description": "[Focus: input delay, consistency]\nMouse\n- Turn off Windows mouse acceleration (Enhance Pointer Precision).\n- Use a stable DPI + in‑game sens. Avoid constant sens changes.\n- Polling rate: 1000Hz is standard. Higher rates can help, but may increase CPU overhead on some rigs—test for micro‑stutter. Controller\n- Wired is usually lowest-latency.\n- Reduce deadzones as low as stable.\n- Disable extra smoothing/filters if the game offers it. Check\n- If input feels “floaty” only when FPS drops, it’s a performance issue, not a mouse setting.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nRead the guide in the description.\n\"@"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "game.league.overlay_background_killlist",
+      "type": "action",
+      "name": "Overlay + Background App Kill‑List (Real FPS Gains)",
+      "category": "Game Specific / League of Legends",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "primaryLabel": "View",
+      "description": "[Focus: real FPS gains]\nHigh-impact background offenders:\n- RGB suites (iCUE, Armoury Crate, Mystic Light)\n- Browsers with video tabs\n- Clip recorders you don’t need\n- Cloud sync during play (OneDrive/Dropbox active sync)\n- Updaters running in the background Competitive habit\n- Before ranked: close everything unnecessary, then launch the game fresh. Why this matters\n- CPU spikes and disk spikes cause hitching more than most registry tweaks.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nRead the guide in the description.\n\"@"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "game.league.troubleshoot_stutters",
+      "type": "action",
+      "name": "Troubleshooting Flow (Stutters / Ping Spikes / FPS Drops)",
+      "category": "Game Specific / League of Legends",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "primaryLabel": "View",
+      "description": "[Focus: fast diagnosis]\nUse this order so you don’t chase ghosts: 1) Measure\n- Use an FPS + frametime overlay. Frametime spikes = “stutter.” 2) Is it GPU or CPU?\n- GPU maxed → lower GPU-heavy settings (shadows, effects, resolution scale).\n- CPU maxed → reduce view distance / CPU-heavy effects, close background apps. 3) Is it storage?\n- If disk usage spikes, you may be on a slow drive or something is scanning/ syncing. 4) Is it network?\n- Packet loss/jitter: test Ethernet, reboot router, stop other network traffic. 5) Change one thing\n- If you change 10 settings at once, you’ll never know what helped.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nRead the guide in the description.\n\"@"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "game.league.enableqos",
+      "type": "button",
+      "name": "Apply: QoS: Prioritize game traffic (DSCP 46) [Real]",
+      "category": "Game Specific / League of Legends",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "Creates a Windows QoS policy (ActiveStore) tagging this game's packets with DSCP 46. Reversible.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'league' -Action 'EnableQoS'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'league' -Action 'DisableQoS'"
+          }
+        ]
+      }
+    },
+    {
+      "category": "Game Specific / League of Legends",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "Creates a Windows QoS policy (ActiveStore) tagging this game's packets with DSCP 46. Reversible.",
+      "id": "game.league.enableqos__revert",
+      "type": "button",
+      "name": "Revert: QoS: Prioritize game traffic (DSCP 46) [Real]",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'league' -Action 'DisableQoS'"
+          }
+        ]
+      }
+    },
+    {
+      "id": "game.league.enablelauncherqos",
+      "type": "button",
+      "name": "Apply: QoS: Prioritize launcher traffic (DSCP 46) [Real]",
+      "category": "Game Specific / League of Legends",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "Creates a QoS policy for the game's launcher/client (Steam/Epic/Battle.net/Riot). Reversible.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'league' -Action 'EnableLauncherQoS'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'league' -Action 'DisableLauncherQoS'"
+          }
+        ]
+      }
+    },
+    {
+      "category": "Game Specific / League of Legends",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "Creates a QoS policy for the game's launcher/client (Steam/Epic/Battle.net/Riot). Reversible.",
+      "id": "game.league.enablelauncherqos__revert",
+      "type": "button",
+      "name": "Revert: QoS: Prioritize launcher traffic (DSCP 46) [Real]",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'league' -Action 'DisableLauncherQoS'"
+          }
+        ]
+      }
+    },
+    {
+      "id": "game.league.setgpupref",
+      "type": "button",
+      "name": "Apply: Windows Graphics: Force High-Performance GPU for this game [Real]",
+      "category": "Game Specific / League of Legends",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "description": "Sets per-app GPU preference to High Performance (Windows Graphics Settings). Reversible.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'league' -Action 'SetGpuPref'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'league' -Action 'RemoveGpuPref'"
+          }
+        ]
+      }
+    },
+    {
+      "category": "Game Specific / League of Legends",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "description": "Sets per-app GPU preference to High Performance (Windows Graphics Settings). Reversible.",
+      "id": "game.league.setgpupref__revert",
+      "type": "button",
+      "name": "Revert: Windows Graphics: Force High-Performance GPU for this game [Real]",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'league' -Action 'RemoveGpuPref'"
+          }
+        ]
+      }
+    },
+    {
+      "id": "game.league.disablefso",
+      "type": "button",
+      "name": "Apply: Disable Fullscreen Optimizations for this game [Real]",
+      "category": "Game Specific / League of Legends",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "description": "Writes per-exe AppCompat flag to disable Fullscreen Optimizations. Reversible.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'league' -Action 'DisableFSO'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'league' -Action 'EnableFSO'"
+          }
+        ]
+      }
+    },
+    {
+      "category": "Game Specific / League of Legends",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "description": "Writes per-exe AppCompat flag to disable Fullscreen Optimizations. Reversible.",
+      "id": "game.league.disablefso__revert",
+      "type": "button",
+      "name": "Revert: Disable Fullscreen Optimizations for this game [Real]",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'league' -Action 'EnableFSO'"
+          }
+        ]
+      }
+    },
+    {
+      "id": "game.league.disabledpi",
+      "type": "button",
+      "name": "Apply: Disable DPI scaling / enforce DPI-aware for this game [Real]",
+      "category": "Game Specific / League of Legends",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "description": "Sets per-exe DPI behavior via AppCompat layer. Reversible.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'league' -Action 'DisableDPI'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'league' -Action 'EnableDPI'"
+          }
+        ]
+      }
+    },
+    {
+      "category": "Game Specific / League of Legends",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "description": "Sets per-exe DPI behavior via AppCompat layer. Reversible.",
+      "id": "game.league.disabledpi__revert",
+      "type": "button",
+      "name": "Revert: Disable DPI scaling / enforce DPI-aware for this game [Real]",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'league' -Action 'EnableDPI'"
+          }
+        ]
+      }
+    },
+    {
+      "id": "game.league.starttimer500us",
+      "type": "button",
+      "name": "Apply: Timer: Lock 0.5ms resolution (while Falcon is running) [Real]",
+      "category": "Game Specific / League of Legends",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "Starts Falcon timer-helper to request 0.5ms system timer resolution. Turn off to stop the helper.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'league' -Action 'StartTimer500us'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'league' -Action 'StopTimer'"
+          }
+        ]
+      }
+    },
+    {
+      "category": "Game Specific / League of Legends",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "Starts Falcon timer-helper to request 0.5ms system timer resolution. Turn off to stop the helper.",
+      "id": "game.league.starttimer500us__revert",
+      "type": "button",
+      "name": "Revert: Timer: Lock 0.5ms resolution (while Falcon is running) [Real]",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'league' -Action 'StopTimer'"
+          }
+        ]
+      }
+    },
+    {
+      "id": "game.league.sethighprioritynow",
+      "type": "action",
+      "name": "Set game priority to High (if running) [Real]",
+      "category": "Game Specific / League of Legends",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "If the game process is running, sets priority class to High for this session.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'league' -Action 'SetHighPriorityNow'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "game.league.setnormalprioritynow",
+      "type": "action",
+      "name": "Set game priority to Normal (if running) [Real]",
+      "category": "Game Specific / League of Legends",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "If the game process is running, sets priority class back to Normal for this session.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'league' -Action 'SetNormalPriorityNow'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "game.league.applyconfigbaseline",
+      "type": "button",
+      "name": "Apply: Apply competitive config baseline (game-specific files) [Real]",
+      "category": "Game Specific / League of Legends",
+      "riskLevel": "Warning",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "description": "Creates/patches the game's config file(s) with a low-latency baseline and backs up originals for restore.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'league' -Action 'ApplyConfigBaseline'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'league' -Action 'RestoreConfigBaseline'"
+          }
+        ]
+      }
+    },
+    {
+      "category": "Game Specific / League of Legends",
+      "riskLevel": "Warning",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "description": "Creates/patches the game's config file(s) with a low-latency baseline and backs up originals for restore.",
+      "id": "game.league.applyconfigbaseline__revert",
+      "type": "button",
+      "name": "Revert: Apply competitive config baseline (game-specific files) [Real]",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'league' -Action 'RestoreConfigBaseline'"
+          }
+        ]
+      }
+    },
+    {
+      "id": "game.league.clearcaches",
+      "type": "action",
+      "name": "Clear caches used by this game (best-effort) [Real]",
+      "category": "Game Specific / League of Legends",
+      "riskLevel": "Warning",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "description": "Deletes common cache folders for this title (where applicable).",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'league' -Action 'ClearCaches'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "game.league.closeoverlays",
+      "type": "action",
+      "name": "Close common overlay/recording apps (manual) [Real]",
+      "category": "Game Specific / League of Legends",
+      "riskLevel": "Warning",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "description": "Closes overlays/recording apps to reduce stutter. Manual; not auto-restored.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'league' -Action 'CloseOverlays'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "game.league.competitive_prep",
+      "type": "action",
+      "name": "Competitive Prep (one-click) [Real]",
+      "category": "Game Specific / League of Legends",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "Runs a one-click sequence: closes overlays, enables DSCP QoS, sets GPU pref, disables FSO/DPI scaling, starts 0.5ms timer, and applies the game-specific config baseline.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'league' -Action 'CloseOverlays'; & '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'league' -Action 'EnableLauncherQoS'; & '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'league' -Action 'EnableQoS'; & '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'league' -Action 'SetGpuPref'; & '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'league' -Action 'DisableFSO'; & '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'league' -Action 'DisableDPI'; & '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'league' -Action 'StartTimer500us'; & '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'league' -Action 'ApplyConfigBaseline'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "game.league.competitive_restore",
+      "type": "action",
+      "name": "Competitive Restore (one-click) [Real]",
+      "category": "Game Specific / League of Legends",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "Restores the game baseline backup (if present), stops the timer helper, removes GPU preference, re-enables FSO/DPI defaults, and removes QoS policies.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'league' -Action 'RestoreConfigBaseline'; & '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'league' -Action 'StopTimer'; & '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'league' -Action 'RemoveGpuPref'; & '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'league' -Action 'EnableFSO'; & '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'league' -Action 'EnableDPI'; & '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'league' -Action 'DisableQoS'; & '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'league' -Action 'DisableLauncherQoS'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "game.league.net_only",
+      "type": "action",
+      "name": "Network Only (DSCP for game + launcher) [Real]",
+      "category": "Game Specific / League of Legends",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "Enables DSCP 46 QoS for both the game executable and its launcher/client.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'league' -Action 'EnableLauncherQoS'; & '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'league' -Action 'EnableQoS'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "game.league.presentation_only",
+      "type": "action",
+      "name": "Presentation Only (GPU pref + FSO/DPI flags) [Real]",
+      "category": "Game Specific / League of Legends",
+      "riskLevel": "Warning",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "description": "Applies only presentation-path changes: GPU preference + disable FSO + DPI flag. Does not touch network or timer.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'league' -Action 'SetGpuPref'; & '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'league' -Action 'DisableFSO'; & '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'league' -Action 'DisableDPI'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    }
+  ]
+}

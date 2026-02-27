@@ -1,0 +1,373 @@
+{
+  "items": [
+    {
+      "id": "thermal_scan_overview__thermal.engine",
+      "type": "action",
+      "name": "Scan Thermal / Power State",
+      "description": "[Analyzer] Shows CPU clocks, basic thermal zones, NVIDIA GPU temp (if nvidia-smi exists), cooling policy, and PowerThrottling state.",
+      "requiresAdmin": false,
+      "riskLevel": "Safe",
+      "category": "Thermal Engine / Analyzer",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"=== FALCON THERMAL ENGINE: OVERVIEW & SCAN ===\"\nWrite-Output \"\"\n\n# CPU basic info and current clocks (approx)\ntry {\n  $cpu = Get-CimInstance Win32_Processor\n  Write-Output (\"CPU: {0}\" -f $cpu.Name)\n  Write-Output (\"  Cores: {0}, Threads: {1}\" -f $cpu.NumberOfCores, $cpu.NumberOfLogicalProcessors)\n  Write-Output (\"  MaxClockSpeed (MHz): {0}\" -f $cpu.MaxClockSpeed)\n  # Current clock (single sample)\n  try {\n    $cur = Get-Counter '\\Processor Information(_Total)\\Processor Frequency' -ErrorAction SilentlyContinue\n    if ($cur) {\n      $mhz = [math]::Round($cur.CounterSamples[0].CookedValue,0)\n      Write-Output (\"  Current Frequency (MHz): {0}\" -f $mhz)\n    }\n  } catch {}\n} catch {\n  Write-Output \"CPU: <failed to query>\"\n}\n\nWrite-Output \"\"\n\n# Attempt to read ACPI thermal zones (not always populated)\ntry {\n  $tz = Get-WmiObject -Namespace root/wmi -Class MSAcpi_ThermalZoneTemperature -ErrorAction SilentlyContinue\n  if ($tz) {\n    Write-Output \"ACPI Thermal Zones (may not reflect real CPU/GPU sensors):\"\n    foreach ($t in $tz) {\n      $tempC = ($t.CurrentTemperature - 2732) / 10.0\n      Write-Output (\"  {0}: {1:N1} °C\" -f $t.InstanceName, $tempC)\n    }\n  } else {\n    Write-Output \"ACPI Thermal Zones: <none or unsupported on this system>\"\n  }\n} catch {\n  Write-Output \"ACPI Thermal Zones: <failed to query>\"\n}\n\nWrite-Output \"\"\n\n# Try NVIDIA GPU temperature via nvidia-smi if present\ntry {\n  $nv = & nvidia-smi --query-gpu=temperature.gpu,clocks.sm,power.draw --format=csv,noheader 2>$null\n  if ($nv) {\n    Write-Output \"NVIDIA GPU (via nvidia-smi):\"\n    foreach ($line in $nv) {\n      Write-Output (\"  {0}\" -f $line.Trim())\n    }\n  } else {\n    Write-Output \"NVIDIA GPU: nvidia-smi not available or no NVIDIA GPU detected.\"\n  }\n} catch {\n  Write-Output \"NVIDIA GPU: failed to run nvidia-smi.\"\n}\n\nWrite-Output \"\"\n\n# Power plan cooling policy\ntry {\n  Write-Output \"Power Plan Cooling Policy (AC):\"\n  $guid_scheme = \"SCHEME_CURRENT\"\n  $sub_processor = \"SUB_PROCESSOR\"\n  $cool_guid = \"94D3A615-A899-4AC5-AE2B-E4D8F634367F\" # SYSTEM_COOLING_POLICY\n  $coolRaw = powercfg /QUERY $guid_scheme $sub_processor $cool_guid 2>$null\n  if ($coolRaw) {\n    Write-Output $coolRaw\n  } else {\n    Write-Output \"  (Could not query SYSTEM_COOLING_POLICY via powercfg.)\"\n  }\n} catch {\n  Write-Output \"Cooling Policy: <failed to query>\"\n}\n\nWrite-Output \"\"\n\n# PowerThrottling registry state (global)\ntry {\n  $ptKey = \"HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Power\\PowerThrottling\"\n  if (Test-Path $ptKey) {\n    $pt = Get-ItemProperty $ptKey -ErrorAction SilentlyContinue\n    if ($pt.PSObject.Properties.Name -contains \"PowerThrottlingOff\") {\n      Write-Output (\"PowerThrottlingOff (global): {0}\" -f $pt.PowerThrottlingOff)\n    } else {\n      Write-Output \"PowerThrottlingOff: <not set, using defaults>\"\n    }\n  } else {\n    Write-Output \"PowerThrottling key not found (likely using defaults).\"\n  }\n} catch {\n  Write-Output \"PowerThrottling: <failed to query>\"\n}\n\nWrite-Output \"\"\nWrite-Output \"Tip: Thermal Engine focuses on keeping cooling policy 'Active' and reducing OS-side throttling where safe.\"\nWrite-Output \"      For full sensor-level monitoring (per-core temps), use vendor tools alongside Falcon.\"\nWrite-Output \"\"\nWrite-Output \"=== END OF THERMAL OVERVIEW & SCAN ===\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nThermal scan is read-only and requires no revert.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "id": "thermal_set_active_cooling__thermal.engine",
+      "type": "button",
+      "name": "Apply: Force Active Cooling Policy (AC)",
+      "description": "[Focus: Stability] Sets the AC SYSTEM_COOLING_POLICY for the current power plan to Active, favoring fan usage over CPU frequency throttling.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Thermal Engine / Cooling Policy",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"=== FALCON THERMAL ENGINE: SET ACTIVE COOLING POLICY ===\"\nWrite-Output \"\"\nWrite-Output \"Setting system cooling policy to 'Active' on AC for the current power scheme.\"\nWrite-Output \"This asks Windows to favor fan speed over CPU frequency throttling under load.\"\nWrite-Output \"\"\n\n$scheme = \"SCHEME_CURRENT\"\n$sub_processor = \"SUB_PROCESSOR\"\n$cool_guid = \"94D3A615-A899-4AC5-AE2B-E4D8F634367F\" # SYSTEM_COOLING_POLICY\n\ntry {\n  powercfg /SETACVALUEINDEX $scheme $sub_processor $cool_guid 0 2>$null\n  Write-Output \"Set AC SYSTEM_COOLING_POLICY to Active (0).\"\n  powercfg /SETACTIVE $scheme 2>$null\n  Write-Output \"Re-activated current power scheme so changes take effect.\"\n} catch {\n  Write-Output (\"Failed to set cooling policy: {0}\" -f $_.Exception.Message)\n}\n\nWrite-Output \"\"\nWrite-Output \"Note: Some OEM power utilities may override this setting.\"\nWrite-Output \"=== END OF ACTIVE COOLING POLICY APPLY ===\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nTo revert cooling policy, set SYSTEM_COOLING_POLICY back to 'Passive' or restore your power plan defaults via powercfg or OEM tool.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "description": "[Focus: Stability] Sets the AC SYSTEM_COOLING_POLICY for the current power plan to Active, favoring fan usage over CPU frequency throttling.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Thermal Engine / Cooling Policy",
+      "id": "thermal_set_active_cooling__thermal.engine__revert",
+      "type": "button",
+      "name": "Revert: Force Active Cooling Policy (AC)",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nTo revert cooling policy, set SYSTEM_COOLING_POLICY back to 'Passive' or restore your power plan defaults via powercfg or OEM tool.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "id": "thermal_disable_power_throttling__thermal.engine",
+      "type": "button",
+      "name": "Apply: Disable Global Power Throttling (Desktop-Only Recommended)",
+      "description": "[Focus: Latency] Sets PowerThrottlingOff=1 to stop Windows from applying background power-throttling heuristics. Strongly recommended only for well-cooled desktops.",
+      "requiresAdmin": true,
+      "riskLevel": "Danger",
+      "category": "Thermal Engine / Throttling",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"=== FALCON THERMAL ENGINE: DISABLE GLOBAL POWER THROTTLING ===\"\nWrite-Output \"\"\nWrite-Output \"This will set PowerThrottlingOff=1 under the global PowerThrottling key.\"\nWrite-Output \"It tells Windows not to apply modern background power-throttling heuristics.\"\nWrite-Output \"Use for plugged-in gaming desktops; laptops may lose battery life.\"\nWrite-Output \"\"\n\n$ptKey = \"HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Power\\PowerThrottling\"\n\ntry {\n  if (-not (Test-Path $ptKey)) {\n    New-Item -Path $ptKey -Force | Out-Null\n  }\n  New-ItemProperty -Path $ptKey -Name \"PowerThrottlingOff\" -Value 1 -PropertyType DWord -Force | Out-Null\n  Write-Output \"Set PowerThrottlingOff = 1 (global).\"\n} catch {\n  Write-Output (\"Failed to set PowerThrottlingOff: {0}\" -f $_.Exception.Message)\n}\n\nWrite-Output \"\"\nWrite-Output \"Note: Some power features (especially on laptops) rely on throttling for thermals/battery.\"\nWrite-Output \"      Only use this on systems where cooling and power are sufficient.\"\nWrite-Output \"=== END OF GLOBAL POWER THROTTLING DISABLE ===\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nTo re-enable power throttling, delete PowerThrottlingOff or set it back to 0 under HKLM\\SYSTEM\\CurrentControlSet\\Control\\Power\\PowerThrottling.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "description": "[Focus: Latency] Sets PowerThrottlingOff=1 to stop Windows from applying background power-throttling heuristics. Strongly recommended only for well-cooled desktops.",
+      "requiresAdmin": true,
+      "riskLevel": "Danger",
+      "category": "Thermal Engine / Throttling",
+      "id": "thermal_disable_power_throttling__thermal.engine__revert",
+      "type": "button",
+      "name": "Revert: Disable Global Power Throttling (Desktop-Only Recommended)",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nTo re-enable power throttling, delete PowerThrottlingOff or set it back to 0 under HKLM\\SYSTEM\\CurrentControlSet\\Control\\Power\\PowerThrottling.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "id": "thermal_disable_power_throttling_x__thermal.engine",
+      "type": "toggle",
+      "name": "Disable Power Throttling",
+      "description": "Disables Windows power throttling feature.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Thermal Engine / Performance",
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\\\SYSTEM\\\\CurrentControlSet\\\\Control\\\\Power\\\\PowerThrottling",
+            "name": "PowerThrottlingOff",
+            "value": 1,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\\\SYSTEM\\\\CurrentControlSet\\\\Control\\\\Power\\\\PowerThrottling",
+            "name": "PowerThrottlingOff"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\\\SYSTEM\\\\CurrentControlSet\\\\Control\\\\Power\\\\PowerThrottling",
+            "name": "PowerThrottlingOff",
+            "valueType": "DWORD",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "thermal_disable_hibernate__thermal.engine",
+      "type": "button",
+      "name": "Apply: Disable Hibernate",
+      "description": "Disables hibernation and removes hiberfile.sys.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Thermal Engine / Storage",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -h off"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -h on"
+          }
+        ]
+      }
+    },
+    {
+      "description": "Disables hibernation and removes hiberfile.sys.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Thermal Engine / Storage",
+      "id": "thermal_disable_hibernate__thermal.engine__revert",
+      "type": "button",
+      "name": "Revert: Disable Hibernate",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -h on"
+          }
+        ]
+      }
+    },
+    {
+      "id": "thermal_disable_pcie_aspm__thermal.engine",
+      "type": "button",
+      "name": "Apply: Disable PCIe ASPM (AC)",
+      "description": "Sets PCIe Link State Power Management to Off on AC power.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Thermal Engine / PCIe",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$null = (powercfg /getactivescheme) -match 'GUID:\\s+([A-F0-9-]+)'\n$guid = $Matches[1]\npowercfg /setacvalueindex $guid SUB_PCIEXPRESS ASPM 0 | Out-Null\npowercfg /S $guid | Out-Null\nWrite-Output \"PCIe ASPM set to Off (AC).\"\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$null = (powercfg /getactivescheme) -match 'GUID:\\s+([A-F0-9-]+)'\n$guid = $Matches[1]\npowercfg /setacvalueindex $guid SUB_PCIEXPRESS ASPM 2 | Out-Null\npowercfg /S $guid | Out-Null\nWrite-Output \"PCIe ASPM restored to Moderate (AC).\"\n"
+          }
+        ]
+      }
+    },
+    {
+      "description": "Sets PCIe Link State Power Management to Off on AC power.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Thermal Engine / PCIe",
+      "id": "thermal_disable_pcie_aspm__thermal.engine__revert",
+      "type": "button",
+      "name": "Revert: Disable PCIe ASPM (AC)",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$null = (powercfg /getactivescheme) -match 'GUID:\\s+([A-F0-9-]+)'\n$guid = $Matches[1]\npowercfg /setacvalueindex $guid SUB_PCIEXPRESS ASPM 2 | Out-Null\npowercfg /S $guid | Out-Null\nWrite-Output \"PCIe ASPM restored to Moderate (AC).\"\n"
+          }
+        ]
+      }
+    },
+    {
+      "id": "thermal_svc_disable_usosvc__thermal.engine",
+      "type": "toggle",
+      "name": "Stop/disable UsoSvc",
+      "description": "Stops a background update service (restore after).",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Thermal Engine / Background",
+      "apply": {
+        "steps": [
+          {
+            "type": "service.disable",
+            "name": "UsoSvc"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.enable",
+            "name": "UsoSvc"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "UsoSvc",
+            "startupType": "disabled"
+          }
+        ]
+      }
+    },
+    {
+      "id": "thermal_svc_disable_wuauserv__thermal.engine",
+      "type": "toggle",
+      "name": "Stop/disable wuauserv",
+      "description": "Stops a background update service (restore after).",
+      "requiresAdmin": true,
+      "riskLevel": "Danger",
+      "category": "Thermal Engine / Background",
+      "apply": {
+        "steps": [
+          {
+            "type": "service.disable",
+            "name": "wuauserv"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.enable",
+            "name": "wuauserv"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "wuauserv",
+            "startupType": "disabled"
+          }
+        ]
+      }
+    },
+    {
+      "id": "thermal_svc_disable_dosvc__thermal.engine",
+      "type": "toggle",
+      "name": "Stop/disable DoSvc",
+      "description": "Stops a background update service (restore after).",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Thermal Engine / Background",
+      "apply": {
+        "steps": [
+          {
+            "type": "service.disable",
+            "name": "DoSvc"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.enable",
+            "name": "DoSvc"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "DoSvc",
+            "startupType": "disabled"
+          }
+        ]
+      }
+    },
+    {
+      "id": "thermal_svc_disable_bits__thermal.engine",
+      "type": "toggle",
+      "name": "Stop/disable BITS",
+      "description": "Stops a background update service (restore after).",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Thermal Engine / Background",
+      "apply": {
+        "steps": [
+          {
+            "type": "service.disable",
+            "name": "BITS"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.enable",
+            "name": "BITS"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "BITS",
+            "startupType": "disabled"
+          }
+        ]
+      }
+    }
+  ]
+}

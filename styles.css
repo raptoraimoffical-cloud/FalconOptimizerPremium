@@ -1,0 +1,4559 @@
+:root{
+  --bg:#f3f4f6;
+  --bg2:#e5e7eb;
+  --card:#ffffff;
+  --card2:#f9fafb;
+  --text:#020617;
+  --muted:#6b7280;
+  --stroke: rgba(15,23,42,0.18);
+  --glow: rgba(248,113,113,0.35);
+  --red1:#ef4444;
+  --red2:#b91c1c;
+  --amber:#f59e0b;
+  --green:#22c55e;
+}
+
+*{ box-sizing:border-box; }
+html,body{
+  height:100%;
+  background:
+    radial-gradient(circle at 0% -20%, #ffffff 0, #f3f4f6 45%, #e5e7eb 100%),
+    radial-gradient(circle at 120% 140%, rgba(248,113,113,0.25), transparent 55%),
+    #f3f4f6;
+  color:var(--text);
+}
+
+body{
+  margin:0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  font-size:16px;
+  line-height:1.55;
+  background: radial-gradient(900px 600px at 70% 15%, rgba(255, 0, 40, 0.12), transparent 60%),
+              radial-gradient(900px 600px at 20% 80%, rgba(255, 0, 0, 0.10), transparent 60%),
+              linear-gradient(180deg, var(--bg), var(--bg2));
+  color:var(--text);
+}
+#app{ display:flex; height:100vh; }
+.sidebar{
+  z-index: 30000;
+  position: relative;
+  max-height: calc(100vh - 32px);
+  overflow-y:auto;
+  width:260px;
+  padding:18px 14px;
+  border-right:1px solid var(--stroke);
+  background: linear-gradient(180deg, rgba(248,250,252,0.92), rgba(229,231,235,0.96));
+  backdrop-filter: blur(8px);
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+  pointer-events: auto;
+}
+
+.brand{ display:flex; gap:12px; align-items:center; padding:10px 10px; border:1px solid var(--stroke); border-radius:16px; background:rgba(255,255,255,0.88); box-shadow: 0 0 0 1px rgba(255,0,0,0.06) inset; }
+.brand-mark{
+  width:40px; height:40px; border-radius:14px;
+  background:
+    radial-gradient(circle at 20% 0%, rgba(248,250,252,0.9), rgba(255,255,255,0.25) 40%, rgba(15,23,42,0.0) 70%),
+    radial-gradient(circle at 80% 120%, rgba(220,38,38,0.95), rgba(15,23,42,0.25) 60%),
+    linear-gradient(135deg, #000000, #111111);
+  border:1px solid rgba(148,163,184,0.7);
+  box-shadow:
+    0 18px 40px rgba(0,0,0,0.85),
+    0 0 60px rgba(220,38,38,0.45);
+}
+
+.brand-name{ font-weight:800; letter-spacing:1px; font-size:13px; }
+.brand-sub{ color:var(--muted); font-size:12px; letter-spacing:2px; }
+.nav{ display:flex; flex-direction:column; gap:6px; }
+.nav-section{ margin-top:6px; margin-bottom:2px; font-size:12px; letter-spacing:1px; color:rgba(154,160,178,0.85); text-transform:uppercase; padding:0 10px; }
+.nav-item{
+  text-align:left;
+  padding:10px 12px;
+  border-radius:12px;
+  border:1px solid transparent;
+  background:transparent;
+  color:var(--text);
+  cursor:pointer;
+  pointer-events: auto;
+}
+
+.nav-item:hover{ background:rgba(255,255,255,0.04); border-color:rgba(255,255,255,0.06); }
+.nav-item.active{
+  background:linear-gradient(90deg, rgba(255,26,26,0.14), rgba(215,11,47,0.04));
+  border-color:rgba(255,26,26,0.22);
+  box-shadow: 0 0 0 1px rgba(255,0,0,0.08) inset;
+  color:var(--text);
+}
+.userbox{
+  margin-top:auto;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:10px;
+  border:1px solid var(--stroke);
+  border-radius:16px;
+  background:rgba(255,255,255,0.88);
+}
+.userbadge{
+  width:34px;height:34px;border-radius:12px;
+  background: rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.10);
+  display:flex; align-items:center; justify-content:center;
+  font-weight:700;
+}
+.userid{ font-weight:700; font-size:13px; }
+.userplan{ color:var(--muted); font-size:11px; }
+.main{ flex:1; display:flex; flex-direction:column; min-width:0; }
+.topbar{ padding:22px 26px; display:flex; align-items:center; justify-content:space-between; }
+.page-title{ font-size:34px; font-weight:850; }
+.page-sub{ color:var(--muted); margin-top:4px; }
+.cta{
+  background: linear-gradient(90deg, rgba(255,26,26,0.25), rgba(215,11,47,0.10));
+  border:1px solid rgba(255,26,26,0.38);
+  color:var(--text);
+  padding:10px 14px;
+  border-radius:14px;
+  cursor:pointer;
+  box-shadow: 0 12px 24px rgba(0,0,0,0.38), 0 0 24px rgba(255,0,0,0.10);
+}
+.content{ padding:0 26px 18px 26px; overflow:auto; }
+.tabs{ display:flex; gap:10px; margin-bottom:14px; }
+.tab{
+  padding:10px 12px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,0.08);
+  background: rgba(18,19,27,0.45);
+  cursor:pointer;
+  color:rgba(232,232,239,0.92);
+}
+.tab.active{
+  border-color: rgba(255,26,26,0.35);
+  box-shadow: 0 0 0 1px rgba(255,0,0,0.10) inset;
+  background: linear-gradient(180deg, rgba(255,26,26,0.12), rgba(18,19,27,0.45));
+}
+.toolbar{ display:flex; align-items:center; gap:10px; margin-bottom:14px; }
+.searchbox{
+  flex:1;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:10px 12px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,0.08);
+  background: rgba(18,19,27,0.50);
+}
+.searchbox input{ flex:1; background:transparent; border:none; outline:none; color:var(--text); font-size:13px; }
+.icon{ opacity:0.7; }
+.toolbtn{
+  padding:10px 12px;
+  border-radius:12px;
+  font-size:14px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,0.08);
+  background: rgba(18,19,27,0.45);
+  color:rgba(232,232,239,0.92);
+  cursor:pointer;
+}
+.toolbtn:hover{
+  border-color: rgba(74,222,128,0.55);
+  box-shadow:
+    0 0 0 1px rgba(220,38,38,0.4),
+    0 0 18px rgba(220,38,38,0.5);
+}
+
+.grid{ display:grid; grid-template-columns: repeat(3, minmax(260px, 1fr)); gap:14px; margin-bottom:18px; }
+@media (max-width: 1180px){ .grid{ grid-template-columns: repeat(2, minmax(260px, 1fr)); } }
+.card{
+  border-radius:18px;
+  border:1px solid rgba(255,255,255,0.08);
+  background: linear-gradient(180deg, rgba(18,19,27,0.62), rgba(18,19,27,0.40));
+  padding:14px 14px 12px 14px;
+  box-shadow: 0 16px 32px rgba(0,0,0,0.35);
+  position:relative;
+  overflow:hidden;
+}
+.card:hover{
+  border-color: rgba(255,26,26,0.22);
+  box-shadow: 0 18px 36px rgba(0,0,0,0.40), 0 0 32px var(--glow);
+}
+.card-title{ font-weight:800; font-size:14px; margin-bottom:6px; }
+.card-desc{ color:var(--muted); font-size:14px; line-height:1.35; min-height:34px; }
+.badges{ display:flex; gap:8px; margin-top:10px; align-items:center; }
+.badge{
+  font-size:11px;
+  padding:4px 8px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.05);
+  color:rgba(232,232,239,0.88);
+}
+.badge.safe{ border-color: rgba(35,209,139,0.35); color: rgba(35,209,139,0.95); background: rgba(35,209,139,0.06); }
+.badge.warn{ border-color: rgba(255,176,32,0.35); color: rgba(255,176,32,0.95); background: rgba(255,176,32,0.06); }
+.badge.extreme{ border-color: rgba(255,26,26,0.40); color: rgba(255,26,26,0.98); background: rgba(255,26,26,0.06); }
+.toggle{
+  position:absolute;
+  right:12px; top:12px;
+  width:44px; height:26px;
+  border-radius:999px;
+  background: rgba(255,255,255,0.12);
+  border:1px solid rgba(255,255,255,0.14);
+  cursor:pointer;
+}
+.toggle::after{
+  content:'';
+  position:absolute;
+  top:3px; left:3px;
+  width:20px; height:20px;
+  border-radius:999px;
+  background: rgba(255,255,255,0.92);
+  transition: all 160ms ease;
+}
+.toggle.on{ background: rgba(255,26,26,0.35); border-color: rgba(255,26,26,0.45); }
+.toggle.on::after{ left:20px; background: rgba(255,255,255,0.96); }
+
+/* Reliable, accessible switch control (used for toggle cards) */
+.fo-switch{
+  position:absolute;
+  right:12px;
+  top:12px;
+  width:44px;
+  height:26px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+}
+.fo-switch-input{
+  position:absolute;
+  opacity:0;
+  width:0;
+  height:0;
+}
+.fo-switch-track{
+  width:44px;
+  height:26px;
+  border-radius:999px;
+  background: rgba(255,255,255,0.12);
+  border:1px solid rgba(255,255,255,0.14);
+  position:relative;
+  transition: background 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+}
+.fo-switch-thumb{
+  position:absolute;
+  top:3px;
+  left:3px;
+  width:20px;
+  height:20px;
+  border-radius:999px;
+  background: rgba(255,255,255,0.92);
+  transition: transform 160ms ease, background 160ms ease;
+}
+.fo-switch-input:checked + .fo-switch-track{
+  background: rgba(255,26,26,0.35);
+  border-color: rgba(255,26,26,0.45);
+  box-shadow: 0 0 18px rgba(220,38,38,0.35);
+}
+.fo-switch-input:checked + .fo-switch-track .fo-switch-thumb{
+  transform: translateX(18px);
+  background: rgba(255,255,255,0.96);
+}
+.fo-switch-input:focus-visible + .fo-switch-track{
+  outline: 2px solid rgba(255,255,255,0.55);
+  outline-offset: 2px;
+}
+.card-actions{ margin-top:12px; display:flex; gap:10px; }
+.boost-toolbar{ display:flex; justify-content:flex-end; gap:8px; margin-bottom:10px; align-items:center; }
+.boost-check{ display:flex; align-items:center; justify-content:center; }
+.boost-check input{ width:20px; height:20px; cursor:pointer; }
+.boost-card .card-title, .boost-card .card-desc{ padding-left:28px; }
+
+.btn{
+  flex:1;
+  padding:10px 12px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.06);
+  color:rgba(232,232,239,0.92);
+  cursor:pointer;
+  font-weight:700;
+  font-size:12px;
+}
+.btn.primary{
+  background: linear-gradient(90deg, rgba(220,38,38,0.95), rgba(255,255,255,0.9));
+  border-color: rgba(220,38,38,0.85);
+  box-shadow: 0 0 22px rgba(220,38,38,0.45);
+}
+
+.btn:hover{ border-color: rgba(255,26,26,0.26); }
+.panel{
+  position:relative;
+  border-radius:18px;
+  border:1px solid rgba(148,163,184,0.55);
+  background: rgba(15,23,42,0.92);
+  padding:16px;
+  margin-bottom:18px;
+  box-shadow:
+    0 18px 40px rgba(0,0,0,0.85),
+    0 0 48px rgba(15,23,42,0.95);
+  overflow:hidden;
+}
+
+.panel-topo{
+  background:
+    radial-gradient(circle at 0% -30%, rgba(248,250,252,0.18), transparent 55%),
+    radial-gradient(circle at 120% 140%, rgba(220,38,38,0.24), transparent 60%),
+    rgba(10,16,30,0.98);
+  border-color: rgba(148,163,184,0.85);
+  box-shadow:
+    0 24px 70px rgba(15,23,42,0.98),
+    0 0 60px rgba(220,38,38,0.35);
+}
+.panel-topo::before{
+  content:"";
+  position:absolute;
+  inset:-40%;
+  background-image:
+    repeating-conic-gradient(from 0deg,
+      rgba(148,163,184,0.16) 0deg 1deg,
+      transparent 1deg 7deg);
+  opacity:0.38;
+  mix-blend-mode:screen;
+  pointer-events:none;
+}
+
+.pc-overview-layout{
+  display:grid;
+  grid-template-columns:minmax(0, 1.15fr) minmax(0, 1fr);
+  gap:18px;
+  align-items:flex-start;
+}
+@media (max-width: 980px){
+  .pc-overview-layout{
+    grid-template-columns: minmax(0,1fr);
+  }
+}
+
+.pc-overview-left{
+  position:relative;
+  z-index:1;
+}
+
+.pc-overview-right{
+  position:relative;
+  z-index:1;
+}
+
+.pc-topology-label{
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:.18em;
+  color:var(--muted);
+}
+.pc-topology-sub{
+  font-size:12px;
+  color:var(--muted);
+  margin-top:4px;
+}
+
+.pc-topology-grid{
+  margin-top:14px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(170px, 1fr));
+  gap:10px;
+}
+
+.pc-topo-card{
+  position:relative;
+  padding:10px 10px 12px;
+  border-radius:14px;
+  background:
+    linear-gradient(140deg, rgba(10,16,30,0.96), rgba(15,23,42,0.9)),
+    radial-gradient(circle at -10% -20%, rgba(248,250,252,0.18), transparent 55%);
+  border:1px solid rgba(148,163,184,0.6);
+  box-shadow:
+    0 10px 30px rgba(0,0,0,0.85),
+    0 0 30px rgba(15,23,42,0.9);
+  overflow:hidden;
+}
+.pc-topo-card::before{
+  content:"";
+  position:absolute;
+  inset:-30%;
+  background-image:
+    repeating-linear-gradient(
+      135deg,
+      rgba(148,163,184,0.10),
+      rgba(148,163,184,0.10) 1px,
+      transparent 1px,
+      transparent 7px
+    );
+  opacity:0.35;
+  mix-blend-mode:screen;
+  pointer-events:none;
+}
+.pc-topo-card::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:radial-gradient(circle at 120% 140%, rgba(220,38,38,0.36), transparent 60%);
+  opacity:0.55;
+  mix-blend-mode:soft-light;
+  pointer-events:none;
+}
+
+.pc-topo-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:8px;
+  position:relative;
+  z-index:1;
+}
+.pc-topo-title{
+  font-size:13px;
+  font-weight:600;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.pc-topo-tag{
+  font-size:10px;
+  padding:3px 7px;
+  border-radius:999px;
+  border:1px solid rgba(148,163,184,0.6);
+  background:rgba(15,23,42,0.95);
+  text-transform:uppercase;
+  letter-spacing:.14em;
+  white-space:nowrap;
+}
+
+.pc-topo-bars{
+  margin-top:6px;
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+  position:relative;
+  z-index:1;
+}
+.pc-topo-row{
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+}
+.pc-topo-row-label{
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  color:var(--muted);
+}
+.pc-topo-bar{
+  position:relative;
+  height:8px;
+  border-radius:999px;
+  background:rgba(15,23,42,0.75);
+  border:1px solid rgba(148,163,184,0.6);
+  overflow:hidden;
+}
+.pc-topo-bar-fill{
+  position:absolute;
+  inset:0;
+  width:var(--fill-pct, 50%);
+  border-radius:999px;
+  background:linear-gradient(90deg, rgba(220,38,38,0.98), rgba(255,255,255,0.96));
+  box-shadow:
+    0 0 12px rgba(220,38,38,0.7),
+    0 0 24px rgba(255,255,255,0.6);
+}
+
+}
+.footer{
+  display:flex;
+  justify-content:space-between;
+  padding:12px 26px;
+  border-top:1px solid rgba(255,255,255,0.08);
+  color:var(--muted);
+}
+.muted{ color:var(--muted); font-size:12px; }
+.kpi-row{ display:grid; grid-template-columns: 1fr 1fr 1fr; gap:14px; }
+.kpi{ border-radius:18px; border:1px solid rgba(255,255,255,0.08); background: rgba(18,19,27,0.45); padding:14px; }
+.kpi .label{ color:var(--muted); font-size:12px; }
+.kpi .value{ font-size:14px; font-weight:800; margin-top:6px; }
+.notice{
+  padding:12px 14px;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,0.08);
+  background: rgba(18,19,27,0.40);
+  margin-bottom:12px;
+}
+.notice strong{ color: rgba(255,176,32,0.98); }
+pre.log{
+  white-space:pre-wrap;
+  word-break:break-word;
+  padding:12px;
+  border-radius:14px;
+  background: rgba(0,0,0,0.35);
+  border:1px solid rgba(255,255,255,0.08);
+  color: rgba(232,232,239,0.92);
+  max-height: 240px;
+  overflow:auto;
+}
+
+.btn-red{background:#c30000;color:#fff;border:0;padding:10px 14px;border-radius:10px;cursor:pointer;}
+.logbox{margin:10px;padding:10px;background:#0b0b0b;border:1px solid #222;border-radius:10px;max-height:240px;overflow:auto;}
+
+.modal-backdrop{
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.65);
+  display:flex; align-items:center; justify-content:center;
+  z-index: 9999;
+  /* Must be clickable (consent checkbox + modal buttons). */
+  pointer-events: auto;
+}
+
+.modal{
+  width: min(640px, calc(100vw - 24px));
+  background: #ffffff;
+  border: 1px solid rgba(148,163,184,0.25);
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: 0 22px 60px rgba(15,23,42,0.35);
+}
+.modal-title{ font-size: 18px; font-weight: 700; margin-bottom: 8px; color:#0f172a; }
+.modal-body{ color:#0f172a; line-height:1.55; white-space:pre-wrap; }
+.modal-check{ margin-top: 12px; color:#0f172a; }
+.modal-actions{ display:flex; justify-content:flex-end; gap:10px; margin-top: 14px; }
+.modal-type{ margin-top: 12px; }
+.modal-type-label{ color:#0f172a; margin-bottom:6px; }
+.input{ width:100%; padding:10px 12px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.14); background:#0b111a; color:#e2e8f0; outline:none; }
+.hint{ color:#94a3b8; margin-top:6px; font-size: 12px; }
+
+.badge.risk-critical{ border-color: rgba(255,0,0,0.35); }
+.badge.risk-high{ border-color: rgba(255,165,0,0.35); }
+.badge.risk-warning{ border-color: rgba(255,255,0,0.25); }
+
+
+.progress{height:10px; background: rgba(255,255,255,0.08); border-radius:10px; overflow:hidden;}
+.progress-bar{height:100%; background: rgba(255,255,255,0.55);} 
+.progress-row{display:flex; justify-content:space-between; margin-bottom:6px; font-size:12px;}
+
+
+/* PC overview + FPS estimates */
+.pc-specs-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  margin-top:10px;
+}
+.pc-spec{
+  flex:1 1 160px;
+  min-width:140px;
+  padding:8px 10px;
+  border-radius:12px;
+  background:rgba(15,23,42,0.96);
+  border:1px solid rgba(148,163,184,0.6);
+  box-shadow:0 8px 24px rgba(0,0,0,0.75);
+}
+.spec-label{
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  color:var(--muted);
+  margin-bottom:4px;
+}
+.spec-value{
+  font-size:13px;
+  color:var(--text);
+  word-break:break-word;
+}
+.fps-estimates{
+  margin-top:12px;
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+.fps-row{
+  display:grid;
+  grid-template-columns:minmax(0, 160px) minmax(0, 1fr);
+  align-items:center;
+  gap:10px;
+}
+.fps-row-header{
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  color:var(--muted);
+}
+.fps-bar{
+  position:relative;
+  width:100%;
+  height:16px;
+  border-radius:999px;
+  background:rgba(255,255,255,0.04);
+  overflow:hidden;
+}
+.fps-bar-fill{
+  position:absolute;
+  top:0;
+  left:0;
+  bottom:0;
+  border-radius:999px;
+  background:linear-gradient(90deg, #44d18a, #f6c453);
+}
+.fps-bar-label{
+  position:relative;
+  z-index:1;
+  font-size:11px;
+  padding-left:8px;
+  color:#050608;
+  font-weight:600;
+  text-shadow:0 0 3px rgba(0,0,0,0.6);
+}
+
+
+/* ================================
+   Falcon Space-White Esports V3
+   Visual overrides (layout + theme)
+   ================================ */
+
+body{
+  margin:0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  background:
+    radial-gradient(circle at 0% -20%, #ffffff 0, #f3f4f6 45%, #e5e7eb 100%),
+    radial-gradient(circle at 120% 140%, rgba(248,113,113,0.18), transparent 55%),
+    #f3f4f6;
+  color:var(--text);
+}
+
+#app{
+  display:flex;
+  height:100vh;
+  max-width: 1360px;
+  margin: 12px auto;
+  border-radius: 24px;
+  border: 1px solid rgba(148,163,184,0.25);
+  box-shadow:
+    0 32px 80px rgba(15,23,42,0.28),
+    0 0 0 1px rgba(255,255,255,0.55);
+  overflow:hidden;
+  background: rgba(249,250,251,0.96);
+}
+
+/* Sidebar: bright glassy control rail */
+
+.sidebar{
+  width:280px;
+  padding:20px 18px;
+  border-right:1px solid rgba(148,163,184,0.25);
+  background:
+    linear-gradient(180deg, rgba(248,250,252,0.98), rgba(229,231,235,0.98));
+  backdrop-filter: blur(18px);
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+}
+
+.brand{
+  display:flex;
+  gap:14px;
+  align-items:center;
+  padding:10px 10px 10px 6px;
+}
+
+.brand-mark{
+  width:44px;
+  height:44px;
+  border-radius:16px;
+  background:
+    radial-gradient(circle at 15% 0%, #ffffff 0, #f9fafb 40%, transparent 70%),
+    radial-gradient(circle at 80% 120%, rgba(248,113,113,0.95), rgba(248,113,113,0.18) 55%, transparent 80%),
+    linear-gradient(135deg, #f9fafb, #e5e7eb);
+  box-shadow:
+    0 18px 40px rgba(15,23,42,0.28),
+    0 0 40px rgba(248,113,113,0.52);
+  border:1px solid rgba(248,113,113,0.65);
+  position:relative;
+}
+
+.brand-mark::before{
+  content:"";
+  position:absolute;
+  inset:10%;
+  background:
+    conic-gradient(from 220deg, rgba(248,113,113,0.0), rgba(248,113,113,0.16), rgba(248,113,113,0.0) 40%);
+  mix-blend-mode:soft-light;
+  border-radius:inherit;
+}
+
+.brand-mark::after{
+  content:"F";
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:900;
+  font-size:20px;
+  color:#111827;
+  text-shadow:0 0 12px rgba(248,113,113,0.65);
+}
+
+.brand-name{
+  font-weight:800;
+  letter-spacing:0.12em;
+  font-size:13px;
+  text-transform:uppercase;
+  color:#020617;
+}
+
+.brand-sub{
+  color:var(--muted);
+  font-size:11px;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+}
+
+/* Navigation */
+
+.nav-section{
+  margin-top:10px;
+  margin-bottom:4px;
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:0.16em;
+  text-transform:uppercase;
+  color:rgba(75,85,99,0.95);
+}
+
+.nav-item{
+  text-align:left;
+  padding:10px 12px;
+  border-radius:999px;
+  border:1px solid transparent;
+  background:transparent;
+  color:#111827;
+  cursor:pointer;
+  font-size:13px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+}
+
+.nav-item:hover{
+  background:rgba(248,113,113,0.04);
+  border-color:rgba(248,113,113,0.20);
+}
+
+.nav-item.active{
+  background:linear-gradient(90deg, rgba(248,113,113,0.18), rgba(239,68,68,0.06));
+  border-color:rgba(248,113,113,0.65);
+  box-shadow:
+    0 8px 18px rgba(248,113,113,0.25),
+    0 0 0 1px rgba(255,255,255,0.65);
+  color:#111827;
+}
+
+/* User box */
+
+.userbox{
+  margin-top:auto;
+  padding:12px 10px;
+  border-radius:18px;
+  border:1px solid rgba(148,163,184,0.35);
+  background:rgba(255,255,255,0.92);
+  display:flex;
+  align-items:center;
+  gap:10px;
+  box-shadow:0 10px 32px rgba(15,23,42,0.12);
+}
+
+.userbadge{
+  width:34px;
+  height:34px;
+  border-radius:12px;
+  background:linear-gradient(135deg,#f9fafb,#e5e7eb);
+  border:1px solid rgba(148,163,184,0.55);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:700;
+  color:#111827;
+}
+
+/* Main area */
+
+.main{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+  background: radial-gradient(circle at 120% 0%, rgba(248,113,113,0.18), transparent 55%), #f9fafb;
+}
+
+.topbar{
+  padding:22px 26px 14px 26px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.page-title{
+  font-size:32px;
+  font-weight:850;
+  letter-spacing:-0.03em;
+}
+
+.page-sub{
+  color:var(--muted);
+  margin-top:4px;
+  font-size:13px;
+}
+
+/* Tabs + search */
+
+.tabs{
+  display:flex;
+  gap:10px;
+  margin-bottom:14px;
+}
+
+.tab{
+  padding:8px 12px;
+  border-radius:999px;
+  border:1px solid rgba(148,163,184,0.35);
+  background:#ffffff;
+  cursor:pointer;
+  color:#111827;
+  font-size:12px;
+}
+
+.tab.active{
+  border-color:rgba(248,113,113,0.75);
+  background:linear-gradient(90deg, rgba(248,113,113,0.18), rgba(248,113,113,0.04));
+  box-shadow:0 10px 24px rgba(248,113,113,0.26);
+}
+
+.searchbox{
+  border-radius:999px;
+  border:1px solid rgba(148,163,184,0.35);
+  background:#ffffff;
+  color:#111827;
+}
+
+/* Cards */
+
+.card{
+  border-radius:20px;
+  border:1px solid rgba(148,163,184,0.35);
+  background:linear-gradient(145deg,#ffffff,#f9fafb);
+  padding:16px 16px 14px 16px;
+  box-shadow:0 20px 36px rgba(148,163,184,0.35);
+}
+
+/* PC overview / topology */
+
+.panel-topo{
+  border-radius:22px;
+  border:1px solid rgba(148,163,184,0.45);
+  background:
+    radial-gradient(circle at 0% -20%, rgba(248,250,252,1.0), rgba(229,231,235,0.96) 45%, rgba(243,244,246,0.98) 100%),
+    radial-gradient(circle at 120% 140%, rgba(248,113,113,0.20), transparent 60%);
+  box-shadow:
+    0 26px 72px rgba(148,163,184,0.55),
+    0 0 0 1px rgba(255,255,255,0.85);
+  position:relative;
+  overflow:hidden;
+}
+
+.panel-topo::before{
+  content:"";
+  position:absolute;
+  inset:-40%;
+  background-image:
+    repeating-linear-gradient(
+      135deg,
+      rgba(148,163,184,0.25),
+      rgba(148,163,184,0.25) 1px,
+      transparent 1px,
+      transparent 8px
+    );
+  opacity:0.32;
+  mix-blend-mode:screen;
+  pointer-events:none;
+}
+
+.panel-topo::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:radial-gradient(circle at 120% 120%, rgba(248,113,113,0.30), transparent 60%);
+  opacity:0.55;
+  mix-blend-mode:soft-light;
+  pointer-events:none;
+}
+
+/* FPS bar */
+
+.fps-bar-track{
+  background:rgba(229,231,235,0.95);
+  border-radius:999px;
+  border:1px solid rgba(148,163,184,0.45);
+}
+
+.fps-bar-fill{
+  background:linear-gradient(90deg,#22c55e,#f59e0b,#ef4444);
+}
+
+/* Log + modal */
+
+pre.log,
+.logbox{
+  background:#ffffff;
+  border-radius:16px;
+  border:1px solid rgba(148,163,184,0.35);
+  color:#020617;
+}
+
+/* Footer */
+
+.footer{
+  padding:10px 22px 16px 22px;
+  display:flex;
+  justify-content:space-between;
+  font-size:11px;
+  color:rgba(100,116,139,0.98);
+}
+
+/* Buttons */
+
+.btn.primary,
+.btn-red{
+  background:linear-gradient(120deg, #ef4444, #b91c1c);
+  color:#ffffff;
+  border-radius:14px;
+  border:0;
+  padding:9px 14px;
+  box-shadow:
+    0 14px 32px rgba(248,113,113,0.50),
+    0 0 0 1px rgba(248,250,252,0.85);
+}
+
+.btn:hover.btn-red,
+.btn.primary:hover{
+  filter:brightness(1.05);
+  transform:translateY(-1px);
+}
+
+/* Toggles */
+
+.toggle{
+  background:rgba(229,231,235,0.95);
+  border:1px solid rgba(148,163,184,0.65);
+}
+
+.toggle.on{
+  background:rgba(248,113,113,0.38);
+  border-color:rgba(248,113,113,0.85);
+}
+
+/* Risk badges */
+
+.badge{
+  border-radius:999px;
+  border:1px solid rgba(148,163,184,0.55);
+  background:rgba(255,255,255,0.96);
+  color:#111827;
+}
+
+.badge.safe{
+  border-color:rgba(34,197,94,0.65);
+  background:rgba(22,163,74,0.06);
+  color:#166534;
+}
+
+.badge.warn{
+  border-color:rgba(234,179,8,0.70);
+  background:rgba(234,179,8,0.06);
+  color:#92400e;
+}
+
+.badge.extreme{
+  border-color:rgba(248,113,113,0.85);
+  background:rgba(248,113,113,0.06);
+  color:#7f1d1d;
+}
+
+
+
+/* ==========================================
+   Falcon Space-White Topographic V4
+   White/black mousepad-style theme
+   Strong legibility pass
+   ========================================== */
+
+/* Global typography & background */
+
+body{
+  color:#020617;
+  background-color:#f9fafb;
+  background-image:
+    radial-gradient(circle at 0 0, rgba(0,0,0,0.02), transparent 55%),
+    repeating-linear-gradient(
+      135deg,
+      rgba(15,23,42,0.08),
+      rgba(15,23,42,0.08) 1px,
+      transparent 1px,
+      transparent 11px
+    ),
+    repeating-linear-gradient(
+      45deg,
+      rgba(15,23,42,0.03),
+      rgba(15,23,42,0.03) 1px,
+      transparent 1px,
+      transparent 14px
+    );
+}
+
+/* App shell sits as a white slab on the pad */
+
+#app{
+  background:rgba(255,255,255,0.96);
+  border-radius:24px;
+  border:1px solid rgba(15,23,42,0.18);
+  box-shadow:
+    0 24px 60px rgba(15,23,42,0.25),
+    0 0 0 1px rgba(255,255,255,0.55);
+}
+
+/* Sidebar: neutral topo-compatible white */
+
+.sidebar{
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.98), rgba(243,244,246,0.98));
+  border-right:1px solid rgba(148,163,184,0.40);
+}
+
+/* Primary text + muted text */
+
+.muted{ color:#4b5563; font-size:12px; }
+.page-sub{ color:#4b5563; }
+.card-desc{ color:#4b5563; }
+.kpi .label{ color:#4b5563; }
+.hint{ color:#4b5563; }
+
+/* Navigation & tabs readability */
+
+.nav-item{
+  color:#020617;
+}
+
+.tab{
+  color:#020617;
+}
+
+/* Main cards on bright topo pad */
+
+.card{
+  border-radius:18px;
+  border:1px solid rgba(148,163,184,0.40);
+  background:linear-gradient(145deg,#ffffff,#f9fafb);
+  box-shadow:0 18px 36px rgba(15,23,42,0.14);
+}
+
+/* Topographic performance card: mousepad style */
+
+.panel-topo{
+  border-radius:22px;
+  border:1px solid rgba(15,23,42,0.45);
+  background-color:#ffffff;
+  background-image:
+    repeating-linear-gradient(
+      135deg,
+      rgba(15,23,42,0.10),
+      rgba(15,23,42,0.10) 1px,
+      transparent 1px,
+      transparent 16px
+    ),
+    repeating-linear-gradient(
+      45deg,
+      rgba(15,23,42,0.04),
+      rgba(15,23,42,0.04) 1px,
+      transparent 1px,
+      transparent 18px
+    );
+  box-shadow:
+    0 26px 70px rgba(15,23,42,0.30),
+    0 0 0 1px rgba(255,255,255,0.85);
+  position:relative;
+  overflow:hidden;
+}
+
+/* Remove colorful glow overlays; keep it clean topo */
+
+.panel-topo::before,
+.panel-topo::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:none;
+  opacity:1;
+  mix-blend-mode:normal;
+  pointer-events:none;
+}
+
+/* FPS bars & logs for legibility */
+
+.fps-bar-track{
+  background:#e5e7eb;
+  border:1px solid rgba(107,114,128,0.65);
+}
+
+pre.log,
+.logbox{
+  background:#ffffff;
+  border-radius:14px;
+  border:1px solid rgba(148,163,184,0.45);
+  color:#020617;
+}
+
+/* Footer text darker for clarity */
+
+.footer{
+  color:#4b5563;
+}
+
+/* Keep red gamer accents only on actions */
+
+.btn.primary,
+.btn-red{
+  background:linear-gradient(120deg,#ef4444,#b91c1c);
+  color:#ffffff;
+}
+
+
+
+/* ==========================================
+   Falcon Space-White Topographic V5
+   High-contrast topo / mousepad aesthetic
+   ========================================== */
+
+body{
+  color:#020617;
+  background-color:#f9fafb;
+  background-image:
+    radial-gradient(circle at 0 0, rgba(0,0,0,0.035), transparent 55%),
+    repeating-linear-gradient(
+      135deg,
+      rgba(15,23,42,0.10),
+      rgba(15,23,42,0.10) 1px,
+      transparent 1px,
+      transparent 14px
+    ),
+    repeating-linear-gradient(
+      45deg,
+      rgba(15,23,42,0.045),
+      rgba(15,23,42,0.045) 1px,
+      transparent 1px,
+      transparent 18px
+    );
+}
+
+#app{
+  background:rgba(255,255,255,0.98);
+  border-radius:24px;
+  border:1px solid rgba(15,23,42,0.22);
+  box-shadow:
+    0 26px 70px rgba(15,23,42,0.28),
+    0 0 0 1px rgba(255,255,255,0.7);
+}
+
+/* Main topo performance card */
+
+.panel-topo{
+  border-radius:22px;
+  border:1px solid rgba(15,23,42,0.50);
+  background-color:#ffffff;
+  background-image:
+    repeating-linear-gradient(
+      135deg,
+      rgba(15,23,42,0.20),
+      rgba(15,23,42,0.20) 1px,
+      transparent 1px,
+      transparent 22px
+    ),
+    repeating-linear-gradient(
+      45deg,
+      rgba(15,23,42,0.06),
+      rgba(15,23,42,0.06) 1px,
+      transparent 1px,
+      transparent 26px
+    );
+  box-shadow:
+    0 28px 80px rgba(15,23,42,0.32),
+    0 0 0 1px rgba(255,255,255,0.85);
+  position:relative;
+  overflow:hidden;
+}
+
+.panel-topo::before{
+  content:"";
+  position:absolute;
+  inset:-25%;
+  background:
+    radial-gradient(circle at 0 0, rgba(248,250,252,0.8), transparent 60%);
+  mix-blend-mode:screen;
+  pointer-events:none;
+}
+
+.panel-topo::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 120% 120%, rgba(239,68,68,0.30), transparent 65%);
+  mix-blend-mode:multiply;
+  opacity:0.7;
+  pointer-events:none;
+}
+
+/* Text legibility tweaks */
+
+.muted,
+.page-sub,
+.card-desc,
+.kpi .label,
+.hint{
+  color:#374151;
+}
+
+/* FPS bar & logs */
+
+.fps-bar-track{
+  background:#e5e7eb;
+  border-radius:999px;
+  border:1px solid rgba(107,114,128,0.8);
+}
+
+pre.log,
+.logbox{
+  background:#ffffff;
+  border-radius:16px;
+  border:1px solid rgba(148,163,184,0.55);
+  color:#020617;
+}
+
+
+/* =========================================
+   Falcon Optimizer – Space White Gamer V4
+   Final visual overrides
+   ========================================= */
+
+/* Overall application shell */
+html, body{
+  background:
+    radial-gradient(circle at 0% -20%, #ffffff 0, #f3f4f6 45%, #e5e7eb 100%),
+    radial-gradient(circle at 120% 140%, rgba(248,113,113,0.18), transparent 60%),
+    #f3f4f6;
+  color:#020617;
+}
+
+/* Main app container */
+#app{
+  background:rgba(255,255,255,0.98);
+  border-radius:24px;
+  border:1px solid rgba(148,163,184,0.55);
+  box-shadow:
+    0 26px 70px rgba(15,23,42,0.25),
+    0 0 0 1px rgba(255,255,255,0.9);
+}
+
+/* Sidebar: light, glassy, red-accented */
+.sidebar{
+  background:linear-gradient(180deg, rgba(248,250,252,0.96), rgba(229,231,235,0.98));
+}
+
+.nav-item{
+  color:#111827;
+  background:transparent;
+  border-color:transparent;
+}
+
+.nav-item:hover{
+  background:rgba(248,113,113,0.05);
+  border-color:rgba(248,113,113,0.35);
+  color:#111827;
+}
+
+.nav-item.active{
+  background:linear-gradient(90deg, rgba(248,113,113,0.18), rgba(239,68,68,0.06));
+  border-color:rgba(248,113,113,0.75);
+  box-shadow:
+    0 8px 18px rgba(248,113,113,0.25),
+    0 0 0 1px rgba(255,255,255,0.8);
+  color:#111827;
+}
+
+/* Tabs */
+.tab{
+  background:rgba(255,255,255,0.82);
+  border-color:rgba(148,163,184,0.55);
+  color:#020617;
+}
+
+.tab.active{
+  background:linear-gradient(90deg, rgba(248,113,113,0.18), rgba(239,68,68,0.06));
+  border-color:rgba(248,113,113,0.75);
+  color:#111827;
+}
+
+/* Generic panels (sections on the right) */
+.panel{
+  background:linear-gradient(180deg,#ffffff,#f3f4f6);
+  border-color:rgba(148,163,184,0.55);
+  color:#020617;
+}
+
+/* Top topo performance card stays special but with dark text */
+.panel-topo{
+  color:#020617;
+}
+
+/* Cards inside panels */
+.card{
+  background:linear-gradient(145deg,#ffffff,#f9fafb);
+  border-color:rgba(148,163,184,0.40);
+  box-shadow:0 18px 36px rgba(15,23,42,0.14);
+  color:#020617;
+}
+
+.card-title{
+  color:#020617;
+}
+
+.card-desc{
+  color:rgba(75,85,99,0.95);
+}
+
+/* Stats + badges: crisp and readable */
+.badge{
+  background:#ffffff;
+  border-color:rgba(148,163,184,0.55);
+  color:#111827;
+}
+.badge.safe{
+  border-color:rgba(34,197,94,0.65);
+  background:rgba(22,163,74,0.06);
+  color:#166534;
+}
+.badge.warn{
+  border-color:rgba(234,179,8,0.70);
+  background:rgba(234,179,8,0.06);
+  color:#92400e;
+}
+.badge.extreme{
+  border-color:rgba(248,113,113,0.80);
+  background:rgba(248,113,113,0.10);
+  color:#7f1d1d;
+}
+
+/* FPS estimates: bars + labels tuned for visibility on light cards */
+.fps-row-header{
+  color:#6b7280;
+}
+
+.fps-bar{
+  background:rgba(255,255,255,0.9);
+  border-radius:999px;
+  border:1px solid rgba(148,163,184,0.85);
+}
+
+.fps-bar-fill{
+  background:linear-gradient(90deg, rgba(248,113,113,0.98), rgba(244,63,94,0.98));
+  box-shadow:
+    0 0 14px rgba(248,113,113,0.65),
+    0 0 24px rgba(248,113,113,0.55);
+}
+
+.fps-bar-label{
+  color:#111827;
+  text-shadow:none;
+}
+
+/* Topology cards: switch from navy to topo-white gamer cards */
+.pc-topo-card{
+  background:
+    linear-gradient(140deg,#ffffff,#f9fafb);
+  border-color:rgba(148,163,184,0.70);
+  box-shadow:
+    0 14px 34px rgba(15,23,42,0.18),
+    0 0 0 1px rgba(255,255,255,0.85);
+  color:#020617;
+}
+
+.pc-topo-title{
+  color:#020617;
+}
+
+.pc-topo-tag{
+  background:rgba(248,113,113,0.10);
+  border-color:rgba(248,113,113,0.65);
+  color:#7f1d1d;
+}
+
+/* Topology bars */
+.pc-topo-bar{
+  background:#e5e7eb;
+  border:1px solid rgba(148,163,184,0.80);
+}
+
+.pc-topo-bar-fill{
+  background:linear-gradient(90deg, rgba(248,113,113,0.96), rgba(239,68,68,0.96));
+  box-shadow:
+    0 0 10px rgba(248,113,113,0.60),
+    0 0 18px rgba(248,113,113,0.45);
+}
+
+/* Logs and modal text: always dark-on-light */
+pre.log,
+.logbox{
+  background:#ffffff;
+  border-radius:16px;
+  border:1px solid rgba(148,163,184,0.55);
+  color:#020617;
+}
+
+/* Buttons */
+.btn.primary,
+.btn-red{
+  background:linear-gradient(90deg, rgba(248,113,113,1), rgba(239,68,68,0.96));
+  color:#ffffff;
+  border-color:rgba(248,113,113,0.9);
+  box-shadow:0 12px 26px rgba(248,113,113,0.45);
+}
+
+/* Footer muted text contrast */
+.footer .muted{
+  color:#6b7280;
+}
+
+
+/* =========================================
+   Falcon Optimizer – Winter Space Nebula V3
+   Final global visual overrides
+   ========================================= */
+
+/* Palette reset for a glowy outer-space winter look */
+:root{
+  --bg:#020617;
+  --bg2:#02081a;
+  --card:#020617;
+  --card2:#020b24;
+  --text:#e5f2ff;
+  --muted:rgba(148,163,184,0.95);
+  --stroke:rgba(37,99,235,0.55);
+  --glow:rgba(56,189,248,0.65);
+  --red1:#f97373;
+  --red2:#fb7185;
+  --amber:#facc6b;
+  --green:#22c55e;
+}
+
+/* Deep space background with icy nebula glows */
+html, body{
+  margin:0;
+  padding:0;
+  background:
+    radial-gradient(circle at 0% -20%, rgba(56,189,248,0.20), transparent 60%),
+    radial-gradient(circle at 110% 130%, rgba(129,140,248,0.22), transparent 65%),
+    radial-gradient(circle at 40% 140%, rgba(56,189,248,0.16), transparent 70%),
+    #020617;
+  color:var(--text);
+}
+
+/* Main shell */
+#app{
+  background:radial-gradient(circle at 10% -15%, rgba(56,189,248,0.18), transparent 55%),
+             radial-gradient(circle at 120% 40%, rgba(59,130,246,0.22), transparent 60%),
+             linear-gradient(145deg, #020617, #020b24);
+  border-radius:26px;
+  border:1px solid rgba(37,99,235,0.65);
+  box-shadow:
+    0 22px 70px rgba(15,23,42,0.85),
+    0 0 0 1px rgba(23,37,84,0.9),
+    0 0 40px rgba(56,189,248,0.40);
+}
+
+/* Sidebar – frosted dark glass with cyan edges */
+.sidebar{
+  background:
+    linear-gradient(180deg, rgba(15,23,42,0.96), rgba(15,23,42,0.88));
+  border-right:1px solid rgba(30,64,175,0.85);
+  box-shadow:inset -1px 0 0 rgba(15,23,42,0.9);
+}
+
+/* Logo + brand */
+.brand-mark{
+  border-color:rgba(56,189,248,0.75);
+  box-shadow:
+    0 0 24px rgba(56,189,248,0.50),
+    0 0 4px rgba(15,23,42,1);
+}
+.brand-mark::after{
+  color:#e5f2ff;
+  text-shadow:0 0 18px rgba(56,189,248,0.90);
+}
+.brand-name{ color:#e5f2ff; }
+.brand-sub{ color:var(--muted); }
+
+/* Navigation – icy blue hover, glowy active */
+.nav-item{
+  color:#e5f2ff;
+  background:transparent;
+  border:1px solid transparent;
+}
+.nav-item:hover{
+  background:rgba(37,99,235,0.24);
+  border-color:rgba(59,130,246,0.80);
+  box-shadow:0 0 18px rgba(59,130,246,0.55);
+}
+.nav-item.active{
+  background:
+    radial-gradient(circle at 0% 0%, rgba(56,189,248,0.35), transparent 55%),
+    linear-gradient(120deg, rgba(37,99,235,0.80), rgba(79,70,229,0.90));
+  border-color:rgba(191,219,254,0.95);
+  box-shadow:
+    0 0 26px rgba(56,189,248,0.75),
+    0 0 0 1px rgba(15,23,42,0.95);
+  color:#e5f2ff;
+}
+
+/* Tabs at top of panel */
+.tab{
+  background:rgba(15,23,42,0.95);
+  border-color:rgba(30,64,175,0.85);
+  color:rgba(226,232,240,0.92);
+}
+.tab.active{
+  background:
+    radial-gradient(circle at 0% 0%, rgba(56,189,248,0.32), transparent 70%),
+    linear-gradient(120deg, rgba(37,99,235,0.95), rgba(56,189,248,0.85));
+  border-color:rgba(191,219,254,0.95);
+  color:#e5f2ff;
+  box-shadow:0 0 22px rgba(56,189,248,0.70);
+}
+
+/* Generic panels */
+.panel{
+  background:
+    radial-gradient(circle at -10% 0%, rgba(56,189,248,0.22), transparent 60%),
+    radial-gradient(circle at 120% 120%, rgba(129,140,248,0.20), transparent 65%),
+    linear-gradient(145deg, #020617, #020b24);
+  border-color:rgba(30,64,175,0.85);
+  color:#e5f2ff;
+}
+
+/* Top PC overview topo card */
+.panel-topo{
+  border-radius:22px;
+  border:1px solid rgba(59,130,246,0.85);
+  background:
+    radial-gradient(circle at 0% 0%, rgba(56,189,248,0.24), transparent 60%),
+    radial-gradient(circle at 100% 120%, rgba(129,140,248,0.26), transparent 65%),
+    repeating-linear-gradient(
+      140deg,
+      rgba(30,64,175,0.60),
+      rgba(30,64,175,0.60) 1px,
+      transparent 1px,
+      transparent 16px
+    ),
+    linear-gradient(135deg,#020617,#020b24);
+  color:#e5f2ff;
+}
+
+/* Cards */
+.card{
+  border-radius:18px;
+  border:1px solid rgba(30,64,175,0.80);
+  background:
+    radial-gradient(circle at -10% -20%, rgba(56,189,248,0.30), transparent 60%),
+    radial-gradient(circle at 120% 140%, rgba(129,140,248,0.28), transparent 65%),
+    linear-gradient(150deg, #020617, #020b24);
+  box-shadow:
+    0 18px 38px rgba(0,0,0,0.90),
+    0 0 26px rgba(56,189,248,0.55);
+  color:#e5f2ff;
+}
+.card-title{ color:#e5f2ff; }
+.card-desc{ color:rgba(209,213,219,0.92); }
+
+/* PC topology cards */
+.pc-topo-card{
+  background:
+    radial-gradient(circle at 0% 0%, rgba(56,189,248,0.32), transparent 60%),
+    radial-gradient(circle at 120% 130%, rgba(129,140,248,0.30), transparent 65%),
+    linear-gradient(150deg,#020617,#020b24);
+  border-color:rgba(59,130,246,0.90);
+  box-shadow:
+    0 16px 36px rgba(0,0,0,0.95),
+    0 0 28px rgba(56,189,248,0.65);
+  color:#e5f2ff;
+}
+.pc-topo-title{ color:#e5f2ff; }
+.pc-topo-tag{
+  background:rgba(15,23,42,0.9);
+  border-color:rgba(191,219,254,0.95);
+  color:rgba(191,219,254,1);
+}
+
+/* Topology bars */
+.pc-topo-bar{
+  background:rgba(15,23,42,0.96);
+  border:1px solid rgba(148,163,184,0.85);
+}
+.pc-topo-bar-fill{
+  background:linear-gradient(90deg, rgba(56,189,248,0.98), rgba(129,140,248,0.98));
+  box-shadow:
+    0 0 12px rgba(56,189,248,0.85),
+    0 0 22px rgba(129,140,248,0.75);
+}
+
+/* FPS rows + bars */
+.fps-row-header{
+  color:var(--muted);
+}
+.fps-bar{
+  background:rgba(15,23,42,0.96);
+  border-radius:999px;
+  border:1px solid rgba(148,163,184,0.85);
+}
+.fps-bar-fill{
+  background:linear-gradient(90deg, rgba(56,189,248,0.98), rgba(129,140,248,0.98));
+  box-shadow:
+    0 0 16px rgba(56,189,248,0.85),
+    0 0 30px rgba(129,140,248,0.75);
+}
+.fps-bar-label{
+  color:#e5f2ff;
+  text-shadow:0 0 6px rgba(15,23,42,0.95);
+}
+
+/* Buttons – glowy cyan/purple */
+.btn,
+.toolbtn{
+  background:rgba(15,23,42,0.96);
+  border:1px solid rgba(59,130,246,0.85);
+  color:#e5f2ff;
+}
+.btn.primary,
+.btn-red{
+  background:linear-gradient(120deg, rgba(56,189,248,1), rgba(129,140,248,1));
+  border-color:rgba(191,219,254,0.95);
+  color:#0b1120;
+  box-shadow:
+    0 14px 36px rgba(15,23,42,0.95),
+    0 0 26px rgba(56,189,248,0.80);
+}
+.btn:hover,
+.toolbtn:hover{
+  border-color:rgba(191,219,254,0.95);
+  box-shadow:0 0 22px rgba(56,189,248,0.80);
+}
+
+/* Badges */
+.badge{
+  background:rgba(15,23,42,0.96);
+  border-color:rgba(148,163,184,0.8);
+  color:#e5f2ff;
+}
+.badge.safe{
+  border-color:rgba(34,197,94,0.85);
+  background:rgba(22,163,74,0.22);
+  color:#bbf7d0;
+}
+.badge.warn{
+  border-color:rgba(250,204,21,0.90);
+  background:rgba(250,204,21,0.18);
+  color:#fef9c3;
+}
+.badge.extreme{
+  border-color:rgba(248,113,113,0.95);
+  background:rgba(248,113,113,0.22);
+  color:#fee2e2;
+}
+
+/* Logs + modals: dark panel, bright text */
+pre.log,
+.logbox{
+  background:rgba(15,23,42,0.96);
+  border-radius:16px;
+  border:1px solid rgba(30,64,175,0.85);
+  color:#e5f2ff;
+}
+.modal{
+  background:linear-gradient(150deg,#020617,#020b24);
+  border:1px solid rgba(59,130,246,0.85);
+  color:#e5f2ff;
+}
+
+/* Footer text */
+.footer .muted{
+  color:var(--muted);
+}
+
+
+/* =========================================
+   Falcon Optimizer – Aurora Winter Space V4
+   Softer blues, aurora greens, readability fixes
+   ========================================= */
+
+/* Slightly soften the background nebula */
+html, body{
+  background:
+    radial-gradient(circle at 0% -20%, rgba(56,189,248,0.14), transparent 60%),
+    radial-gradient(circle at 110% 130%, rgba(129,140,248,0.16), transparent 65%),
+    radial-gradient(circle at 40% 140%, rgba(34,197,94,0.10), transparent 70%),
+    #020617;
+}
+
+/* Main app: reduce border/glow intensity */
+#app{
+  border:1px solid rgba(37,99,235,0.50);
+  box-shadow:
+    0 20px 60px rgba(15,23,42,0.85),
+    0 0 0 1px rgba(15,23,42,0.95),
+    0 0 26px rgba(56,189,248,0.32);
+}
+
+/* Panels and cards: ensure dark background + light text (no white-on-white) */
+.panel,
+.card,
+.pc-topo-card,
+pre.log,
+.logbox,
+.modal{
+  background:linear-gradient(150deg,#020617,#020b24);
+  color:#e5f2ff;
+}
+
+/* Toolbars + search box: match dark glass theme */
+.toolbar{
+  background:rgba(15,23,42,0.96);
+  border-radius:14px;
+  border:1px solid rgba(30,64,175,0.75);
+}
+.searchbox{
+  background:rgba(15,23,42,0.92);
+  border-radius:999px;
+  border:1px solid rgba(30,64,175,0.75);
+}
+.searchbox input{
+  background:transparent;
+  color:#e5f2ff;
+}
+
+/* Generic text helpers */
+.muted,
+.hint,
+.footer .muted{
+  color:rgba(148,163,184,0.88);
+}
+
+/* Aurora-style nav active state, less harsh blue */
+.nav-item.active{
+  background:
+    radial-gradient(circle at 0% 0%, rgba(56,189,248,0.22), transparent 60%),
+    linear-gradient(120deg, rgba(56,189,248,0.75), rgba(34,197,94,0.80));
+  border-color:rgba(191,219,254,0.90);
+  box-shadow:
+    0 0 22px rgba(56,189,248,0.60),
+    0 0 32px rgba(34,197,94,0.45);
+}
+
+/* Tabs: cyan -> aurora green blend */
+.tab.active{
+  background:
+    radial-gradient(circle at 0% 0%, rgba(56,189,248,0.22), transparent 70%),
+    linear-gradient(120deg, rgba(56,189,248,0.80), rgba(34,197,94,0.85));
+  border-color:rgba(191,219,254,0.92);
+}
+
+/* FPS bars: cyan to aurora green, lower saturation label */
+.fps-bar{
+  background:rgba(15,23,42,0.96);
+  border-radius:999px;
+  border:1px solid rgba(148,163,184,0.80);
+}
+.fps-bar-fill{
+  background:linear-gradient(90deg, rgba(56,189,248,0.94), rgba(34,197,94,0.94));
+  box-shadow:
+    0 0 14px rgba(56,189,248,0.80),
+    0 0 22px rgba(34,197,94,0.65);
+}
+.fps-bar-label{
+  color:#e5f2ff;
+  text-shadow:0 0 5px rgba(15,23,42,0.95);
+}
+
+/* Topology bars: same aurora gradient */
+.pc-topo-bar{
+  background:rgba(15,23,42,0.96);
+  border:1px solid rgba(148,163,184,0.80);
+}
+.pc-topo-bar-fill{
+  background:linear-gradient(90deg, rgba(56,189,248,0.94), rgba(34,197,94,0.94));
+  box-shadow:
+    0 0 14px rgba(56,189,248,0.80),
+    0 0 22px rgba(34,197,94,0.65);
+}
+
+/* Buttons: soften blue, inject aurora green */
+.btn.primary,
+.btn-red{
+  background:linear-gradient(120deg, rgba(56,189,248,0.96), rgba(34,197,94,0.96));
+  border-color:rgba(191,219,254,0.95);
+  color:#0b1120;
+}
+.btn,
+.toolbtn{
+  background:rgba(15,23,42,0.96);
+  border:1px solid rgba(59,130,246,0.75);
+  color:#e5f2ff;
+}
+
+/* Inputs, generic .input fields: ensure readable */
+.input{
+  background:rgba(15,23,42,0.96);
+  border:1px solid rgba(30,64,175,0.80);
+  color:#e5f2ff;
+}
+
+/* Any generic cards that still use light backgrounds */
+pre,
+code{
+  background:rgba(15,23,42,0.96);
+  color:#e5f2ff;
+}
+
+
+/* =========================================
+   Falcon Optimizer – Aurora Frost V5
+   Mature frosted space theme & contrast fixes
+   ========================================= */
+
+/* Subtle, more muted aurora palette */
+:root{
+  --bg:#020617;
+  --bg2:#020819;
+  --card:#050816;
+  --card2:#020818;
+  --text:#e5f2ff;
+  --muted:rgba(148,163,184,0.95);
+  --stroke:rgba(30,64,175,0.55);
+  --glow:rgba(56,189,248,0.55);
+  --red1:#f97373;
+  --red2:#fb7185;
+  --amber:#facc6b;
+  --green:#22c55e;
+}
+
+/* Deep space with softer aurora bands */
+html, body{
+  background:
+    radial-gradient(circle at 0% -30%, rgba(56,189,248,0.10), transparent 60%),
+    radial-gradient(circle at 120% 130%, rgba(129,140,248,0.12), transparent 65%),
+    radial-gradient(circle at 40% 140%, rgba(34,197,94,0.08), transparent 70%),
+    #020617;
+  color:var(--text);
+}
+
+/* Main container – frosted glass card */
+#app{
+  background:
+    radial-gradient(circle at 0% 0%, rgba(56,189,248,0.12), transparent 55%),
+    radial-gradient(circle at 100% 120%, rgba(34,197,94,0.10), transparent 65%),
+    linear-gradient(145deg, #020617, #020819);
+  border-radius:26px;
+  border:1px solid rgba(30,64,175,0.55);
+  box-shadow:
+    0 22px 70px rgba(15,23,42,0.90),
+    0 0 0 1px rgba(15,23,42,0.95),
+    0 0 30px rgba(15,23,42,0.85);
+}
+
+/* Global readability: anything that was light gets a dark frosted base */
+.panel,
+.card,
+.pc-topo-card,
+.toolbar,
+.searchbox,
+.userbox,
+pre.log,
+.logbox,
+.modal,
+.footer,
+.section,
+.main,
+main{
+  background:
+    linear-gradient(155deg, rgba(15,23,42,0.96), rgba(15,23,42,0.94));
+  color:#e5f2ff;
+}
+
+/* Inputs / search field: frosted, but dark enough for light text */
+.searchbox{
+  border-radius:999px;
+  border:1px solid rgba(51,65,85,0.9);
+}
+.searchbox input{
+  background:transparent;
+  color:#e5f2ff;
+}
+.searchbox input::placeholder{
+  color:rgba(148,163,184,0.95);
+}
+
+.input{
+  background:rgba(15,23,42,0.96);
+  border:1px solid rgba(51,65,85,0.95);
+  color:#e5f2ff;
+}
+
+/* Text helpers and labels */
+.muted,
+.hint,
+.spec-label,
+.pc-topology-label,
+.footer .muted{
+  color:var(--muted);
+}
+
+/* Navigation – toned-down glow, aurora accent not toy-ish */
+.nav-item{
+  color:#e5f2ff;
+}
+.nav-item:hover{
+  background:rgba(15,23,42,0.96);
+  border-color:rgba(51,65,85,0.95);
+  box-shadow:0 0 14px rgba(56,189,248,0.35);
+}
+.nav-item.active{
+  background:
+    radial-gradient(circle at 0% 0%, rgba(56,189,248,0.20), transparent 65%),
+    linear-gradient(120deg, rgba(30,64,175,0.85), rgba(34,197,94,0.65));
+  border-color:rgba(191,219,254,0.90);
+  box-shadow:
+    0 0 20px rgba(56,189,248,0.55),
+    0 0 26px rgba(15,23,42,0.95);
+}
+
+/* Tabs – slim aurora band, not neon */
+.tab{
+  background:rgba(15,23,42,0.96);
+  border-color:rgba(51,65,85,0.95);
+  color:rgba(226,232,240,0.92);
+}
+.tab.active{
+  background:
+    linear-gradient(120deg, rgba(30,64,175,0.90), rgba(34,197,94,0.65));
+  border-color:rgba(191,219,254,0.92);
+  box-shadow:0 0 18px rgba(56,189,248,0.55);
+}
+
+/* Top PC overview topo: more frosted, less line-noise */
+.panel-topo{
+  border-radius:22px;
+  border:1px solid rgba(51,65,85,0.95);
+  background:
+    radial-gradient(circle at 0% 0%, rgba(56,189,248,0.18), transparent 60%),
+    radial-gradient(circle at 100% 120%, rgba(34,197,94,0.14), transparent 65%),
+    linear-gradient(145deg,#020617,#020819);
+  color:#e5f2ff;
+}
+
+/* FPS bars – aurora band over dark ice */
+.fps-bar{
+  background:rgba(15,23,42,0.96);
+  border-radius:999px;
+  border:1px solid rgba(51,65,85,0.95);
+}
+.fps-bar-fill{
+  background:linear-gradient(90deg, rgba(56,189,248,0.92), rgba(34,197,94,0.88));
+  box-shadow:
+    0 0 12px rgba(56,189,248,0.75),
+    0 0 20px rgba(34,197,94,0.55);
+}
+.fps-bar-label{
+  color:#e5f2ff;
+  text-shadow:0 0 6px rgba(15,23,42,0.95);
+}
+
+/* Topology bars consistent with FPS scheme */
+.pc-topo-bar{
+  background:rgba(15,23,42,0.96);
+  border:1px solid rgba(51,65,85,0.95);
+}
+.pc-topo-bar-fill{
+  background:linear-gradient(90deg, rgba(56,189,248,0.92), rgba(34,197,94,0.88));
+  box-shadow:
+    0 0 12px rgba(56,189,248,0.75),
+    0 0 20px rgba(34,197,94,0.55);
+}
+
+/* Buttons – professional aurora edge, not toy colors */
+.btn,
+.toolbtn{
+  background:rgba(15,23,42,0.96);
+  border:1px solid rgba(51,65,85,0.95);
+  color:#e5f2ff;
+}
+.btn.primary,
+.btn-red{
+  background:linear-gradient(135deg, rgba(30,64,175,0.98), rgba(34,197,94,0.80));
+  border-color:rgba(191,219,254,0.95);
+  color:#e5f2ff;
+  box-shadow:0 12px 30px rgba(15,23,42,0.95);
+}
+
+/* Badges: subtle chips, still readable */
+.badge{
+  background:rgba(15,23,42,0.96);
+  border-color:rgba(51,65,85,0.95);
+  color:#e5f2ff;
+}
+.badge.safe{
+  border-color:rgba(34,197,94,0.80);
+  background:rgba(22,163,74,0.20);
+  color:#bbf7d0;
+}
+.badge.warn{
+  border-color:rgba(250,204,21,0.85);
+  background:rgba(250,204,21,0.18);
+  color:#fef9c3;
+}
+.badge.extreme{
+  border-color:rgba(248,113,113,0.85);
+  background:rgba(248,113,113,0.20);
+  color:#fee2e2;
+}
+
+/* Logs and modals – consistent frosted darkness */
+pre.log,
+.logbox{
+  background:rgba(15,23,42,0.96);
+  border-radius:16px;
+  border:1px solid rgba(51,65,85,0.95);
+  color:#e5f2ff;
+}
+.modal{
+  background:linear-gradient(145deg,#020617,#020819);
+  border:1px solid rgba(51,65,85,0.95);
+  color:#e5f2ff;
+}
+
+
+/* =========================================
+   Falcon Optimizer – Aurora Frost V6
+   Less blue, more frosted white content, high contrast
+   ========================================= */
+
+/* Keep deep space background but soften colors slightly */
+html, body{
+  background:
+    radial-gradient(circle at 0% -30%, rgba(56,189,248,0.08), transparent 60%),
+    radial-gradient(circle at 120% 130%, rgba(129,140,248,0.08), transparent 65%),
+    radial-gradient(circle at 40% 140%, rgba(34,197,94,0.06), transparent 70%),
+    #020617;
+  color:#020617;
+}
+
+/* App shell: dark glass frame */
+#app{
+  background:
+    linear-gradient(145deg, #020617, #020819);
+  border-radius:26px;
+  border:1px solid rgba(30,64,175,0.45);
+  box-shadow:
+    0 22px 70px rgba(15,23,42,0.90),
+    0 0 0 1px rgba(15,23,42,0.95);
+}
+
+/* Core idea: sidebar stays dark; main content becomes frosted white/ice with dark text */
+
+/* Sidebar stays dark gamer */
+.sidebar{
+  background:linear-gradient(180deg, rgba(15,23,42,0.98), rgba(15,23,42,0.94));
+  border-right:1px solid rgba(30,64,175,0.65);
+}
+.nav-item{
+  color:#e5f2ff;
+}
+.nav-item.active{
+  background:
+    linear-gradient(120deg, rgba(30,64,175,0.80), rgba(34,197,94,0.55));
+  border-color:rgba(191,219,254,0.90);
+}
+
+/* Main content shell (everything on the right) */
+main,
+.main,
+.section,
+.panel{
+  background:linear-gradient(180deg,#ffffff,#f3f4f6);
+  color:#020617;
+  border-color:rgba(148,163,184,0.55);
+}
+
+/* Cards in panels: frosted white with soft aurora edges */
+.card,
+.pc-topo-card{
+  background:
+    radial-gradient(circle at 0% 0%, rgba(56,189,248,0.10), transparent 55%),
+    radial-gradient(circle at 100% 120%, rgba(34,197,94,0.08), transparent 60%),
+    linear-gradient(145deg,#ffffff,#f9fafb);
+  border-radius:18px;
+  border:1px solid rgba(148,163,184,0.55);
+  box-shadow:0 18px 36px rgba(15,23,42,0.10);
+  color:#020617;
+}
+.card-title,
+.pc-topo-title{
+  color:#020617;
+}
+.card-desc{
+  color:rgba(55,65,81,0.96);
+}
+
+/* Top PC overview panel uses same frosted base */
+.panel-topo{
+  border-radius:22px;
+  border:1px solid rgba(148,163,184,0.60);
+  background:
+    radial-gradient(circle at 0% 0%, rgba(56,189,248,0.10), transparent 55%),
+    radial-gradient(circle at 100% 120%, rgba(34,197,94,0.08), transparent 60%),
+    linear-gradient(145deg,#ffffff,#f3f4f6);
+  color:#020617;
+}
+
+/* Toolbars and search box: frosted strips with dark text */
+.toolbar{
+  background:rgba(255,255,255,0.86);
+  border-radius:14px;
+  border:1px solid rgba(209,213,219,0.9);
+}
+.searchbox{
+  background:rgba(255,255,255,0.96);
+  border-radius:999px;
+  border:1px solid rgba(209,213,219,0.9);
+}
+.searchbox input{
+  background:transparent;
+  color:#020617;
+}
+.searchbox input::placeholder{
+  color:rgba(148,163,184,0.95);
+}
+
+/* Helper text */
+.muted,
+.hint,
+.spec-label,
+.pc-topology-label,
+.footer .muted{
+  color:rgba(107,114,128,0.95);
+}
+
+/* FPS bars on white cards: light track, darker label */
+.fps-bar{
+  background:#e5e7eb;
+  border-radius:999px;
+  border:1px solid rgba(148,163,184,0.85);
+}
+.fps-bar-fill{
+  background:linear-gradient(90deg, rgba(56,189,248,0.85), rgba(34,197,94,0.80));
+  box-shadow:
+    0 0 10px rgba(56,189,248,0.55),
+    0 0 16px rgba(34,197,94,0.45);
+}
+.fps-bar-label{
+  color:#020617;
+  text-shadow:none;
+}
+
+/* Topology bars: match FPS style */
+.pc-topo-bar{
+  background:#e5e7eb;
+  border:1px solid rgba(148,163,184,0.85);
+}
+.pc-topo-bar-fill{
+  background:linear-gradient(90deg, rgba(56,189,248,0.85), rgba(34,197,94,0.80));
+  box-shadow:
+    0 0 10px rgba(56,189,248,0.55),
+    0 0 16px rgba(34,197,94,0.45);
+}
+
+/* Buttons: subtle, not neon */
+.btn,
+.toolbtn{
+  background:#eef2ff;
+  border:1px solid rgba(148,163,184,0.85);
+  color:#1f2933;
+}
+.btn.primary,
+.btn-red{
+  background:linear-gradient(135deg, rgba(56,189,248,0.95), rgba(34,197,94,0.85));
+  border-color:rgba(148,163,184,0.95);
+  color:#020617;
+  box-shadow:0 10px 24px rgba(15,23,42,0.18);
+}
+
+/* Logs and modals: light panels with dark text */
+pre.log,
+.logbox,
+.modal{
+  background:#ffffff;
+  border-radius:16px;
+  border:1px solid rgba(209,213,219,0.9);
+  color:#020617;
+}
+
+/* Badges: small, clean chips */
+.badge{
+  background:#f9fafb;
+  border-color:rgba(209,213,219,0.9);
+  color:#374151;
+}
+.badge.safe{
+  border-color:rgba(34,197,94,0.65);
+  background:rgba(220,252,231,0.85);
+  color:#166534;
+}
+.badge.warn{
+  border-color:rgba(234,179,8,0.70);
+  background:rgba(254,249,195,0.90);
+  color:#92400e;
+}
+.badge.extreme{
+  border-color:rgba(248,113,113,0.75);
+  background:rgba(254,226,226,0.95);
+  color:#7f1d1d;
+}
+
+
+/* =========================================
+   Falcon Optimizer – Topographic Liquid Glass V7
+   White base, black topo lines, red accents
+   ========================================= */
+
+/* Global reset toward light theme */
+:root{
+  --bg:#f5f5f7;
+  --bg2:#ffffff;
+  --card:#ffffff;
+  --card2:#f9fafb;
+  --text:#111827;
+  --muted:#6b7280;
+  --accent:#ef4444;
+}
+
+/* Soft white background with subtle vertical grain */
+html, body{
+  margin:0;
+  padding:0;
+  background:
+    linear-gradient(0deg, rgba(15,23,42,0.02) 0, rgba(15,23,42,0.02) 1px, transparent 1px, transparent 4px),
+    #f5f5f7;
+  background-size:100% 4px;
+  color:var(--text);
+}
+
+/* Main app shell: liquid glass slab on white */
+#app{
+  background:
+    radial-gradient(circle at 0% 0%, rgba(255,255,255,0.9), transparent 55%),
+    radial-gradient(circle at 100% 100%, rgba(255,255,255,0.86), transparent 60%),
+    linear-gradient(145deg,#ffffff,#f9fafb);
+  border-radius:28px;
+  border:1px solid rgba(209,213,219,0.9);
+  box-shadow:
+    0 32px 80px rgba(15,23,42,0.16),
+    0 0 0 1px rgba(255,255,255,0.9);
+}
+
+/* Sidebar: frosted white rail with red accent, text dark */
+.sidebar{
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.96), rgba(249,250,251,0.98));
+  border-right:1px solid rgba(229,231,235,1);
+}
+
+.brand-mark{
+  border-color:rgba(15,23,42,0.12);
+  box-shadow:
+    0 8px 20px rgba(15,23,42,0.10),
+    0 0 0 1px rgba(255,255,255,1);
+}
+.brand-mark::after{
+  color:#111827;
+  text-shadow:none;
+}
+.brand-name{ color:#111827; }
+.brand-sub{ color:var(--muted); }
+
+/* Navigation: clean white pill buttons with red active indicator */
+.nav-item{
+  color:#4b5563;
+  background:transparent;
+  border-radius:999px;
+  border:1px solid transparent;
+}
+.nav-item:hover{
+  background:rgba(15,23,42,0.02);
+  border-color:rgba(209,213,219,1);
+  color:#111827;
+}
+.nav-item.active{
+  background:#ffffff;
+  border-color:var(--accent);
+  color:#111827;
+  box-shadow:
+    0 10px 24px rgba(15,23,42,0.08),
+    0 0 0 1px rgba(255,255,255,1);
+}
+
+/* Top tabs in header */
+.tab{
+  background:#f9fafb;
+  border-radius:999px;
+  border:1px solid rgba(209,213,219,1);
+  color:#4b5563;
+}
+.tab.active{
+  background:#111827;
+  color:#f9fafb;
+  border-color:#111827;
+}
+
+/* Main content background */
+main,
+.main,
+.section{
+  background:transparent;
+  color:#111827;
+}
+
+/* Topographic panel background – mimic black contour lines on white */
+.panel,
+.panel-topo,
+.card,
+.pc-topo-card{
+  position:relative;
+  overflow:hidden;
+  background:
+    repeating-linear-gradient(
+      130deg,
+      rgba(15,23,42,0.10),
+      rgba(15,23,42,0.10) 1px,
+      transparent 1px,
+      transparent 16px
+    ),
+    repeating-linear-gradient(
+      40deg,
+      rgba(15,23,42,0.04),
+      rgba(15,23,42,0.04) 1px,
+      transparent 1px,
+      transparent 18px
+    ),
+    linear-gradient(145deg,#ffffff,#f9fafb);
+  border-radius:22px;
+  border:1px solid rgba(209,213,219,1);
+  box-shadow:
+    0 18px 34px rgba(15,23,42,0.12);
+  color:#111827;
+}
+
+/* Make sure text inside topo panels is solid and readable */
+.panel *,
+.card *,
+.pc-topo-card *{
+  color:inherit;
+}
+
+/* Titles and subtitles */
+.card-title,
+.pc-topo-title,
+.section-title{
+  color:#111827;
+}
+.card-desc{
+  color:#4b5563;
+}
+
+/* Stats + FPS rows on white topo cards */
+.fps-row-header{
+  color:#6b7280;
+}
+
+/* FPS bar: neutral track, red accent fill */
+.fps-bar{
+  background:#e5e7eb;
+  border-radius:999px;
+  border:1px solid rgba(209,213,219,1);
+}
+.fps-bar-fill{
+  background:linear-gradient(90deg, #ef4444, #b91c1c);
+  box-shadow:
+    0 4px 10px rgba(239,68,68,0.45);
+}
+.fps-bar-label{
+  color:#111827;
+  text-shadow:none;
+}
+
+/* Topology bars match FPS style */
+.pc-topo-bar{
+  background:#e5e7eb;
+  border-radius:999px;
+  border:1px solid rgba(209,213,219,1);
+}
+.pc-topo-bar-fill{
+  background:linear-gradient(90deg, #ef4444, #b91c1c);
+  box-shadow:
+    0 4px 10px rgba(239,68,68,0.45);
+}
+
+/* Buttons – minimalist, Apple-ish with red accent for primary */
+.btn,
+.toolbtn{
+  background:#f9fafb;
+  border-radius:999px;
+  border:1px solid rgba(209,213,219,1);
+  color:#111827;
+  box-shadow:0 10px 24px rgba(15,23,42,0.06);
+}
+.btn.primary,
+.btn-red{
+  background:linear-gradient(145deg,#ef4444,#b91c1c);
+  border-color:#b91c1c;
+  color:#f9fafb;
+  box-shadow:
+    0 12px 28px rgba(190,24,93,0.35);
+}
+
+/* Logs and modal panels */
+pre.log,
+.logbox,
+.modal{
+  background:#ffffff;
+  border-radius:18px;
+  border:1px solid rgba(209,213,219,1);
+  color:#111827;
+}
+
+/* Badges: tiny mono chips with subtle color */
+.badge{
+  background:#f3f4f6;
+  border-radius:999px;
+  border:1px solid rgba(209,213,219,1);
+  color:#374151;
+}
+.badge.safe{
+  border-color:rgba(34,197,94,0.7);
+  background:rgba(220,252,231,0.95);
+  color:#166534;
+}
+.badge.warn{
+  border-color:rgba(234,179,8,0.7);
+  background:rgba(254,249,195,0.95);
+  color:#92400e;
+}
+.badge.extreme{
+  border-color:#ef4444;
+  background:rgba(254,226,226,0.98);
+  color:#7f1d1d;
+}
+
+/* Helper text and footer */
+.muted,
+.hint,
+.footer .muted{
+  color:#6b7280;
+}
+
+
+/* =========================================
+   Falcon Optimizer – Liquid Glass Red V8
+   Clean white + red gamer UI, high contrast
+   ========================================= */
+
+/* Global base: light mode, dark text */
+:root{
+  --fg-main:#111827;
+  --fg-muted:#6b7280;
+  --accent:#ef4444;
+}
+
+/* Soft off-white background */
+html, body{
+  margin:0;
+  padding:0;
+  background:
+    radial-gradient(circle at top, rgba(148,163,184,0.18), transparent 55%),
+    radial-gradient(circle at bottom, rgba(148,163,184,0.08), transparent 60%),
+    #f3f4f6;
+  color:var(--fg-main);
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",system-ui,sans-serif;
+}
+
+/* Main app: white liquid glass slab */
+#app{
+  background:
+    radial-gradient(circle at 0% 0%, rgba(255,255,255,0.95), transparent 60%),
+    radial-gradient(circle at 100% 100%, rgba(255,255,255,0.90), transparent 60%),
+    linear-gradient(145deg,#ffffff,#f9fafb);
+  border-radius:28px;
+  border:1px solid rgba(209,213,219,0.95);
+  box-shadow:
+    0 32px 80px rgba(15,23,42,0.20),
+    0 0 0 1px rgba(255,255,255,0.95);
+}
+
+/* Sidebar: clean white rail with subtle separation */
+.sidebar{
+  background:linear-gradient(180deg,#ffffff,#f9fafb);
+  border-right:1px solid rgba(229,231,235,1);
+}
+
+/* Brand */
+.brand-mark{
+  border-radius:18px;
+  border:1px solid rgba(229,231,235,1);
+  box-shadow:
+    0 8px 20px rgba(15,23,42,0.10),
+    0 0 0 1px rgba(255,255,255,1);
+}
+.brand-mark::after{ color:#111827; text-shadow:none; }
+.brand-name{ color:#111827; }
+.brand-sub{ color:var(--fg-muted); }
+
+/* Navigation: pill buttons, red active */
+.nav-item{
+  color:#4b5563;
+  background:transparent;
+  border-radius:999px;
+  border:1px solid transparent;
+}
+.nav-item:hover{
+  background:rgba(249,250,251,1);
+  border-color:rgba(229,231,235,1);
+  color:#111827;
+}
+.nav-item.active{
+  background:linear-gradient(135deg,#ef4444,#b91c1c);
+  border-color:#b91c1c;
+  color:#f9fafb;
+  box-shadow:
+    0 10px 24px rgba(248,113,113,0.35);
+}
+
+/* Header tabs */
+.tab{
+  background:#f9fafb;
+  border-radius:999px;
+  border:1px solid rgba(209,213,219,1);
+  color:#4b5563;
+}
+.tab.active{
+  background:#111827;
+  color:#f9fafb;
+  border-color:#111827;
+}
+
+/* Main surface */
+main,
+.main,
+.section{
+  background:transparent;
+  color:#111827;
+}
+
+/* Panels and cards – plain liquid glass, no lines */
+.panel,
+.panel-topo,
+.card,
+.pc-topo-card{
+  background:linear-gradient(145deg,#ffffff,#f9fafb);
+  border-radius:22px;
+  border:1px solid rgba(229,231,235,1);
+  box-shadow:0 18px 36px rgba(15,23,42,0.08);
+  color:#111827;
+}
+
+/* Enforce readable text in these containers */
+.panel *,
+.card *,
+.pc-topo-card *{
+  color:inherit;
+}
+
+/* Titles and descriptions */
+.card-title,
+.pc-topo-title,
+.section-title{
+  color:#111827;
+}
+.card-desc{
+  color:#4b5563;
+}
+
+/* Toolbar and search */
+.toolbar{
+  background:#ffffff;
+  border-radius:16px;
+  border:1px solid rgba(229,231,235,1);
+}
+.searchbox{
+  background:#f9fafb;
+  border-radius:999px;
+  border:1px solid rgba(209,213,219,1);
+}
+.searchbox input{
+  background:transparent;
+  color:#111827;
+}
+.searchbox input::placeholder{
+  color:var(--fg-muted);
+}
+
+/* Generic text helpers */
+.muted,
+.hint,
+.spec-label,
+.pc-topology-label,
+.footer .muted{
+  color:var(--fg-muted);
+}
+
+/* FPS bars on white cards */
+.fps-row-header{
+  color:var(--fg-muted);
+}
+.fps-bar{
+  background:#e5e7eb;
+  border-radius:999px;
+  border:1px solid rgba(209,213,219,1);
+}
+.fps-bar-fill{
+  background:linear-gradient(90deg,#ef4444,#f97373);
+  box-shadow:0 4px 10px rgba(248,113,113,0.45);
+}
+.fps-bar-label{
+  color:#111827;
+  text-shadow:none;
+}
+
+/* Topology bars */
+.pc-topo-bar{
+  background:#e5e7eb;
+  border-radius:999px;
+  border:1px solid rgba(209,213,219,1);
+}
+.pc-topo-bar-fill{
+  background:linear-gradient(90deg,#ef4444,#f97373);
+  box-shadow:0 4px 10px rgba(248,113,113,0.45);
+}
+
+/* Buttons – minimal white with red primary */
+.btn,
+.toolbtn{
+  background:#f9fafb;
+  border-radius:999px;
+  border:1px solid rgba(209,213,219,1);
+  color:#111827;
+  box-shadow:0 10px 22px rgba(15,23,42,0.06);
+}
+.btn.primary,
+.btn-red{
+  background:linear-gradient(135deg,#ef4444,#b91c1c);
+  border-color:#b91c1c;
+  color:#f9fafb;
+  box-shadow:0 12px 26px rgba(248,113,113,0.40);
+}
+
+/* Logs and modals */
+pre.log,
+.logbox,
+.modal{
+  background:#ffffff;
+  border-radius:18px;
+  border:1px solid rgba(209,213,219,1);
+  color:#111827;
+}
+
+/* Badges */
+.badge{
+  background:#f3f4f6;
+  border-radius:999px;
+  border:1px solid rgba(209,213,219,1);
+  color:#374151;
+}
+.badge.safe{
+  border-color:rgba(34,197,94,0.7);
+  background:rgba(220,252,231,0.95);
+  color:#166534;
+}
+.badge.warn{
+  border-color:rgba(234,179,8,0.7);
+  background:rgba(254,249,195,0.95);
+  color:#92400e;
+}
+.badge.extreme{
+  border-color:#ef4444;
+  background:rgba(254,226,226,0.98);
+  color:#7f1d1d;
+}
+
+
+
+
+/* Theme selector UI */
+.theme-toolbar{
+  margin-top:12px;
+  display:flex;
+  gap:8px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+.theme-grid{
+  margin-top:14px;
+  display:grid;
+  grid-template-columns: repeat(auto-fit,minmax(170px,1fr));
+  gap:12px;
+}
+.theme-card{
+  border-radius:16px;
+  padding:10px;
+  background: rgba(15,23,42,0.85);
+  border:1px solid rgba(148,163,184,0.45);
+  box-shadow: 0 18px 30px rgba(15,23,42,0.65);
+  cursor:pointer;
+  text-align:left;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  transition: transform 0.12s ease-out, box-shadow 0.12s ease-out, border-color 0.12s ease-out, background 0.12s ease-out;
+}
+.theme-card:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 24px 50px rgba(15,23,42,0.85);
+  border-color: rgba(248,250,252,0.35);
+}
+.theme-card.active{
+  border-color: rgba(248,250,252,0.85);
+  box-shadow: 0 0 0 1px rgba(248,250,252,0.35), 0 26px 60px rgba(15,23,42,0.95);
+}
+.theme-preview{
+  border-radius:12px;
+  padding:8px;
+  background-size:cover;
+  background-position:center;
+  box-shadow: inset 0 0 0 1px rgba(15,23,42,0.35);
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+.theme-preview-bar{
+  height:10px;
+  border-radius:999px;
+  background: rgba(15,23,42,0.75);
+}
+.theme-preview-fps-track{
+  height:8px;
+  border-radius:999px;
+  background: rgba(15,23,42,0.7);
+  overflow:hidden;
+}
+.theme-preview-fps-fill{
+  height:100%;
+  width:68%;
+  border-radius:999px;
+}
+.theme-meta{
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+}
+.theme-name{
+  font-size:13px;
+  font-weight:600;
+}
+.theme-tagline{
+  font-size:11px;
+  color:var(--muted);
+}
+
+
+
+/* =========================================================
+   Falcon Optimizer – THEME BINDINGS V2
+   These rules sit at the end of the stylesheet and force
+   the layout to respect the theme engine CSS variables.
+   ======================================================= */
+
+html, body{
+  background:
+    radial-gradient(900px 600px at 70% 10%, rgba(255,255,255,0.09), transparent 60%),
+    radial-gradient(900px 600px at 15% 85%, rgba(255,255,255,0.06), transparent 60%),
+    linear-gradient(180deg, var(--bg), var(--bg2));
+  color: var(--text);
+}
+
+/* Root app split */
+#app{
+  background: transparent;
+  color: var(--text);
+}
+
+/* Sidebar: frosted liquid-glass using theme cards/bg */
+.sidebar{
+  background:
+    linear-gradient(160deg,
+      color-mix(in srgb, var(--card) 78%, rgba(255,255,255,0.96) 22%),
+      color-mix(in srgb, var(--card2) 80%, rgba(15,23,42,0.02) 20%)
+    );
+  color: var(--text);
+  border-right: 1px solid var(--stroke);
+  box-shadow: 12px 0 32px rgba(15,23,42,0.10);
+}
+
+/* Sidebar headings */
+.nav-section{
+  color: var(--muted);
+}
+
+/* Sidebar nav items */
+.nav-item{
+  color: var(--muted);
+  background: transparent;
+  border-radius: 999px;
+  border: 1px solid transparent;
+}
+.nav-item:hover{
+  background: color-mix(in srgb, var(--card2) 75%, rgba(15,23,42,0.08) 25%);
+  color: var(--text);
+}
+.nav-item.active{
+  color: var(--text);
+  background:
+    radial-gradient(circle at 0% 0%, rgba(248,250,252,0.85), transparent 65%),
+    radial-gradient(circle at 100% 100%, rgba(15,23,42,0.70), transparent 60%),
+    linear-gradient(135deg,
+      color-mix(in srgb, var(--accent) 12%, var(--card) 88%),
+      color-mix(in srgb, var(--accent) 34%, var(--card2) 66%)
+    );
+  border-color: color-mix(in srgb, var(--accent) 80%, rgba(15,23,42,0.05) 20%);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--accent) 50%, rgba(255,255,255,0.72) 50%),
+    0 16px 40px color-mix(in srgb, var(--accent) 48%, rgba(15,23,42,0.80) 52%);
+}
+
+/* Main content shell */
+.main,
+.main-inner,
+.content{
+  background: transparent;
+  color: var(--text);
+}
+
+/* Core surface containers */
+.panel,
+.panel-topo,
+.card,
+.card-large,
+.pc-topo-card,
+.section,
+.section-card,
+.metrics-card{
+  background:
+    radial-gradient(120% 220% at -10% -10%, rgba(255,255,255,0.96), transparent 65%),
+    radial-gradient(140% 260% at 110% 120%, color-mix(in srgb, var(--accent) 10%, rgba(15,23,42,1) 90%), transparent 70%),
+    linear-gradient(145deg, var(--card), var(--card2));
+  border-radius: 22px;
+  border: 1px solid color-mix(in srgb, var(--stroke) 74%, rgba(255,255,255,0.65) 26%);
+  box-shadow:
+    0 18px 36px color-mix(in srgb, rgba(15,23,42,0.80) 60%, rgba(0,0,0,0.0) 40%),
+    0 0 0 1px color-mix(in srgb, rgba(255,255,255,0.58) 70%, rgba(15,23,42,0.20) 30%);
+  color: var(--text);
+}
+
+/* Ensure nested text inherits theme text color */
+.panel *,
+.card *,
+.pc-topo-card *,
+.section *,
+.section-card *,
+.metrics-card *{
+  color: inherit;
+}
+
+/* Generic badges / chips */
+.badge,
+.chip,
+.tag{
+  background: color-mix(in srgb, var(--card2) 80%, var(--accent) 20%);
+  color: var(--text);
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--accent) 40%, var(--stroke) 60%);
+}
+
+/* Buttons */
+.btn{
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--stroke) 80%, rgba(255,255,255,0.70) 20%);
+  background: color-mix(in srgb, var(--card) 85%, rgba(15,23,42,0.06) 15%);
+  color: var(--text);
+  box-shadow: 0 10px 24px rgba(15,23,42,0.25);
+}
+.btn:hover{
+  background: color-mix(in srgb, var(--card2) 70%, rgba(15,23,42,0.16) 30%);
+}
+.btn.primary{
+  background:
+    radial-gradient(circle at 0% 0%, rgba(255,255,255,0.18), transparent 55%),
+    linear-gradient(135deg,
+      color-mix(in srgb, var(--accent) 92%, rgba(248,113,113,0.92) 8%),
+      color-mix(in srgb, var(--accent) 60%, rgba(127,29,29,1) 40%)
+    );
+  color: var(--btn-fg, #f9fafb);
+  border-color: color-mix(in srgb, var(--accent) 90%, rgba(255,255,255,0.6) 10%);
+  box-shadow:
+    0 16px 35px color-mix(in srgb, var(--accent) 50%, rgba(15,23,42,0.90) 50%),
+    0 0 0 1px rgba(255,255,255,0.24);
+}
+.btn.primary:hover{
+  filter: brightness(1.04);
+}
+
+/* Inputs / selects */
+.input,
+select.input,
+.input-inline{
+  background: color-mix(in srgb, var(--card2) 85%, rgba(15,23,42,0.10) 15%);
+  color: var(--text);
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--stroke) 80%, rgba(255,255,255,0.80) 20%);
+}
+.input::placeholder,
+select.input::placeholder{
+  color: var(--muted);
+}
+
+/* Progress / FPS bars */
+.progress-track,
+.fps-bar-track,
+.theme-preview-fps-track{
+  background: var(--fps-track, color-mix(in srgb, var(--card2) 70%, rgba(15,23,42,0.85) 30%));
+}
+.progress-fill,
+.fps-bar-fill,
+.theme-preview-fps-fill{
+  background: var(--fps-fill, var(--accent));
+}
+
+/* Header title & subtitle */
+.page-title,
+.card-title{
+  color: var(--text);
+}
+.page-sub,
+.card-desc{
+  color: var(--muted);
+}
+
+/* Theme cards should pick up global background but keep dark preview core */
+.theme-card{
+  background: color-mix(in srgb, rgba(15,23,42,0.96) 70%, rgba(0,0,0,0.0) 30%);
+  border-color: color-mix(in srgb, var(--stroke) 60%, rgba(148,163,184,0.55) 40%);
+}
+.theme-card.active{
+  border-color: color-mix(in srgb, var(--accent) 85%, rgba(248,250,252,0.96) 15%);
+  box-shadow:
+    0 22px 44px color-mix(in srgb, var(--accent) 55%, rgba(15,23,42,0.86) 45%);
+}
+.theme-name{
+  color: var(--text);
+}
+.theme-tagline{
+  color: var(--muted);
+}
+
+
+
+
+/* =========================================================
+   Falcon Optimizer – THEME FX MODES 1.1
+   Each theme can choose a visual FX profile via:
+   - fx-mode: glass | frosted | neon | matte | minimal
+   - fx-corners: rounded | square | pill
+   These are wired from theme-engine.json through
+   applyThemeById -> data-fx-mode / data-fx-corners.
+   ======================================================= */
+
+:root{
+  --radius-card: 22px;
+  --radius-pill: 999px;
+  --border-width: 1px;
+  --panel-blur: 10px;
+  --panel-noise: 0.04;
+}
+
+/* Shared base for all main surfaces, now driven by FX vars */
+.panel,
+.panel-topo,
+.card,
+.card-large,
+.pc-topo-card,
+.section,
+.section-card,
+.metrics-card{
+  border-radius: var(--radius-card);
+  border-width: var(--border-width);
+  border-style: solid;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(var(--panel-blur)) saturate(1.05);
+}
+
+/* Subtle procedural noise overlay, strength per FX mode */
+.panel::before,
+.panel-topo::before,
+.card::before,
+.card-large::before,
+.pc-topo-card::before,
+.section::before,
+.section-card::before,
+.metrics-card::before{
+  content: "";
+  position: absolute;
+  inset: -1px;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at 0 0, rgba(255,255,255,0.16), transparent 55%),
+    radial-gradient(circle at 100% 0, rgba(255,255,255,0.10), transparent 55%),
+    radial-gradient(circle at 0 100%, rgba(255,255,255,0.06), transparent 55%);
+  mix-blend-mode: soft-light;
+  opacity: var(--panel-noise, 0.04);
+}
+
+/* Corner profiles */
+:root[data-fx-corners="square"]{
+  --radius-card: 14px;
+}
+:root[data-fx-corners="pill"]{
+  --radius-card: 26px;
+}
+
+/* GLASS – heavy blur, soft glow, pronounced glassy cards */
+:root[data-fx-mode="glass"]{
+  --panel-blur: 18px;
+  --panel-noise: 0.03;
+}
+:root[data-fx-mode="glass"] .panel,
+:root[data-fx-mode="glass"] .panel-topo,
+:root[data-fx-mode="glass"] .card,
+:root[data-fx-mode="glass"] .card-large,
+:root[data-fx-mode="glass"] .pc-topo-card,
+:root[data-fx-mode="glass"] .section,
+:root[data-fx-mode="glass"] .section-card,
+:root[data-fx-mode="glass"] .metrics-card{
+  box-shadow:
+    0 28px 60px color-mix(in srgb, var(--shadow-strong, rgba(15,23,42,0.75)) 78%, rgba(0,0,0,0.0) 22%),
+    0 0 0 1px color-mix(in srgb, rgba(255,255,255,0.70) 70%, var(--stroke, rgba(15,23,42,0.30)) 30%);
+}
+
+/* FROSTED – softer blur, stronger noise for frosty look */
+:root[data-fx-mode="frosted"]{
+  --panel-blur: 14px;
+  --panel-noise: 0.10;
+}
+:root[data-fx-mode="frosted"] .panel,
+:root[data-fx-mode="frosted"] .panel-topo,
+:root[data-fx-mode="frosted"] .card,
+:root[data-fx-mode="frosted"] .card-large,
+:root[data-fx-mode="frosted"] .pc-topo-card,
+:root[data-fx-mode="frosted"] .section,
+:root[data-fx-mode="frosted"] .section-card,
+:root[data-fx-mode="frosted"] .metrics-card{
+  box-shadow:
+    0 22px 50px color-mix(in srgb, var(--shadow-soft, rgba(15,23,42,0.65)) 80%, rgba(15,23,42,0.0) 20%),
+    0 0 0 1px color-mix(in srgb, rgba(255,255,255,0.80) 72%, var(--stroke, rgba(15,23,42,0.25)) 28%);
+}
+
+/* NEON – stronger edge light and accent-colored glow */
+:root[data-fx-mode="neon"]{
+  --panel-blur: 10px;
+  --panel-noise: 0.05;
+}
+:root[data-fx-mode="neon"] .panel,
+:root[data-fx-mode="neon"] .panel-topo,
+:root[data-fx-mode="neon"] .card,
+:root[data-fx-mode="neon"] .card-large,
+:root[data-fx-mode="neon"] .pc-topo-card,
+:root[data-fx-mode="neon"] .section,
+:root[data-fx-mode="neon"] .section-card,
+:root[data-fx-mode="neon"] .metrics-card{
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--accent) 80%, rgba(248,250,252,0.80) 20%),
+    0 24px 65px color-mix(in srgb, var(--accent) 55%, rgba(15,23,42,0.90) 45%);
+}
+
+/* MATTE – low blur, low noise, more muted shadows */
+:root[data-fx-mode="matte"]{
+  --panel-blur: 4px;
+  --panel-noise: 0.02;
+}
+:root[data-fx-mode="matte"] .panel,
+:root[data-fx-mode="matte"] .panel-topo,
+:root[data-fx-mode="matte"] .card,
+:root[data-fx-mode="matte"] .card-large,
+:root[data-fx-mode="matte"] .pc-topo-card,
+:root[data-fx-mode="matte"] .section,
+:root[data-fx-mode="matte"] .section-card,
+:root[data-fx-mode="matte"] .metrics-card{
+  box-shadow:
+    0 16px 36px color-mix(in srgb, var(--shadow-strong, rgba(15,23,42,0.75)) 70%, rgba(15,23,42,0.0) 30%);
+}
+
+/* MINIMAL – almost flat, tiny shadow, barely any noise */
+:root[data-fx-mode="minimal"]{
+  --panel-blur: 2px;
+  --panel-noise: 0.01;
+}
+:root[data-fx-mode="minimal"] .panel,
+:root[data-fx-mode="minimal"] .panel-topo,
+:root[data-fx-mode="minimal"] .card,
+:root[data-fx-mode="minimal"] .card-large,
+:root[data-fx-mode="minimal"] .pc-topo-card,
+:root[data-fx-mode="minimal"] .section,
+:root[data-fx-mode="minimal"] .section-card,
+:root[data-fx-mode="minimal"] .metrics-card{
+  box-shadow:
+    0 8px 20px rgba(15,23,42,0.35);
+}
+
+
+
+
+/* THEME FX OVERLAY LAYER */
+/* THEME FX TOAST HOST */
+#themeFxToastHost{
+  position: fixed;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+}
+
+.fx-toast{
+  min-width: 260px;
+  max-width: 520px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: radial-gradient(circle at top left, rgba(248,250,252,0.96), rgba(148,163,184,0.85));
+  color: #020617;
+  font-size: 13px;
+  line-height: 1.3;
+  box-shadow:
+    0 18px 45px rgba(15,23,42,0.40),
+    0 0 24px var(--glow, rgba(248,113,113,0.35));
+  border: 1px solid rgba(148,163,184,0.65);
+  opacity: 0;
+  transform: translateY(-12px) scale(0.98);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  transition:
+    opacity 0.28s ease,
+    transform 0.28s ease;
+  pointer-events: auto;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.fx-toast.show{
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.fx-toast-success{
+  border-color: rgba(34,197,94,0.65);
+  box-shadow:
+    0 18px 45px rgba(22,163,74,0.50),
+    0 0 26px rgba(22,163,74,0.45);
+}
+
+.fx-toast-error{
+  border-color: rgba(248,113,113,0.85);
+  box-shadow:
+    0 18px 45px rgba(248,113,113,0.60),
+    0 0 26px rgba(248,113,113,0.55);
+}
+
+.fx-toast-info{
+  border-color: rgba(59,130,246,0.75);
+}
+
+/* Allow themes to switch toast density */
+:root[data-fx-toast="compact"] .fx-toast{
+  min-width: 220px;
+  padding: 8px 14px;
+  font-size: 12px;
+}
+
+#themeFxOverlay{
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+  mix-blend-mode: screen;
+}
+
+/* Snow overlay */
+@keyframes fxSnowDrift {
+  0%{ background-position: 0 0, 0 0; }
+  100%{ background-position: 320px 900px, -240px 700px; }
+}
+/* High-detail theme FX particle elements */
+.fx-snow-block,
+.fx-star,
+.fx-nebula-speck,
+.fx-dust-grain{
+  position:absolute;
+  pointer-events:none;
+  border-radius:2px;
+  opacity:0.0;
+}
+
+/* Minecraft-like chunky snow blocks */
+.fx-snow-block{
+  border-radius: 0;
+  background: linear-gradient(145deg, rgba(248,250,252,0.96), rgba(209,213,219,0.85));
+  box-shadow: 0 0 10px rgba(248,250,252,0.8);
+  animation: fxSnowBlockFall 16s linear infinite;
+}
+@keyframes fxSnowBlockFall{
+  0%{
+    transform: translate3d(0,-40vh,0) rotate3d(1,0,0,0deg);
+    opacity:0;
+  }
+  10%{ opacity:0.9; }
+  100%{
+    transform: translate3d(0,70vh,0) rotate3d(1,0,0,360deg);
+    opacity:0;
+  }
+}
+
+/* Galaxy star points */
+.fx-star{
+  border-radius:999px;
+  background: radial-gradient(circle, rgba(248,250,252,1) 0, rgba(148,163,184,0.2) 55%, transparent 70%);
+  animation: fxStarBlink 22s linear infinite;
+}
+@keyframes fxStarBlink{
+  0%,100%{ opacity:0.1; transform:translate3d(0,0,0) scale(0.8); }
+  20%{ opacity:1; transform:translate3d(2px,-4px,0) scale(1.1); }
+  60%{ opacity:0.5; transform:translate3d(-3px,3px,0) scale(0.9); }
+}
+
+/* Nebula specks drifting slowly */
+.fx-nebula-speck{
+  border-radius:999px;
+  background: radial-gradient(circle at 30% 20%, rgba(244,114,182,0.85), transparent 60%),
+              radial-gradient(circle at 70% 70%, rgba(59,130,246,0.75), transparent 65%);
+  mix-blend-mode: screen;
+  animation: fxNebulaSpeckDrift 40s linear infinite;
+}
+@keyframes fxNebulaSpeckDrift{
+  0%{ opacity:0.0; transform:translate3d(-20px,10px,0) scale(0.7); }
+  15%{ opacity:0.7; }
+  100%{ opacity:0.0; transform:translate3d(40px,-30px,0) scale(1.3); }
+}
+
+/* Dust particles sweeping sideways */
+.fx-dust-grain{
+  border-radius:999px;
+  background: radial-gradient(circle, rgba(254,226,175,0.95) 0, rgba(248,250,252,0.0) 60%);
+  mix-blend-mode: screen;
+  animation: fxDustSweep 26s linear infinite;
+}
+@keyframes fxDustSweep{
+  0%{ opacity:0.0; transform:translate3d(-60vw,0,0) scale(0.6); }
+  20%{ opacity:0.7; }
+  100%{ opacity:0.0; transform:translate3d(40vw,-10vh,0) scale(1.1); }
+}
+
+  100%{ background-position: 0 600px, 0 400px; }
+}
+:root[data-theme="christmasFrosted"],
+:root[data-theme="frostedWinterAurora"],
+:root[data-theme="arcticIce"],
+:root[data-theme="snowfallMinimal"]{
+}
+:root[data-theme="christmasFrosted"] #themeFxOverlay,
+:root[data-theme="frostedWinterAurora"] #themeFxOverlay,
+:root[data-theme="arcticIce"] #themeFxOverlay,
+:root[data-theme="snowfallMinimal"] #themeFxOverlay{
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,0.18) 0, transparent 55%),
+    radial-gradient(circle, rgba(255,255,255,0.10) 0, transparent 55%);
+  background-size: 260px 260px, 420px 420px;
+  animation: fxSnowDrift 32s linear infinite;
+  opacity: 0.5;
+}
+
+/* Nebula / galaxy overlay */
+@keyframes fxNebulaDrift {
+  0%{ background-position: 0 0; }
+  100%{ background-position: 800px 600px; }
+}
+:root[data-theme="nebulaSpaceGamer"] #themeFxOverlay,
+:root[data-theme="deepGalaxy"] #themeFxOverlay{
+  background-image:
+    radial-gradient(circle at 10% 0%, rgba(56,189,248,0.30) 0, transparent 55%),
+    radial-gradient(circle at 80% 100%, rgba(168,85,247,0.45) 0, transparent 60%);
+  background-size: 800px 800px;
+  animation: fxNebulaDrift 40s linear infinite;
+  opacity: 0.55;
+}
+
+/* Dust / sunset overlay */
+@keyframes fxDustDrift {
+  0%{ background-position: 0 0; }
+  100%{ background-position: 0 400px; }
+}
+:root[data-theme="sunsetHorizon"] #themeFxOverlay{
+  background-image: radial-gradient(circle, rgba(250,204,21,0.22) 0, transparent 60%);
+  background-size: 380px 380px;
+  animation: fxDustDrift 30s linear infinite;
+  opacity: 0.45;
+}
+
+/* Embers overlay for hot themes */
+@keyframes fxEmbersRise {
+  0%{ background-position: 0 100%; }
+  100%{ background-position: 0 0; }
+}
+:root[data-theme="minecraftNether"] #themeFxOverlay,
+:root[data-theme="infraredCyberpunk"] #themeFxOverlay{
+  background-image: radial-gradient(circle, rgba(248,113,113,0.40) 0, transparent 55%);
+  background-size: 320px 480px;
+  animation: fxEmbersRise 26s linear infinite;
+  opacity: 0.55;
+}
+
+/* Stars overlay for clean space white */
+@keyframes fxStarsFloat {
+  0%{ background-position: 0 0; }
+  100%{ background-position: 400px 800px; }
+}
+:root[data-theme="futuristicWhiteGlass"] #themeFxOverlay{
+  background-image:
+    radial-gradient(circle, rgba(248,250,252,0.76) 0, transparent 60%),
+    radial-gradient(circle, rgba(148,163,184,0.55) 0, transparent 60%);
+  background-size: 4px 4px, 2px 2px;
+  animation: fxStarsFloat 70s linear infinite;
+  opacity: 0.45;
+}
+
+/* Fireflies overlay for Minecraft Overworld */
+@keyframes fxFireflies {
+  0%{ background-position: 0 0; }
+  100%{ background-position: 320px 280px; }
+}
+:root[data-theme="minecraftOverworld"] #themeFxOverlay{
+  background-image: radial-gradient(circle, rgba(34,197,94,0.45) 0, transparent 60%);
+  background-size: 240px 260px;
+  animation: fxFireflies 38s linear infinite;
+  opacity: 0.55;
+}
+
+/* End void overlay */
+@keyframes fxEndVoid {
+  0%{ transform: translate3d(0,0,0); }
+  50%{ transform: translate3d(-8px,4px,0); }
+  100%{ transform: translate3d(0,0,0); }
+}
+:root[data-theme="minecraftEnd"] #themeFxOverlay{
+  background-image: radial-gradient(circle at 50% 40%, rgba(168,85,247,0.60) 0, transparent 55%),
+                    radial-gradient(circle at 10% 80%, rgba(34,197,94,0.45) 0, transparent 65%);
+  background-size: 520px 520px, 420px 420px;
+  animation: fxEndVoid 36s ease-in-out infinite;
+  opacity: 0.65;
+}
+
+/* Scanlines overlay for esports HUD themes */
+@keyframes fxScanlines {
+  0%{ background-position: 0 0; }
+  100%{ background-position: 0 4px; }
+}
+:root[data-theme="valorantProtocol"] #themeFxOverlay,
+:root[data-theme="fortniteArena"] #themeFxOverlay,
+:root[data-theme="apexOutlands"] #themeFxOverlay{
+  background-image: linear-gradient(to bottom, rgba(15,23,42,0.0) 0, rgba(15,23,42,0.35) 50%, rgba(15,23,42,0.0) 100%);
+  background-size: 100% 4px;
+  animation: fxScanlines 0.9s linear infinite;
+  opacity: 0.35;
+}
+
+/* Default: no overlay for other themes */
+:root:not([data-theme]) #themeFxOverlay{
+  background: transparent;
+  opacity: 0;
+}
+
+
+
+/* Themed run status effects */
+.runstatus{
+  border-radius: 14px;
+  border: 1px solid var(--stroke);
+  box-shadow:
+    0 18px 40px rgba(15,23,42,0.50),
+    0 0 0 1px rgba(15,23,42,0.22);
+  background: radial-gradient(circle at 0 0, rgba(248,250,252,0.22) 0, transparent 60%),
+              linear-gradient(135deg, color-mix(in srgb, var(--card) 82%, rgba(15,23,42,0.9) 18%), var(--card2));
+  transition: box-shadow 0.25s ease-out, border-color 0.25s ease-out, transform 0.18s ease-out;
+}
+
+.runstatus.ok{
+  border-color: color-mix(in srgb, var(--accent) 60%, #22c55e 40%);
+  box-shadow:
+    0 18px 40px rgba(34,197,94,0.45),
+    0 0 0 1px color-mix(in srgb, rgba(34,197,94,0.75) 65%, var(--stroke) 35%);
+  transform: translateY(-1px);
+}
+
+.runstatus.fail{
+  border-color: color-mix(in srgb, var(--accent) 60%, #ef4444 40%);
+  box-shadow:
+    0 18px 40px rgba(239,68,68,0.55),
+    0 0 0 1px color-mix(in srgb, rgba(239,68,68,0.75) 65%, var(--stroke) 35%);
+  transform: translateY(-1px);
+}
+
+
+
+/* ============================
+   THEME-SPECIFIC ANIMATED FX
+   (pure CSS, no behavior changes)
+   ============================ */
+
+@keyframes fxGamerPulse {
+  0%{ box-shadow: 0 0 0 0 rgba(248,113,113,0.0); }
+  50%{ box-shadow: 0 0 32px 0 rgba(248,113,113,0.55); }
+  100%{ box-shadow: 0 0 0 0 rgba(248,113,113,0.0); }
+}
+
+@keyframes fxTealSweep {
+  0%{ background-position: 0% 50%; }
+  100%{ background-position: 200% 50%; }
+}
+
+@keyframes fxSynthwaveGlow {
+  0%{ filter: drop-shadow(0 0 0 rgba(236,72,153,0.0)); }
+  50%{ filter: drop-shadow(0 0 24px rgba(236,72,153,0.8)); }
+  100%{ filter: drop-shadow(0 0 0 rgba(236,72,153,0.0)); }
+}
+
+@keyframes fxMatrixScan {
+  0%{ background-position: 0 -40px; }
+  100%{ background-position: 0 40px; }
+}
+
+@keyframes fxAuroraSweep {
+  0%{ background-position: 0% 0%; }
+  100%{ background-position: 200% 100%; }
+}
+
+/* Black & red gamer: pulsing active nav + primary buttons */
+:root[data-theme="blackRedGamer"] .nav-item.active,
+:root[data-theme="blackRedGamer"] .btn.primary{
+  position: relative;
+  animation: fxGamerPulse 3.2s ease-in-out infinite;
+}
+
+/* Valorant protocol: animated accent gradient on FPS bar */
+:root[data-theme="valorantProtocol"] .fps-bar-fill{
+  background-image: linear-gradient(90deg, #F97373, #22D3EE, #F97373);
+  background-size: 200% 100%;
+  animation: fxTealSweep 4.2s linear infinite;
+}
+
+/* Fortnite arena: subtle pulsing cards */
+:root[data-theme="fortniteArena"] .card{
+  transition: transform 0.18s ease-out;
+}
+:root[data-theme="fortniteArena"] .card:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 18px 40px rgba(56,189,248,0.45);
+}
+
+/* Neon synthwave: glow around card titles */
+:root[data-theme="neonSynthwave"] .card-title{
+  animation: fxSynthwaveGlow 4s ease-in-out infinite;
+}
+
+/* Hacker matrix: animated code-strip background in panel header */
+:root[data-theme="hackerMatrix"] .panel::before{
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 2px;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgba(34,197,94,0.0) 0,
+    rgba(34,197,94,0.9) 50%,
+    rgba(34,197,94,0.0) 100%
+  );
+  background-size: 100% 40px;
+  animation: fxMatrixScan 3s linear infinite;
+  opacity: 0.8;
+}
+
+/* Frosted / aurora: gentle moving border glow on cards */
+:root[data-theme="frostedWinterAurora"] .card,
+:root[data-theme="arcticIce"] .card{
+  position: relative;
+  overflow: hidden;
+}
+:root[data-theme="frostedWinterAurora"] .card::before,
+:root[data-theme="arcticIce"] .card::before{
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  border: 1px solid transparent;
+  background-image: linear-gradient(120deg, rgba(56,189,248,0.7), rgba(56,189,248,0.0), rgba(52,211,153,0.7));
+  background-size: 200% 200%;
+  mix-blend-mode: screen;
+  animation: fxAuroraSweep 16s linear infinite;
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+/* Minecraft End: breathing purple FPS bar */
+:root[data-theme="minecraftEnd"] .fps-bar-fill{
+  animation: fxGamerPulse 4s ease-in-out infinite;
+}
+
+/* Apple clean: keep motion very minimal, just hover lift */
+:root[data-theme="appleCleanWhite"] .card{
+  transition: transform 0.16s ease-out, box-shadow 0.16s ease-out;
+}
+:root[data-theme="appleCleanWhite"] .card:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 20px 40px rgba(15,23,42,0.18);
+}
+
+.topbar-left{ display:flex; flex-direction:column; gap:2px; min-width:0; }
+.topbar-right{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+  align-items:flex-end;
+}
+.chip-label{
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:0.09em;
+  color:var(--muted);
+}
+.chip-group{
+  display:flex;
+  gap:6px;
+  padding:4px;
+  border-radius:999px;
+  background: linear-gradient(145deg, rgba(15,23,42,0.90), rgba(15,23,42,0.75));
+  box-shadow:
+    0 14px 30px rgba(15,23,42,0.75),
+    0 0 18px rgba(248,113,113,0.20);
+}
+.chip{
+  border:none;
+  outline:none;
+  padding:5px 10px;
+  border-radius:999px;
+  font-size:11px;
+  color:#e5e7eb;
+  background:transparent;
+  cursor:pointer;
+  white-space:nowrap;
+  transition:
+    background 0.18s ease,
+    color 0.18s ease,
+    transform 0.12s ease,
+    box-shadow 0.18s ease;
+}
+.chip:hover{
+  transform:translateY(-1px);
+  box-shadow:0 8px 16px rgba(0,0,0,0.35);
+}
+.chip.active{
+  background: radial-gradient(circle at top left, rgba(248,113,113,0.95), rgba(248,113,113,0.70));
+  color:#020617;
+  box-shadow:
+    0 10px 22px rgba(248,113,113,0.65),
+    0 0 18px rgba(248,113,113,0.65);
+}
+
+/* Minecraft-themed FX */
+.fx-mc-block-overworld{
+  position:absolute;
+  pointer-events:none;
+  border-radius: 0;
+  background:
+    linear-gradient(to bottom, #16A34A 0 35%, #166534 35% 40%, #854D0E 40% 100%);
+  box-shadow: 0 0 8px rgba(22,163,74,0.55);
+  animation: fxMcOverworldFall 18s linear infinite;
+}
+@keyframes fxMcOverworldFall{
+  0%{ opacity:0; transform:translate3d(0,-40vh,0) rotate3d(0,0,1,0deg); }
+  10%{ opacity:0.95; }
+  100%{ opacity:0; transform:translate3d(0,65vh,0) rotate3d(0,0,1,360deg); }
+}
+
+.fx-mc-ember-nether{
+  position:absolute;
+  pointer-events:none;
+  border-radius:999px;
+  background: radial-gradient(circle, #F97316 0, rgba(248,113,113,0.0) 60%);
+  mix-blend-mode: screen;
+  animation: fxMcNetherEmber 16s linear infinite;
+}
+@keyframes fxMcNetherEmber{
+  0%{ opacity:0; transform:translate3d(0,40vh,0) scale(0.6); }
+  10%{ opacity:0.9; }
+  100%{ opacity:0; transform:translate3d(0,-50vh,0) scale(1.2); }
+}
+
+.fx-mc-end-shard{
+  position:absolute;
+  pointer-events:none;
+  border-radius:4px;
+  background: linear-gradient(145deg,#4C1D95,#7C3AED);
+  box-shadow: 0 0 12px rgba(129,140,248,0.9);
+  animation: fxMcEndShardDrift 30s linear infinite;
+}
+@keyframes fxMcEndShardDrift{
+  0%{ opacity:0; transform:translate3d(-20vw,10vh,0) rotate3d(0,0,1,0deg) scale(0.7); }
+  15%{ opacity:0.9; }
+  100%{ opacity:0; transform:translate3d(20vw,-20vh,0) rotate3d(0,0,1,260deg) scale(1.2); }
+}
+
+
+/* Hardware comparison mini-graph */
+.spec-compare {
+  margin-top: 10px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: rgba(0,0,0,0.18);
+  backdrop-filter: blur(6px);
+  font-size: 11px;
+}
+
+body.light .spec-compare {
+  background: rgba(255,255,255,0.65);
+}
+
+.spec-compare-title {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.spec-compare-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+.spec-compare-label {
+  width: 40px;
+  opacity: 0.8;
+}
+
+.spec-compare-bar {
+  flex: 1;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.08);
+  overflow: hidden;
+}
+
+body.light .spec-compare-bar {
+  background: rgba(0,0,0,0.08);
+}
+
+.spec-compare-bar-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #ff4b6a, #ffd85a);
+  transition: width 0.4s ease-out;
+}
+
+body.light .spec-compare-bar-fill {
+  background: linear-gradient(90deg, #d21b46, #ff9f2f);
+}
+
+.spec-compare-summary {
+  margin-top: 6px;
+  line-height: 1.4;
+}
+
+
+/* Contrast fixes */
+.spec-label,
+.spec-value,
+.log,
+.logbox {
+  color: #f5f7ff;
+}
+
+body.light .spec-label,
+body.light .spec-value {
+  color: #111319;
+}
+
+.badge,
+.badge.risk-critical,
+.badge.risk-high,
+.badge.risk-warning {
+  color: #fff;
+}
+
+
+
+/* GPU vendor selector */
+.gpu-vendor-row {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 11px;
+}
+
+.gpu-vendor-label {
+  opacity: 0.8;
+}
+
+.gpu-vendor-chips {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.chip-small {
+  padding: 2px 8px;
+  font-size: 10px;
+}
+
+
+/* Speed Core toolbar + cards */
+.boost-toolbar{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  align-items:center;
+  margin-bottom:12px;
+}
+.speedboost-card{
+  display:grid;
+  grid-template-columns:24px minmax(0,1fr);
+  gap:10px;
+  align-items:flex-start;
+}
+.speedboost-card .boost-check{
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+  padding-top:4px;
+}
+.speedboost-card .boost-select{
+  width:18px;
+  height:18px;
+}
+
+/* Game detection banner */
+.game-detect-banner{
+  margin-bottom:14px;
+}
+
+/* BIOS helper layout */
+.bios-grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap:14px;
+}
+.bios-spec{
+  margin-top:8px;
+  font-size:13px;
+}
+.bios-keys{
+  margin-top:8px;
+  font-size:13px;
+}
+.bios-note{
+  margin-top:10px;
+  font-size:12px;
+  color:var(--muted);
+}
+
+/* --- Speed Core / Game Mode bulk selection layout fixes --- */
+.speedboost-card .card-title{
+  padding-left:24px;
+}
+.speedboost-card .card-desc{
+  padding-left:24px;
+  max-height:2.9em;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.speedboost-card .badges{
+  padding-left:24px;
+  margin-top:6px;
+}
+.boost-check{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.boost-check input{
+  width:20px;
+  height:20px;
+  cursor:pointer;
+}
+
+.gm-photo-list{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  margin-top:10px;
+}
+.gm-photo-item{
+  display:flex;
+  align-items:flex-start;
+  gap:8px;
+  font-size:12px;
+}
+.gm-photo-item input{
+  margin-top:3px;
+}
+.gm-photo-item-title{
+  font-weight:700;
+  font-size:12px;
+}
+.gm-photo-item-desc{
+  font-size:11px;
+  color:var(--muted);
+}
+
+
+/* StretchLab layout */
+.stretchlab-panel {
+  position: relative;
+}
+.stretchlab-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr) minmax(0, 1.2fr);
+  gap: 16px;
+  margin-top: 12px;
+}
+@media (max-width: 1200px) {
+  .stretchlab-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.stretchlab-col {
+  min-width: 0;
+}
+.stretchlab-game-list,
+.stretchlab-pro-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.stretchlab-pro {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 0;
+}
+.stretchlab-pro-res {
+  font-size: 11px;
+  opacity: 0.85;
+  margin-left: 8px;
+}
+.stretchlab-details {
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.06);
+  background: rgba(15,23,42,0.85);
+}
+.stretchlab-pro-name {
+  font-weight: 800;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+.stretchlab-detail-kv {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+.stretchlab-actions {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+
+/* Readability pass */
+.tweak-card, .card{
+  line-height:1.55;
+}
+.tweak-card .desc, .tweak-card p{
+  color: var(--muted);
+  line-height:1.5;
+  font-size: 13.5px;
+}
+.badge{
+  font-size: 12px;
+}
+
+
+
+/* Readability + contrast hardening */
+:root{
+  --fg: #f3f6ff;
+  --muted: rgba(243,246,255,0.88);
+  --panel: rgba(12,14,20,0.82);
+  --card: rgba(18,22,32,0.82);
+  --border: rgba(255,255,255,0.12);
+}
+body{ color: var(--fg); font-size: 15.5px; line-height: 1.45; }
+.card{ background: var(--card); border: 1px solid var(--border); }
+.card-title{ color: var(--fg); font-size: 16px; font-weight: 700; }
+.card-desc{ color: var(--muted); font-size: 13.5px; line-height: 1.45; }
+.nav-item{ color: rgba(255,255,255,0.88); }
+.nav-section{ color: rgba(255,255,255,0.7); }
+.input{ background: rgba(0,0,0,0.35); color: var(--fg); border: 1px solid var(--border); }
+.input:focus{ outline: none; border-color: rgba(0,255,170,0.45); box-shadow: 0 0 0 2px rgba(0,255,170,0.15); }
+label{ color: var(--fg); }
+input[type="checkbox"]{ accent-color: #00ffaa; width: 16px; height: 16px; }
+
+/* Modal visibility */
+.modal-backdrop{ background: rgba(0,0,0,0.72) !important; }
+.modal{ background: rgba(20,24,34,0.98) !important; border: 1px solid var(--border) !important; }
+.modal-title{ color: var(--fg) !important; }
+.modal-body{ color: var(--muted) !important; white-space: pre-wrap; }
+.modal-check label{ display: flex; gap: 10px; align-items: center; cursor: pointer; }
+.modal-actions .btn{ min-width: 120px; }
+
+/* Winter dots snow FX */
+.fx-snow-dot{
+  position:absolute;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.78);
+  box-shadow: 0 0 3px rgba(255,255,255,0.18);
+  filter: drop-shadow(0 0 2px rgba(255,255,255,0.12));
+  will-change: transform, opacity;
+  animation: fxSnowDotFall 12s linear infinite;
+}
+@keyframes fxSnowDotFall{
+  0% { transform: translate3d(0,-48px,0) rotate(var(--twist)); opacity: 0.0; }
+  8% { opacity: 0.8; }
+  100% { transform: translate3d(var(--drift),110vh,0) rotate(calc(var(--twist) * -1)); opacity: 0.0; }
+}
+
+/* StretchLab layout */
+.stretch-wrap{ display:flex; gap: 14px; }
+.stretch-left{ width: 340px; min-width: 340px; }
+.stretch-right{ flex: 1; }
+.stretch-title{ font-weight: 700; margin: 8px 0 10px; color: rgba(255,255,255,0.9); }
+.pill-row{ display:flex; flex-wrap: wrap; gap: 8px; }
+
+.pill-row.hscroll-wheel{ flex-wrap: nowrap; }
+/* StretchLab: prevent horizontal clipping on smaller windows */
+.stretch-grid{ grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.pill-row{ overflow-x:auto; padding-bottom: 4px; }
+
+.pill{ border: 1px solid var(--border); background: rgba(0,0,0,0.25); color: rgba(255,255,255,0.9); padding: 7px 10px; border-radius: 999px; cursor:pointer; display:flex; gap:8px; align-items:center; }
+.pill.active{ border-color: rgba(0,255,170,0.55); box-shadow: 0 0 0 2px rgba(0,255,170,0.12); }
+.pill-count{ font-size: 12px; color: rgba(255,255,255,0.75); padding: 2px 7px; border-radius: 999px; background: rgba(255,255,255,0.08); }
+.stretch-custom{ display:flex; gap: 8px; }
+.mono{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+
+
+/* FALCON READABILITY OVERRIDES */
+:root{
+  --fg: var(--text);
+}
+body{
+  color: var(--text);
+}
+.card{
+  color: var(--text);
+}
+.card-title{
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+}
+.card-desc{
+  font-size: 13.5px;
+  line-height: 1.35;
+  color: rgba(2,6,23,0.75);
+}
+.nav a, .nav button, .nav-item{
+  font-size: 13.5px;
+}
+input, select, textarea{
+  color: var(--text);
+  background: rgba(255,255,255,0.9);
+  border: 1px solid rgba(15,23,42,0.22);
+}
+input::placeholder{
+  color: rgba(2,6,23,0.45);
+}
+label, .muted{
+  color: rgba(2,6,23,0.75);
+}
+.modal{
+  background: rgba(255,255,255,0.98) !important;
+  color: var(--text) !important;
+}
+.modal-title{
+  color: var(--text) !important;
+}
+.modal-body{
+  color: rgba(2,6,23,0.78) !important;
+}
+.modal-check input[type="checkbox"]{
+  width: 18px;
+  height: 18px;
+  accent-color: var(--red1);
+}
+
+
+/* --- MEGA PROMPT HOTFIXES: readability + confirm checkbox --- */
+#confirmBackdrop{ z-index: 9999; }
+#confirmBackdrop .modal, #confirmBackdrop .confirm-modal, #confirmBackdrop .confirm-panel{
+  background: rgba(20,20,24,0.96) !important;
+  color: #f5f6fa !important;
+  border: 1px solid rgba(255,255,255,0.12) !important;
+}
+#confirmBackdrop label, #confirmBackdrop .confirm-row{ cursor: pointer; }
+#confirmBackdrop input[type="checkbox"]{
+  width: 18px; height: 18px;
+  accent-color: #ff3b3b;
+  cursor: pointer;
+}
+#confirmBackdrop *{ pointer-events: auto; }
+
+
+/* --- Readability overrides (theme-safe) --- */
+.nav-item{ color: var(--text) !important; }
+.nav-item.active{ color: var(--text) !important; }
+.nav-section{ color: var(--muted) !important; }
+.card-title, .section-title{ color: var(--text) !important; }
+.card-desc, .hint{ color: var(--muted) !important; }
+
+
+
+/* Game tiles (Network Priority) */
+.game-tile .game-thumb{
+  position:relative;
+  width:100%;
+  height:120px;
+  border-radius:14px;
+  overflow:hidden;
+  background: rgba(255,255,255,0.04);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.game-tile .game-thumb img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+.game-tile .game-thumb-fallback{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:10px;
+  text-align:center;
+  font-weight:700;
+  letter-spacing:0.2px;
+  color: rgba(255,255,255,0.78);
+}
+.game-tile .game-thumb.noimg .game-thumb-fallback{
+  position:static;
+}
+
+
+/* --- UI fixes: readability + horizontal preset rows --- */
+:root{
+  --muted: rgba(255,255,255,0.72);
+}
+.pill-row{
+  overflow-x: auto;
+  flex-wrap: nowrap !important;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 6px;
+}
+.pill{ flex: 0 0 auto; }
+
+/* Fan curve editor */
+.fan-curve .fan-pt{
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.03);
+  margin-bottom: 10px;
+}
+.fan-curve .field-label{ display:flex; flex-direction:column; gap:6px; font-size:12px; color: var(--muted); }
+
+.pill-green{ border-color: rgba(0,200,80,.45); background: rgba(0,200,80,.12); }
+
+/* StretchLab: allow horizontal scrolling for large resolution libraries */
+.stretchlab-pro-list{
+  flex-wrap: nowrap !important;
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+.stretchlab-pro-card{
+  min-width: 260px;
+}
+
+
+/* Small inline button */
+.btn.inline{ flex:0; width:auto; }
+.btn.small{ padding:7px 10px; font-size:11px; border-radius:12px; }
+
+/* Title row with action */
+.card-title-row{ display:flex; align-items:center; justify-content:space-between; gap:10px; }
+
+/* Icon button */
+.iconbtn{
+  border:1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.06);
+  color: rgba(232,232,239,0.92);
+  border-radius:12px;
+  padding:6px 10px;
+  cursor:pointer;
+}
+
+/* Wider modal */
+.modal.modal-wide{ width:min(980px, 92vw); }
+
+/* System info modal */
+.modal-head{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
+.sysinfo-layout{ display:grid; grid-template-columns: 220px 1fr; gap:14px; margin-top:12px; }
+.sysinfo-nav{
+  border:1px solid rgba(255,255,255,0.08);
+  background: rgba(0,0,0,0.28);
+  border-radius:16px;
+  padding:10px;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+.sysinfo-tab{
+  text-align:left;
+  padding:10px 10px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.04);
+  color: rgba(232,232,239,0.88);
+  cursor:pointer;
+  font-weight:700;
+}
+.sysinfo-tab.active{
+  background: radial-gradient(120px 80px at 20% 20%, rgba(220,38,38,0.38), transparent 60%),
+              rgba(255,255,255,0.06);
+  border-color: rgba(220,38,38,0.22);
+  box-shadow: 0 0 24px rgba(220,38,38,0.22);
+}
+.sysinfo-body{
+  border:1px solid rgba(255,255,255,0.08);
+  background: rgba(0,0,0,0.28);
+  border-radius:16px;
+  padding:14px;
+  min-height: 360px;
+}
+.sysinfo-title{ font-weight:900; font-size:16px; margin-bottom:12px; }
+.sysinfo-block{
+  border:1px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.03);
+  border-radius:14px;
+  padding:10px;
+  margin-top:10px;
+}
+.kv{ display:grid; grid-template-columns: 160px 1fr; gap:10px; padding:8px 0; border-bottom:1px dashed rgba(255,255,255,0.08); }
+.kv:last-child{ border-bottom:none; }
+.kv .k{ color: rgba(232,232,239,0.62); font-weight:700; }
+.kv .v{ color: rgba(232,232,239,0.92); font-weight:800; }
+
+/* Game profiles (Paragon-inspired) */
+.gp-layout{
+  display:grid;
+  grid-template-columns: 360px 1fr;
+  gap:16px;
+  margin-top:14px;
+}
+.gp-left, .gp-right{
+  border:1px solid rgba(255,255,255,0.08);
+  background: rgba(0,0,0,0.26);
+  border-radius:18px;
+  overflow:hidden;
+}
+.gp-toolbar{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  padding:12px;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  background: linear-gradient(180deg, rgba(255,255,255,0.04), transparent);
+}
+.gp-search{ flex:1; }
+.gp-list{ padding:12px; display:flex; flex-direction:column; gap:10px; max-height: calc(100vh - 240px); overflow:auto; }
+.gp-item{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:12px;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.03);
+  cursor:pointer;
+  color: rgba(232,232,239,0.92);
+}
+.gp-item:hover{ border-color: rgba(220,38,38,0.22); }
+.gp-item.active{
+  background: radial-gradient(240px 160px at 20% 20%, rgba(220,38,38,0.26), transparent 60%),
+              rgba(255,255,255,0.04);
+  border-color: rgba(220,38,38,0.22);
+  box-shadow: 0 0 24px rgba(220,38,38,0.18);
+}
+.gp-icon{
+  width:44px; height:44px;
+  border-radius:14px;
+  display:flex; align-items:center; justify-content:center;
+  font-weight:900;
+  background: rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.10);
+}
+.gp-meta{ flex:1; min-width:0; }
+.gp-name{ font-weight:900; }
+.gp-sub{ color: rgba(232,232,239,0.58); font-size:12px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.gp-badge{
+  font-size:10px;
+  font-weight:900;
+  padding:6px 8px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.04);
+  color: rgba(232,232,239,0.72);
+}
+.gp-badge.ok{
+  border-color: rgba(16,185,129,0.35);
+  background: rgba(16,185,129,0.12);
+  color: rgba(220,255,240,0.92);
+}
+.gp-hero{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px;
+  padding:14px;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  background: radial-gradient(420px 220px at 20% 10%, rgba(220,38,38,0.18), transparent 60%),
+              linear-gradient(180deg, rgba(255,255,255,0.04), transparent);
+}
+.gp-hero-title{ font-size:22px; font-weight:1000; letter-spacing:0.2px; }
+.gp-hero-sub{ color: rgba(232,232,239,0.62); margin-top:6px; }
+.gp-actions{ display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end; }
+.gp-content{ padding:12px; }
+.gp-content .panel{ margin-top:0 !important; }
+.gp-inner{ padding:0; }
+
+
+/* Horizontal scroll (wheel) rows: vertical sections, horizontally long */
+.hscroll-wheel{ overflow-x:auto; overscroll-behavior-x:contain; }
+.hscroll-grid{
+  display:grid;
+  grid-template-columns: unset !important;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(260px, 320px);
+  overflow-x:auto;
+  overflow-y:hidden;
+  padding-bottom:10px;
+  scroll-snap-type: x proximity;
+}
+.hscroll-grid > *{ scroll-snap-align: start; }
+
+.gp-inner .grid{
+  grid-template-columns: unset !important;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(260px, 320px);
+  overflow-x:auto;
+  overflow-y:hidden;
+  padding-bottom:10px;
+  scroll-snap-type: x proximity;
+}
+.gp-inner .grid > *{ scroll-snap-align:start; }
+
+/* StretchLab: make preset card grid horizontally scrollable */
+.stretch-grid{
+  grid-template-columns: unset !important;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(260px, 320px);
+  overflow-x:auto;
+  overflow-y:hidden;
+  padding-bottom:10px;
+  scroll-snap-type: x proximity;
+}
+.stretch-grid > *{ scroll-snap-align:start; }
+
+
+/* --- StretchLab horizontal preset scrollers (override) --- */
+.pill-row{
+  flex-wrap: nowrap !important;
+  overflow-x: auto !important;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+.stretch-hscroll, .stretch-cards{
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  gap: 14px;
+  overflow-x: auto !important;
+  overflow-y: hidden;
+  padding-bottom: 10px;
+  -webkit-overflow-scrolling: touch;
+}
+.stretch-cards .card, .stretch-hscroll .card{
+  flex: 0 0 auto;
+  min-width: 280px;
+  max-width: 340px;
+}
+/* Remove grid spacing rules from StretchLab preset host */
+.stretch-cards.grid, .stretch-hscroll.grid{
+  display: flex !important;
+  grid-template-columns: unset !important;
+}
+
+
+/* Phase 1 UI: global search + run history */
+.global-search{
+  margin-top: 10px;
+  width: 520px;
+  max-width: 100%;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(10,10,14,0.55);
+  color: inherit;
+  outline: none;
+}
+.global-search:focus{
+  border-color: rgba(255,255,255,0.25);
+}
+.global-search-results{
+  position: relative;
+  margin-top: 8px;
+  width: 520px;
+  max-width: 100%;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(10,10,14,0.95);
+  overflow: hidden;
+  box-shadow: 0 14px 40px rgba(0,0,0,0.45);
+  z-index: 50;
+}
+.global-search-results .sr-item{
+  padding: 10px 12px;
+  cursor: pointer;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.global-search-results .sr-item:last-child{ border-bottom: none; }
+.global-search-results .sr-item:hover{ background: rgba(255,255,255,0.06); }
+.global-search-results .sr-title{ font-weight: 650; }
+.global-search-results .sr-meta{ font-size: 12px; opacity: 0.75; margin-top: 2px; }
+
+.run-indicator{
+  margin-right: 10px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.06);
+  font-size: 12px;
+  opacity: 0.9;
+}
+
+.drawer{
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 420px;
+  max-width: 95vw;
+  background: rgba(10,10,14,0.98);
+  border-left: 1px solid rgba(255,255,255,0.10);
+  box-shadow: -14px 0 40px rgba(0,0,0,0.5);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+}
+.drawer-header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 14px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.drawer-title{ font-weight: 750; font-size: 14px; }
+.drawer-body{ padding: 12px 14px; overflow: auto; }
+.run-history-list .rh-item{
+  padding: 10px 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.04);
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+.run-history-list .rh-item:hover{ background: rgba(255,255,255,0.07); }
+.run-history-list .rh-top{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.run-history-list .rh-label{ font-weight: 650; font-size: 13px; }
+.run-history-list .rh-status{
+  font-size: 12px;
+  opacity: 0.9;
+}
+.run-history-list .rh-meta{
+  font-size: 12px;
+  opacity: 0.75;
+  margin-top: 4px;
+}
+
+
+/* PHASE4_DISABLED_STATE */
+button:disabled, .btn:disabled, [aria-disabled="true"]{
+  opacity:.6;
+  cursor:not-allowed;
+  transform:none !important;
+}
+
+
+/* --- UI usability fixes (Phase 4 integrated) --- */
+#app{ height:100vh; overflow:hidden; }
+.main{ height:100vh; overflow:hidden; }
+.content{
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding-bottom: 32px;
+}
+.runstatus{
+  max-height: 36vh;
+  overflow: auto;
+}
+/* Ensure long panels don't force the whole app to overflow */
+#panel{ min-height: 0; }
+.sidebar{ max-height: 100vh; }
+
+
+
+/* === Scroll/Layout hard fix (Phase4 ScrollFix v2) === */
+html, body{
+  height: 100%;
+  overflow: hidden; /* prevent body from trapping scroll and hiding lower content */
+}
+#app{
+  height: 100vh;
+  overflow: hidden; /* keep scroll inside main/content */
+}
+.main{
+  height: 100vh;
+  overflow: hidden;
+  min-height: 0;
+}
+.topbar, .footer{
+  flex: 0 0 auto;
+}
+.runstatus{
+  flex: 0 0 auto;
+  max-height: 260px;
+  overflow: hidden;
+}
+.runstatus .logbox{
+  max-height: 150px;
+  overflow: auto;
+}
+.content{
+  flex: 1 1 auto;
+  min-height: 0; /* critical for flex children to allow overflow scroll */
+  overflow: auto;
+}
+.sidebar{
+  max-height: 100vh;
+  overflow-y: auto;
+}
+
+
+
+
+/* === Scroll/Layout definitive fix (v3) ===
+   Uses CSS grid on .main to guarantee the content area is a constrained scroll container,
+   regardless of theme overrides or flex min-height quirks in Chromium/Electron.
+*/
+html, body{ height:100% !important; overflow:hidden !important; }
+#app{ height:100vh !important; overflow:hidden !important; }
+.sidebar{ max-height:100vh !important; overflow-y:auto !important; }
+
+.main{
+  height:100vh !important;
+  min-height:0 !important;
+  overflow:hidden !important;
+  display:grid !important;
+  grid-template-rows: auto auto 1fr auto; /* topbar, runstatus, content, footer */
+}
+
+.topbar{ min-height:0 !important; }
+.runstatus{ min-height:0 !important; }
+.footer{ min-height:0 !important; }
+
+.content{
+  min-height:0 !important;
+  overflow:auto !important;
+  overscroll-behavior: contain;
+}
+
+/* Make sure long grids/panels don't expand the scroll container unexpectedly */
+#panel{ min-height:0 !important; }
+.grid{ min-height:0 !important; }
+.panel{ overflow:hidden; } /* keep visuals; scrolling happens on .content */

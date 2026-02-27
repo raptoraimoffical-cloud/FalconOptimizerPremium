@@ -1,0 +1,97 @@
+{
+  "items": [
+    {
+      "id": "clean.device_cleanup",
+      "name": "Device Cleanup",
+      "category": "Debloat / System Cleaner",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Cleans selected temporary/cache files.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:WINDIR\\INF\\setupapi.dev.log' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:WINDIR\\INF\\setupapi.app.log' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "excludeFromApplyAll": true,
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "clean.general_cleanup",
+      "name": "General Cleanup",
+      "category": "Debloat / System Cleaner",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Cleans selected temporary/cache files.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:WINDIR\\Logs\\CBS\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:ProgramData\\Microsoft\\Windows\\WER\\ReportArchive\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "excludeFromApplyAll": true,
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "clean.logs_&_crash_reports",
+      "name": "Logs & Crash Reports",
+      "category": "Debloat / System Cleaner",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Cleans selected temporary/cache files.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\CrashDumps\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:ProgramData\\Microsoft\\Windows\\WER\\ReportQueue\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "excludeFromApplyAll": true,
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    }
+  ]
+}

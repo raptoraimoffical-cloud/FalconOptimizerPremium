@@ -1,0 +1,71 @@
+{
+  "items": [
+    {
+      "id": "input_scan_hid_power",
+      "type": "action",
+      "name": "Scan HID Power & Input State",
+      "description": "[Analyzer] Scans HID/USB devices for power management flags (EnhancedPowerManagementEnabled, DeviceIdleEnabled) and shows USB selective suspend status.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Input Lab / Analyzer",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"=== FALCON INPUT LAB: HID POWER SCAN ===\"\nWrite-Output \"\"\n\n# Show USB selective suspend high-level hint (power plan)\ntry {\n  Write-Output \"USB Selective Suspend (Power Plan) quick check:\"\n  $usbGuid = \"2a737441-1930-4402-8d77-b2bebba308a3\"\n  $subUsb = \"SUB_USB\"\n  $scheme = \"SCHEME_CURRENT\"\n  $query = powercfg /QUERY $scheme $subUsb $usbGuid 2>$null\n  if ($query) {\n    Write-Output $query\n  } else {\n    Write-Output \"  (Could not query USB selective suspend via powercfg.)\"\n  }\n} catch {\n  Write-Output \"  Failed to query USB selective suspend.\"\n}\n\nWrite-Output \"\"\nWrite-Output \"Scanning HID/USB devices registry for EnhancedPowerManagementEnabled / DeviceIdleEnabled...\"\nWrite-Output \"\"\n\n$bases = @(\n  \"HKLM:\\SYSTEM\\CurrentControlSet\\Enum\\USB\",\n  \"HKLM:\\SYSTEM\\CurrentControlSet\\Enum\\HID\"\n)\n\n$found = 0\nforeach ($base in $bases) {\n  if (-not (Test-Path $base)) { continue }\n  Get-ChildItem $base -Recurse -ErrorAction SilentlyContinue | ForEach-Object {\n    $devParams = Join-Path $_.PsPath \"Device Parameters\"\n    if (Test-Path $devParams) {\n      try {\n        $p = Get-ItemProperty $devParams -ErrorAction SilentlyContinue\n      } catch {\n        return\n      }\n      $hasEpm = $p.PSObject.Properties.Name -contains \"EnhancedPowerManagementEnabled\"\n      $hasIdle = $p.PSObject.Properties.Name -contains \"DeviceIdleEnabled\"\n      if ($hasEpm -or $hasIdle) {\n        $found++\n        Write-Output (\"Device Parameters: {0}\" -f $devParams)\n        if ($hasEpm) {\n          Write-Output (\"  EnhancedPowerManagementEnabled: {0}\" -f $p.EnhancedPowerManagementEnabled)\n        }\n        if ($hasIdle) {\n          Write-Output (\"  DeviceIdleEnabled: {0}\" -f $p.DeviceIdleEnabled)\n        }\n        Write-Output \"\"\n      }\n    }\n  }\n}\n\nif ($found -eq 0) {\n  Write-Output \"No HID/USB device parameters with EnhancedPowerManagementEnabled / DeviceIdleEnabled were found.\"\n} else {\n  Write-Output (\"Total devices with HID power parameters: {0}\" -f $found)\n}\n\nWrite-Output \"\"\nWrite-Output \"Tip: combine this with 'Peripherals' toggles (USB selective suspend off + HID idle timeout off) for max stability.\"\nWrite-Output \"\"\nWrite-Output \"=== END OF HID POWER SCAN ===\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nScan is read-only and does not change any settings.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "id": "input_disable_hid_enhanced_power",
+      "type": "button",
+      "name": "Apply: Disable HID Enhanced Power Management (mice/keyboards/etc.)",
+      "description": "[Focus: Latency / Input Delay] Tries to turn off low-power management flags (EnhancedPowerManagementEnabled, DeviceIdleEnabled) for HID/USB devices to reduce chance of input dropouts.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Input Lab / Power Management",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"=== FALCON INPUT LAB: DISABLE HID ENHANCED POWER MANAGEMENT ===\"\nWrite-Output \"\"\nWrite-Output \"This will try to set EnhancedPowerManagementEnabled = 0 and DeviceIdleEnabled = 0 for HID/USB devices that expose these flags.\"\nWrite-Output \"Admin rights required. Some devices may ignore this setting.\"\nWrite-Output \"\"\n\n$bases = @(\n  \"HKLM:\\SYSTEM\\CurrentControlSet\\Enum\\USB\",\n  \"HKLM:\\SYSTEM\\CurrentControlSet\\Enum\\HID\"\n)\n\n$changed = 0\nforeach ($base in $bases) {\n  if (-not (Test-Path $base)) { continue }\n  Get-ChildItem $base -Recurse -ErrorAction SilentlyContinue | ForEach-Object {\n    $devParams = Join-Path $_.PsPath \"Device Parameters\"\n    if (Test-Path $devParams) {\n      try {\n        $p = Get-ItemProperty $devParams -ErrorAction SilentlyContinue\n      } catch {\n        return\n      }\n\n      $didSomething = $false\n\n      if ($p.PSObject.Properties.Name -contains \"EnhancedPowerManagementEnabled\") {\n        if ($p.EnhancedPowerManagementEnabled -ne 0) {\n          try {\n            Set-ItemProperty -Path $devParams -Name \"EnhancedPowerManagementEnabled\" -Value 0 -Type DWord -ErrorAction SilentlyContinue\n            Write-Output (\"  Set EnhancedPowerManagementEnabled=0 at {0}\" -f $devParams)\n            $didSomething = $true\n          } catch {\n            Write-Output (\"  Failed to set EnhancedPowerManagementEnabled at {0}: {1}\" -f $devParams, $_.Exception.Message)\n          }\n        }\n      }\n\n      if ($p.PSObject.Properties.Name -contains \"DeviceIdleEnabled\") {\n        if ($p.DeviceIdleEnabled -ne 0) {\n          try {\n            Set-ItemProperty -Path $devParams -Name \"DeviceIdleEnabled\" -Value 0 -Type DWord -ErrorAction SilentlyContinue\n            Write-Output (\"  Set DeviceIdleEnabled=0 at {0}\" -f $devParams)\n            $didSomething = $true\n          } catch {\n            Write-Output (\"  Failed to set DeviceIdleEnabled at {0}: {1}\" -f $devParams, $_.Exception.Message)\n          }\n        }\n      }\n\n      if ($didSomething) {\n        $GLOBALS:changed++\n      }\n    }\n  }\n}\n\nif ($changed -gt 0) {\n  Write-Output \"\"\n  Write-Output (\"Total device parameter keys adjusted: {0}\" -f $changed)\n} else {\n  Write-Output \"\"\n  Write-Output \"No EnhancedPowerManagementEnabled / DeviceIdleEnabled values needed changing.\"\n}\n\nWrite-Output \"\"\nWrite-Output \"Note: A full unplug/replug or reboot may be required for all devices to pick up new power settings.\"\nWrite-Output \"\"\nWrite-Output \"=== END OF HID ENHANCED POWER MANAGEMENT DISABLE ===\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nReverting HID enhanced power management requires manually restoring registry values or reinstalling devices; Falcon does not keep per-device backups.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "description": "[Focus: Latency / Input Delay] Tries to turn off low-power management flags (EnhancedPowerManagementEnabled, DeviceIdleEnabled) for HID/USB devices to reduce chance of input dropouts.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Input Lab / Power Management",
+      "id": "input_disable_hid_enhanced_power__revert",
+      "type": "button",
+      "name": "Revert: Disable HID Enhanced Power Management (mice/keyboards/etc.)",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nReverting HID enhanced power management requires manually restoring registry values or reinstalling devices; Falcon does not keep per-device backups.\n\"@"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,1244 @@
+{
+  "items": [
+    {
+      "id": "game.fortnite.launch_args_guide",
+      "type": "action",
+      "name": "Fortnite Launch Arguments Guide",
+      "category": "Game Specific / Fortnite",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "primaryLabel": "View",
+      "description": "[Focus: FPS] Shows a reference of useful Fortnite launch arguments and what they do, so you can copy/paste only what you actually need. Common performance-focused arguments:\n- -USEALLAVAILABLECORES → Lets Fortnite use all logical CPU cores (usually default now, but can help on some systems).\n- -NOSPLASH → Skips the splash screen for slightly faster start.\n- -noforcemaccel → Tries to disable mouse acceleration in some setups.\n- -noasynccompute → Disables async compute; sometimes smoother on problematic GPUs.\n- -d3d11 → Forces DirectX 11.\n- -d3d12 → Forces DirectX 12 (can give higher FPS but may stutter on some rigs).\n- -vulkan → Forces Vulkan (only if officially supported in your build).\n- -limitclientticks → May reduce micro-stutter on some systems by capping client ticks.\n- -refresh=X → Ask the game to run at X Hz (e.g. -refresh=240). Monitor + driver must support it.\n- -FrameRateLimit=XXX → Set custom FPS cap (e.g. -FrameRateLimit=237.000000). Stability & troubleshooting arguments:\n- -nothreading → Force single-threaded mode (rarely useful, only for specific crashes).\n- -log → Enable extra logging for debugging issues.\n- -dx11 → Same as -d3d11 (legacy alias on some builds). Notes:\n- Epic updates the engine often; some older flags may be ignored in new builds.\n- Always test arguments one-by-one or in small groups instead of spamming everything at once.\n- If FPS or stability gets worse, remove the last argument(s) you added.\n- Never trust random TikTok lists of launch options that claim +300 FPS; many are placebo or outdated.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nOpen this item to read the full Fortnite launch argument guide in the description.\n\"@"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "game.fortnite.open_config",
+      "type": "action",
+      "name": "Fortnite Config Folder (WindowsClient)",
+      "category": "Game Specific / Fortnite",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "primaryLabel": "Open",
+      "description": "[Focus: FPS] Opens %LOCALAPPDATA%\\FortniteGame\\Saved\\Config\\WindowsClient so you can edit GameUserSettings.ini and Engine.ini for fine-tuned competitive settings.",
+      "apply": {
+        "steps": [
+          {
+            "type": "open.path",
+            "path": "%LOCALAPPDATA%\\FortniteGame\\Saved\\Config\\WindowsClient"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "game.valorant.guide",
+      "type": "action",
+      "name": "Valorant Competitive Settings Guide",
+      "category": "Game Specific / Valorant",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "primaryLabel": "View",
+      "description": "[Focus: FPS / Latency] High-level checklist for Valorant performance:\n- In-game: Fullscreen, low to medium graphics, limit FPS to a stable number below your monitor max.\n- Disable V-Sync, reduce anti-aliasing, keep textures low/medium depending on VRAM.\n- Turn off in-game FPS-hungry overlays (e.g. NVIDIA Ansel, ReShade, etc.).\n- Make sure Riot Vanguard + Valorant are installed on SSD.\n- Prefer GameUserSettings-like changes only from Riot-approved guides; avoid shady config packs.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nRead the Valorant guide in the description.\n\"@"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "game.overwatch.guide__game.specific",
+      "type": "action",
+      "name": "Overwatch 2 Performance Checklist",
+      "category": "Game Specific / Overwatch",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "primaryLabel": "View",
+      "description": "[Focus: FPS] Suggestions:\n- Fullscreen, high refresh rate, capped FPS slightly below monitor max.\n- Low shadows, low effects, low AA; textures medium if VRAM allows.\n- Disable Dynamic Render Scale if it causes stutter; or lock it to a stable target.\n- Make sure the game is on SSD and shaders are fully compiled after major patches.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nRead Overwatch performance tips in the description.\n\"@"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "game.cod.guide__game.specific",
+      "type": "action",
+      "name": "Call of Duty / Warzone Performance Guide",
+      "category": "Game Specific / Call of Duty",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "primaryLabel": "View",
+      "description": "[Focus: FPS / VRAM] High-level tips (Modern Warfare / Warzone style):\n- Use Fullscreen Exclusive, not Borderless.\n- Cap FPS slightly below your max to reduce input spikes.\n- Turn off Motion Blur, Depth of Field, Film Grain, and other post-processing.\n- Keep Textures at a level that fits your GPU VRAM (check the in-game VRAM meter).\n- Turn on NVIDIA Reflex / Low Latency Mode if available.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nRead the Call of Duty / Warzone performance guide in the description.\n\"@"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "game.rocketleague.guide__game.specific",
+      "type": "action",
+      "name": "Rocket League Performance & Latency",
+      "category": "Game Specific / Rocket League",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "primaryLabel": "View",
+      "description": "[Focus: FPS / Input] Suggestions:\n- Fullscreen, uncapped FPS (or high cap) if your CPU/GPU are strong.\n- Turn off Motion Blur and reduce World Detail if GPU-bound.\n- Use a stable FPS cap + V-Sync off on high-refresh monitors.\n- Disable Steam/Epic overlays and external FPS counters if they cause stutters.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nRead the Rocket League performance tips in the description.\n\"@"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "game.gta.guide__game.specific",
+      "type": "action",
+      "name": "GTA V / GTA Online Performance Checklist",
+      "category": "Game Specific / GTA",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "primaryLabel": "View",
+      "description": "[Focus: FPS] Suggestions for GTA V / GTA Online:\n- Use Fullscreen, and keep population density / variety in the mid range.\n- Lower Grass / Shadows / Reflection quality if GPU-bound.\n- Keep Extended Distance Scaling low unless you have a very strong GPU.\n- Install the game on SSD to reduce streaming stutter in dense areas.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nRead the GTA performance tips in the description.\n\"@"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "game.fortnite.qos_dscp46",
+      "type": "button",
+      "name": "Apply: QoS: Prioritize Fortnite (DSCP 46 UDP/TCP)",
+      "category": "Game Specific / Fortnite",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "[Focus: Ping / Network, Latency / Input Delay]\nSets a QoS UDP/TCP policy which prioritizes Fortnite's network traffic by tagging packets with DSCP 46 (Expedited Forwarding). This helps your router process the game's packets first, which can stabilize ping and reduce packet loss on congested networks. Notes:\n- Policy is created in the ActiveStore and is fully reversible from Falcon Optimizer.\n- Works best if your router respects DSCP tags and your ISP does not strip them.\n- If you see any weird network behavior, simply toggle this off to remove the policy.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"New-NetQosPolicy -Name 'Falcon Fortnite DSCP46' -AppPathNameMatchCondition '*FortniteClient-Win64-Shipping.exe' -DSCPAction 46 -PolicyStore ActiveStore -ErrorAction SilentlyContinue\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"Remove-NetQosPolicy -Name 'Falcon Fortnite DSCP46' -PolicyStore ActiveStore -Confirm:$false -ErrorAction SilentlyContinue\""
+          }
+        ]
+      }
+    },
+    {
+      "category": "Game Specific / Fortnite",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "[Focus: Ping / Network, Latency / Input Delay]\nSets a QoS UDP/TCP policy which prioritizes Fortnite's network traffic by tagging packets with DSCP 46 (Expedited Forwarding). This helps your router process the game's packets first, which can stabilize ping and reduce packet loss on congested networks. Notes:\n- Policy is created in the ActiveStore and is fully reversible from Falcon Optimizer.\n- Works best if your router respects DSCP tags and your ISP does not strip them.\n- If you see any weird network behavior, simply toggle this off to remove the policy.",
+      "id": "game.fortnite.qos_dscp46__revert",
+      "type": "button",
+      "name": "Revert: QoS: Prioritize Fortnite (DSCP 46 UDP/TCP)",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"Remove-NetQosPolicy -Name 'Falcon Fortnite DSCP46' -PolicyStore ActiveStore -Confirm:$false -ErrorAction SilentlyContinue\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "game.overwatch.qos_dscp46__game.specific",
+      "type": "button",
+      "name": "Apply: QoS: Prioritize Overwatch (DSCP 46 UDP/TCP)",
+      "category": "Game Specific / Overwatch",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "[Focus: Ping / Network, Latency / Input Delay]\nSets a QoS UDP/TCP policy which prioritizes Overwatch's network traffic by tagging packets with DSCP 46 (Expedited Forwarding). This helps your router process the game's packets first, which can stabilize ping and reduce packet loss on congested networks. Notes:\n- Policy is created in the ActiveStore and is fully reversible from Falcon Optimizer.\n- Works best if your router respects DSCP tags and your ISP does not strip them.\n- If you see any weird network behavior, simply toggle this off to remove the policy.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"New-NetQosPolicy -Name 'Falcon Overwatch DSCP46' -AppPathNameMatchCondition '*Overwatch.exe' -DSCPAction 46 -PolicyStore ActiveStore -ErrorAction SilentlyContinue\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"Remove-NetQosPolicy -Name 'Falcon Overwatch DSCP46' -PolicyStore ActiveStore -Confirm:$false -ErrorAction SilentlyContinue\""
+          }
+        ]
+      }
+    },
+    {
+      "category": "Game Specific / Overwatch",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "[Focus: Ping / Network, Latency / Input Delay]\nSets a QoS UDP/TCP policy which prioritizes Overwatch's network traffic by tagging packets with DSCP 46 (Expedited Forwarding). This helps your router process the game's packets first, which can stabilize ping and reduce packet loss on congested networks. Notes:\n- Policy is created in the ActiveStore and is fully reversible from Falcon Optimizer.\n- Works best if your router respects DSCP tags and your ISP does not strip them.\n- If you see any weird network behavior, simply toggle this off to remove the policy.",
+      "id": "game.overwatch.qos_dscp46__game.specific__revert",
+      "type": "button",
+      "name": "Revert: QoS: Prioritize Overwatch (DSCP 46 UDP/TCP)",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"Remove-NetQosPolicy -Name 'Falcon Overwatch DSCP46' -PolicyStore ActiveStore -Confirm:$false -ErrorAction SilentlyContinue\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "game.overwatch.priority_high__game.specific",
+      "type": "button",
+      "name": "Set Overwatch Priority to High (while running)",
+      "category": "Game Specific / Overwatch",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "[Focus: FPS, Latency / Input Delay] If the game process is running, sets its process priority to High for this Windows session.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$p=Get-Process Overwatch -ErrorAction SilentlyContinue; if($p){$p.PriorityClass='High'} else {throw 'Overwatch is not running'}"
+          }
+        ]
+      },
+      "note": "Converted from toggle (missing revert)."
+    },
+    {
+      "id": "game.apex.legends.qos_dscp46__game.specific",
+      "type": "button",
+      "name": "Apply: QoS: Prioritize Apex Legends (DSCP 46 UDP/TCP)",
+      "category": "Game Specific / Apex Legends",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "[Focus: Ping / Network, Latency / Input Delay]\nSets a QoS UDP/TCP policy which prioritizes Apex Legends's network traffic by tagging packets with DSCP 46 (Expedited Forwarding). This helps your router process the game's packets first, which can stabilize ping and reduce packet loss on congested networks. Notes:\n- Policy is created in the ActiveStore and is fully reversible from Falcon Optimizer.\n- Works best if your router respects DSCP tags and your ISP does not strip them.\n- If you see any weird network behavior, simply toggle this off to remove the policy.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"New-NetQosPolicy -Name 'Falcon Apex Legends DSCP46' -AppPathNameMatchCondition '*r5apex.exe' -DSCPAction 46 -PolicyStore ActiveStore -ErrorAction SilentlyContinue\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"Remove-NetQosPolicy -Name 'Falcon Apex Legends DSCP46' -PolicyStore ActiveStore -Confirm:$false -ErrorAction SilentlyContinue\""
+          }
+        ]
+      }
+    },
+    {
+      "category": "Game Specific / Apex Legends",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "[Focus: Ping / Network, Latency / Input Delay]\nSets a QoS UDP/TCP policy which prioritizes Apex Legends's network traffic by tagging packets with DSCP 46 (Expedited Forwarding). This helps your router process the game's packets first, which can stabilize ping and reduce packet loss on congested networks. Notes:\n- Policy is created in the ActiveStore and is fully reversible from Falcon Optimizer.\n- Works best if your router respects DSCP tags and your ISP does not strip them.\n- If you see any weird network behavior, simply toggle this off to remove the policy.",
+      "id": "game.apex.legends.qos_dscp46__game.specific__revert",
+      "type": "button",
+      "name": "Revert: QoS: Prioritize Apex Legends (DSCP 46 UDP/TCP)",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"Remove-NetQosPolicy -Name 'Falcon Apex Legends DSCP46' -PolicyStore ActiveStore -Confirm:$false -ErrorAction SilentlyContinue\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "game.apex.legends.priority_high__game.specific",
+      "type": "button",
+      "name": "Set Apex Legends Priority to High (while running)",
+      "category": "Game Specific / Apex Legends",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "[Focus: FPS, Latency / Input Delay] If the game process is running, sets its process priority to High for this Windows session.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$p=Get-Process r5apex -ErrorAction SilentlyContinue; if($p){$p.PriorityClass='High'} else {throw 'Apex Legends is not running'}"
+          }
+        ]
+      },
+      "note": "Converted from toggle (missing revert)."
+    },
+    {
+      "id": "game.geforce.now.qos_dscp46__game.specific",
+      "type": "button",
+      "name": "Apply: QoS: Prioritize GeForce NOW (DSCP 46 UDP/TCP)",
+      "category": "Game Specific / GeForce NOW",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "[Focus: Ping / Network, Latency / Input Delay]\nSets a QoS UDP/TCP policy which prioritizes GeForce NOW's network traffic by tagging packets with DSCP 46 (Expedited Forwarding). This helps your router process the game's packets first, which can stabilize ping and reduce packet loss on congested networks. Notes:\n- Policy is created in the ActiveStore and is fully reversible from Falcon Optimizer.\n- Works best if your router respects DSCP tags and your ISP does not strip them.\n- If you see any weird network behavior, simply toggle this off to remove the policy.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"New-NetQosPolicy -Name 'Falcon GeForce NOW DSCP46' -AppPathNameMatchCondition '*GeForceNOW.exe' -DSCPAction 46 -PolicyStore ActiveStore -ErrorAction SilentlyContinue\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"Remove-NetQosPolicy -Name 'Falcon GeForce NOW DSCP46' -PolicyStore ActiveStore -Confirm:$false -ErrorAction SilentlyContinue\""
+          }
+        ]
+      }
+    },
+    {
+      "category": "Game Specific / GeForce NOW",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "[Focus: Ping / Network, Latency / Input Delay]\nSets a QoS UDP/TCP policy which prioritizes GeForce NOW's network traffic by tagging packets with DSCP 46 (Expedited Forwarding). This helps your router process the game's packets first, which can stabilize ping and reduce packet loss on congested networks. Notes:\n- Policy is created in the ActiveStore and is fully reversible from Falcon Optimizer.\n- Works best if your router respects DSCP tags and your ISP does not strip them.\n- If you see any weird network behavior, simply toggle this off to remove the policy.",
+      "id": "game.geforce.now.qos_dscp46__game.specific__revert",
+      "type": "button",
+      "name": "Revert: QoS: Prioritize GeForce NOW (DSCP 46 UDP/TCP)",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"Remove-NetQosPolicy -Name 'Falcon GeForce NOW DSCP46' -PolicyStore ActiveStore -Confirm:$false -ErrorAction SilentlyContinue\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "game.geforce.now.priority_high__game.specific",
+      "type": "button",
+      "name": "Set GeForce NOW Priority to High (while running)",
+      "category": "Game Specific / GeForce NOW",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "[Focus: FPS, Latency / Input Delay] If the game process is running, sets its process priority to High for this Windows session.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$p=Get-Process GeForceNOW -ErrorAction SilentlyContinue; if($p){$p.PriorityClass='High'} else {throw 'GeForce NOW is not running'}"
+          }
+        ]
+      },
+      "note": "Converted from toggle (missing revert)."
+    },
+    {
+      "id": "game.valorant.qos_dscp46",
+      "type": "button",
+      "name": "Apply: QoS: Prioritize Valorant (DSCP 46 UDP/TCP)",
+      "category": "Game Specific / Valorant",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "[Focus: Ping / Network, Latency / Input Delay]\nSets a QoS UDP/TCP policy which prioritizes Valorant's network traffic by tagging packets with DSCP 46 (Expedited Forwarding). This helps your router process the game's packets first, which can stabilize ping and reduce packet loss on congested networks. Notes:\n- Policy is created in the ActiveStore and is fully reversible from Falcon Optimizer.\n- Works best if your router respects DSCP tags and your ISP does not strip them.\n- If you see any weird network behavior, simply toggle this off to remove the policy.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"New-NetQosPolicy -Name 'Falcon Valorant DSCP46' -AppPathNameMatchCondition '*VALORANT-Win64-Shipping.exe' -DSCPAction 46 -PolicyStore ActiveStore -ErrorAction SilentlyContinue\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"Remove-NetQosPolicy -Name 'Falcon Valorant DSCP46' -PolicyStore ActiveStore -Confirm:$false -ErrorAction SilentlyContinue\""
+          }
+        ]
+      }
+    },
+    {
+      "category": "Game Specific / Valorant",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "[Focus: Ping / Network, Latency / Input Delay]\nSets a QoS UDP/TCP policy which prioritizes Valorant's network traffic by tagging packets with DSCP 46 (Expedited Forwarding). This helps your router process the game's packets first, which can stabilize ping and reduce packet loss on congested networks. Notes:\n- Policy is created in the ActiveStore and is fully reversible from Falcon Optimizer.\n- Works best if your router respects DSCP tags and your ISP does not strip them.\n- If you see any weird network behavior, simply toggle this off to remove the policy.",
+      "id": "game.valorant.qos_dscp46__revert",
+      "type": "button",
+      "name": "Revert: QoS: Prioritize Valorant (DSCP 46 UDP/TCP)",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"Remove-NetQosPolicy -Name 'Falcon Valorant DSCP46' -PolicyStore ActiveStore -Confirm:$false -ErrorAction SilentlyContinue\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "game.valorant.priority_high",
+      "type": "button",
+      "name": "Set Valorant Priority to High (while running)",
+      "category": "Game Specific / Valorant",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "[Focus: FPS, Latency / Input Delay] If the game process is running, sets its process priority to High for this Windows session.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$p=Get-Process VALORANT-Win64-Shipping -ErrorAction SilentlyContinue; if($p){$p.PriorityClass='High'} else {throw 'Valorant is not running'}"
+          }
+        ]
+      },
+      "note": "Converted from toggle (missing revert)."
+    },
+    {
+      "id": "game.cs2.qos_dscp46__game.specific",
+      "type": "button",
+      "name": "Apply: QoS: Prioritize CS2 (DSCP 46 UDP/TCP)",
+      "category": "Game Specific / CS2",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "[Focus: Ping / Network, Latency / Input Delay]\nSets a QoS UDP/TCP policy which prioritizes CS2's network traffic by tagging packets with DSCP 46 (Expedited Forwarding). This helps your router process the game's packets first, which can stabilize ping and reduce packet loss on congested networks. Notes:\n- Policy is created in the ActiveStore and is fully reversible from Falcon Optimizer.\n- Works best if your router respects DSCP tags and your ISP does not strip them.\n- If you see any weird network behavior, simply toggle this off to remove the policy.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"New-NetQosPolicy -Name 'Falcon CS2 DSCP46' -AppPathNameMatchCondition '*cs2.exe' -DSCPAction 46 -PolicyStore ActiveStore -ErrorAction SilentlyContinue\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"Remove-NetQosPolicy -Name 'Falcon CS2 DSCP46' -PolicyStore ActiveStore -Confirm:$false -ErrorAction SilentlyContinue\""
+          }
+        ]
+      }
+    },
+    {
+      "category": "Game Specific / CS2",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "[Focus: Ping / Network, Latency / Input Delay]\nSets a QoS UDP/TCP policy which prioritizes CS2's network traffic by tagging packets with DSCP 46 (Expedited Forwarding). This helps your router process the game's packets first, which can stabilize ping and reduce packet loss on congested networks. Notes:\n- Policy is created in the ActiveStore and is fully reversible from Falcon Optimizer.\n- Works best if your router respects DSCP tags and your ISP does not strip them.\n- If you see any weird network behavior, simply toggle this off to remove the policy.",
+      "id": "game.cs2.qos_dscp46__game.specific__revert",
+      "type": "button",
+      "name": "Revert: QoS: Prioritize CS2 (DSCP 46 UDP/TCP)",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"Remove-NetQosPolicy -Name 'Falcon CS2 DSCP46' -PolicyStore ActiveStore -Confirm:$false -ErrorAction SilentlyContinue\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "game.cs2.priority_high__game.specific",
+      "type": "button",
+      "name": "Set CS2 Priority to High (while running)",
+      "category": "Game Specific / CS2",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "[Focus: FPS, Latency / Input Delay] If the game process is running, sets its process priority to High for this Windows session.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$p=Get-Process cs2 -ErrorAction SilentlyContinue; if($p){$p.PriorityClass='High'} else {throw 'CS2 is not running'}"
+          }
+        ]
+      },
+      "note": "Converted from toggle (missing revert)."
+    },
+    {
+      "id": "game.rocket.league.qos_dscp46__game.specific",
+      "type": "button",
+      "name": "Apply: QoS: Prioritize Rocket League (DSCP 46 UDP/TCP)",
+      "category": "Game Specific / Rocket League",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "[Focus: Ping / Network, Latency / Input Delay]\nSets a QoS UDP/TCP policy which prioritizes Rocket League's network traffic by tagging packets with DSCP 46 (Expedited Forwarding). This helps your router process the game's packets first, which can stabilize ping and reduce packet loss on congested networks. Notes:\n- Policy is created in the ActiveStore and is fully reversible from Falcon Optimizer.\n- Works best if your router respects DSCP tags and your ISP does not strip them.\n- If you see any weird network behavior, simply toggle this off to remove the policy.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"New-NetQosPolicy -Name 'Falcon Rocket League DSCP46' -AppPathNameMatchCondition '*RocketLeague.exe' -DSCPAction 46 -PolicyStore ActiveStore -ErrorAction SilentlyContinue\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"Remove-NetQosPolicy -Name 'Falcon Rocket League DSCP46' -PolicyStore ActiveStore -Confirm:$false -ErrorAction SilentlyContinue\""
+          }
+        ]
+      }
+    },
+    {
+      "category": "Game Specific / Rocket League",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "[Focus: Ping / Network, Latency / Input Delay]\nSets a QoS UDP/TCP policy which prioritizes Rocket League's network traffic by tagging packets with DSCP 46 (Expedited Forwarding). This helps your router process the game's packets first, which can stabilize ping and reduce packet loss on congested networks. Notes:\n- Policy is created in the ActiveStore and is fully reversible from Falcon Optimizer.\n- Works best if your router respects DSCP tags and your ISP does not strip them.\n- If you see any weird network behavior, simply toggle this off to remove the policy.",
+      "id": "game.rocket.league.qos_dscp46__game.specific__revert",
+      "type": "button",
+      "name": "Revert: QoS: Prioritize Rocket League (DSCP 46 UDP/TCP)",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"Remove-NetQosPolicy -Name 'Falcon Rocket League DSCP46' -PolicyStore ActiveStore -Confirm:$false -ErrorAction SilentlyContinue\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "game.rocket.league.priority_high__game.specific",
+      "type": "button",
+      "name": "Set Rocket League Priority to High (while running)",
+      "category": "Game Specific / Rocket League",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "[Focus: FPS, Latency / Input Delay] If the game process is running, sets its process priority to High for this Windows session.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$p=Get-Process RocketLeague -ErrorAction SilentlyContinue; if($p){$p.PriorityClass='High'} else {throw 'Rocket League is not running'}"
+          }
+        ]
+      },
+      "note": "Converted from toggle (missing revert)."
+    },
+    {
+      "id": "game.gta.qos_dscp46__game.specific",
+      "type": "button",
+      "name": "Apply: QoS: Prioritize GTA (DSCP 46 UDP/TCP)",
+      "category": "Game Specific / GTA",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "[Focus: Ping / Network, Latency / Input Delay]\nSets a QoS UDP/TCP policy which prioritizes GTA's network traffic by tagging packets with DSCP 46 (Expedited Forwarding). This helps your router process the game's packets first, which can stabilize ping and reduce packet loss on congested networks. Notes:\n- Policy is created in the ActiveStore and is fully reversible from Falcon Optimizer.\n- Works best if your router respects DSCP tags and your ISP does not strip them.\n- If you see any weird network behavior, simply toggle this off to remove the policy.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"New-NetQosPolicy -Name 'Falcon GTA DSCP46' -AppPathNameMatchCondition '*GTA5.exe' -DSCPAction 46 -PolicyStore ActiveStore -ErrorAction SilentlyContinue\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"Remove-NetQosPolicy -Name 'Falcon GTA DSCP46' -PolicyStore ActiveStore -Confirm:$false -ErrorAction SilentlyContinue\""
+          }
+        ]
+      }
+    },
+    {
+      "category": "Game Specific / GTA",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "[Focus: Ping / Network, Latency / Input Delay]\nSets a QoS UDP/TCP policy which prioritizes GTA's network traffic by tagging packets with DSCP 46 (Expedited Forwarding). This helps your router process the game's packets first, which can stabilize ping and reduce packet loss on congested networks. Notes:\n- Policy is created in the ActiveStore and is fully reversible from Falcon Optimizer.\n- Works best if your router respects DSCP tags and your ISP does not strip them.\n- If you see any weird network behavior, simply toggle this off to remove the policy.",
+      "id": "game.gta.qos_dscp46__game.specific__revert",
+      "type": "button",
+      "name": "Revert: QoS: Prioritize GTA (DSCP 46 UDP/TCP)",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"Remove-NetQosPolicy -Name 'Falcon GTA DSCP46' -PolicyStore ActiveStore -Confirm:$false -ErrorAction SilentlyContinue\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "game.gta.priority_high__game.specific",
+      "type": "button",
+      "name": "Set GTA Priority to High (while running)",
+      "category": "Game Specific / GTA",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "[Focus: FPS, Latency / Input Delay] If the game process is running, sets its process priority to High for this Windows session.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$p=Get-Process GTA5 -ErrorAction SilentlyContinue; if($p){$p.PriorityClass='High'} else {throw 'GTA is not running'}"
+          }
+        ]
+      },
+      "note": "Converted from toggle (missing revert)."
+    },
+    {
+      "id": "game.league.of.legends.qos_dscp46__game.specific",
+      "type": "button",
+      "name": "Apply: QoS: Prioritize League of Legends (DSCP 46 UDP/TCP)",
+      "category": "Game Specific / League of Legends",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "[Focus: Ping / Network, Latency / Input Delay]\nSets a QoS UDP/TCP policy which prioritizes League of Legends's network traffic by tagging packets with DSCP 46 (Expedited Forwarding). This helps your router process the game's packets first, which can stabilize ping and reduce packet loss on congested networks. Notes:\n- Policy is created in the ActiveStore and is fully reversible from Falcon Optimizer.\n- Works best if your router respects DSCP tags and your ISP does not strip them.\n- If you see any weird network behavior, simply toggle this off to remove the policy.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"New-NetQosPolicy -Name 'Falcon League of Legends DSCP46' -AppPathNameMatchCondition '*League of Legends.exe' -DSCPAction 46 -PolicyStore ActiveStore -ErrorAction SilentlyContinue\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"Remove-NetQosPolicy -Name 'Falcon League of Legends DSCP46' -PolicyStore ActiveStore -Confirm:$false -ErrorAction SilentlyContinue\""
+          }
+        ]
+      }
+    },
+    {
+      "category": "Game Specific / League of Legends",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "[Focus: Ping / Network, Latency / Input Delay]\nSets a QoS UDP/TCP policy which prioritizes League of Legends's network traffic by tagging packets with DSCP 46 (Expedited Forwarding). This helps your router process the game's packets first, which can stabilize ping and reduce packet loss on congested networks. Notes:\n- Policy is created in the ActiveStore and is fully reversible from Falcon Optimizer.\n- Works best if your router respects DSCP tags and your ISP does not strip them.\n- If you see any weird network behavior, simply toggle this off to remove the policy.",
+      "id": "game.league.of.legends.qos_dscp46__game.specific__revert",
+      "type": "button",
+      "name": "Revert: QoS: Prioritize League of Legends (DSCP 46 UDP/TCP)",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"Remove-NetQosPolicy -Name 'Falcon League of Legends DSCP46' -PolicyStore ActiveStore -Confirm:$false -ErrorAction SilentlyContinue\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "game.league.of.legends.priority_high__game.specific",
+      "type": "button",
+      "name": "Set League of Legends Priority to High (while running)",
+      "category": "Game Specific / League of Legends",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "[Focus: FPS, Latency / Input Delay] If the game process is running, sets its process priority to High for this Windows session.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$p=Get-Process League of Legends -ErrorAction SilentlyContinue; if($p){$p.PriorityClass='High'} else {throw 'League of Legends is not running'}"
+          }
+        ]
+      },
+      "note": "Converted from toggle (missing revert)."
+    },
+    {
+      "id": "game.fortnite.enableqos",
+      "type": "button",
+      "name": "Apply: QoS: Prioritize game traffic (DSCP 46) [Real]",
+      "category": "Game Specific / Fortnite",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "Creates a Windows QoS policy (ActiveStore) tagging this game's packets with DSCP 46. Reversible.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'fortnite' -Action 'EnableQoS'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'fortnite' -Action 'DisableQoS'"
+          }
+        ]
+      }
+    },
+    {
+      "category": "Game Specific / Fortnite",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "Creates a Windows QoS policy (ActiveStore) tagging this game's packets with DSCP 46. Reversible.",
+      "id": "game.fortnite.enableqos__revert",
+      "type": "button",
+      "name": "Revert: QoS: Prioritize game traffic (DSCP 46) [Real]",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'fortnite' -Action 'DisableQoS'"
+          }
+        ]
+      }
+    },
+    {
+      "id": "game.fortnite.enablelauncherqos",
+      "type": "button",
+      "name": "Apply: QoS: Prioritize launcher traffic (DSCP 46) [Real]",
+      "category": "Game Specific / Fortnite",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "Creates a QoS policy for the game's launcher/client (Steam/Epic/Battle.net/Riot). Reversible.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'fortnite' -Action 'EnableLauncherQoS'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'fortnite' -Action 'DisableLauncherQoS'"
+          }
+        ]
+      }
+    },
+    {
+      "category": "Game Specific / Fortnite",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "Creates a QoS policy for the game's launcher/client (Steam/Epic/Battle.net/Riot). Reversible.",
+      "id": "game.fortnite.enablelauncherqos__revert",
+      "type": "button",
+      "name": "Revert: QoS: Prioritize launcher traffic (DSCP 46) [Real]",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'fortnite' -Action 'DisableLauncherQoS'"
+          }
+        ]
+      }
+    },
+    {
+      "id": "game.fortnite.setgpupref",
+      "type": "button",
+      "name": "Apply: Windows Graphics: Force High-Performance GPU for this game [Real]",
+      "category": "Game Specific / Fortnite",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "description": "Sets per-app GPU preference to High Performance (Windows Graphics Settings). Reversible.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'fortnite' -Action 'SetGpuPref'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'fortnite' -Action 'RemoveGpuPref'"
+          }
+        ]
+      }
+    },
+    {
+      "category": "Game Specific / Fortnite",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "description": "Sets per-app GPU preference to High Performance (Windows Graphics Settings). Reversible.",
+      "id": "game.fortnite.setgpupref__revert",
+      "type": "button",
+      "name": "Revert: Windows Graphics: Force High-Performance GPU for this game [Real]",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'fortnite' -Action 'RemoveGpuPref'"
+          }
+        ]
+      }
+    },
+    {
+      "id": "game.fortnite.disablefso",
+      "type": "button",
+      "name": "Apply: Disable Fullscreen Optimizations for this game [Real]",
+      "category": "Game Specific / Fortnite",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "description": "Writes per-exe AppCompat flag to disable Fullscreen Optimizations. Reversible.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'fortnite' -Action 'DisableFSO'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'fortnite' -Action 'EnableFSO'"
+          }
+        ]
+      }
+    },
+    {
+      "category": "Game Specific / Fortnite",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "description": "Writes per-exe AppCompat flag to disable Fullscreen Optimizations. Reversible.",
+      "id": "game.fortnite.disablefso__revert",
+      "type": "button",
+      "name": "Revert: Disable Fullscreen Optimizations for this game [Real]",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'fortnite' -Action 'EnableFSO'"
+          }
+        ]
+      }
+    },
+    {
+      "id": "game.fortnite.disabledpi",
+      "type": "button",
+      "name": "Apply: Disable DPI scaling / enforce DPI-aware for this game [Real]",
+      "category": "Game Specific / Fortnite",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "description": "Sets per-exe DPI behavior via AppCompat layer. Reversible.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'fortnite' -Action 'DisableDPI'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'fortnite' -Action 'EnableDPI'"
+          }
+        ]
+      }
+    },
+    {
+      "category": "Game Specific / Fortnite",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "description": "Sets per-exe DPI behavior via AppCompat layer. Reversible.",
+      "id": "game.fortnite.disabledpi__revert",
+      "type": "button",
+      "name": "Revert: Disable DPI scaling / enforce DPI-aware for this game [Real]",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'fortnite' -Action 'EnableDPI'"
+          }
+        ]
+      }
+    },
+    {
+      "id": "game.fortnite.starttimer500us",
+      "type": "button",
+      "name": "Apply: Timer: Lock 0.5ms resolution (while Falcon is running) [Real]",
+      "category": "Game Specific / Fortnite",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "Starts Falcon timer-helper to request 0.5ms system timer resolution. Turn off to stop the helper.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'fortnite' -Action 'StartTimer500us'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'fortnite' -Action 'StopTimer'"
+          }
+        ]
+      }
+    },
+    {
+      "category": "Game Specific / Fortnite",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "Starts Falcon timer-helper to request 0.5ms system timer resolution. Turn off to stop the helper.",
+      "id": "game.fortnite.starttimer500us__revert",
+      "type": "button",
+      "name": "Revert: Timer: Lock 0.5ms resolution (while Falcon is running) [Real]",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'fortnite' -Action 'StopTimer'"
+          }
+        ]
+      }
+    },
+    {
+      "id": "game.fortnite.sethighprioritynow",
+      "type": "action",
+      "name": "Set game priority to High (if running) [Real]",
+      "category": "Game Specific / Fortnite",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "If the game process is running, sets priority class to High for this session.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'fortnite' -Action 'SetHighPriorityNow'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "game.fortnite.setnormalprioritynow",
+      "type": "action",
+      "name": "Set game priority to Normal (if running) [Real]",
+      "category": "Game Specific / Fortnite",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "If the game process is running, sets priority class back to Normal for this session.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'fortnite' -Action 'SetNormalPriorityNow'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "game.fortnite.applyconfigbaseline",
+      "type": "button",
+      "name": "Apply: Apply competitive config baseline (game-specific files) [Real]",
+      "category": "Game Specific / Fortnite",
+      "riskLevel": "Warning",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "description": "Creates/patches the game's config file(s) with a low-latency baseline and backs up originals for restore.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'fortnite' -Action 'ApplyConfigBaseline'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'fortnite' -Action 'RestoreConfigBaseline'"
+          }
+        ]
+      }
+    },
+    {
+      "category": "Game Specific / Fortnite",
+      "riskLevel": "Warning",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "description": "Creates/patches the game's config file(s) with a low-latency baseline and backs up originals for restore.",
+      "id": "game.fortnite.applyconfigbaseline__revert",
+      "type": "button",
+      "name": "Revert: Apply competitive config baseline (game-specific files) [Real]",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'fortnite' -Action 'RestoreConfigBaseline'"
+          }
+        ]
+      }
+    },
+    {
+      "id": "game.fortnite.clearcaches",
+      "type": "action",
+      "name": "Clear caches used by this game (best-effort) [Real]",
+      "category": "Game Specific / Fortnite",
+      "riskLevel": "Warning",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "description": "Deletes common cache folders for this title (where applicable).",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'fortnite' -Action 'ClearCaches'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "game.fortnite.closeoverlays",
+      "type": "action",
+      "name": "Close common overlay/recording apps (manual) [Real]",
+      "category": "Game Specific / Fortnite",
+      "riskLevel": "Warning",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "description": "Closes overlays/recording apps to reduce stutter. Manual; not auto-restored.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'fortnite' -Action 'CloseOverlays'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "game.fortnite.competitive_prep",
+      "type": "action",
+      "name": "Competitive Prep (one-click) [Real]",
+      "category": "Game Specific / Fortnite",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "Runs a one-click sequence: closes overlays, enables DSCP QoS, sets GPU pref, disables FSO/DPI scaling, starts 0.5ms timer, and applies the game-specific config baseline.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'fortnite' -Action 'CloseOverlays'; & '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'fortnite' -Action 'EnableLauncherQoS'; & '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'fortnite' -Action 'EnableQoS'; & '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'fortnite' -Action 'SetGpuPref'; & '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'fortnite' -Action 'DisableFSO'; & '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'fortnite' -Action 'DisableDPI'; & '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'fortnite' -Action 'StartTimer500us'; & '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'fortnite' -Action 'ApplyConfigBaseline'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "game.fortnite.competitive_restore",
+      "type": "action",
+      "name": "Competitive Restore (one-click) [Real]",
+      "category": "Game Specific / Fortnite",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "Restores the game baseline backup (if present), stops the timer helper, removes GPU preference, re-enables FSO/DPI defaults, and removes QoS policies.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'fortnite' -Action 'RestoreConfigBaseline'; & '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'fortnite' -Action 'StopTimer'; & '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'fortnite' -Action 'RemoveGpuPref'; & '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'fortnite' -Action 'EnableFSO'; & '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'fortnite' -Action 'EnableDPI'; & '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'fortnite' -Action 'DisableQoS'; & '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'fortnite' -Action 'DisableLauncherQoS'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "game.fortnite.net_only",
+      "type": "action",
+      "name": "Network Only (DSCP for game + launcher) [Real]",
+      "category": "Game Specific / Fortnite",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "Enables DSCP 46 QoS for both the game executable and its launcher/client.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'fortnite' -Action 'EnableLauncherQoS'; & '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'fortnite' -Action 'EnableQoS'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "game.fortnite.presentation_only",
+      "type": "action",
+      "name": "Presentation Only (GPU pref + FSO/DPI flags) [Real]",
+      "category": "Game Specific / Fortnite",
+      "riskLevel": "Warning",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "description": "Applies only presentation-path changes: GPU preference + disable FSO + DPI flag. Does not touch network or timer.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'fortnite' -Action 'SetGpuPref'; & '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'fortnite' -Action 'DisableFSO'; & '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'fortnite' -Action 'DisableDPI'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    }
+  ]
+}

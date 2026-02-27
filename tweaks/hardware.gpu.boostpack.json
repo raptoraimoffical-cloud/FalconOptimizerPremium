@@ -1,0 +1,46 @@
+{
+  "items": [
+    {
+      "id": "gpu.scheduling.hwsched",
+      "name": "GPU: Hardware-Accelerated Scheduling",
+      "category": "Hardware / GPU",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Sets GraphicsDrivers HwSchMode=2 (enables hardware-accelerated GPU scheduling where supported).",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\GraphicsDrivers",
+            "name": "HwSchMode",
+            "value": 2,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\GraphicsDrivers",
+            "name": "HwSchMode"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\GraphicsDrivers",
+            "name": "HwSchMode",
+            "valueType": "DWord",
+            "equals": 2
+          }
+        ]
+      }
+    }
+  ]
+}

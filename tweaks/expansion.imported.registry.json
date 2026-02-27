@@ -1,0 +1,466 @@
+{
+  "items": [
+    {
+      "id": "import.imported.amd_gpu_tweaks.3a11820000",
+      "type": "button",
+      "name": "AMD GPU Tweaks",
+      "category": "Expansion / Imported / Registry",
+      "risk": "Danger",
+      "riskLevel": "Danger",
+      "description": "Imported runnable tweak. Risk: Danger",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\oneclick_all\\import_oneclick_amd_gpu_tweaks_3a11820000.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import.imported.autorun_imported.3839412d20",
+      "type": "button",
+      "name": "Autorun",
+      "category": "Expansion / Imported / Registry",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "description": "Imported runnable tweak. Risk: Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\oneclick_all\\import_oneclick_autorun_oneclick_3839412d20.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import.imported.backup_network.d31c622826",
+      "type": "button",
+      "name": "Backup Network",
+      "category": "Expansion / Imported / Registry",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "description": "Imported runnable tweak. Risk: Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\oneclick_all\\import_oneclick_backup_network_d31c622826.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import.imported.create_registry_backup.f10fd3b30a",
+      "type": "button",
+      "name": "Create Registry Backup",
+      "category": "Expansion / Imported / Registry",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "description": "Imported runnable tweak. Risk: Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\oneclick_all\\import_oneclick_create_registry_backup_f10fd3b30a.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import.imported.custom_priority_separation.bed776244d",
+      "type": "button",
+      "name": "Custom Priority Separation",
+      "category": "Expansion / Imported / Registry",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "description": "Imported runnable tweak. Risk: Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\oneclick_all\\import_oneclick_custom_priority_separation_bed776244d.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import.imported.custom_timer_resolution.e5949d22f6",
+      "type": "button",
+      "name": "Custom Timer Resolution",
+      "category": "Expansion / Imported / Registry",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "description": "Imported runnable tweak. Risk: Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\oneclick_all\\import_oneclick_custom_timer_resolution_e5949d22f6.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import.imported.dcontrol_run_check.84f875d127",
+      "type": "button",
+      "name": "Dcontrol Run Check",
+      "category": "Expansion / Imported / Registry",
+      "risk": "Danger",
+      "riskLevel": "Danger",
+      "description": "Imported runnable tweak. Risk: Danger",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\oneclick_all\\import_oneclick_dcontrol_run_check_84f875d127.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import.imported.dpc_checker.1e14c3fe9d",
+      "type": "button",
+      "name": "DPC Checker",
+      "category": "Expansion / Imported / Registry",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "description": "Imported runnable tweak. Risk: Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\oneclick_all\\import_oneclick_dpc_checker_1e14c3fe9d.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import.imported.end3.024911fda2",
+      "type": "button",
+      "name": "End3",
+      "category": "Expansion / Imported / Registry",
+      "risk": "Danger",
+      "riskLevel": "Danger",
+      "description": "Imported runnable tweak. Risk: Danger",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\oneclick_all\\import_oneclick_end3_024911fda2.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import.imported.fixers.3b4d199275",
+      "type": "button",
+      "name": "Fixers",
+      "category": "Expansion / Imported / Registry",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "description": "Imported runnable tweak. Risk: Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\oneclick_all\\import_oneclick_fixers_3b4d199275.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import.imported.global_regkey.d2b702c117",
+      "type": "button",
+      "name": "Global RegKey",
+      "category": "Expansion / Imported / Registry",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "description": "Imported runnable tweak. Risk: Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\oneclick_all\\import_oneclick_global_regkey_d2b702c117.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import.imported.latency_tweaks.7daa028c19",
+      "type": "button",
+      "name": "Latency Tweaks",
+      "category": "Expansion / Imported / Registry",
+      "risk": "Extreme",
+      "riskLevel": "Extreme",
+      "description": "Imported runnable tweak. Risk: Extreme",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\oneclick_all\\import_oneclick_latency_tweaks_7daa028c19.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import.imported.network_tweaks.9e24fdd0c9",
+      "type": "button",
+      "name": "Network Tweaks",
+      "category": "Expansion / Imported / Registry",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "description": "Imported runnable tweak. Risk: Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\oneclick_all\\import_oneclick_network_tweaks_9e24fdd0c9.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import.imported.nvidia_control_panel_download.77740c90a5",
+      "type": "button",
+      "name": "Nvidia Control Panel Download",
+      "category": "Expansion / Imported / Registry",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "description": "Imported runnable tweak. Risk: Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\oneclick_all\\import_oneclick_nvidia_control_panel_download_77740c90a5.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import.imported.nvidia_gpu_tweaks.41faf9a9f3",
+      "type": "button",
+      "name": "Nvidia GPU Tweaks",
+      "category": "Expansion / Imported / Registry",
+      "risk": "Danger",
+      "riskLevel": "Danger",
+      "description": "Imported runnable tweak. Risk: Danger",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\oneclick_all\\import_oneclick_nvidia_gpu_tweaks_41faf9a9f3.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import.imported.priority_separation.c7dd2c9cea",
+      "type": "button",
+      "name": "Priority Separation",
+      "category": "Expansion / Imported / Registry",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "description": "Imported runnable tweak. Risk: Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\oneclick_all\\import_oneclick_priority_separation_c7dd2c9cea.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import.imported.replace_basebrd.5c737d7760",
+      "type": "button",
+      "name": "Replace Basebrd",
+      "category": "Expansion / Imported / Registry",
+      "risk": "Danger",
+      "riskLevel": "Danger",
+      "description": "Imported runnable tweak. Risk: Danger",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\oneclick_all\\import_oneclick_replace_basebrd_5c737d7760.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import.imported.search_removal.0a9093a46b",
+      "type": "button",
+      "name": "Search Removal",
+      "category": "Expansion / Imported / Registry",
+      "risk": "Danger",
+      "riskLevel": "Danger",
+      "description": "Imported runnable tweak. Risk: Danger",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\oneclick_all\\import_oneclick_search_removal_0a9093a46b.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import.imported.setup_restore_point.509a3cc83f",
+      "type": "button",
+      "name": "Setup Restore Point",
+      "category": "Expansion / Imported / Registry",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "description": "Imported runnable tweak. Risk: Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\oneclick_all\\import_oneclick_setup_restore_point_509a3cc83f.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import.imported.system_visual_perferences.5e2990b672",
+      "type": "button",
+      "name": "System Visual Perferences",
+      "category": "Expansion / Imported / Registry",
+      "risk": "Extreme",
+      "riskLevel": "Extreme",
+      "description": "Imported runnable tweak. Risk: Extreme",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\oneclick_all\\import_oneclick_system_visual_perferences_5e2990b672.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import.imported.timer_res_11.a3c38420f6",
+      "type": "button",
+      "name": "Timer Res 11",
+      "category": "Expansion / Imported / Registry",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "description": "Imported runnable tweak. Risk: Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\oneclick_all\\import_oneclick_timer_res_11_a3c38420f6.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    }
+  ]
+}

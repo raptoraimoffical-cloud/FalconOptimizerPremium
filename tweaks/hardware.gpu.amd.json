@@ -1,0 +1,25 @@
+{
+  "items": [
+    {
+      "id": "imported.imported.clean_up",
+      "type": "button",
+      "name": "Clean Up",
+      "category": "Hardware / GPU (AMD)",
+      "riskLevel": "Danger",
+      "risk": "Danger",
+      "description": "[Imported] Runnable tweak extracted from your V8.3. This runs a command pack under Admin. Risk: Danger.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_clean_up.bat\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    }
+  ]
+}

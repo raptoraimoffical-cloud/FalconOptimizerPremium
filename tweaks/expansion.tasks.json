@@ -1,0 +1,4417 @@
+{
+  "items": [
+    {
+      "id": "exp_task_microsoft_windows_application_experience_startupapptask",
+      "name": "Disable scheduled task: StartupAppTask",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Application Experience\\StartupAppTask. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Application Experience\\StartupAppTask",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Application Experience\\StartupAppTask",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Application Experience\\StartupAppTask",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_application_experience_pcapatchdbtask",
+      "name": "Disable scheduled task: PcaPatchDbTask",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Application Experience\\PcaPatchDbTask. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Application Experience\\PcaPatchDbTask",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Application Experience\\PcaPatchDbTask",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Application Experience\\PcaPatchDbTask",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_application_experience_aitagent",
+      "name": "Disable scheduled task: AitAgent",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Application Experience\\AitAgent. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Application Experience\\AitAgent",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Application Experience\\AitAgent",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Application Experience\\AitAgent",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_autochk_proxy",
+      "name": "Disable scheduled task: Proxy",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Autochk\\Proxy. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Autochk\\Proxy",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Autochk\\Proxy",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Autochk\\Proxy",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_customer_experience_improvement_program_kernelceiptask",
+      "name": "Disable scheduled task: KernelCeipTask",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Customer Experience Improvement Program\\KernelCeipTask. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Customer Experience Improvement Program\\KernelCeipTask",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Customer Experience Improvement Program\\KernelCeipTask",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Customer Experience Improvement Program\\KernelCeipTask",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_customer_experience_improvement_program_uploader",
+      "name": "Disable scheduled task: Uploader",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Customer Experience Improvement Program\\Uploader. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Customer Experience Improvement Program\\Uploader",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Customer Experience Improvement Program\\Uploader",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Customer Experience Improvement Program\\Uploader",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_customer_experience_improvement_program_bthsqm",
+      "name": "Disable scheduled task: BthSQM",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Customer Experience Improvement Program\\BthSQM. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Customer Experience Improvement Program\\BthSQM",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Customer Experience Improvement Program\\BthSQM",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Customer Experience Improvement Program\\BthSQM",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_diskdiagnostic_microsoft_windows_diskdiagnosticdatacollector",
+      "name": "Disable scheduled task: Microsoft-Windows-DiskDiagnosticDataCollector",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\DiskDiagnostic\\Microsoft-Windows-DiskDiagnosticDataCollector. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\DiskDiagnostic\\Microsoft-Windows-DiskDiagnosticDataCollector",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\DiskDiagnostic\\Microsoft-Windows-DiskDiagnosticDataCollector",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\DiskDiagnostic\\Microsoft-Windows-DiskDiagnosticDataCollector",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_diskdiagnostic_microsoft_windows_diskdiagnosticresolver",
+      "name": "Disable scheduled task: Microsoft-Windows-DiskDiagnosticResolver",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\DiskDiagnostic\\Microsoft-Windows-DiskDiagnosticResolver. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\DiskDiagnostic\\Microsoft-Windows-DiskDiagnosticResolver",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\DiskDiagnostic\\Microsoft-Windows-DiskDiagnosticResolver",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\DiskDiagnostic\\Microsoft-Windows-DiskDiagnosticResolver",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_maintenance_winsat",
+      "name": "Disable scheduled task: WinSAT",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Maintenance\\WinSAT. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Maintenance\\WinSAT",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Maintenance\\WinSAT",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Maintenance\\WinSAT",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_maintenance_maintenanceconfigurator",
+      "name": "Disable scheduled task: MaintenanceConfigurator",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Maintenance\\MaintenanceConfigurator. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Maintenance\\MaintenanceConfigurator",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Maintenance\\MaintenanceConfigurator",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Maintenance\\MaintenanceConfigurator",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_maintenance_silentcleanup",
+      "name": "Disable scheduled task: SilentCleanup",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Maintenance\\SilentCleanup. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Maintenance\\SilentCleanup",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Maintenance\\SilentCleanup",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Maintenance\\SilentCleanup",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_maps_mapsupdatetask",
+      "name": "Disable scheduled task: MapsUpdateTask",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Maps\\MapsUpdateTask. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Maps\\MapsUpdateTask",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Maps\\MapsUpdateTask",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Maps\\MapsUpdateTask",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_maps_mapstoasttask",
+      "name": "Disable scheduled task: MapsToastTask",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Maps\\MapsToastTask. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Maps\\MapsToastTask",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Maps\\MapsToastTask",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Maps\\MapsToastTask",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_power_efficiency_diagnostics_analyzesystem",
+      "name": "Disable scheduled task: AnalyzeSystem",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Power Efficiency Diagnostics\\AnalyzeSystem. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Power Efficiency Diagnostics\\AnalyzeSystem",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Power Efficiency Diagnostics\\AnalyzeSystem",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Power Efficiency Diagnostics\\AnalyzeSystem",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_shell_familysafetymonitor",
+      "name": "Disable scheduled task: FamilySafetyMonitor",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Shell\\FamilySafetyMonitor. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Shell\\FamilySafetyMonitor",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Shell\\FamilySafetyMonitor",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Shell\\FamilySafetyMonitor",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_shell_familysafetyrefreshtask",
+      "name": "Disable scheduled task: FamilySafetyRefreshTask",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Shell\\FamilySafetyRefreshTask. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Shell\\FamilySafetyRefreshTask",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Shell\\FamilySafetyRefreshTask",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Shell\\FamilySafetyRefreshTask",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_shell_indexerautomaticmaintenance",
+      "name": "Disable scheduled task: IndexerAutomaticMaintenance",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Shell\\IndexerAutomaticMaintenance. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Shell\\IndexerAutomaticMaintenance",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Shell\\IndexerAutomaticMaintenance",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Shell\\IndexerAutomaticMaintenance",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_shell_createobjecttask",
+      "name": "Disable scheduled task: CreateObjectTask",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Shell\\CreateObjectTask. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Shell\\CreateObjectTask",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Shell\\CreateObjectTask",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Shell\\CreateObjectTask",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_windows_error_reporting_queuereporting",
+      "name": "Disable scheduled task: QueueReporting",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Windows Error Reporting\\QueueReporting. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Windows Error Reporting\\QueueReporting",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Windows Error Reporting\\QueueReporting",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Windows Error Reporting\\QueueReporting",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_feedback_siuf_dmclient",
+      "name": "Disable scheduled task: DmClient",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Feedback\\Siuf\\DmClient. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Feedback\\Siuf\\DmClient",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Feedback\\Siuf\\DmClient",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Feedback\\Siuf\\DmClient",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_feedback_siuf_dmclientonscenariodownload",
+      "name": "Disable scheduled task: DmClientOnScenarioDownload",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Feedback\\Siuf\\DmClientOnScenarioDownload. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Feedback\\Siuf\\DmClientOnScenarioDownload",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Feedback\\Siuf\\DmClientOnScenarioDownload",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Feedback\\Siuf\\DmClientOnScenarioDownload",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_windowsupdate_sih",
+      "name": "Disable scheduled task: sih",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\WindowsUpdate\\sih. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\WindowsUpdate\\sih",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\WindowsUpdate\\sih",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\WindowsUpdate\\sih",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_windowsupdate_sihboot",
+      "name": "Disable scheduled task: sihboot",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\WindowsUpdate\\sihboot. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\WindowsUpdate\\sihboot",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\WindowsUpdate\\sihboot",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\WindowsUpdate\\sihboot",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_updateorchestrator_schedule_scan",
+      "name": "Disable scheduled task: Schedule Scan",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\UpdateOrchestrator\\Schedule Scan. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\UpdateOrchestrator\\Schedule Scan",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\UpdateOrchestrator\\Schedule Scan",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\UpdateOrchestrator\\Schedule Scan",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_updateorchestrator_schedule_scan_static_task",
+      "name": "Disable scheduled task: Schedule Scan Static Task",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\UpdateOrchestrator\\Schedule Scan Static Task. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\UpdateOrchestrator\\Schedule Scan Static Task",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\UpdateOrchestrator\\Schedule Scan Static Task",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\UpdateOrchestrator\\Schedule Scan Static Task",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_updateorchestrator_reboot",
+      "name": "Disable scheduled task: Reboot",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\UpdateOrchestrator\\Reboot. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\UpdateOrchestrator\\Reboot",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\UpdateOrchestrator\\Reboot",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\UpdateOrchestrator\\Reboot",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_updateorchestrator_uso_uxbroker_display",
+      "name": "Disable scheduled task: USO_UxBroker_Display",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\UpdateOrchestrator\\USO_UxBroker_Display. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\UpdateOrchestrator\\USO_UxBroker_Display",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\UpdateOrchestrator\\USO_UxBroker_Display",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\UpdateOrchestrator\\USO_UxBroker_Display",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_updateorchestrator_uso_uxbroker",
+      "name": "Disable scheduled task: USO_UxBroker",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\UpdateOrchestrator\\USO_UxBroker. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\UpdateOrchestrator\\USO_UxBroker",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\UpdateOrchestrator\\USO_UxBroker",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\UpdateOrchestrator\\USO_UxBroker",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_updateorchestrator_maintenance_install",
+      "name": "Disable scheduled task: Maintenance Install",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\UpdateOrchestrator\\Maintenance Install. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\UpdateOrchestrator\\Maintenance Install",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\UpdateOrchestrator\\Maintenance Install",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\UpdateOrchestrator\\Maintenance Install",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_updateorchestrator_resume_on_boot",
+      "name": "Disable scheduled task: Resume On Boot",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\UpdateOrchestrator\\Resume On Boot. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\UpdateOrchestrator\\Resume On Boot",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\UpdateOrchestrator\\Resume On Boot",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\UpdateOrchestrator\\Resume On Boot",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_updateorchestrator_report_policies",
+      "name": "Disable scheduled task: Report policies",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\UpdateOrchestrator\\Report policies. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\UpdateOrchestrator\\Report policies",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\UpdateOrchestrator\\Report policies",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\UpdateOrchestrator\\Report policies",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_updateorchestrator_backup_scan",
+      "name": "Disable scheduled task: Backup Scan",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\UpdateOrchestrator\\Backup Scan. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\UpdateOrchestrator\\Backup Scan",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\UpdateOrchestrator\\Backup Scan",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\UpdateOrchestrator\\Backup Scan",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_xblgamesave_xblgamesavetask",
+      "name": "Disable scheduled task: XblGameSaveTask",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\XblGameSave\\XblGameSaveTask. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\XblGameSave\\XblGameSaveTask",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\XblGameSave\\XblGameSaveTask",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\XblGameSave\\XblGameSaveTask",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_xblgamesave_xblgamesavetasklogon",
+      "name": "Disable scheduled task: XblGameSaveTaskLogon",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\XblGameSave\\XblGameSaveTaskLogon. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\XblGameSave\\XblGameSaveTaskLogon",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\XblGameSave\\XblGameSaveTaskLogon",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\XblGameSave\\XblGameSaveTaskLogon",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_diagnosis_scheduled",
+      "name": "Disable scheduled task: Scheduled",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Diagnosis\\Scheduled. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Diagnosis\\Scheduled",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Diagnosis\\Scheduled",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Diagnosis\\Scheduled",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_diagnosis_recommendedtroubleshootingscanner",
+      "name": "Disable scheduled task: RecommendedTroubleshootingScanner",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Diagnosis\\RecommendedTroubleshootingScanner. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Diagnosis\\RecommendedTroubleshootingScanner",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Diagnosis\\RecommendedTroubleshootingScanner",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Diagnosis\\RecommendedTroubleshootingScanner",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_diagnosis_cleanuptemporarystate",
+      "name": "Disable scheduled task: CleanupTemporaryState",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Diagnosis\\CleanupTemporaryState. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Diagnosis\\CleanupTemporaryState",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Diagnosis\\CleanupTemporaryState",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Diagnosis\\CleanupTemporaryState",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_windows_defender_windows_defender_cache_maintenance",
+      "name": "Disable scheduled task: Windows Defender Cache Maintenance",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Windows Defender\\Windows Defender Cache Maintenance. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Windows Defender\\Windows Defender Cache Maintenance",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Windows Defender\\Windows Defender Cache Maintenance",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Windows Defender\\Windows Defender Cache Maintenance",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_windows_defender_windows_defender_cleanup",
+      "name": "Disable scheduled task: Windows Defender Cleanup",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Windows Defender\\Windows Defender Cleanup. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Windows Defender\\Windows Defender Cleanup",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Windows Defender\\Windows Defender Cleanup",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Windows Defender\\Windows Defender Cleanup",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_windows_defender_windows_defender_scheduled_scan",
+      "name": "Disable scheduled task: Windows Defender Scheduled Scan",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Windows Defender\\Windows Defender Scheduled Scan. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Windows Defender\\Windows Defender Scheduled Scan",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Windows Defender\\Windows Defender Scheduled Scan",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Windows Defender\\Windows Defender Scheduled Scan",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_windows_defender_windows_defender_verification",
+      "name": "Disable scheduled task: Windows Defender Verification",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Windows Defender\\Windows Defender Verification. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Windows Defender\\Windows Defender Verification",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Windows Defender\\Windows Defender Verification",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Windows Defender\\Windows Defender Verification",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_device_information_device",
+      "name": "Disable scheduled task: Device",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Device Information\\Device. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Device Information\\Device",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Device Information\\Device",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Device Information\\Device",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_device_setup_metadata_refresh",
+      "name": "Disable scheduled task: Metadata Refresh",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Device Setup\\Metadata Refresh. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Device Setup\\Metadata Refresh",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Device Setup\\Metadata Refresh",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Device Setup\\Metadata Refresh",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_device_setup_device",
+      "name": "Disable scheduled task: Device",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Device Setup\\Device. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Device Setup\\Device",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Device Setup\\Device",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Device Setup\\Device",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_device_setup_device_install_group_policy",
+      "name": "Disable scheduled task: Device Install Group Policy",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Device Setup\\Device Install Group Policy. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Device Setup\\Device Install Group Policy",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Device Setup\\Device Install Group Policy",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Device Setup\\Device Install Group Policy",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_diskcleanup_silentcleanup",
+      "name": "Disable scheduled task: SilentCleanup",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\DiskCleanup\\SilentCleanup. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\DiskCleanup\\SilentCleanup",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\DiskCleanup\\SilentCleanup",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\DiskCleanup\\SilentCleanup",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_filehistory_file_history_maintenance_mode",
+      "name": "Disable scheduled task: File History (maintenance mode)",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\FileHistory\\File History (maintenance mode). Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\FileHistory\\File History (maintenance mode)",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\FileHistory\\File History (maintenance mode)",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\FileHistory\\File History (maintenance mode)",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_location_notifications",
+      "name": "Disable scheduled task: Notifications",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Location\\Notifications. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Location\\Notifications",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Location\\Notifications",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Location\\Notifications",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_location_windowsactiondialog",
+      "name": "Disable scheduled task: WindowsActionDialog",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Location\\WindowsActionDialog. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Location\\WindowsActionDialog",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Location\\WindowsActionDialog",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Location\\WindowsActionDialog",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_cloudexperiencehost_createobjecttask",
+      "name": "Disable scheduled task: CreateObjectTask",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\CloudExperienceHost\\CreateObjectTask. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\CloudExperienceHost\\CreateObjectTask",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\CloudExperienceHost\\CreateObjectTask",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\CloudExperienceHost\\CreateObjectTask",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_speech_speechmodeldownloadtask",
+      "name": "Disable scheduled task: SpeechModelDownloadTask",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Speech\\SpeechModelDownloadTask. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Speech\\SpeechModelDownloadTask",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Speech\\SpeechModelDownloadTask",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Speech\\SpeechModelDownloadTask",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_speech_speechruntime",
+      "name": "Disable scheduled task: SpeechRuntime",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Speech\\SpeechRuntime. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Speech\\SpeechRuntime",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Speech\\SpeechRuntime",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Speech\\SpeechRuntime",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_textservicesframework_msctfmonitor",
+      "name": "Disable scheduled task: MsCtfMonitor",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\TextServicesFramework\\MsCtfMonitor. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\TextServicesFramework\\MsCtfMonitor",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\TextServicesFramework\\MsCtfMonitor",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\TextServicesFramework\\MsCtfMonitor",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_nettrace_gathernetworkinfo",
+      "name": "Disable scheduled task: GatherNetworkInfo",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay, Ping / Network] Disables scheduled task \\Microsoft\\Windows\\NetTrace\\GatherNetworkInfo. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\NetTrace\\GatherNetworkInfo",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\NetTrace\\GatherNetworkInfo",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\NetTrace\\GatherNetworkInfo",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_nlasvc_wifitask",
+      "name": "Disable scheduled task: WiFiTask",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay, Ping / Network] Disables scheduled task \\Microsoft\\Windows\\NlaSvc\\WiFiTask. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\NlaSvc\\WiFiTask",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\NlaSvc\\WiFiTask",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\NlaSvc\\WiFiTask",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_remoteassistance_remoteassistancetask",
+      "name": "Disable scheduled task: RemoteAssistanceTask",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\RemoteAssistance\\RemoteAssistanceTask. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\RemoteAssistance\\RemoteAssistanceTask",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\RemoteAssistance\\RemoteAssistanceTask",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\RemoteAssistance\\RemoteAssistanceTask",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_wlansvc_cdssync",
+      "name": "Disable scheduled task: CDSSync",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\WlanSvc\\CDSSync. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\WlanSvc\\CDSSync",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\WlanSvc\\CDSSync",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\WlanSvc\\CDSSync",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_wlansvc_wifitask",
+      "name": "Disable scheduled task: WiFiTask",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay, Ping / Network] Disables scheduled task \\Microsoft\\Windows\\WlanSvc\\WiFiTask. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\WlanSvc\\WiFiTask",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\WlanSvc\\WiFiTask",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\WlanSvc\\WiFiTask",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_work_folders_work_folders_logon_synchronization",
+      "name": "Disable scheduled task: Work Folders Logon Synchronization",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Work Folders\\Work Folders Logon Synchronization. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Work Folders\\Work Folders Logon Synchronization",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Work Folders\\Work Folders Logon Synchronization",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Work Folders\\Work Folders Logon Synchronization",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_work_folders_work_folders_maintenance_work",
+      "name": "Disable scheduled task: Work Folders Maintenance Work",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Work Folders\\Work Folders Maintenance Work. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Work Folders\\Work Folders Maintenance Work",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Work Folders\\Work Folders Maintenance Work",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Work Folders\\Work Folders Maintenance Work",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_wininet_cachetask",
+      "name": "Disable scheduled task: CacheTask",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Wininet\\CacheTask. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Wininet\\CacheTask",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Wininet\\CacheTask",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Wininet\\CacheTask",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_pushtoinstall_logincheck",
+      "name": "Disable scheduled task: LoginCheck",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\PushToInstall\\LoginCheck. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\PushToInstall\\LoginCheck",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\PushToInstall\\LoginCheck",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\PushToInstall\\LoginCheck",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_pushtoinstall_registration",
+      "name": "Disable scheduled task: Registration",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\PushToInstall\\Registration. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\PushToInstall\\Registration",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\PushToInstall\\Registration",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\PushToInstall\\Registration",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_chkdsk_proactivescan",
+      "name": "Disable scheduled task: ProactiveScan",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Chkdsk\\ProactiveScan. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Chkdsk\\ProactiveScan",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Chkdsk\\ProactiveScan",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Chkdsk\\ProactiveScan",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_pi_sqm_tasks",
+      "name": "Disable scheduled task: Sqm-Tasks",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\PI\\Sqm-Tasks. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\PI\\Sqm-Tasks",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\PI\\Sqm-Tasks",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\PI\\Sqm-Tasks",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_pi_sqm_tasks_sqm_tasks",
+      "name": "Disable scheduled task: Sqm-Tasks",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\PI\\Sqm-Tasks\\Sqm-Tasks. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\PI\\Sqm-Tasks\\Sqm-Tasks",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\PI\\Sqm-Tasks\\Sqm-Tasks",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\PI\\Sqm-Tasks\\Sqm-Tasks",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_settingsync_backgrounduploadtask",
+      "name": "Disable scheduled task: BackgroundUploadTask",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\SettingSync\\BackgroundUploadTask. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\SettingSync\\BackgroundUploadTask",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\SettingSync\\BackgroundUploadTask",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\SettingSync\\BackgroundUploadTask",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_settingsync_networkstatechangetask",
+      "name": "Disable scheduled task: NetworkStateChangeTask",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay, Ping / Network] Disables scheduled task \\Microsoft\\Windows\\SettingSync\\NetworkStateChangeTask. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\SettingSync\\NetworkStateChangeTask",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\SettingSync\\NetworkStateChangeTask",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\SettingSync\\NetworkStateChangeTask",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_settingsync_backuptask",
+      "name": "Disable scheduled task: BackupTask",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\SettingSync\\BackupTask. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\SettingSync\\BackupTask",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\SettingSync\\BackupTask",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\SettingSync\\BackupTask",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_settingsync_synctask",
+      "name": "Disable scheduled task: SyncTask",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\SettingSync\\SyncTask. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\SettingSync\\SyncTask",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\SettingSync\\SyncTask",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\SettingSync\\SyncTask",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_time_zone_synchronizetimezone",
+      "name": "Disable scheduled task: SynchronizeTimeZone",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Time Zone\\SynchronizeTimeZone. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Time Zone\\SynchronizeTimeZone",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Time Zone\\SynchronizeTimeZone",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Time Zone\\SynchronizeTimeZone",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_time_synchronization_forcesynchronizetime",
+      "name": "Disable scheduled task: ForceSynchronizeTime",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Time Synchronization\\ForceSynchronizeTime. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Time Synchronization\\ForceSynchronizeTime",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Time Synchronization\\ForceSynchronizeTime",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Time Synchronization\\ForceSynchronizeTime",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_time_synchronization_synchronizetime",
+      "name": "Disable scheduled task: SynchronizeTime",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Time Synchronization\\SynchronizeTime. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Time Synchronization\\SynchronizeTime",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Time Synchronization\\SynchronizeTime",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Time Synchronization\\SynchronizeTime",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_windowscolorsystem_calibration_loader",
+      "name": "Disable scheduled task: Calibration Loader",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\WindowsColorSystem\\Calibration Loader. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\WindowsColorSystem\\Calibration Loader",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\WindowsColorSystem\\Calibration Loader",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\WindowsColorSystem\\Calibration Loader",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_appid_smartscreenspecific",
+      "name": "Disable scheduled task: SmartScreenSpecific",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\AppID\\SmartScreenSpecific. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\AppID\\SmartScreenSpecific",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\AppID\\SmartScreenSpecific",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\AppID\\SmartScreenSpecific",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_appid_verifiedpublishercertstorecheck",
+      "name": "Disable scheduled task: VerifiedPublisherCertStoreCheck",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\AppID\\VerifiedPublisherCertStoreCheck. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\AppID\\VerifiedPublisherCertStoreCheck",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\AppID\\VerifiedPublisherCertStoreCheck",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\AppID\\VerifiedPublisherCertStoreCheck",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_customer_experience_improvement_program_proxy",
+      "name": "Disable scheduled task: Proxy",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Customer Experience Improvement Program\\Proxy. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Customer Experience Improvement Program\\Proxy",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Customer Experience Improvement Program\\Proxy",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Customer Experience Improvement Program\\Proxy",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_defrag_scheduleddefrag",
+      "name": "Disable scheduled task: ScheduledDefrag",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Defrag\\ScheduledDefrag. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Defrag\\ScheduledDefrag",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Defrag\\ScheduledDefrag",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Defrag\\ScheduledDefrag",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_recoveryenvironment_verifywinre",
+      "name": "Disable scheduled task: VerifyWinRE",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\RecoveryEnvironment\\VerifyWinRE. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\RecoveryEnvironment\\VerifyWinRE",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\RecoveryEnvironment\\VerifyWinRE",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\RecoveryEnvironment\\VerifyWinRE",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_servicing_startcomponentcleanup",
+      "name": "Disable scheduled task: StartComponentCleanup",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Servicing\\StartComponentCleanup. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Servicing\\StartComponentCleanup",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Servicing\\StartComponentCleanup",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Servicing\\StartComponentCleanup",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_servicing_schedule_scan",
+      "name": "Disable scheduled task: Schedule Scan",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Servicing\\Schedule Scan. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Servicing\\Schedule Scan",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Servicing\\Schedule Scan",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Servicing\\Schedule Scan",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_errordetails_enableerrordetailsupdate",
+      "name": "Disable scheduled task: EnableErrorDetailsUpdate",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\ErrorDetails\\EnableErrorDetailsUpdate. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\ErrorDetails\\EnableErrorDetailsUpdate",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\ErrorDetails\\EnableErrorDetailsUpdate",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\ErrorDetails\\EnableErrorDetailsUpdate",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_exploitguard_exploitguard_mdm_policy_refresh",
+      "name": "Disable scheduled task: ExploitGuard MDM policy Refresh",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\ExploitGuard\\ExploitGuard MDM policy Refresh. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\ExploitGuard\\ExploitGuard MDM policy Refresh",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\ExploitGuard\\ExploitGuard MDM policy Refresh",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\ExploitGuard\\ExploitGuard MDM policy Refresh",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_management_provisioning_logon",
+      "name": "Disable scheduled task: Logon",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Management\\Provisioning\\Logon. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Management\\Provisioning\\Logon",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Management\\Provisioning\\Logon",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Management\\Provisioning\\Logon",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_management_provisioning_cellular",
+      "name": "Disable scheduled task: Cellular",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Management\\Provisioning\\Cellular. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Management\\Provisioning\\Cellular",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Management\\Provisioning\\Cellular",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Management\\Provisioning\\Cellular",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_management_provisioning_network",
+      "name": "Disable scheduled task: Network",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay, Ping / Network] Disables scheduled task \\Microsoft\\Windows\\Management\\Provisioning\\Network. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Management\\Provisioning\\Network",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Management\\Provisioning\\Network",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Management\\Provisioning\\Network",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_license_manager_tempsignedlicenseexchange",
+      "name": "Disable scheduled task: TempSignedLicenseExchange",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\License Manager\\TempSignedLicenseExchange. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\License Manager\\TempSignedLicenseExchange",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\License Manager\\TempSignedLicenseExchange",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\License Manager\\TempSignedLicenseExchange",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_clip_license_validation",
+      "name": "Disable scheduled task: License Validation",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Clip\\License Validation. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Clip\\License Validation",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Clip\\License Validation",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Clip\\License Validation",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_customer_experience_improvement_program_ceip",
+      "name": "Disable scheduled task: CEIP",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Customer Experience Improvement Program\\CEIP. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Customer Experience Improvement Program\\CEIP",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Customer Experience Improvement Program\\CEIP",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Customer Experience Improvement Program\\CEIP",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_bluetooth_uninstalldevicetask",
+      "name": "Disable scheduled task: UninstallDeviceTask",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Bluetooth\\UninstallDeviceTask. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Bluetooth\\UninstallDeviceTask",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Bluetooth\\UninstallDeviceTask",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Bluetooth\\UninstallDeviceTask",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_bluetooth_bthsqm",
+      "name": "Disable scheduled task: BthSQM",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Bluetooth\\BthSQM. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Bluetooth\\BthSQM",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Bluetooth\\BthSQM",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Bluetooth\\BthSQM",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_media_center_activatewindowssearch",
+      "name": "Disable scheduled task: ActivateWindowsSearch",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Media Center\\ActivateWindowsSearch. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Media Center\\ActivateWindowsSearch",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Media Center\\ActivateWindowsSearch",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Media Center\\ActivateWindowsSearch",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_media_center_configureinternettimeservice",
+      "name": "Disable scheduled task: ConfigureInternetTimeService",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Media Center\\ConfigureInternetTimeService. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Media Center\\ConfigureInternetTimeService",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Media Center\\ConfigureInternetTimeService",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Media Center\\ConfigureInternetTimeService",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_media_center_dispatchrecoverytasks",
+      "name": "Disable scheduled task: DispatchRecoveryTasks",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Media Center\\DispatchRecoveryTasks. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Media Center\\DispatchRecoveryTasks",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Media Center\\DispatchRecoveryTasks",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Media Center\\DispatchRecoveryTasks",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_media_center_installplayready",
+      "name": "Disable scheduled task: InstallPlayReady",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Media Center\\InstallPlayReady. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Media Center\\InstallPlayReady",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Media Center\\InstallPlayReady",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Media Center\\InstallPlayReady",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_media_center_mcupdate",
+      "name": "Disable scheduled task: mcupdate",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Media Center\\mcupdate. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Media Center\\mcupdate",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Media Center\\mcupdate",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Media Center\\mcupdate",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_media_center_mediacenterrecoverytask",
+      "name": "Disable scheduled task: MediaCenterRecoveryTask",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Media Center\\MediaCenterRecoveryTask. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Media Center\\MediaCenterRecoveryTask",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Media Center\\MediaCenterRecoveryTask",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Media Center\\MediaCenterRecoveryTask",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_media_center_objectstorerecoverytask",
+      "name": "Disable scheduled task: ObjectStoreRecoveryTask",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Media Center\\ObjectStoreRecoveryTask. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Media Center\\ObjectStoreRecoveryTask",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Media Center\\ObjectStoreRecoveryTask",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Media Center\\ObjectStoreRecoveryTask",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_media_center_ocuractivate",
+      "name": "Disable scheduled task: OCURActivate",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Media Center\\OCURActivate. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Media Center\\OCURActivate",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Media Center\\OCURActivate",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Media Center\\OCURActivate",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_media_center_ocurdiscovery",
+      "name": "Disable scheduled task: OCURDiscovery",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Media Center\\OCURDiscovery. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Media Center\\OCURDiscovery",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Media Center\\OCURDiscovery",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Media Center\\OCURDiscovery",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_media_center_pbdadiscovery",
+      "name": "Disable scheduled task: PBDADiscovery",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Media Center\\PBDADiscovery. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Media Center\\PBDADiscovery",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Media Center\\PBDADiscovery",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Media Center\\PBDADiscovery",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_media_center_pbdadiscoveryw1",
+      "name": "Disable scheduled task: PBDADiscoveryW1",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Media Center\\PBDADiscoveryW1. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Media Center\\PBDADiscoveryW1",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Media Center\\PBDADiscoveryW1",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Media Center\\PBDADiscoveryW1",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_media_center_pbdadiscoveryw2",
+      "name": "Disable scheduled task: PBDADiscoveryW2",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Media Center\\PBDADiscoveryW2. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Media Center\\PBDADiscoveryW2",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Media Center\\PBDADiscoveryW2",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Media Center\\PBDADiscoveryW2",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_media_center_pvrrecoverytask",
+      "name": "Disable scheduled task: PvrRecoveryTask",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Media Center\\PvrRecoveryTask. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Media Center\\PvrRecoveryTask",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Media Center\\PvrRecoveryTask",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Media Center\\PvrRecoveryTask",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_media_center_pvrscheduletask",
+      "name": "Disable scheduled task: PvrScheduleTask",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Media Center\\PvrScheduleTask. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Media Center\\PvrScheduleTask",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Media Center\\PvrScheduleTask",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Media Center\\PvrScheduleTask",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_media_center_registersearch",
+      "name": "Disable scheduled task: RegisterSearch",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Media Center\\RegisterSearch. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Media Center\\RegisterSearch",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Media Center\\RegisterSearch",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Media Center\\RegisterSearch",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_media_center_reindexsearchroot",
+      "name": "Disable scheduled task: ReindexSearchRoot",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Media Center\\ReindexSearchRoot. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Media Center\\ReindexSearchRoot",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Media Center\\ReindexSearchRoot",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Media Center\\ReindexSearchRoot",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_media_center_sqlliterecoverytask",
+      "name": "Disable scheduled task: SqlLiteRecoveryTask",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Media Center\\SqlLiteRecoveryTask. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Media Center\\SqlLiteRecoveryTask",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Media Center\\SqlLiteRecoveryTask",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Media Center\\SqlLiteRecoveryTask",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_media_center_updaterecordpath",
+      "name": "Disable scheduled task: UpdateRecordPath",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Media Center\\UpdateRecordPath. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Media Center\\UpdateRecordPath",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Media Center\\UpdateRecordPath",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Media Center\\UpdateRecordPath",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_windowsupdate_automatic_app_update",
+      "name": "Disable scheduled task: Automatic App Update",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\WindowsUpdate\\Automatic App Update. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\WindowsUpdate\\Automatic App Update",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\WindowsUpdate\\Automatic App Update",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\WindowsUpdate\\Automatic App Update",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_windowsupdate_auscheduledinstall",
+      "name": "Disable scheduled task: AUScheduledInstall",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\WindowsUpdate\\AUScheduledInstall. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\WindowsUpdate\\AUScheduledInstall",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\WindowsUpdate\\AUScheduledInstall",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\WindowsUpdate\\AUScheduledInstall",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_windowsupdate_aufirmwareinstall",
+      "name": "Disable scheduled task: AUFirmwareInstall",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\WindowsUpdate\\AUFirmwareInstall. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\WindowsUpdate\\AUFirmwareInstall",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\WindowsUpdate\\AUFirmwareInstall",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\WindowsUpdate\\AUFirmwareInstall",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_updateorchestrator_updatemodeltask",
+      "name": "Disable scheduled task: UpdateModelTask",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\UpdateOrchestrator\\UpdateModelTask. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\UpdateOrchestrator\\UpdateModelTask",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\UpdateOrchestrator\\UpdateModelTask",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\UpdateOrchestrator\\UpdateModelTask",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_updateorchestrator_updatemodeltask_1",
+      "name": "Disable scheduled task: UpdateModelTask-1",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\UpdateOrchestrator\\UpdateModelTask-1. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\UpdateOrchestrator\\UpdateModelTask-1",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\UpdateOrchestrator\\UpdateModelTask-1",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\UpdateOrchestrator\\UpdateModelTask-1",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_updateorchestrator_updateassistant",
+      "name": "Disable scheduled task: UpdateAssistant",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\UpdateOrchestrator\\UpdateAssistant. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\UpdateOrchestrator\\UpdateAssistant",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\UpdateOrchestrator\\UpdateAssistant",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\UpdateOrchestrator\\UpdateAssistant",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_updateorchestrator_refresh_settings",
+      "name": "Disable scheduled task: Refresh Settings",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\UpdateOrchestrator\\Refresh Settings. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\UpdateOrchestrator\\Refresh Settings",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\UpdateOrchestrator\\Refresh Settings",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\UpdateOrchestrator\\Refresh Settings",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_application_experience_marebackup",
+      "name": "Disable scheduled task: MareBackup",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Application Experience\\MareBackup. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Application Experience\\MareBackup",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Application Experience\\MareBackup",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Application Experience\\MareBackup",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_application_experience_marebackuptask",
+      "name": "Disable scheduled task: MareBackupTask",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Application Experience\\MareBackupTask. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Application Experience\\MareBackupTask",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Application Experience\\MareBackupTask",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Application Experience\\MareBackupTask",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_customer_experience_improvement_program_ceiptask",
+      "name": "Disable scheduled task: CEIPTask",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Customer Experience Improvement Program\\CEIPTask. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Customer Experience Improvement Program\\CEIPTask",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Customer Experience Improvement Program\\CEIPTask",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Customer Experience Improvement Program\\CEIPTask",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_customer_experience_improvement_program_ceiptask2",
+      "name": "Disable scheduled task: CEIPTask2",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Customer Experience Improvement Program\\CEIPTask2. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Customer Experience Improvement Program\\CEIPTask2",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Customer Experience Improvement Program\\CEIPTask2",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Customer Experience Improvement Program\\CEIPTask2",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_maps_mapsbroker",
+      "name": "Disable scheduled task: MapsBroker",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Maps\\MapsBroker. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Maps\\MapsBroker",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Maps\\MapsBroker",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Maps\\MapsBroker",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "imported.imported.ucpd_disable",
+      "type": "button",
+      "name": "Ucpd Disable",
+      "category": "Expansion / Tasks",
+      "riskLevel": "Warning",
+      "risk": "Warning",
+      "description": "[Imported] Runnable tweak extracted from your V8.3. This runs a command pack under Admin. Risk: Warning.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_ucpd_disable.bat\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    }
+  ]
+}

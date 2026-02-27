@@ -1,0 +1,506 @@
+{
+  "items": [
+    {
+      "id": "adv.msi.disable_all",
+      "type": "button",
+      "name": "Disable MSI Mode (All Targets)",
+      "description": "Sets MSISupported=0 for GPU/USB/Network targets (best-effort). Reboot required.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Advanced / MSI Mode",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "path": "scripts/devices/msi-optimizer.ps1",
+            "args": {
+              "Target": "all",
+              "Action": "disable"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv.msi.enable_net",
+      "type": "button",
+      "name": "Enable MSI Mode for Network Adapters",
+      "description": "Enables MSI for Net-class devices (best-effort). Reboot required.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Advanced / MSI Mode",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "path": "scripts/devices/msi-optimizer.ps1",
+            "args": {
+              "Target": "network",
+              "Action": "enable"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv.msi.enable_usb",
+      "type": "button",
+      "name": "Enable MSI Mode for USB Controllers",
+      "description": "Enables MSI for USB-class devices (best-effort). Can break some setups; only for testing. Reboot required.",
+      "requiresAdmin": true,
+      "riskLevel": "High",
+      "category": "Advanced / MSI Mode",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "path": "scripts/devices/msi-optimizer.ps1",
+            "args": {
+              "Target": "usb",
+              "Action": "enable"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv.msi.enable_gpu",
+      "type": "button",
+      "name": "Enable MSI Mode for GPU",
+      "description": "Enables Message Signaled Interrupts for Display-class devices (best-effort). Reboot required.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Advanced / MSI Mode",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "path": "scripts/devices/msi-optimizer.ps1",
+            "args": {
+              "Target": "gpu",
+              "Action": "enable"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv.msi.status",
+      "type": "button",
+      "name": "MSI Mode Status (GPU/USB/Network)",
+      "description": "Lists current MSI mode values for GPU/USB/Network devices. No changes.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Advanced / MSI Mode",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "path": "scripts/devices/msi-optimizer.ps1",
+            "args": {
+              "Target": "all",
+              "Action": "status"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv.msi.auto_gpu_audio",
+      "name": "MSI Mode (GPU + Audio) — Guided Auto-Apply",
+      "category": "Advanced / MSI Mode",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Guided MSI Mode toggle that only targets devices that already expose MSI registry support (avoids line-based devices). Includes 'Priority: Undefined' behavior. Requires reboot.",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "path": "scripts/msi-mode.ps1",
+            "args": {
+              "Action": "list",
+              "Class": "Display",
+              "IncludeAudio": true
+            }
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Warning",
+      "note": "Converted from toggle (missing revert)."
+    },
+    {
+      "id": "adv.msi.open_msi_utility_v3",
+      "type": "action",
+      "name": "MSI Utility V3 (Download/Install)",
+      "category": "Advanced / MSI Mode",
+      "risk": "Warning",
+      "description": "Opens the official download page and (optionally) auto-installs MSI Utility V3 to ProgramData so you can run it.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://github.com/Sathango/Msi-Utility-v3"
+          },
+          {
+            "type": "ps.file",
+            "path": "scripts/tools/install-msi-utility-v3.ps1",
+            "args": {}
+          },
+          {
+            "type": "shell.start",
+            "file": "C:\\ProgramData\\FalconOptimizer\\tools\\MSI_Utility_V3.exe",
+            "args": [],
+            "wait": false,
+            "asAdmin": true
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Warning"
+    },
+    {
+      "id": "adv.msi.gpu_msi_toggle",
+      "name": "Apply: GPU (MSI toggle)",
+      "category": "Advanced / MSI Mode",
+      "risk": "Warning",
+      "description": "[Focus: FPS] Enables MSI (Message Signaled Interrupts) for Display-class devices that already expose MSI support (requires reboot).",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "path": "scripts/msi-mode.ps1",
+            "args": {
+              "Action": "apply",
+              "Class": "Display"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "path": "scripts/msi-mode.ps1",
+            "args": {
+              "Action": "revert",
+              "Class": "Display"
+            }
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Warning"
+    },
+    {
+      "category": "Advanced / MSI Mode",
+      "risk": "Warning",
+      "description": "[Focus: FPS] Enables MSI (Message Signaled Interrupts) for Display-class devices that already expose MSI support (requires reboot).",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "riskLevel": "Warning",
+      "id": "adv.msi.gpu_msi_toggle__revert",
+      "type": "button",
+      "name": "Revert: GPU (MSI toggle)",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "path": "scripts/msi-mode.ps1",
+            "args": {
+              "Action": "revert",
+              "Class": "Display"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv.msi.high_definition_audio_controllers_msi_toggle",
+      "name": "Apply: High Definition Audio Controllers (MSI toggle)",
+      "category": "Advanced / MSI Mode",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Enables MSI for MEDIA-class devices that already expose MSI support (requires reboot).",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "path": "scripts/msi-mode.ps1",
+            "args": {
+              "Action": "apply",
+              "Class": "MEDIA"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "path": "scripts/msi-mode.ps1",
+            "args": {
+              "Action": "revert",
+              "Class": "MEDIA"
+            }
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Warning"
+    },
+    {
+      "category": "Advanced / MSI Mode",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Enables MSI for MEDIA-class devices that already expose MSI support (requires reboot).",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "riskLevel": "Warning",
+      "id": "adv.msi.high_definition_audio_controllers_msi_toggle__revert",
+      "type": "button",
+      "name": "Revert: High Definition Audio Controllers (MSI toggle)",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "path": "scripts/msi-mode.ps1",
+            "args": {
+              "Action": "revert",
+              "Class": "MEDIA"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv.msi.network_adapter_msi_toggle",
+      "name": "Apply: Network Adapter (MSI toggle)",
+      "category": "Advanced / MSI Mode",
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Enables MSI (Message Signaled Interrupts) for detected devices in this class (requires reboot).",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "$devs=Get-PnpDevice -PresentOnly -Class 'Net' -ErrorAction SilentlyContinue; foreach($d in $devs){$id=$d.InstanceId; $reg='HKLM:\\SYSTEM\\CurrentControlSet\\Enum\\'+$id+'\\Device Parameters\\Interrupt Management\\MessageSignaledInterruptProperties'; New-Item -Path $reg -Force | Out-Null; New-ItemProperty -Path $reg -Name 'MSISupported' -PropertyType DWord -Value 1 -Force | Out-Null }"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "$devs=Get-PnpDevice -PresentOnly -Class 'Net' -ErrorAction SilentlyContinue; foreach($d in $devs){$id=$d.InstanceId; $reg='HKLM:\\SYSTEM\\CurrentControlSet\\Enum\\'+$id+'\\Device Parameters\\Interrupt Management\\MessageSignaledInterruptProperties'; Remove-ItemProperty -Path $reg -Name 'MSISupported' -ErrorAction SilentlyContinue }"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Warning",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "category": "Advanced / MSI Mode",
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Enables MSI (Message Signaled Interrupts) for detected devices in this class (requires reboot).",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "riskLevel": "Warning",
+      "kind": "tool",
+      "manualOnly": true,
+      "id": "adv.msi.network_adapter_msi_toggle__revert",
+      "type": "button",
+      "name": "Revert: Network Adapter (MSI toggle)",
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "$devs=Get-PnpDevice -PresentOnly -Class 'Net' -ErrorAction SilentlyContinue; foreach($d in $devs){$id=$d.InstanceId; $reg='HKLM:\\SYSTEM\\CurrentControlSet\\Enum\\'+$id+'\\Device Parameters\\Interrupt Management\\MessageSignaledInterruptProperties'; Remove-ItemProperty -Path $reg -Name 'MSISupported' -ErrorAction SilentlyContinue }"
+            ],
+            "wait": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv.msi.nvme_msi_toggle",
+      "name": "Apply: NVMe (MSI toggle)",
+      "category": "Advanced / MSI Mode",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Enables MSI (Message Signaled Interrupts) for detected devices in this class (requires reboot).",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "$devs=Get-PnpDevice -PresentOnly -Class 'SCSIAdapter' -ErrorAction SilentlyContinue; foreach($d in $devs){$id=$d.InstanceId; $reg='HKLM:\\SYSTEM\\CurrentControlSet\\Enum\\'+$id+'\\Device Parameters\\Interrupt Management\\MessageSignaledInterruptProperties'; New-Item -Path $reg -Force | Out-Null; New-ItemProperty -Path $reg -Name 'MSISupported' -PropertyType DWord -Value 1 -Force | Out-Null }"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "$devs=Get-PnpDevice -PresentOnly -Class 'SCSIAdapter' -ErrorAction SilentlyContinue; foreach($d in $devs){$id=$d.InstanceId; $reg='HKLM:\\SYSTEM\\CurrentControlSet\\Enum\\'+$id+'\\Device Parameters\\Interrupt Management\\MessageSignaledInterruptProperties'; Remove-ItemProperty -Path $reg -Name 'MSISupported' -ErrorAction SilentlyContinue }"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Warning",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "category": "Advanced / MSI Mode",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Enables MSI (Message Signaled Interrupts) for detected devices in this class (requires reboot).",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "riskLevel": "Warning",
+      "kind": "tool",
+      "manualOnly": true,
+      "id": "adv.msi.nvme_msi_toggle__revert",
+      "type": "button",
+      "name": "Revert: NVMe (MSI toggle)",
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "$devs=Get-PnpDevice -PresentOnly -Class 'SCSIAdapter' -ErrorAction SilentlyContinue; foreach($d in $devs){$id=$d.InstanceId; $reg='HKLM:\\SYSTEM\\CurrentControlSet\\Enum\\'+$id+'\\Device Parameters\\Interrupt Management\\MessageSignaledInterruptProperties'; Remove-ItemProperty -Path $reg -Name 'MSISupported' -ErrorAction SilentlyContinue }"
+            ],
+            "wait": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv.msi.sata_msi_toggle",
+      "name": "Apply: SATA (MSI toggle)",
+      "category": "Advanced / MSI Mode",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Enables MSI (Message Signaled Interrupts) for detected devices in this class (requires reboot).",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "$devs=Get-PnpDevice -PresentOnly -Class 'HDC' -ErrorAction SilentlyContinue; foreach($d in $devs){$id=$d.InstanceId; $reg='HKLM:\\SYSTEM\\CurrentControlSet\\Enum\\'+$id+'\\Device Parameters\\Interrupt Management\\MessageSignaledInterruptProperties'; New-Item -Path $reg -Force | Out-Null; New-ItemProperty -Path $reg -Name 'MSISupported' -PropertyType DWord -Value 1 -Force | Out-Null }"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "$devs=Get-PnpDevice -PresentOnly -Class 'HDC' -ErrorAction SilentlyContinue; foreach($d in $devs){$id=$d.InstanceId; $reg='HKLM:\\SYSTEM\\CurrentControlSet\\Enum\\'+$id+'\\Device Parameters\\Interrupt Management\\MessageSignaledInterruptProperties'; Remove-ItemProperty -Path $reg -Name 'MSISupported' -ErrorAction SilentlyContinue }"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Warning",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "category": "Advanced / MSI Mode",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Enables MSI (Message Signaled Interrupts) for detected devices in this class (requires reboot).",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "riskLevel": "Warning",
+      "kind": "tool",
+      "manualOnly": true,
+      "id": "adv.msi.sata_msi_toggle__revert",
+      "type": "button",
+      "name": "Revert: SATA (MSI toggle)",
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "$devs=Get-PnpDevice -PresentOnly -Class 'HDC' -ErrorAction SilentlyContinue; foreach($d in $devs){$id=$d.InstanceId; $reg='HKLM:\\SYSTEM\\CurrentControlSet\\Enum\\'+$id+'\\Device Parameters\\Interrupt Management\\MessageSignaledInterruptProperties'; Remove-ItemProperty -Path $reg -Name 'MSISupported' -ErrorAction SilentlyContinue }"
+            ],
+            "wait": true
+          }
+        ]
+      }
+    }
+  ]
+}

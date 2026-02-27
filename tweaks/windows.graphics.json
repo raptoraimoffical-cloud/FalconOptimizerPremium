@@ -1,0 +1,97 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "gfx_open_advanced_display",
+      "type": "action",
+      "name": "Run Advanced Display (refresh rate)",
+      "risk": "Safe",
+      "description": "Open Advanced display settings to set your monitor refresh rate to the highest available.",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "ms-settings:display-advanced"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "primaryLabel": "Open",
+      "riskLevel": "Safe",
+      "category": "Windows / Graphics",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "gfx_enable_windowed_optimizations",
+      "type": "button",
+      "name": "Apply: Enable 'Optimizations for windowed games'",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Enables SwapEffectUpgradeEnable in DirectXUserGlobalSettings for windowed/borderless games.",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$k='HKCU:\\Software\\Microsoft\\DirectX\\UserGpuPreferences';New-Item -Path $k -Force|Out-Null;$name='DirectXUserGlobalSettings';$cur=(Get-ItemProperty -Path $k -Name $name -ErrorAction SilentlyContinue).$name;if(-not $cur){$cur=''};$map=@{};$cur.Split(';')|%{$p=$_.Trim();if($p -and $p.Contains('=')){ $kv=$p.Split('=',2); $map[$kv[0]]=$kv[1] }};$map['SwapEffectUpgradeEnable']='1';$out=@();foreach($kk in $map.Keys){$out+=($kk+'='+$map[$kk])};$out=$out|Sort-Object;Set-ItemProperty -Path $k -Name $name -Value (($out -join ';') + ';')"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$k='HKCU:\\Software\\Microsoft\\DirectX\\UserGpuPreferences';$name='DirectXUserGlobalSettings';$cur=(Get-ItemProperty -Path $k -Name $name -ErrorAction SilentlyContinue).$name;if(-not $cur){exit 0};$map=@{};$cur.Split(';')|%{$p=$_.Trim();if($p -and $p.Contains('=')){ $kv=$p.Split('=',2); $map[$kv[0]]=$kv[1] }};if($map.ContainsKey('SwapEffectUpgradeEnable')){$map.Remove('SwapEffectUpgradeEnable')};$out=@();foreach($kk in $map.Keys){$out+=($kk+'='+$map[$kk])};$out=$out|Sort-Object;$val=if($out.Count -gt 0){($out -join ';') + ';'}else{''};Set-ItemProperty -Path $k -Name $name -Value $val"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "Windows / Graphics"
+    },
+    {
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Enables SwapEffectUpgradeEnable in DirectXUserGlobalSettings for windowed/borderless games.",
+      "requiresAdmin": false,
+      "riskLevel": "Warning",
+      "category": "Windows / Graphics",
+      "id": "gfx_enable_windowed_optimizations__revert",
+      "type": "button",
+      "name": "Revert: Enable 'Optimizations for windowed games'",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$k='HKCU:\\Software\\Microsoft\\DirectX\\UserGpuPreferences';$name='DirectXUserGlobalSettings';$cur=(Get-ItemProperty -Path $k -Name $name -ErrorAction SilentlyContinue).$name;if(-not $cur){exit 0};$map=@{};$cur.Split(';')|%{$p=$_.Trim();if($p -and $p.Contains('=')){ $kv=$p.Split('=',2); $map[$kv[0]]=$kv[1] }};if($map.ContainsKey('SwapEffectUpgradeEnable')){$map.Remove('SwapEffectUpgradeEnable')};$out=@();foreach($kk in $map.Keys){$out+=($kk+'='+$map[$kk])};$out=$out|Sort-Object;$val=if($out.Count -gt 0){($out -join ';') + ';'}else{''};Set-ItemProperty -Path $k -Name $name -Value $val"
+          }
+        ]
+      }
+    },
+    {
+      "id": "gfx_open_default_graphics_settings",
+      "type": "action",
+      "name": "Run Default Graphics Settings (HAGS / windowed optimizations)",
+      "risk": "Safe",
+      "description": "Opens the default graphics settings page.",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "ms-settings:display-advancedgraphics"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "primaryLabel": "Open",
+      "riskLevel": "Safe",
+      "category": "Windows / Graphics",
+      "kind": "tool",
+      "manualOnly": true
+    }
+  ]
+}

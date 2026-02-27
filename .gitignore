@@ -1,0 +1,66 @@
+####################################
+# Node / Electron
+####################################
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+dist/
+out/
+build/
+release/
+release-builds/
+*.asar
+
+####################################
+# Optimizer outputs / runtime files
+####################################
+logs/
+log/
+*.log
+temp/
+.tmp/
+.cache/
+
+####################################
+# PowerShell / Windows artifacts
+####################################
+*.ps1~
+*.psm1~
+*.psd1~
+*.exe
+*.dll
+*.sys
+*.msi
+
+####################################
+# Environment / secrets
+####################################
+.env
+.env.*
+*.key
+*.pem
+*.token
+
+####################################
+# OS junk
+####################################
+.DS_Store
+Thumbs.db
+desktop.ini
+
+####################################
+# IDE / Editor
+####################################
+.vscode/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+####################################
+# Crash dumps
+####################################
+*.dmp

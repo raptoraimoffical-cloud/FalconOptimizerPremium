@@ -1,0 +1,448 @@
+{
+  "items": [
+    {
+      "id": "adv.devices.disable_communication_ports_com1-com2",
+      "name": "Apply: Disable Communication Ports (COM1–COM2)",
+      "category": "Advanced / Devices",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables the matching device via PnP (requires reboot for some devices).",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Get-PnpDevice -FriendlyName '*Communications Port*' -ErrorAction SilentlyContinue | Disable-PnpDevice -Confirm:$false -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Get-PnpDevice -FriendlyName '*Communications Port*' -ErrorAction SilentlyContinue | Enable-PnpDevice -Confirm:$false -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Warning",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "category": "Advanced / Devices",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables the matching device via PnP (requires reboot for some devices).",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "riskLevel": "Warning",
+      "kind": "tool",
+      "manualOnly": true,
+      "id": "adv.devices.disable_communication_ports_com1-com2__revert",
+      "type": "button",
+      "name": "Revert: Disable Communication Ports (COM1–COM2)",
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Get-PnpDevice -FriendlyName '*Communications Port*' -ErrorAction SilentlyContinue | Enable-PnpDevice -Confirm:$false -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv.devices.disable_eisa_programmable_interrupt_controller",
+      "name": "Apply: Disable EISA Programmable Interrupt Controller",
+      "category": "Advanced / Devices",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables the matching device via PnP (requires reboot for some devices).",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Get-PnpDevice -FriendlyName '*EISA*Interrupt*Controller*' -ErrorAction SilentlyContinue | Disable-PnpDevice -Confirm:$false -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Get-PnpDevice -FriendlyName '*EISA*Interrupt*Controller*' -ErrorAction SilentlyContinue | Enable-PnpDevice -Confirm:$false -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Warning",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "category": "Advanced / Devices",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables the matching device via PnP (requires reboot for some devices).",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "riskLevel": "Warning",
+      "kind": "tool",
+      "manualOnly": true,
+      "id": "adv.devices.disable_eisa_programmable_interrupt_controller__revert",
+      "type": "button",
+      "name": "Revert: Disable EISA Programmable Interrupt Controller",
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Get-PnpDevice -FriendlyName '*EISA*Interrupt*Controller*' -ErrorAction SilentlyContinue | Enable-PnpDevice -Confirm:$false -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv.devices.disable_high_precision_event_timer_hpet",
+      "name": "Apply: Disable High Precision Event Timer (HPET)",
+      "category": "Advanced / Devices",
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay] Disables the matching device via PnP (requires reboot for some devices).",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Get-PnpDevice -FriendlyName '*High Precision Event Timer*' -ErrorAction SilentlyContinue | Disable-PnpDevice -Confirm:$false -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Get-PnpDevice -FriendlyName '*High Precision Event Timer*' -ErrorAction SilentlyContinue | Enable-PnpDevice -Confirm:$false -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Warning",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "category": "Advanced / Devices",
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay] Disables the matching device via PnP (requires reboot for some devices).",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "riskLevel": "Warning",
+      "kind": "tool",
+      "manualOnly": true,
+      "id": "adv.devices.disable_high_precision_event_timer_hpet__revert",
+      "type": "button",
+      "name": "Revert: Disable High Precision Event Timer (HPET)",
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Get-PnpDevice -FriendlyName '*High Precision Event Timer*' -ErrorAction SilentlyContinue | Enable-PnpDevice -Confirm:$false -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv.devices.disable_microsoft_gs_wavetable_synth",
+      "name": "Apply: Disable Microsoft GS Wavetable Synth",
+      "category": "Advanced / Devices",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables the matching device via PnP (requires reboot for some devices).",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Get-PnpDevice -FriendlyName '*Microsoft GS Wavetable Synth*' -ErrorAction SilentlyContinue | Disable-PnpDevice -Confirm:$false -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Get-PnpDevice -FriendlyName '*Microsoft GS Wavetable Synth*' -ErrorAction SilentlyContinue | Enable-PnpDevice -Confirm:$false -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Warning",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "category": "Advanced / Devices",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables the matching device via PnP (requires reboot for some devices).",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "riskLevel": "Warning",
+      "kind": "tool",
+      "manualOnly": true,
+      "id": "adv.devices.disable_microsoft_gs_wavetable_synth__revert",
+      "type": "button",
+      "name": "Revert: Disable Microsoft GS Wavetable Synth",
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Get-PnpDevice -FriendlyName '*Microsoft GS Wavetable Synth*' -ErrorAction SilentlyContinue | Enable-PnpDevice -Confirm:$false -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv.devices.disable_microsoft_hyper-v_infrastructure_driver",
+      "name": "Apply: Disable Microsoft Hyper-V Infrastructure Driver",
+      "category": "Advanced / Devices",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables the matching device via PnP (requires reboot for some devices).",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Get-PnpDevice -FriendlyName '*Hyper-V*Infrastructure*' -ErrorAction SilentlyContinue | Disable-PnpDevice -Confirm:$false -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Get-PnpDevice -FriendlyName '*Hyper-V*Infrastructure*' -ErrorAction SilentlyContinue | Enable-PnpDevice -Confirm:$false -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Warning",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "category": "Advanced / Devices",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables the matching device via PnP (requires reboot for some devices).",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "riskLevel": "Warning",
+      "kind": "tool",
+      "manualOnly": true,
+      "id": "adv.devices.disable_microsoft_hyper-v_infrastructure_driver__revert",
+      "type": "button",
+      "name": "Revert: Disable Microsoft Hyper-V Infrastructure Driver",
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Get-PnpDevice -FriendlyName '*Hyper-V*Infrastructure*' -ErrorAction SilentlyContinue | Enable-PnpDevice -Confirm:$false -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv.devices.disable_remote_desktop_device_redirector_bus",
+      "name": "Apply: Disable Remote Desktop Device Redirector Bus",
+      "category": "Advanced / Devices",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables the matching device via PnP (requires reboot for some devices).",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Get-PnpDevice -FriendlyName '*Remote Desktop Device Redirector*' -ErrorAction SilentlyContinue | Disable-PnpDevice -Confirm:$false -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Get-PnpDevice -FriendlyName '*Remote Desktop Device Redirector*' -ErrorAction SilentlyContinue | Enable-PnpDevice -Confirm:$false -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Warning",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "category": "Advanced / Devices",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables the matching device via PnP (requires reboot for some devices).",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "riskLevel": "Warning",
+      "kind": "tool",
+      "manualOnly": true,
+      "id": "adv.devices.disable_remote_desktop_device_redirector_bus__revert",
+      "type": "button",
+      "name": "Revert: Disable Remote Desktop Device Redirector Bus",
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Get-PnpDevice -FriendlyName '*Remote Desktop Device Redirector*' -ErrorAction SilentlyContinue | Enable-PnpDevice -Confirm:$false -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      }
+    }
+  ]
+}

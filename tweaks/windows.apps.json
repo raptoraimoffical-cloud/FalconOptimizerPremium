@@ -1,0 +1,70 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "apps_disable_archive_apps_policy",
+      "type": "toggle",
+      "name": "Disable Automatic App Archiving (Archive apps)",
+      "risk": "Warning",
+      "description": "Prevents Windows from automatically archiving infrequently used Store apps (policy).",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Appx",
+            "name": "AllowAutomaticAppArchiving",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Appx",
+            "name": "AllowAutomaticAppArchiving"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "Windows / Apps",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Appx",
+            "name": "AllowAutomaticAppArchiving",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "apps_open_advanced_app_settings",
+      "type": "action",
+      "name": "Run Advanced App Settings (Archive apps toggle)",
+      "risk": "Safe",
+      "description": "Opens Settings → Apps → Advanced app settings.",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "ms-settings:appsfeatures-appsettings"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "primaryLabel": "Open",
+      "riskLevel": "Safe",
+      "category": "Windows / Apps",
+      "kind": "tool",
+      "manualOnly": true
+    }
+  ]
+}

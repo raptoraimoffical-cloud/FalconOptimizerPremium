@@ -1,0 +1,449 @@
+{
+  "items": [
+    {
+      "id": "fix.audio_mic",
+      "type": "button",
+      "name": "Audio & Microphone",
+      "risk": "Safe",
+      "description": "Restarts audio services.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "Audiosrv",
+            "startType": "Automatic",
+            "stop": true
+          },
+          {
+            "type": "service.startup",
+            "name": "AudioEndpointBuilder",
+            "startType": "Automatic",
+            "stop": true
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "Misc",
+      "note": "Converted from toggle (missing revert)."
+    },
+    {
+      "id": "fix.bluetooth",
+      "type": "button",
+      "name": "Bluetooth",
+      "risk": "Safe",
+      "description": "Restores Bluetooth service.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "bthserv",
+            "startType": "Automatic",
+            "stop": false
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "Misc",
+      "note": "Converted from toggle (missing revert)."
+    },
+    {
+      "id": "fix.clipboard",
+      "type": "button",
+      "name": "Clipboard",
+      "risk": "Safe",
+      "description": "Restarts clipboard services.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"Get-Service cbdhsvc* -ErrorAction SilentlyContinue | Restart-Service -Force -ErrorAction SilentlyContinue\""
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "Misc",
+      "note": "Converted from toggle (missing revert)."
+    },
+    {
+      "id": "fix.diagnostics",
+      "type": "button",
+      "name": "Diagnostics & Error Reporting",
+      "risk": "Safe",
+      "description": "Restores diagnostics and error reporting.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "DiagTrack",
+            "startType": "Manual",
+            "stop": false
+          },
+          {
+            "type": "service.startup",
+            "name": "WerSvc",
+            "startType": "Manual",
+            "stop": false
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "Misc",
+      "note": "Converted from toggle (missing revert)."
+    },
+    {
+      "id": "fix.disk_shrinking",
+      "type": "button",
+      "name": "Disk Shrinking",
+      "risk": "Safe",
+      "description": "Restores services used by disk management.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "vds",
+            "startType": "Manual",
+            "stop": false
+          },
+          {
+            "type": "service.startup",
+            "name": "defragsvc",
+            "startType": "Manual",
+            "stop": false
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "Misc",
+      "note": "Converted from toggle (missing revert)."
+    },
+    {
+      "id": "fix.fax_printing",
+      "type": "button",
+      "name": "Fax & Printing",
+      "risk": "Safe",
+      "description": "Restores print spooler.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "Spooler",
+            "startType": "Automatic",
+            "stop": false
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "Misc",
+      "note": "Converted from toggle (missing revert)."
+    },
+    {
+      "id": "fix.gta_fivem",
+      "type": "button",
+      "name": "GTA / FiveM",
+      "risk": "Safe",
+      "description": "Flushes DNS and resets Winsock.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "ipconfig /flushdns"
+          },
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "netsh winsock reset"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "Misc",
+      "note": "Converted from toggle (missing revert)."
+    },
+    {
+      "id": "fix.edge",
+      "type": "button",
+      "name": "Microsoft Edge",
+      "risk": "Safe",
+      "description": "Removes Edge prelaunch policies.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\MicrosoftEdge\\Main",
+            "name": "AllowPrelaunch"
+          },
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\MicrosoftEdge\\TabPreloader",
+            "name": "AllowTabPreloading"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "Misc",
+      "note": "Converted from toggle (missing revert)."
+    },
+    {
+      "id": "fix.store_apps",
+      "type": "button",
+      "name": "Microsoft Store & Apps",
+      "risk": "Safe",
+      "description": "Resets Store cache and re-registers Store.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "wsreset.exe"
+          },
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"Get-AppxPackage -allusers Microsoft.WindowsStore | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register \\\"$($_.InstallLocation)\\AppXManifest.xml\\\"}\""
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "Misc",
+      "note": "Converted from toggle (missing revert)."
+    },
+    {
+      "id": "fix.epic_games",
+      "type": "button",
+      "name": "Epic Games (Launcher/Services)",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "description": "Re-enables Epic Games services used by Epic Games Launcher / Fortnite (EpicGamesUpdater, EpicOnlineServices).",
+      "requiresAdmin": true,
+      "category": "Games",
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "EpicGamesUpdater",
+            "startType": "Automatic",
+            "start": true
+          },
+          {
+            "type": "service.startup",
+            "name": "EpicOnlineServices",
+            "startType": "Automatic",
+            "start": true
+          }
+        ]
+      },
+      "note": "Converted from toggle (missing revert)."
+    },
+    {
+      "id": "fix.wifi",
+      "type": "button",
+      "name": "Wi\u2011Fi / Network Restore",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "description": "Restores core networking services and resets IP/DNS stacks. Requires restart for best results.",
+      "requiresAdmin": true,
+      "category": "Network",
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "LanmanWorkstation",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "WdiServiceHost",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "NcbService",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "ndu",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "Netman",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "netprofm",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "WwanSvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "Dhcp",
+            "startType": "Automatic",
+            "start": true
+          },
+          {
+            "type": "service.startup",
+            "name": "DPS",
+            "startType": "Automatic",
+            "start": true
+          },
+          {
+            "type": "service.startup",
+            "name": "lmhosts",
+            "startType": "Automatic",
+            "start": true
+          },
+          {
+            "type": "service.startup",
+            "name": "NlaSvc",
+            "startType": "Automatic",
+            "start": true
+          },
+          {
+            "type": "service.startup",
+            "name": "nsi",
+            "startType": "Automatic",
+            "start": true
+          },
+          {
+            "type": "service.startup",
+            "name": "RmSvc",
+            "startType": "Automatic",
+            "start": true
+          },
+          {
+            "type": "service.startup",
+            "name": "Wcmsvc",
+            "startType": "Automatic",
+            "start": true
+          },
+          {
+            "type": "service.startup",
+            "name": "Winmgmt",
+            "startType": "Automatic",
+            "start": true
+          },
+          {
+            "type": "service.startup",
+            "name": "WlanSvc",
+            "startType": "Automatic",
+            "start": true
+          },
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "reg add \"HKLM\\Software\\Policies\\Microsoft\\Windows\\NetworkConnectivityStatusIndicator\" /v \"NoActiveProbe\" /t REG_DWORD /d \"0\" /f"
+          },
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "reg add \"HKLM\\System\\CurrentControlSet\\Services\\NlaSvc\\Parameters\\Internet\" /v \"EnableActiveProbing\" /t REG_DWORD /d \"1\" /f"
+          },
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "reg add \"HKLM\\System\\CurrentControlSet\\Services\\BFE\" /v \"Start\" /t REG_DWORD /d \"2\" /f"
+          },
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "reg add \"HKLM\\System\\CurrentControlSet\\Services\\Dnscache\" /v \"Start\" /t REG_DWORD /d \"2\" /f"
+          },
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "reg add \"HKLM\\System\\CurrentControlSet\\Services\\WinHttpAutoProxySvc\" /v \"Start\" /t REG_DWORD /d \"3\" /f"
+          },
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\vwifibus\" /v \"Start\" /t REG_DWORD /d \"3\" /f"
+          },
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\vwififlt\" /v \"Start\" /t REG_DWORD /d \"3\" /f"
+          },
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\vwifimp\" /v \"Start\" /t REG_DWORD /d \"3\" /f"
+          },
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "ipconfig /release"
+          },
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "ipconfig /renew"
+          },
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "arp -d *"
+          },
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "nbtstat -R"
+          },
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "nbtstat -RR"
+          },
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "ipconfig /flushdns"
+          },
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "ipconfig /registerdns"
+          }
+        ]
+      },
+      "note": "Imported from V8.3 Fixers menu (renamed)."
+    },
+    {
+      "id": "fix.rockstar_games",
+      "type": "button",
+      "name": "Rockstar Games Launcher / Services",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "description": "Re-enables Rockstar Games service used by Rockstar Games Launcher.",
+      "requiresAdmin": true,
+      "category": "Games",
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "Rockstar Service",
+            "startType": "Automatic",
+            "start": true
+          }
+        ]
+      },
+      "note": "Imported from V8.3 Fixers menu (renamed)."
+    }
+  ]
+}

@@ -1,0 +1,586 @@
+{
+  "items": [
+    {
+      "id": "exp.power.duplicate_ultimate",
+      "type": "action",
+      "name": "Enable Ultimate Performance Plan",
+      "category": "Expansion / Power Advanced",
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay] Duplicates Ultimate Performance scheme and sets it active (desktop only).",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setactive e9a42b02-d5df-448d-aa00-03f14749eb61"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Warning"
+    },
+    {
+      "id": "exp.power.usb_selective_suspend_off",
+      "type": "action",
+      "name": "USB Selective Suspend OFF (AC)",
+      "category": "Expansion / Power Advanced",
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay] Sets USB selective suspend to disabled on AC for current scheme.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_USB USBSELECTIVE 0"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -SetActive SCHEME_CURRENT"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Warning"
+    },
+    {
+      "id": "exp.power.pcie_link_state_off",
+      "type": "action",
+      "name": "PCIe Link State OFF (AC)",
+      "category": "Expansion / Power Advanced",
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay] Sets PCIe Link State Power Management to Off on AC for current scheme.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PCIEXPRESS ASPM 0"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -SetActive SCHEME_CURRENT"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Warning"
+    },
+    {
+      "id": "exp.power.docs.001",
+      "type": "button",
+      "name": "Run powercfg documentation",
+      "category": "Expansion / Power Advanced",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Reference for powercfg options.",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-hardware/design/device-experiences/powercfg-command-line-options"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.power.docs.002",
+      "type": "button",
+      "name": "Run Power Plans guidance",
+      "category": "Expansion / Power Advanced",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Reference for Windows power plans.",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://support.microsoft.com/windows/power-plans-in-windows-a4d0b77f-7c5a-3f0f-2f5d-85ea9bdc3dd2"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.power.docs.003",
+      "type": "button",
+      "name": "Run Energy Report guide",
+      "category": "Expansion / Power Advanced",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Reference for generating energy reports.",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-hardware/design/device-experiences/powercfg-command-line-options#energy"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.power.placeholder_008",
+      "type": "button",
+      "name": "Power Checklist Item",
+      "category": "Expansion / Power Advanced",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-hardware/design/device-experiences/powercfg-command-line-options"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.power.placeholder_009",
+      "type": "button",
+      "name": "Power Checklist Item",
+      "category": "Expansion / Power Advanced",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-hardware/design/device-experiences/powercfg-command-line-options"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.power.placeholder_010",
+      "type": "button",
+      "name": "Power Checklist Item",
+      "category": "Expansion / Power Advanced",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-hardware/design/device-experiences/powercfg-command-line-options"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.power.placeholder_011",
+      "type": "button",
+      "name": "Power Checklist Item",
+      "category": "Expansion / Power Advanced",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-hardware/design/device-experiences/powercfg-command-line-options"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.power.placeholder_012",
+      "type": "button",
+      "name": "Power Checklist Item",
+      "category": "Expansion / Power Advanced",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-hardware/design/device-experiences/powercfg-command-line-options"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.power.placeholder_013",
+      "type": "button",
+      "name": "Power Checklist Item",
+      "category": "Expansion / Power Advanced",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-hardware/design/device-experiences/powercfg-command-line-options"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.power.placeholder_014",
+      "type": "button",
+      "name": "Power Checklist Item",
+      "category": "Expansion / Power Advanced",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-hardware/design/device-experiences/powercfg-command-line-options"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.power.placeholder_015",
+      "type": "button",
+      "name": "Power Checklist Item",
+      "category": "Expansion / Power Advanced",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-hardware/design/device-experiences/powercfg-command-line-options"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.power.placeholder_016",
+      "type": "button",
+      "name": "Power Checklist Item",
+      "category": "Expansion / Power Advanced",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-hardware/design/device-experiences/powercfg-command-line-options"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.power.placeholder_017",
+      "type": "button",
+      "name": "Power Checklist Item",
+      "category": "Expansion / Power Advanced",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-hardware/design/device-experiences/powercfg-command-line-options"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.power.placeholder_018",
+      "type": "button",
+      "name": "Power Checklist Item",
+      "category": "Expansion / Power Advanced",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-hardware/design/device-experiences/powercfg-command-line-options"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.power.placeholder_019",
+      "type": "button",
+      "name": "Power Checklist Item",
+      "category": "Expansion / Power Advanced",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-hardware/design/device-experiences/powercfg-command-line-options"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.power.placeholder_020",
+      "type": "button",
+      "name": "Power Checklist Item",
+      "category": "Expansion / Power Advanced",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-hardware/design/device-experiences/powercfg-command-line-options"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.power.placeholder_021",
+      "type": "button",
+      "name": "Power Checklist Item",
+      "category": "Expansion / Power Advanced",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-hardware/design/device-experiences/powercfg-command-line-options"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.power.placeholder_022",
+      "type": "button",
+      "name": "Power Checklist Item",
+      "category": "Expansion / Power Advanced",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-hardware/design/device-experiences/powercfg-command-line-options"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.power.placeholder_023",
+      "type": "button",
+      "name": "Power Checklist Item",
+      "category": "Expansion / Power Advanced",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-hardware/design/device-experiences/powercfg-command-line-options"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.power.placeholder_024",
+      "type": "button",
+      "name": "Power Checklist Item",
+      "category": "Expansion / Power Advanced",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-hardware/design/device-experiences/powercfg-command-line-options"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.power.placeholder_025",
+      "type": "button",
+      "name": "Power Checklist Item",
+      "category": "Expansion / Power Advanced",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-hardware/design/device-experiences/powercfg-command-line-options"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    }
+  ]
+}

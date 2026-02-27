@@ -1,0 +1,3028 @@
+{
+  "items": [
+    {
+      "id": "import_reg_da9981dc3d",
+      "type": "apply",
+      "name": "Registry tweak: HKLM\\Software\\Microsoft\\Windows\\CurrentVersion\\RunOnce / AutorunAfterRestart",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "HKLM\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\RunOnce",
+            "name": "AutorunOneclickAfterRestart",
+            "regType": "SZ",
+            "value": "\\\"%OneclickPath%\\"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_7353a30630",
+      "type": "apply",
+      "name": "Registry tweak: HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer / SettingsPageVisibility",
+      "category": "General / Policies",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "HKCU\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Policies\\\\Explorer",
+            "name": "SettingsPageVisibility",
+            "regType": "SZ",
+            "value": "hide:home"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_ad09d74b2d",
+      "type": "apply",
+      "name": "Registry tweak: HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced / LaunchTo",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "HKCU\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Explorer\\\\Advanced",
+            "name": "LaunchTo",
+            "regType": "DWORD",
+            "value": 0
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_b940a981b5",
+      "type": "apply",
+      "name": "Registry tweak: HKCU\\Control Panel\\Desktop / DragFullWindows",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "HKCU\\\\Control Panel\\\\Desktop",
+            "name": "DragFullWindows",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_05681dee5d",
+      "type": "apply",
+      "name": "Registry tweak: HKCU\\Control Panel\\Desktop / MenuShowDelay",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "HKCU\\\\Control Panel\\\\Desktop",
+            "name": "MenuShowDelay",
+            "regType": "SZ",
+            "value": "200"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_141da4dd06",
+      "type": "apply",
+      "name": "Registry tweak: HKCU\\Control Panel\\Desktop\\WindowMetrics / MinAnimate",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "HKCU\\\\Control Panel\\\\Desktop\\\\WindowMetrics",
+            "name": "MinAnimate",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_026693b1f5",
+      "type": "apply",
+      "name": "Registry tweak: HKCU\\Software\\Classes\\CLSID\\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\\InprocServer32 / (Default)",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "HKCU\\\\Software\\\\Classes\\\\CLSID\\\\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\\\\InprocServer32",
+            "name": "(Default)",
+            "regType": "SZ",
+            "value": ""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_4ff73bc072",
+      "type": "apply",
+      "name": "Registry tweak: HKCU\\Control Panel\\Desktop / WallpaperStyle",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "HKCU\\\\Control Panel\\\\Desktop",
+            "name": "WallpaperStyle",
+            "regType": "SZ",
+            "value": "10\" >nul 2>&1"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_09bf0aec60",
+      "type": "apply",
+      "name": "Registry tweak: HKCU\\Control Panel\\Desktop / TileWallpaper",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "HKCU\\\\Control Panel\\\\Desktop",
+            "name": "TileWallpaper",
+            "regType": "SZ",
+            "value": "0\" >nul 2>&1"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_65097596a1",
+      "type": "apply",
+      "name": "Registry tweak: HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\OEMInformation / Manufacturer",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\OEMInformation",
+            "name": "Manufacturer",
+            "regType": "SZ",
+            "value": "Quaked Tweaks"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_9eb05ec2a8",
+      "type": "apply",
+      "name": "Registry tweak: HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\OEMInformation / SupportURL",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\OEMInformation",
+            "name": "SupportURL",
+            "regType": "SZ",
+            "value": "https://discord.gg/8NqDSMzYun"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_7164bd2c05",
+      "type": "apply",
+      "name": "Registry tweak: HKCU\\Control Panel\\Mouse / MouseSpeed",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "HKCU\\\\Control Panel\\\\Mouse",
+            "name": "MouseSpeed",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_3d905c0768",
+      "type": "apply",
+      "name": "Registry tweak: HKCU\\Control Panel\\Mouse / MouseThreshold1",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "HKCU\\\\Control Panel\\\\Mouse",
+            "name": "MouseThreshold1",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_4eabae0569",
+      "type": "apply",
+      "name": "Registry tweak: HKCU\\Control Panel\\Mouse / MouseThreshold2",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "HKCU\\\\Control Panel\\\\Mouse",
+            "name": "MouseThreshold2",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_4ddfed221d",
+      "type": "apply",
+      "name": "Registry tweak: HKCU\\Control Panel\\Accessibility\\StickyKeys / Flags",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "HKCU\\\\Control Panel\\\\Accessibility\\\\StickyKeys",
+            "name": "Flags",
+            "regType": "SZ",
+            "value": "506"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_8d0730c451",
+      "type": "apply",
+      "name": "Registry tweak: HKCU\\Control Panel\\Accessibility\\ToggleKeys / Flags",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "HKCU\\\\Control Panel\\\\Accessibility\\\\ToggleKeys",
+            "name": "Flags",
+            "regType": "SZ",
+            "value": "58"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_3398661c4f",
+      "type": "apply",
+      "name": "Registry tweak: HKCU\\Control Panel\\Accessibility\\Keyboard Response / Flags",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "HKCU\\\\Control Panel\\\\Accessibility\\\\Keyboard Response",
+            "name": "Flags",
+            "regType": "SZ",
+            "value": "122"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_4efadb468f",
+      "type": "apply",
+      "name": "Registry tweak: HKCU\\Software\\Microsoft\\DirectX\\UserGpuPreferences / DirectXUserGlobalSettings",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "HKCU\\\\Software\\\\Microsoft\\\\DirectX\\\\UserGpuPreferences",
+            "name": "DirectXUserGlobalSettings",
+            "regType": "SZ",
+            "value": "SwapEffectUpgradeEnable=1;"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_4d52fc5010",
+      "type": "apply",
+      "name": "Registry tweak: HKCU\\System\\GameConfigStore / GameDVR_FSEBehaviorMode",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "HKCU\\\\System\\\\GameConfigStore",
+            "name": "GameDVR_FSEBehaviorMode",
+            "regType": "DWORD",
+            "value": 2
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_169759b4e4",
+      "type": "apply",
+      "name": "Registry tweak: HKCU\\System\\GameConfigStore / GameDVR_FSEBehavior",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "HKCU\\\\System\\\\GameConfigStore",
+            "name": "GameDVR_FSEBehavior",
+            "regType": "DWORD",
+            "value": 2
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_c603ccc6e9",
+      "type": "apply",
+      "name": "Registry tweak: HKCU\\System\\GameConfigStore / GameDVR_DSEBehavior",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "HKCU\\\\System\\\\GameConfigStore",
+            "name": "GameDVR_DSEBehavior",
+            "regType": "DWORD",
+            "value": 2
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_c405b575cf",
+      "type": "apply",
+      "name": "Registry tweak: HKCU\\System\\GameConfigStore / GameDVR_DXGIHonorFSEWindowsCompatible",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "HKCU\\\\System\\\\GameConfigStore",
+            "name": "GameDVR_DXGIHonorFSEWindowsCompatible",
+            "regType": "DWORD",
+            "value": 1
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_623ca8e625",
+      "type": "apply",
+      "name": "Registry tweak: HKCU\\System\\GameConfigStore / GameDVR_HonorUserFSEBehaviorMode",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "HKCU\\\\System\\\\GameConfigStore",
+            "name": "GameDVR_HonorUserFSEBehaviorMode",
+            "regType": "DWORD",
+            "value": 1
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_7e19fb6594",
+      "type": "apply",
+      "name": "Registry tweak: HKCU\\System\\GameConfigStore / GameDVR_EFSEFeatureFlags",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "HKCU\\\\System\\\\GameConfigStore",
+            "name": "GameDVR_EFSEFeatureFlags",
+            "regType": "DWORD",
+            "value": 0
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_78cad57c70",
+      "type": "apply",
+      "name": "Registry tweak: HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\location / Value",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\CapabilityAccessManager\\\\ConsentStore\\\\location",
+            "name": "Value",
+            "regType": "SZ",
+            "value": "Deny"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_5aac6c74c9",
+      "type": "apply",
+      "name": "Registry tweak: HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\DataCollection / AllowTelemetry",
+      "category": "General / Policies",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Policies\\\\DataCollection",
+            "name": "AllowTelemetry",
+            "regType": "DWORD",
+            "value": 0
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_ab7de29267",
+      "type": "apply",
+      "name": "Registry tweak: %regKeyGP% / (Default)",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%regKeyGP%",
+            "name": "(Default)",
+            "regType": "DWORD",
+            "value": 0
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_2c14ac214c",
+      "type": "apply",
+      "name": "Registry tweak: %regKeyGP% / !currentPath!",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%regKeyGP%",
+            "name": "!currentPath!",
+            "regType": "SZ",
+            "value": "GpuPreference=2"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_0bafdf7adf",
+      "type": "apply",
+      "name": "Registry tweak: %regKeyFO% / !currentPath!",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%regKeyFO%",
+            "name": "!currentPath!",
+            "regType": "SZ",
+            "value": "~ DISABLEDXMAXIMIZEDWINDOWEDMODE HIGHDPIAWARE"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_a3e68f9992",
+      "type": "apply",
+      "name": "Registry tweak: %regKeyGP% / !currentPath!",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%regKeyGP%",
+            "name": "!currentPath!",
+            "regType": "SZ",
+            "value": "GpuPreference=1"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_32eda02ff7",
+      "type": "apply",
+      "name": "Registry tweak: HKCR\\DesktopBackground\\Shell\\NvidiaContainer\\Shell\\Nvidia Control Panel / HasLUAShield",
+      "category": "Hardware / GPU",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "HKCR\\\\DesktopBackground\\\\Shell\\\\NvidiaContainer\\\\Shell\\\\Nvidia Control Panel",
+            "name": "HasLUAShield",
+            "regType": "SZ",
+            "value": ""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_c9bc694850",
+      "type": "apply",
+      "name": "Registry tweak: HKCR\\DesktopBackground\\Shell\\NvidiaContainer\\Shell\\Nvidia Control Panel / MUIVerb",
+      "category": "Hardware / GPU",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "HKCR\\\\DesktopBackground\\\\Shell\\\\NvidiaContainer\\\\Shell\\\\Nvidia Control Panel",
+            "name": "MUIVerb",
+            "regType": "SZ",
+            "value": "Nvidia Control Panel"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_dcb6c582b9",
+      "type": "apply",
+      "name": "Registry tweak: HKCR\\DesktopBackground\\Shell\\NvidiaContainer\\Shell\\Nvidia Control Panel\\command / (Default)",
+      "category": "Hardware / GPU",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "HKCR\\\\DesktopBackground\\\\Shell\\\\NvidiaContainer\\\\Shell\\\\Nvidia Control Panel\\\\command",
+            "name": "(Default)",
+            "regType": "SZ",
+            "value": "C:\\Oneclick Tools\\Nvidia\\Nvidia Control Panel\\nvcplui.exe"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_50e1b186ef",
+      "type": "apply",
+      "name": "Registry tweak: HKCR\\Directory\\Background\\shellex\\ContextMenuHandlers\\NvCplDesktopContext / (Default)",
+      "category": "Hardware / GPU",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "HKCR\\\\Directory\\\\Background\\\\shellex\\\\ContextMenuHandlers\\\\NvCplDesktopContext",
+            "name": "(Default)",
+            "regType": "SZ",
+            "value": "{}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_b0a9afc4e4",
+      "type": "apply",
+      "name": "Registry tweak: HKCR\\DesktopBackground\\Shell\\NvidiaContainer / Icon",
+      "category": "Hardware / GPU",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "HKCR\\\\DesktopBackground\\\\Shell\\\\NvidiaContainer",
+            "name": "Icon",
+            "regType": "SZ",
+            "value": "C:\\Oneclick Tools\\Nvidia\\Nvidia Profile Inspector\\nvidiaProfileInspector.exe,0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_fa77e67353",
+      "type": "apply",
+      "name": "Registry tweak: HKCR\\DesktopBackground\\Shell\\NvidiaContainer / MUIVerb",
+      "category": "Hardware / GPU",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "HKCR\\\\DesktopBackground\\\\Shell\\\\NvidiaContainer",
+            "name": "MUIVerb",
+            "regType": "SZ",
+            "value": "Nvidia Container"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_9de462717f",
+      "type": "apply",
+      "name": "Registry tweak: HKCR\\DesktopBackground\\Shell\\NvidiaContainer / Position",
+      "category": "Hardware / GPU",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "HKCR\\\\DesktopBackground\\\\Shell\\\\NvidiaContainer",
+            "name": "Position",
+            "regType": "SZ",
+            "value": "Bottom"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_64d72fe988",
+      "type": "apply",
+      "name": "Registry tweak: HKCR\\DesktopBackground\\Shell\\NvidiaContainer / SubCommands",
+      "category": "Hardware / GPU",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "HKCR\\\\DesktopBackground\\\\Shell\\\\NvidiaContainer",
+            "name": "SubCommands",
+            "regType": "SZ",
+            "value": ""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_349e626c35",
+      "type": "apply",
+      "name": "Registry tweak: HKCR\\DesktopBackground\\Shell\\NvidiaContainer\\Shell\\EnableNvContainer / HasLUAShield",
+      "category": "Hardware / GPU",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "HKCR\\\\DesktopBackground\\\\Shell\\\\NvidiaContainer\\\\Shell\\\\EnableNvContainer",
+            "name": "HasLUAShield",
+            "regType": "SZ",
+            "value": ""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_9ff2b0cbdf",
+      "type": "apply",
+      "name": "Registry tweak: HKCR\\DesktopBackground\\Shell\\NvidiaContainer\\Shell\\EnableNvContainer / MUIVerb",
+      "category": "Hardware / GPU",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "HKCR\\\\DesktopBackground\\\\Shell\\\\NvidiaContainer\\\\Shell\\\\EnableNvContainer",
+            "name": "MUIVerb",
+            "regType": "SZ",
+            "value": "Enable Container"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_0036f2d4f3",
+      "type": "apply",
+      "name": "Registry tweak: HKCR\\DesktopBackground\\Shell\\NvidiaContainer\\Shell\\EnableNvContainer\\command / (Default)",
+      "category": "Hardware / GPU",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "HKCR\\\\DesktopBackground\\\\Shell\\\\NvidiaContainer\\\\Shell\\\\EnableNvContainer\\\\command",
+            "name": "(Default)",
+            "regType": "SZ",
+            "value": "C:\\Oneclick Tools\\Nvidia\\Nvidia Container\\Nvidia Container ON.bat"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_e9e22d79d7",
+      "type": "apply",
+      "name": "Registry tweak: HKCR\\DesktopBackground\\Shell\\NvidiaContainer\\Shell\\DisableNvContainer / HasLUAShield",
+      "category": "Hardware / GPU",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "HKCR\\\\DesktopBackground\\\\Shell\\\\NvidiaContainer\\\\Shell\\\\DisableNvContainer",
+            "name": "HasLUAShield",
+            "regType": "SZ",
+            "value": ""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_d3e8eb87d3",
+      "type": "apply",
+      "name": "Registry tweak: HKCR\\DesktopBackground\\Shell\\NvidiaContainer\\Shell\\DisableNvContainer / MUIVerb",
+      "category": "Hardware / GPU",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "HKCR\\\\DesktopBackground\\\\Shell\\\\NvidiaContainer\\\\Shell\\\\DisableNvContainer",
+            "name": "MUIVerb",
+            "regType": "SZ",
+            "value": "Disable Container"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_b80fcacb04",
+      "type": "apply",
+      "name": "Registry tweak: HKCR\\DesktopBackground\\Shell\\NvidiaContainer\\Shell\\DisableNvContainer\\command / (Default)",
+      "category": "Hardware / GPU",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "HKCR\\\\DesktopBackground\\\\Shell\\\\NvidiaContainer\\\\Shell\\\\DisableNvContainer\\\\command",
+            "name": "(Default)",
+            "regType": "SZ",
+            "value": "C:\\Oneclick Tools\\Nvidia\\Nvidia Container\\Nvidia Container OFF.bat"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_0cfeaeec57",
+      "type": "apply",
+      "name": "Registry tweak: HKLM\\SOFTWARE\\NVIDIA Corporation\\Global\\FTS / EnableRID44231",
+      "category": "Hardware / GPU",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "HKLM\\\\SOFTWARE\\\\NVIDIA Corporation\\\\Global\\\\FTS",
+            "name": "EnableRID44231",
+            "regType": "DWORD",
+            "value": 0
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_bf439494de",
+      "type": "apply",
+      "name": "Registry tweak: HKLM\\SOFTWARE\\NVIDIA Corporation\\Global\\FTS / EnableRID64640",
+      "category": "Hardware / GPU",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "HKLM\\\\SOFTWARE\\\\NVIDIA Corporation\\\\Global\\\\FTS",
+            "name": "EnableRID64640",
+            "regType": "DWORD",
+            "value": 0
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_bfdd12a471",
+      "type": "apply",
+      "name": "Registry tweak: HKLM\\SOFTWARE\\NVIDIA Corporation\\Global\\FTS / EnableRID66610",
+      "category": "Hardware / GPU",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "HKLM\\\\SOFTWARE\\\\NVIDIA Corporation\\\\Global\\\\FTS",
+            "name": "EnableRID66610",
+            "regType": "DWORD",
+            "value": 0
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_a71f3e118c",
+      "type": "apply",
+      "name": "Registry tweak: HKCU\\Software\\AMD\\CN / AnimationEffect",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "HKCU\\\\Software\\\\AMD\\\\CN",
+            "name": "AnimationEffect",
+            "regType": "SZ",
+            "value": "false"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_375ecf8ccd",
+      "type": "apply",
+      "name": "Registry tweak: HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run / DPC Checker",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Run",
+            "name": "DPC Checker",
+            "regType": "SZ",
+            "value": "C:\\Oneclick Tools\\DPC Checker\\dpclat.exe"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_f085d4b6e7",
+      "type": "apply",
+      "name": "Registry tweak: HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run / TimerResolution",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Run",
+            "name": "TimerResolution",
+            "regType": "SZ",
+            "value": "C:\\Oneclick Tools\\Timer Resolution\\SetTimerResolution.exe --resolution 5000 --no-console"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_e4d0e405c1",
+      "type": "apply",
+      "name": "Registry tweak: HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run / TimerResolution",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Run",
+            "name": "TimerResolution",
+            "regType": "SZ",
+            "value": "C:\\Oneclick Tools\\Timer Resolution\\SetTimerResolution.exe --resolution 5040 --no-console"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_4af3bb7e27",
+      "type": "apply",
+      "name": "Registry tweak: HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run / TimerResolution",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Run",
+            "name": "TimerResolution",
+            "regType": "SZ",
+            "value": "C:\\Oneclick Tools\\Timer Resolution\\SetTimerResolution.exe --resolution 5070 --no-console"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_3d9c601923",
+      "type": "apply",
+      "name": "Registry tweak: HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run / TimerResolution",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Run",
+            "name": "TimerResolution",
+            "regType": "SZ",
+            "value": "C:\\Oneclick Tools\\Timer Resolution\\SetTimerResolution.exe --resolution %CustomValue% --no-console"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_4afada698f",
+      "type": "apply",
+      "name": "Registry tweak: %%i / *ReceiveBuffers",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "*ReceiveBuffers",
+            "regType": "SZ",
+            "value": "2048"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_a39504328d",
+      "type": "apply",
+      "name": "Registry tweak: %%i / *TransmitBuffers",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "*TransmitBuffers",
+            "regType": "SZ",
+            "value": "1024"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_7d7e0828fc",
+      "type": "apply",
+      "name": "Registry tweak: %%i / EnablePME",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "EnablePME",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_8cf7f06c3b",
+      "type": "apply",
+      "name": "Registry tweak: %%i / *DeviceSleepOnDisconnect",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "*DeviceSleepOnDisconnect",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_68142eb964",
+      "type": "apply",
+      "name": "Registry tweak: %%i / *EEE",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "*EEE",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_c1aefa7c59",
+      "type": "apply",
+      "name": "Registry tweak: %%i / *ModernStandbyWoLMagicPacket",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "*ModernStandbyWoLMagicPacket",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_6ffc737b40",
+      "type": "apply",
+      "name": "Registry tweak: %%i / *SelectiveSuspend",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "*SelectiveSuspend",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_3aec7c9f54",
+      "type": "apply",
+      "name": "Registry tweak: %%i / *WakeOnMagicPacket",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "*WakeOnMagicPacket",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_7fd06f0bc4",
+      "type": "apply",
+      "name": "Registry tweak: %%i / *WakeOnPattern",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "*WakeOnPattern",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_4ffce15ad8",
+      "type": "apply",
+      "name": "Registry tweak: %%i / AutoPowerSaveModeEnabled",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "AutoPowerSaveModeEnabled",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_be78a7326b",
+      "type": "apply",
+      "name": "Registry tweak: %%i / EEELinkAdvertisement",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "EEELinkAdvertisement",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_3c966c637c",
+      "type": "apply",
+      "name": "Registry tweak: %%i / EeePhyEnable",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "EeePhyEnable",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_10d6023c68",
+      "type": "apply",
+      "name": "Registry tweak: %%i / EnableGreenEthernet",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "EnableGreenEthernet",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_1f16c2ebe7",
+      "type": "apply",
+      "name": "Registry tweak: %%i / EnableModernStandby",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "EnableModernStandby",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_a6ee9e690e",
+      "type": "apply",
+      "name": "Registry tweak: %%i / GigaLite",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "GigaLite",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_81ec089228",
+      "type": "apply",
+      "name": "Registry tweak: %%i / PowerDownPll",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "PowerDownPll",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_9ed40afb29",
+      "type": "apply",
+      "name": "Registry tweak: %%i / PowerSavingMode",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "PowerSavingMode",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_64f24468b9",
+      "type": "apply",
+      "name": "Registry tweak: %%i / ReduceSpeedOnPowerDown",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "ReduceSpeedOnPowerDown",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_04ad99a9ca",
+      "type": "apply",
+      "name": "Registry tweak: %%i / S5WakeOnLan",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "S5WakeOnLan",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_694280c00d",
+      "type": "apply",
+      "name": "Registry tweak: %%i / SavePowerNowEnabled",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "SavePowerNowEnabled",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_9e50d53713",
+      "type": "apply",
+      "name": "Registry tweak: %%i / ULPMode",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "ULPMode",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_2b369468d6",
+      "type": "apply",
+      "name": "Registry tweak: %%i / WakeOnLink",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "WakeOnLink",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_d599668408",
+      "type": "apply",
+      "name": "Registry tweak: %%i / WakeOnSlot",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "WakeOnSlot",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_f74a442d93",
+      "type": "apply",
+      "name": "Registry tweak: %%i / WakeUpModeCap",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "WakeUpModeCap",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_967ae299b8",
+      "type": "apply",
+      "name": "Registry tweak: %%i / WaitAutoNegComplete",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "WaitAutoNegComplete",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_a97ff80ef1",
+      "type": "apply",
+      "name": "Registry tweak: %%i / *FlowControl",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "*FlowControl",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_b290afdd84",
+      "type": "apply",
+      "name": "Registry tweak: %%i / WolShutdownLinkSpeed",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "WolShutdownLinkSpeed",
+            "regType": "SZ",
+            "value": "2"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_6ef77747ca",
+      "type": "apply",
+      "name": "Registry tweak: %%i / WakeOnMagicPacketFromS5",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "WakeOnMagicPacketFromS5",
+            "regType": "SZ",
+            "value": "2"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_a46d2e6035",
+      "type": "apply",
+      "name": "Registry tweak: %%i / *PMNSOffload",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "*PMNSOffload",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_47b385ac0c",
+      "type": "apply",
+      "name": "Registry tweak: %%i / *PMARPOffload",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "*PMARPOffload",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_264b716121",
+      "type": "apply",
+      "name": "Registry tweak: %%i / *NicAutoPowerSaver",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "*NicAutoPowerSaver",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_128cb30009",
+      "type": "apply",
+      "name": "Registry tweak: %%i / *PMWiFiRekeyOffload",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "*PMWiFiRekeyOffload",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_d9f0609726",
+      "type": "apply",
+      "name": "Registry tweak: %%i / EnablePowerManagement",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "EnablePowerManagement",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_622334fd65",
+      "type": "apply",
+      "name": "Registry tweak: %%i / ForceWakeFromMagicPacketOnModernStandby",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "ForceWakeFromMagicPacketOnModernStandby",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_c6b7f3ad86",
+      "type": "apply",
+      "name": "Registry tweak: %%i / WakeFromS5",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "WakeFromS5",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_d1dec749dc",
+      "type": "apply",
+      "name": "Registry tweak: %%i / WakeOn",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "WakeOn",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_f01d7297fa",
+      "type": "apply",
+      "name": "Registry tweak: %%i / OBFFEnabled",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "OBFFEnabled",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_f5b122c1d8",
+      "type": "apply",
+      "name": "Registry tweak: %%i / DMACoalescing",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "DMACoalescing",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_0e400c8985",
+      "type": "apply",
+      "name": "Registry tweak: %%i / EnableSavePowerNow",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "EnableSavePowerNow",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_cfe380c7df",
+      "type": "apply",
+      "name": "Registry tweak: %%i / EnableD0PHYFlexibleSpeed",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "EnableD0PHYFlexibleSpeed",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_eb1ed33bb7",
+      "type": "apply",
+      "name": "Registry tweak: %%i / EnablePHYWakeUp",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "EnablePHYWakeUp",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_822148bdb7",
+      "type": "apply",
+      "name": "Registry tweak: %%i / EnablePHYFlexibleSpeed",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "EnablePHYFlexibleSpeed",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_eb2bb41b49",
+      "type": "apply",
+      "name": "Registry tweak: %%i / AllowAllSpeedsLPLU",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "AllowAllSpeedsLPLU",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_b25ed44e46",
+      "type": "apply",
+      "name": "Registry tweak: %%i / *EnableDynamicPowerGating",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "*EnableDynamicPowerGating",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_f2daea04fc",
+      "type": "apply",
+      "name": "Registry tweak: %%i / EnableD3ColdInS0",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "EnableD3ColdInS0",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_db7e4f3ee0",
+      "type": "apply",
+      "name": "Registry tweak: %%i / LatencyToleranceReporting",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "LatencyToleranceReporting",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_c76e9b00f1",
+      "type": "apply",
+      "name": "Registry tweak: %%i / EnableAspm",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "EnableAspm",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_4ac4576c0b",
+      "type": "apply",
+      "name": "Registry tweak: %%i / LTROBFF",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "LTROBFF",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_79c80c420b",
+      "type": "apply",
+      "name": "Registry tweak: %%i / S0MgcPkt",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "S0MgcPkt",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_d47c10b1d2",
+      "type": "apply",
+      "name": "Registry tweak: %%i / *TCPChecksumOffloadIPv4",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "*TCPChecksumOffloadIPv4",
+            "regType": "SZ",
+            "value": "3"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_3042d543e3",
+      "type": "apply",
+      "name": "Registry tweak: %%i / *TCPChecksumOffloadIPv6",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "*TCPChecksumOffloadIPv6",
+            "regType": "SZ",
+            "value": "3"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_c2959fff8a",
+      "type": "apply",
+      "name": "Registry tweak: %%i / *TCPConnectionOffloadIPv4",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "*TCPConnectionOffloadIPv4",
+            "regType": "SZ",
+            "value": "3"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_590b3c9ca6",
+      "type": "apply",
+      "name": "Registry tweak: %%i / *TCPConnectionOffloadIPv6",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "*TCPConnectionOffloadIPv6",
+            "regType": "SZ",
+            "value": "3"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_98092f2a23",
+      "type": "apply",
+      "name": "Registry tweak: %%i / *TCPUDPChecksumOffloadIPv4",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "*TCPUDPChecksumOffloadIPv4",
+            "regType": "SZ",
+            "value": "3"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_27f2146764",
+      "type": "apply",
+      "name": "Registry tweak: %%i / *TCPUDPChecksumOffloadIPv6",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "*TCPUDPChecksumOffloadIPv6",
+            "regType": "SZ",
+            "value": "3"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_0a687498e2",
+      "type": "apply",
+      "name": "Registry tweak: %%i / *UDPChecksumOffloadIPv4",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "*UDPChecksumOffloadIPv4",
+            "regType": "SZ",
+            "value": "3"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_bb88f8d205",
+      "type": "apply",
+      "name": "Registry tweak: %%i / *UDPChecksumOffloadIPv6",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "*UDPChecksumOffloadIPv6",
+            "regType": "SZ",
+            "value": "3"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_9bc8ddfecd",
+      "type": "apply",
+      "name": "Registry tweak: %%i / *UdpRsc",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "*UdpRsc",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_e17ea6d59d",
+      "type": "apply",
+      "name": "Registry tweak: %%i / *UsoIPv4",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "*UsoIPv4",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_1051010801",
+      "type": "apply",
+      "name": "Registry tweak: %%i / *UsoIPv6",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "*UsoIPv6",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_7c7094290c",
+      "type": "apply",
+      "name": "Registry tweak: %%i / *RscIPv6",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "*RscIPv6",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_c3f26f7df8",
+      "type": "apply",
+      "name": "Registry tweak: %%i / *RscIPv4",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "*RscIPv4",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_2e36646634",
+      "type": "apply",
+      "name": "Registry tweak: %%i / *IPsecOffloadV2IPv4",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "*IPsecOffloadV2IPv4",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_65cb902c9c",
+      "type": "apply",
+      "name": "Registry tweak: %%i / *IPsecOffloadV2",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "*IPsecOffloadV2",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_0a193443cb",
+      "type": "apply",
+      "name": "Registry tweak: %%i / *IPsecOffloadV1IPv4",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "*IPsecOffloadV1IPv4",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_f763de5359",
+      "type": "apply",
+      "name": "Registry tweak: %%i / *LsoV1IPv4",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "*LsoV1IPv4",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_9d8ca8783e",
+      "type": "apply",
+      "name": "Registry tweak: %%i / *LsoV2IPv4",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "*LsoV2IPv4",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_785cc6bdb9",
+      "type": "apply",
+      "name": "Registry tweak: %%i / *LsoV2IPv6",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "*LsoV2IPv6",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_9679b364cd",
+      "type": "apply",
+      "name": "Registry tweak: %%i / *IPChecksumOffloadIPv4",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "*IPChecksumOffloadIPv4",
+            "regType": "SZ",
+            "value": "3"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_28ec84986e",
+      "type": "apply",
+      "name": "Registry tweak: %%i / WakeFromPowerOff",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "WakeFromPowerOff",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_8ae5e84fca",
+      "type": "apply",
+      "name": "Registry tweak: %%i / LogLinkStateEvent",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "LogLinkStateEvent",
+            "regType": "SZ",
+            "value": "16"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_a59c346b24",
+      "type": "apply",
+      "name": "Registry tweak: %%i / *InterruptModeration",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "*InterruptModeration",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import_reg_e34c20923f",
+      "type": "apply",
+      "name": "Registry tweak: %%i / ITR",
+      "category": "General / Imported Registry",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported from your batch. Apply only if you understand the effect. Use backups/restore point first.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "%%i",
+            "name": "ITR",
+            "regType": "SZ",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,180 @@
+{
+  "items": [
+    {
+      "id": "import.imported.clean_up.e782de94aa",
+      "type": "button",
+      "name": "Clean Up",
+      "category": "Expansion / Imported / Debloat + Cleanup",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "description": "Imported runnable tweak. Risk: Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\oneclick_all\\import_oneclick_clean_up_e782de94aa.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import.imported.dcontrol_download.4723a87396",
+      "type": "button",
+      "name": "Dcontrol Download",
+      "category": "Expansion / Imported / Debloat + Cleanup",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported runnable tweak. Risk: Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\oneclick_all\\import_oneclick_dcontrol_download_4723a87396.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import.imported.download_tools.4619e06dbe",
+      "type": "button",
+      "name": "Download Tools",
+      "category": "Expansion / Imported / Debloat + Cleanup",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "description": "Imported runnable tweak. Risk: Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\oneclick_all\\import_oneclick_download_tools_4619e06dbe.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import.imported.openshell_download.6499c4cc00",
+      "type": "button",
+      "name": "OpenShell Download",
+      "category": "Expansion / Imported / Debloat + Cleanup",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "description": "Imported runnable tweak. Risk: Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\oneclick_all\\import_oneclick_openshell_download_6499c4cc00.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import.imported.recheck_winser.4c9fd2e0f9",
+      "type": "button",
+      "name": "Recheck WinSer",
+      "category": "Expansion / Imported / Debloat + Cleanup",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "description": "Imported runnable tweak. Risk: Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\oneclick_all\\import_oneclick_recheck_winser_4c9fd2e0f9.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import.imported.redetect_winver.4c9fd2e0f9",
+      "type": "button",
+      "name": "Redetect WinVer",
+      "category": "Expansion / Imported / Debloat + Cleanup",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "description": "Imported runnable tweak. Risk: Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\oneclick_all\\import_oneclick_redetect_winver_4c9fd2e0f9.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import.imported.imported_start_screen_colors.9cd3318a26",
+      "type": "button",
+      "name": "Start Screen Colors",
+      "category": "Expansion / Imported / Debloat + Cleanup",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "description": "Imported runnable tweak. Risk: Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\oneclick_all\\import_oneclick_oneclick_start_screen_colors_9cd3318a26.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import.imported.vcruntime_download.b944054660",
+      "type": "button",
+      "name": "VCRuntime Download",
+      "category": "Expansion / Imported / Debloat + Cleanup",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "description": "Imported runnable tweak. Risk: Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\oneclick_all\\import_oneclick_vcruntime_download_b944054660.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    }
+  ]
+}

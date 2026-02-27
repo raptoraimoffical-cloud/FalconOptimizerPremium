@@ -1,0 +1,115 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "net_disable_lmhosts_lookup",
+      "type": "toggle",
+      "name": "Disable LMHOSTS Lookup",
+      "risk": "Warning",
+      "description": "Disables LMHOSTS lookup (NetBT EnableLMHOSTS=0).",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\NetBT\\Parameters",
+            "name": "EnableLMHOSTS",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\NetBT\\Parameters",
+            "name": "EnableLMHOSTS"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "Network",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\NetBT\\Parameters",
+            "name": "EnableLMHOSTS",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "net_disable_netbios_over_tcpip_all",
+      "type": "button",
+      "name": "Apply: Disable NetBIOS over TCP/IP (all adapters)",
+      "risk": "Warning",
+      "description": "Sets NetbiosOptions=2 on all NetBT interfaces (may require reboot).",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$base='HKLM:\\SYSTEM\\CurrentControlSet\\Services\\NetBT\\Parameters\\Interfaces';if(Test-Path $base){Get-ChildItem $base -ErrorAction SilentlyContinue|%{try{New-ItemProperty -Path $_.PsPath -Name 'NetbiosOptions' -PropertyType DWord -Value 2 -Force|Out-Null}catch{}}}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$base='HKLM:\\SYSTEM\\CurrentControlSet\\Services\\NetBT\\Parameters\\Interfaces';if(Test-Path $base){Get-ChildItem $base -ErrorAction SilentlyContinue|%{try{Remove-ItemProperty -Path $_.PsPath -Name 'NetbiosOptions' -ErrorAction SilentlyContinue}catch{}}}"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "Network"
+    },
+    {
+      "risk": "Warning",
+      "description": "Sets NetbiosOptions=2 on all NetBT interfaces (may require reboot).",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Network",
+      "id": "net_disable_netbios_over_tcpip_all__revert",
+      "type": "button",
+      "name": "Revert: Disable NetBIOS over TCP/IP (all adapters)",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$base='HKLM:\\SYSTEM\\CurrentControlSet\\Services\\NetBT\\Parameters\\Interfaces';if(Test-Path $base){Get-ChildItem $base -ErrorAction SilentlyContinue|%{try{Remove-ItemProperty -Path $_.PsPath -Name 'NetbiosOptions' -ErrorAction SilentlyContinue}catch{}}}"
+          }
+        ]
+      }
+    },
+    {
+      "id": "net_open_ncpa_cpl_checklist",
+      "type": "action",
+      "name": "Run Network Connections (adapter checklist)",
+      "risk": "Safe",
+      "description": "Opens ncpa.cpl and shows the adapter checklist from your guide.",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "process.start",
+            "filePath": "ncpa.cpl",
+            "arguments": ""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "primaryLabel": "Open",
+      "riskLevel": "Safe",
+      "category": "Network",
+      "kind": "tool",
+      "manualOnly": true
+    }
+  ]
+}

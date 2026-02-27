@@ -1,0 +1,2353 @@
+{
+  "items": [
+    {
+      "id": "debloat.services.boostpack",
+      "name": "Service Disabler: Boost Pack Profile",
+      "category": "Debloat / Services",
+      "risk": "Extreme",
+      "riskLevel": "Extreme",
+      "description": "Disables the full service set from the boost pack. This is aggressive and can break Windows features (Store, Update, Bluetooth, etc.). Revert sets all affected services to Manual (best effort).",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "excludeFromApplyAll": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "ADPSvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "AJRouter",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "ALG",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "AarSvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "AppInfo",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "AppMgmt",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "AppReadiness",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "AssignedAccessManagerSvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "AxInstSV",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "BDESVC",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "BITS",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "BTAGService",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "BcastDVRUserService",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "BluetoothUserService",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "BthAvctpSvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "CDPSvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "CDPUserSvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "COMSysApp",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "CaptureService",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "CertPropSvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "CloudBackupRestoreSvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "ConsentUxUserSvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "CortexLauncherService",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "CscService",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "DPS",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "DSAService",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "DSAUpdateService",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "DevQueryBroker",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "DeviceAssociationService",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "DeviceInstall",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "DevicePickerUserSvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "DevicesFlowUserSvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "DiagTrack",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "DisplayEnhancementService",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "DmEnrollmentSvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "DsSvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "DsmSvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "DusmSvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "EFS",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "Eaphost",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "EventLog",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "FDResPub",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "FontCache",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "FrameServer",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "FrameServerMonitor",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "FvSVC",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "GameInputSvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "GraphicsPerfSvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "HapticService",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "HvHost",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "IKEEXT",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "InstallService",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "InventorySvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "IpxlatCfgSvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "KtmRm",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "LGHUBUpdaterService",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "LMS",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "LanmanServer",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "LanmanWorkstation",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "LicenseManager",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "LocalKdc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "LxpSvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "MSDTC",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "MSiSCSI",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "MapsBroker",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "McmSvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "McpManagementService",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "MessagingService",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "NPSMSvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "NaturalAuthentication",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "NcaSvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "NcbService",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "NcdAutoSetup",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "NetSetupSvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "NetTcpPortSharing",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "Netlogon",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "Netman",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "NlaSvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "NvContainerLocalSystem",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "OneSyncSvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "P9RdrService",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "PNRPAutoReg",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "PNRPsvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "PcaSvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "PeerDistSvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "PenService",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "PerfHost",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "PhoneSvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "PimIndexMaintenanceSvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "PolicyAgent",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "PrintDeviceConfigurationService",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "PrintNotify",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "PrintScanBrokerService",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "PushToInstall",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "QWAVE",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "RasAuto",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "RasMan",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "RemoteAccess",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "RemoteRegistry",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "RetailDemo",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "RmSvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "RpcLocator",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "RstMwService",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "RzActionSvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "SCPolicySvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "SCardSvr",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "SDRSVC",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "SEMgrSvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "SENS",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "SNMPTrap",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "SSDPSRV",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "SamSs",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "ScDeviceEnum",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "Sense",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "SensorDataService",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "SensorService",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "SensrSvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "SessionEnv",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "SharedAccess",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "SharedRealitySvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "ShellHWDetection",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "SmsRouter",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "Spooler",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "SstpSvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "StorSvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "SysMain",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "SystemUsageReportSvc_QUEENCREEK",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "TapiSrv",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "TermService",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "Themes",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "TieringEngineService",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "TokenBroker",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "TrkWks",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "TroubleshootingSvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "TrustedInstaller",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "UevAgentService",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "UmRdpService",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "UnistoreSvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "UserDataSvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "VaultSvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "W32Time",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "WEPHOSTSVC",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "WFDSConMgrSvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "WMIRegistrationService",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "WMPNetworkSvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "WManSvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "WPDBusEnum",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "WSAIFabricSvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "WSearch",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "WalletService",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "WarpJITSvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "WbioSrvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "Wcmsvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "WdiServiceHost",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "WdiSystemHost",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "WebClient",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "Wecsvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "WerSvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "WiaRpc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "WinRM",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "WlanSvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "WpcMonSvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "WpnService",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "WpnUserService",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "WwanSvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "XblAuthManager",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "XblGameSave",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "XboxGipSvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "XboxNetApiSvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "autotimesvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "bthserv",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "cbdhsvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "cphs",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "cplspcon",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "dcsvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "diagsvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "dmwappushservice",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "dot3svc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "edgeupdate",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "edgeupdatem",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "esifsvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "fdPHost",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "fhsvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "hidserv",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "hpatchmon",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "iaStorAfsService",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "ibtsiva",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "icssvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "igccservice",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "ipfsvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "jhi_service",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "lfsvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "lltdsvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "lmhosts",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "logi_lamparray_service",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "midisrv",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "p2pimsvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "p2psvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "perceptionsimulation",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "pla",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "refsdedupsvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "seclogon",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "shpamsvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "smphost",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "ssh-agent",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "stisvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "svsvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "tzautoupdate",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "ucpd",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "uhssvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "upnphost",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "vds",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "vmicguestinterface",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "vmicheartbeat",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "vmickvpexchange",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "vmicrdv",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "vmicshutdown",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "vmictimesync",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "vmicvmsession",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "vmicvss",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "wbengine",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "wcncsvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "webthreatdefsvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "webthreatdefusersvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "wercplsupport",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "whesvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "wisvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "wlidsvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "wlpasvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "wmiApSrv",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "workfolderssvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "wuqisvc",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "ADPSvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "AJRouter",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "ALG",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "AarSvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "AppInfo",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "AppMgmt",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "AppReadiness",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "AssignedAccessManagerSvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "AxInstSV",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "BDESVC",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "BITS",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "BTAGService",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "BcastDVRUserService",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "BluetoothUserService",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "BthAvctpSvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "CDPSvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "CDPUserSvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "COMSysApp",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "CaptureService",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "CertPropSvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "CloudBackupRestoreSvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "ConsentUxUserSvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "CortexLauncherService",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "CscService",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "DPS",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "DSAService",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "DSAUpdateService",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "DevQueryBroker",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "DeviceAssociationService",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "DeviceInstall",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "DevicePickerUserSvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "DevicesFlowUserSvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "DiagTrack",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "DisplayEnhancementService",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "DmEnrollmentSvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "DsSvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "DsmSvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "DusmSvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "EFS",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "Eaphost",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "EventLog",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "FDResPub",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "FontCache",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "FrameServer",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "FrameServerMonitor",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "FvSVC",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "GameInputSvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "GraphicsPerfSvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "HapticService",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "HvHost",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "IKEEXT",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "InstallService",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "InventorySvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "IpxlatCfgSvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "KtmRm",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "LGHUBUpdaterService",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "LMS",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "LanmanServer",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "LanmanWorkstation",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "LicenseManager",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "LocalKdc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "LxpSvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "MSDTC",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "MSiSCSI",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "MapsBroker",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "McmSvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "McpManagementService",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "MessagingService",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "NPSMSvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "NaturalAuthentication",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "NcaSvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "NcbService",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "NcdAutoSetup",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "NetSetupSvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "NetTcpPortSharing",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "Netlogon",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "Netman",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "NlaSvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "NvContainerLocalSystem",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "OneSyncSvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "P9RdrService",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "PNRPAutoReg",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "PNRPsvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "PcaSvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "PeerDistSvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "PenService",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "PerfHost",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "PhoneSvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "PimIndexMaintenanceSvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "PolicyAgent",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "PrintDeviceConfigurationService",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "PrintNotify",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "PrintScanBrokerService",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "PushToInstall",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "QWAVE",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "RasAuto",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "RasMan",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "RemoteAccess",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "RemoteRegistry",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "RetailDemo",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "RmSvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "RpcLocator",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "RstMwService",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "RzActionSvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "SCPolicySvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "SCardSvr",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "SDRSVC",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "SEMgrSvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "SENS",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "SNMPTrap",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "SSDPSRV",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "SamSs",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "ScDeviceEnum",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "Sense",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "SensorDataService",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "SensorService",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "SensrSvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "SessionEnv",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "SharedAccess",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "SharedRealitySvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "ShellHWDetection",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "SmsRouter",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "Spooler",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "SstpSvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "StorSvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "SysMain",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "SystemUsageReportSvc_QUEENCREEK",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "TapiSrv",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "TermService",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "Themes",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "TieringEngineService",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "TokenBroker",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "TrkWks",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "TroubleshootingSvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "TrustedInstaller",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "UevAgentService",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "UmRdpService",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "UnistoreSvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "UserDataSvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "VaultSvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "W32Time",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "WEPHOSTSVC",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "WFDSConMgrSvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "WMIRegistrationService",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "WMPNetworkSvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "WManSvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "WPDBusEnum",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "WSAIFabricSvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "WSearch",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "WalletService",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "WarpJITSvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "WbioSrvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "Wcmsvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "WdiServiceHost",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "WdiSystemHost",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "WebClient",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "Wecsvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "WerSvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "WiaRpc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "WinRM",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "WlanSvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "WpcMonSvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "WpnService",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "WpnUserService",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "WwanSvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "XblAuthManager",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "XblGameSave",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "XboxGipSvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "XboxNetApiSvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "autotimesvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "bthserv",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "cbdhsvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "cphs",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "cplspcon",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "dcsvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "diagsvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "dmwappushservice",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "dot3svc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "edgeupdate",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "edgeupdatem",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "esifsvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "fdPHost",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "fhsvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "hidserv",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "hpatchmon",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "iaStorAfsService",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "ibtsiva",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "icssvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "igccservice",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "ipfsvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "jhi_service",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "lfsvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "lltdsvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "lmhosts",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "logi_lamparray_service",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "midisrv",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "p2pimsvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "p2psvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "perceptionsimulation",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "pla",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "refsdedupsvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "seclogon",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "shpamsvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "smphost",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "ssh-agent",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "stisvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "svsvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "tzautoupdate",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "ucpd",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "uhssvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "upnphost",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "vds",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "vmicguestinterface",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "vmicheartbeat",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "vmickvpexchange",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "vmicrdv",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "vmicshutdown",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "vmictimesync",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "vmicvmsession",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "vmicvss",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "wbengine",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "wcncsvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "webthreatdefsvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "webthreatdefusersvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "wercplsupport",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "whesvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "wisvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "wlidsvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "wlpasvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "wmiApSrv",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "workfolderssvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "wuqisvc",
+            "startType": "Manual"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "ADPSvc",
+            "startupType": null
+          }
+        ]
+      }
+    }
+  ]
+}

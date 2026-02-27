@@ -1,0 +1,237 @@
+{
+  "meta": {
+    "id": "controller.lab",
+    "name": "Controller",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "id": "controller.hidusbf.open",
+      "name": "Open HidUSBF Setup (required)",
+      "type": "action",
+      "description": "Opens the HidUSBF Setup tool (run as admin). Use it to Install Service, enable Filter on Device, and set polling rate.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "path": "scripts/controller-overclock.ps1",
+            "args": {
+              "Action": "open"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "controller.oc.guided",
+      "name": "Apply: Controller Overclock (Guided)",
+      "type": "button",
+      "description": "Opens HidUSBF Setup (included). In HidUSBF: select your controller, enable Filter On Device, pick polling rate (250/500/1000 Hz), click Restart. Toggle ON after you apply in HidUSBF; toggle OFF after you disable Filter On Device in HidUSBF.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "path": "scripts/controller-overclock.ps1",
+            "args": {
+              "Action": "apply"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "path": "scripts/controller-overclock.ps1",
+            "args": {
+              "Action": "revert"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "description": "Opens HidUSBF Setup (included). In HidUSBF: select your controller, enable Filter On Device, pick polling rate (250/500/1000 Hz), click Restart. Toggle ON after you apply in HidUSBF; toggle OFF after you disable Filter On Device in HidUSBF.",
+      "id": "controller.oc.guided__revert",
+      "type": "button",
+      "name": "Revert: Controller Overclock (Guided)",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "path": "scripts/controller-overclock.ps1",
+            "args": {
+              "Action": "revert"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "controller.usb.selective_suspend",
+      "name": "Apply: Disable USB Selective Suspend (Controller stability)",
+      "type": "button",
+      "description": "Disables USB selective suspend on the current power scheme. Helps prevent random disconnects / input drops on some systems.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_USB USBSELECTIVE 0"
+          },
+          {
+            "type": "ps.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_USB USBSELECTIVE 0"
+          },
+          {
+            "type": "ps.run",
+            "command": "powercfg -S SCHEME_CURRENT"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_USB USBSELECTIVE 1"
+          },
+          {
+            "type": "ps.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_USB USBSELECTIVE 1"
+          },
+          {
+            "type": "ps.run",
+            "command": "powercfg -S SCHEME_CURRENT"
+          }
+        ]
+      }
+    },
+    {
+      "description": "Disables USB selective suspend on the current power scheme. Helps prevent random disconnects / input drops on some systems.",
+      "id": "controller.usb.selective_suspend__revert",
+      "type": "button",
+      "name": "Revert: Disable USB Selective Suspend (Controller stability)",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_USB USBSELECTIVE 1"
+          },
+          {
+            "type": "ps.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_USB USBSELECTIVE 1"
+          },
+          {
+            "type": "ps.run",
+            "command": "powercfg -S SCHEME_CURRENT"
+          }
+        ]
+      }
+    },
+    {
+      "id": "controller.usb.power_mgmt_checklist",
+      "name": "USB Power Management Checklist",
+      "type": "action",
+      "description": "Opens Device Manager. For each USB Root Hub / controller: Properties → Power Management → uncheck 'Allow the computer to turn off this device to save power'.",
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "devmgmt.msc"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "kind": "tool",
+      "risk": "Info",
+      "riskLevel": "Info",
+      "manualOnly": true
+    },
+    {
+      "id": "controller.gameinput.service",
+      "name": "Apply: Disable GameInput Service (optional)",
+      "type": "button",
+      "description": "Optional: disables GameInputSvc which can reduce background overhead. Do not disable if you play Xbox / Game Pass titles that rely on it.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "sc.exe stop GameInputSvc 2>$null"
+          },
+          {
+            "type": "ps.run",
+            "command": "sc.exe config GameInputSvc start= disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "sc.exe config GameInputSvc start= demand"
+          }
+        ]
+      }
+    },
+    {
+      "description": "Optional: disables GameInputSvc which can reduce background overhead. Do not disable if you play Xbox / Game Pass titles that rely on it.",
+      "id": "controller.gameinput.service__revert",
+      "type": "button",
+      "name": "Revert: Disable GameInput Service (optional)",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "sc.exe config GameInputSvc start= demand"
+          }
+        ]
+      }
+    },
+    {
+      "id": "controller.steam_input",
+      "name": "Steam Input (recommended settings)",
+      "type": "action",
+      "description": "Opens Steam Controller settings. For lowest latency in some games, set Steam Input to Off for that game.",
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "steam://settings/controller"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "kind": "tool",
+      "risk": "Info",
+      "riskLevel": "Info",
+      "manualOnly": true
+    },
+    {
+      "id": "controller.ds4windows",
+      "name": "DS4Windows (DualShock/DualSense wrapper)",
+      "type": "action",
+      "description": "Download DS4Windows if you need profiles / remaps / DualSense support for some games.",
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://github.com/Ryochan7/DS4Windows/releases"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "kind": "tool",
+      "risk": "Info",
+      "riskLevel": "Info",
+      "manualOnly": true
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "items": [
+    {
+      "id": "process.kill.inputhosts",
+      "name": "Process Lab: Kill Input Background Hosts",
+      "category": "Process Lab / Kill List",
+      "risk": "Extreme",
+      "riskLevel": "Extreme",
+      "description": "Kills ctfmon/TextInputHost/backgroundTaskHost to reduce background input services. Can break IME/emoji/typing UI until reboot or manual restart.",
+      "type": "action",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "process.kill",
+            "name": "ctfmon.exe"
+          },
+          {
+            "type": "process.kill",
+            "name": "TextInputHost.exe"
+          },
+          {
+            "type": "process.kill",
+            "name": "backgroundTaskHost.exe"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    }
+  ]
+}

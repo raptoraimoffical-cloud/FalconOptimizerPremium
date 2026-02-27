@@ -1,0 +1,791 @@
+{
+  "items": [
+    {
+      "id": "qol.add_control_panel_shortcut__windows.qol",
+      "type": "action",
+      "name": "Add Control Panel Shortcut",
+      "risk": "Safe",
+      "description": "Adds Control Panel shortcut to desktop.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"$s=$env:PUBLIC+'\\Desktop\\Control Panel.lnk';$W=New-Object -ComObject WScript.Shell;$L=$W.CreateShortcut($s);$L.TargetPath='control.exe';$L.Save()\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"Remove-Item -Force -ErrorAction SilentlyContinue ($env:PUBLIC+'\\Desktop\\Control Panel.lnk')\""
+          }
+        ]
+      },
+      "primaryLabel": "Open",
+      "riskLevel": "Safe",
+      "category": "General / QOL"
+    },
+    {
+      "id": "qol.classic_alt_f4_menu__windows.qol",
+      "type": "toggle",
+      "name": "Classic Alt+F4 Shutdown Menu",
+      "risk": "Safe",
+      "description": "Enables the classic shutdown dialog (Alt+F4 on desktop).",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Start_PowerButtonAction",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Start_PowerButtonAction"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "General / QOL",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Start_PowerButtonAction",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "qol.classic_battery_network_icons__windows.qol",
+      "type": "toggle",
+      "name": "Classic Battery & Network Icons",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Uses classic tray icons where available.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer",
+            "name": "EnableAutoTray",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer",
+            "name": "EnableAutoTray"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "General / QOL",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer",
+            "name": "EnableAutoTray",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "qol.classic_right_click_menu__windows.qol",
+      "type": "toggle",
+      "name": "Classic Right-click Menu",
+      "risk": "Warning",
+      "description": "Enables the classic context menu on Windows 11 (requires Explorer restart).",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Classes\\CLSID\\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\\InprocServer32",
+            "name": "",
+            "value": "",
+            "valueType": "String"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Classes\\CLSID\\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\\InprocServer32",
+            "name": ""
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "General / QOL",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Classes\\CLSID\\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\\InprocServer32",
+            "name": "",
+            "valueType": "String",
+            "equals": ""
+          }
+        ]
+      }
+    },
+    {
+      "id": "qol.delete_default_power_plans__windows.qol",
+      "type": "button",
+      "name": "Delete Default Power Plans",
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay] Deletes default power plans (Balanced/Power saver/High performance).",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powercfg -delete SCHEME_MIN"
+          },
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powercfg -delete SCHEME_MAX"
+          },
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powercfg -delete SCHEME_BALANCED"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "General / QOL",
+      "note": "Converted from toggle (missing revert)."
+    },
+    {
+      "id": "qol.disable_suggested_apps__windows.qol",
+      "type": "action",
+      "name": "Disable Automatic Installation Of Suggested Apps",
+      "risk": "Safe",
+      "description": "Disables suggested app installs and consumer features.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\CloudContent",
+            "name": "DisableWindowsConsumerFeatures",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\CloudContent",
+            "name": "DisableWindowsConsumerFeatures"
+          }
+        ]
+      },
+      "primaryLabel": "Open",
+      "riskLevel": "Safe",
+      "category": "General / QOL"
+    },
+    {
+      "id": "qol.disable_rounded_tooltips__windows.qol",
+      "type": "toggle",
+      "name": "Disable Rounded Tooltips",
+      "risk": "Safe",
+      "description": "Disables balloon/tooltips where possible.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "EnableBalloonTips",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "EnableBalloonTips",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "General / QOL",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "EnableBalloonTips",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "qol.disable_safe_search__windows.qol",
+      "type": "toggle",
+      "name": "Disable Safe Search",
+      "risk": "Safe",
+      "description": "Disables SafeSearch enforcement in Windows search (where applicable).",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\SearchSettings",
+            "name": "SafeSearchMode",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\SearchSettings",
+            "name": "SafeSearchMode"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "General / QOL",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\SearchSettings",
+            "name": "SafeSearchMode",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "qol.disable_snap_layouts_hover__windows.qol",
+      "type": "toggle",
+      "name": "Disable Snap Layouts On Hover",
+      "risk": "Safe",
+      "description": "Disables Windows 11 snap layouts hover popup.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "EnableSnapAssistFlyout",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "EnableSnapAssistFlyout"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "General / QOL",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "EnableSnapAssistFlyout",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "qol.disable_start_menu_suggestions__windows.qol",
+      "type": "toggle",
+      "name": "Disable Start Menu App Suggestions",
+      "risk": "Safe",
+      "description": "Disables Start menu suggestions and recommendations.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+            "name": "SystemPaneSuggestionsEnabled",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+            "name": "SystemPaneSuggestionsEnabled"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "General / QOL",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+            "name": "SystemPaneSuggestionsEnabled",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "qol.disable_taskbar_chat__windows.qol",
+      "type": "toggle",
+      "name": "Disable Taskbar Chat",
+      "risk": "Safe",
+      "description": "Hides Chat from the taskbar.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "TaskbarMn",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "TaskbarMn"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "General / QOL",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "TaskbarMn",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "qol.disable_taskbar_transparency__windows.qol",
+      "type": "toggle",
+      "name": "Disable Taskbar Transparency",
+      "risk": "Safe",
+      "description": "Disables taskbar transparency effects.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize",
+            "name": "EnableTransparency",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize",
+            "name": "EnableTransparency",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "General / QOL",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize",
+            "name": "EnableTransparency",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "qol.disable_widgets__windows.qol",
+      "type": "toggle",
+      "name": "Disable Widgets",
+      "risk": "Warning",
+      "description": "Disables Widgets/News and Interests panel.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Dsh",
+            "name": "AllowNewsAndInterests",
+            "value": 0,
+            "valueType": "DWord"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "TaskbarDa",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Dsh",
+            "name": "AllowNewsAndInterests"
+          },
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "TaskbarDa"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "General / QOL",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Dsh",
+            "name": "AllowNewsAndInterests",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "qol.disable_windows_tips__windows.qol",
+      "type": "toggle",
+      "name": "Disable Windows Tips",
+      "risk": "Safe",
+      "description": "Disables Windows tips and suggestions notifications.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+            "name": "SubscribedContent-338389Enabled",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+            "name": "SubscribedContent-338389Enabled"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "General / QOL",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+            "name": "SubscribedContent-338389Enabled",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "qol.enable_full_wallpaper_quality__windows.qol",
+      "type": "toggle",
+      "name": "Enable Full Wallpaper Quality",
+      "risk": "Safe",
+      "description": "Prevents wallpaper quality compression.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Control Panel\\Desktop",
+            "name": "JPEGImportQuality",
+            "value": 100,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Control Panel\\Desktop",
+            "name": "JPEGImportQuality"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "General / QOL",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Control Panel\\Desktop",
+            "name": "JPEGImportQuality",
+            "valueType": "DWord",
+            "equals": 100
+          }
+        ]
+      }
+    },
+    {
+      "id": "qol.enable_numlock_on_startup__windows.qol",
+      "type": "toggle",
+      "name": "Enable Numlock On Startup",
+      "risk": "Safe",
+      "description": "Enables NumLock at startup.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKU\\.DEFAULT\\Control Panel\\Keyboard",
+            "name": "InitialKeyboardIndicators",
+            "value": "2",
+            "valueType": "String"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKU\\.DEFAULT\\Control Panel\\Keyboard",
+            "name": "InitialKeyboardIndicators"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "General / QOL",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKU\\.DEFAULT\\Control Panel\\Keyboard",
+            "name": "InitialKeyboardIndicators",
+            "valueType": "String",
+            "equals": "2"
+          }
+        ]
+      }
+    },
+    {
+      "id": "qol.remove_suggested_actions__windows.qol",
+      "type": "toggle",
+      "name": "Remove Suggested Actions",
+      "risk": "Safe",
+      "description": "Disables suggested actions (Win11).",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\SmartActionPlatform",
+            "name": "Enabled",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\SmartActionPlatform",
+            "name": "Enabled"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "General / QOL",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\SmartActionPlatform",
+            "name": "Enabled",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "qol.show_extensions__windows.qol",
+      "type": "toggle",
+      "name": "Show Extensions In File Explorer",
+      "risk": "Safe",
+      "description": "Shows file extensions in File Explorer.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "HideFileExt",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "HideFileExt",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "General / QOL",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "HideFileExt",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "qol.show_hidden_files__windows.qol",
+      "type": "toggle",
+      "name": "Show Hidden Files In File Explorer",
+      "risk": "Safe",
+      "description": "Shows hidden files in File Explorer.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Hidden",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Hidden",
+            "value": 2,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "General / QOL",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Hidden",
+            "valueType": "DWord",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "imported.imported.search_removal",
+      "type": "button",
+      "name": "Search Removal",
+      "category": "Windows / QoL",
+      "riskLevel": "Danger",
+      "risk": "Danger",
+      "description": "[Imported] Runnable tweak extracted from your V8.3. This runs a command pack under Admin. Risk: Danger.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_search_removal.bat\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    }
+  ]
+}

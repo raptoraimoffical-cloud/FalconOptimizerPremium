@@ -1,0 +1,306 @@
+{
+  "items": [
+    {
+      "id": "network_ping_jitter_test",
+      "type": "action",
+      "name": "Run Ping & Jitter Test (50 pings)",
+      "description": "[Analyzer] Pings 8.8.8.8, 1.1.1.1, and google.com (50 times each) and reports average latency and jitter.",
+      "requiresAdmin": false,
+      "riskLevel": "Safe",
+      "category": "Network Lab / Analyzer",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"=== FALCON NETWORK LAB: PING & JITTER TEST ===\"\nWrite-Output \"\"\nWrite-Output \"Testing latency to common targets (50 pings each)...\"\nWrite-Output \"\"\n\n$targets = @(\n  \"8.8.8.8\",       # Google DNS\n  \"1.1.1.1\",       # Cloudflare DNS\n  \"google.com\"     # General web\n)\n\nforeach ($t in $targets) {\n  Write-Output (\"--- Target: {0} ---\" -f $t)\n  try {\n    $res = Test-Connection -ComputerName $t -Count 50 -ErrorAction SilentlyContinue\n    if ($res) {\n      $avg = ($res | Measure-Object -Property ResponseTime -Average).Average\n      $min = ($res | Measure-Object -Property ResponseTime -Minimum).Minimum\n      $max = ($res | Measure-Object -Property ResponseTime -Maximum).Maximum\n      $stdev = [math]::Sqrt((($res | ForEach-Object { ($_.ResponseTime - $avg) * ($_.ResponseTime - $avg) }) | Measure-Object -Sum).Sum / ($res.Count))\n      Write-Output (\"  Avg:  {0:N2} ms\" -f $avg)\n      Write-Output (\"  Min:  {0:N2} ms\" -f $min)\n      Write-Output (\"  Max:  {0:N2} ms\" -f $max)\n      Write-Output (\"  Jitter (std dev): {0:N2} ms\" -f $stdev)\n    } else {\n      Write-Output \"  No ping response.\"\n    }\n  } catch {\n    Write-Output (\"  Failed to ping: {0}\" -f $_.Exception.Message)\n  }\n  Write-Output \"\"\n}\n\nWrite-Output \"Tip: High jitter (std dev) or frequent timeouts == unstable route or Wi-Fi issues.\"\nWrite-Output \"=== END OF NETWORK PING/JITTER TEST ===\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nPing test is read-only and requires no revert.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "id": "network_optimize_nic_advanced",
+      "type": "button",
+      "name": "Apply: Optimize NIC Advanced Properties (Low-Latency Mode)",
+      "description": "[Focus: Network Latency] Tries to disable Interrupt Moderation and energy-saving features on physical NICs for lower jitter and more consistent ping.",
+      "requiresAdmin": true,
+      "riskLevel": "Danger",
+      "category": "Network Lab / NIC",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"=== FALCON NETWORK LAB: NIC ADVANCED PROPERTY OPTIMIZATION ===\"\nWrite-Output \"\"\nWrite-Output \"This will try to adjust NIC advanced properties where present:\"\nWrite-Output \"  - Interrupt Moderation         -> Disabled\"\nWrite-Output \"  - Interrupt Moderation Rate   -> Off/Disabled\"\nWrite-Output \"  - Energy Efficient Ethernet   -> Disabled\"\nWrite-Output \"  - Green Ethernet / Power Save -> Disabled\"\nWrite-Output \"\"\nWrite-Output \"Drivers differ; Falcon only changes properties that exist and logs each change.\"\nWrite-Output \"\"\n\ntry {\n  $nics = Get-NetAdapter -Physical -ErrorAction SilentlyContinue\n  if (-not $nics) {\n    Write-Output \"No physical network adapters found.\"\n  } else {\n    foreach ($nic in $nics) {\n      Write-Output (\"Adapter: {0} | {1} | Status: {2}\" -f $nic.Name, $nic.InterfaceDescription, $nic.Status)\n      try {\n        $props = Get-NetAdapterAdvancedProperty -Name $nic.Name -ErrorAction SilentlyContinue\n      } catch {\n        Write-Output \"  Failed to query advanced properties.\"\n        continue\n      }\n\n      foreach ($p in $props) {\n        $dn = $p.DisplayName\n        $dv = $p.DisplayValue\n\n        # Interrupt Moderation\n        if ($dn -eq \"Interrupt Moderation\" -or $dn -eq \"Interrupt Moderation Rate\") {\n          if ($dv -ne \"Disabled\" -and $dv -ne \"Off\") {\n            try {\n              Set-NetAdapterAdvancedProperty -Name $nic.Name -DisplayName $dn -DisplayValue \"Disabled\" -NoRestart -ErrorAction SilentlyContinue\n              Write-Output (\"  Set {0} -> Disabled\" -f $dn)\n            } catch {\n              Write-Output (\"  Failed to set {0} on {1}: {2}\" -f $dn, $nic.Name, $_.Exception.Message)\n            }\n          } else {\n            Write-Output (\"  {0} already Disabled/Off\" -f $dn)\n          }\n        }\n\n        # Energy Efficient Ethernet / Green Ethernet\n        if ($dn -match \"Energy Efficient Ethernet\" -or $dn -match \"Green Ethernet\" -or $dn -match \"Power Saving\" -or $dn -match \"Power Save Mode\") {\n          if ($dv -ne \"Disabled\" -and $dv -ne \"Off\") {\n            try {\n              Set-NetAdapterAdvancedProperty -Name $nic.Name -DisplayName $dn -DisplayValue \"Disabled\" -NoRestart -ErrorAction SilentlyContinue\n              Write-Output (\"  Set {0} -> Disabled\" -f $dn)\n            } catch {\n              Write-Output (\"  Failed to set {0} on {1}: {2}\" -f $dn, $nic.Name, $_.Exception.Message)\n            }\n          } else {\n            Write-Output (\"  {0} already Disabled/Off\" -f $dn)\n          }\n        }\n      }\n\n      Write-Output \"\"\n    }\n  }\n} catch {\n  Write-Output (\"NIC optimization failed: {0}\" -f $_.Exception.Message)\n}\n\nWrite-Output \"Note: Some NIC drivers require a reboot or link reset to fully apply new advanced properties.\"\nWrite-Output \"=== END OF NIC ADVANCED PROPERTY OPTIMIZATION ===\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nRestoring NIC advanced properties to previous values requires manual changes in the adapter Advanced settings UI or driver reset.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "description": "[Focus: Network Latency] Tries to disable Interrupt Moderation and energy-saving features on physical NICs for lower jitter and more consistent ping.",
+      "requiresAdmin": true,
+      "riskLevel": "Danger",
+      "category": "Network Lab / NIC",
+      "id": "network_optimize_nic_advanced__revert",
+      "type": "button",
+      "name": "Revert: Optimize NIC Advanced Properties (Low-Latency Mode)",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nRestoring NIC advanced properties to previous values requires manual changes in the adapter Advanced settings UI or driver reset.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "id": "network_latency_logger",
+      "type": "action",
+      "name": "Latency Logger (CSV for Graphs)",
+      "description": "[Analyzer] Pings 8.8.8.8 repeatedly and logs timestamp + latency to a CSV file so you can graph real-time latency and jitter.",
+      "requiresAdmin": false,
+      "riskLevel": "Safe",
+      "category": "Network Lab / Analyzer",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"=== FALCON NETWORK LAB: REAL-TIME LATENCY LOG (TEXT) ===\"\nWrite-Output \"\"\nWrite-Output \"This will ping a target repeatedly and log timestamp + latency to a CSV file.\"\nWrite-Output \"You can graph this later in Excel or any plotting tool.\"\nWrite-Output \"\"\n\n$target = \"8.8.8.8\"\n$count = 120\n$delayMs = 500\n\n$logsDir = Join-Path $PSScriptRoot \"..\\logs\"\ntry {\n  if (-not (Test-Path $logsDir)) {\n    New-Item -ItemType Directory -Path $logsDir -Force | Out-Null\n  }\n} catch {}\n\n$timestamp = Get-Date -Format \"yyyyMMdd_HHmmss\"\n$logFile = Join-Path $logsDir (\"falcon_latency_log_{0}.csv\" -f $timestamp)\n\nWrite-Output (\"Target: {0}\" -f $target)\nWrite-Output (\"Samples: {0}, Interval: {1} ms\" -f $count, $delayMs)\nWrite-Output (\"Log file: {0}\" -f $logFile)\nWrite-Output \"\"\n\n\"Index,UtcTime,LatencyMs,Status\" | Out-File -FilePath $logFile -Encoding UTF8 -Force\n\nfor ($i = 1; $i -le $count; $i++) {\n  $now = (Get-Date).ToUniversalTime().ToString(\"o\")\n  try {\n    $res = Test-Connection -ComputerName $target -Count 1 -ErrorAction SilentlyContinue\n    if ($res) {\n      $lat = [math]::Round($res.ResponseTime,2)\n      Write-Output (\"[{0}/{1}] {2} ms\" -f $i, $count, $lat)\n      (\"{0},{1},{2},OK\" -f $i, $now, $lat) | Out-File -FilePath $logFile -Append -Encoding UTF8\n    } else {\n      Write-Output (\"[{0}/{1}] timeout\" -f $i, $count)\n      (\"{0},{1},,TIMEOUT\" -f $i, $now) | Out-File -FilePath $logFile -Append -Encoding UTF8\n    }\n  } catch {\n    Write-Output (\"[{0}/{1}] error: {2}\" -f $i, $count, $_.Exception.Message)\n    (\"{0},{1},,ERROR\" -f $i, $now) | Out-File -FilePath $logFile -Append -Encoding UTF8\n  }\n  Start-Sleep -Milliseconds $delayMs\n}\n\nWrite-Output \"\"\nWrite-Output \"Latency log complete. Open the CSV in a graphing tool for a visual latency graph.\"\nWrite-Output \"=== END OF REAL-TIME LATENCY LOG ===\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nLatency logger only writes a CSV file and requires no revert.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "id": "netsh_autotuning_disabled",
+      "type": "button",
+      "name": "Apply: AutoTuning=disabled",
+      "description": "[Focus: Ping] May reduce jitter; can reduce throughput.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Network Lab / Netsh",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "netsh int tcp set global autotuninglevel=disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "netsh int tcp set global autotuninglevel=normal"
+          }
+        ]
+      }
+    },
+    {
+      "description": "[Focus: Ping] May reduce jitter; can reduce throughput.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Network Lab / Netsh",
+      "id": "netsh_autotuning_disabled__revert",
+      "type": "button",
+      "name": "Revert: AutoTuning=disabled",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "netsh int tcp set global autotuninglevel=normal"
+          }
+        ]
+      }
+    },
+    {
+      "id": "netsh_disable_ecn",
+      "type": "button",
+      "name": "Apply: Disable ECN",
+      "description": "[Focus: Ping] Disable ECN.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Network Lab / Netsh",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "netsh int tcp set global ecncapability=disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "netsh int tcp set global ecncapability=default"
+          }
+        ]
+      }
+    },
+    {
+      "description": "[Focus: Ping] Disable ECN.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Network Lab / Netsh",
+      "id": "netsh_disable_ecn__revert",
+      "type": "button",
+      "name": "Revert: Disable ECN",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "netsh int tcp set global ecncapability=default"
+          }
+        ]
+      }
+    },
+    {
+      "id": "netsh_disable_tcp_timestamps",
+      "type": "button",
+      "name": "Apply: Disable TCP timestamps",
+      "description": "[Focus: Ping] Disable timestamps.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Network Lab / Netsh",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "netsh int tcp set global timestamps=disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "netsh int tcp set global timestamps=default"
+          }
+        ]
+      }
+    },
+    {
+      "description": "[Focus: Ping] Disable timestamps.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Network Lab / Netsh",
+      "id": "netsh_disable_tcp_timestamps__revert",
+      "type": "button",
+      "name": "Revert: Disable TCP timestamps",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "netsh int tcp set global timestamps=default"
+          }
+        ]
+      }
+    },
+    {
+      "id": "netsh_disable_chimney",
+      "type": "button",
+      "name": "Apply: Disable Chimney",
+      "description": "[Focus: Ping] Disable chimney offload.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Network Lab / Netsh",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "netsh int tcp set global chimney=disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "netsh int tcp set global chimney=default"
+          }
+        ]
+      }
+    },
+    {
+      "description": "[Focus: Ping] Disable chimney offload.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Network Lab / Netsh",
+      "id": "netsh_disable_chimney__revert",
+      "type": "button",
+      "name": "Revert: Disable Chimney",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "netsh int tcp set global chimney=default"
+          }
+        ]
+      }
+    },
+    {
+      "id": "netsh_disable_rsc",
+      "type": "button",
+      "name": "Apply: Disable RSC",
+      "description": "[Focus: Ping] Disable RSC.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Network Lab / Netsh",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "netsh int tcp set global rsc=disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "netsh int tcp set global rsc=enabled"
+          }
+        ]
+      }
+    },
+    {
+      "description": "[Focus: Ping] Disable RSC.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Network Lab / Netsh",
+      "id": "netsh_disable_rsc__revert",
+      "type": "button",
+      "name": "Revert: Disable RSC",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "netsh int tcp set global rsc=enabled"
+          }
+        ]
+      }
+    }
+  ]
+}

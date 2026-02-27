@@ -1,0 +1,70 @@
+{
+  "items": [
+    {
+      "id": "import.imported.check_plan_import.7a3ff14bd7",
+      "type": "button",
+      "name": "Check Plan Import",
+      "category": "Expansion / Imported / Power + BCD",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported runnable tweak. Risk: Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\oneclick_all\\import_oneclick_check_plan_import_7a3ff14bd7.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import.imported.plan_import_worked.063840f8c8",
+      "type": "button",
+      "name": "Plan Import Worked",
+      "category": "Expansion / Imported / Power + BCD",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported runnable tweak. Risk: Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\oneclick_all\\import_oneclick_plan_import_worked_063840f8c8.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import.imported.power_plan.d8e9c14aa8",
+      "type": "button",
+      "name": "Power Plan",
+      "category": "Expansion / Imported / Power + BCD",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Imported runnable tweak. Risk: Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\oneclick_all\\import_oneclick_power_plan_d8e9c14aa8.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    }
+  ]
+}

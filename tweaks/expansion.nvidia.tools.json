@@ -1,0 +1,1077 @@
+{
+  "items": [
+    {
+      "id": "exp_nv_open_nvidia_control_panel",
+      "name": "Run NVIDIA Control Panel",
+      "category": "Expansion / NVIDIA (Tools)",
+      "type": "action",
+      "description": "[Focus: FPS] Launches NVIDIA Control Panel if installed.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "process.start",
+            "filePath": "nvcplui.exe",
+            "arguments": ""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "kind": "tool",
+      "risk": "Info",
+      "manualOnly": true
+    },
+    {
+      "id": "exp_nv_open_windows_graphics_settings_gpu_preference",
+      "name": "Run Windows Graphics settings (GPU preference)",
+      "category": "Expansion / NVIDIA (Tools)",
+      "type": "action",
+      "description": "[Focus: FPS] Opens graphics settings UI.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "ms-settings:display-advancedgraphics",
+            "args": [],
+            "wait": false
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "kind": "tool",
+      "risk": "Info",
+      "manualOnly": true
+    },
+    {
+      "id": "exp_nv_open_game_bar_settings",
+      "name": "Run Game Bar settings",
+      "category": "Expansion / NVIDIA (Tools)",
+      "type": "action",
+      "description": "[Focus: FPS] Opens Game Bar settings.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "ms-settings:gaming-gamebar",
+            "args": [],
+            "wait": false
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "kind": "tool",
+      "risk": "Info",
+      "manualOnly": true
+    },
+    {
+      "id": "exp_nv_open_game_mode_settings",
+      "name": "Run Game Mode settings",
+      "category": "Expansion / NVIDIA (Tools)",
+      "type": "action",
+      "description": "[Focus: FPS] Opens Game Mode settings.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "ms-settings:gaming-gamemode",
+            "args": [],
+            "wait": false
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "kind": "tool",
+      "risk": "Info",
+      "manualOnly": true
+    },
+    {
+      "id": "exp_nv_open_xbox_settings",
+      "name": "Run Xbox settings",
+      "category": "Expansion / NVIDIA (Tools)",
+      "type": "action",
+      "description": "[Focus: FPS] Opens Xbox networking settings.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "ms-settings:gaming-xboxnetworking",
+            "args": [],
+            "wait": false
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "kind": "tool",
+      "risk": "Info",
+      "manualOnly": true
+    },
+    {
+      "id": "exp_nv_open_windows_update_page",
+      "name": "Run Windows update page",
+      "category": "Expansion / NVIDIA (Tools)",
+      "type": "action",
+      "description": "[Focus: FPS] Opens Windows Update settings.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "ms-settings:windowsupdate",
+            "args": [],
+            "wait": false
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "kind": "tool",
+      "risk": "Info",
+      "manualOnly": true
+    },
+    {
+      "id": "exp_nv_open_power_battery",
+      "name": "Run Power & Battery",
+      "category": "Expansion / NVIDIA (Tools)",
+      "type": "action",
+      "description": "[Focus: FPS, Latency / Input Delay] Opens power settings.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "ms-settings:powersleep",
+            "args": [],
+            "wait": false
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "kind": "tool",
+      "risk": "Info",
+      "manualOnly": true
+    },
+    {
+      "id": "exp_nv_open_display_settings",
+      "name": "Run Display settings",
+      "category": "Expansion / NVIDIA (Tools)",
+      "type": "action",
+      "description": "[Focus: FPS] Opens display settings.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "ms-settings:display",
+            "args": [],
+            "wait": false
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "kind": "tool",
+      "risk": "Info",
+      "manualOnly": true
+    },
+    {
+      "id": "exp_nv_open_advanced_display_settings",
+      "name": "Run Advanced display settings",
+      "category": "Expansion / NVIDIA (Tools)",
+      "type": "action",
+      "description": "[Focus: FPS] Opens advanced display settings.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "ms-settings:display-advanced",
+            "args": [],
+            "wait": false
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "kind": "tool",
+      "risk": "Info",
+      "manualOnly": true
+    },
+    {
+      "id": "exp_nv_open_ms_settings_display_advancedgraphics",
+      "name": "Run ms-settings:display-advancedgraphics",
+      "category": "Expansion / NVIDIA (Tools)",
+      "type": "action",
+      "description": "[Focus: FPS] Opens ms-settings:display-advancedgraphics settings page.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "ms-settings:display-advancedgraphics",
+            "args": [],
+            "wait": false
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "kind": "tool",
+      "risk": "Info",
+      "manualOnly": true
+    },
+    {
+      "id": "exp_nv_open_ms_settings_gaming_gamedvr",
+      "name": "Run ms-settings:gaming-gamedvr",
+      "category": "Expansion / NVIDIA (Tools)",
+      "type": "action",
+      "description": "[Focus: FPS] Opens ms-settings:gaming-gamedvr settings page.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "ms-settings:gaming-gamedvr",
+            "args": [],
+            "wait": false
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "kind": "tool",
+      "risk": "Info",
+      "manualOnly": true
+    },
+    {
+      "id": "exp_nv_open_ms_settings_gaming_broadcasting",
+      "name": "Run ms-settings:gaming-broadcasting",
+      "category": "Expansion / NVIDIA (Tools)",
+      "type": "action",
+      "description": "[Focus: FPS] Opens ms-settings:gaming-broadcasting settings page.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "ms-settings:gaming-broadcasting",
+            "args": [],
+            "wait": false
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "kind": "tool",
+      "risk": "Info",
+      "manualOnly": true
+    },
+    {
+      "id": "exp_nv_open_ms_settings_privacy_backgroundapps",
+      "name": "Run ms-settings:privacy-backgroundapps",
+      "category": "Expansion / NVIDIA (Tools)",
+      "type": "action",
+      "description": "[Focus: FPS] Opens ms-settings:privacy-backgroundapps settings page.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "ms-settings:privacy-backgroundapps",
+            "args": [],
+            "wait": false
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "kind": "tool",
+      "risk": "Info",
+      "manualOnly": true
+    },
+    {
+      "id": "exp_nv_open_ms_settings_privacy_general",
+      "name": "Run ms-settings:privacy-general",
+      "category": "Expansion / NVIDIA (Tools)",
+      "type": "action",
+      "description": "[Focus: FPS] Opens ms-settings:privacy-general settings page.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "ms-settings:privacy-general",
+            "args": [],
+            "wait": false
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "kind": "tool",
+      "risk": "Info",
+      "manualOnly": true
+    },
+    {
+      "id": "exp_nv_open_ms_settings_privacy_motion",
+      "name": "Run ms-settings:privacy-motion",
+      "category": "Expansion / NVIDIA (Tools)",
+      "type": "action",
+      "description": "[Focus: FPS] Opens ms-settings:privacy-motion settings page.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "ms-settings:privacy-motion",
+            "args": [],
+            "wait": false
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "kind": "tool",
+      "risk": "Info",
+      "manualOnly": true
+    },
+    {
+      "id": "exp_nv_open_ms_settings_privacy_speech",
+      "name": "Run ms-settings:privacy-speech",
+      "category": "Expansion / NVIDIA (Tools)",
+      "type": "action",
+      "description": "[Focus: FPS] Opens ms-settings:privacy-speech settings page.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "ms-settings:privacy-speech",
+            "args": [],
+            "wait": false
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "kind": "tool",
+      "risk": "Info",
+      "manualOnly": true
+    },
+    {
+      "id": "exp_nv_open_ms_settings_privacy_feedback",
+      "name": "Run ms-settings:privacy-feedback",
+      "category": "Expansion / NVIDIA (Tools)",
+      "type": "action",
+      "description": "[Focus: FPS] Opens ms-settings:privacy-feedback settings page.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "ms-settings:privacy-feedback",
+            "args": [],
+            "wait": false
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "kind": "tool",
+      "risk": "Info",
+      "manualOnly": true
+    },
+    {
+      "id": "exp_nv_open_ms_settings_privacy_location",
+      "name": "Run ms-settings:privacy-location",
+      "category": "Expansion / NVIDIA (Tools)",
+      "type": "action",
+      "description": "[Focus: FPS] Opens ms-settings:privacy-location settings page.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "ms-settings:privacy-location",
+            "args": [],
+            "wait": false
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "kind": "tool",
+      "risk": "Info",
+      "manualOnly": true
+    },
+    {
+      "id": "exp_nv_open_ms_settings_network_ethernet",
+      "name": "Run ms-settings:network-ethernet",
+      "category": "Expansion / NVIDIA (Tools)",
+      "type": "action",
+      "description": "[Focus: FPS, Latency / Input Delay, Ping / Network] Opens ms-settings:network-ethernet settings page.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "ms-settings:network-ethernet",
+            "args": [],
+            "wait": false
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "kind": "tool",
+      "risk": "Info",
+      "manualOnly": true
+    },
+    {
+      "id": "exp_nv_open_ms_settings_network_wifi",
+      "name": "Run ms-settings:network-wifi",
+      "category": "Expansion / NVIDIA (Tools)",
+      "type": "action",
+      "description": "[Focus: FPS, Latency / Input Delay, Ping / Network] Opens ms-settings:network-wifi settings page.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "ms-settings:network-wifi",
+            "args": [],
+            "wait": false
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "kind": "tool",
+      "risk": "Info",
+      "manualOnly": true
+    },
+    {
+      "id": "exp_nv_open_ms_settings_network_status",
+      "name": "Run ms-settings:network-status",
+      "category": "Expansion / NVIDIA (Tools)",
+      "type": "action",
+      "description": "[Focus: FPS, Latency / Input Delay, Ping / Network] Opens ms-settings:network-status settings page.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "ms-settings:network-status",
+            "args": [],
+            "wait": false
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "kind": "tool",
+      "risk": "Info",
+      "manualOnly": true
+    },
+    {
+      "id": "exp_nv_open_ms_settings_bluetooth",
+      "name": "Run ms-settings:bluetooth",
+      "category": "Expansion / NVIDIA (Tools)",
+      "type": "action",
+      "description": "[Focus: FPS] Opens ms-settings:bluetooth settings page.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "ms-settings:bluetooth",
+            "args": [],
+            "wait": false
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "kind": "tool",
+      "risk": "Info",
+      "manualOnly": true
+    },
+    {
+      "id": "exp_nv_open_ms_settings_appsfeatures",
+      "name": "Run ms-settings:appsfeatures",
+      "category": "Expansion / NVIDIA (Tools)",
+      "type": "action",
+      "description": "[Focus: FPS] Opens ms-settings:appsfeatures settings page.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "ms-settings:appsfeatures",
+            "args": [],
+            "wait": false
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "kind": "tool",
+      "risk": "Info",
+      "manualOnly": true
+    },
+    {
+      "id": "exp_nv_open_ms_settings_startupapps",
+      "name": "Run ms-settings:startupapps",
+      "category": "Expansion / NVIDIA (Tools)",
+      "type": "action",
+      "description": "[Focus: FPS] Opens ms-settings:startupapps settings page.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "ms-settings:startupapps",
+            "args": [],
+            "wait": false
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "kind": "tool",
+      "risk": "Info",
+      "manualOnly": true
+    },
+    {
+      "id": "exp_nv_open_ms_settings_optionalfeatures",
+      "name": "Run ms-settings:optionalfeatures",
+      "category": "Expansion / NVIDIA (Tools)",
+      "type": "action",
+      "description": "[Focus: FPS] Opens ms-settings:optionalfeatures settings page.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "ms-settings:optionalfeatures",
+            "args": [],
+            "wait": false
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "kind": "tool",
+      "risk": "Info",
+      "manualOnly": true
+    },
+    {
+      "id": "exp_nv_open_ms_settings_storage",
+      "name": "Run ms-settings:storage",
+      "category": "Expansion / NVIDIA (Tools)",
+      "type": "action",
+      "description": "[Focus: FPS] Opens ms-settings:storage settings page.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "ms-settings:storage",
+            "args": [],
+            "wait": false
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "kind": "tool",
+      "risk": "Info",
+      "manualOnly": true
+    },
+    {
+      "id": "exp_nv_open_ms_settings_about",
+      "name": "Run ms-settings:about",
+      "category": "Expansion / NVIDIA (Tools)",
+      "type": "action",
+      "description": "[Focus: FPS] Opens ms-settings:about settings page.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "ms-settings:about",
+            "args": [],
+            "wait": false
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "kind": "tool",
+      "risk": "Info",
+      "manualOnly": true
+    },
+    {
+      "id": "exp_nv_open_ms_settings_notifications",
+      "name": "Run ms-settings:notifications",
+      "category": "Expansion / NVIDIA (Tools)",
+      "type": "action",
+      "description": "[Focus: FPS] Opens ms-settings:notifications settings page.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "ms-settings:notifications",
+            "args": [],
+            "wait": false
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "kind": "tool",
+      "risk": "Info",
+      "manualOnly": true
+    },
+    {
+      "id": "exp_nv_open_ms_settings_tabletmode",
+      "name": "Run ms-settings:tabletmode",
+      "category": "Expansion / NVIDIA (Tools)",
+      "type": "action",
+      "description": "[Focus: FPS] Opens ms-settings:tabletmode settings page.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "ms-settings:tabletmode",
+            "args": [],
+            "wait": false
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "kind": "tool",
+      "risk": "Info",
+      "manualOnly": true
+    },
+    {
+      "id": "exp_nv_open_ms_settings_taskbar",
+      "name": "Run ms-settings:taskbar",
+      "category": "Expansion / NVIDIA (Tools)",
+      "type": "action",
+      "description": "[Focus: FPS] Opens ms-settings:taskbar settings page.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "ms-settings:taskbar",
+            "args": [],
+            "wait": false
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "kind": "tool",
+      "risk": "Info",
+      "manualOnly": true
+    },
+    {
+      "id": "exp_nv_open_ms_settings_personalization_background",
+      "name": "Run ms-settings:personalization-background",
+      "category": "Expansion / NVIDIA (Tools)",
+      "type": "action",
+      "description": "[Focus: FPS] Opens ms-settings:personalization-background settings page.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "ms-settings:personalization-background",
+            "args": [],
+            "wait": false
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "kind": "tool",
+      "risk": "Info",
+      "manualOnly": true
+    },
+    {
+      "id": "exp_nv_open_ms_settings_personalization_colors",
+      "name": "Run ms-settings:personalization-colors",
+      "category": "Expansion / NVIDIA (Tools)",
+      "type": "action",
+      "description": "[Focus: FPS] Opens ms-settings:personalization-colors settings page.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "ms-settings:personalization-colors",
+            "args": [],
+            "wait": false
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "kind": "tool",
+      "risk": "Info",
+      "manualOnly": true
+    },
+    {
+      "id": "exp_nv_open_ms_settings_personalization_start",
+      "name": "Run ms-settings:personalization-start",
+      "category": "Expansion / NVIDIA (Tools)",
+      "type": "action",
+      "description": "[Focus: FPS] Opens ms-settings:personalization-start settings page.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "ms-settings:personalization-start",
+            "args": [],
+            "wait": false
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "kind": "tool",
+      "risk": "Info",
+      "manualOnly": true
+    },
+    {
+      "id": "exp_nv_open_ms_settings_fonts",
+      "name": "Run ms-settings:fonts",
+      "category": "Expansion / NVIDIA (Tools)",
+      "type": "action",
+      "description": "[Focus: FPS] Opens ms-settings:fonts settings page.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "ms-settings:fonts",
+            "args": [],
+            "wait": false
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "kind": "tool",
+      "risk": "Info",
+      "manualOnly": true
+    },
+    {
+      "id": "exp_nv_open_ms_settings_easeofaccess_display",
+      "name": "Run ms-settings:easeofaccess-display",
+      "category": "Expansion / NVIDIA (Tools)",
+      "type": "action",
+      "description": "[Focus: FPS] Opens ms-settings:easeofaccess-display settings page.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "ms-settings:easeofaccess-display",
+            "args": [],
+            "wait": false
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "kind": "tool",
+      "risk": "Info",
+      "manualOnly": true
+    },
+    {
+      "id": "exp_nv_open_ms_settings_easeofaccess_keyboard",
+      "name": "Run ms-settings:easeofaccess-keyboard",
+      "category": "Expansion / NVIDIA (Tools)",
+      "type": "action",
+      "description": "[Focus: FPS, Latency / Input Delay] Opens ms-settings:easeofaccess-keyboard settings page.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "ms-settings:easeofaccess-keyboard",
+            "args": [],
+            "wait": false
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "kind": "tool",
+      "risk": "Info",
+      "manualOnly": true
+    },
+    {
+      "id": "exp_nv_open_ms_settings_sign_in_options",
+      "name": "Run ms-settings:sign-in-options",
+      "category": "Expansion / NVIDIA (Tools)",
+      "type": "action",
+      "description": "[Focus: FPS] Opens ms-settings:sign-in-options settings page.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "ms-settings:sign-in-options",
+            "args": [],
+            "wait": false
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "kind": "tool",
+      "risk": "Info",
+      "manualOnly": true
+    },
+    {
+      "id": "exp_nv_open_ms_settings_recovery",
+      "name": "Run ms-settings:recovery",
+      "category": "Expansion / NVIDIA (Tools)",
+      "type": "action",
+      "description": "[Focus: FPS] Opens ms-settings:recovery settings page.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "ms-settings:recovery",
+            "args": [],
+            "wait": false
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "kind": "tool",
+      "risk": "Info",
+      "manualOnly": true
+    },
+    {
+      "id": "exp_nv_open_ms_settings_windowsdefender",
+      "name": "Run ms-settings:windowsdefender",
+      "category": "Expansion / NVIDIA (Tools)",
+      "type": "action",
+      "description": "[Focus: FPS] Opens ms-settings:windowsdefender settings page.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "ms-settings:windowsdefender",
+            "args": [],
+            "wait": false
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "kind": "tool",
+      "risk": "Info",
+      "manualOnly": true
+    },
+    {
+      "id": "exp_nv_open_ms_settings_family_group",
+      "name": "Run ms-settings:family-group",
+      "category": "Expansion / NVIDIA (Tools)",
+      "type": "action",
+      "description": "[Focus: FPS] Opens ms-settings:family-group settings page.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "ms-settings:family-group",
+            "args": [],
+            "wait": false
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "kind": "tool",
+      "risk": "Info",
+      "manualOnly": true
+    },
+    {
+      "id": "exp_nv_open_ms_settings_gaming_trueplay",
+      "name": "Run ms-settings:gaming-trueplay",
+      "category": "Expansion / NVIDIA (Tools)",
+      "type": "action",
+      "description": "[Focus: FPS] Opens ms-settings:gaming-trueplay settings page.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "ms-settings:gaming-trueplay",
+            "args": [],
+            "wait": false
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "kind": "tool",
+      "risk": "Info",
+      "manualOnly": true
+    },
+    {
+      "id": "exp_nv_open_ms_settings_gaming_xboxnetworking",
+      "name": "Run ms-settings:gaming-xboxnetworking",
+      "category": "Expansion / NVIDIA (Tools)",
+      "type": "action",
+      "description": "[Focus: FPS, Latency / Input Delay, Ping / Network] Opens ms-settings:gaming-xboxnetworking settings page.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "ms-settings:gaming-xboxnetworking",
+            "args": [],
+            "wait": false
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "kind": "tool",
+      "risk": "Info",
+      "manualOnly": true
+    },
+    {
+      "id": "exp_nv_run_nvidia_smi_if_available",
+      "name": "Run nvidia-smi (if available)",
+      "category": "Expansion / NVIDIA (Tools)",
+      "type": "action",
+      "description": "[Focus: FPS] Runs nvidia-smi if in PATH (shows GPU info).",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "process.start",
+            "filePath": "nvidia-smi.exe",
+            "arguments": ""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "kind": "tool",
+      "risk": "Info",
+      "manualOnly": true
+    }
+  ]
+}

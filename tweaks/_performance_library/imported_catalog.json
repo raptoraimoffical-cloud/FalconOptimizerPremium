@@ -1,0 +1,2352 @@
+{
+  "generatedAt": "2026-02-19T07:28:17.435030Z",
+  "sources": {
+    "optimizer_pack": {
+      "path": "Oneclick-V8.3.bat (source)",
+      "sha256": "e12c12287f56d3fbc525be1a6c5ab7bf3ada3a6272c077dab92a6b397f553d11",
+      "lines": 5089
+    }
+  },
+  "extraction": {
+    "optimizer_pack": {
+      "actions_total": 843,
+      "actions_kept": 583
+    }
+  },
+  "actions": {
+    "optimizer_pack": [
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Kernel\" /v \"GlobalTimerResolutionRequests\" /t REG_DWORD /d \"1\" /f >nul 2>&1"
+      },
+      {
+        "type": "cleanup",
+        "raw": "rd /s /q \"C:\\VC Redist\" >nul 2>&1"
+      },
+      {
+        "type": "service",
+        "raw": "sc config \"ucpd\" start=disabled >nul 2>&1"
+      },
+      {
+        "type": "schtasks",
+        "raw": "schtasks /change /disable /tn \"\\Microsoft\\Windows\\AppxDeploymentClient\\UCPD velocity\" >nul 2>&1"
+      },
+      {
+        "type": "service",
+        "raw": "sc config TrustedInstaller start=auto >nul 2>&1"
+      },
+      {
+        "type": "cleanup",
+        "raw": "del \"%Temp%\\Skip.Loop\" >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\Software\\Microsoft\\Windows NT\\CurrentVersion\\SystemRestore\" /v \"SystemRestorePointCreationFrequency\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_delete",
+        "raw": "reg delete \"HKLM\\SOFTWARE\\Microsoft\\WindowsNT\\CurrentVersion\\SystemRestore\" /v \"RPSessionInterval\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_delete",
+        "raw": "reg delete \"HKLM\\SOFTWARE\\Microsoft\\WindowsNT\\CurrentVersion\\SystemRestore\" /v \"DisableConfig\" /f >nul 2>&1"
+      },
+      {
+        "type": "service",
+        "raw": "sc config VSS start=demand >nul 2>&1"
+      },
+      {
+        "type": "service",
+        "raw": "sc config swprv start=demand >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\" /v \"HideFileExt\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\" /v \"Hidden\" /t REG_DWORD /d \"1\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_delete",
+        "raw": "reg delete \"HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Desktop\\NameSpace\\{e88865ea-0e1c-4e20-9aa6-edcd0212c87c}\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_delete",
+        "raw": "reg delete \"HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Desktop\\NameSpace\\{f874310e-b6b7-47dc-bc84-b9e6b38f5903}\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer\" /v \"HideSCAMeetNow\" /t REG_DWORD /d \"1\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\" /v \"TaskbarMn\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer\" /v \"SettingsPageVisibility\" /t REG_SZ /d \"hide:home\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Search\" /v \"BingSearchEnabled\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Search\" /v \"SearchboxTaskbarMode\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\" /v \"TaskbarDa\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\" /v \"ShowTaskViewButton\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Feeds\" /v \"EnableFeeds\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Feeds\" /v \"ShellFeedsTaskbarViewMode\" /t REG_DWORD /d \"2\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SOFTWARE\\Microsoft\\PolicyManager\\default\\NewsAndInterests\" /v \"AllowNewsAndInterests\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SOFTWARE\\Policies\\Microsoft\\Dsh\" /v \"AllowNewsAndInterests\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize /v \"EnableTransparency\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SOFTWARE\\Microsoft\\PolicyManager\\current\\device\\Start\" /v \"HideRecommendedSection\" /t REG_DWORD /d \"1\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SOFTWARE\\Microsoft\\PolicyManager\\current\\device\\Education\" /v \"IsEducationEnvironment\" /t REG_DWORD /d \"1\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Explorer\" /v \"HideRecommendedSection\" /t REG_DWORD /d \"1\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\" /f /v \"LaunchTo\" /t REG_DWORD /d \"1\" >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\OperationStatusManager\" /v \"EnthusiastMode\" /t REG_DWORD /d \"1\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\FileSystem\" /v \"LongPathsEnabled\" /t REG_DWORD /d \"1\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\" /v \"TaskbarAl\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\Control Panel\\Desktop\" /v \"DragFullWindows\" /t REG_SZ /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\Control Panel\\Desktop\" /v \"MenuShowDelay\" /t REG_SZ /d \"200\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\Control Panel\\Desktop\\WindowMetrics\" /v \"MinAnimate\" /t REG_SZ /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\Software\\Microsoft\\Windows\\DWM\" /v \"EnableAeroPeek\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\Control Panel\\Desktop\" /v \"UserPreferencesMask\" /t REG_BINARY /d \"9012038010000000\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\" /v \"ListviewAlphaSelect\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\" /v \"ListviewShadow\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\" /v \"TaskbarAnimations\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\VisualEffects\" /v \"VisualFXSetting\" /t REG_DWORD /d \"3\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\Software\\Classes\\CLSID\\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\\InprocServer32\" /ve /t REG_SZ /d \"\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\Control Panel\\Desktop\" /V \"WallpaperStyle\" /T REG_SZ /F /D \"10\" >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\Control Panel\\Desktop\" /V \"TileWallpaper\" /T REG_SZ /F /D \"0\" >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\OEMInformation\" /v \"Manufacturer\" /t REG_SZ /d \"Quaked Tweaks\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\OEMInformation\" /v \"SupportURL\" /t REG_SZ /d \"https://discord.gg/8NqDSMzYun\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\Software\\Policies\\Microsoft\\Windows\\Explorer\" /v \"DisableNotificationCenter\" /t REG_DWORD /d \"1\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\PushNotifications\" /v \"ToastEnabled\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\BackgroundAccessApplications\" /v \"GlobalUserDisabled\" /t REG_DWORD /d \"1\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\Control Panel\\Mouse\" /v \"MouseSpeed\" /t REG_SZ /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\Control Panel\\Mouse\" /v \"MouseThreshold1\" /t REG_SZ /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\Control Panel\\Mouse\" /v \"MouseThreshold2\" /t REG_SZ /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\Control Panel\\Accessibility\\StickyKeys\" /v \"Flags\" /t REG_SZ /d \"506\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\Control Panel\\Accessibility\\ToggleKeys\" /v \"Flags\" /t REG_SZ /d \"58\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\Control Panel\\Accessibility\\Keyboard Response\" /v \"Flags\" /t REG_SZ /d \"122\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\Software\\Microsoft\\DirectX\\UserGpuPreferences\" /v \"DirectXUserGlobalSettings\" /t REG_SZ /d \"SwapEffectUpgradeEnable=1;\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\GraphicsDrivers\" /v \"HwSchMode\" /t REG_DWORD /d \"2\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\System\\GameConfigStore\" /v GameDVR_FSEBehaviorMode /t REG_DWORD /d \"2\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\System\\GameConfigStore\" /v GameDVR_FSEBehavior /t REG_DWORD /d \"2\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\System\\GameConfigStore\" /v GameDVR_DSEBehavior /t REG_DWORD /d \"2\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\System\\GameConfigStore\" /v GameDVR_Enabled /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\System\\GameConfigStore\" /v GameDVR_DXGIHonorFSEWindowsCompatible /t REG_DWORD /d \"1\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\System\\GameConfigStore\" /v GameDVR_HonorUserFSEBehaviorMode /t REG_DWORD /d \"1\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\System\\GameConfigStore\" /v GameDVR_EFSEFeatureFlags /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\GameDVR\" /v AllowGameDVR /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\GameDVR\" /v \"AppCaptureEnabled\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\GameDVR\" /v \"AudioCaptureEnabled\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\GameDVR\" /v \"CursorCaptureEnabled\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\GameDVR\" /v \"MicrophoneCaptureEnabled\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\Software\\Microsoft\\GameBar\" /v \"AllowAutoGameMode\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\Software\\Microsoft\\GameBar\" /v \"AutoGameModeEnabled\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\StorageSense\\Parameters\\StoragePolicy\" /v \"01\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip6\\Parameters\" /v \"DisabledComponents\" /t REG_DWORD /d \"255\" /f >nul 2>&1"
+      },
+      {
+        "type": "netsh",
+        "raw": "netsh interface teredo set state disabled >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\" /v \"EnableLUA\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\" /v \"SystemResponsiveness\" /t REG_DWORD /d \"10\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\System\" /v \"EnableActivityFeed\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\System\" /v \"PublishUserActivities\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\System\" /v \"UploadUserActivities\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\location\" /v \"Value\" /t REG_SZ /d \"Deny\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Sensor\\Overrides\\{BFA794E4-F964-4FDB-90F6-51056BFE4B44}\" /v \"SensorPermissionState\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\lfsvc\\Service\\Configuration\" /v \"Status\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\Maps\" /v \"AutoUpdateEnabled\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\DataCollection\" /v AllowTelemetry /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\DataCollection\" /v \"AllowTelemetry\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\DataCollection\" /v \"DoNotShowFeedbackNotifications\" /t REG_DWORD /d \"1\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SOFTWARE\\Microsoft\\Windows\\Windows Error Reporting\" /v \"Disabled\" /t REG_DWORD /d \"1\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Device Installer\" /v \"DisableCoInstallers\" /t REG_DWORD /d \"1\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\DriverSearching\" /v \"SearchOrderConfig\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\Software\\Microsoft\\PolicyManager\\default\\WiFi\\AllowWiFiHotSpotReporting\" /v \"Value\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\Software\\Microsoft\\PolicyManager\\default\\WiFi\\AllowAutoConnectToWiFiSenseHotspots\" /v \"Value\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Remote Assistance\" /v \"fAllowToGetHelp\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\DeliveryOptimization\\Config\" /v \"DODownloadMode\" /t REG_DWORD /d \"1\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\DeliveryOptimization\" /v \"DODownloadMode\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\NetworkConnectivityStatusIndicator\" /v \"NoActiveProbe\" /t REG_DWORD /d \"1\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\System\\CurrentControlSet\\Services\\NlaSvc\\Parameters\\Internet\" /v \"EnableActiveProbing\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\SOFTWARE\\Microsoft\\Siuf\\Rules\" /v \"NumberOfSIUFInPeriod\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_delete",
+        "raw": "reg delete \"HKCU\\SOFTWARE\\Microsoft\\Siuf\\Rules\" /v \"PeriodInNanoSeconds\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager\" /v \"ContentDeliveryAllowed\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager\" /v \"OemPreInstalledAppsEnabled\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager\" /v \"PreInstalledAppsEnabled\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager\" /v \"PreInstalledAppsEverEnabled\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager\" /v \"SilentInstalledAppsEnabled\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager\" /v \"SubscribedContent-338387Enabled\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager\" /v \"SubscribedContent-338388Enabled\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager\" /v \"SubscribedContent-338389Enabled\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager\" /v \"SubscribedContent-353698Enabled\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager\" /v \"SystemPaneSuggestionsEnabled\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\UserProfileEngagement\" /v \"ScoobeSystemSettingEnabled\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\SOFTWARE\\Policies\\Microsoft\\Windows\\CloudContent\" /v \"DisableTailoredExperiencesWithDiagnosticData\" /t REG_DWORD /d \"1\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\CloudContent\" /v \"DisableWindowsConsumerFeatures\" /t REG_DWORD /d \"1\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\AdvertisingInfo\" /v \"DisabledByGroupPolicy\" /t REG_DWORD /d \"1\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\System\\CurrentControlSet\\Control\\DeviceGuard\\Scenarios\\HypervisorEnforcedCodeIntegrity\" /v \"Enabled\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\CI\\Policy\" /v \"VerifiedAndReputablePolicyState\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\DeviceGuard\" /v \"EnableVirtualizationBasedSecurity\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "service",
+        "raw": "sc config AarSvc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config ADPSvc start=disabled >nul 2>&1"
+      },
+      {
+        "type": "service",
+        "raw": "sc config AJRouter start=disabled >nul 2>&1"
+      },
+      {
+        "type": "service",
+        "raw": "sc config ALG start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config AppMgmt start=disabled >nul 2>&1"
+      },
+      {
+        "type": "service",
+        "raw": "sc config AppInfo start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config AppReadiness start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config AssignedAccessManagerSvc start=disabled >nul 2>&1"
+      },
+      {
+        "type": "service",
+        "raw": "sc config autotimesvc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config AxInstSV start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config BcastDVRUserService start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config BDESVC start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config BITS start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config BluetoothUserService start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config BTAGService start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config BthAvctpSvc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config bthserv start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config CaptureService start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config cbdhsvc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config CDPUserSvc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config CDPSvc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config CertPropSvc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config CloudBackupRestoreSvc start=disabled >nul 2>&1"
+      },
+      {
+        "type": "service",
+        "raw": "sc config cloudidsvc start=demand >nul 2>&1"
+      },
+      {
+        "type": "service",
+        "raw": "sc config COMSysApp start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config ConsentUxUserSvc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config CscService start=disabled >nul 2>&1"
+      },
+      {
+        "type": "service",
+        "raw": "sc config dcsvc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config defragsvc start=demand"
+      },
+      {
+        "type": "service",
+        "raw": "sc config DeviceAssociationService start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config DeviceInstall start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config DevicePickerUserSvc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config DevicesFlowUserSvc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config DevQueryBroker start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config diagnosticshub.standardcollector.service start=disabled >nul 2>&1"
+      },
+      {
+        "type": "service",
+        "raw": "sc config DiagTrack start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config diagsvc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config DispBrokerDesktopSvc start=auto"
+      },
+      {
+        "type": "service",
+        "raw": "sc config DisplayEnhancementService start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config DmEnrollmentSvc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config dmwappushservice start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config dot3svc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config DPS start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config DsmSvc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config DsSvc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config DusmSvc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config Eaphost start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config edgeupdate start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config edgeupdatem start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config EFS start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config EventLog start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config EventSystem start=demand"
+      },
+      {
+        "type": "service",
+        "raw": "sc config fdPHost start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config FDResPub start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config fhsvc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config FontCache start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config FrameServer start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config FrameServerMonitor start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config GameInputSvc start=disabled >nul 2>&1"
+      },
+      {
+        "type": "service",
+        "raw": "sc config GraphicsPerfSvc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config hpatchmon start=disabled >nul 2>&1"
+      },
+      {
+        "type": "service",
+        "raw": "sc config hidserv start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config HvHost start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config icssvc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config IKEEXT start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config InstallService start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config InventorySvc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config IpxlatCfgSvc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config KtmRm start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config LanmanServer start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config LanmanWorkstation start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config lfsvc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config LocalKdc start=disabled >nul 2>&1"
+      },
+      {
+        "type": "service",
+        "raw": "sc config LicenseManager start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config lltdsvc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config lmhosts start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config LxpSvc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config MapsBroker start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config McpManagementService start=disabled >nul 2>&1"
+      },
+      {
+        "type": "service",
+        "raw": "sc config McmSvc start=disabled >nul 2>&1"
+      },
+      {
+        "type": "service",
+        "raw": "sc config MessagingService start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config midisrv start=disabled >nul 2>&1"
+      },
+      {
+        "type": "service",
+        "raw": "sc config MSDTC start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config MSiSCSI start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config NaturalAuthentication start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config NcaSvc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config NcbService start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config NcdAutoSetup start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config Netlogon start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config Netman start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config NetSetupSvc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config NetTcpPortSharing start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config NlaSvc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config NPSMSvc start=disabled >nul 2>&1"
+      },
+      {
+        "type": "service",
+        "raw": "sc config OneSyncSvc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config p2pimsvc start=disabled >nul 2>&1"
+      },
+      {
+        "type": "service",
+        "raw": "sc config p2psvc start=disabled >nul 2>&1"
+      },
+      {
+        "type": "service",
+        "raw": "sc config P9RdrService start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config PcaSvc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config PeerDistSvc start=disabled >nul 2>&1"
+      },
+      {
+        "type": "service",
+        "raw": "sc config PenService start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config perceptionsimulation start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config PerfHost start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config PhoneSvc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config PimIndexMaintenanceSvc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config pla start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config PNRPAutoReg start=disabled >nul 2>&1"
+      },
+      {
+        "type": "service",
+        "raw": "sc config PNRPsvc start=disabled >nul 2>&1"
+      },
+      {
+        "type": "service",
+        "raw": "sc config PolicyAgent start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config PrintDeviceConfigurationService start=disabled >nul 2>&1"
+      },
+      {
+        "type": "service",
+        "raw": "sc config PrintNotify start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config PrintScanBrokerService start=disabled >nul 2>&1"
+      },
+      {
+        "type": "service",
+        "raw": "sc config PushToInstall start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config QWAVE start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config RasAuto start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config RasMan start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config refsdedupsvc start=disabled >nul 2>&1"
+      },
+      {
+        "type": "service",
+        "raw": "sc config RemoteAccess start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config RemoteRegistry start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config RetailDemo start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config RmSvc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config RpcLocator start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config SamSs start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config SCardSvr start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config ScDeviceEnum start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config SCPolicySvc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config SDRSVC start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config seclogon start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config SENS start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config Sense start=disabled >nul 2>&1"
+      },
+      {
+        "type": "service",
+        "raw": "sc config SensorDataService start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config SensorService start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config SensrSvc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config SEMgrSvc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config SessionEnv start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config SharedAccess start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config SharedRealitySvc start=disabled >nul 2>&1"
+      },
+      {
+        "type": "service",
+        "raw": "sc config ShellHWDetection start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config shpamsvc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config SmsRouter start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config smphost start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config SNMPTrap start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config Spooler start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config SSDPSRV start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config ssh-agent start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config SstpSvc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config stisvc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config StorSvc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config svsvc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config SysMain start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config TapiSrv start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config TermService start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config Themes start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config TieringEngineService start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config TokenBroker start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config TrkWks start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config TroubleshootingSvc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config tzautoupdate start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config UevAgentService start=disabled >nul 2>&1"
+      },
+      {
+        "type": "service",
+        "raw": "sc config uhssvc start=disabled >nul 2>&1"
+      },
+      {
+        "type": "service",
+        "raw": "sc config UmRdpService start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config UnistoreSvc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config upnphost start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config UserDataSvc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config VacSvc start=demand >nul 2>&1"
+      },
+      {
+        "type": "service",
+        "raw": "sc config VaultSvc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config vds start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config vmicguestinterface start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config vmicheartbeat start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config vmickvpexchange start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config vmicrdv start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config vmicshutdown start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config vmictimesync start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config vmicvmsession start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config vmicvss start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config W32Time start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config WalletService start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config WarpJITSvc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config wbengine start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config WbioSrvc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config Wcmsvc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config wcncsvc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config WdiServiceHost start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config WdiSystemHost start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config WebClient start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config webthreatdefusersvc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config webthreatdefsvc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config Wecsvc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config WEPHOSTSVC start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config wercplsupport start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config WerSvc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config WFDSConMgrSvc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config whesvc start=disabled >nul 2>&1"
+      },
+      {
+        "type": "service",
+        "raw": "sc config WiaRpc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config WinRM start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config wisvc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config WlanSvc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config wlidsvc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config wlpasvc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config WManSvc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config wmiApSrv start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config WMPNetworkSvc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config workfolderssvc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config WpcMonSvc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config WPDBusEnum start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config WpnUserService start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config WpnService start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config wuqisvc start=disabled >nul 2>&1"
+      },
+      {
+        "type": "service",
+        "raw": "sc config WSAIFabricSvc start=disabled >nul 2>&1"
+      },
+      {
+        "type": "service",
+        "raw": "sc config WSearch start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config WwanSvc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config XblAuthManager start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config XblGameSave start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config XboxGipSvc start=disabled"
+      },
+      {
+        "type": "service",
+        "raw": "sc config XboxNetApiSvc start=disabled"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\System\\CurrentControlSet\\Services\\AppIDSvc\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\System\\CurrentControlSet\\Services\\AppXSvc\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\System\\CurrentControlSet\\Services\\BFE\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\System\\CurrentControlSet\\Services\\ClipSVC\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\System\\CurrentControlSet\\Services\\CredentialEnrollmentManagerUserSvc\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\System\\CurrentControlSet\\Services\\DeviceAssociationBrokerSvc\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\System\\CurrentControlSet\\Services\\DoSvc\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\System\\CurrentControlSet\\Services\\EntAppSvc\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\System\\CurrentControlSet\\Services\\embeddedmode\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\System\\CurrentControlSet\\Services\\PrintWorkflowUserSvc\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\System\\CurrentControlSet\\Services\\SgrmBroker\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\System\\CurrentControlSet\\Services\\TimeBrokerSvc\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\System\\CurrentControlSet\\Services\\WinHttpAutoProxySvc\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "service",
+        "raw": "sc config jhi_service start=disabled >nul 2>&1"
+      },
+      {
+        "type": "service",
+        "raw": "sc config WMIRegistrationService start=disabled >nul 2>&1"
+      },
+      {
+        "type": "service",
+        "raw": "sc config ipfsvc start=disabled >nul 2>&1"
+      },
+      {
+        "type": "service",
+        "raw": "sc config igccservice start=disabled >nul 2>&1"
+      },
+      {
+        "type": "service",
+        "raw": "sc config cplspcon start=disabled >nul 2>&1"
+      },
+      {
+        "type": "service",
+        "raw": "sc config esifsvc start=disabled >nul 2>&1"
+      },
+      {
+        "type": "service",
+        "raw": "sc config LMS start=disabled >nul 2>&1"
+      },
+      {
+        "type": "service",
+        "raw": "sc config ibtsiva start=disabled >nul 2>&1"
+      },
+      {
+        "type": "service",
+        "raw": "sc config cphs start=disabled >nul 2>&1"
+      },
+      {
+        "type": "service",
+        "raw": "sc config DSAService start=disabled >nul 2>&1"
+      },
+      {
+        "type": "service",
+        "raw": "sc config DSAUpdateService start=disabled >nul 2>&1"
+      },
+      {
+        "type": "service",
+        "raw": "sc config RstMwService start=disabled >nul 2>&1"
+      },
+      {
+        "type": "service",
+        "raw": "sc config SystemUsageReportSvc_QUEENCREEK start=disabled >nul 2>&1"
+      },
+      {
+        "type": "service",
+        "raw": "sc config iaStorAfsService start=disabled >nul 2>&1"
+      },
+      {
+        "type": "service",
+        "raw": "sc config \"!Svc!\" start=disabled >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\System\\CurrentControlSet\\Services\\AUEPLauncher\" /v \"Start\" /t REG_DWORD /d \"4\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\System\\CurrentControlSet\\Services\\!Svc!\" /v \"Start\" /t REG_DWORD /d \"4\" /f >nul 2>&1"
+      },
+      {
+        "type": "service",
+        "raw": "sc config NVDisplay.ContainerLocalSystem start=disabled >nul 2>&1"
+      },
+      {
+        "type": "service",
+        "raw": "sc config NvContainerLocalSystem start=disabled >nul 2>&1"
+      },
+      {
+        "type": "service",
+        "raw": "sc config FvSVC start=disabled >nul 2>&1"
+      },
+      {
+        "type": "service",
+        "raw": "sc config RzActionSvc start=disabled >nul 2>&1"
+      },
+      {
+        "type": "service",
+        "raw": "sc config CortexLauncherService start=disabled >nul 2>&1"
+      },
+      {
+        "type": "service",
+        "raw": "sc config HapticService start=disabled >nul 2>&1"
+      },
+      {
+        "type": "service",
+        "raw": "sc config logi_lamparray_service start=disabled >nul 2>&1"
+      },
+      {
+        "type": "service",
+        "raw": "sc config LGHUBUpdaterService start=disabled >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\" /v \"SvcHostSplitThresholdInKB\" /t REG_DWORD /d \"4294967295\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\1394ohci\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\AcpiDev\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\acpipagr\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\AcpiPmi\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\acpitime\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\amdsata\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\amdsbs\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\amdxata\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\AppvVemgr\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\arcsas\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\atapi\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\b06bdrv\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\bam\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\beep\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\bowser\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\BthA2dp\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\BthEnum\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\BthHFEnum\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\BthLEEnum\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\BthMini\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\BTHMODEM\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\BTHPORT\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\BTHUSB\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\bttflt\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\cdfs\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\cdrom\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\cht4tiscsi\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\cht4vbd\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\circlass\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\CSC\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\dam\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\ebdrv\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\fdc\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\flpydisk\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\gencounter\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\HidBth\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\HidIr\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\hvcrash\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\hvservice\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\hyperkbd\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\HyperVideo\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\i8042prt\" /v \"Start\" /t REG_DWORD /d \"3\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\ItSas35i\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\MEIx64\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\Microsoft_Bluetooth_AvrcpTransport\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\NdisCap\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\NdisVirtualBus\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\Ndu\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\rdpbus\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\RFCOMM\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\scfilter\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\sfloppy\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\SgrmAgent\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\SpatialGraphFilter\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\Synth3dVsc\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\TsUsbFlt\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\TsUsbGD\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\tsusbhub\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\udfs\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\UevAgentDriver\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\umbus\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\usbcir\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\usbprint\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\Vid\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\vmgid\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\vwifibus\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\vwififlt\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\vwifimp\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\WacomPen\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\wanarp\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\wanarpv6\" /v \"Start\" /t REG_DWORD /d \"4\" /f"
+      },
+      {
+        "type": "cleanup",
+        "raw": "rd /s /q \"C:\\Program Files (x86)\\Microsoft\\Edge\" >nul 2>&1"
+      },
+      {
+        "type": "cleanup",
+        "raw": "rd /s /q \"C:\\Program Files (x86)\\Microsoft\\EdgeCore\" >nul 2>&1"
+      },
+      {
+        "type": "cleanup",
+        "raw": "rd /s /q \"C:\\Program Files (x86)\\Microsoft\\EdgeUpdate\" >nul 2>&1"
+      },
+      {
+        "type": "cleanup",
+        "raw": "rd /s /q \"C:\\Program Files (x86)\\Microsoft\\Temp\" >nul 2>&1"
+      },
+      {
+        "type": "cleanup",
+        "raw": "del %Appdata%\\Microsoft\\Internet Explorer\\Quick Launch\\User Pinned\\TaskBar\\Microsoft Edge.lnk >nul 2>&1"
+      },
+      {
+        "type": "cleanup",
+        "raw": "del %ProgramData%\\Microsoft\\Windows\\Start Menu\\Programs\\Microsoft Edge.lnk >nul 2>&1"
+      },
+      {
+        "type": "cleanup",
+        "raw": "del %AppData%\\Microsoft\\Internet Explorer\\Quick Launch\\Microsoft Edge.lnk >nul 2>&1"
+      },
+      {
+        "type": "cleanup",
+        "raw": "del \"C:\\Users\\Public\\Desktop\\Microsoft Edge.lnk\" >nul 2>&1"
+      },
+      {
+        "type": "reg_delete",
+        "raw": "reg delete \"HKLM\\SOFTWARE\\WOW6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Microsoft Edge\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_delete",
+        "raw": "reg delete \"HKLM\\SOFTWARE\\WOW6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Microsoft Edge Update\" /f >nul 2>&1"
+      },
+      {
+        "type": "cleanup",
+        "raw": "rd /s /q \"C:\\Windows\\SystemApps\\Microsoft.MicrosoftEdgeDevToolsClient_8wekyb3d8bbwe\" >nul 2>&1"
+      },
+      {
+        "type": "service",
+        "raw": "sc delete \"!Svc!\" >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCR\\CLSID\\{018D5C66-4533-4307-9B53-224DE2ED1FE6}\" /v \"System.IsPinnedToNameSpaceTree\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCR\\Wow6432Node\\CLSID\\{018D5C66-4533-4307-9B53-224DE2ED1FE6}\" /v \"System.IsPinnedToNameSpaceTree\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_delete",
+        "raw": "reg delete \"HKEY_USERS\\Default\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run\" /v \"OneDriveSetup\" /f >nul 2>&1"
+      },
+      {
+        "type": "cleanup",
+        "raw": "del /f /q \"%USERPROFILE%\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\OneDrive.lnk\" >nul 2>&1"
+      },
+      {
+        "type": "cleanup",
+        "raw": "del \"%LockAppItem%\" /s /f /q >nul 2>&1"
+      },
+      {
+        "type": "cleanup",
+        "raw": "del \"%%~S\" /s /f /q >nul 2>&1"
+      },
+      {
+        "type": "cleanup",
+        "raw": "del \"!XboxfileToDelete!\" /s /f /q >nul 2>&1"
+      },
+      {
+        "type": "cleanup",
+        "raw": "rd /s /q \"C:\\Program Files (x86)\\Microsoft\\EdgeWebView\" >nul 2>&1"
+      },
+      {
+        "type": "reg_delete",
+        "raw": "reg delete \"HKLM\\SOFTWARE\\WOW6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Microsoft EdgeWebView\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\System\\CurrentControlSet\\Services\\UdkUserSvc\" /v \"Start\" /t REG_DWORD /d \"4\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCR\\DesktopBackground\\Shell\\NvidiaContainer\\Shell\\Nvidia Control Panel\" /v HasLUAShield /t REG_SZ /d \"\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCR\\DesktopBackground\\Shell\\NvidiaContainer\\Shell\\Nvidia Control Panel\" /v MUIVerb /t REG_SZ /d \"Nvidia Control Panel\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCR\\Directory\\Background\\shellex\\ContextMenuHandlers\\NvCplDesktopContext\" /ve /t REG_SZ /d \"{}\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCR\\DesktopBackground\\Shell\\NvidiaContainer\" /v MUIVerb /t REG_SZ /d \"Nvidia Container\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCR\\DesktopBackground\\Shell\\NvidiaContainer\" /v Position /t REG_SZ /d \"Bottom\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCR\\DesktopBackground\\Shell\\NvidiaContainer\" /v SubCommands /t REG_SZ /d \"\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCR\\DesktopBackground\\Shell\\NvidiaContainer\\Shell\\EnableNvContainer\" /v HasLUAShield /t REG_SZ /d \"\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCR\\DesktopBackground\\Shell\\NvidiaContainer\\Shell\\EnableNvContainer\" /v MUIVerb /t REG_SZ /d \"Enable Container\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCR\\DesktopBackground\\Shell\\NvidiaContainer\\Shell\\DisableNvContainer\" /v HasLUAShield /t REG_SZ /d \"\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCR\\DesktopBackground\\Shell\\NvidiaContainer\\Shell\\DisableNvContainer\" /v MUIVerb /t REG_SZ /d \"Disable Container\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\SOFTWARE\\NVIDIA Corporation\\Global\\GFExperience\" /v \"NotifyNewDisplayUpdates\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Global\\NVTweak\" /v \"NvDevToolsVisible\" /t REG_DWORD /d \"1\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SOFTWARE\\NVIDIA Corporation\\NvTray\" /v \"StartOnLogin\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Global\\NVTweak\" /v \"HideXGpuTrayIcon\" /t REG_DWORD /d \"1\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SOFTWARE\\NVIDIA Corporation\\Global\\CoProcManager\" /v \"ShowTrayIcon\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Global\\NVTweak\" /v \"DisplayPowerSaving\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\Software\\NVIDIA Corporation\\Global\\NVTweak\" /v \"DisplayPowerSaving\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Global\\NVTweak\" /v \"RmProfilingAdminOnly\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SOFTWARE\\NVIDIA Corporation\\Global\\NGXCore\" /v \"ShowDlssIndicator\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\" /v \"EnableHDAudioD3Cold\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\services\\nvlddmkm\\Parameters\" /v \"LogWarningEntries\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\services\\nvlddmkm\\Parameters\" /v \"LogPagingEntries\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\services\\nvlddmkm\\Parameters\" /v \"LogEventEntries\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\services\\nvlddmkm\\Parameters\" /v \"LogErrorEntries\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\" /v \"PreferSystemMemoryContiguous\" /t REG_DWORD /d \"1\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\Software\\Nvidia Corporation\\NvControlPanel2\\Client\" /v \"OptInOrOutPreference\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\System\\CurrentControlSet\\Services\\nvlddmkm\\Global\\Startup\" /v \"SendTelemetryData\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SOFTWARE\\NVIDIA Corporation\\Global\\FTS\" /v EnableRID44231 /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SOFTWARE\\NVIDIA Corporation\\Global\\FTS\" /v EnableRID64640 /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SOFTWARE\\NVIDIA Corporation\\Global\\FTS\" /v EnableRID66610 /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_delete",
+        "raw": "reg delete \"HKLM\\Software\\Microsoft\\Windows\\CurrentVersion\\Run\" /v \"NvBackend\" /f >nul 2>&1"
+      },
+      {
+        "type": "cleanup",
+        "raw": "del /s /q \"%%F\\NvTelemetry64.dll\" >nul 2>&1"
+      },
+      {
+        "type": "cleanup",
+        "raw": "rd /s /q \"%%F\\NvCamera\" >nul 2>&1"
+      },
+      {
+        "type": "cleanup",
+        "raw": "del /s /q \"%%F\\Display.NvContainer\\plugins\\LocalSystem\\_DisplayDriverRAS.dll\" >nul 2>&1"
+      },
+      {
+        "type": "cleanup",
+        "raw": "rd /s /q \"C:\\Windows\\System32\\drivers\\NVIDIA Corporation\" >nul 2>&1"
+      },
+      {
+        "type": "cleanup",
+        "raw": "rd /s /q \"%SystemDrive%\\Program Files\\NVIDIA Corporation\\Display.NvContainer\\plugins\\LocalSystem\\DisplayDriverRAS\" >nul 2>&1"
+      },
+      {
+        "type": "cleanup",
+        "raw": "rd /s /q \"%SystemDrive%\\Program Files\\NVIDIA Corporation\\DisplayDriverRAS\" >nul 2>&1"
+      },
+      {
+        "type": "cleanup",
+        "raw": "rd /s /q \"%SystemDrive%\\ProgramData\\NVIDIA Corporation\\DisplayDriverRAS\" >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\Software\\AMD\\CN\" /v \"PowerSaverAutoEnable_CUR\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\System\\CurrentControlSet\\Services\\amdwddmg\" /v \"ChillEnabled\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\Software\\AMD\\CN\" /v \"AutoUpdateTriggered\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\Software\\AMD\\CN\" /v \"AutoUpdate\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKCU\\Software\\AMD\\CN\" /v \"AnimationEffect\" /t REG_SZ /d \"false\" /f >nul 2>&1"
+      },
+      {
+        "type": "bcdedit",
+        "raw": "bcdedit /deletevalue useplatformclock >nul 2>&1"
+      },
+      {
+        "type": "bcdedit",
+        "raw": "bcdedit /set useplatformtick no >nul 2>&1"
+      },
+      {
+        "type": "bcdedit",
+        "raw": "bcdedit /set disabledynamictick yes >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Power\" /v \"AllowHibernate\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Power\" /v \"EnergySaverState\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Power\" /v \"EventProcessorEnabled\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Power\" /v \"HibernateEnabled\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Power\" /v \"HiberbootEnabled\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Power\" /v \"HibernateEnabledDefault\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Power\\PowerThrottling\" /v \"PowerThrottlingOff\" /t REG_DWORD /d \"1\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Windows\" /v \"TimerCoalescing\" /t REG_BINARY /d \"0000000000000000000000000000000000000000000000000000000000000000\" /f >nul 2>&1"
+      },
+      {
+        "type": "powercfg",
+        "raw": "powercfg /hibernate off >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Power\" /v \"PlatformAoAcOverride\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Power\" /v \"PlatformRoleOverride\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Power\" /v \"MSDisabled\" /t REG_DWORD /d \"1\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Kernel\" /v \"DynamicHeteroCpuPolicyMask\" /t REG_DWORD /d \"3\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Kernel\" /v \"DefaultDynamicHeteroCpuPolicy\" /t REG_DWORD /d \"3\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Kernel\" /v \"DynamicHeteroCpuPolicyImportant\" /t REG_DWORD /d \"1\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Kernel\" /v \"DynamicHeteroCpuPolicyImportantShort\" /t REG_DWORD /d \"1\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Kernel\" /v \"DynamicHeteroCpuPolicyImportantPriority\" /t REG_DWORD /d \"8\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Kernel\" /v \"SerializeTimerExpiration\" /t REG_DWORD /d \"2\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Kernel\" /v \"EnablePerCpuClockTickScheduling\" /t REG_DWORD /d \"2\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Kernel\" /v \"TimerCheckFlags\" /t REG_DWORD /d \"0\" /f > nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\PriorityControl\" /v \"Win32PrioritySeparation\" /t REG_DWORD /d \"0x2a\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\PriorityControl\" /v \"Win32PrioritySeparation\" /t REG_DWORD /d \"0x00000024\" /f >nul 2>&1"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\PriorityControl\" /v \"Win32PrioritySeparation\" /t REG_DWORD /d \"0x1a\" /f >nul 2>&1"
+      },
+      {
+        "type": "powercfg",
+        "raw": "powercfg -import \"C:\\Oneclick Tools\\Power Plans\\Quaked Ultimate Performance.pow\" >nul 2>&1"
+      },
+      {
+        "type": "powercfg",
+        "raw": "powercfg -import \"C:\\Oneclick Tools\\Power Plans\\Quaked Ultimate Performance Idle Off.pow\" >nul 2>&1"
+      },
+      {
+        "type": "powercfg",
+        "raw": "powercfg /setactive %Plan_Guid% >nul 2>&1"
+      },
+      {
+        "type": "powercfg",
+        "raw": "powercfg /setactive %Idle_Off_Plan_Guid% >nul 2>&1"
+      },
+      {
+        "type": "cleanup",
+        "raw": "del /s /q \"%LocalAppData%\\Microsoft\\Windows\\WebCache\""
+      },
+      {
+        "type": "cleanup",
+        "raw": "rd /s /q \"%LocalAppData%\\Microsoft\\Windows\\WebCache\" >nul 2>&1"
+      },
+      {
+        "type": "cleanup",
+        "raw": "del /s /q \"C:\\Windows\\Temp\""
+      },
+      {
+        "type": "cleanup",
+        "raw": "rd /s /q \"C:\\Windows\\Temp\" >nul 2>&1"
+      },
+      {
+        "type": "cleanup",
+        "raw": "del /s /q \"%Temp%\""
+      },
+      {
+        "type": "cleanup",
+        "raw": "rd /s /q \"%Temp%\" >nul 2>&1"
+      },
+      {
+        "type": "cleanup",
+        "raw": "del /s /q \"%AppData%\\Discord\\Cache\""
+      },
+      {
+        "type": "cleanup",
+        "raw": "rd /s /q \"%AppData%\\Discord\\Cache\" >nul 2>&1"
+      },
+      {
+        "type": "cleanup",
+        "raw": "del /s /q \"%AppData%\\Discord\\Code Cache\""
+      },
+      {
+        "type": "cleanup",
+        "raw": "rd /s /q \"%AppData%\\Discord\\Code Cache\" >nul 2>&1"
+      },
+      {
+        "type": "cleanup",
+        "raw": "del /s /q \"%LocalAppData%\\Spotify\\Data\""
+      },
+      {
+        "type": "cleanup",
+        "raw": "rd /s /q \"%LocalAppData%\\Spotify\\Data\" >nul 2>&1"
+      },
+      {
+        "type": "cleanup",
+        "raw": "del /s /q \"C:\\Windows\\Prefetch\""
+      },
+      {
+        "type": "cleanup",
+        "raw": "rd /s /q \"C:\\Windows\\Prefetch\" >nul 2>&1"
+      },
+      {
+        "type": "cleanup",
+        "raw": "del /s /q \"%ProgramData%\\USOPrivate\\UpdateStore\""
+      },
+      {
+        "type": "cleanup",
+        "raw": "del /s /q \"%ProgramData%\\USOShared\\Logs\""
+      },
+      {
+        "type": "cleanup",
+        "raw": "del /s /q \"C:\\Windows\\System32\\SleepStudy\""
+      },
+      {
+        "type": "cleanup",
+        "raw": "del /s /q \"C:\\Windows\\Logs\""
+      },
+      {
+        "type": "service",
+        "raw": "sc config LanmanWorkstation start=demand"
+      },
+      {
+        "type": "service",
+        "raw": "sc config WdiServiceHost start=demand"
+      },
+      {
+        "type": "service",
+        "raw": "sc config NcbService start=demand"
+      },
+      {
+        "type": "service",
+        "raw": "sc config ndu start=demand"
+      },
+      {
+        "type": "service",
+        "raw": "sc config Netman start=demand"
+      },
+      {
+        "type": "service",
+        "raw": "sc config netprofm start=demand"
+      },
+      {
+        "type": "service",
+        "raw": "sc config WwanSvc start=demand"
+      },
+      {
+        "type": "service",
+        "raw": "sc config Dhcp start=auto"
+      },
+      {
+        "type": "service",
+        "raw": "sc config DPS start=auto"
+      },
+      {
+        "type": "service",
+        "raw": "sc config lmhosts start=auto"
+      },
+      {
+        "type": "service",
+        "raw": "sc config NlaSvc start=auto"
+      },
+      {
+        "type": "service",
+        "raw": "sc config nsi start=auto"
+      },
+      {
+        "type": "service",
+        "raw": "sc config RmSvc start=auto"
+      },
+      {
+        "type": "service",
+        "raw": "sc config Wcmsvc start=auto"
+      },
+      {
+        "type": "service",
+        "raw": "sc config Winmgmt start=auto"
+      },
+      {
+        "type": "service",
+        "raw": "sc config WlanSvc start=auto"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\Software\\Policies\\Microsoft\\Windows\\NetworkConnectivityStatusIndicator\" /v \"NoActiveProbe\" /t REG_DWORD /d \"0\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\System\\CurrentControlSet\\Services\\NlaSvc\\Parameters\\Internet\" /v \"EnableActiveProbing\" /t REG_DWORD /d \"1\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\System\\CurrentControlSet\\Services\\BFE\" /v \"Start\" /t REG_DWORD /d \"2\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\System\\CurrentControlSet\\Services\\Dnscache\" /v \"Start\" /t REG_DWORD /d \"2\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\System\\CurrentControlSet\\Services\\WinHttpAutoProxySvc\" /v \"Start\" /t REG_DWORD /d \"3\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\vwifibus\" /v \"Start\" /t REG_DWORD /d \"3\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\vwififlt\" /v \"Start\" /t REG_DWORD /d \"3\" /f"
+      },
+      {
+        "type": "reg_add",
+        "raw": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\vwifimp\" /v \"Start\" /t REG_DWORD /d \"3\" /f"
+      },
+      {
+        "type": "service",
+        "raw": "sc config \"EpicGamesUpdater\" start=auto >nul 2>&1"
+      },
+      {
+        "type": "service",
+        "raw": "sc config \"EpicOnlineServices\" start=auto >nul 2>&1"
+      },
+      {
+        "type": "service",
+        "raw": "sc config \"Rockstar Service\" start=auto >nul 2>&1"
+      },
+      {
+        "type": "service",
+        "raw": "sc config TrustedInstaller start=disabled >nul 2>&1"
+      }
+    ]
+  }
+}

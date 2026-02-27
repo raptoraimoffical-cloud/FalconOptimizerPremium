@@ -1,0 +1,45 @@
+{
+  "items": [
+    {
+      "id": "audit.progamer.run",
+      "type": "button",
+      "name": "Run Pro Gamer Audit",
+      "description": "Scans common FPS/latency/ping killers (power plan, Game DVR, HAGS, MPO, USB selective suspend, NIC power saving, startup bloat). Outputs a report.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Audit",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "path": "scripts/audits/pro-gamer-audit.ps1",
+            "args": {
+              "JsonOnly": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "audit.bufferbloat.quick",
+      "type": "button",
+      "name": "Run Bufferbloat Test",
+      "description": "Runs ping baseline, then pings while downloading a large file to estimate bufferbloat. Requires internet.",
+      "requiresAdmin": false,
+      "riskLevel": "Safe",
+      "category": "Audit",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "path": "scripts/network/bufferbloat-test.ps1",
+            "args": {
+              "PingHost": "1.1.1.1",
+              "Seconds": 20
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

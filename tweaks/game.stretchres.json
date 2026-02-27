@@ -1,0 +1,2779 @@
+{
+  "items": [
+    {
+      "id": "stretch_fortnite_1920x1080",
+      "name": "Reset to default (Fortnite 1920x1080)",
+      "category": "Stretch Resolution Lab / Fortnite – Presets",
+      "type": "action",
+      "description": "[Default] Writes 1920x1080 native resolution to GameUserSettings.ini.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$path = Join-Path $env:LOCALAPPDATA 'FortniteGame\\Saved\\Config\\WindowsClient\\GameUserSettings.ini'; if (!(Test-Path $path)) { Write-Output 'GameUserSettings.ini not found.'; return } $content = Get-Content $path; $kv = @{ 'ResolutionSizeX'='1920'; 'ResolutionSizeY'='1080'; 'LastUserConfirmedResolutionSizeX'='1920'; 'LastUserConfirmedResolutionSizeY'='1080'; 'DesiredScreenWidth'='1920'; 'DesiredScreenHeight'='1080'; 'LastUserConfirmedDesiredScreenWidth'='1920'; 'LastUserConfirmedDesiredScreenHeight'='1080'; 'FullscreenMode'='0' }; foreach($k in $kv.Keys){ $pattern = '^' + $k + '='; $replacement = $k + '=' + $kv[$k]; $found = $false; $content = $content | ForEach-Object { if ($_ -like ($k + '=*')) { $found = $true; $replacement } else { $_ } }; if (-not $found) { $content += $replacement } } Set-Content -Path $path -Value $content -Encoding ASCII; Write-Output 'Applied 1920x1080 stretched for Fortnite.'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "pros": []
+    },
+    {
+      "id": "stretch_open_gpu_scaling_panel",
+      "name": "Open GPU scaling panel",
+      "category": "Stretch Resolution Lab / Tools",
+      "type": "action",
+      "description": "[Focus: FPS] Detects your GPU vendor and opens NVIDIA Control Panel, AMD Radeon Software, or Windows Display settings so you can configure stretched resolution and scaling.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$gpu = Get-CimInstance Win32_VideoController | Sort-Object AdapterRAM -Descending | Select-Object -First 1 Name;\n$gpuName = ($gpu.Name | Out-String).Trim();\nif ($gpuName -match 'NVIDIA|GeForce|RTX|GTX') {\n  $paths = @(\n    \"$env:SystemRoot\\System32\\nvcplui.exe\",\n    \"$env:ProgramFiles\\NVIDIA Corporation\\Control Panel Client\\nvcplui.exe\"\n  );\n  foreach ($p in $paths) { if (Test-Path $p) { Start-Process $p; return } }\n  Start-Process ms-settings:display;\n} elseif ($gpuName -match 'AMD|Radeon|RX ') {\n  $paths = @(\n    \"$env:ProgramFiles\\AMD\\CNext\\CNext\\RadeonSoftware.exe\",\n    \"$env:ProgramFiles\\AMD\\CNext\\CNext\\AMDRadeonSoftware.exe\",\n    \"$env:ProgramFiles\\AMD\\CNext\\CNext\\AMDSoftware.exe\"\n  );\n  foreach ($p in $paths) { if (Test-Path $p) { Start-Process $p; return } }\n  Start-Process ms-settings:display;\n} else {\n  Start-Process ms-settings:display;\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_fortnite_1750x1080",
+      "name": "Enable competitive stretch (Fortnite 1750x1080)",
+      "category": "Stretch Resolution Lab / Fortnite – Presets",
+      "type": "action",
+      "description": "[Focus: FPS] Writes 1750x1080 stretched resolution to GameUserSettings.ini.",
+      "riskLevel": "Warning",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$path = Join-Path $env:LOCALAPPDATA 'FortniteGame\\Saved\\Config\\WindowsClient\\GameUserSettings.ini'; if (!(Test-Path $path)) { Write-Output 'GameUserSettings.ini not found.'; return } $content = Get-Content $path; $kv = @{ 'ResolutionSizeX'='1750'; 'ResolutionSizeY'='1080'; 'LastUserConfirmedResolutionSizeX'='1750'; 'LastUserConfirmedResolutionSizeY'='1080'; 'DesiredScreenWidth'='1750'; 'DesiredScreenHeight'='1080'; 'LastUserConfirmedDesiredScreenWidth'='1750'; 'LastUserConfirmedDesiredScreenHeight'='1080'; 'FullscreenMode'='0' }; foreach($k in $kv.Keys){ $pattern = '^' + $k + '='; $replacement = $k + '=' + $kv[$k]; $found = $false; $content = $content | ForEach-Object { if ($_ -like ($k + '=*')) { $found = $true; $replacement } else { $_ } }; if (-not $found) { $content += $replacement } } Set-Content -Path $path -Value $content -Encoding ASCII; Write-Output 'Applied 1750x1080 stretched for Fortnite.'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "pros": [
+        "Martoz"
+      ]
+    },
+    {
+      "id": "stretch_fortnite_1600x900",
+      "name": "Enable stretch (Fortnite 1600x900)",
+      "category": "Stretch Resolution Lab / Fortnite – Presets",
+      "type": "action",
+      "description": "[Focus: FPS] Writes 1600x900 stretched resolution to GameUserSettings.ini.",
+      "riskLevel": "Warning",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$path = Join-Path $env:LOCALAPPDATA 'FortniteGame\\Saved\\Config\\WindowsClient\\GameUserSettings.ini'; if (!(Test-Path $path)) { Write-Output 'GameUserSettings.ini not found.'; return } $content = Get-Content $path; $kv = @{ 'ResolutionSizeX'='1600'; 'ResolutionSizeY'='900'; 'LastUserConfirmedResolutionSizeX'='1600'; 'LastUserConfirmedResolutionSizeY'='900'; 'DesiredScreenWidth'='1600'; 'DesiredScreenHeight'='900'; 'LastUserConfirmedDesiredScreenWidth'='1600'; 'LastUserConfirmedDesiredScreenHeight'='900'; 'FullscreenMode'='0' }; foreach($k in $kv.Keys){ $pattern = '^' + $k + '='; $replacement = $k + '=' + $kv[$k]; $found = $false; $content = $content | ForEach-Object { if ($_ -like ($k + '=*')) { $found = $true; $replacement } else { $_ } }; if (-not $found) { $content += $replacement } } Set-Content -Path $path -Value $content -Encoding ASCII; Write-Output 'Applied 1600x900 stretched for Fortnite.'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_fortnite_1440x900",
+      "name": "Enable stretch (Fortnite 1440x900)",
+      "category": "Stretch Resolution Lab / Fortnite – Presets",
+      "type": "action",
+      "description": "[Focus: FPS] Writes 1440x900 stretched resolution to GameUserSettings.ini.",
+      "riskLevel": "Warning",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$path = Join-Path $env:LOCALAPPDATA 'FortniteGame\\Saved\\Config\\WindowsClient\\GameUserSettings.ini'; if (!(Test-Path $path)) { Write-Output 'GameUserSettings.ini not found.'; return } $content = Get-Content $path; $kv = @{ 'ResolutionSizeX'='1440'; 'ResolutionSizeY'='900'; 'LastUserConfirmedResolutionSizeX'='1440'; 'LastUserConfirmedResolutionSizeY'='900'; 'DesiredScreenWidth'='1440'; 'DesiredScreenHeight'='900'; 'LastUserConfirmedDesiredScreenWidth'='1440'; 'LastUserConfirmedDesiredScreenHeight'='900'; 'FullscreenMode'='0' }; foreach($k in $kv.Keys){ $pattern = '^' + $k + '='; $replacement = $k + '=' + $kv[$k]; $found = $false; $content = $content | ForEach-Object { if ($_ -like ($k + '=*')) { $found = $true; $replacement } else { $_ } }; if (-not $found) { $content += $replacement } } Set-Content -Path $path -Value $content -Encoding ASCII; Write-Output 'Applied 1440x900 stretched for Fortnite.'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_fortnite_1720x1080",
+      "name": "Enable stretch (Fortnite 1720x1080)",
+      "category": "Stretch Resolution Lab / Fortnite – Presets",
+      "type": "action",
+      "description": "[Focus: FPS] Writes 1720x1080 stretched resolution to GameUserSettings.ini.",
+      "riskLevel": "Warning",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$path = Join-Path $env:LOCALAPPDATA 'FortniteGame\\Saved\\Config\\WindowsClient\\GameUserSettings.ini'; if (!(Test-Path $path)) { Write-Output 'GameUserSettings.ini not found.'; return } $content = Get-Content $path; $kv = @{ 'ResolutionSizeX'='1720'; 'ResolutionSizeY'='1080'; 'LastUserConfirmedResolutionSizeX'='1720'; 'LastUserConfirmedResolutionSizeY'='1080'; 'DesiredScreenWidth'='1720'; 'DesiredScreenHeight'='1080'; 'LastUserConfirmedDesiredScreenWidth'='1720'; 'LastUserConfirmedDesiredScreenHeight'='1080'; 'FullscreenMode'='0'; }; foreach($k in $kv.Keys){ $replacement = $k + '=' + $kv[$k]; $content = $content | ForEach-Object { if ($_ -like ($k + '=*')) { $replacement } else { $_ } }; if (-not ($content -match ('^' + [regex]::Escape($k) + '='))) { $content += $replacement } } Set-Content -Path $path -Value $content -Encoding ASCII; Write-Output 'Applied 1720x1080 stretched for Fortnite.'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "pros": []
+    },
+    {
+      "id": "stretch_fortnite_1680x1050",
+      "name": "Enable stretch (Fortnite 1680x1050)",
+      "category": "Stretch Resolution Lab / Fortnite – Presets",
+      "type": "action",
+      "description": "[Focus: FPS] Writes 1680x1050 stretched resolution to GameUserSettings.ini.",
+      "riskLevel": "Warning",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$path = Join-Path $env:LOCALAPPDATA 'FortniteGame\\Saved\\Config\\WindowsClient\\GameUserSettings.ini'; if (!(Test-Path $path)) { Write-Output 'GameUserSettings.ini not found.'; return } $content = Get-Content $path; $kv = @{ 'ResolutionSizeX'='1680'; 'ResolutionSizeY'='1050'; 'LastUserConfirmedResolutionSizeX'='1680'; 'LastUserConfirmedResolutionSizeY'='1050'; 'DesiredScreenWidth'='1680'; 'DesiredScreenHeight'='1050'; 'LastUserConfirmedDesiredScreenWidth'='1680'; 'LastUserConfirmedDesiredScreenHeight'='1050'; 'FullscreenMode'='0'; }; foreach($k in $kv.Keys){ $replacement = $k + '=' + $kv[$k]; $content = $content | ForEach-Object { if ($_ -like ($k + '=*')) { $replacement } else { $_ } }; if (-not ($content -match ('^' + [regex]::Escape($k) + '='))) { $content += $replacement } } Set-Content -Path $path -Value $content -Encoding ASCII; Write-Output 'Applied 1680x1050 stretched for Fortnite.'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "pros": [
+        "Martoz",
+        "Khanada"
+      ]
+    },
+    {
+      "id": "stretch_fortnite_1440x1080",
+      "name": "Enable stretch (Fortnite 1440x1080)",
+      "category": "Stretch Resolution Lab / Fortnite – Presets",
+      "type": "action",
+      "description": "[Focus: FPS] Writes 1440x1080 stretched resolution to GameUserSettings.ini.",
+      "riskLevel": "Warning",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$path = Join-Path $env:LOCALAPPDATA 'FortniteGame\\Saved\\Config\\WindowsClient\\GameUserSettings.ini'; if (!(Test-Path $path)) { Write-Output 'GameUserSettings.ini not found.'; return } $content = Get-Content $path; $kv = @{ 'ResolutionSizeX'='1440'; 'ResolutionSizeY'='1080'; 'LastUserConfirmedResolutionSizeX'='1440'; 'LastUserConfirmedResolutionSizeY'='1080'; 'DesiredScreenWidth'='1440'; 'DesiredScreenHeight'='1080'; 'LastUserConfirmedDesiredScreenWidth'='1440'; 'LastUserConfirmedDesiredScreenHeight'='1080'; 'FullscreenMode'='0'; }; foreach($k in $kv.Keys){ $replacement = $k + '=' + $kv[$k]; $content = $content | ForEach-Object { if ($_ -like ($k + '=*')) { $replacement } else { $_ } }; if (-not ($content -match ('^' + [regex]::Escape($k) + '='))) { $content += $replacement } } Set-Content -Path $path -Value $content -Encoding ASCII; Write-Output 'Applied 1440x1080 stretched for Fortnite.'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "pros": []
+    },
+    {
+      "id": "stretch_fortnite_1280x960",
+      "name": "Enable stretch (Fortnite 1280x960)",
+      "category": "Stretch Resolution Lab / Fortnite – Presets",
+      "type": "action",
+      "description": "[Focus: FPS] Writes 1280x960 stretched resolution to GameUserSettings.ini.",
+      "riskLevel": "Warning",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$path = Join-Path $env:LOCALAPPDATA 'FortniteGame\\Saved\\Config\\WindowsClient\\GameUserSettings.ini'; if (!(Test-Path $path)) { Write-Output 'GameUserSettings.ini not found.'; return } $content = Get-Content $path; $kv = @{ 'ResolutionSizeX'='1280'; 'ResolutionSizeY'='960'; 'LastUserConfirmedResolutionSizeX'='1280'; 'LastUserConfirmedResolutionSizeY'='960'; 'DesiredScreenWidth'='1280'; 'DesiredScreenHeight'='960'; 'LastUserConfirmedDesiredScreenWidth'='1280'; 'LastUserConfirmedDesiredScreenHeight'='960'; 'FullscreenMode'='0'; }; foreach($k in $kv.Keys){ $replacement = $k + '=' + $kv[$k]; $content = $content | ForEach-Object { if ($_ -like ($k + '=*')) { $replacement } else { $_ } }; if (-not ($content -match ('^' + [regex]::Escape($k) + '='))) { $content += $replacement } } Set-Content -Path $path -Value $content -Encoding ASCII; Write-Output 'Applied 1280x960 stretched for Fortnite.'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_fortnite_1280x1024",
+      "name": "Enable stretch (Fortnite 1280x1024)",
+      "category": "Stretch Resolution Lab / Fortnite – Presets",
+      "type": "action",
+      "description": "[Focus: FPS] Writes 1280x1024 stretched resolution to GameUserSettings.ini.",
+      "riskLevel": "Warning",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$path = Join-Path $env:LOCALAPPDATA 'FortniteGame\\Saved\\Config\\WindowsClient\\GameUserSettings.ini'; if (!(Test-Path $path)) { Write-Output 'GameUserSettings.ini not found.'; return } $content = Get-Content $path; $kv = @{ 'ResolutionSizeX'='1280'; 'ResolutionSizeY'='1024'; 'LastUserConfirmedResolutionSizeX'='1280'; 'LastUserConfirmedResolutionSizeY'='1024'; 'DesiredScreenWidth'='1280'; 'DesiredScreenHeight'='1024'; 'LastUserConfirmedDesiredScreenWidth'='1280'; 'LastUserConfirmedDesiredScreenHeight'='1024'; 'FullscreenMode'='0'; }; foreach($k in $kv.Keys){ $replacement = $k + '=' + $kv[$k]; $content = $content | ForEach-Object { if ($_ -like ($k + '=*')) { $replacement } else { $_ } }; if (-not ($content -match ('^' + [regex]::Escape($k) + '='))) { $content += $replacement } } Set-Content -Path $path -Value $content -Encoding ASCII; Write-Output 'Applied 1280x1024 stretched for Fortnite.'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_fortnite_1280x720",
+      "name": "Enable stretch (Fortnite 1280x720)",
+      "category": "Stretch Resolution Lab / Fortnite – Presets",
+      "type": "action",
+      "description": "[Focus: FPS] Writes 1280x720 stretched resolution to GameUserSettings.ini.",
+      "riskLevel": "Warning",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$path = Join-Path $env:LOCALAPPDATA 'FortniteGame\\Saved\\Config\\WindowsClient\\GameUserSettings.ini'; if (!(Test-Path $path)) { Write-Output 'GameUserSettings.ini not found.'; return } $content = Get-Content $path; $kv = @{ 'ResolutionSizeX'='1280'; 'ResolutionSizeY'='720'; 'LastUserConfirmedResolutionSizeX'='1280'; 'LastUserConfirmedResolutionSizeY'='720'; 'DesiredScreenWidth'='1280'; 'DesiredScreenHeight'='720'; 'LastUserConfirmedDesiredScreenWidth'='1280'; 'LastUserConfirmedDesiredScreenHeight'='720'; 'FullscreenMode'='0'; }; foreach($k in $kv.Keys){ $replacement = $k + '=' + $kv[$k]; $content = $content | ForEach-Object { if ($_ -like ($k + '=*')) { $replacement } else { $_ } }; if (-not ($content -match ('^' + [regex]::Escape($k) + '='))) { $content += $replacement } } Set-Content -Path $path -Value $content -Encoding ASCII; Write-Output 'Applied 1280x720 stretched for Fortnite.'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_fortnite_pro_martoz_1520x1080",
+      "name": "Martoz – 1520x1080 (Fortnite)",
+      "category": "Stretch Resolution Lab / Fortnite – Presets",
+      "type": "action",
+      "description": "[Focus: FPS] Applies a Martoz-inspired 1520x1080 stretched resolution in GameUserSettings.ini. Slightly less extreme than 1750x1080 while keeping wide models.",
+      "riskLevel": "Warning",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$path = Join-Path $env:LOCALAPPDATA 'FortniteGame\\Saved\\Config\\WindowsClient\\GameUserSettings.ini'; if (!(Test-Path $path)) { Write-Output 'GameUserSettings.ini not found.'; return } $content = Get-Content $path; $kv = @{ 'ResolutionSizeX'='1520'; 'ResolutionSizeY'='1080'; 'LastUserConfirmedResolutionSizeX'='1520'; 'LastUserConfirmedResolutionSizeY'='1080'; 'DesiredScreenWidth'='1520'; 'DesiredScreenHeight'='1080'; 'LastUserConfirmedDesiredScreenWidth'='1520'; 'LastUserConfirmedDesiredScreenHeight'='1080'; 'FullscreenMode'='0'; }; foreach($k in $kv.Keys){ $replacement = $k + '=' + $kv[$k]; $content = $content | ForEach-Object { if ($_ -like ($k + '=*')) { $replacement } else { $_ } }; if (-not ($content -match ('^' + [regex]::Escape($k) + '='))) { $content += $replacement } } Set-Content -Path $path -Value $content -Encoding ASCII; Write-Output 'Applied 1520x1080 stretched for Fortnite.'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_fortnite_reset_native",
+      "name": "Revert Fortnite to native resolution",
+      "category": "Stretch Resolution Lab / Fortnite – Presets",
+      "type": "action",
+      "description": "[Focus: FPS] Tries to reset GameUserSettings.ini resolution keys to the current primary display resolution.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$scr = Get-CimInstance -ClassName Win32_VideoController | Sort-Object -Property CurrentHorizontalResolution -Descending | Select-Object -First 1; if (-not $scr -or -not $scr.CurrentHorizontalResolution) { Write-Output 'Could not detect current display resolution.'; return } $w = [int]$scr.CurrentHorizontalResolution; $h = [int]$scr.CurrentVerticalResolution; $path = Join-Path $env:LOCALAPPDATA 'FortniteGame\\Saved\\Config\\WindowsClient\\GameUserSettings.ini'; if (!(Test-Path $path)) { Write-Output 'GameUserSettings.ini not found.'; return } $content = Get-Content $path; $kv = @{ 'ResolutionSizeX'=$w; 'ResolutionSizeY'=$h; 'LastUserConfirmedResolutionSizeX'=$w; 'LastUserConfirmedResolutionSizeY'=$h; 'DesiredScreenWidth'=$w; 'DesiredScreenHeight'=$h; 'LastUserConfirmedDesiredScreenWidth'=$w; 'LastUserConfirmedDesiredScreenHeight'=$h; 'FullscreenMode'='0' }; foreach($k in $kv.Keys){ $replacement = $k + '=' + $kv[$k]; $content = $content | ForEach-Object { if ($_ -like ($k + '=*')) { $replacement } else { $_ } }; if (-not ($content -match ('^' + [regex]::Escape($k) + '='))) { $content += $replacement } } Set-Content -Path $path -Value $content -Encoding ASCII; Write-Output ('Reset Fortnite resolution to {0}x{1}.' -f $w,$h)"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_fortnite_1550x1080",
+      "name": "Comp stretch (balanced) (1550x1080)",
+      "category": "Stretch Resolution Lab / Fortnite – Presets",
+      "type": "action",
+      "description": "[Focus: FPS] Balanced wide stretch between 1440 and 1750 for cleaner models. Writes 1550x1080 stretched resolution to GameUserSettings.ini.",
+      "riskLevel": "Warning",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$path = Join-Path $env:LOCALAPPDATA 'FortniteGame\\Saved\\Config\\WindowsClient\\GameUserSettings.ini'; if (!(Test-Path $path)) { Write-Output 'GameUserSettings.ini not found.'; return } $content = Get-Content $path; $kv = @{ 'ResolutionSizeX'='1550'; 'ResolutionSizeY'='1080'; 'LastUserConfirmedResolutionSizeX'='1550'; 'LastUserConfirmedResolutionSizeY'='1080'; 'DesiredScreenWidth'='1550'; 'DesiredScreenHeight'='1080'; 'LastUserConfirmedDesiredScreenWidth'='1550'; 'LastUserConfirmedDesiredScreenHeight'='1080'; 'FullscreenMode'='0' }; foreach($k in $kv.Keys){ $replacement = $k + '=' + $kv[$k]; $content = $content | ForEach-Object { if ($_ -like ($k + '=*')) { $replacement } else { $_ } }; if (-not ($content -match ('^' + [regex]::Escape($k) + '='))) { $content += $replacement } } Set-Content -Path $path -Value $content -Encoding ASCII; Write-Output 'Applied 1550x1080 stretched for Fortnite.'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_fortnite_1350x1080",
+      "name": "Extra chunky stretch (1350x1080)",
+      "category": "Stretch Resolution Lab / Fortnite – Presets",
+      "type": "action",
+      "description": "[Focus: FPS] High-width 4:3 style stretch for extremely wide player models. Writes 1350x1080 stretched resolution to GameUserSettings.ini.",
+      "riskLevel": "Warning",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$path = Join-Path $env:LOCALAPPDATA 'FortniteGame\\Saved\\Config\\WindowsClient\\GameUserSettings.ini'; if (!(Test-Path $path)) { Write-Output 'GameUserSettings.ini not found.'; return } $content = Get-Content $path; $kv = @{ 'ResolutionSizeX'='1350'; 'ResolutionSizeY'='1080'; 'LastUserConfirmedResolutionSizeX'='1350'; 'LastUserConfirmedResolutionSizeY'='1080'; 'DesiredScreenWidth'='1350'; 'DesiredScreenHeight'='1080'; 'LastUserConfirmedDesiredScreenWidth'='1350'; 'LastUserConfirmedDesiredScreenHeight'='1080'; 'FullscreenMode'='0' }; foreach($k in $kv.Keys){ $replacement = $k + '=' + $kv[$k]; $content = $content | ForEach-Object { if ($_ -like ($k + '=*')) { $replacement } else { $_ } }; if (-not ($content -match ('^' + [regex]::Escape($k) + '='))) { $content += $replacement } } Set-Content -Path $path -Value $content -Encoding ASCII; Write-Output 'Applied 1350x1080 stretched for Fortnite.'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_fortnite_1024x768",
+      "name": "Ultra low-res FPS mode (1024x768)",
+      "category": "Stretch Resolution Lab / Fortnite – Presets",
+      "type": "action",
+      "description": "[Focus: FPS] Extreme low resolution for max FPS on low-end GPUs (only use if your monitor supports 1024x768). Writes 1024x768 stretched resolution to GameUserSettings.ini.",
+      "riskLevel": "Warning",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$path = Join-Path $env:LOCALAPPDATA 'FortniteGame\\Saved\\Config\\WindowsClient\\GameUserSettings.ini'; if (!(Test-Path $path)) { Write-Output 'GameUserSettings.ini not found.'; return } $content = Get-Content $path; $kv = @{ 'ResolutionSizeX'='1024'; 'ResolutionSizeY'='768'; 'LastUserConfirmedResolutionSizeX'='1024'; 'LastUserConfirmedResolutionSizeY'='768'; 'DesiredScreenWidth'='1024'; 'DesiredScreenHeight'='768'; 'LastUserConfirmedDesiredScreenWidth'='1024'; 'LastUserConfirmedDesiredScreenHeight'='768'; 'FullscreenMode'='0' }; foreach($k in $kv.Keys){ $replacement = $k + '=' + $kv[$k]; $content = $content | ForEach-Object { if ($_ -like ($k + '=*')) { $replacement } else { $_ } }; if (-not ($content -match ('^' + [regex]::Escape($k) + '='))) { $content += $replacement } } Set-Content -Path $path -Value $content -Encoding ASCII; Write-Output 'Applied 1024x768 stretched for Fortnite.'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_lab_method_1_ingame_gpu",
+      "name": "Method 1 – In-game + GPU panel",
+      "category": "Stretch Resolution Lab / Methods",
+      "type": "action",
+      "description": "[Focus: Control] Explains how to combine in-game resolution settings with GPU scaling in NVIDIA/AMD/Intel control panels. Use this if you want to manually fine-tune without editing config files.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nUse this method description inside Falcon Optimizer: open your GPU control panel, enable GPU scaling, then set a lower resolution in-game and select Fullscreen. This entry is documentation only and does not change system files.\n\"@"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_lab_method_2_config_only",
+      "name": "Method 2 – Config-only Fortnite stretch",
+      "category": "Stretch Resolution Lab / Methods",
+      "type": "action",
+      "description": "[Focus: Automation] Explains that the Fortnite presets here directly edit GameUserSettings.ini to force resolution, which is safer than random config packs.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nThese presets edit %LOCALAPPDATA%/FortniteGame/Saved/Config/WindowsClient/GameUserSettings.ini with clean, reversible key writes instead of replacing the entire file.\n\"@"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_lab_method_3_hybrid",
+      "name": "Method 3 – Hybrid (GPU scaling + config)",
+      "category": "Stretch Resolution Lab / Methods",
+      "type": "action",
+      "description": "[Focus: Tryhard] Recommended approach: enable GPU scaling in driver, then use these presets to lock Fortnite to the exact res you want.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nHybrid method: 1) Turn on GPU scaling & Fullscreen in your driver panel, 2) Use a Falcon preset (e.g., Bugha/Clix/Martoz) to force the exact stretched resolution via GameUserSettings.ini.\n\"@"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_valorant_open_config",
+      "name": "Open Valorant config folder",
+      "category": "Stretch Resolution Lab / Valorant – Tools",
+      "type": "action",
+      "description": "[Focus: Control] Opens the Valorant configuration folder so you can inspect or adjust video/resolution settings directly.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$path = Join-Path $env:LOCALAPPDATA 'VALORANT\\Saved\\Config'\nif (Test-Path $path) {\n  Start-Process explorer.exe $path\n} else {\n  Write-Output 'Valorant config folder not found at standard location.'\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_valorant_method_overview",
+      "name": "Valorant stretch – methods overview",
+      "category": "Stretch Resolution Lab / Valorant – Methods",
+      "type": "action",
+      "description": "[Focus: Info] Explains how to use in-game resolutions and GPU scaling to achieve stretch or black bars safely in Valorant.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nVALORANT STRETCH OVERVIEW:\\n- Use Fullscreen (not borderless) in Valorant video settings.\\n- Pick a 4:3 or 16:10 resolution (e.g. 1280x960, 1440x1080, 1600x900).\\n- In your GPU control panel, choose either full-panel stretch or preserve aspect ratio:\\n  * Full-panel stretch = stretched image, wider models.\\n  * Preserve aspect ratio = black bars, but no distortion.\\n- Avoid random config packs from the internet; use your own settings or Falcon presets.\n\"@"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_global_gpu_scaling_modes",
+      "name": "GPU vs display scaling – explained",
+      "category": "Stretch Resolution Lab / Global GPU Scaling",
+      "type": "action",
+      "description": "[Focus: Info] Explains GPU vs display scaling, when to use each, and how it affects stretched resolutions in games.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nGPU VS DISPLAY SCALING:\\n- GPU scaling: the graphics card scales the image before sending it to the monitor.\\n  * Good for consistent stretch across different monitors.\\n  * Often required for clean stretch in Fortnite/Valorant.\\n- Display scaling: the monitor scales the incoming signal itself.\\n  * Behavior changes by monitor model; can look different between setups.\\n- For competitive use, enable GPU scaling where possible and then pick your stretched resolution preset in Falcon.\n\"@"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_global_dpi_blur_tip",
+      "name": "Fix blur from DPI scaling (Windows tip)",
+      "category": "Stretch Resolution Lab / Global GPU Scaling",
+      "type": "action",
+      "description": "[Focus: Clarity] Explains how to reduce blur caused by high DPI scaling when using stretched resolutions.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nFIXING BLUR FROM DPI SCALING:\\n- Some games look blurry at stretched resolutions because of Windows DPI scaling.\\n- To reduce blur:\\n  1) Right-click the game EXE -> Properties.\\n  2) Go to the Compatibility tab.\\n  3) Click 'Change high DPI settings'.\\n  4) Enable 'Override high DPI scaling behavior' and set it to 'Application'.\\n- This often makes stretched resolutions look sharper and less smeared.\n\"@"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_custom_fortnite_open_ini",
+      "name": "Open Fortnite GameUserSettings.ini",
+      "category": "Stretch Resolution Lab / Custom Builder",
+      "type": "action",
+      "description": "[Focus: Advanced] Opens the Fortnite GameUserSettings.ini file so you can create a fully custom stretched resolution.",
+      "riskLevel": "Warning",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$path = Join-Path $env:LOCALAPPDATA 'FortniteGame\\Saved\\Config\\WindowsClient\\GameUserSettings.ini'\nif (Test-Path $path) {\n  Start-Process notepad.exe $path\n} else {\n  Write-Output 'Fortnite GameUserSettings.ini not found. Launch Fortnite once, then close it and try again.'\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_custom_fortnite_howto",
+      "name": "How to build a custom stretch (Fortnite)",
+      "category": "Stretch Resolution Lab / Custom Builder",
+      "type": "action",
+      "description": "[Focus: Guide] Step-by-step instructions for manually creating any custom stretched resolution in Fortnite.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nCUSTOM FORTNITE STRETCH (MANUAL):\\n- Close Fortnite before editing.\\n- Open GameUserSettings.ini (use the button above or open it from %LOCALAPPDATA%\\FortniteGame...).\\n- Find and edit ALL of these keys to your target resolution (e.g. 1520x1080):\\n  * ResolutionSizeX / ResolutionSizeY\\n  * LastUserConfirmedResolutionSizeX / Y\\n  * DesiredScreenWidth / DesiredScreenHeight\\n  * LastUserConfirmedDesiredScreenWidth / Height\\n- Set FullscreenMode=0 for true fullscreen.\\n- Save the file, then launch Fortnite and use Fullscreen in video settings.\n\"@"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_valorant_1280x960",
+      "name": "TenZ-style stretch (Valorant 1280x960)",
+      "category": "Stretch Resolution Lab / Valorant – Quick Presets",
+      "type": "action",
+      "description": "[Focus: FPS] Attempts to apply a 1280x960 stretched-style resolution to Valorant's GameUserSettings-style configs. You should keep the game closed while this runs.",
+      "riskLevel": "Warning",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$base = Join-Path $env:LOCALAPPDATA 'VALORANT\\Saved\\Config'\nif (!(Test-Path -LiteralPath $base)) {\n  Write-Output 'Valorant config root not found at expected path.';\n  exit 0\n}\n\n$files = Get-ChildItem -Path $base -Recurse -Filter 'GameUserSettings.ini' -ErrorAction SilentlyContinue\nif (-not $files) {\n  Write-Output 'No GameUserSettings.ini found under Valorant config.';\n  exit 0\n}\n\nforeach ($f in $files) {\n  try {\n    $content = Get-Content -LiteralPath $f.FullName -Raw -ErrorAction SilentlyContinue\n    if (-not $content) { continue }\n\n    $replacements = @{\n      'ResolutionSizeX='     = 'ResolutionSizeX=1280'\n      'ResolutionSizeY='     = 'ResolutionSizeY=960'\n      'DesiredScreenWidth='  = 'DesiredScreenWidth=1280'\n      'DesiredScreenHeight=' = 'DesiredScreenHeight=960'\n    }\n\n    foreach ($k in $replacements.Keys) {\n      $replacement = $replacements[$k]\n      if ($content -match [regex]::Escape($k)) {\n        $content = [regex]::Replace($content, [regex]::Escape($k) + '\\d+', $replacement)\n      } else {\n        $content += \"`n\" + $replacement\n      }\n    }\n\n    Set-Content -LiteralPath $f.FullName -Value $content -Encoding ASCII\n  } catch {\n    Write-Output ('Failed to touch Valorant config: {0}' -f $f.FullName)\n  }\n}\n\nWrite-Output 'Applied 1280x960-style stretched preset for Valorant (config files updated where found).'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nTo revert Valorant, either restore a backup of your config folder or set your desired resolution back in-game. This preset does not currently track a per-line backup.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "id": "stretch_cs2_open_config",
+      "name": "Open CS2 config folder",
+      "category": "Stretch Resolution Lab / CS2 – Tools",
+      "type": "action",
+      "description": "[Focus: Control] Tries to open the most common Counter-Strike 2 config folder so you can adjust video / resolution settings or autoexec files yourself.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$paths = @()\n$paths += Join-Path $env:USERPROFILE 'Saved Games\\Counter-Strike 2'\n$paths += Join-Path $env:USERPROFILE 'Documents\\Counter-Strike 2'\n$existing = $paths | Where-Object { Test-Path -LiteralPath $_ }\nif (-not $existing -or $existing.Count -eq 0) {\n  Write-Output 'Could not find a CS2 config folder in common locations.';\n  exit 0\n}\n$target = $existing[0]\nStart-Process explorer.exe $target\nWrite-Output ('Opened CS2 config folder: {0}' -f $target)"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_cs2_method_overview",
+      "name": "CS2 stretch – methods overview",
+      "category": "Stretch Resolution Lab / CS2 – Methods",
+      "type": "action",
+      "description": "[Focus: Info] Explains common Counter-Strike 2 stretching methods and what they do for model width and visibility.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nCS2 STRETCH OVERVIEW:\n- Use your GPU control panel (NVIDIA, AMD, Intel) to pick Full-panel scaling or Keep aspect ratio.\n- In CS2 video settings, you can pick:\n  * 4:3 or 5:4 resolution for classic stretched models.\n  * 16:9 native if you want less distortion but cleaner image.\n- For true stretch:\n  * Set GPU scaling to Full-panel.\n  * Pick 4:3 res like 1280x960 or 1024x768.\n  * Use Fullscreen or Exclusive Fullscreen where available.\n- If you use autoexec:\n  * Keep your -w / -h launch options in sync with your chosen stretch res.\n  * Avoid random config packs from the internet; use your own settings.\n\"@"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_cs2_copy_1920x1080",
+      "name": "1920x1080 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / CS2 – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for CS2 to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1920 -h 1080 -fullscreen\"; Write-Output \"Copied launch options for CS2: -w 1920 -h 1080 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_cs2_copy_1798x1080",
+      "name": "1798x1080 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / CS2 – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for CS2 to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1798 -h 1080 -fullscreen\"; Write-Output \"Copied launch options for CS2: -w 1798 -h 1080 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_cs2_copy_1750x1080",
+      "name": "1750x1080 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / CS2 – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for CS2 to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1750 -h 1080 -fullscreen\"; Write-Output \"Copied launch options for CS2: -w 1750 -h 1080 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_cs2_copy_1720x1080",
+      "name": "1720x1080 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / CS2 – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for CS2 to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1720 -h 1080 -fullscreen\"; Write-Output \"Copied launch options for CS2: -w 1720 -h 1080 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_cs2_copy_1680x1050",
+      "name": "1680x1050 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / CS2 – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for CS2 to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1680 -h 1050 -fullscreen\"; Write-Output \"Copied launch options for CS2: -w 1680 -h 1050 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_cs2_copy_1656x1080",
+      "name": "1656x1080 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / CS2 – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for CS2 to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1656 -h 1080 -fullscreen\"; Write-Output \"Copied launch options for CS2: -w 1656 -h 1080 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_cs2_copy_1600x900",
+      "name": "1600x900 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / CS2 – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for CS2 to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1600 -h 900 -fullscreen\"; Write-Output \"Copied launch options for CS2: -w 1600 -h 900 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_cs2_copy_1568x1080",
+      "name": "1568x1080 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / CS2 – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for CS2 to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1568 -h 1080 -fullscreen\"; Write-Output \"Copied launch options for CS2: -w 1568 -h 1080 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_cs2_copy_1440x1080",
+      "name": "1440x1080 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / CS2 – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for CS2 to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1440 -h 1080 -fullscreen\"; Write-Output \"Copied launch options for CS2: -w 1440 -h 1080 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_cs2_copy_1280x960",
+      "name": "1280x960 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / CS2 – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for CS2 to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1280 -h 960 -fullscreen\"; Write-Output \"Copied launch options for CS2: -w 1280 -h 960 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_cs2_copy_1280x1024",
+      "name": "1280x1024 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / CS2 – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for CS2 to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1280 -h 1024 -fullscreen\"; Write-Output \"Copied launch options for CS2: -w 1280 -h 1024 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_cs2_copy_1152x864",
+      "name": "1152x864 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / CS2 – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for CS2 to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1152 -h 864 -fullscreen\"; Write-Output \"Copied launch options for CS2: -w 1152 -h 864 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_cs2_copy_1024x768",
+      "name": "1024x768 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / CS2 – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for CS2 to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1024 -h 768 -fullscreen\"; Write-Output \"Copied launch options for CS2: -w 1024 -h 768 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_cs2_copy_1920x1200",
+      "name": "1920x1200 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / CS2 – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for CS2 to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1920 -h 1200 -fullscreen\"; Write-Output \"Copied launch options for CS2: -w 1920 -h 1200 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_cs2_copy_1440x900",
+      "name": "1440x900 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / CS2 – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for CS2 to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1440 -h 900 -fullscreen\"; Write-Output \"Copied launch options for CS2: -w 1440 -h 900 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_apex_copy_1920x1080",
+      "name": "1920x1080 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / Apex Legends – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for Apex Legends to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1920 -h 1080 -fullscreen\"; Write-Output \"Copied launch options for Apex Legends: -w 1920 -h 1080 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_apex_copy_1798x1080",
+      "name": "1798x1080 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / Apex Legends – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for Apex Legends to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1798 -h 1080 -fullscreen\"; Write-Output \"Copied launch options for Apex Legends: -w 1798 -h 1080 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_apex_copy_1750x1080",
+      "name": "1750x1080 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / Apex Legends – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for Apex Legends to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1750 -h 1080 -fullscreen\"; Write-Output \"Copied launch options for Apex Legends: -w 1750 -h 1080 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_apex_copy_1720x1080",
+      "name": "1720x1080 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / Apex Legends – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for Apex Legends to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1720 -h 1080 -fullscreen\"; Write-Output \"Copied launch options for Apex Legends: -w 1720 -h 1080 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_apex_copy_1680x1050",
+      "name": "1680x1050 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / Apex Legends – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for Apex Legends to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1680 -h 1050 -fullscreen\"; Write-Output \"Copied launch options for Apex Legends: -w 1680 -h 1050 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_apex_copy_1656x1080",
+      "name": "1656x1080 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / Apex Legends – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for Apex Legends to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1656 -h 1080 -fullscreen\"; Write-Output \"Copied launch options for Apex Legends: -w 1656 -h 1080 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_apex_copy_1600x900",
+      "name": "1600x900 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / Apex Legends – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for Apex Legends to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1600 -h 900 -fullscreen\"; Write-Output \"Copied launch options for Apex Legends: -w 1600 -h 900 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_apex_copy_1568x1080",
+      "name": "1568x1080 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / Apex Legends – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for Apex Legends to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1568 -h 1080 -fullscreen\"; Write-Output \"Copied launch options for Apex Legends: -w 1568 -h 1080 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_apex_copy_1440x1080",
+      "name": "1440x1080 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / Apex Legends – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for Apex Legends to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1440 -h 1080 -fullscreen\"; Write-Output \"Copied launch options for Apex Legends: -w 1440 -h 1080 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_apex_copy_1280x960",
+      "name": "1280x960 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / Apex Legends – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for Apex Legends to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1280 -h 960 -fullscreen\"; Write-Output \"Copied launch options for Apex Legends: -w 1280 -h 960 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_apex_copy_1280x1024",
+      "name": "1280x1024 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / Apex Legends – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for Apex Legends to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1280 -h 1024 -fullscreen\"; Write-Output \"Copied launch options for Apex Legends: -w 1280 -h 1024 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_apex_copy_1152x864",
+      "name": "1152x864 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / Apex Legends – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for Apex Legends to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1152 -h 864 -fullscreen\"; Write-Output \"Copied launch options for Apex Legends: -w 1152 -h 864 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_apex_copy_1024x768",
+      "name": "1024x768 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / Apex Legends – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for Apex Legends to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1024 -h 768 -fullscreen\"; Write-Output \"Copied launch options for Apex Legends: -w 1024 -h 768 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_apex_copy_1920x1200",
+      "name": "1920x1200 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / Apex Legends – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for Apex Legends to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1920 -h 1200 -fullscreen\"; Write-Output \"Copied launch options for Apex Legends: -w 1920 -h 1200 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_apex_copy_1440x900",
+      "name": "1440x900 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / Apex Legends – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for Apex Legends to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1440 -h 900 -fullscreen\"; Write-Output \"Copied launch options for Apex Legends: -w 1440 -h 900 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_cod_copy_1920x1080",
+      "name": "1920x1080 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / COD / Warzone – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for COD / Warzone to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1920 -h 1080 -fullscreen\"; Write-Output \"Copied launch options for COD / Warzone: -w 1920 -h 1080 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_cod_copy_1798x1080",
+      "name": "1798x1080 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / COD / Warzone – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for COD / Warzone to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1798 -h 1080 -fullscreen\"; Write-Output \"Copied launch options for COD / Warzone: -w 1798 -h 1080 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_cod_copy_1750x1080",
+      "name": "1750x1080 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / COD / Warzone – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for COD / Warzone to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1750 -h 1080 -fullscreen\"; Write-Output \"Copied launch options for COD / Warzone: -w 1750 -h 1080 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_cod_copy_1720x1080",
+      "name": "1720x1080 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / COD / Warzone – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for COD / Warzone to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1720 -h 1080 -fullscreen\"; Write-Output \"Copied launch options for COD / Warzone: -w 1720 -h 1080 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_cod_copy_1680x1050",
+      "name": "1680x1050 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / COD / Warzone – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for COD / Warzone to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1680 -h 1050 -fullscreen\"; Write-Output \"Copied launch options for COD / Warzone: -w 1680 -h 1050 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_cod_copy_1656x1080",
+      "name": "1656x1080 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / COD / Warzone – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for COD / Warzone to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1656 -h 1080 -fullscreen\"; Write-Output \"Copied launch options for COD / Warzone: -w 1656 -h 1080 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_cod_copy_1600x900",
+      "name": "1600x900 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / COD / Warzone – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for COD / Warzone to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1600 -h 900 -fullscreen\"; Write-Output \"Copied launch options for COD / Warzone: -w 1600 -h 900 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_cod_copy_1568x1080",
+      "name": "1568x1080 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / COD / Warzone – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for COD / Warzone to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1568 -h 1080 -fullscreen\"; Write-Output \"Copied launch options for COD / Warzone: -w 1568 -h 1080 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_cod_copy_1440x1080",
+      "name": "1440x1080 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / COD / Warzone – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for COD / Warzone to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1440 -h 1080 -fullscreen\"; Write-Output \"Copied launch options for COD / Warzone: -w 1440 -h 1080 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_cod_copy_1280x960",
+      "name": "1280x960 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / COD / Warzone – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for COD / Warzone to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1280 -h 960 -fullscreen\"; Write-Output \"Copied launch options for COD / Warzone: -w 1280 -h 960 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_cod_copy_1280x1024",
+      "name": "1280x1024 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / COD / Warzone – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for COD / Warzone to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1280 -h 1024 -fullscreen\"; Write-Output \"Copied launch options for COD / Warzone: -w 1280 -h 1024 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_cod_copy_1152x864",
+      "name": "1152x864 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / COD / Warzone – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for COD / Warzone to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1152 -h 864 -fullscreen\"; Write-Output \"Copied launch options for COD / Warzone: -w 1152 -h 864 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_cod_copy_1024x768",
+      "name": "1024x768 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / COD / Warzone – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for COD / Warzone to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1024 -h 768 -fullscreen\"; Write-Output \"Copied launch options for COD / Warzone: -w 1024 -h 768 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_cod_copy_1920x1200",
+      "name": "1920x1200 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / COD / Warzone – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for COD / Warzone to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1920 -h 1200 -fullscreen\"; Write-Output \"Copied launch options for COD / Warzone: -w 1920 -h 1200 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_cod_copy_1440x900",
+      "name": "1440x900 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / COD / Warzone – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for COD / Warzone to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1440 -h 900 -fullscreen\"; Write-Output \"Copied launch options for COD / Warzone: -w 1440 -h 900 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_overwatch_copy_1920x1080",
+      "name": "1920x1080 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / Overwatch 2 – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for Overwatch 2 to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1920 -h 1080 -fullscreen\"; Write-Output \"Copied launch options for Overwatch 2: -w 1920 -h 1080 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_overwatch_copy_1798x1080",
+      "name": "1798x1080 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / Overwatch 2 – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for Overwatch 2 to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1798 -h 1080 -fullscreen\"; Write-Output \"Copied launch options for Overwatch 2: -w 1798 -h 1080 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_overwatch_copy_1750x1080",
+      "name": "1750x1080 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / Overwatch 2 – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for Overwatch 2 to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1750 -h 1080 -fullscreen\"; Write-Output \"Copied launch options for Overwatch 2: -w 1750 -h 1080 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_overwatch_copy_1720x1080",
+      "name": "1720x1080 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / Overwatch 2 – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for Overwatch 2 to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1720 -h 1080 -fullscreen\"; Write-Output \"Copied launch options for Overwatch 2: -w 1720 -h 1080 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_overwatch_copy_1680x1050",
+      "name": "1680x1050 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / Overwatch 2 – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for Overwatch 2 to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1680 -h 1050 -fullscreen\"; Write-Output \"Copied launch options for Overwatch 2: -w 1680 -h 1050 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_overwatch_copy_1656x1080",
+      "name": "1656x1080 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / Overwatch 2 – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for Overwatch 2 to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1656 -h 1080 -fullscreen\"; Write-Output \"Copied launch options for Overwatch 2: -w 1656 -h 1080 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_overwatch_copy_1600x900",
+      "name": "1600x900 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / Overwatch 2 – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for Overwatch 2 to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1600 -h 900 -fullscreen\"; Write-Output \"Copied launch options for Overwatch 2: -w 1600 -h 900 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_overwatch_copy_1568x1080",
+      "name": "1568x1080 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / Overwatch 2 – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for Overwatch 2 to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1568 -h 1080 -fullscreen\"; Write-Output \"Copied launch options for Overwatch 2: -w 1568 -h 1080 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_overwatch_copy_1440x1080",
+      "name": "1440x1080 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / Overwatch 2 – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for Overwatch 2 to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1440 -h 1080 -fullscreen\"; Write-Output \"Copied launch options for Overwatch 2: -w 1440 -h 1080 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_overwatch_copy_1280x960",
+      "name": "1280x960 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / Overwatch 2 – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for Overwatch 2 to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1280 -h 960 -fullscreen\"; Write-Output \"Copied launch options for Overwatch 2: -w 1280 -h 960 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_overwatch_copy_1280x1024",
+      "name": "1280x1024 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / Overwatch 2 – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for Overwatch 2 to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1280 -h 1024 -fullscreen\"; Write-Output \"Copied launch options for Overwatch 2: -w 1280 -h 1024 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_overwatch_copy_1152x864",
+      "name": "1152x864 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / Overwatch 2 – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for Overwatch 2 to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1152 -h 864 -fullscreen\"; Write-Output \"Copied launch options for Overwatch 2: -w 1152 -h 864 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_overwatch_copy_1024x768",
+      "name": "1024x768 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / Overwatch 2 – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for Overwatch 2 to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1024 -h 768 -fullscreen\"; Write-Output \"Copied launch options for Overwatch 2: -w 1024 -h 768 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_overwatch_copy_1920x1200",
+      "name": "1920x1200 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / Overwatch 2 – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for Overwatch 2 to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1920 -h 1200 -fullscreen\"; Write-Output \"Copied launch options for Overwatch 2: -w 1920 -h 1200 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_overwatch_copy_1440x900",
+      "name": "1440x900 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / Overwatch 2 – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for Overwatch 2 to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1440 -h 900 -fullscreen\"; Write-Output \"Copied launch options for Overwatch 2: -w 1440 -h 900 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_rocket_copy_1920x1080",
+      "name": "1920x1080 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / Rocket League – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for Rocket League to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1920 -h 1080 -fullscreen\"; Write-Output \"Copied launch options for Rocket League: -w 1920 -h 1080 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_rocket_copy_1798x1080",
+      "name": "1798x1080 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / Rocket League – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for Rocket League to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1798 -h 1080 -fullscreen\"; Write-Output \"Copied launch options for Rocket League: -w 1798 -h 1080 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_rocket_copy_1750x1080",
+      "name": "1750x1080 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / Rocket League – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for Rocket League to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1750 -h 1080 -fullscreen\"; Write-Output \"Copied launch options for Rocket League: -w 1750 -h 1080 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_rocket_copy_1720x1080",
+      "name": "1720x1080 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / Rocket League – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for Rocket League to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1720 -h 1080 -fullscreen\"; Write-Output \"Copied launch options for Rocket League: -w 1720 -h 1080 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_rocket_copy_1680x1050",
+      "name": "1680x1050 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / Rocket League – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for Rocket League to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1680 -h 1050 -fullscreen\"; Write-Output \"Copied launch options for Rocket League: -w 1680 -h 1050 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_rocket_copy_1656x1080",
+      "name": "1656x1080 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / Rocket League – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for Rocket League to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1656 -h 1080 -fullscreen\"; Write-Output \"Copied launch options for Rocket League: -w 1656 -h 1080 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_rocket_copy_1600x900",
+      "name": "1600x900 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / Rocket League – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for Rocket League to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1600 -h 900 -fullscreen\"; Write-Output \"Copied launch options for Rocket League: -w 1600 -h 900 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_rocket_copy_1568x1080",
+      "name": "1568x1080 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / Rocket League – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for Rocket League to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1568 -h 1080 -fullscreen\"; Write-Output \"Copied launch options for Rocket League: -w 1568 -h 1080 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_rocket_copy_1440x1080",
+      "name": "1440x1080 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / Rocket League – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for Rocket League to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1440 -h 1080 -fullscreen\"; Write-Output \"Copied launch options for Rocket League: -w 1440 -h 1080 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_rocket_copy_1280x960",
+      "name": "1280x960 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / Rocket League – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for Rocket League to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1280 -h 960 -fullscreen\"; Write-Output \"Copied launch options for Rocket League: -w 1280 -h 960 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_rocket_copy_1280x1024",
+      "name": "1280x1024 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / Rocket League – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for Rocket League to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1280 -h 1024 -fullscreen\"; Write-Output \"Copied launch options for Rocket League: -w 1280 -h 1024 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_rocket_copy_1152x864",
+      "name": "1152x864 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / Rocket League – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for Rocket League to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1152 -h 864 -fullscreen\"; Write-Output \"Copied launch options for Rocket League: -w 1152 -h 864 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_rocket_copy_1024x768",
+      "name": "1024x768 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / Rocket League – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for Rocket League to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1024 -h 768 -fullscreen\"; Write-Output \"Copied launch options for Rocket League: -w 1024 -h 768 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_rocket_copy_1920x1200",
+      "name": "1920x1200 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / Rocket League – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for Rocket League to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1920 -h 1200 -fullscreen\"; Write-Output \"Copied launch options for Rocket League: -w 1920 -h 1200 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_rocket_copy_1440x900",
+      "name": "1440x900 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / Rocket League – Copy",
+      "type": "action",
+      "description": "Copies Steam launch options for Rocket League to clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1440 -h 900 -fullscreen\"; Write-Output \"Copied launch options for Rocket League: -w 1440 -h 900 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_valorant_copy_1920x1080",
+      "name": "1920x1080 (Copy VALORANT res instructions)",
+      "category": "Stretch Resolution Lab / Valorant – Copy",
+      "type": "action",
+      "description": "Copies VALORANT resolution + scaling instructions to clipboard (VALORANT does not use Steam launch opts).",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"VALORANT: set 1920x1080 (Video > Resolution). In NVIDIA/AMD scaling: Full-screen / Stretch.\"; Write-Output \"Copied VALORANT resolution instructions.\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_valorant_copy_1600x900",
+      "name": "1600x900 (Copy VALORANT res instructions)",
+      "category": "Stretch Resolution Lab / Valorant – Copy",
+      "type": "action",
+      "description": "Copies VALORANT resolution + scaling instructions to clipboard (VALORANT does not use Steam launch opts).",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"VALORANT: set 1600x900 (Video > Resolution). In NVIDIA/AMD scaling: Full-screen / Stretch.\"; Write-Output \"Copied VALORANT resolution instructions.\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_valorant_copy_1280x960",
+      "name": "1280x960 (Copy VALORANT res instructions)",
+      "category": "Stretch Resolution Lab / Valorant – Copy",
+      "type": "action",
+      "description": "Copies VALORANT resolution + scaling instructions to clipboard (VALORANT does not use Steam launch opts).",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"VALORANT: set 1280x960 (Video > Resolution). In NVIDIA/AMD scaling: Full-screen / Stretch.\"; Write-Output \"Copied VALORANT resolution instructions.\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_valorant_copy_1280x1024",
+      "name": "1280x1024 (Copy VALORANT res instructions)",
+      "category": "Stretch Resolution Lab / Valorant – Copy",
+      "type": "action",
+      "description": "Copies VALORANT resolution + scaling instructions to clipboard (VALORANT does not use Steam launch opts).",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"VALORANT: set 1280x1024 (Video > Resolution). In NVIDIA/AMD scaling: Full-screen / Stretch.\"; Write-Output \"Copied VALORANT resolution instructions.\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_valorant_copy_1024x768",
+      "name": "1024x768 (Copy VALORANT res instructions)",
+      "category": "Stretch Resolution Lab / Valorant – Copy",
+      "type": "action",
+      "description": "Copies VALORANT resolution + scaling instructions to clipboard (VALORANT does not use Steam launch opts).",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"VALORANT: set 1024x768 (Video > Resolution). In NVIDIA/AMD scaling: Full-screen / Stretch.\"; Write-Output \"Copied VALORANT resolution instructions.\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_valorant_copy_1440x1080",
+      "name": "1440x1080 (Copy VALORANT res instructions)",
+      "category": "Stretch Resolution Lab / Valorant – Copy",
+      "type": "action",
+      "description": "Copies VALORANT resolution + scaling instructions to clipboard (VALORANT does not use Steam launch opts).",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"VALORANT: set 1440x1080 (Video > Resolution). In NVIDIA/AMD scaling: Full-screen / Stretch.\"; Write-Output \"Copied VALORANT resolution instructions.\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_valorant_copy_1680x1050",
+      "name": "1680x1050 (Copy VALORANT res instructions)",
+      "category": "Stretch Resolution Lab / Valorant – Copy",
+      "type": "action",
+      "description": "Copies VALORANT resolution + scaling instructions to clipboard (VALORANT does not use Steam launch opts).",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"VALORANT: set 1680x1050 (Video > Resolution). In NVIDIA/AMD scaling: Full-screen / Stretch.\"; Write-Output \"Copied VALORANT resolution instructions.\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_any_copy_1920x1080",
+      "name": "1920x1080 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / Any Game – Copy",
+      "type": "action",
+      "description": "Copies generic Steam-style launch options to clipboard (works for many PC games).",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1920 -h 1080 -fullscreen\"; Write-Output \"Copied launch options for Any Game: -w 1920 -h 1080 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_any_copy_1798x1080",
+      "name": "1798x1080 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / Any Game – Copy",
+      "type": "action",
+      "description": "Copies generic Steam-style launch options to clipboard (works for many PC games).",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1798 -h 1080 -fullscreen\"; Write-Output \"Copied launch options for Any Game: -w 1798 -h 1080 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_any_copy_1750x1080",
+      "name": "1750x1080 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / Any Game – Copy",
+      "type": "action",
+      "description": "Copies generic Steam-style launch options to clipboard (works for many PC games).",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1750 -h 1080 -fullscreen\"; Write-Output \"Copied launch options for Any Game: -w 1750 -h 1080 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_any_copy_1720x1080",
+      "name": "1720x1080 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / Any Game – Copy",
+      "type": "action",
+      "description": "Copies generic Steam-style launch options to clipboard (works for many PC games).",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1720 -h 1080 -fullscreen\"; Write-Output \"Copied launch options for Any Game: -w 1720 -h 1080 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_any_copy_1680x1050",
+      "name": "1680x1050 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / Any Game – Copy",
+      "type": "action",
+      "description": "Copies generic Steam-style launch options to clipboard (works for many PC games).",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1680 -h 1050 -fullscreen\"; Write-Output \"Copied launch options for Any Game: -w 1680 -h 1050 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_any_copy_1656x1080",
+      "name": "1656x1080 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / Any Game – Copy",
+      "type": "action",
+      "description": "Copies generic Steam-style launch options to clipboard (works for many PC games).",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1656 -h 1080 -fullscreen\"; Write-Output \"Copied launch options for Any Game: -w 1656 -h 1080 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_any_copy_1600x900",
+      "name": "1600x900 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / Any Game – Copy",
+      "type": "action",
+      "description": "Copies generic Steam-style launch options to clipboard (works for many PC games).",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1600 -h 900 -fullscreen\"; Write-Output \"Copied launch options for Any Game: -w 1600 -h 900 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_any_copy_1568x1080",
+      "name": "1568x1080 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / Any Game – Copy",
+      "type": "action",
+      "description": "Copies generic Steam-style launch options to clipboard (works for many PC games).",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1568 -h 1080 -fullscreen\"; Write-Output \"Copied launch options for Any Game: -w 1568 -h 1080 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_any_copy_1440x1080",
+      "name": "1440x1080 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / Any Game – Copy",
+      "type": "action",
+      "description": "Copies generic Steam-style launch options to clipboard (works for many PC games).",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1440 -h 1080 -fullscreen\"; Write-Output \"Copied launch options for Any Game: -w 1440 -h 1080 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_any_copy_1280x960",
+      "name": "1280x960 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / Any Game – Copy",
+      "type": "action",
+      "description": "Copies generic Steam-style launch options to clipboard (works for many PC games).",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1280 -h 960 -fullscreen\"; Write-Output \"Copied launch options for Any Game: -w 1280 -h 960 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_any_copy_1280x1024",
+      "name": "1280x1024 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / Any Game – Copy",
+      "type": "action",
+      "description": "Copies generic Steam-style launch options to clipboard (works for many PC games).",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1280 -h 1024 -fullscreen\"; Write-Output \"Copied launch options for Any Game: -w 1280 -h 1024 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_any_copy_1152x864",
+      "name": "1152x864 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / Any Game – Copy",
+      "type": "action",
+      "description": "Copies generic Steam-style launch options to clipboard (works for many PC games).",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1152 -h 864 -fullscreen\"; Write-Output \"Copied launch options for Any Game: -w 1152 -h 864 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_any_copy_1024x768",
+      "name": "1024x768 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / Any Game – Copy",
+      "type": "action",
+      "description": "Copies generic Steam-style launch options to clipboard (works for many PC games).",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1024 -h 768 -fullscreen\"; Write-Output \"Copied launch options for Any Game: -w 1024 -h 768 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_any_copy_1920x1200",
+      "name": "1920x1200 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / Any Game – Copy",
+      "type": "action",
+      "description": "Copies generic Steam-style launch options to clipboard (works for many PC games).",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1920 -h 1200 -fullscreen\"; Write-Output \"Copied launch options for Any Game: -w 1920 -h 1200 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_any_copy_1440x900",
+      "name": "1440x900 (Copy Steam launch opts)",
+      "category": "Stretch Resolution Lab / Any Game – Copy",
+      "type": "action",
+      "description": "Copies generic Steam-style launch options to clipboard (works for many PC games).",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value \"-w 1440 -h 900 -fullscreen\"; Write-Output \"Copied launch options for Any Game: -w 1440 -h 900 -fullscreen\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_fortnite_1656x1080",
+      "name": "1656x1080 (Fortnite)",
+      "category": "Stretch Resolution Lab / Fortnite – Presets",
+      "type": "action",
+      "description": "[Focus: FPS/Visibility] Writes 1656x1080 to GameUserSettings.ini (backup saved). Popular/pro-style: Popular comp 16:10-ish.",
+      "riskLevel": "Warning",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$path = Join-Path $env:LOCALAPPDATA 'FortniteGame\\Saved\\Config\\WindowsClient\\GameUserSettings.ini'; if (!(Test-Path $path)) { Write-Output 'GameUserSettings.ini not found.'; return } $bakDir = Join-Path $env:ProgramData 'FalconOptimizer\\stretch_backups'; New-Item -ItemType Directory -Force -Path $bakDir | Out-Null; $bak = Join-Path $bakDir ('GameUserSettings_' + (Get-Date).ToString('yyyyMMdd_HHmmss') + '.ini'); Copy-Item $path $bak -Force; $content = Get-Content $path; $kv = @{ 'ResolutionSizeX'='1656'; 'ResolutionSizeY'='1080'; 'LastUserConfirmedResolutionSizeX'='1656'; 'LastUserConfirmedResolutionSizeY'='1080'; 'DesiredScreenWidth'='1656'; 'DesiredScreenHeight'='1080'; 'LastUserConfirmedDesiredScreenWidth'='1656'; 'LastUserConfirmedDesiredScreenHeight'='1080'; 'FullscreenMode'='0' }; foreach($k in $kv.Keys){ $replacement = $k + '=' + $kv[$k]; $found = $false; $content = $content | ForEach-Object { if ($_ -like ($k + '=*')) { $found = $true; $replacement } else { $_ } }; if (-not $found) { $content += $replacement } } Set-Content -Path $path -Value $content -Encoding ASCII; Write-Output 'Applied 1656x1080 stretched for Fortnite.'; Write-Output ('Backup: ' + $bak)"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_fortnite_1568x1080",
+      "name": "1568x1080 (Fortnite)",
+      "category": "Stretch Resolution Lab / Fortnite – Presets",
+      "type": "action",
+      "description": "[Focus: FPS/Visibility] Writes 1568x1080 to GameUserSettings.ini (backup saved). Popular/pro-style: Stretch FN classic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$path = Join-Path $env:LOCALAPPDATA 'FortniteGame\\Saved\\Config\\WindowsClient\\GameUserSettings.ini'; if (!(Test-Path $path)) { Write-Output 'GameUserSettings.ini not found.'; return } $bakDir = Join-Path $env:ProgramData 'FalconOptimizer\\stretch_backups'; New-Item -ItemType Directory -Force -Path $bakDir | Out-Null; $bak = Join-Path $bakDir ('GameUserSettings_' + (Get-Date).ToString('yyyyMMdd_HHmmss') + '.ini'); Copy-Item $path $bak -Force; $content = Get-Content $path; $kv = @{ 'ResolutionSizeX'='1568'; 'ResolutionSizeY'='1080'; 'LastUserConfirmedResolutionSizeX'='1568'; 'LastUserConfirmedResolutionSizeY'='1080'; 'DesiredScreenWidth'='1568'; 'DesiredScreenHeight'='1080'; 'LastUserConfirmedDesiredScreenWidth'='1568'; 'LastUserConfirmedDesiredScreenHeight'='1080'; 'FullscreenMode'='0' }; foreach($k in $kv.Keys){ $replacement = $k + '=' + $kv[$k]; $found = $false; $content = $content | ForEach-Object { if ($_ -like ($k + '=*')) { $found = $true; $replacement } else { $_ } }; if (-not $found) { $content += $replacement } } Set-Content -Path $path -Value $content -Encoding ASCII; Write-Output 'Applied 1568x1080 stretched for Fortnite.'; Write-Output ('Backup: ' + $bak)"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_fortnite_1152x864",
+      "name": "1152x864 (Fortnite)",
+      "category": "Stretch Resolution Lab / Fortnite – Presets",
+      "type": "action",
+      "description": "[Focus: FPS/Visibility] Writes 1152x864 to GameUserSettings.ini (backup saved). Popular/pro-style: Low-end 4:3.",
+      "riskLevel": "Warning",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$path = Join-Path $env:LOCALAPPDATA 'FortniteGame\\Saved\\Config\\WindowsClient\\GameUserSettings.ini'; if (!(Test-Path $path)) { Write-Output 'GameUserSettings.ini not found.'; return } $bakDir = Join-Path $env:ProgramData 'FalconOptimizer\\stretch_backups'; New-Item -ItemType Directory -Force -Path $bakDir | Out-Null; $bak = Join-Path $bakDir ('GameUserSettings_' + (Get-Date).ToString('yyyyMMdd_HHmmss') + '.ini'); Copy-Item $path $bak -Force; $content = Get-Content $path; $kv = @{ 'ResolutionSizeX'='1152'; 'ResolutionSizeY'='864'; 'LastUserConfirmedResolutionSizeX'='1152'; 'LastUserConfirmedResolutionSizeY'='864'; 'DesiredScreenWidth'='1152'; 'DesiredScreenHeight'='864'; 'LastUserConfirmedDesiredScreenWidth'='1152'; 'LastUserConfirmedDesiredScreenHeight'='864'; 'FullscreenMode'='0' }; foreach($k in $kv.Keys){ $replacement = $k + '=' + $kv[$k]; $found = $false; $content = $content | ForEach-Object { if ($_ -like ($k + '=*')) { $found = $true; $replacement } else { $_ } }; if (-not $found) { $content += $replacement } } Set-Content -Path $path -Value $content -Encoding ASCII; Write-Output 'Applied 1152x864 stretched for Fortnite.'; Write-Output ('Backup: ' + $bak)"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_gtav_1280x960",
+      "name": "GTA V 1280x960 (apply settings.xml)",
+      "category": "Stretch Resolution Lab / GTA V – Presets",
+      "type": "action",
+      "description": "[Focus: FPS] Writes 1280x960 to GTA V settings.xml (backup saved).",
+      "riskLevel": "Warning",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$path = Join-Path $env:USERPROFILE 'Documents\\\\Rockstar Games\\\\GTA V\\\\settings.xml'; if (!(Test-Path $path)) { Write-Output 'GTA V settings.xml not found.'; return } $bakDir = Join-Path $env:ProgramData 'FalconOptimizer\\\\stretch_backups'; New-Item -ItemType Directory -Force -Path $bakDir | Out-Null; $bak = Join-Path $bakDir ('GTAV_settings_1280x960_' + (Get-Date).ToString('yyyyMMdd_HHmmss') + '.xml'); Copy-Item $path $bak -Force; $xml = Get-Content $path -Raw; $xml = $xml -replace '<screenWidth>\\d+</screenWidth>', '<screenWidth>1280</screenWidth>'; $xml = $xml -replace '<screenHeight>\\d+</screenHeight>', '<screenHeight>960</screenHeight>'; Set-Content -Path $path -Value $xml -Encoding UTF8; Write-Output 'Applied GTA V 1280x960.'; Write-Output ('Backup: ' + $bak);"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_gtav_1440x1080",
+      "name": "GTA V 1440x1080 (apply settings.xml)",
+      "category": "Stretch Resolution Lab / GTA V – Presets",
+      "type": "action",
+      "description": "[Focus: FPS] Writes 1440x1080 to GTA V settings.xml (backup saved).",
+      "riskLevel": "Warning",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$path = Join-Path $env:USERPROFILE 'Documents\\\\Rockstar Games\\\\GTA V\\\\settings.xml'; if (!(Test-Path $path)) { Write-Output 'GTA V settings.xml not found.'; return } $bakDir = Join-Path $env:ProgramData 'FalconOptimizer\\\\stretch_backups'; New-Item -ItemType Directory -Force -Path $bakDir | Out-Null; $bak = Join-Path $bakDir ('GTAV_settings_1440x1080_' + (Get-Date).ToString('yyyyMMdd_HHmmss') + '.xml'); Copy-Item $path $bak -Force; $xml = Get-Content $path -Raw; $xml = $xml -replace '<screenWidth>\\d+</screenWidth>', '<screenWidth>1440</screenWidth>'; $xml = $xml -replace '<screenHeight>\\d+</screenHeight>', '<screenHeight>1080</screenHeight>'; Set-Content -Path $path -Value $xml -Encoding UTF8; Write-Output 'Applied GTA V 1440x1080.'; Write-Output ('Backup: ' + $bak);"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_gtav_1600x900",
+      "name": "GTA V 1600x900 (apply settings.xml)",
+      "category": "Stretch Resolution Lab / GTA V – Presets",
+      "type": "action",
+      "description": "[Focus: FPS] Writes 1600x900 to GTA V settings.xml (backup saved).",
+      "riskLevel": "Warning",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$path = Join-Path $env:USERPROFILE 'Documents\\\\Rockstar Games\\\\GTA V\\\\settings.xml'; if (!(Test-Path $path)) { Write-Output 'GTA V settings.xml not found.'; return } $bakDir = Join-Path $env:ProgramData 'FalconOptimizer\\\\stretch_backups'; New-Item -ItemType Directory -Force -Path $bakDir | Out-Null; $bak = Join-Path $bakDir ('GTAV_settings_1600x900_' + (Get-Date).ToString('yyyyMMdd_HHmmss') + '.xml'); Copy-Item $path $bak -Force; $xml = Get-Content $path -Raw; $xml = $xml -replace '<screenWidth>\\d+</screenWidth>', '<screenWidth>1600</screenWidth>'; $xml = $xml -replace '<screenHeight>\\d+</screenHeight>', '<screenHeight>900</screenHeight>'; Set-Content -Path $path -Value $xml -Encoding UTF8; Write-Output 'Applied GTA V 1600x900.'; Write-Output ('Backup: ' + $bak);"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_gtav_1720x1080",
+      "name": "GTA V 1720x1080 (apply settings.xml)",
+      "category": "Stretch Resolution Lab / GTA V – Presets",
+      "type": "action",
+      "description": "[Focus: FPS] Writes 1720x1080 to GTA V settings.xml (backup saved).",
+      "riskLevel": "Warning",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$path = Join-Path $env:USERPROFILE 'Documents\\\\Rockstar Games\\\\GTA V\\\\settings.xml'; if (!(Test-Path $path)) { Write-Output 'GTA V settings.xml not found.'; return } $bakDir = Join-Path $env:ProgramData 'FalconOptimizer\\\\stretch_backups'; New-Item -ItemType Directory -Force -Path $bakDir | Out-Null; $bak = Join-Path $bakDir ('GTAV_settings_1720x1080_' + (Get-Date).ToString('yyyyMMdd_HHmmss') + '.xml'); Copy-Item $path $bak -Force; $xml = Get-Content $path -Raw; $xml = $xml -replace '<screenWidth>\\d+</screenWidth>', '<screenWidth>1720</screenWidth>'; $xml = $xml -replace '<screenHeight>\\d+</screenHeight>', '<screenHeight>1080</screenHeight>'; Set-Content -Path $path -Value $xml -Encoding UTF8; Write-Output 'Applied GTA V 1720x1080.'; Write-Output ('Backup: ' + $bak);"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_gtav_1750x1080",
+      "name": "GTA V 1750x1080 (apply settings.xml)",
+      "category": "Stretch Resolution Lab / GTA V – Presets",
+      "type": "action",
+      "description": "[Focus: FPS] Writes 1750x1080 to GTA V settings.xml (backup saved).",
+      "riskLevel": "Warning",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$path = Join-Path $env:USERPROFILE 'Documents\\\\Rockstar Games\\\\GTA V\\\\settings.xml'; if (!(Test-Path $path)) { Write-Output 'GTA V settings.xml not found.'; return } $bakDir = Join-Path $env:ProgramData 'FalconOptimizer\\\\stretch_backups'; New-Item -ItemType Directory -Force -Path $bakDir | Out-Null; $bak = Join-Path $bakDir ('GTAV_settings_1750x1080_' + (Get-Date).ToString('yyyyMMdd_HHmmss') + '.xml'); Copy-Item $path $bak -Force; $xml = Get-Content $path -Raw; $xml = $xml -replace '<screenWidth>\\d+</screenWidth>', '<screenWidth>1750</screenWidth>'; $xml = $xml -replace '<screenHeight>\\d+</screenHeight>', '<screenHeight>1080</screenHeight>'; Set-Content -Path $path -Value $xml -Encoding UTF8; Write-Output 'Applied GTA V 1750x1080.'; Write-Output ('Backup: ' + $bak);"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_gtav_1798x1080",
+      "name": "GTA V 1798x1080 (apply settings.xml)",
+      "category": "Stretch Resolution Lab / GTA V – Presets",
+      "type": "action",
+      "description": "[Focus: FPS] Writes 1798x1080 to GTA V settings.xml (backup saved).",
+      "riskLevel": "Warning",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$path = Join-Path $env:USERPROFILE 'Documents\\\\Rockstar Games\\\\GTA V\\\\settings.xml'; if (!(Test-Path $path)) { Write-Output 'GTA V settings.xml not found.'; return } $bakDir = Join-Path $env:ProgramData 'FalconOptimizer\\\\stretch_backups'; New-Item -ItemType Directory -Force -Path $bakDir | Out-Null; $bak = Join-Path $bakDir ('GTAV_settings_1798x1080_' + (Get-Date).ToString('yyyyMMdd_HHmmss') + '.xml'); Copy-Item $path $bak -Force; $xml = Get-Content $path -Raw; $xml = $xml -replace '<screenWidth>\\d+</screenWidth>', '<screenWidth>1798</screenWidth>'; $xml = $xml -replace '<screenHeight>\\d+</screenHeight>', '<screenHeight>1080</screenHeight>'; Set-Content -Path $path -Value $xml -Encoding UTF8; Write-Output 'Applied GTA V 1798x1080.'; Write-Output ('Backup: ' + $bak);"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_gtav_1920x1080",
+      "name": "GTA V 1920x1080 (apply settings.xml)",
+      "category": "Stretch Resolution Lab / GTA V – Presets",
+      "type": "action",
+      "description": "[Focus: FPS] Writes 1920x1080 to GTA V settings.xml (backup saved).",
+      "riskLevel": "Warning",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$path = Join-Path $env:USERPROFILE 'Documents\\\\Rockstar Games\\\\GTA V\\\\settings.xml'; if (!(Test-Path $path)) { Write-Output 'GTA V settings.xml not found.'; return } $bakDir = Join-Path $env:ProgramData 'FalconOptimizer\\\\stretch_backups'; New-Item -ItemType Directory -Force -Path $bakDir | Out-Null; $bak = Join-Path $bakDir ('GTAV_settings_1920x1080_' + (Get-Date).ToString('yyyyMMdd_HHmmss') + '.xml'); Copy-Item $path $bak -Force; $xml = Get-Content $path -Raw; $xml = $xml -replace '<screenWidth>\\d+</screenWidth>', '<screenWidth>1920</screenWidth>'; $xml = $xml -replace '<screenHeight>\\d+</screenHeight>', '<screenHeight>1080</screenHeight>'; Set-Content -Path $path -Value $xml -Encoding UTF8; Write-Output 'Applied GTA V 1920x1080.'; Write-Output ('Backup: ' + $bak);"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_gtav_1280x720",
+      "name": "GTA V 1280x720 (apply settings.xml)",
+      "category": "Stretch Resolution Lab / GTA V – Presets",
+      "type": "action",
+      "description": "[Focus: FPS] Writes 1280x720 to GTA V settings.xml (backup saved).",
+      "riskLevel": "Warning",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$path = Join-Path $env:USERPROFILE 'Documents\\\\Rockstar Games\\\\GTA V\\\\settings.xml'; if (!(Test-Path $path)) { Write-Output 'GTA V settings.xml not found.'; return } $bakDir = Join-Path $env:ProgramData 'FalconOptimizer\\\\stretch_backups'; New-Item -ItemType Directory -Force -Path $bakDir | Out-Null; $bak = Join-Path $bakDir ('GTAV_settings_1280x720_' + (Get-Date).ToString('yyyyMMdd_HHmmss') + '.xml'); Copy-Item $path $bak -Force; $xml = Get-Content $path -Raw; $xml = $xml -replace '<screenWidth>\\d+</screenWidth>', '<screenWidth>1280</screenWidth>'; $xml = $xml -replace '<screenHeight>\\d+</screenHeight>', '<screenHeight>720</screenHeight>'; Set-Content -Path $path -Value $xml -Encoding UTF8; Write-Output 'Applied GTA V 1280x720.'; Write-Output ('Backup: ' + $bak);"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_gtav_1366x768",
+      "name": "GTA V 1366x768 (apply settings.xml)",
+      "category": "Stretch Resolution Lab / GTA V – Presets",
+      "type": "action",
+      "description": "[Focus: FPS] Writes 1366x768 to GTA V settings.xml (backup saved).",
+      "riskLevel": "Warning",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$path = Join-Path $env:USERPROFILE 'Documents\\\\Rockstar Games\\\\GTA V\\\\settings.xml'; if (!(Test-Path $path)) { Write-Output 'GTA V settings.xml not found.'; return } $bakDir = Join-Path $env:ProgramData 'FalconOptimizer\\\\stretch_backups'; New-Item -ItemType Directory -Force -Path $bakDir | Out-Null; $bak = Join-Path $bakDir ('GTAV_settings_1366x768_' + (Get-Date).ToString('yyyyMMdd_HHmmss') + '.xml'); Copy-Item $path $bak -Force; $xml = Get-Content $path -Raw; $xml = $xml -replace '<screenWidth>\\d+</screenWidth>', '<screenWidth>1366</screenWidth>'; $xml = $xml -replace '<screenHeight>\\d+</screenHeight>', '<screenHeight>768</screenHeight>'; Set-Content -Path $path -Value $xml -Encoding UTF8; Write-Output 'Applied GTA V 1366x768.'; Write-Output ('Backup: ' + $bak);"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_gtav_1536x864",
+      "name": "GTA V 1536x864 (apply settings.xml)",
+      "category": "Stretch Resolution Lab / GTA V – Presets",
+      "type": "action",
+      "description": "[Focus: FPS] Writes 1536x864 to GTA V settings.xml (backup saved).",
+      "riskLevel": "Warning",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$path = Join-Path $env:USERPROFILE 'Documents\\\\Rockstar Games\\\\GTA V\\\\settings.xml'; if (!(Test-Path $path)) { Write-Output 'GTA V settings.xml not found.'; return } $bakDir = Join-Path $env:ProgramData 'FalconOptimizer\\\\stretch_backups'; New-Item -ItemType Directory -Force -Path $bakDir | Out-Null; $bak = Join-Path $bakDir ('GTAV_settings_1536x864_' + (Get-Date).ToString('yyyyMMdd_HHmmss') + '.xml'); Copy-Item $path $bak -Force; $xml = Get-Content $path -Raw; $xml = $xml -replace '<screenWidth>\\d+</screenWidth>', '<screenWidth>1536</screenWidth>'; $xml = $xml -replace '<screenHeight>\\d+</screenHeight>', '<screenHeight>864</screenHeight>'; Set-Content -Path $path -Value $xml -Encoding UTF8; Write-Output 'Applied GTA V 1536x864.'; Write-Output ('Backup: ' + $bak);"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    }
+  ]
+}

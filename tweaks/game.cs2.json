@@ -1,0 +1,785 @@
+{
+  "items": [
+    {
+      "id": "game.cs2.qos_dscp46",
+      "type": "button",
+      "name": "Apply: QoS: Prioritize CS2 (DSCP 46 UDP/TCP)",
+      "category": "Game Specific / CS2",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "[Focus: Ping / Network, Latency / Input Delay]\nSets a QoS UDP/TCP policy which prioritizes CS2's network traffic by tagging packets with DSCP 46 (Expedited Forwarding). This helps your router process the game's packets first, which can stabilize ping and reduce packet loss on congested networks. Notes:\n- Policy is created in the ActiveStore and is fully reversible from Falcon Optimizer.\n- Works best if your router respects DSCP tags and your ISP does not strip them.\n- If you see any weird network behavior, simply toggle this off to remove the policy.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"New-NetQosPolicy -Name 'Falcon CS2 DSCP46' -AppPathNameMatchCondition '*cs2.exe' -DSCPAction 46 -PolicyStore ActiveStore -ErrorAction SilentlyContinue\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"Remove-NetQosPolicy -Name 'Falcon CS2 DSCP46' -PolicyStore ActiveStore -Confirm:$false -ErrorAction SilentlyContinue\""
+          }
+        ]
+      }
+    },
+    {
+      "category": "Game Specific / CS2",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "[Focus: Ping / Network, Latency / Input Delay]\nSets a QoS UDP/TCP policy which prioritizes CS2's network traffic by tagging packets with DSCP 46 (Expedited Forwarding). This helps your router process the game's packets first, which can stabilize ping and reduce packet loss on congested networks. Notes:\n- Policy is created in the ActiveStore and is fully reversible from Falcon Optimizer.\n- Works best if your router respects DSCP tags and your ISP does not strip them.\n- If you see any weird network behavior, simply toggle this off to remove the policy.",
+      "id": "game.cs2.qos_dscp46__revert",
+      "type": "button",
+      "name": "Revert: QoS: Prioritize CS2 (DSCP 46 UDP/TCP)",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"Remove-NetQosPolicy -Name 'Falcon CS2 DSCP46' -PolicyStore ActiveStore -Confirm:$false -ErrorAction SilentlyContinue\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "game.cs2.priority_high",
+      "type": "button",
+      "name": "Set CS2 Priority to High (while running)",
+      "category": "Game Specific / CS2",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "[Focus: FPS, Latency / Input Delay] If the game process is running, sets its process priority to High for this Windows session.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$p=Get-Process cs2 -ErrorAction SilentlyContinue; if($p){$p.PriorityClass='High'} else {throw 'CS2 is not running'}"
+          }
+        ]
+      },
+      "note": "Converted from toggle (missing revert)."
+    },
+    {
+      "id": "game.cs2.qos_dscp46_main",
+      "type": "button",
+      "name": "Apply: QoS: Prioritize Game Traffic (DSCP 46)",
+      "category": "Game Specific / CS2",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "[Focus: Ping / network stability, jitter, packet loss]\nCreates a Windows QoS policy that tags **CS2** packets with DSCP 46 (Expedited Forwarding). If your network gets congested (someone streaming/updates), routers that honor DSCP can schedule game packets first. What to expect:\n- Best case: smoother ping under load, fewer spikes.\n- Worst case: no change (ISP/router strips DSCP). How to test:\n- Turn this on.\n- Start a download/stream on the same network.\n- Compare in-game ping/jitter with and without. Notes:\n- Ethernet usually beats Wi‑Fi for jitter.\n- Fully reversible: toggle off removes the policy.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"New-NetQosPolicy -Name 'Falcon CS2 DSCP46' -AppPathNameMatchCondition '*cs2.exe' -DSCPAction 46 -PolicyStore ActiveStore -ErrorAction SilentlyContinue\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"Remove-NetQosPolicy -Name 'Falcon CS2 DSCP46' -PolicyStore ActiveStore -Confirm:$false -ErrorAction SilentlyContinue\""
+          }
+        ]
+      }
+    },
+    {
+      "category": "Game Specific / CS2",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "[Focus: Ping / network stability, jitter, packet loss]\nCreates a Windows QoS policy that tags **CS2** packets with DSCP 46 (Expedited Forwarding). If your network gets congested (someone streaming/updates), routers that honor DSCP can schedule game packets first. What to expect:\n- Best case: smoother ping under load, fewer spikes.\n- Worst case: no change (ISP/router strips DSCP). How to test:\n- Turn this on.\n- Start a download/stream on the same network.\n- Compare in-game ping/jitter with and without. Notes:\n- Ethernet usually beats Wi‑Fi for jitter.\n- Fully reversible: toggle off removes the policy.",
+      "id": "game.cs2.qos_dscp46_main__revert",
+      "type": "button",
+      "name": "Revert: QoS: Prioritize Game Traffic (DSCP 46)",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"Remove-NetQosPolicy -Name 'Falcon CS2 DSCP46' -PolicyStore ActiveStore -Confirm:$false -ErrorAction SilentlyContinue\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "game.cs2.qos_dscp46_launcher",
+      "type": "button",
+      "name": "Apply: QoS: Prioritize Launcher / Anti‑Cheat Traffic (DSCP 46)",
+      "category": "Game Specific / CS2",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "[Focus: matchmaking stability]\nAdds a second QoS policy for the launcher/anti‑cheat process commonly used with **CS2**. When it helps:\n- Party/matchmaking traffic shares a busy connection. If unsure:\n- Leave this off and only use the main game policy.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"New-NetQosPolicy -Name 'Falcon CS2 Launcher DSCP46' -AppPathNameMatchCondition '*steam.exe' -DSCPAction 46 -PolicyStore ActiveStore -ErrorAction SilentlyContinue\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"Remove-NetQosPolicy -Name 'Falcon CS2 Launcher DSCP46' -PolicyStore ActiveStore -Confirm:$false -ErrorAction SilentlyContinue\""
+          }
+        ]
+      }
+    },
+    {
+      "category": "Game Specific / CS2",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "[Focus: matchmaking stability]\nAdds a second QoS policy for the launcher/anti‑cheat process commonly used with **CS2**. When it helps:\n- Party/matchmaking traffic shares a busy connection. If unsure:\n- Leave this off and only use the main game policy.",
+      "id": "game.cs2.qos_dscp46_launcher__revert",
+      "type": "button",
+      "name": "Revert: QoS: Prioritize Launcher / Anti‑Cheat Traffic (DSCP 46)",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"Remove-NetQosPolicy -Name 'Falcon CS2 Launcher DSCP46' -PolicyStore ActiveStore -Confirm:$false -ErrorAction SilentlyContinue\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "game.cs2.ingame_settings_comp",
+      "type": "action",
+      "name": "Competitive In‑Game Settings (FPS + Clarity)",
+      "category": "Game Specific / CS2",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "primaryLabel": "View",
+      "description": "[Focus: FPS, reduced input delay, visual clarity]\nA competitive baseline that usually gives the biggest gains without breaking the game: Display / sync\n- Prefer **Fullscreen Exclusive** (if available). If the game only supports borderless, keep it and rely on a good FPS cap.\n- **V‑Sync: Off** (adds latency). If tearing bothers you, use an FPS cap instead of V‑Sync.\n- **FPS cap:** cap slightly below your refresh (ex: 237 for 240Hz, 162 for 165Hz). This reduces frametime spikes and keeps latency consistent. Graphics (highest ROI)\n- Motion blur / depth of field / film grain: **Off**.\n- Shadows: **Low/Off** (shadows are one of the most expensive settings).\n- Effects/particles/post‑processing: reduce first when fights cause drops.\n- Textures: keep within VRAM (too high → hitching). Latency features\n- If the game supports **Reflex / Low‑Latency**: enable it. Test On vs On+Boost. Rule:\n- Change one cluster at a time, then play 2–3 matches to confirm the gain.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nRead the guide in the description.\n\"@"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "game.cs2.windows_driver_stack",
+      "type": "action",
+      "name": "Windows + Driver Setup (Low‑Latency Baseline)",
+      "category": "Game Specific / CS2",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "primaryLabel": "View",
+      "description": "[Focus: input delay / frametime consistency]\nThis is the “don’t sabotage yourself” checklist: Windows\n- Set the correct **monitor refresh rate** in Windows display settings.\n- Disable background recording you don’t use (Game Bar captures, DVR features).\n- Disable overlays you don’t need (Discord overlay, Steam overlay, GeForce overlay, Overwolf).\n- Keep 10–20% free space on the drive the game uses (SSD cache + updates). GPU driver\n- Keep drivers reasonably current (not necessarily day‑1 if they’re unstable).\n- Prefer a stable driver branch you’ve tested. Network\n- Ethernet > Wi‑Fi for jitter.\n- If your ping spikes when others use the internet, you likely have **bufferbloat** (router QoS/SQM helps more than any Windows tweak). Performance truth:\n- If a “tweak” doesn’t change frametime graphs, it’s probably placebo.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nRead the guide in the description.\n\"@"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "game.cs2.config_launch_options",
+      "type": "action",
+      "name": "Launch Options + Config Hygiene (Stutter Reduction)",
+      "category": "Game Specific / CS2",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "primaryLabel": "View",
+      "description": "[Focus: stutter reduction / consistent frametimes]\nUse launch options sparingly and intentionally: API choice\n- Test DX11 vs DX12 (and Vulkan if supported): - DX11 often = smoother on older systems. - DX12 often = higher peak FPS but can stutter during shader compilation. Shader/cache reality\n- Clearing shader cache is a **troubleshooting tool**. The first few matches after clearing can stutter more while shaders rebuild. After updates\n- Verify game files after major patches.\n- If you suddenly stutter after an update, reset only the settings that changed recently. Avoid\n- Random “all launch options” lists. Some flags are outdated, ignored, or actively harmful.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nRead the guide in the description.\n\"@"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "game.cs2.input_tuning",
+      "type": "action",
+      "name": "Input Tuning (Mouse / Controller / Polling)",
+      "category": "Game Specific / CS2",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "primaryLabel": "View",
+      "description": "[Focus: input delay, consistency]\nMouse\n- Turn off Windows mouse acceleration (Enhance Pointer Precision).\n- Use a stable DPI + in‑game sens. Avoid constant sens changes.\n- Polling rate: 1000Hz is standard. Higher rates can help, but may increase CPU overhead on some rigs—test for micro‑stutter. Controller\n- Wired is usually lowest-latency.\n- Reduce deadzones as low as stable.\n- Disable extra smoothing/filters if the game offers it. Check\n- If input feels “floaty” only when FPS drops, it’s a performance issue, not a mouse setting.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nRead the guide in the description.\n\"@"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "game.cs2.overlay_background_killlist",
+      "type": "action",
+      "name": "Overlay + Background App Kill‑List (Real FPS Gains)",
+      "category": "Game Specific / CS2",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "primaryLabel": "View",
+      "description": "[Focus: real FPS gains]\nHigh-impact background offenders:\n- RGB suites (iCUE, Armoury Crate, Mystic Light)\n- Browsers with video tabs\n- Clip recorders you don’t need\n- Cloud sync during play (OneDrive/Dropbox active sync)\n- Updaters running in the background Competitive habit\n- Before ranked: close everything unnecessary, then launch the game fresh. Why this matters\n- CPU spikes and disk spikes cause hitching more than most registry tweaks.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nRead the guide in the description.\n\"@"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "game.cs2.troubleshoot_stutters",
+      "type": "action",
+      "name": "Troubleshooting Flow (Stutters / Ping Spikes / FPS Drops)",
+      "category": "Game Specific / CS2",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "primaryLabel": "View",
+      "description": "[Focus: fast diagnosis]\nUse this order so you don’t chase ghosts: 1) Measure\n- Use an FPS + frametime overlay. Frametime spikes = “stutter.” 2) Is it GPU or CPU?\n- GPU maxed → lower GPU-heavy settings (shadows, effects, resolution scale).\n- CPU maxed → reduce view distance / CPU-heavy effects, close background apps. 3) Is it storage?\n- If disk usage spikes, you may be on a slow drive or something is scanning/ syncing. 4) Is it network?\n- Packet loss/jitter: test Ethernet, reboot router, stop other network traffic. 5) Change one thing\n- If you change 10 settings at once, you’ll never know what helped.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nRead the guide in the description.\n\"@"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "game.cs2.enableqos",
+      "type": "button",
+      "name": "Apply: QoS: Prioritize game traffic (DSCP 46) [Real]",
+      "category": "Game Specific / CS2",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "Creates a Windows QoS policy (ActiveStore) tagging this game's packets with DSCP 46. Reversible.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'cs2' -Action 'EnableQoS'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'cs2' -Action 'DisableQoS'"
+          }
+        ]
+      }
+    },
+    {
+      "category": "Game Specific / CS2",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "Creates a Windows QoS policy (ActiveStore) tagging this game's packets with DSCP 46. Reversible.",
+      "id": "game.cs2.enableqos__revert",
+      "type": "button",
+      "name": "Revert: QoS: Prioritize game traffic (DSCP 46) [Real]",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'cs2' -Action 'DisableQoS'"
+          }
+        ]
+      }
+    },
+    {
+      "id": "game.cs2.enablelauncherqos",
+      "type": "button",
+      "name": "Apply: QoS: Prioritize launcher traffic (DSCP 46) [Real]",
+      "category": "Game Specific / CS2",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "Creates a QoS policy for the game's launcher/client (Steam/Epic/Battle.net/Riot). Reversible.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'cs2' -Action 'EnableLauncherQoS'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'cs2' -Action 'DisableLauncherQoS'"
+          }
+        ]
+      }
+    },
+    {
+      "category": "Game Specific / CS2",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "Creates a QoS policy for the game's launcher/client (Steam/Epic/Battle.net/Riot). Reversible.",
+      "id": "game.cs2.enablelauncherqos__revert",
+      "type": "button",
+      "name": "Revert: QoS: Prioritize launcher traffic (DSCP 46) [Real]",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'cs2' -Action 'DisableLauncherQoS'"
+          }
+        ]
+      }
+    },
+    {
+      "id": "game.cs2.setgpupref",
+      "type": "button",
+      "name": "Apply: Windows Graphics: Force High-Performance GPU for this game [Real]",
+      "category": "Game Specific / CS2",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "description": "Sets per-app GPU preference to High Performance (Windows Graphics Settings). Reversible.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'cs2' -Action 'SetGpuPref'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'cs2' -Action 'RemoveGpuPref'"
+          }
+        ]
+      }
+    },
+    {
+      "category": "Game Specific / CS2",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "description": "Sets per-app GPU preference to High Performance (Windows Graphics Settings). Reversible.",
+      "id": "game.cs2.setgpupref__revert",
+      "type": "button",
+      "name": "Revert: Windows Graphics: Force High-Performance GPU for this game [Real]",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'cs2' -Action 'RemoveGpuPref'"
+          }
+        ]
+      }
+    },
+    {
+      "id": "game.cs2.disablefso",
+      "type": "button",
+      "name": "Apply: Disable Fullscreen Optimizations for this game [Real]",
+      "category": "Game Specific / CS2",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "description": "Writes per-exe AppCompat flag to disable Fullscreen Optimizations. Reversible.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'cs2' -Action 'DisableFSO'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'cs2' -Action 'EnableFSO'"
+          }
+        ]
+      }
+    },
+    {
+      "category": "Game Specific / CS2",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "description": "Writes per-exe AppCompat flag to disable Fullscreen Optimizations. Reversible.",
+      "id": "game.cs2.disablefso__revert",
+      "type": "button",
+      "name": "Revert: Disable Fullscreen Optimizations for this game [Real]",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'cs2' -Action 'EnableFSO'"
+          }
+        ]
+      }
+    },
+    {
+      "id": "game.cs2.disabledpi",
+      "type": "button",
+      "name": "Apply: Disable DPI scaling / enforce DPI-aware for this game [Real]",
+      "category": "Game Specific / CS2",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "description": "Sets per-exe DPI behavior via AppCompat layer. Reversible.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'cs2' -Action 'DisableDPI'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'cs2' -Action 'EnableDPI'"
+          }
+        ]
+      }
+    },
+    {
+      "category": "Game Specific / CS2",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "description": "Sets per-exe DPI behavior via AppCompat layer. Reversible.",
+      "id": "game.cs2.disabledpi__revert",
+      "type": "button",
+      "name": "Revert: Disable DPI scaling / enforce DPI-aware for this game [Real]",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'cs2' -Action 'EnableDPI'"
+          }
+        ]
+      }
+    },
+    {
+      "id": "game.cs2.starttimer500us",
+      "type": "button",
+      "name": "Apply: Timer: Lock 0.5ms resolution (while Falcon is running) [Real]",
+      "category": "Game Specific / CS2",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "Starts Falcon timer-helper to request 0.5ms system timer resolution. Turn off to stop the helper.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'cs2' -Action 'StartTimer500us'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'cs2' -Action 'StopTimer'"
+          }
+        ]
+      }
+    },
+    {
+      "category": "Game Specific / CS2",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "Starts Falcon timer-helper to request 0.5ms system timer resolution. Turn off to stop the helper.",
+      "id": "game.cs2.starttimer500us__revert",
+      "type": "button",
+      "name": "Revert: Timer: Lock 0.5ms resolution (while Falcon is running) [Real]",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'cs2' -Action 'StopTimer'"
+          }
+        ]
+      }
+    },
+    {
+      "id": "game.cs2.sethighprioritynow",
+      "type": "action",
+      "name": "Set game priority to High (if running) [Real]",
+      "category": "Game Specific / CS2",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "If the game process is running, sets priority class to High for this session.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'cs2' -Action 'SetHighPriorityNow'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "game.cs2.setnormalprioritynow",
+      "type": "action",
+      "name": "Set game priority to Normal (if running) [Real]",
+      "category": "Game Specific / CS2",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "If the game process is running, sets priority class back to Normal for this session.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'cs2' -Action 'SetNormalPriorityNow'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "game.cs2.applyconfigbaseline",
+      "type": "button",
+      "name": "Apply: Apply competitive config baseline (game-specific files) [Real]",
+      "category": "Game Specific / CS2",
+      "riskLevel": "Warning",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "description": "Creates/patches the game's config file(s) with a low-latency baseline and backs up originals for restore.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'cs2' -Action 'ApplyConfigBaseline'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'cs2' -Action 'RestoreConfigBaseline'"
+          }
+        ]
+      }
+    },
+    {
+      "category": "Game Specific / CS2",
+      "riskLevel": "Warning",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "description": "Creates/patches the game's config file(s) with a low-latency baseline and backs up originals for restore.",
+      "id": "game.cs2.applyconfigbaseline__revert",
+      "type": "button",
+      "name": "Revert: Apply competitive config baseline (game-specific files) [Real]",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'cs2' -Action 'RestoreConfigBaseline'"
+          }
+        ]
+      }
+    },
+    {
+      "id": "game.cs2.clearcaches",
+      "type": "action",
+      "name": "Clear caches used by this game (best-effort) [Real]",
+      "category": "Game Specific / CS2",
+      "riskLevel": "Warning",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "description": "Deletes common cache folders for this title (where applicable).",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'cs2' -Action 'ClearCaches'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "game.cs2.closeoverlays",
+      "type": "action",
+      "name": "Close common overlay/recording apps (manual) [Real]",
+      "category": "Game Specific / CS2",
+      "riskLevel": "Warning",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "description": "Closes overlays/recording apps to reduce stutter. Manual; not auto-restored.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'cs2' -Action 'CloseOverlays'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "game.cs2.competitive_prep",
+      "type": "action",
+      "name": "Competitive Prep (one-click) [Real]",
+      "category": "Game Specific / CS2",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "Runs a one-click sequence: closes overlays, enables DSCP QoS, sets GPU pref, disables FSO/DPI scaling, starts 0.5ms timer, and applies the game-specific config baseline.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'cs2' -Action 'CloseOverlays'; & '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'cs2' -Action 'EnableLauncherQoS'; & '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'cs2' -Action 'EnableQoS'; & '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'cs2' -Action 'SetGpuPref'; & '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'cs2' -Action 'DisableFSO'; & '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'cs2' -Action 'DisableDPI'; & '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'cs2' -Action 'StartTimer500us'; & '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'cs2' -Action 'ApplyConfigBaseline'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "game.cs2.competitive_restore",
+      "type": "action",
+      "name": "Competitive Restore (one-click) [Real]",
+      "category": "Game Specific / CS2",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "Restores the game baseline backup (if present), stops the timer helper, removes GPU preference, re-enables FSO/DPI defaults, and removes QoS policies.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'cs2' -Action 'RestoreConfigBaseline'; & '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'cs2' -Action 'StopTimer'; & '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'cs2' -Action 'RemoveGpuPref'; & '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'cs2' -Action 'EnableFSO'; & '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'cs2' -Action 'EnableDPI'; & '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'cs2' -Action 'DisableQoS'; & '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'cs2' -Action 'DisableLauncherQoS'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "game.cs2.net_only",
+      "type": "action",
+      "name": "Network Only (DSCP for game + launcher) [Real]",
+      "category": "Game Specific / CS2",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "Enables DSCP 46 QoS for both the game executable and its launcher/client.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'cs2' -Action 'EnableLauncherQoS'; & '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'cs2' -Action 'EnableQoS'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "game.cs2.presentation_only",
+      "type": "action",
+      "name": "Presentation Only (GPU pref + FSO/DPI flags) [Real]",
+      "category": "Game Specific / CS2",
+      "riskLevel": "Warning",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "description": "Applies only presentation-path changes: GPU preference + disable FSO + DPI flag. Does not touch network or timer.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'cs2' -Action 'SetGpuPref'; & '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'cs2' -Action 'DisableFSO'; & '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'cs2' -Action 'DisableDPI'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    }
+  ]
+}

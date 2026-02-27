@@ -1,0 +1,674 @@
+{
+  "items": [
+    {
+      "id": "exp.mmcss.networkthrottling_disable",
+      "type": "toggle",
+      "name": "Disable Network Throttling (MMCSS)",
+      "category": "Expansion / MMCSS & Scheduling",
+      "risk": "High",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Sets NetworkThrottlingIndex to 0xFFFFFFFF (common gaming tweak). Can affect multimedia/network fairness. Revert deletes value.",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile",
+            "name": "NetworkThrottlingIndex",
+            "value": 4294967295,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile",
+            "name": "NetworkThrottlingIndex"
+          }
+        ]
+      },
+      "riskLevel": "High",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile",
+            "name": "NetworkThrottlingIndex",
+            "valueType": "DWord",
+            "equals": 4294967295
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp.mmcss.systemresponsiveness_10",
+      "type": "toggle",
+      "name": "SystemResponsiveness = 10 (MMCSS)",
+      "category": "Expansion / MMCSS & Scheduling",
+      "risk": "High",
+      "description": "[Focus: Latency / Input Delay] Sets SystemResponsiveness to 10 (percent). Default varies by Windows build. Revert deletes value.",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile",
+            "name": "SystemResponsiveness",
+            "value": 10,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile",
+            "name": "SystemResponsiveness"
+          }
+        ]
+      },
+      "riskLevel": "High",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile",
+            "name": "SystemResponsiveness",
+            "valueType": "DWord",
+            "equals": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp.mmcss.docs.001",
+      "type": "button",
+      "name": "Run MMCSS Overview (Microsoft)",
+      "category": "Expansion / MMCSS & Scheduling",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Reference for how MMCSS works.",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows/win32/procthread/multimedia-class-scheduler-service"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.mmcss.docs.002",
+      "type": "button",
+      "name": "Run Game Mode Documentation",
+      "category": "Expansion / MMCSS & Scheduling",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Reference for Windows Game Mode.",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://support.microsoft.com/windows/use-game-mode-on-your-pc-1d3a93c3-7b5e-6c70-ec8f-2b0b5c02c0e4"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.mmcss.docs.003",
+      "type": "button",
+      "name": "Run Process Priority Guidance",
+      "category": "Expansion / MMCSS & Scheduling",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Reference for scheduling priorities; avoid Realtime.",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows/win32/procthread/scheduling-priorities"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.mmcss.docs.004",
+      "type": "button",
+      "name": "Run Fullscreen Optimizations Guidance",
+      "category": "Expansion / MMCSS & Scheduling",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Reference on windowed/fullscreen optimizations.",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://support.microsoft.com/windows/optimizations-for-windowed-games-in-windows-11-7c2b8f11-6b75-4f73-b3b5-6d99038f4f88"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.mmcss.kill_common_overlays",
+      "type": "action",
+      "name": "Close Common Overlays (Discord/Steam/Xbox)",
+      "category": "Expansion / MMCSS & Scheduling",
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay] Attempts to close common overlay processes (Discord, Steam overlay helper, Xbox Game Bar).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "process.kill",
+            "name": "discord"
+          },
+          {
+            "type": "process.kill",
+            "name": "GameBar"
+          },
+          {
+            "type": "process.kill",
+            "name": "GameBarFTServer"
+          },
+          {
+            "type": "process.kill",
+            "name": "steamwebhelper"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Warning"
+    },
+    {
+      "id": "exp.mmcss.more.001",
+      "type": "button",
+      "name": "Run Xbox Game Bar Settings",
+      "category": "Expansion / MMCSS & Scheduling",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Guide to Game Bar capture/overlays.",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://support.microsoft.com/windows/using-xbox-game-bar-to-play-and-share-game-videos-7c3f6b33-9b1d-3891-9f91-734d28ea0f21"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.mmcss.more.002",
+      "type": "button",
+      "name": "Run NVIDIA Reflex Guide",
+      "category": "Expansion / MMCSS & Scheduling",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Reference for NVIDIA Reflex (latency).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://www.nvidia.com/en-us/geforce/news/reflex-low-latency-platform/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.mmcss.ref.001",
+      "type": "button",
+      "name": "Run Windows Performance Analyzer (WPA)",
+      "category": "Expansion / MMCSS & Scheduling",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Reference for Windows Performance Analyzer (WPA).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-hardware/test/wpt/windows-performance-analyzer"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.mmcss.ref.002",
+      "type": "button",
+      "name": "Run Windows Performance Recorder (WPR)",
+      "category": "Expansion / MMCSS & Scheduling",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Reference for Windows Performance Recorder (WPR).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-hardware/test/wpt/windows-performance-recorder"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.mmcss.ref.003",
+      "type": "button",
+      "name": "Run LatencyMon (third-party)",
+      "category": "Expansion / MMCSS & Scheduling",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Reference for LatencyMon (third-party).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://www.resplendence.com/latencymon"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.mmcss.ref.004",
+      "type": "button",
+      "name": "Run PresentMon",
+      "category": "Expansion / MMCSS & Scheduling",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Reference for PresentMon.",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://github.com/GameTechDev/PresentMon"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.mmcss.ref.005",
+      "type": "button",
+      "name": "Run Windows Scheduler Concepts",
+      "category": "Expansion / MMCSS & Scheduling",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Reference for Windows Scheduler Concepts.",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows/win32/procthread/scheduling"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.mmcss.placeholder_15",
+      "type": "button",
+      "name": "MMCSS Checklist Item",
+      "category": "Expansion / MMCSS & Scheduling",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Informational placeholder for additional scheduling checklist items (see documentation links).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows/win32/procthread/multimedia-class-scheduler-service"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.mmcss.placeholder_16",
+      "type": "button",
+      "name": "MMCSS Checklist Item",
+      "category": "Expansion / MMCSS & Scheduling",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Informational placeholder for additional scheduling checklist items (see documentation links).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows/win32/procthread/multimedia-class-scheduler-service"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.mmcss.placeholder_17",
+      "type": "button",
+      "name": "MMCSS Checklist Item",
+      "category": "Expansion / MMCSS & Scheduling",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Informational placeholder for additional scheduling checklist items (see documentation links).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows/win32/procthread/multimedia-class-scheduler-service"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.mmcss.placeholder_18",
+      "type": "button",
+      "name": "MMCSS Checklist Item",
+      "category": "Expansion / MMCSS & Scheduling",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Informational placeholder for additional scheduling checklist items (see documentation links).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows/win32/procthread/multimedia-class-scheduler-service"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.mmcss.placeholder_19",
+      "type": "button",
+      "name": "MMCSS Checklist Item",
+      "category": "Expansion / MMCSS & Scheduling",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Informational placeholder for additional scheduling checklist items (see documentation links).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows/win32/procthread/multimedia-class-scheduler-service"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.mmcss.placeholder_20",
+      "type": "button",
+      "name": "MMCSS Checklist Item",
+      "category": "Expansion / MMCSS & Scheduling",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Informational placeholder for additional scheduling checklist items (see documentation links).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows/win32/procthread/multimedia-class-scheduler-service"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.scheduler.hybrid_hetero_policy",
+      "type": "toggle",
+      "name": "Hybrid CPU Scheduler – Heterogeneous Policy",
+      "category": "Expansion / MMCSS & Scheduling",
+      "risk": "High",
+      "description": "[Focus: Latency / Input Delay] Applies DynamicHeteroCpuPolicy* kernel keys to bias scheduling in favor of important threads on performance cores for hybrid CPUs. Advanced; only recommended for stable systems.",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Kernel",
+            "name": "DynamicHeteroCpuPolicyMask",
+            "value": 3,
+            "valueType": "DWord"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Kernel",
+            "name": "DefaultDynamicHeteroCpuPolicy",
+            "value": 3,
+            "valueType": "DWord"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Kernel",
+            "name": "DynamicHeteroCpuPolicyImportant",
+            "value": 1,
+            "valueType": "DWord"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Kernel",
+            "name": "DynamicHeteroCpuPolicyImportantShort",
+            "value": 1,
+            "valueType": "DWord"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Kernel",
+            "name": "DynamicHeteroCpuPolicyImportantPriority",
+            "value": 8,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Kernel",
+            "name": "DynamicHeteroCpuPolicyMask"
+          },
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Kernel",
+            "name": "DefaultDynamicHeteroCpuPolicy"
+          },
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Kernel",
+            "name": "DynamicHeteroCpuPolicyImportant"
+          },
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Kernel",
+            "name": "DynamicHeteroCpuPolicyImportantShort"
+          },
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Kernel",
+            "name": "DynamicHeteroCpuPolicyImportantPriority"
+          }
+        ]
+      },
+      "riskLevel": "High",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Kernel",
+            "name": "DynamicHeteroCpuPolicyMask",
+            "valueType": "DWord",
+            "equals": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp.scheduler.kernel_timer_tweaks",
+      "type": "toggle",
+      "name": "Kernel Timer Jitter Tweaks",
+      "category": "Expansion / MMCSS & Scheduling",
+      "risk": "High",
+      "description": "[Focus: Latency / Input Delay] Applies SerializeTimerExpiration and TimerCheckFlags to reduce timer jitter as in Falcon Batch Pack's kernel timer tweaks. Advanced; only recommended for testing on stable systems.",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Kernel",
+            "name": "SerializeTimerExpiration",
+            "value": 2,
+            "valueType": "DWord"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Kernel",
+            "name": "TimerCheckFlags",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Kernel",
+            "name": "SerializeTimerExpiration"
+          },
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Kernel",
+            "name": "TimerCheckFlags"
+          }
+        ]
+      },
+      "riskLevel": "High",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Kernel",
+            "name": "SerializeTimerExpiration",
+            "valueType": "DWord",
+            "equals": 2
+          }
+        ]
+      }
+    }
+  ]
+}

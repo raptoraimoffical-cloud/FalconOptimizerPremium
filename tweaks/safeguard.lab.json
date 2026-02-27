@@ -1,0 +1,96 @@
+{
+  "items": [
+    {
+      "id": "safeguard_create_snapshot__safeguard.lab",
+      "type": "action",
+      "name": "Create Safeguard Snapshot (Services + Core Tweaks)",
+      "description": "[Safety] Snapshots all service startup types + key memory/throttling settings so you can restore them later.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Safeguard / Snapshot",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"=== FALCON SAFEGUARD: CREATE SNAPSHOT ===\"\nWrite-Output \"\"\nWrite-Output \"This will snapshot core service startup types and selected low-level settings so you can restore them later.\"\nWrite-Output \"Run this when your system is in a known-good state before applying extreme tweaks.\"\nWrite-Output \"\"\n\n$logsDir = Join-Path $PSScriptRoot \"..\\logs\"\ntry {\n  if (-not (Test-Path $logsDir)) {\n    New-Item -ItemType Directory -Path $logsDir -Force | Out-Null\n  }\n} catch {\n  Write-Output \"Failed to create logs directory.\"\n}\n\n$timestamp = Get-Date -Format \"yyyyMMdd_HHmmss\"\n$snapFile = Join-Path $logsDir (\"falcon_safeguard_snapshot_{0}.json\" -f $timestamp)\n\n$snapshot = [ordered]@{}\n$snapshot.TimestampUtc = (Get-Date).ToUniversalTime().ToString(\"o\")\n\n# --- Services snapshot ---\nWrite-Output \"Snapshotting service startup types...\"\n$svcList = @()\ntry {\n  $wmiServices = Get-WmiObject Win32_Service -ErrorAction SilentlyContinue\n  foreach ($s in $wmiServices) {\n    # StartMode values like 'Auto', 'Manual', 'Disabled'\n    $svcList += [ordered]@{\n      Name      = $s.Name\n      StartMode = $s.StartMode\n    }\n  }\n  $snapshot.Services = $svcList\n  Write-Output (\"Captured {0} services.\" -f $svcList.Count)\n} catch {\n  Write-Output (\"Failed to snapshot services: {0}\" -f $_.Exception.Message)\n  $snapshot.Services = @()\n}\n\n# --- Memory Management key (selected values) ---\n$mmKey = \"HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management\"\n$mmSnap = @{}\n$mmNames = @(\"DisablePagingExecutive\",\"LargeSystemCache\",\"ClearPageFileAtShutdown\")\ntry {\n  if (Test-Path $mmKey) {\n    $mmProps = Get-ItemProperty -Path $mmKey -ErrorAction SilentlyContinue\n    foreach ($n in $mmNames) {\n      if ($mmProps.PSObject.Properties.Name -contains $n) {\n        $mmSnap[$n] = $mmProps.$n\n      }\n    }\n  }\n} catch {}\n$snapshot.MemoryManagement = $mmSnap\n\n# --- PowerThrottling key (PowerThrottlingOff) ---\n$ptKey = \"HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Power\\PowerThrottling\"\n$ptSnap = @{}\ntry {\n  if (Test-Path $ptKey) {\n    $ptProps = Get-ItemProperty -Path $ptKey -ErrorAction SilentlyContinue\n    if ($ptProps.PSObject.Properties.Name -contains \"PowerThrottlingOff\") {\n      $ptSnap[\"PowerThrottlingOff\"] = $ptProps.PowerThrottlingOff\n    }\n  }\n} catch {}\n$snapshot.PowerThrottling = $ptSnap\n\n# --- MMAgent state (memory compression / page combining) ---\n$mmAgentSnap = @{}\ntry {\n  if (Get-Command -Name Get-MMAgent -ErrorAction SilentlyContinue) {\n    $mma = Get-MMAgent\n    $mmAgentSnap[\"MemoryCompressionEnabled\"] = $mma.MemoryCompression\n    $mmAgentSnap[\"PageCombiningEnabled\"]     = $mma.PageCombining\n  }\n} catch {}\n$snapshot.MMAgent = $mmAgentSnap\n\n# Write snapshot json\ntry {\n  $json = $snapshot | ConvertTo-Json -Depth 6\n  $json | Out-File -FilePath $snapFile -Encoding UTF8 -Force\n  Write-Output (\"Safeguard snapshot saved to: {0}\" -f $snapFile)\n} catch {\n  Write-Output (\"Failed to write snapshot file: {0}\" -f $_.Exception.Message)\n}\n\nWrite-Output \"\"\nWrite-Output \"Keep this snapshot if you plan to go very extreme with Process Lab / Debloat / Memory tweaks.\"\nWrite-Output \"=== END OF SAFEGUARD SNAPSHOT ===\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nSnapshot creation is read-only; it only writes a JSON file and needs no revert.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "id": "safeguard_restore_latest__safeguard.lab",
+      "type": "action",
+      "name": "Restore From Latest Safeguard Snapshot",
+      "description": "[Safety] Restores service startup types and key memory/throttling settings from your latest Safeguard snapshot.",
+      "requiresAdmin": true,
+      "riskLevel": "Danger",
+      "category": "Safeguard / Restore",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"=== FALCON SAFEGUARD: RESTORE FROM LATEST SNAPSHOT ===\"\nWrite-Output \"\"\n\n$logsDir = Join-Path $PSScriptRoot \"..\\logs\"\nif (-not (Test-Path $logsDir)) {\n  Write-Output \"No logs directory found. You must create a Safeguard snapshot first.\"\n  return\n}\n\n$snapFiles = Get-ChildItem $logsDir -Filter \"falcon_safeguard_snapshot_*.json\" -ErrorAction SilentlyContinue | Sort-Object LastWriteTime -Descending\nif (-not $snapFiles -or $snapFiles.Count -eq 0) {\n  Write-Output \"No Safeguard snapshot files found. Run 'Create Safeguard Snapshot' first.\"\n  return\n}\n\n$snapFile = $snapFiles[0].FullName\nWrite-Output (\"Using snapshot: {0}\" -f $snapFile)\n\ntry {\n  $snapJson = Get-Content $snapFile -Raw -ErrorAction SilentlyContinue\n  $snap = $snapJson | ConvertFrom-Json -ErrorAction SilentlyContinue\n} catch {\n  Write-Output \"Failed to parse snapshot JSON.\"\n  return\n}\n\n# --- Restore services startup types ---\n$restoredSvc = 0\ntry {\n  if ($snap.Services) {\n    foreach ($s in $snap.Services) {\n      $name = $s.Name\n      $mode = $s.StartMode\n      if ([string]::IsNullOrWhiteSpace($name) -or [string]::IsNullOrWhiteSpace($mode)) { continue }\n\n      # Map WMI StartMode ('Auto','Manual','Disabled') to Set-Service StartupType\n      $startupType = $null\n      switch -Regex ($mode) {\n        \"Auto\"     { $startupType = \"Automatic\" }\n        \"Manual\"   { $startupType = \"Manual\" }\n        \"Disabled\" { $startupType = \"Disabled\" }\n      }\n      if (-not $startupType) { continue }\n\n      try {\n        Set-Service -Name $name -StartupType $startupType -ErrorAction SilentlyContinue\n        $restoredSvc++\n      } catch {\n        # ignore individual failures\n      }\n    }\n  }\n  Write-Output (\"Restored startup type for ~{0} services (best effort).\" -f $restoredSvc)\n} catch {\n  Write-Output (\"Error while restoring services: {0}\" -f $_.Exception.Message)\n}\n\n# --- Restore Memory Management values ---\n$mmKey = \"HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management\"\ntry {\n  if ($snap.MemoryManagement) {\n    if (-not (Test-Path $mmKey)) {\n      New-Item -Path $mmKey -Force | Out-Null\n    }\n    foreach ($k in $snap.MemoryManagement.Keys) {\n      $val = $snap.MemoryManagement[$k]\n      try {\n        New-ItemProperty -Path $mmKey -Name $k -PropertyType DWord -Value $val -Force | Out-Null\n        Write-Output (\"Restored Memory Management value {0}={1}\" -f $k, $val)\n      } catch {\n        Write-Output (\"Failed to restore Memory Management value {0}: {1}\" -f $k, $_.Exception.Message)\n      }\n    }\n  }\n} catch {\n  Write-Output (\"Error while restoring Memory Management values: {0}\" -f $_.Exception.Message)\n}\n\n# --- Restore PowerThrottlingOff ---\n$ptKey = \"HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Power\\PowerThrottling\"\ntry {\n  if ($snap.PowerThrottling) {\n    if (-not (Test-Path $ptKey)) {\n      New-Item -Path $ptKey -Force | Out-Null\n    }\n    if ($snap.PowerThrottling.PSObject.Properties.Name -contains \"PowerThrottlingOff\") {\n      $val = $snap.PowerThrottling.PowerThrottlingOff\n      if ($null -ne $val) {\n        try {\n          New-ItemProperty -Path $ptKey -Name \"PowerThrottlingOff\" -PropertyType DWord -Value $val -Force | Out-Null\n          Write-Output (\"Restored PowerThrottlingOff={0}\" -f $val)\n        } catch {\n          Write-Output (\"Failed to restore PowerThrottlingOff: {0}\" -f $_.Exception.Message)\n        }\n      }\n    }\n  }\n} catch {\n  Write-Output (\"Error while restoring PowerThrottling settings: {0}\" -f $_.Exception.Message)\n}\n\n# --- Restore MMAgent flags for MemoryCompression & PageCombining ---\ntry {\n  if ($snap.MMAgent -and (Get-Command -Name Get-MMAgent -ErrorAction SilentlyContinue)) {\n    $mc = $null\n    $pc = $null\n    if ($snap.MMAgent.PSObject.Properties.Name -contains \"MemoryCompressionEnabled\") {\n      $mc = [bool]$snap.MMAgent.MemoryCompressionEnabled\n    }\n    if ($snap.MMAgent.PSObject.Properties.Name -contains \"PageCombiningEnabled\") {\n      $pc = [bool]$snap.MMAgent.PageCombiningEnabled\n    }\n\n    if ($null -ne $mc) {\n      try {\n        if ($mc) { Enable-MMAgent -MemoryCompression -ErrorAction SilentlyContinue }\n        else     { Disable-MMAgent -MemoryCompression -ErrorAction SilentlyContinue }\n        Write-Output (\"Restored MemoryCompressionEnabled to {0}\" -f $mc)\n      } catch {\n        Write-Output (\"Failed to restore MemoryCompressionEnabled: {0}\" -f $_.Exception.Message)\n      }\n    }\n\n    if ($null -ne $pc) {\n      try {\n        if ($pc) { Enable-MMAgent -PageCombining -ErrorAction SilentlyContinue }\n        else     { Disable-MMAgent -PageCombining -ErrorAction SilentlyContinue }\n        Write-Output (\"Restored PageCombiningEnabled to {0}\" -f $pc)\n      } catch {\n        Write-Output (\"Failed to restore PageCombiningEnabled: {0}\" -f $_.Exception.Message)\n      }\n    }\n  }\n} catch {\n  Write-Output (\"Error while restoring MMAgent flags: {0}\" -f $_.Exception.Message)\n}\n\nWrite-Output \"\"\nWrite-Output \"Safeguard restore complete (best effort). A reboot is recommended to fully apply service and memory changes.\"\nWrite-Output \"=== END OF SAFEGUARD RESTORE ===\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nRestoring from snapshot is a one-way apply; to undo, create another snapshot and restore that.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "id": "safe_restorepoint__safeguard.lab",
+      "type": "button",
+      "name": "Apply: Create Restore Point",
+      "description": "Creates a Windows restore point (if enabled).",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Safeguard / Restore",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Checkpoint-Computer -Description \"FalconOptimizer Safeguard\" -RestorePointType \"MODIFY_SETTINGS\" -ErrorAction SilentlyContinue; Write-Output \"Done.\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Use System Restore to revert.\""
+          }
+        ]
+      }
+    },
+    {
+      "description": "Creates a Windows restore point (if enabled).",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Safeguard / Restore",
+      "id": "safe_restorepoint__safeguard.lab__revert",
+      "type": "button",
+      "name": "Revert: Create Restore Point",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Use System Restore to revert.\""
+          }
+        ]
+      }
+    }
+  ]
+}

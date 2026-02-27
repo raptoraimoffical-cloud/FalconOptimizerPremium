@@ -1,0 +1,847 @@
+{
+  "items": [
+    {
+      "id": "registry_overview_analyzer__registry.lab",
+      "type": "action",
+      "name": "Analyze Explorer History / MRU Bloat",
+      "description": "[Analyzer] Counts values/subkeys in common HKCU Explorer history zones (RunMRU, RecentDocs, OpenSaveMru, etc.).",
+      "requiresAdmin": false,
+      "riskLevel": "Safe",
+      "category": "Registry Lab / Analyzer",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"=== FALCON REGISTRY LAB: OVERVIEW ANALYZER ===\"\nWrite-Output \"\"\nWrite-Output \"Scanning a few common bloat / history zones in HKCU to estimate how dirty Explorer history is.\"\nWrite-Output \"\"\n\n$zones = @(\n  @{ Name = \"RunMRU\";        Path = \"HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\RunMRU\" },\n  @{ Name = \"RecentDocs\";    Path = \"HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\RecentDocs\" },\n  @{ Name = \"OpenSaveMRU\";   Path = \"HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\ComDlg32\\OpenSavePidlMRU\" },\n  @{ Name = \"TypedPaths\";    Path = \"HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\TypedPaths\" },\n  @{ Name = \"WordWheelQuery\";Path = \"HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\WordWheelQuery\" }\n)\n\nforeach ($z in $zones) {\n  $name = $z.Name\n  $path = $z.Path\n  try {\n    if (Test-Path $path) {\n      $key  = Get-Item $path -ErrorAction SilentlyContinue\n      $vals = $key.Property | Where-Object { $_ -ne \"(default)\" }\n      $sub  = Get-ChildItem $path -ErrorAction SilentlyContinue\n      $valCount = $vals.Count\n      $subCount = if ($sub) { $sub.Count } else { 0 }\n      Write-Output (\"{0}: Values={1}, Subkeys={2} ({3})\" -f $name, $valCount, $subCount, $path)\n    } else {\n      Write-Output (\"{0}: Not present ({1})\" -f $name, $path)\n    }\n  } catch {\n    Write-Output (\"{0}: Error reading {1}: {2}\" -f $name, $path, $_.Exception.Message)\n  }\n}\n\nWrite-Output \"\"\nWrite-Output \"These zones are where Explorer and dialogs store run history, open/save history, and search suggestions.\"\nWrite-Output \"Cleaning them can reset Explorer/file-dialog history and slightly reduce registry bloat; it will not magically add FPS.\"\nWrite-Output \"\"\nWrite-Output \"=== END OF REGISTRY LAB OVERVIEW ===\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nAnalyzer is read-only and needs no revert.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "id": "registry_clean_explorer_history__registry.lab",
+      "type": "button",
+      "name": "Apply: Clean Explorer Run/Search History (HKCU)",
+      "description": "[QoL + Micro-bloat] Clears Run dialog, typed paths, and Explorer search history for this user.",
+      "requiresAdmin": false,
+      "riskLevel": "Warning",
+      "category": "Registry Lab / Cleanup",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"=== FALCON REGISTRY LAB: CLEAN EXPLORER RUN HISTORY ===\"\nWrite-Output \"\"\nWrite-Output \"This will clean Run dialog history, typed paths, and search suggestions under HKCU Explorer keys.\"\nWrite-Output \"Impact: resets Explorer/Run history for this user only. No core OS components are removed.\"\nWrite-Output \"\"\n\n$targets = @(\n  \"HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\RunMRU\",\n  \"HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\TypedPaths\",\n  \"HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\WordWheelQuery\"\n)\n\nforeach ($t in $targets) {\n  try {\n    if (Test-Path $t) {\n      Remove-Item -Path $t -Recurse -Force -ErrorAction SilentlyContinue\n      Write-Output (\"Cleared: {0}\" -f $t)\n    } else {\n      Write-Output (\"Skipped (not present): {0}\" -f $t)\n    }\n  } catch {\n    Write-Output (\"Failed to clear {0}: {1}\" -f $t, $_.Exception.Message)\n  }\n}\n\nWrite-Output \"\"\nWrite-Output \"Explorer will recreate needed keys as you use it. A logoff/logon or Explorer restart can refresh behavior.\"\nWrite-Output \"=== END OF EXPLORER RUN HISTORY CLEAN ===\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nHistory will repopulate as you use Explorer/Run; there is no direct revert for deleted MRU entries.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "description": "[QoL + Micro-bloat] Clears Run dialog, typed paths, and Explorer search history for this user.",
+      "requiresAdmin": false,
+      "riskLevel": "Warning",
+      "category": "Registry Lab / Cleanup",
+      "id": "registry_clean_explorer_history__registry.lab__revert",
+      "type": "button",
+      "name": "Revert: Clean Explorer Run/Search History (HKCU)",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nHistory will repopulate as you use Explorer/Run; there is no direct revert for deleted MRU entries.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "id": "registry_clean_recent_opensave__registry.lab",
+      "type": "button",
+      "name": "Apply: Clean RecentDocs & Open/Save MRU (HKCU)",
+      "description": "[QoL + Micro-bloat] Clears RecentDocs and Open/Save dialog MRU entries under HKCU.",
+      "requiresAdmin": false,
+      "riskLevel": "Warning",
+      "category": "Registry Lab / Cleanup",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"=== FALCON REGISTRY LAB: CLEAN OPEN/SAVE MRU ===\"\nWrite-Output \"\"\nWrite-Output \"This will clean RecentDocs and OpenSave dialog MRU entries under HKCU.\"\nWrite-Output \"Impact: clears per-user 'recent files' lists and file-type dialog history. No core OS components are removed.\"\nWrite-Output \"\"\n\n$targets = @(\n  \"HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\RecentDocs\",\n  \"HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\ComDlg32\\OpenSavePidlMRU\"\n)\n\nforeach ($t in $targets) {\n  try {\n    if (Test-Path $t) {\n      Remove-Item -Path $t -Recurse -Force -ErrorAction SilentlyContinue\n      Write-Output (\"Cleared: {0}\" -f $t)\n    } else {\n      Write-Output (\"Skipped (not present): {0}\" -f $t)\n    }\n  } catch {\n    Write-Output (\"Failed to clear {0}: {1}\" -f $t, $_.Exception.Message)\n  }\n}\n\nWrite-Output \"\"\nWrite-Output \"A logoff/logon or Explorer restart can reset recent-items views after this cleanup.\"\nWrite-Output \"=== END OF OPEN/SAVE MRU CLEAN ===\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nRecentDocs/OpenSave MRU will repopulate naturally as you open files; there is no direct revert.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "description": "[QoL + Micro-bloat] Clears RecentDocs and Open/Save dialog MRU entries under HKCU.",
+      "requiresAdmin": false,
+      "riskLevel": "Warning",
+      "category": "Registry Lab / Cleanup",
+      "id": "registry_clean_recent_opensave__registry.lab__revert",
+      "type": "button",
+      "name": "Revert: Clean RecentDocs & Open/Save MRU (HKCU)",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nRecentDocs/OpenSave MRU will repopulate naturally as you open files; there is no direct revert.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "id": "reg_clean_explorer_runmru__registry.lab",
+      "type": "button",
+      "name": "Apply: Clear Explorer RunMRU",
+      "description": "Deletes registry history keys for Explorer RunMRU.",
+      "requiresAdmin": false,
+      "riskLevel": "Warning",
+      "category": "Registry Lab / Cleaner",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Clearing Explorer RunMRU\"; Remove-Item -Path \"HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\RunMRU\" -Recurse -Force -ErrorAction SilentlyContinue; Write-Output \"Done.\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Restore not possible (history cleared).\""
+          }
+        ]
+      }
+    },
+    {
+      "description": "Deletes registry history keys for Explorer RunMRU.",
+      "requiresAdmin": false,
+      "riskLevel": "Warning",
+      "category": "Registry Lab / Cleaner",
+      "id": "reg_clean_explorer_runmru__registry.lab__revert",
+      "type": "button",
+      "name": "Revert: Clear Explorer RunMRU",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Restore not possible (history cleared).\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "reg_clean_recentdocs__registry.lab",
+      "type": "button",
+      "name": "Apply: Clear RecentDocs",
+      "description": "Deletes registry history keys for RecentDocs.",
+      "requiresAdmin": false,
+      "riskLevel": "Warning",
+      "category": "Registry Lab / Cleaner",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Clearing RecentDocs\"; Remove-Item -Path \"HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\RecentDocs\" -Recurse -Force -ErrorAction SilentlyContinue; Write-Output \"Done.\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Restore not possible (history cleared).\""
+          }
+        ]
+      }
+    },
+    {
+      "description": "Deletes registry history keys for RecentDocs.",
+      "requiresAdmin": false,
+      "riskLevel": "Warning",
+      "category": "Registry Lab / Cleaner",
+      "id": "reg_clean_recentdocs__registry.lab__revert",
+      "type": "button",
+      "name": "Revert: Clear RecentDocs",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Restore not possible (history cleared).\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "reg_clean_comdlg32_opensavemru__registry.lab",
+      "type": "button",
+      "name": "Apply: Clear ComDlg32 OpenSaveMRU",
+      "description": "Deletes registry history keys for ComDlg32 OpenSaveMRU.",
+      "requiresAdmin": false,
+      "riskLevel": "Warning",
+      "category": "Registry Lab / Cleaner",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Clearing ComDlg32 OpenSaveMRU\"; Remove-Item -Path \"HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\ComDlg32\\OpenSavePidlMRU\" -Recurse -Force -ErrorAction SilentlyContinue; Write-Output \"Done.\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Restore not possible (history cleared).\""
+          }
+        ]
+      }
+    },
+    {
+      "description": "Deletes registry history keys for ComDlg32 OpenSaveMRU.",
+      "requiresAdmin": false,
+      "riskLevel": "Warning",
+      "category": "Registry Lab / Cleaner",
+      "id": "reg_clean_comdlg32_opensavemru__registry.lab__revert",
+      "type": "button",
+      "name": "Revert: Clear ComDlg32 OpenSaveMRU",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Restore not possible (history cleared).\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "reg_clean_comdlg32_lastvisitedmru__registry.lab",
+      "type": "button",
+      "name": "Apply: Clear ComDlg32 LastVisitedMRU",
+      "description": "Deletes registry history keys for ComDlg32 LastVisitedMRU.",
+      "requiresAdmin": false,
+      "riskLevel": "Warning",
+      "category": "Registry Lab / Cleaner",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Clearing ComDlg32 LastVisitedMRU\"; Remove-Item -Path \"HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\ComDlg32\\LastVisitedPidlMRU\" -Recurse -Force -ErrorAction SilentlyContinue; Write-Output \"Done.\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Restore not possible (history cleared).\""
+          }
+        ]
+      }
+    },
+    {
+      "description": "Deletes registry history keys for ComDlg32 LastVisitedMRU.",
+      "requiresAdmin": false,
+      "riskLevel": "Warning",
+      "category": "Registry Lab / Cleaner",
+      "id": "reg_clean_comdlg32_lastvisitedmru__registry.lab__revert",
+      "type": "button",
+      "name": "Revert: Clear ComDlg32 LastVisitedMRU",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Restore not possible (history cleared).\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "reg_clean_typedpaths__registry.lab",
+      "type": "button",
+      "name": "Apply: Clear TypedPaths",
+      "description": "Deletes registry history keys for TypedPaths.",
+      "requiresAdmin": false,
+      "riskLevel": "Warning",
+      "category": "Registry Lab / Cleaner",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Clearing TypedPaths\"; Remove-Item -Path \"HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\TypedPaths\" -Recurse -Force -ErrorAction SilentlyContinue; Write-Output \"Done.\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Restore not possible (history cleared).\""
+          }
+        ]
+      }
+    },
+    {
+      "description": "Deletes registry history keys for TypedPaths.",
+      "requiresAdmin": false,
+      "riskLevel": "Warning",
+      "category": "Registry Lab / Cleaner",
+      "id": "reg_clean_typedpaths__registry.lab__revert",
+      "type": "button",
+      "name": "Revert: Clear TypedPaths",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Restore not possible (history cleared).\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "reg_clean_userassist__registry.lab",
+      "type": "button",
+      "name": "Apply: Clear UserAssist",
+      "description": "Deletes registry history keys for UserAssist.",
+      "requiresAdmin": false,
+      "riskLevel": "Warning",
+      "category": "Registry Lab / Cleaner",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Clearing UserAssist\"; Remove-Item -Path \"HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\UserAssist\" -Recurse -Force -ErrorAction SilentlyContinue; Write-Output \"Done.\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Restore not possible (history cleared).\""
+          }
+        ]
+      }
+    },
+    {
+      "description": "Deletes registry history keys for UserAssist.",
+      "requiresAdmin": false,
+      "riskLevel": "Warning",
+      "category": "Registry Lab / Cleaner",
+      "id": "reg_clean_userassist__registry.lab__revert",
+      "type": "button",
+      "name": "Revert: Clear UserAssist",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Restore not possible (history cleared).\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "reg_clean_muicache__registry.lab",
+      "type": "button",
+      "name": "Apply: Clear MuiCache",
+      "description": "Deletes registry history keys for MuiCache.",
+      "requiresAdmin": false,
+      "riskLevel": "Warning",
+      "category": "Registry Lab / Cleaner",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Clearing MuiCache\"; Remove-Item -Path \"HKCU:\\Software\\Classes\\Local Settings\\Software\\Microsoft\\Windows\\Shell\\MuiCache\" -Recurse -Force -ErrorAction SilentlyContinue; Write-Output \"Done.\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Restore not possible (history cleared).\""
+          }
+        ]
+      }
+    },
+    {
+      "description": "Deletes registry history keys for MuiCache.",
+      "requiresAdmin": false,
+      "riskLevel": "Warning",
+      "category": "Registry Lab / Cleaner",
+      "id": "reg_clean_muicache__registry.lab__revert",
+      "type": "button",
+      "name": "Revert: Clear MuiCache",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Restore not possible (history cleared).\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "reg_perf_systemresponsiveness__registry.lab",
+      "type": "toggle",
+      "name": "Set SystemResponsiveness",
+      "description": "[Focus: FPS] Reduce background responsiveness reservation for gaming.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Registry Lab / Performance",
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows NT\\\\CurrentVersion\\\\Multimedia\\\\SystemProfile",
+            "name": "SystemResponsiveness",
+            "value": 0,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows NT\\\\CurrentVersion\\\\Multimedia\\\\SystemProfile",
+            "name": "SystemResponsiveness"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows NT\\\\CurrentVersion\\\\Multimedia\\\\SystemProfile",
+            "name": "SystemResponsiveness",
+            "valueType": "DWORD",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "reg_perf_networkthrottlingindex__registry.lab",
+      "type": "toggle",
+      "name": "Set NetworkThrottlingIndex",
+      "description": "[Focus: FPS] Disable network throttling (can improve gaming traffic).",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Registry Lab / Performance",
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows NT\\\\CurrentVersion\\\\Multimedia\\\\SystemProfile",
+            "name": "NetworkThrottlingIndex",
+            "value": 4294967295,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows NT\\\\CurrentVersion\\\\Multimedia\\\\SystemProfile",
+            "name": "NetworkThrottlingIndex"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows NT\\\\CurrentVersion\\\\Multimedia\\\\SystemProfile",
+            "name": "NetworkThrottlingIndex",
+            "valueType": "DWORD",
+            "equals": 4294967295
+          }
+        ]
+      }
+    },
+    {
+      "id": "reg_perf_appcaptureenabled__registry.lab",
+      "type": "toggle",
+      "name": "Set AppCaptureEnabled",
+      "description": "[Focus: FPS] Disable GameDVR capture.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Registry Lab / Performance",
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\GameDVR",
+            "name": "AppCaptureEnabled",
+            "value": 0,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\GameDVR",
+            "name": "AppCaptureEnabled"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\GameDVR",
+            "name": "AppCaptureEnabled",
+            "valueType": "DWORD",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "reg_perf_gamedvr_enabled__registry.lab",
+      "type": "toggle",
+      "name": "Set GameDVR_Enabled",
+      "description": "[Focus: FPS] Disable GameDVR store flag.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Registry Lab / Performance",
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\\\System\\\\GameConfigStore",
+            "name": "GameDVR_Enabled",
+            "value": 0,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\\\System\\\\GameConfigStore",
+            "name": "GameDVR_Enabled"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\\\System\\\\GameConfigStore",
+            "name": "GameDVR_Enabled",
+            "valueType": "DWORD",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "reg_ui_menushowdelay__registry.lab",
+      "type": "toggle",
+      "name": "UI: MenuShowDelay",
+      "description": "Remove menu animation delay.",
+      "requiresAdmin": false,
+      "riskLevel": "Warning",
+      "category": "Registry Lab / UI",
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\\\Control Panel\\\\Desktop",
+            "name": "MenuShowDelay",
+            "value": "0",
+            "valueType": "String"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\\\Control Panel\\\\Desktop",
+            "name": "MenuShowDelay"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\\\Control Panel\\\\Desktop",
+            "name": "MenuShowDelay",
+            "valueType": "String",
+            "equals": "0"
+          }
+        ]
+      }
+    },
+    {
+      "id": "reg_ui_mousehovertime__registry.lab",
+      "type": "toggle",
+      "name": "UI: MouseHoverTime",
+      "description": "Reduce hover time.",
+      "requiresAdmin": false,
+      "riskLevel": "Warning",
+      "category": "Registry Lab / UI",
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\\\Control Panel\\\\Desktop",
+            "name": "MouseHoverTime",
+            "value": "10",
+            "valueType": "String"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\\\Control Panel\\\\Desktop",
+            "name": "MouseHoverTime"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\\\Control Panel\\\\Desktop",
+            "name": "MouseHoverTime",
+            "valueType": "String",
+            "equals": "10"
+          }
+        ]
+      }
+    },
+    {
+      "id": "reg_ui_foregroundlocktimeout__registry.lab",
+      "type": "toggle",
+      "name": "UI: ForegroundLockTimeout",
+      "description": "Allow faster foreground focus changes.",
+      "requiresAdmin": false,
+      "riskLevel": "Caution",
+      "category": "Registry Lab / UI",
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\\\Control Panel\\\\Desktop",
+            "name": "ForegroundLockTimeout",
+            "value": 0,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\\\Control Panel\\\\Desktop",
+            "name": "ForegroundLockTimeout"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\\\Control Panel\\\\Desktop",
+            "name": "ForegroundLockTimeout",
+            "valueType": "DWORD",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "reg_extra_hklm_software_microsoft_windows_dwm_overlaytestmode__registry.lab",
+      "type": "toggle",
+      "name": "Graphics: OverlayTestMode",
+      "description": "[Focus: FPS] Disable MPO (may help stutter).",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Registry Lab / Graphics",
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\Dwm",
+            "name": "OverlayTestMode",
+            "value": 5,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\Dwm",
+            "name": "OverlayTestMode"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\Dwm",
+            "name": "OverlayTestMode",
+            "valueType": "DWORD",
+            "equals": 5
+          }
+        ]
+      }
+    },
+    {
+      "id": "reg_extra_hkcu_system_gameconfigstore_gamedvr_fsebehaviormode__registry.lab",
+      "type": "toggle",
+      "name": "Graphics: GameDVR_FSEBehaviorMode",
+      "description": "[Focus: FPS] Disable Fullscreen Optimizations behavior mode.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Registry Lab / Graphics",
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\\\System\\\\GameConfigStore",
+            "name": "GameDVR_FSEBehaviorMode",
+            "value": 2,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\\\System\\\\GameConfigStore",
+            "name": "GameDVR_FSEBehaviorMode"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\\\System\\\\GameConfigStore",
+            "name": "GameDVR_FSEBehaviorMode",
+            "valueType": "DWORD",
+            "equals": 2
+          }
+        ]
+      }
+    },
+    {
+      "id": "reg_extra_hkcu_system_gameconfigstore_gamedvr_fsebehavior__registry.lab",
+      "type": "toggle",
+      "name": "Graphics: GameDVR_FSEBehavior",
+      "description": "[Focus: FPS] Disable Fullscreen Optimizations behavior.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Registry Lab / Graphics",
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\\\System\\\\GameConfigStore",
+            "name": "GameDVR_FSEBehavior",
+            "value": 2,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\\\System\\\\GameConfigStore",
+            "name": "GameDVR_FSEBehavior"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\\\System\\\\GameConfigStore",
+            "name": "GameDVR_FSEBehavior",
+            "valueType": "DWORD",
+            "equals": 2
+          }
+        ]
+      }
+    },
+    {
+      "id": "reg_extra_hkcu_system_gameconfigstore_gamedvr_honoruserfsebehaviormode__registry.lab",
+      "type": "toggle",
+      "name": "Graphics: GameDVR_HonorUserFSEBehaviorMode",
+      "description": "[Focus: FPS] Honor user FSO preference.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Registry Lab / Graphics",
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\\\System\\\\GameConfigStore",
+            "name": "GameDVR_HonorUserFSEBehaviorMode",
+            "value": 1,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\\\System\\\\GameConfigStore",
+            "name": "GameDVR_HonorUserFSEBehaviorMode"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\\\System\\\\GameConfigStore",
+            "name": "GameDVR_HonorUserFSEBehaviorMode",
+            "valueType": "DWORD",
+            "equals": 1
+          }
+        ]
+      }
+    }
+  ]
+}

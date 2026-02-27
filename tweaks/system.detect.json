@@ -1,0 +1,29 @@
+{
+  "items": [
+    {
+      "id": "detect.full_scan__system.detect",
+      "type": "action",
+      "name": "Run Full System Scan",
+      "description": "[Analyzer] Gathers CPU, GPU, RAM, storage, OS, power plan, security, and NIC info. Does NOT change any settings.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System Analyzer / Full Scan",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"=== FALCON SYSTEM SCAN ===\"\nWrite-Output \"\"\n\n# OS\ntry {\n  $os = Get-CimInstance Win32_OperatingSystem\n  Write-Output \"OS: $($os.Caption) (Version $($os.Version), Build $($os.BuildNumber))\"\n} catch {\n  Write-Output \"OS: <failed to query>\"\n}\n\n# CPU\ntry {\n  $cpu = Get-CimInstance Win32_Processor\n  Write-Output \"\"\n  Write-Output \"CPU:\"\n  Write-Output \"  Name: $($cpu.Name)\"\n  Write-Output \"  Manufacturer: $($cpu.Manufacturer)\"\n  Write-Output \"  Cores (physical): $($cpu.NumberOfCores)\"\n  Write-Output \"  Threads (logical): $($cpu.NumberOfLogicalProcessors)\"\n  Write-Output \"  Max Clock (MHz): $($cpu.MaxClockSpeed)\"\n} catch {\n  Write-Output \"CPU: <failed to query>\"\n}\n\n# GPU\ntry {\n  Write-Output \"\"\n  Write-Output \"GPU(s):\"\n  $gpus = Get-CimInstance Win32_VideoController\n  foreach ($g in $gpus) {\n    $vramGB = \"\"\n    try {\n      if ($g.AdapterRAM -gt 0) {\n        $vramGB = [math]::Round($g.AdapterRAM / 1GB, 2)\n      }\n    } catch {}\n    Write-Output (\"  - {0} (VRAM: {1} GB, Driver: {2})\" -f $g.Name, ($vramGB -as [string]), $g.DriverVersion)\n  }\n} catch {\n  Write-Output \"GPU: <failed to query>\"\n}\n\n# RAM\ntry {\n  Write-Output \"\"\n  $mem = Get-CimInstance Win32_PhysicalMemory\n  $totalBytes = ($mem | Measure-Object -Property Capacity -Sum).Sum\n  $totalGB = [math]::Round($totalBytes / 1GB, 2)\n  Write-Output \"Memory:\"\n  Write-Output (\"  Total: {0} GB\" -f $totalGB)\n  $speeds = $mem | Select-Object -First 4 Manufacturer, Speed, ConfiguredClockSpeed, Capacity\n  $idx = 0\n  foreach ($m in $speeds) {\n    $idx++\n    Write-Output (\"  Stick {0}: {1} MHz (Configured: {2} MHz) - {3} GB\" -f $idx, $m.Speed, $m.ConfiguredClockSpeed, [math]::Round($m.Capacity/1GB,2))\n  }\n} catch {\n  Write-Output \"Memory: <failed to query>\"\n}\n\n# Storage\ntry {\n  Write-Output \"\"\n  Write-Output \"Storage:\"\n  $drives = Get-PhysicalDisk\n  foreach ($d in $drives) {\n    Write-Output (\"  - {0}: {1} ({2}, {3})\" -f $d.FriendlyName, $d.MediaType, $d.BusType, $d.Size)\n  }\n} catch {\n  Write-Output \"Storage: <failed to query>\"\n}\n\n# Motherboard / BIOS\ntry {\n  Write-Output \"\"\n  $bb = Get-CimInstance Win32_Baseboard\n  $bios = Get-CimInstance Win32_BIOS\n  Write-Output \"Motherboard:\"\n  Write-Output (\"  {0} {1}\" -f $bb.Manufacturer, $bb.Product)\n  Write-Output \"BIOS:\"\n  Write-Output (\"  Version: {0}\" -f $bios.SMBIOSBIOSVersion)\n  Write-Output (\"  ReleaseDate: {0}\" -f $bios.ReleaseDate)\n} catch {\n  Write-Output \"Motherboard/BIOS: <failed to query>\"\n}\n\n# Power plan\ntry {\n  Write-Output \"\"\n  $active = (powercfg /getactivescheme 2>$null)\n  Write-Output \"Power Plan:\"\n  Write-Output (\"  Active: {0}\" -f $active)\n} catch {\n  Write-Output \"Power Plan: <failed to query>\"\n}\n\n# GraphicsDrivers (HAGS / TDR)\ntry {\n  Write-Output \"\"\n  $gd = Get-ItemProperty -Path 'HKLM:\\SYSTEM\\CurrentControlSet\\Control\\GraphicsDrivers' -ErrorAction SilentlyContinue\n  if ($gd) {\n    Write-Output \"Graphics Drivers (core flags):\"\n    Write-Output (\"  HwSchMode (HAGS): {0}\" -f $gd.HwSchMode)\n    Write-Output (\"  TdrDelay: {0}\" -f $gd.TdrDelay)\n    Write-Output (\"  TdrDdiDelay: {0}\" -f $gd.TdrDdiDelay)\n  } else {\n    Write-Output \"Graphics Drivers (core flags): <no key>\"\n  }\n} catch {\n  Write-Output \"Graphics Drivers (core flags): <failed to query>\"\n}\n\n# Device Guard / VBS\ntry {\n  Write-Output \"\"\n  $dg = Get-CimInstance Win32_DeviceGuard -ErrorAction SilentlyContinue\n  if ($dg) {\n    Write-Output \"Security / Device Guard:\"\n    Write-Output (\"  SecurityServicesConfigured: {0}\" -f ($dg.SecurityServicesConfigured -join ','))\n    Write-Output (\"  SecurityServicesRunning: {0}\" -f ($dg.SecurityServicesRunning -join ','))\n  } else {\n    Write-Output \"Security / Device Guard: <not available>\"\n  }\n} catch {\n  Write-Output \"Security / Device Guard: <failed to query>\"\n}\n\n# Network adapters\ntry {\n  Write-Output \"\"\n  Write-Output \"Network Adapters:\"\n  $nics = Get-NetAdapter -Physical -ErrorAction SilentlyContinue\n  foreach ($n in $nics) {\n    Write-Output (\"  - {0} | {1} | Status: {2} | LinkSpeed: {3}\" -f $n.Name, $n.InterfaceDescription, $n.Status, $n.LinkSpeed)\n  }\n} catch {\n  Write-Output \"Network Adapters: <failed to query>\"\n}\n\nWrite-Output \"\"\nWrite-Output \"=== End of Falcon System Scan ===\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nSystem scan does not change settings, so there is nothing to revert.\n\"@"
+          }
+        ]
+      }
+    }
+  ]
+}

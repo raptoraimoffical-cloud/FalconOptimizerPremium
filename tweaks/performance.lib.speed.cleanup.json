@@ -1,0 +1,3736 @@
+{
+  "items": [
+    {
+      "id": "perf_bundle_cleanup",
+      "type": "tweak",
+      "name": "Apply: Cleanup",
+      "description": "Applies the Cleanup subset from the integrated performance pack.",
+      "category": "Performance Pack",
+      "riskLevel": "Medium",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "rd /s /q \"C:\\Program Files (x86)\\Microsoft\\Edge\" >nul 2>&1"
+          },
+          {
+            "type": "cmd.run",
+            "command": "rd /s /q \"C:\\Program Files (x86)\\Microsoft\\EdgeCore\" >nul 2>&1"
+          },
+          {
+            "type": "cmd.run",
+            "command": "rd /s /q \"C:\\Program Files (x86)\\Microsoft\\EdgeUpdate\" >nul 2>&1"
+          },
+          {
+            "type": "cmd.run",
+            "command": "rd /s /q \"C:\\Program Files (x86)\\Microsoft\\Temp\" >nul 2>&1"
+          },
+          {
+            "type": "cmd.run",
+            "command": "del \"C:\\Users\\Public\\Desktop\\Microsoft Edge.lnk\" >nul 2>&1"
+          },
+          {
+            "type": "cmd.run",
+            "command": "rd /s /q \"C:\\Windows\\SystemApps\\Microsoft.MicrosoftEdgeDevToolsClient_8wekyb3d8bbwe\" >nul 2>&1"
+          },
+          {
+            "type": "cmd.run",
+            "command": "del \"!WidgetsPath1!\\!WidgetsItem1!\" /s /f /q >nul 2>&1"
+          },
+          {
+            "type": "cmd.run",
+            "command": "del \"!WidgetsPath2!\\!WidgetsItem2!\" /s /f /q >nul 2>&1"
+          },
+          {
+            "type": "cmd.run",
+            "command": "del \"!XboxfileToDelete!\" /s /f /q >nul 2>&1"
+          },
+          {
+            "type": "cmd.run",
+            "command": "rd /s /q \"C:\\Program Files (x86)\\Microsoft\\EdgeWebView\" >nul 2>&1"
+          },
+          {
+            "type": "cmd.run",
+            "command": "del \"C:\\Windows\\System32\\SleepStudy\" /s /f /q"
+          },
+          {
+            "type": "cmd.run",
+            "command": "Del /S /F /Q C:\\WINDOWS\\Prefetch"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core_disable_delivery_optimization",
+      "type": "toggle",
+      "name": "Disable Delivery Optimization",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables Delivery Optimization service.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "DoSvc",
+            "startType": "Disabled",
+            "stop": true
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "DoSvc",
+            "startType": "Manual"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "General / Core",
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "DoSvc",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_disable_modern_standby",
+      "type": "toggle",
+      "name": "Disable Modern Standby (S0)",
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay] Attempts to disable Modern Standby (may require BIOS support).",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Power",
+            "name": "PlatformAoAcOverride",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Power",
+            "name": "PlatformAoAcOverride"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "General / Power",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Power",
+            "name": "PlatformAoAcOverride",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "debloat.autoruns.opera_gx_assistant__performance.lib.speed.cleanup",
+      "name": "Opera GX Browser Assistant",
+      "category": "Debloat / Autoruns",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Attempts to disable Opera GX assistant startup entry for the current user.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Get-CimInstance Win32_StartupCommand | Where-Object {$_.Name -match 'Opera.*Assistant|Opera GX'} | ForEach-Object { try { Remove-ItemProperty -Path 'HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Run' -Name $_.Name -ErrorAction SilentlyContinue } catch {} }"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "excludeFromApplyAll": true,
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "fix.store_apps__performance.lib.speed.cleanup",
+      "type": "button",
+      "name": "Microsoft Store & Apps",
+      "risk": "Safe",
+      "description": "Resets Store cache and re-registers Store.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "wsreset.exe"
+          },
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"Get-AppxPackage -allusers Microsoft.WindowsStore | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register \\\"$($_.InstallLocation)\\AppXManifest.xml\\\"}\""
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "Misc",
+      "note": "Converted from toggle (missing revert)."
+    },
+    {
+      "id": "clean.device_cleanup__performance.lib.speed.cleanup",
+      "name": "Device Cleanup",
+      "category": "Debloat / System Cleaner",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Cleans selected temporary/cache files.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:WINDIR\\INF\\setupapi.dev.log' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:WINDIR\\INF\\setupapi.app.log' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "excludeFromApplyAll": true,
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "clean.general_cleanup__performance.lib.speed.cleanup",
+      "name": "General Cleanup",
+      "category": "Debloat / System Cleaner",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Cleans selected temporary/cache files.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:WINDIR\\Logs\\CBS\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:ProgramData\\Microsoft\\Windows\\WER\\ReportArchive\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "excludeFromApplyAll": true,
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "clean.logs_&_crash_reports__performance.lib.speed.cleanup",
+      "name": "Logs & Crash Reports",
+      "category": "Debloat / System Cleaner",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Cleans selected temporary/cache files.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\CrashDumps\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:ProgramData\\Microsoft\\Windows\\WER\\ReportQueue\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "excludeFromApplyAll": true,
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp_task_microsoft_windows_maintenance_silentcleanup__performance.lib.speed.cleanup",
+      "name": "Disable scheduled task: SilentCleanup",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Maintenance\\SilentCleanup. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Maintenance\\SilentCleanup",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Maintenance\\SilentCleanup",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Maintenance\\SilentCleanup",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_diagnosis_cleanuptemporarystate__performance.lib.speed.cleanup",
+      "name": "Disable scheduled task: CleanupTemporaryState",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Diagnosis\\CleanupTemporaryState. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Diagnosis\\CleanupTemporaryState",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Diagnosis\\CleanupTemporaryState",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Diagnosis\\CleanupTemporaryState",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_windows_defender_windows_defender_cache_maintenance__performance.lib.speed.cleanup",
+      "name": "Disable scheduled task: Windows Defender Cache Maintenance",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Windows Defender\\Windows Defender Cache Maintenance. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Windows Defender\\Windows Defender Cache Maintenance",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Windows Defender\\Windows Defender Cache Maintenance",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Windows Defender\\Windows Defender Cache Maintenance",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_windows_defender_windows_defender_cleanup__performance.lib.speed.cleanup",
+      "name": "Disable scheduled task: Windows Defender Cleanup",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Windows Defender\\Windows Defender Cleanup. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Windows Defender\\Windows Defender Cleanup",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Windows Defender\\Windows Defender Cleanup",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Windows Defender\\Windows Defender Cleanup",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_diskcleanup_silentcleanup__performance.lib.speed.cleanup",
+      "name": "Disable scheduled task: SilentCleanup",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\DiskCleanup\\SilentCleanup. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\DiskCleanup\\SilentCleanup",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\DiskCleanup\\SilentCleanup",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\DiskCleanup\\SilentCleanup",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_wininet_cachetask__performance.lib.speed.cleanup",
+      "name": "Disable scheduled task: CacheTask",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Wininet\\CacheTask. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Wininet\\CacheTask",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Wininet\\CacheTask",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Wininet\\CacheTask",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_defrag_scheduleddefrag__performance.lib.speed.cleanup",
+      "name": "Disable scheduled task: ScheduledDefrag",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Defrag\\ScheduledDefrag. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Defrag\\ScheduledDefrag",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Defrag\\ScheduledDefrag",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Defrag\\ScheduledDefrag",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_servicing_startcomponentcleanup__performance.lib.speed.cleanup",
+      "name": "Disable scheduled task: StartComponentCleanup",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\Servicing\\StartComponentCleanup. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Servicing\\StartComponentCleanup",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Servicing\\StartComponentCleanup",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Servicing\\StartComponentCleanup",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_task_microsoft_windows_license_manager_tempsignedlicenseexchange__performance.lib.speed.cleanup",
+      "name": "Disable scheduled task: TempSignedLicenseExchange",
+      "category": "Expansion / Scheduled Tasks",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled task \\Microsoft\\Windows\\License Manager\\TempSignedLicenseExchange. Missing tasks are skipped safely.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\License Manager\\TempSignedLicenseExchange",
+            "action": "disable"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\License Manager\\TempSignedLicenseExchange",
+            "action": "enable"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\License Manager\\TempSignedLicenseExchange",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_fontcache__performance.lib.speed.cleanup",
+      "name": "Set service startup: FontCache → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "FontCache",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "FontCache",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "FontCache",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hkcu_software_microsoft_windows_currentversion_explorer_advanced_disablethumbnailc__performance.lib.speed.cleanup",
+      "name": "Registry tweak: DisableThumbnailCache",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Ensure thumbnail cache enabled (faster browsing).",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "DisableThumbnailCache",
+            "value": 0,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "DisableThumbnailCache"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "DisableThumbnailCache",
+            "valueType": "DWORD",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp.mmcss.kill_common_overlays__performance.lib.speed.cleanup",
+      "type": "action",
+      "name": "Close Common Overlays (Discord/Steam/Xbox)",
+      "category": "Expansion / MMCSS & Scheduling",
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay] Attempts to close common overlay processes (Discord, Steam overlay helper, Xbox Game Bar).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "process.kill",
+            "name": "discord"
+          },
+          {
+            "type": "process.kill",
+            "name": "GameBar"
+          },
+          {
+            "type": "process.kill",
+            "name": "GameBarFTServer"
+          },
+          {
+            "type": "process.kill",
+            "name": "steamwebhelper"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Warning"
+    },
+    {
+      "id": "exp.storage.check_trim__performance.lib.speed.cleanup",
+      "type": "action",
+      "name": "Check TRIM Status",
+      "category": "Expansion / Storage & I/O",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Runs fsutil behavior query DisableDeleteNotify (0 means TRIM enabled).",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "fsutil behavior query DisableDeleteNotify"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe"
+    },
+    {
+      "id": "exp.ui.open_performance_options__performance.lib.speed.cleanup",
+      "type": "action",
+      "name": "Open Performance Options (Visual Effects)",
+      "category": "Expansion / UI & Background",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Opens SystemPropertiesPerformance.exe for visual effects tuning.",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "run.exe",
+            "file": "SystemPropertiesPerformance.exe",
+            "args": [],
+            "wait": false
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe"
+    },
+    {
+      "id": "boost.clear_cache",
+      "name": "Clear Cache",
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Clears common Windows temp and cache folders to free space and reduce stutter.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:TEMP\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:WINDIR\\Temp\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "boost.clear_chrome_temp",
+      "name": "Clear Chrome Temp Files",
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Clears Google Chrome cache and code cache to improve responsiveness.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Google\\Chrome\\User Data\\Default\\Cache\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Google\\Chrome\\User Data\\Default\\Code Cache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "boost.clear_games_temp",
+      "name": "Clear Games Temp Files",
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Clears common game temp folders and NVIDIA cache to reduce hitching.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Temp\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:ProgramData\\NVIDIA Corporation\\NV_Cache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "boost.clear_history_recent",
+      "name": "Clear Recent History",
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Clears Windows Recent and JumpList data to speed up Explorer menus.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:APPDATA\\Microsoft\\Windows\\Recent\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:APPDATA\\Microsoft\\Windows\\Recent\\AutomaticDestinations\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "boost.clear_installer_caches",
+      "name": "Clear Installer & App Caches",
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Removes leftover installer caches and Windows Update downloads to recover space.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:WINDIR\\SoftwareDistribution\\Download\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:ProgramData\\Package Cache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "boost.clear_prefetch",
+      "name": "Clear Prefetch",
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Clears Windows Prefetch to regenerate fresh launch data for games and apps.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:WINDIR\\Prefetch\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "boost.clear_thumbnail_cache",
+      "name": "Clean Thumbnail Cache",
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Resets Explorer thumbnail cache to fix slow folders and glitches.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Microsoft\\Windows\\Explorer\\thumbcache*' -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "boost.clear_font_cache",
+      "name": "Clean Font Cache",
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Refreshes Windows font cache to avoid UI slowdowns and glitches.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Stop-Service -Name 'FontCache' -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Microsoft\\Windows\\FontCache\\*' -Recurse -Force -ErrorAction SilentlyContinue; Start-Service -Name 'FontCache' -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "boost.clear_discord_cache",
+      "name": "Clean Discord Cache",
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Clears Discord cache and GPU cache to free space and reduce background I/O.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:APPDATA\\discord\\Cache\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:APPDATA\\discord\\GPUCache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "boost.clear_steam_cache",
+      "name": "Clean Steam Cache",
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Cleans Steam download and HTML cache which can slow down library and updates.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:PROGRAMFILES(x86)\\Steam\\appcache\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:PROGRAMFILES(x86)\\Steam\\steamapps\\downloading\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "boost.clear_epic_cache",
+      "name": "Clean Epic Games Cache",
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Clears Epic Games launcher cache to keep game installs and updates snappy.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\EpicGamesLauncher\\Saved\\Logs\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:LOCALAPPDATA\\EpicGamesLauncher\\Saved\\webcache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "boost.clear_temp_files_bundle",
+      "name": "Temp Files Bundle",
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Aggressively clears multiple temp locations in one pass for maximum cleanup.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:TEMP\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Temp\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:WINDIR\\Temp\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "boost.empty_recycle_bin",
+      "name": "Empty Recycle Bin",
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Empties the recycle bin to free disk space and reduce background maintenance.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Clear-RecycleBin -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "boost.clear_directx_shader",
+      "name": "Clear DirectX Shader Cache",
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Clears DirectX and GPU shader cache so games can rebuild clean pipelines.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\D3DSCache\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:LOCALAPPDATA\\NVIDIA\\DXCache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "boost.clear_delivery_optimization",
+      "name": "Clear Delivery Optimization Cache",
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Clears Windows Delivery Optimization cache to reduce background disk I/O.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:ProgramData\\Microsoft\\Windows\\DeliveryOptimization\\Cache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "boost.clear_crash_dumps",
+      "name": "Clear Crash Dumps",
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Removes local crash dump files that waste SSD space and slow maintenance.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\CrashDumps\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:SYSTEMROOT\\Minidump\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "boost.clear_wer_reports",
+      "name": "Clear Error Reporting Logs",
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Clears Windows Error Reporting queues and archives to cut background disk churn.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:ProgramData\\Microsoft\\Windows\\WER\\ReportQueue\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:ProgramData\\Microsoft\\Windows\\WER\\ReportArchive\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "boost.clear_store_cache",
+      "name": "Clear Microsoft Store Cache",
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Resets Microsoft Store temp and cache data for faster app installs.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Packages\\Microsoft.WindowsStore_*\\LocalCache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "boost.clear_edge_cache",
+      "name": "Clear Edge Temp Files",
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Clears Microsoft Edge cache and code cache to improve browsing responsiveness.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Microsoft\\Edge\\User Data\\Default\\Cache\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Microsoft\\Edge\\User Data\\Default\\Code Cache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "boost.clear_firefox_cache",
+      "name": "Clear Firefox Temp Files",
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Clears Firefox cache folders for all profiles to reduce disk usage.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -Path '$env:APPDATA\\Mozilla\\Firefox\\Profiles\\*\\cache2\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "boost.clear_webview2_cache",
+      "name": "Clear WebView2 Cache",
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Clears WebView2 cache used by modern Windows apps for snappier UI.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Microsoft\\EdgeWebView\\Cache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "boost.clear_quick_access",
+      "name": "Clear Quick Access History",
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Clears Quick Access and Explorer jump history to speed up file dialogs.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:APPDATA\\Microsoft\\Windows\\Recent\\AutomaticDestinations\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:APPDATA\\Microsoft\\Windows\\Recent\\CustomDestinations\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "boost.clear_spotify_cache",
+      "name": "Clean Spotify Cache",
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Clears Spotify cache to free SSD space and reduce background I/O.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Spotify\\Storage\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "boost.clear_telegram_cache",
+      "name": "Clean Telegram Cache",
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Clears Telegram Desktop cache so it stops hoarding disk space.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:APPDATA\\Telegram Desktop\\tdata\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "boost.clear_temp_prefetch_mru",
+      "name": "Temp + Prefetch MRU Bundle",
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Aggressively clears temp, prefetch, and MRU-style recent files for a fresh start.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:TEMP\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Temp\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:WINDIR\\Prefetch\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "type": "button",
+      "riskLevel": "Safe",
+      "id": "boost.clear_battlenet_cache",
+      "name": "Clean Battle.net Cache",
+      "description": "[Focus: FPS] Clears Battle.net cache to speed up launcher and downloads.",
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:PROGRAMDATA\\Battle.net\\Cache\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Battle.net\\Cache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "type": "button",
+      "riskLevel": "Safe",
+      "id": "boost.clear_riot_cache",
+      "name": "Clean Riot Games Cache",
+      "description": "[Focus: FPS] Removes Riot client logs and temp data to reduce background I/O.",
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -Path '$env:LOCALAPPDATA\\Riot Games\\*\\Logs\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -Path '$env:LOCALAPPDATA\\Riot Games\\*\\Crash*\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "type": "button",
+      "riskLevel": "Safe",
+      "id": "boost.clear_xbox_cache",
+      "name": "Clean Xbox Game Bar Cache",
+      "description": "[Focus: Latency / Input Delay] Clears Xbox Game Bar cache for smoother overlays.",
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Packages\\Microsoft.XboxGamingOverlay_*\\LocalCache\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Packages\\Microsoft.XboxGamingOverlay_*\\TempState\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "type": "button",
+      "riskLevel": "Safe",
+      "id": "boost.clear_minecraft_cache",
+      "name": "Clean Minecraft Cache & Logs",
+      "description": "[Focus: FPS] Clears Minecraft logs, crash reports, and cache to reduce stutter.",
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:APPDATA\\.minecraft\\logs\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:APPDATA\\.minecraft\\crash-reports\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:APPDATA\\.minecraft\\cache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "type": "button",
+      "riskLevel": "Safe",
+      "id": "boost.clear_unreal_ddc",
+      "name": "Clean Unreal Derived Data Cache",
+      "description": "[Focus: FPS] Clears Unreal Engine derived data cache used by many modern games.",
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\UnrealEngine\\*\\DerivedDataCache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "type": "button",
+      "riskLevel": "Safe",
+      "id": "boost.clear_opera_cache",
+      "name": "Clear Opera Browser Cache",
+      "description": "[Focus: Latency / Input Delay] Clears Opera cache, code, and GPU cache.",
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:APPDATA\\Opera Software\\Opera Stable\\Cache\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:APPDATA\\Opera Software\\Opera Stable\\Code Cache\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:APPDATA\\Opera Software\\Opera Stable\\GPUCache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "type": "button",
+      "riskLevel": "Safe",
+      "id": "boost.clear_brave_cache",
+      "name": "Clear Brave Browser Cache",
+      "description": "[Focus: Latency / Input Delay] Clears Brave browser cache to free space and speed up browsing.",
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\BraveSoftware\\Brave-Browser\\User Data\\Default\\Cache\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:LOCALAPPDATA\\BraveSoftware\\Brave-Browser\\User Data\\Default\\Code Cache\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:LOCALAPPDATA\\BraveSoftware\\Brave-Browser\\User Data\\Default\\GPUCache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "type": "button",
+      "riskLevel": "Safe",
+      "id": "boost.clear_windows_logs",
+      "name": "Clear Windows Log Files",
+      "description": "[Focus: Latency / Input Delay] Clears accumulated log files that create background disk churn.",
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:WINDIR\\Logs\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "type": "button",
+      "riskLevel": "Safe",
+      "id": "boost.clear_event_logs",
+      "name": "Clear Windows Event Logs",
+      "description": "[Focus: Latency / Input Delay] Clears Windows event logs to shrink system log databases.",
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "wevtutil el | ForEach-Object { wevtutil cl $_ }"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "type": "button",
+      "riskLevel": "Safe",
+      "id": "boost.clear_network_logs",
+      "name": "Clear Network Log Files",
+      "description": "[Focus: Ping / Network] Clears HTTP and network service logs to keep log folders lean.",
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:SystemRoot\\System32\\LogFiles\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "type": "button",
+      "riskLevel": "Safe",
+      "id": "boost.clear_nvidia_installer_leftovers",
+      "name": "Clean NVIDIA Installer Leftovers",
+      "description": "[Focus: FPS] Removes leftover NVIDIA installer files that waste SSD space.",
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath 'C:\\NVIDIA\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:ProgramFiles\\NVIDIA Corporation\\Installer2\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "type": "button",
+      "riskLevel": "Safe",
+      "id": "boost.clear_amd_installer_leftovers",
+      "name": "Clean AMD Installer Leftovers",
+      "description": "[Focus: FPS] Removes leftover AMD installer folders from the system drive.",
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath 'C:\\AMD\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "type": "button",
+      "riskLevel": "Safe",
+      "id": "boost.clear_windows_upgrade_logs",
+      "name": "Clear Windows Upgrade Logs",
+      "description": "[Focus: Latency / Input Delay] Clears Windows upgrade temporary logs that can grow very large.",
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:SystemDrive\\$WINDOWS.~BT\\Sources\\Panther\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:SystemDrive\\$WINDOWS.~BT\\Sources\\Rollback\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "type": "button",
+      "riskLevel": "Safe",
+      "id": "boost.clear_office_cache",
+      "name": "Clean Microsoft Office Cache",
+      "description": "[Focus: Latency / Input Delay] Clears Microsoft Office file cache to free SSD space.",
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Microsoft\\Office\\16.0\\OfficeFileCache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "type": "button",
+      "riskLevel": "Safe",
+      "id": "boost.clear_adobe_cache",
+      "name": "Clean Adobe Media Cache",
+      "description": "[Focus: Latency / Input Delay] Clears Adobe media caches used by Premiere, After Effects, and others.",
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Adobe\\Common\\Media Cache Files\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "type": "button",
+      "riskLevel": "Safe",
+      "id": "boost.clear_roblox_cache",
+      "name": "Clean Roblox Cache & Logs",
+      "description": "[Focus: FPS] Clears Roblox logs and download cache to smooth load times.",
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Roblox\\logs\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Roblox\\downloads\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "type": "button",
+      "riskLevel": "Safe",
+      "id": "boost.clear_geforce_logs",
+      "name": "Clean GeForce Experience Logs",
+      "description": "[Focus: FPS] Clears GeForce Experience log files to keep NVIDIA folders lean.",
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:PROGRAMDATA\\NVIDIA Corporation\\GeForce Experience\\logs\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "type": "button",
+      "riskLevel": "Safe",
+      "id": "boost.clear_onedrive_logs",
+      "name": "Clear OneDrive Logs",
+      "description": "[Focus: Latency / Input Delay] Clears Microsoft OneDrive log files to reduce background disk writes.",
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Microsoft\\OneDrive\\logs\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "type": "button",
+      "riskLevel": "Safe",
+      "id": "boost.clear_msix_temp",
+      "name": "Clear Store App Temp Files",
+      "description": "[Focus: Latency / Input Delay] Clears temporary folders used by modern Store apps.",
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -Path '$env:LOCALAPPDATA\\Packages\\*\\AC\\Temp\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "type": "button",
+      "riskLevel": "Safe",
+      "id": "boost.clear_browser_crash_reports",
+      "name": "Clear Browser Crash Reports",
+      "description": "[Focus: Latency / Input Delay] Clears accumulated browser crash reports for Chrome-based browsers.",
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -Path '$env:LOCALAPPDATA\\Google\\Chrome\\User Data\\Crashpad\\reports\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -Path '$env:LOCALAPPDATA\\Microsoft\\Edge\\User Data\\Crashpad\\reports\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "game.fortnite.clearcaches__performance.lib.speed.cleanup",
+      "type": "action",
+      "name": "Clear caches used by this game (best-effort) [Real]",
+      "category": "Game Specific / Fortnite",
+      "riskLevel": "Warning",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "description": "Deletes common cache folders for this title (where applicable).",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'fortnite' -Action 'ClearCaches'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "game.overwatch2.clearcaches__performance.lib.speed.cleanup",
+      "type": "action",
+      "name": "Clear caches used by this game (best-effort) [Real]",
+      "category": "Game Specific / Overwatch 2",
+      "riskLevel": "Warning",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "description": "Deletes common cache folders for this title (where applicable).",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'overwatch2' -Action 'ClearCaches'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "game.apex.clearcaches__performance.lib.speed.cleanup",
+      "type": "action",
+      "name": "Clear caches used by this game (best-effort) [Real]",
+      "category": "Game Specific / Apex Legends",
+      "riskLevel": "Warning",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "description": "Deletes common cache folders for this title (where applicable).",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'apex' -Action 'ClearCaches'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "game.geforcenow.clearcaches__performance.lib.speed.cleanup",
+      "type": "action",
+      "name": "Clear caches used by this game (best-effort) [Real]",
+      "category": "Game Specific / GeForce NOW",
+      "riskLevel": "Warning",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "description": "Deletes common cache folders for this title (where applicable).",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'geforcenow' -Action 'ClearCaches'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "game.valorant.clearcaches__performance.lib.speed.cleanup",
+      "type": "action",
+      "name": "Clear caches used by this game (best-effort) [Real]",
+      "category": "Game Specific / Valorant",
+      "riskLevel": "Warning",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "description": "Deletes common cache folders for this title (where applicable).",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'valorant' -Action 'ClearCaches'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "game.cs2.clearcaches__performance.lib.speed.cleanup",
+      "type": "action",
+      "name": "Clear caches used by this game (best-effort) [Real]",
+      "category": "Game Specific / CS2",
+      "riskLevel": "Warning",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "description": "Deletes common cache folders for this title (where applicable).",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'cs2' -Action 'ClearCaches'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "game.rocketleague.clearcaches__performance.lib.speed.cleanup",
+      "type": "action",
+      "name": "Clear caches used by this game (best-effort) [Real]",
+      "category": "Game Specific / Rocket League",
+      "riskLevel": "Warning",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "description": "Deletes common cache folders for this title (where applicable).",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'rocketleague' -Action 'ClearCaches'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "game.gta5.clearcaches__performance.lib.speed.cleanup",
+      "type": "action",
+      "name": "Clear caches used by this game (best-effort) [Real]",
+      "category": "Game Specific / GTA V",
+      "riskLevel": "Warning",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "description": "Deletes common cache folders for this title (where applicable).",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'gta5' -Action 'ClearCaches'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "game.league.clearcaches__performance.lib.speed.cleanup",
+      "type": "action",
+      "name": "Clear caches used by this game (best-effort) [Real]",
+      "category": "Game Specific / League of Legends",
+      "riskLevel": "Warning",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "description": "Deletes common cache folders for this title (where applicable).",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'league' -Action 'ClearCaches'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "game.cod.clearcaches__performance.lib.speed.cleanup",
+      "type": "action",
+      "name": "Clear caches used by this game (best-effort) [Real]",
+      "category": "Game Specific / Call of Duty",
+      "riskLevel": "Warning",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "description": "Deletes common cache folders for this title (where applicable).",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& '.\\\\scripts\\\\games\\\\falcon-gamepack.ps1' -Game 'cod' -Action 'ClearCaches'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "stretch_valorant_1280x960__performance.lib.speed.cleanup",
+      "name": "TenZ-style stretch (Valorant 1280x960)",
+      "category": "Stretch Resolution Lab / Valorant – Quick Presets",
+      "type": "action",
+      "description": "[Focus: FPS] Attempts to apply a 1280x960 stretched-style resolution to Valorant's GameUserSettings-style configs. You should keep the game closed while this runs.",
+      "riskLevel": "Warning",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$base = Join-Path $env:LOCALAPPDATA 'VALORANT\\Saved\\Config'\nif (!(Test-Path -LiteralPath $base)) {\n  Write-Output 'Valorant config root not found at expected path.';\n  exit 0\n}\n\n$files = Get-ChildItem -Path $base -Recurse -Filter 'GameUserSettings.ini' -ErrorAction SilentlyContinue\nif (-not $files) {\n  Write-Output 'No GameUserSettings.ini found under Valorant config.';\n  exit 0\n}\n\nforeach ($f in $files) {\n  try {\n    $content = Get-Content -LiteralPath $f.FullName -Raw -ErrorAction SilentlyContinue\n    if (-not $content) { continue }\n\n    $replacements = @{\n      'ResolutionSizeX='     = 'ResolutionSizeX=1280'\n      'ResolutionSizeY='     = 'ResolutionSizeY=960'\n      'DesiredScreenWidth='  = 'DesiredScreenWidth=1280'\n      'DesiredScreenHeight=' = 'DesiredScreenHeight=960'\n    }\n\n    foreach ($k in $replacements.Keys) {\n      $replacement = $replacements[$k]\n      if ($content -match [regex]::Escape($k)) {\n        $content = [regex]::Replace($content, [regex]::Escape($k) + '\\d+', $replacement)\n      } else {\n        $content += \"`n\" + $replacement\n      }\n    }\n\n    Set-Content -LiteralPath $f.FullName -Value $content -Encoding ASCII\n  } catch {\n    Write-Output ('Failed to touch Valorant config: {0}' -f $f.FullName)\n  }\n}\n\nWrite-Output 'Applied 1280x960-style stretched preset for Valorant (config files updated where found).'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nTo revert Valorant, either restore a backup of your config folder or set your desired resolution back in-game. This preset does not currently track a per-line backup.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hc_windows.core_core_disable_delivery_optimization__performance.lib.speed.cleanup",
+      "type": "toggle",
+      "name": "Disable Delivery Optimization",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables Delivery Optimization service.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "DoSvc",
+            "startType": "Disabled",
+            "stop": true
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "DoSvc",
+            "startType": "Manual"
+          }
+        ]
+      },
+      "riskLevel": "Danger",
+      "category": "Hardcore / General / Core",
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "DoSvc",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "hc_windows.power_power_disable_modern_standby__performance.lib.speed.cleanup",
+      "type": "toggle",
+      "name": "Disable Modern Standby (S0)",
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay] Attempts to disable Modern Standby (may require BIOS support).",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Power",
+            "name": "PlatformAoAcOverride",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Power",
+            "name": "PlatformAoAcOverride"
+          }
+        ]
+      },
+      "riskLevel": "Danger",
+      "category": "Hardcore / General / Power",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Power",
+            "name": "PlatformAoAcOverride",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "hc_hardware.cpu.intel_cpu.disable_basic_cstates__performance.lib.speed.cleanup",
+      "name": "Disable Basic C-states",
+      "category": "Hardcore / Hardware / CPU",
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay] Sets the current power plan to reduce CPU idle states (may increase power/temps).",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "powercfg.set",
+            "args": [
+              "/SETACVALUEINDEX",
+              "SCHEME_CURRENT",
+              "SUB_PROCESSOR",
+              "IDLEDISABLE",
+              "1"
+            ]
+          },
+          {
+            "type": "powercfg.set",
+            "args": [
+              "/SETACTIVE",
+              "SCHEME_CURRENT"
+            ]
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "powercfg.set",
+            "args": [
+              "/SETACVALUEINDEX",
+              "SCHEME_CURRENT",
+              "SUB_PROCESSOR",
+              "IDLEDISABLE",
+              "0"
+            ]
+          },
+          {
+            "type": "powercfg.set",
+            "args": [
+              "/SETACTIVE",
+              "SCHEME_CURRENT"
+            ]
+          }
+        ]
+      },
+      "type": "toggle",
+      "riskLevel": "Danger",
+      "check": {
+        "steps": [
+          {
+            "type": "powercfg.check",
+            "guid": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "hc_hardware.memory_mem_disable_prefetch__performance.lib.speed.cleanup",
+      "type": "toggle",
+      "name": "Disable Prefetch",
+      "category": "Hardcore / Hardware / Memory",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables Prefetcher.",
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management\\PrefetchParameters",
+            "name": "EnablePrefetcher",
+            "valueType": "DWord",
+            "value": 0
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management\\PrefetchParameters",
+            "name": "EnablePrefetcher",
+            "valueType": "DWord",
+            "value": 3
+          }
+        ]
+      },
+      "riskLevel": "Danger",
+      "requiresAdmin": true,
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management\\PrefetchParameters",
+            "name": "EnablePrefetcher",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "hc_hardware.memory_mem_disable_standby_cache_trim__performance.lib.speed.cleanup",
+      "type": "toggle",
+      "name": "Disable Standby Cache Trimming (Policy)",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Reduces standby cache trimming aggressiveness.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management",
+            "name": "ClearPageFileAtShutdown",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management",
+            "name": "ClearPageFileAtShutdown"
+          }
+        ]
+      },
+      "riskLevel": "Danger",
+      "category": "Hardcore / Hardware / Memory",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management",
+            "name": "ClearPageFileAtShutdown",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "hc_services_disable_diagtrack__performance.lib.speed.cleanup",
+      "name": "Kill service: DiagTrack",
+      "category": "Hardcore / Services Deep Strip",
+      "type": "action",
+      "description": "[Hardcore] Disable and stop Connected User Experiences and Telemetry (DiagTrack) for maximum background trimming. May break related features.",
+      "riskLevel": "Danger",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$name = 'DiagTrack'\nWrite-Output (\"[Hardcore] Disabling service: DiagTrack\")\ntry {\n  $svc = Get-Service -Name $name -ErrorAction SilentlyContinue\n  if ($null -ne $svc) {\n    if ($svc.Status -eq 'Running') {\n      Stop-Service -Name $name -Force -ErrorAction SilentlyContinue\n    }\n    Set-Service -Name $name -StartupType Disabled -ErrorAction SilentlyContinue\n  } else {\n    Write-Output (\"Service not found: DiagTrack\")\n  }\n} catch {\n  Write-Output (\"Failed to disable service DiagTrack: \" + $_.Exception.Message)\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hc_services_disable_dmwappushservice__performance.lib.speed.cleanup",
+      "name": "Kill service: dmwappushservice",
+      "category": "Hardcore / Services Deep Strip",
+      "type": "action",
+      "description": "[Hardcore] Disable and stop Device Management Wireless Application Protocol Push (dmwappushservice) for maximum background trimming. May break related features.",
+      "riskLevel": "Danger",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$name = 'dmwappushservice'\nWrite-Output (\"[Hardcore] Disabling service: dmwappushservice\")\ntry {\n  $svc = Get-Service -Name $name -ErrorAction SilentlyContinue\n  if ($null -ne $svc) {\n    if ($svc.Status -eq 'Running') {\n      Stop-Service -Name $name -Force -ErrorAction SilentlyContinue\n    }\n    Set-Service -Name $name -StartupType Disabled -ErrorAction SilentlyContinue\n  } else {\n    Write-Output (\"Service not found: dmwappushservice\")\n  }\n} catch {\n  Write-Output (\"Failed to disable service dmwappushservice: \" + $_.Exception.Message)\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hc_services_disable_sysmain__performance.lib.speed.cleanup",
+      "name": "Kill service: SysMain",
+      "category": "Hardcore / Services Deep Strip",
+      "type": "action",
+      "description": "[Hardcore] Disable and stop Superfetch / SysMain prefetching (SysMain) for maximum background trimming. May break related features.",
+      "riskLevel": "Danger",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$name = 'SysMain'\nWrite-Output (\"[Hardcore] Disabling service: SysMain\")\ntry {\n  $svc = Get-Service -Name $name -ErrorAction SilentlyContinue\n  if ($null -ne $svc) {\n    if ($svc.Status -eq 'Running') {\n      Stop-Service -Name $name -Force -ErrorAction SilentlyContinue\n    }\n    Set-Service -Name $name -StartupType Disabled -ErrorAction SilentlyContinue\n  } else {\n    Write-Output (\"Service not found: SysMain\")\n  }\n} catch {\n  Write-Output (\"Failed to disable service SysMain: \" + $_.Exception.Message)\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hc_services_disable_wsearch__performance.lib.speed.cleanup",
+      "name": "Kill service: WSearch",
+      "category": "Hardcore / Services Deep Strip",
+      "type": "action",
+      "description": "[Hardcore] Disable and stop Windows Search indexing (WSearch) for maximum background trimming. May break related features.",
+      "riskLevel": "Danger",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$name = 'WSearch'\nWrite-Output (\"[Hardcore] Disabling service: WSearch\")\ntry {\n  $svc = Get-Service -Name $name -ErrorAction SilentlyContinue\n  if ($null -ne $svc) {\n    if ($svc.Status -eq 'Running') {\n      Stop-Service -Name $name -Force -ErrorAction SilentlyContinue\n    }\n    Set-Service -Name $name -StartupType Disabled -ErrorAction SilentlyContinue\n  } else {\n    Write-Output (\"Service not found: WSearch\")\n  }\n} catch {\n  Write-Output (\"Failed to disable service WSearch: \" + $_.Exception.Message)\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hc_services_disable_mapsbroker__performance.lib.speed.cleanup",
+      "name": "Kill service: MapsBroker",
+      "category": "Hardcore / Services Deep Strip",
+      "type": "action",
+      "description": "[Hardcore] Disable and stop Downloaded Maps Manager (MapsBroker) for maximum background trimming. May break related features.",
+      "riskLevel": "Danger",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$name = 'MapsBroker'\nWrite-Output (\"[Hardcore] Disabling service: MapsBroker\")\ntry {\n  $svc = Get-Service -Name $name -ErrorAction SilentlyContinue\n  if ($null -ne $svc) {\n    if ($svc.Status -eq 'Running') {\n      Stop-Service -Name $name -Force -ErrorAction SilentlyContinue\n    }\n    Set-Service -Name $name -StartupType Disabled -ErrorAction SilentlyContinue\n  } else {\n    Write-Output (\"Service not found: MapsBroker\")\n  }\n} catch {\n  Write-Output (\"Failed to disable service MapsBroker: \" + $_.Exception.Message)\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hc_services_disable_dosvc__performance.lib.speed.cleanup",
+      "name": "Kill service: DoSvc",
+      "category": "Hardcore / Services Deep Strip",
+      "type": "action",
+      "description": "[Hardcore] Disable and stop Delivery Optimization background downloader (DoSvc) for maximum background trimming. May break related features.",
+      "riskLevel": "Danger",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$name = 'DoSvc'\nWrite-Output (\"[Hardcore] Disabling service: DoSvc\")\ntry {\n  $svc = Get-Service -Name $name -ErrorAction SilentlyContinue\n  if ($null -ne $svc) {\n    if ($svc.Status -eq 'Running') {\n      Stop-Service -Name $name -Force -ErrorAction SilentlyContinue\n    }\n    Set-Service -Name $name -StartupType Disabled -ErrorAction SilentlyContinue\n  } else {\n    Write-Output (\"Service not found: DoSvc\")\n  }\n} catch {\n  Write-Output (\"Failed to disable service DoSvc: \" + $_.Exception.Message)\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hc_services_disable_pcasvc__performance.lib.speed.cleanup",
+      "name": "Kill service: PcaSvc",
+      "category": "Hardcore / Services Deep Strip",
+      "type": "action",
+      "description": "[Hardcore] Disable and stop Program Compatibility Assistant Service (PcaSvc) for maximum background trimming. May break related features.",
+      "riskLevel": "Danger",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$name = 'PcaSvc'\nWrite-Output (\"[Hardcore] Disabling service: PcaSvc\")\ntry {\n  $svc = Get-Service -Name $name -ErrorAction SilentlyContinue\n  if ($null -ne $svc) {\n    if ($svc.Status -eq 'Running') {\n      Stop-Service -Name $name -Force -ErrorAction SilentlyContinue\n    }\n    Set-Service -Name $name -StartupType Disabled -ErrorAction SilentlyContinue\n  } else {\n    Write-Output (\"Service not found: PcaSvc\")\n  }\n} catch {\n  Write-Output (\"Failed to disable service PcaSvc: \" + $_.Exception.Message)\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hc_services_disable_retaildemo__performance.lib.speed.cleanup",
+      "name": "Kill service: RetailDemo",
+      "category": "Hardcore / Services Deep Strip",
+      "type": "action",
+      "description": "[Hardcore] Disable and stop Retail Demo service (RetailDemo) for maximum background trimming. May break related features.",
+      "riskLevel": "Danger",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$name = 'RetailDemo'\nWrite-Output (\"[Hardcore] Disabling service: RetailDemo\")\ntry {\n  $svc = Get-Service -Name $name -ErrorAction SilentlyContinue\n  if ($null -ne $svc) {\n    if ($svc.Status -eq 'Running') {\n      Stop-Service -Name $name -Force -ErrorAction SilentlyContinue\n    }\n    Set-Service -Name $name -StartupType Disabled -ErrorAction SilentlyContinue\n  } else {\n    Write-Output (\"Service not found: RetailDemo\")\n  }\n} catch {\n  Write-Output (\"Failed to disable service RetailDemo: \" + $_.Exception.Message)\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hc_services_disable_lfsvc__performance.lib.speed.cleanup",
+      "name": "Kill service: lfsvc",
+      "category": "Hardcore / Services Deep Strip",
+      "type": "action",
+      "description": "[Hardcore] Disable and stop Geolocation Service (lfsvc) for maximum background trimming. May break related features.",
+      "riskLevel": "Danger",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$name = 'lfsvc'\nWrite-Output (\"[Hardcore] Disabling service: lfsvc\")\ntry {\n  $svc = Get-Service -Name $name -ErrorAction SilentlyContinue\n  if ($null -ne $svc) {\n    if ($svc.Status -eq 'Running') {\n      Stop-Service -Name $name -Force -ErrorAction SilentlyContinue\n    }\n    Set-Service -Name $name -StartupType Disabled -ErrorAction SilentlyContinue\n  } else {\n    Write-Output (\"Service not found: lfsvc\")\n  }\n} catch {\n  Write-Output (\"Failed to disable service lfsvc: \" + $_.Exception.Message)\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hc_services_disable_seclogon__performance.lib.speed.cleanup",
+      "name": "Kill service: seclogon",
+      "category": "Hardcore / Services Deep Strip",
+      "type": "action",
+      "description": "[Hardcore] Disable and stop Secondary Logon (seclogon) for maximum background trimming. May break related features.",
+      "riskLevel": "Danger",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$name = 'seclogon'\nWrite-Output (\"[Hardcore] Disabling service: seclogon\")\ntry {\n  $svc = Get-Service -Name $name -ErrorAction SilentlyContinue\n  if ($null -ne $svc) {\n    if ($svc.Status -eq 'Running') {\n      Stop-Service -Name $name -Force -ErrorAction SilentlyContinue\n    }\n    Set-Service -Name $name -StartupType Disabled -ErrorAction SilentlyContinue\n  } else {\n    Write-Output (\"Service not found: seclogon\")\n  }\n} catch {\n  Write-Output (\"Failed to disable service seclogon: \" + $_.Exception.Message)\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hc_services_disable_remoteregistry__performance.lib.speed.cleanup",
+      "name": "Kill service: RemoteRegistry",
+      "category": "Hardcore / Services Deep Strip",
+      "type": "action",
+      "description": "[Hardcore] Disable and stop Remote Registry service (RemoteRegistry) for maximum background trimming. May break related features.",
+      "riskLevel": "Danger",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$name = 'RemoteRegistry'\nWrite-Output (\"[Hardcore] Disabling service: RemoteRegistry\")\ntry {\n  $svc = Get-Service -Name $name -ErrorAction SilentlyContinue\n  if ($null -ne $svc) {\n    if ($svc.Status -eq 'Running') {\n      Stop-Service -Name $name -Force -ErrorAction SilentlyContinue\n    }\n    Set-Service -Name $name -StartupType Disabled -ErrorAction SilentlyContinue\n  } else {\n    Write-Output (\"Service not found: RemoteRegistry\")\n  }\n} catch {\n  Write-Output (\"Failed to disable service RemoteRegistry: \" + $_.Exception.Message)\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hc_services_disable_tabletinputservice__performance.lib.speed.cleanup",
+      "name": "Kill service: TabletInputService",
+      "category": "Hardcore / Services Deep Strip",
+      "type": "action",
+      "description": "[Hardcore] Disable and stop Touch / tablet input service (TabletInputService) for maximum background trimming. May break related features.",
+      "riskLevel": "Danger",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$name = 'TabletInputService'\nWrite-Output (\"[Hardcore] Disabling service: TabletInputService\")\ntry {\n  $svc = Get-Service -Name $name -ErrorAction SilentlyContinue\n  if ($null -ne $svc) {\n    if ($svc.Status -eq 'Running') {\n      Stop-Service -Name $name -Force -ErrorAction SilentlyContinue\n    }\n    Set-Service -Name $name -StartupType Disabled -ErrorAction SilentlyContinue\n  } else {\n    Write-Output (\"Service not found: TabletInputService\")\n  }\n} catch {\n  Write-Output (\"Failed to disable service TabletInputService: \" + $_.Exception.Message)\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hc_services_disable_xblgamesave__performance.lib.speed.cleanup",
+      "name": "Kill service: XblGameSave",
+      "category": "Hardcore / Services Deep Strip",
+      "type": "action",
+      "description": "[Hardcore] Disable and stop Xbox Live Game Save (XblGameSave) for maximum background trimming. May break related features.",
+      "riskLevel": "Danger",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$name = 'XblGameSave'\nWrite-Output (\"[Hardcore] Disabling service: XblGameSave\")\ntry {\n  $svc = Get-Service -Name $name -ErrorAction SilentlyContinue\n  if ($null -ne $svc) {\n    if ($svc.Status -eq 'Running') {\n      Stop-Service -Name $name -Force -ErrorAction SilentlyContinue\n    }\n    Set-Service -Name $name -StartupType Disabled -ErrorAction SilentlyContinue\n  } else {\n    Write-Output (\"Service not found: XblGameSave\")\n  }\n} catch {\n  Write-Output (\"Failed to disable service XblGameSave: \" + $_.Exception.Message)\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hc_services_disable_xboxgipsvc__performance.lib.speed.cleanup",
+      "name": "Kill service: XboxGipSvc",
+      "category": "Hardcore / Services Deep Strip",
+      "type": "action",
+      "description": "[Hardcore] Disable and stop Xbox Accessory Management Service (XboxGipSvc) for maximum background trimming. May break related features.",
+      "riskLevel": "Danger",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$name = 'XboxGipSvc'\nWrite-Output (\"[Hardcore] Disabling service: XboxGipSvc\")\ntry {\n  $svc = Get-Service -Name $name -ErrorAction SilentlyContinue\n  if ($null -ne $svc) {\n    if ($svc.Status -eq 'Running') {\n      Stop-Service -Name $name -Force -ErrorAction SilentlyContinue\n    }\n    Set-Service -Name $name -StartupType Disabled -ErrorAction SilentlyContinue\n  } else {\n    Write-Output (\"Service not found: XboxGipSvc\")\n  }\n} catch {\n  Write-Output (\"Failed to disable service XboxGipSvc: \" + $_.Exception.Message)\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hc_services_disable_w32time__performance.lib.speed.cleanup",
+      "name": "Kill service: W32Time",
+      "category": "Hardcore / Services Deep Strip",
+      "type": "action",
+      "description": "[Hardcore] Disable and stop Windows Time service (W32Time) for maximum background trimming. May break related features.",
+      "riskLevel": "Danger",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$name = 'W32Time'\nWrite-Output (\"[Hardcore] Disabling service: W32Time\")\ntry {\n  $svc = Get-Service -Name $name -ErrorAction SilentlyContinue\n  if ($null -ne $svc) {\n    if ($svc.Status -eq 'Running') {\n      Stop-Service -Name $name -Force -ErrorAction SilentlyContinue\n    }\n    Set-Service -Name $name -StartupType Disabled -ErrorAction SilentlyContinue\n  } else {\n    Write-Output (\"Service not found: W32Time\")\n  }\n} catch {\n  Write-Output (\"Failed to disable service W32Time: \" + $_.Exception.Message)\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hc_services_disable_wbiosrvc__performance.lib.speed.cleanup",
+      "name": "Kill service: WbioSrvc",
+      "category": "Hardcore / Services Deep Strip",
+      "type": "action",
+      "description": "[Hardcore] Disable and stop Windows Biometric Service (WbioSrvc) for maximum background trimming. May break related features.",
+      "riskLevel": "Danger",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$name = 'WbioSrvc'\nWrite-Output (\"[Hardcore] Disabling service: WbioSrvc\")\ntry {\n  $svc = Get-Service -Name $name -ErrorAction SilentlyContinue\n  if ($null -ne $svc) {\n    if ($svc.Status -eq 'Running') {\n      Stop-Service -Name $name -Force -ErrorAction SilentlyContinue\n    }\n    Set-Service -Name $name -StartupType Disabled -ErrorAction SilentlyContinue\n  } else {\n    Write-Output (\"Service not found: WbioSrvc\")\n  }\n} catch {\n  Write-Output (\"Failed to disable service WbioSrvc: \" + $_.Exception.Message)\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hc_services_disable_wlansvc__performance.lib.speed.cleanup",
+      "name": "Kill service: WlanSvc",
+      "category": "Hardcore / Services Deep Strip",
+      "type": "action",
+      "description": "[Hardcore] Disable and stop WLAN AutoConfig (Wi‑Fi) (WlanSvc) for maximum background trimming. May break related features.",
+      "riskLevel": "Danger",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$name = 'WlanSvc'\nWrite-Output (\"[Hardcore] Disabling service: WlanSvc\")\ntry {\n  $svc = Get-Service -Name $name -ErrorAction SilentlyContinue\n  if ($null -ne $svc) {\n    if ($svc.Status -eq 'Running') {\n      Stop-Service -Name $name -Force -ErrorAction SilentlyContinue\n    }\n    Set-Service -Name $name -StartupType Disabled -ErrorAction SilentlyContinue\n  } else {\n    Write-Output (\"Service not found: WlanSvc\")\n  }\n} catch {\n  Write-Output (\"Failed to disable service WlanSvc: \" + $_.Exception.Message)\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hc_services_disable_fax__performance.lib.speed.cleanup",
+      "name": "Kill service: Fax",
+      "category": "Hardcore / Services Deep Strip",
+      "type": "action",
+      "description": "[Hardcore] Disable and stop Fax Service (Fax) for maximum background trimming. May break related features.",
+      "riskLevel": "Danger",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$name = 'Fax'\nWrite-Output (\"[Hardcore] Disabling service: Fax\")\ntry {\n  $svc = Get-Service -Name $name -ErrorAction SilentlyContinue\n  if ($null -ne $svc) {\n    if ($svc.Status -eq 'Running') {\n      Stop-Service -Name $name -Force -ErrorAction SilentlyContinue\n    }\n    Set-Service -Name $name -StartupType Disabled -ErrorAction SilentlyContinue\n  } else {\n    Write-Output (\"Service not found: Fax\")\n  }\n} catch {\n  Write-Output (\"Failed to disable service Fax: \" + $_.Exception.Message)\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hc_services_disable_spooler__performance.lib.speed.cleanup",
+      "name": "Kill service: Spooler",
+      "category": "Hardcore / Services Deep Strip",
+      "type": "action",
+      "description": "[Hardcore] Disable and stop Print Spooler (Spooler) for maximum background trimming. May break related features.",
+      "riskLevel": "Danger",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$name = 'Spooler'\nWrite-Output (\"[Hardcore] Disabling service: Spooler\")\ntry {\n  $svc = Get-Service -Name $name -ErrorAction SilentlyContinue\n  if ($null -ne $svc) {\n    if ($svc.Status -eq 'Running') {\n      Stop-Service -Name $name -Force -ErrorAction SilentlyContinue\n    }\n    Set-Service -Name $name -StartupType Disabled -ErrorAction SilentlyContinue\n  } else {\n    Write-Output (\"Service not found: Spooler\")\n  }\n} catch {\n  Write-Output (\"Failed to disable service Spooler: \" + $_.Exception.Message)\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hc_services_disable_sharedaccess__performance.lib.speed.cleanup",
+      "name": "Kill service: SharedAccess",
+      "category": "Hardcore / Services Deep Strip",
+      "type": "action",
+      "description": "[Hardcore] Disable and stop Internet Connection Sharing (SharedAccess) for maximum background trimming. May break related features.",
+      "riskLevel": "Danger",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$name = 'SharedAccess'\nWrite-Output (\"[Hardcore] Disabling service: SharedAccess\")\ntry {\n  $svc = Get-Service -Name $name -ErrorAction SilentlyContinue\n  if ($null -ne $svc) {\n    if ($svc.Status -eq 'Running') {\n      Stop-Service -Name $name -Force -ErrorAction SilentlyContinue\n    }\n    Set-Service -Name $name -StartupType Disabled -ErrorAction SilentlyContinue\n  } else {\n    Write-Output (\"Service not found: SharedAccess\")\n  }\n} catch {\n  Write-Output (\"Failed to disable service SharedAccess: \" + $_.Exception.Message)\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hc_services_disable_trkwks__performance.lib.speed.cleanup",
+      "name": "Kill service: TrkWks",
+      "category": "Hardcore / Services Deep Strip",
+      "type": "action",
+      "description": "[Hardcore] Disable and stop Distributed Link Tracking Client (TrkWks) for maximum background trimming. May break related features.",
+      "riskLevel": "Danger",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$name = 'TrkWks'\nWrite-Output (\"[Hardcore] Disabling service: TrkWks\")\ntry {\n  $svc = Get-Service -Name $name -ErrorAction SilentlyContinue\n  if ($null -ne $svc) {\n    if ($svc.Status -eq 'Running') {\n      Stop-Service -Name $name -Force -ErrorAction SilentlyContinue\n    }\n    Set-Service -Name $name -StartupType Disabled -ErrorAction SilentlyContinue\n  } else {\n    Write-Output (\"Service not found: TrkWks\")\n  }\n} catch {\n  Write-Output (\"Failed to disable service TrkWks: \" + $_.Exception.Message)\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hc_services_disable_wcmsvc__performance.lib.speed.cleanup",
+      "name": "Kill service: Wcmsvc",
+      "category": "Hardcore / Services Deep Strip",
+      "type": "action",
+      "description": "[Hardcore] Disable and stop Windows Connection Manager (Wcmsvc) for maximum background trimming. May break related features.",
+      "riskLevel": "Danger",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$name = 'Wcmsvc'\nWrite-Output (\"[Hardcore] Disabling service: Wcmsvc\")\ntry {\n  $svc = Get-Service -Name $name -ErrorAction SilentlyContinue\n  if ($null -ne $svc) {\n    if ($svc.Status -eq 'Running') {\n      Stop-Service -Name $name -Force -ErrorAction SilentlyContinue\n    }\n    Set-Service -Name $name -StartupType Disabled -ErrorAction SilentlyContinue\n  } else {\n    Write-Output (\"Service not found: Wcmsvc\")\n  }\n} catch {\n  Write-Output (\"Failed to disable service Wcmsvc: \" + $_.Exception.Message)\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hc_services_disable_wersvc__performance.lib.speed.cleanup",
+      "name": "Kill service: WerSvc",
+      "category": "Hardcore / Services Deep Strip",
+      "type": "action",
+      "description": "[Hardcore] Disable and stop Windows Error Reporting Service (WerSvc) for maximum background trimming. May break related features.",
+      "riskLevel": "Danger",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$name = 'WerSvc'\nWrite-Output (\"[Hardcore] Disabling service: WerSvc\")\ntry {\n  $svc = Get-Service -Name $name -ErrorAction SilentlyContinue\n  if ($null -ne $svc) {\n    if ($svc.Status -eq 'Running') {\n      Stop-Service -Name $name -Force -ErrorAction SilentlyContinue\n    }\n    Set-Service -Name $name -StartupType Disabled -ErrorAction SilentlyContinue\n  } else {\n    Write-Output (\"Service not found: WerSvc\")\n  }\n} catch {\n  Write-Output (\"Failed to disable service WerSvc: \" + $_.Exception.Message)\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hc_bg_disable_one_drive_startup__performance.lib.speed.cleanup",
+      "name": "Disable OneDrive auto-start",
+      "category": "Hardcore / Background Apps",
+      "type": "action",
+      "description": "[Hardcore] Kills OneDrive auto-start entry and attempts to stop OneDrive client.",
+      "riskLevel": "Danger",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "try {\n  $runKey = 'HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Run'\n  Remove-ItemProperty -Path $runKey -Name 'OneDrive' -ErrorAction SilentlyContinue\n} catch {}\ntry {\n  Get-Process OneDrive -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue\n} catch {}\nWrite-Output 'Disabled OneDrive auto-start and stopped running instances.'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hc_bg_disable_news_interests__performance.lib.speed.cleanup",
+      "name": "Disable News and Interests / Widgets",
+      "category": "Hardcore / Background Apps / UI",
+      "type": "action",
+      "description": "[Hardcore] Attempts to disable taskbar news / interests feed.",
+      "riskLevel": "Danger",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "try {\n  New-Item -Path 'HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Feeds' -Force | Out-Null\n  New-ItemProperty -Path 'HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Feeds' -Name 'ShellFeedsTaskbarViewMode' -Value 2 -PropertyType DWord -Force | Out-Null\n  Write-Output 'Set ShellFeedsTaskbarViewMode=2 (disable taskbar news & interests).'\n} catch {\n  Write-Output (\"Failed to adjust news & interests: \" + $_.Exception.Message)\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hc_storage_disable_defrag_sched__performance.lib.speed.cleanup",
+      "name": "Disable scheduled defrag / optimize tasks",
+      "category": "Hardcore / Storage / Disk",
+      "type": "action",
+      "description": "[Hardcore] Disables scheduled defrag / optimize tasks so they never kick in while gaming (may require manual maintenance).",
+      "riskLevel": "Danger",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "try {\n  Disable-ScheduledTask -TaskName '\\Microsoft\\Windows\\Defrag\\ScheduledDefrag' -ErrorAction SilentlyContinue\n  Write-Output 'Disabled ScheduledDefrag task.'\n} catch {\n  Write-Output (\"Failed to disable ScheduledDefrag: \" + $_.Exception.Message)\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hc_storage_disable_sysmain_prefetch__performance.lib.speed.cleanup",
+      "name": "Disable prefetch parameters",
+      "category": "Hardcore / Storage / Disk",
+      "type": "action",
+      "description": "[Hardcore] Tweaks prefetcher parameters to minimum/preload off.",
+      "riskLevel": "Danger",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$path = 'HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management\\PrefetchParameters'\ntry {\n  New-Item -Path $path -Force | Out-Null\n  New-ItemProperty -Path $path -Name 'EnablePrefetcher' -Value 0 -PropertyType DWord -Force | Out-Null\n  New-ItemProperty -Path $path -Name 'EnableSuperfetch' -Value 0 -PropertyType DWord -Force | Out-Null\n  Write-Output 'Disabled Prefetcher and Superfetch via registry.'\n} catch {\n  Write-Output (\"Failed to tweak PrefetchParameters: \" + $_.Exception.Message)\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hc_update_disable_dosvc__performance.lib.speed.cleanup",
+      "name": "Kill update service: DoSvc",
+      "category": "Hardcore / Windows Update / Telemetry",
+      "type": "action",
+      "description": "[Hardcore] Stops and disables Delivery Optimization service (extra kill) to prevent background update/repair activity. Can break Windows Update.",
+      "riskLevel": "Danger",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$name = 'DoSvc'\nWrite-Output (\"[Hardcore] Disabling update-related service: DoSvc\")\ntry {\n  $svc = Get-Service -Name $name -ErrorAction SilentlyContinue\n  if ($svc) {\n    if ($svc.Status -eq 'Running') {\n      Stop-Service -Name $name -Force -ErrorAction SilentlyContinue\n    }\n    Set-Service -Name $name -StartupType Disabled -ErrorAction SilentlyContinue\n  } else {\n    Write-Output (\"Service not found: DoSvc\")\n  }\n} catch {\n  Write-Output (\"Failed to disable service DoSvc: \" + $_.Exception.Message)\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hc_defender_disable_realtime__performance.lib.speed.cleanup",
+      "name": "Attempt to disable Defender real-time protection",
+      "category": "Hardcore / Defender / SmartScreen",
+      "type": "action",
+      "description": "[Hardcore] Tries to disable Microsoft Defender real-time monitoring using PowerShell (may be overridden by policies / Tamper Protection).",
+      "riskLevel": "Danger",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "try {\n  Set-MpPreference -DisableRealtimeMonitoring $true -ErrorAction SilentlyContinue\n  Write-Output 'Requested DisableRealtimeMonitoring in Defender.'\n} catch {\n  Write-Output (\"Failed to change Defender realtime monitoring: \" + $_.Exception.Message)\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hc_boot_bcd_disable_cmitigation__performance.lib.speed.cleanup",
+      "name": "Disable control flow guard at boot (CFG)",
+      "category": "Hardcore / Boot / Firmware",
+      "type": "action",
+      "description": "[Hardcore] Attempts to disable control flow guard via bcdedit (very high risk, security impact, may not be honored).",
+      "riskLevel": "Danger",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "try {\n  bcdedit /set cfgsupportdisabled on\n  Write-Output 'Attempted to disable CFG support via bcdedit (if supported). Reboot required.'\n} catch {\n  Write-Output (\"Failed to adjust CFG boot setting: \" + $_.Exception.Message)\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hc_overlay_kill_overlay_processes__performance.lib.speed.cleanup",
+      "name": "Close common overlay processes (Discord/Overwolf/Medal/Xbox)",
+      "category": "Hardcore / UI / Overlays",
+      "type": "action",
+      "description": "[Hardcore] Attempts to close common overlay/background capture processes (does not uninstall).",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$names=@('Discord','Overwolf','Medal','XboxAppServices','GameBar','GameBarFTServer','NVIDIA Share','RadeonSoftware','SteelSeriesEngine','GHub')\nGet-Process -ErrorAction SilentlyContinue | Where-Object { $names -contains $_.ProcessName } | ForEach-Object { try{ Stop-Process -Id $_.Id -Force -ErrorAction Stop; Write-Output (\"Closed: \" + $_.ProcessName) } catch{} }"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"No automatic revert for closing processes. Relaunch apps if needed.\" "
+          }
+        ]
+      }
+    },
+    {
+      "id": "hc_trim_retrim_c__performance.lib.speed.cleanup",
+      "name": "ReTRIM C: (SSD)",
+      "category": "Hardcore / Storage / SSD",
+      "type": "action",
+      "description": "[Hardcore] Runs Optimize-Volume -ReTrim on C: (only matters on SSD/NVMe).",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "try{ Optimize-Volume -DriveLetter C -ReTrim -Verbose | Out-String | Write-Output } catch { Write-Output $_ }"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"No revert needed for TRIM.\" "
+          }
+        ]
+      }
+    },
+    {
+      "id": "hc_trim_retrim_all_ssd__performance.lib.speed.cleanup",
+      "name": "ReTRIM all SSD/NVMe volumes",
+      "category": "Hardcore / Storage / SSD",
+      "type": "action",
+      "description": "[Hardcore] Runs TRIM on all fixed volumes (best-effort).",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$vols=Get-Volume | Where-Object {$_.DriveLetter -and $_.DriveType -eq 'Fixed'}; foreach($v in $vols){ try{ Optimize-Volume -DriveLetter $v.DriveLetter -ReTrim -Verbose | Out-String | Write-Output } catch { Write-Output (\"TRIM failed on \" + $v.DriveLetter + \": \" + $_) } }"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"No revert needed for TRIM.\" "
+          }
+        ]
+      }
+    },
+    {
+      "id": "hc_trim_enable_schedule__performance.lib.speed.cleanup",
+      "name": "Enable scheduled optimization task",
+      "category": "Hardcore / Storage / SSD",
+      "type": "action",
+      "description": "[Hardcore] Enables Windows ScheduledDefrag task (Optimize Drives schedule).",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "schtasks /Change /TN \"\\Microsoft\\Windows\\Defrag\\ScheduledDefrag\" /ENABLE | Out-Null; Write-Output \"ScheduledDefrag enabled.\" "
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "schtasks /Change /TN \"\\Microsoft\\Windows\\Defrag\\ScheduledDefrag\" /DISABLE | Out-Null; Write-Output \"ScheduledDefrag disabled.\" "
+          }
+        ]
+      }
+    },
+    {
+      "id": "hc_defender_disable_task_2__performance.lib.speed.cleanup",
+      "name": "Disable Defender Task: Windows Defender Cache Maintenance",
+      "category": "Hardcore / Security / Defender",
+      "type": "action",
+      "description": "[Hardcore] Disables this Windows Defender scheduled task (reduces background scans).",
+      "riskLevel": "Danger",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "schtasks /Change /TN \"\\Microsoft\\Windows\\Windows Defender\\Windows Defender Cache Maintenance\" /DISABLE | Out-Null; Write-Output \"Disabled: \\Microsoft\\Windows\\Windows Defender\\Windows Defender Cache Maintenance\" "
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "schtasks /Change /TN \"\\Microsoft\\Windows\\Windows Defender\\Windows Defender Cache Maintenance\" /ENABLE | Out-Null; Write-Output \"Enabled: \\Microsoft\\Windows\\Windows Defender\\Windows Defender Cache Maintenance\" "
+          }
+        ]
+      }
+    },
+    {
+      "id": "hc_defender_disable_task_4__performance.lib.speed.cleanup",
+      "name": "Disable Defender Task: Windows Defender Cleanup",
+      "category": "Hardcore / Security / Defender",
+      "type": "action",
+      "description": "[Hardcore] Disables this Windows Defender scheduled task (reduces background scans).",
+      "riskLevel": "Danger",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "schtasks /Change /TN \"\\Microsoft\\Windows\\Windows Defender\\Windows Defender Cleanup\" /DISABLE | Out-Null; Write-Output \"Disabled: \\Microsoft\\Windows\\Windows Defender\\Windows Defender Cleanup\" "
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "schtasks /Change /TN \"\\Microsoft\\Windows\\Windows Defender\\Windows Defender Cleanup\" /ENABLE | Out-Null; Write-Output \"Enabled: \\Microsoft\\Windows\\Windows Defender\\Windows Defender Cleanup\" "
+          }
+        ]
+      }
+    },
+    {
+      "id": "hc_defender_restore_tasks__performance.lib.speed.cleanup",
+      "name": "Restore all Defender scheduled tasks",
+      "category": "Hardcore / Security / Defender",
+      "type": "action",
+      "description": "[Hardcore] Re-enables core Defender tasks (Scheduled Scan, Cache Maintenance, Verification, Cleanup).",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$tasks=@(\"\\Microsoft\\Windows\\Windows Defender\\Windows Defender Scheduled Scan\",\n\"\\Microsoft\\Windows\\Windows Defender\\Windows Defender Cache Maintenance\",\n\"\\Microsoft\\Windows\\Windows Defender\\Windows Defender Verification\",\n\"\\Microsoft\\Windows\\Windows Defender\\Windows Defender Cleanup\");\nforeach($t in $tasks){ schtasks /Change /TN $t /ENABLE | Out-Null; Write-Output (\"Enabled: \" + $t) }"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Restore action.\" "
+          }
+        ]
+      }
+    },
+    {
+      "id": "mem_reg_largesystemcache__performance.lib.speed.cleanup",
+      "type": "toggle",
+      "name": "Set LargeSystemCache = 0",
+      "description": "[Focus: Latency] Favor apps over system cache (gaming).",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Memory Lab / Memory Management",
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\\\SYSTEM\\\\CurrentControlSet\\\\Control\\\\Session Manager\\\\Memory Management",
+            "name": "LargeSystemCache",
+            "value": 0,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\\\SYSTEM\\\\CurrentControlSet\\\\Control\\\\Session Manager\\\\Memory Management",
+            "name": "LargeSystemCache"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\\\SYSTEM\\\\CurrentControlSet\\\\Control\\\\Session Manager\\\\Memory Management",
+            "name": "LargeSystemCache",
+            "valueType": "DWORD",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "mem_reg_enableprefetcher__performance.lib.speed.cleanup",
+      "type": "toggle",
+      "name": "Set EnablePrefetcher = 0",
+      "description": "Disable Prefetcher (may reduce background disk reads).",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Memory Lab / Prefetch",
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\\\SYSTEM\\\\CurrentControlSet\\\\Control\\\\Session Manager\\\\Memory Management\\\\PrefetchParameters",
+            "name": "EnablePrefetcher",
+            "value": 0,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\\\SYSTEM\\\\CurrentControlSet\\\\Control\\\\Session Manager\\\\Memory Management\\\\PrefetchParameters",
+            "name": "EnablePrefetcher"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\\\SYSTEM\\\\CurrentControlSet\\\\Control\\\\Session Manager\\\\Memory Management\\\\PrefetchParameters",
+            "name": "EnablePrefetcher",
+            "valueType": "DWORD",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "mem_reg_enablesuperfetch__performance.lib.speed.cleanup",
+      "type": "toggle",
+      "name": "Set EnableSuperfetch = 0",
+      "description": "Disable Superfetch behavior (legacy).",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Memory Lab / Prefetch",
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\\\SYSTEM\\\\CurrentControlSet\\\\Control\\\\Session Manager\\\\Memory Management\\\\PrefetchParameters",
+            "name": "EnableSuperfetch",
+            "value": 0,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\\\SYSTEM\\\\CurrentControlSet\\\\Control\\\\Session Manager\\\\Memory Management\\\\PrefetchParameters",
+            "name": "EnableSuperfetch"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\\\SYSTEM\\\\CurrentControlSet\\\\Control\\\\Session Manager\\\\Memory Management\\\\PrefetchParameters",
+            "name": "EnableSuperfetch",
+            "valueType": "DWORD",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "mem_pagefile_disable__performance.lib.speed.cleanup",
+      "type": "button",
+      "name": "Apply: Disable Pagefile (Not Recommended)",
+      "description": "Attempts to disable the pagefile. Can cause crashes/out-of-memory in some games/apps.",
+      "requiresAdmin": true,
+      "riskLevel": "Danger",
+      "category": "Memory Lab / Pagefile",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Disabling pagefile (danger)...\"\ntry {\n  wmic computersystem where name=\"%computername%\" set AutomaticManagedPagefile=False | Out-Null\n  # Remove explicit pagefile settings (best-effort)\n  wmic pagefileset delete | Out-Null\n  Write-Output \"Requested pagefile disable. Reboot required.\"\n} catch {\n  Write-Output (\"Failed: {0}\" -f $_.Exception.Message)\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Re-enabling system-managed pagefile...\"\ntry {\n  wmic computersystem where name=\"%computername%\" set AutomaticManagedPagefile=True | Out-Null\n  Write-Output \"System-managed pagefile re-enabled. Reboot recommended.\"\n} catch {\n  Write-Output (\"Failed: {0}\" -f $_.Exception.Message)\n}"
+          }
+        ]
+      }
+    },
+    {
+      "description": "Attempts to disable the pagefile. Can cause crashes/out-of-memory in some games/apps.",
+      "requiresAdmin": true,
+      "riskLevel": "Danger",
+      "category": "Memory Lab / Pagefile",
+      "id": "mem_pagefile_disable__performance.lib.speed.cleanup__revert",
+      "type": "button",
+      "name": "Revert: Disable Pagefile (Not Recommended)",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Re-enabling system-managed pagefile...\"\ntry {\n  wmic computersystem where name=\"%computername%\" set AutomaticManagedPagefile=True | Out-Null\n  Write-Output \"System-managed pagefile re-enabled. Reboot recommended.\"\n} catch {\n  Write-Output (\"Failed: {0}\" -f $_.Exception.Message)\n}"
+          }
+        ]
+      }
+    },
+    {
+      "id": "cooling_overview",
+      "type": "action",
+      "name": "Cooling Guide: what actually lowers temps (read)",
+      "description": "Biggest levers: airflow/dust, fan curves, undervolt/power limits, repaste, ambient temps. Falcon presets below change OS-side cooling behavior.",
+      "requiresAdmin": false,
+      "riskLevel": "Safe",
+      "category": "Cooling / Guide",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\nWrite-Output \"=== FALCON COOLING GUIDE (PRACTICAL) ===\"\nWrite-Output \"\"\nWrite-Output \"Highest-impact cooling wins:\"\nWrite-Output \"  1) Dust cleanup + airflow (intake + exhaust) + correct fan direction.\"\nWrite-Output \"  2) Fan curve: spin up earlier, map fans to correct sensors.\"\nWrite-Output \"  3) CPU undervolt / power limit (biggest heat reduction per FPS lost).\"\nWrite-Output \"  4) GPU undervolt / power limit.\"\nWrite-Output \"  5) Re-paste / cooler mounting / thermal pads.\"\nWrite-Output \"  6) Lower ambient temperature.\"\nWrite-Output \"\"\nWrite-Output \"Windows note:\"\nWrite-Output \"  Windows typically cannot directly control motherboard/laptop fans.\"\nWrite-Output \"  For real fan curves, use FanControl (desktops) or an OEM laptop fan tool.\"\nWrite-Output \"\"\nWrite-Output \"=== END ===\"\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output 'Guide is informational.'"
+          }
+        ]
+      }
+    },
+    {
+      "id": "cooling_preset_performance",
+      "type": "button",
+      "name": "Apply: Cooling Preset: Performance / Cold & Fast",
+      "description": "Active cooling + aggressive AC minimum processor state (higher idle temps, best frametime stability).",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Cooling / Presets",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\nWrite-Output \"Applying PERFORMANCE cooling preset...\"\npowercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR 94D3A615-A899-4AC5-AE2B-E4D8F634367F 0 | Out-Null\npowercfg -setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR 94D3A615-A899-4AC5-AE2B-E4D8F634367F 0 | Out-Null\npowercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMIN 100 | Out-Null\npowercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMAX 100 | Out-Null\npowercfg -SetActive SCHEME_CURRENT | Out-Null\nWrite-Output \"Done.\"\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\nWrite-Output \"Reverting PERFORMANCE preset...\"\npowercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMIN 5 | Out-Null\npowercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMAX 100 | Out-Null\npowercfg -SetActive SCHEME_CURRENT | Out-Null\nWrite-Output \"Done.\"\n"
+          }
+        ]
+      }
+    },
+    {
+      "description": "Active cooling + aggressive AC minimum processor state (higher idle temps, best frametime stability).",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Cooling / Presets",
+      "id": "cooling_preset_performance__revert",
+      "type": "button",
+      "name": "Revert: Cooling Preset: Performance / Cold & Fast",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\nWrite-Output \"Reverting PERFORMANCE preset...\"\npowercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMIN 5 | Out-Null\npowercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMAX 100 | Out-Null\npowercfg -SetActive SCHEME_CURRENT | Out-Null\nWrite-Output \"Done.\"\n"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "modes": [
+    {
+      "id": "safe",
+      "name": "Safe \u2013 Daily Use",
+      "targetProcessRange": [
+        55,
+        70
+      ],
+      "maxRisk": "Warning",
+      "applyBitsAndDelivery": false
+    },
+    {
+      "id": "competitive",
+      "name": "Competitive \u2013 ~40\u201345 Processes",
+      "targetProcessRange": [
+        40,
+        50
+      ],
+      "maxRisk": "Danger",
+      "applyBitsAndDelivery": true
+    },
+    {
+      "id": "extreme",
+      "name": "Extreme \u2013 ~32\u201338 Processes (Local Account Recommended)",
+      "targetProcessRange": [
+        32,
+        38
+      ],
+      "maxRisk": "Danger",
+      "applyBitsAndDelivery": true,
+      "requiresLocalAccountRecommended": true,
+      "description": "Intended ONLY for a dedicated local lab account. Strips non-critical Windows features very aggressively to push process count into the low-30s for FPS and latency.  Intended ONLY for a dedicated local lab account. Strips non-critical Windows features very aggressively to push background processes into the low-30s for FPS and latency."
+    }
+  ]
+}

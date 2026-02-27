@@ -1,0 +1,194 @@
+{
+  "items": [
+    {
+      "id": "fn_open_config",
+      "type": "action",
+      "name": "Run Fortnite Config Folder",
+      "category": "Game Specific / Fortnite",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Opens %LOCALAPPDATA%\\FortniteGame\\Saved\\Config\\WindowsClient.",
+      "primaryLabel": "Open",
+      "apply": {
+        "steps": [
+          {
+            "type": "open.path",
+            "path": "%LOCALAPPDATA%\\FortniteGame\\Saved\\Config\\WindowsClient"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "fn_backup_config",
+      "type": "button",
+      "name": "Backup Fortnite Config (one-time)",
+      "category": "Game Specific / Fortnite",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Copies your Fortnite config files to backups\\fortnite.<timestamp>.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$src=Join-Path $env:LOCALAPPDATA 'FortniteGame\\Saved\\Config\\WindowsClient'; if(!(Test-Path $src)){throw 'Config folder not found';}; $dst=Join-Path (Resolve-Path .).Path ('backups\\fortnite.'+(Get-Date -Format yyyyMMdd_HHmmss)); New-Item -ItemType Directory -Force -Path $dst | Out-Null; Copy-Item -Force -Recurse (Join-Path $src '*') $dst"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "requiresAdmin": true,
+      "note": "Converted from toggle (missing revert)."
+    },
+    {
+      "id": "fn_disable_fullscreen_optimizations",
+      "type": "toggle",
+      "name": "Disable Fullscreen Optimizations (Fortnite)",
+      "category": "Game Specific / Fortnite",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Sets compatibility layer to disable fullscreen optimizations for FortniteClient-Win64-Shipping.exe.",
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU:\\Software\\Microsoft\\Windows NT\\CurrentVersion\\AppCompatFlags\\Layers",
+            "name": "C:\\Program Files\\Epic Games\\Fortnite\\FortniteGame\\Binaries\\Win64\\FortniteClient-Win64-Shipping.exe",
+            "valueType": "String",
+            "value": "~ DISABLEDXMAXIMIZEDWINDOWEDMODE"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU:\\Software\\Microsoft\\Windows NT\\CurrentVersion\\AppCompatFlags\\Layers",
+            "name": "C:\\Program Files\\Epic Games\\Fortnite\\FortniteGame\\Binaries\\Win64\\FortniteClient-Win64-Shipping.exe"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU:\\Software\\Microsoft\\Windows NT\\CurrentVersion\\AppCompatFlags\\Layers",
+            "name": "C:\\Program Files\\Epic Games\\Fortnite\\FortniteGame\\Binaries\\Win64\\FortniteClient-Win64-Shipping.exe",
+            "valueType": "String",
+            "equals": "~ DISABLEDXMAXIMIZEDWINDOWEDMODE"
+          }
+        ]
+      }
+    },
+    {
+      "id": "fn_set_process_priority_high",
+      "type": "button",
+      "name": "Set Fortnite Priority to High (while running)",
+      "category": "Game Specific / Fortnite",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] If Fortnite is running, sets process priority to High.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$p=Get-Process FortniteClient-Win64-Shipping -ErrorAction SilentlyContinue; if($p){$p.PriorityClass='High'} else {throw 'Fortnite is not running'}"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "requiresAdmin": true,
+      "note": "Converted from toggle (missing revert)."
+    },
+    {
+      "id": "fn_cmdline_d3d11",
+      "type": "button",
+      "name": "Copy Command Line Args: -d3d11",
+      "category": "Game Specific / Fortnite",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Copies -d3d11 to clipboard. Paste into Epic Launcher > Fortnite > Manage > Launch Options.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value '-d3d11'"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "requiresAdmin": true,
+      "note": "Converted from toggle (missing revert)."
+    },
+    {
+      "id": "fn_cmdline_limitclientticks",
+      "type": "button",
+      "name": "Copy Command Line Args: -limitclientticks",
+      "category": "Game Specific / Fortnite",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Copies -limitclientticks to clipboard (can help with hitches/packet issues on some systems).",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Clipboard -Value '-limitclientticks'"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "requiresAdmin": true,
+      "note": "Converted from toggle (missing revert)."
+    },
+    {
+      "id": "fn_open_epic_launch_options_help",
+      "type": "action",
+      "name": "Run Epic: How to set Launch Options",
+      "category": "Game Specific / Fortnite",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Opens Epic Games Launcher instructions for launch options.",
+      "primaryLabel": "Open",
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://www.epicgames.com/help/en-US/c-Category_EpicGamesStore/c-EpicGamesStore_LauncherSupport/how-do-i-add-or-remove-additional-command-line-arguments-in-the-epic-games-launcher-a000084351"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "fn_high_performance_gpu",
+      "type": "action",
+      "name": "Run Windows: Graphics Settings (set Fortnite to High performance)",
+      "category": "Game Specific / Fortnite",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Opens Graphics settings to set Fortnite to High performance GPU.",
+      "primaryLabel": "Open",
+      "apply": {
+        "steps": [
+          {
+            "type": "process.start",
+            "filePath": "ms-settings:display-advancedgraphics",
+            "arguments": ""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "kind": "tool",
+      "manualOnly": true
+    }
+  ]
+}

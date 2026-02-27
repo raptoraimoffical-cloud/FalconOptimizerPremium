@@ -1,0 +1,92 @@
+{
+  "version": 2,
+  "entries": [
+    {
+      "key": "1750x1080",
+      "game": "fortnite",
+      "pros": [
+        "Martoz"
+      ],
+      "sources": [
+        {
+          "label": "YouTube: Martoz 1750x1080 (video)",
+          "url": "https://www.youtube.com/watch?v=uUzg1p7Jh1I"
+        }
+      ]
+    },
+    {
+      "key": "1680x1050",
+      "game": "fortnite",
+      "pros": [
+        "Martoz",
+        "Khanada"
+      ],
+      "sources": [
+        {
+          "label": "YouTube: 1680x1050 (Martoz + Khanada mention)",
+          "url": "https://www.youtube.com/watch?v=walw_qvGDFY"
+        },
+        {
+          "label": "YouTube: comparing stretched resolutions (includes 1680x1050)",
+          "url": "https://www.youtube.com/watch?v=u4iq_PlB2aw"
+        }
+      ]
+    },
+    {
+      "key": "1550x1080",
+      "game": "fortnite",
+      "pros": [
+        "Martoz"
+      ],
+      "sources": [
+        {
+          "label": "YouTube: Martoz using 1550x1080 (tutorial)",
+          "url": "https://www.youtube.com/watch?v=J_AgWT9Nmv4"
+        }
+      ]
+    },
+    {
+      "key": "1280x960",
+      "game": "cs2",
+      "pros": [
+        "s1mple"
+      ],
+      "sources": [
+        {
+          "label": "ProSettings: s1mple resolution 1280x960",
+          "url": "https://prosettings.net/players/s1mple/"
+        },
+        {
+          "label": "SkinRave: s1mple uses 1280x960",
+          "url": "https://skinrave.gg/en/blog/s1mples-cs2-settings"
+        }
+      ]
+    },
+    {
+      "key": "1920x1080",
+      "game": "valorant",
+      "pros": [
+        "TenZ"
+      ],
+      "sources": [
+        {
+          "label": "ProSettings: TenZ resolution 1920x1080",
+          "url": "https://prosettings.net/players/tenz/"
+        }
+      ]
+    },
+    {
+      "key": "1440x1080",
+      "game": "fortnite",
+      "pros": [
+        "Khanada"
+      ],
+      "sources": [
+        {
+          "label": "YouTube: guide mentions 1440x1080 + Khanada",
+          "url": "https://www.youtube.com/watch?v=_bnxMPwRLFg"
+        }
+      ]
+    }
+  ]
+}

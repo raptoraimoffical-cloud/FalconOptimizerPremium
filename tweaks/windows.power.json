@@ -1,0 +1,743 @@
+{
+  "items": [
+    {
+      "id": "powerplan.desktop__windows.power",
+      "type": "button",
+      "name": "Falcon Desktop Powerplan",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Sets the active plan to High performance.\nMutually exclusive with other power plans.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powercfg /setactive SCHEME_MIN"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "General / Power",
+      "conflictGroup": "powerplan",
+      "note": "Converted from toggle (missing revert)."
+    },
+    {
+      "id": "powerplan.laptop__windows.power",
+      "type": "button",
+      "name": "Falcon Laptop Powerplan",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Sets the active plan to Balanced.\nMutually exclusive with other power plans.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powercfg /setactive SCHEME_BALANCED"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "General / Power",
+      "conflictGroup": "powerplan",
+      "note": "Converted from toggle (missing revert)."
+    },
+    {
+      "id": "power_set_ultimate__windows.power",
+      "type": "button",
+      "name": "Apply: Set Ultimate Performance Power Plan",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Activates Ultimate Performance power plan (creates if missing).\nMutually exclusive with other power plans.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61 >nul 2>&1"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive e9a42b02-d5df-448d-aa00-03f14749eb61"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_BALANCED"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "General / Power",
+      "conflictGroup": "powerplan"
+    },
+    {
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Activates Ultimate Performance power plan (creates if missing).\nMutually exclusive with other power plans.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "General / Power",
+      "conflictGroup": "powerplan",
+      "id": "power_set_ultimate__windows.power__revert",
+      "type": "button",
+      "name": "Revert: Set Ultimate Performance Power Plan",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_BALANCED"
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_disable_usb_selective_suspend__windows.power",
+      "type": "button",
+      "name": "Apply: Disable USB Selective Suspend (AC/DC)",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Prevents USB devices from entering selective suspend.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_USB USBSELECTSUSPEND 0"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_USB USBSELECTSUSPEND 0"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_USB USBSELECTSUSPEND 1"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_USB USBSELECTSUSPEND 1"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "General / Power"
+    },
+    {
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Prevents USB devices from entering selective suspend.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "General / Power",
+      "id": "power_disable_usb_selective_suspend__windows.power__revert",
+      "type": "button",
+      "name": "Revert: Disable USB Selective Suspend (AC/DC)",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_USB USBSELECTSUSPEND 1"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_USB USBSELECTSUSPEND 1"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_disable_pci_aspm__windows.power",
+      "type": "button",
+      "name": "Apply: Disable PCIe Link State Power Management (ASPM)",
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay] Disables ASPM for lower latency.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PCIEXPRESS ASPM 0"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_PCIEXPRESS ASPM 0"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PCIEXPRESS ASPM 2"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_PCIEXPRESS ASPM 2"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "General / Power"
+    },
+    {
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay] Disables ASPM for lower latency.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "General / Power",
+      "id": "power_disable_pci_aspm__windows.power__revert",
+      "type": "button",
+      "name": "Revert: Disable PCIe Link State Power Management (ASPM)",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PCIEXPRESS ASPM 2"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_PCIEXPRESS ASPM 2"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_min_processor_100__windows.power",
+      "type": "button",
+      "name": "Apply: Processor Minimum State 100% (AC/DC)",
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay] Sets minimum processor state to 100%.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMIN 100"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMIN 100"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMIN 5"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMIN 5"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "General / Power"
+    },
+    {
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay] Sets minimum processor state to 100%.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "General / Power",
+      "id": "power_min_processor_100__windows.power__revert",
+      "type": "button",
+      "name": "Revert: Processor Minimum State 100% (AC/DC)",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMIN 5"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMIN 5"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_max_processor_100__windows.power",
+      "type": "button",
+      "name": "Apply: Processor Maximum State 100% (AC/DC)",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Sets maximum processor state to 100%.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMAX 100"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMAX 100"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMAX 99"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMAX 99"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "General / Power"
+    },
+    {
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Sets maximum processor state to 100%.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "General / Power",
+      "id": "power_max_processor_100__windows.power__revert",
+      "type": "button",
+      "name": "Revert: Processor Maximum State 100% (AC/DC)",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMAX 99"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMAX 99"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_disable_sleep__windows.power",
+      "type": "button",
+      "name": "Apply: Disable Sleep (AC/DC)",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Disables sleep timeouts.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -change -standby-timeout-ac 0"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -change -standby-timeout-dc 0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -change -standby-timeout-ac 30"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -change -standby-timeout-dc 15"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "General / Power"
+    },
+    {
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Disables sleep timeouts.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "General / Power",
+      "id": "power_disable_sleep__windows.power__revert",
+      "type": "button",
+      "name": "Revert: Disable Sleep (AC/DC)",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -change -standby-timeout-ac 30"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -change -standby-timeout-dc 15"
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_disable_monitor_timeout__windows.power",
+      "type": "button",
+      "name": "Apply: Disable Display Timeout (AC/DC)",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Prevents display turning off automatically.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -change -monitor-timeout-ac 0"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -change -monitor-timeout-dc 0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -change -monitor-timeout-ac 10"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -change -monitor-timeout-dc 5"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "General / Power"
+    },
+    {
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Prevents display turning off automatically.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "General / Power",
+      "id": "power_disable_monitor_timeout__windows.power__revert",
+      "type": "button",
+      "name": "Revert: Disable Display Timeout (AC/DC)",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -change -monitor-timeout-ac 10"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -change -monitor-timeout-dc 5"
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_disable_hibernate_timeout__windows.power",
+      "type": "button",
+      "name": "Apply: Disable Hibernate Timeout (AC/DC)",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Prevents automatic hibernate timeouts.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -change -hibernate-timeout-ac 0"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -change -hibernate-timeout-dc 0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -change -hibernate-timeout-ac 180"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -change -hibernate-timeout-dc 180"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "General / Power"
+    },
+    {
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Prevents automatic hibernate timeouts.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "General / Power",
+      "id": "power_disable_hibernate_timeout__windows.power__revert",
+      "type": "button",
+      "name": "Revert: Disable Hibernate Timeout (AC/DC)",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -change -hibernate-timeout-ac 180"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -change -hibernate-timeout-dc 180"
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_disable_processor_idle__windows.power",
+      "type": "toggle",
+      "name": "Disable Processor Idle States (Guided)",
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay] Sets idle disable via policy where applicable.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Power",
+            "name": "CsEnabled",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Power",
+            "name": "CsEnabled"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "General / Power",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Power",
+            "name": "CsEnabled",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_disable_modern_standby__windows.power",
+      "type": "toggle",
+      "name": "Disable Modern Standby (S0)",
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay] Attempts to disable Modern Standby (may require BIOS support).",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Power",
+            "name": "PlatformAoAcOverride",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Power",
+            "name": "PlatformAoAcOverride"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "General / Power",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Power",
+            "name": "PlatformAoAcOverride",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_disable_throttling__windows.power",
+      "type": "toggle",
+      "name": "Disable Power Throttling (System)",
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay] Disables system-wide power throttling via PowerThrottlingOff. Helps prevent background throttling of games.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Power\\PowerThrottling",
+            "name": "PowerThrottlingOff",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Power\\PowerThrottling",
+            "name": "PowerThrottlingOff"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "General / Power",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Power\\PowerThrottling",
+            "name": "PowerThrottlingOff",
+            "valueType": "DWord",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "imported.imported.latency_tweaks",
+      "type": "button",
+      "name": "Latency Tweaks",
+      "category": "Windows / Power",
+      "riskLevel": "Danger",
+      "risk": "Danger",
+      "description": "[Imported] Runnable tweak extracted from your V8.3. This runs a command pack under Admin. Risk: Danger.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_latency_tweaks.bat\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "imported.imported.power_plan",
+      "type": "button",
+      "name": "Power Plan",
+      "category": "Windows / Power",
+      "riskLevel": "Safe",
+      "risk": "Safe",
+      "description": "[Imported] Runnable tweak extracted from your V8.3. This runs a command pack under Admin. Risk: Safe.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_power_plan.bat\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "imported.imported.check_plan_import",
+      "type": "button",
+      "name": "Check Plan Import",
+      "category": "Windows / Power",
+      "riskLevel": "Safe",
+      "risk": "Safe",
+      "description": "[Imported] Runnable tweak extracted from your V8.3. This runs a command pack under Admin. Risk: Safe.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_check_plan_import.bat\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "imported.imported.plan_import_worked",
+      "type": "button",
+      "name": "Plan Import Worked",
+      "category": "Windows / Power",
+      "riskLevel": "Safe",
+      "risk": "Safe",
+      "description": "[Imported] Runnable tweak extracted from your V8.3. This runs a command pack under Admin. Risk: Safe.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_plan_import_worked.bat\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    }
+  ]
+}

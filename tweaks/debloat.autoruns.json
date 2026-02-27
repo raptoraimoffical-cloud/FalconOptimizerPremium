@@ -1,0 +1,114 @@
+{
+  "items": [
+    {
+      "id": "debloat.autoruns.edge_autolaunch",
+      "name": "Microsoft Edge AutoLaunch",
+      "category": "Debloat / Autoruns",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables Microsoft Edge auto-launch/background startup.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\MicrosoftEdge\\Main",
+            "name": "AllowPrelaunch",
+            "value": 0,
+            "valueType": "DWord"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\MicrosoftEdge\\TabPreloader",
+            "name": "AllowTabPreloading",
+            "value": 0,
+            "valueType": "DWord"
+          },
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Get-ScheduledTask | Where-Object {$_.TaskName -match 'EdgeUpdate|MicrosoftEdgeUpdate'} | Disable-ScheduledTask -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\MicrosoftEdge\\Main",
+            "name": "AllowPrelaunch"
+          },
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\MicrosoftEdge\\TabPreloader",
+            "name": "AllowTabPreloading"
+          },
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Get-ScheduledTask | Where-Object {$_.TaskName -match 'EdgeUpdate|MicrosoftEdgeUpdate'} | Enable-ScheduledTask -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "toggle",
+      "riskLevel": "Warning",
+      "excludeFromApplyAll": true,
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\MicrosoftEdge\\Main",
+            "name": "AllowPrelaunch",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "debloat.autoruns.opera_gx_assistant",
+      "name": "Opera GX Browser Assistant",
+      "category": "Debloat / Autoruns",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Attempts to disable Opera GX assistant startup entry for the current user.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Get-CimInstance Win32_StartupCommand | Where-Object {$_.Name -match 'Opera.*Assistant|Opera GX'} | ForEach-Object { try { Remove-ItemProperty -Path 'HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Run' -Name $_.Name -ErrorAction SilentlyContinue } catch {} }"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "excludeFromApplyAll": true,
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    }
+  ]
+}

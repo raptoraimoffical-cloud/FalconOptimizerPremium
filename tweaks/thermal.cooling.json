@@ -1,0 +1,208 @@
+{
+  "items": [
+    {
+      "id": "cooling_overview__thermal.cooling",
+      "type": "action",
+      "name": "Cooling Guide: what actually lowers temps (read)",
+      "description": "Biggest levers: airflow/dust, fan curves, undervolt/power limits, repaste, ambient temps. Falcon presets below change OS-side cooling behavior.",
+      "requiresAdmin": false,
+      "riskLevel": "Safe",
+      "category": "Cooling / Guide",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\nWrite-Output \"=== FALCON COOLING GUIDE (PRACTICAL) ===\"\nWrite-Output \"\"\nWrite-Output \"Highest-impact cooling wins:\"\nWrite-Output \"  1) Dust cleanup + airflow (intake + exhaust) + correct fan direction.\"\nWrite-Output \"  2) Fan curve: spin up earlier, map fans to correct sensors.\"\nWrite-Output \"  3) CPU undervolt / power limit (biggest heat reduction per FPS lost).\"\nWrite-Output \"  4) GPU undervolt / power limit.\"\nWrite-Output \"  5) Re-paste / cooler mounting / thermal pads.\"\nWrite-Output \"  6) Lower ambient temperature.\"\nWrite-Output \"\"\nWrite-Output \"Windows note:\"\nWrite-Output \"  Windows typically cannot directly control motherboard/laptop fans.\"\nWrite-Output \"  For real fan curves, use FanControl (desktops) or an OEM laptop fan tool.\"\nWrite-Output \"\"\nWrite-Output \"=== END ===\"\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output 'Guide is informational.'"
+          }
+        ]
+      }
+    },
+    {
+      "id": "cooling_preset_silent__thermal.cooling",
+      "type": "button",
+      "name": "Apply: Cooling Preset: Silent / Low Noise",
+      "description": "Active cooling + slightly reduced CPU max state to reduce heat/noise spikes.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Cooling / Presets",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\nWrite-Output \"Applying SILENT cooling preset...\"\npowercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR 94D3A615-A899-4AC5-AE2B-E4D8F634367F 0 | Out-Null\npowercfg -setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR 94D3A615-A899-4AC5-AE2B-E4D8F634367F 0 | Out-Null\npowercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMAX 97 | Out-Null\npowercfg -setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMAX 95 | Out-Null\npowercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMIN 5 | Out-Null\npowercfg -setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMIN 5 | Out-Null\npowercfg -SetActive SCHEME_CURRENT | Out-Null\nWrite-Output \"Done.\"\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\nWrite-Output \"Reverting SILENT preset...\"\npowercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMAX 100 | Out-Null\npowercfg -setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMAX 100 | Out-Null\npowercfg -SetActive SCHEME_CURRENT | Out-Null\nWrite-Output \"Done.\"\n"
+          }
+        ]
+      }
+    },
+    {
+      "description": "Active cooling + slightly reduced CPU max state to reduce heat/noise spikes.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Cooling / Presets",
+      "id": "cooling_preset_silent__thermal.cooling__revert",
+      "type": "button",
+      "name": "Revert: Cooling Preset: Silent / Low Noise",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\nWrite-Output \"Reverting SILENT preset...\"\npowercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMAX 100 | Out-Null\npowercfg -setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMAX 100 | Out-Null\npowercfg -SetActive SCHEME_CURRENT | Out-Null\nWrite-Output \"Done.\"\n"
+          }
+        ]
+      }
+    },
+    {
+      "id": "cooling_preset_balanced__thermal.cooling",
+      "type": "button",
+      "name": "Apply: Cooling Preset: Balanced",
+      "description": "Active cooling + common defaults.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Cooling / Presets",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\nWrite-Output \"Applying BALANCED cooling preset...\"\npowercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR 94D3A615-A899-4AC5-AE2B-E4D8F634367F 0 | Out-Null\npowercfg -setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR 94D3A615-A899-4AC5-AE2B-E4D8F634367F 0 | Out-Null\npowercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMAX 100 | Out-Null\npowercfg -setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMAX 100 | Out-Null\npowercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMIN 5 | Out-Null\npowercfg -setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMIN 5 | Out-Null\npowercfg -SetActive SCHEME_CURRENT | Out-Null\nWrite-Output \"Done.\"\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output 'Balanced preset uses common defaults; no revert needed.'"
+          }
+        ]
+      }
+    },
+    {
+      "description": "Active cooling + common defaults.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Cooling / Presets",
+      "id": "cooling_preset_balanced__thermal.cooling__revert",
+      "type": "button",
+      "name": "Revert: Cooling Preset: Balanced",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output 'Balanced preset uses common defaults; no revert needed.'"
+          }
+        ]
+      }
+    },
+    {
+      "id": "cooling_preset_performance__thermal.cooling",
+      "type": "button",
+      "name": "Apply: Cooling Preset: Performance / Cold & Fast",
+      "description": "Active cooling + aggressive AC minimum processor state (higher idle temps, best frametime stability).",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Cooling / Presets",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\nWrite-Output \"Applying PERFORMANCE cooling preset...\"\npowercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR 94D3A615-A899-4AC5-AE2B-E4D8F634367F 0 | Out-Null\npowercfg -setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR 94D3A615-A899-4AC5-AE2B-E4D8F634367F 0 | Out-Null\npowercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMIN 100 | Out-Null\npowercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMAX 100 | Out-Null\npowercfg -SetActive SCHEME_CURRENT | Out-Null\nWrite-Output \"Done.\"\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\nWrite-Output \"Reverting PERFORMANCE preset...\"\npowercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMIN 5 | Out-Null\npowercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMAX 100 | Out-Null\npowercfg -SetActive SCHEME_CURRENT | Out-Null\nWrite-Output \"Done.\"\n"
+          }
+        ]
+      }
+    },
+    {
+      "description": "Active cooling + aggressive AC minimum processor state (higher idle temps, best frametime stability).",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Cooling / Presets",
+      "id": "cooling_preset_performance__thermal.cooling__revert",
+      "type": "button",
+      "name": "Revert: Cooling Preset: Performance / Cold & Fast",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\nWrite-Output \"Reverting PERFORMANCE preset...\"\npowercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMIN 5 | Out-Null\npowercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMAX 100 | Out-Null\npowercfg -SetActive SCHEME_CURRENT | Out-Null\nWrite-Output \"Done.\"\n"
+          }
+        ]
+      }
+    },
+    {
+      "id": "cooling_launch_fancontrol__thermal.cooling",
+      "type": "action",
+      "name": "Launch FanControl (if installed)",
+      "description": "Starts FanControl.exe from common locations. FanControl provides real fan curves on many desktops.",
+      "requiresAdmin": false,
+      "riskLevel": "Safe",
+      "category": "Cooling / Fan Control",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$paths = @(\n  \"$env:ProgramFiles\\FanControl\\FanControl.exe\",\n  \"$env:ProgramFiles (x86)\\FanControl\\FanControl.exe\",\n  \"$env:LOCALAPPDATA\\FanControl\\FanControl.exe\",\n  \"$env:USERPROFILE\\Desktop\\FanControl\\FanControl.exe\",\n  \"$env:USERPROFILE\\Downloads\\FanControl\\FanControl.exe\"\n)\n$exe = $paths | Where-Object { Test-Path $_ } | Select-Object -First 1\nif ($exe) {\n  Start-Process -FilePath $exe | Out-Null\n  Write-Output \"Launched: $exe\"\n} else {\n  Write-Output \"FanControl.exe not found in common paths.\"\n  Write-Output \"Tip: install to C:\\Program Files\\FanControl\\FanControl.exe (or %LOCALAPPDATA%\\FanControl\\FanControl.exe).\"\n}\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output 'No revert.'"
+          }
+        ]
+      }
+    },
+    {
+      "id": "cooling_open_logs__thermal.cooling",
+      "type": "action",
+      "name": "Run Falcon logs folder",
+      "description": "Opens the logs folder so you can see what actions did.",
+      "requiresAdmin": false,
+      "riskLevel": "Safe",
+      "category": "Cooling / Utilities",
+      "apply": {
+        "steps": [
+          {
+            "type": "open.path",
+            "path": "logs"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output 'No revert.'"
+          }
+        ]
+      },
+      "kind": "tool",
+      "risk": "Info",
+      "manualOnly": true
+    }
+  ]
+}

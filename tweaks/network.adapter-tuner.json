@@ -1,0 +1,190 @@
+{
+  "items": [
+    {
+      "id": "net.disable_ipv6_system",
+      "type": "toggle",
+      "name": "Disable IPv6 (System-wide)",
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Disables IPv6 by setting DisabledComponents and unbinding IPv6 from all adapters. Can improve stability on some networks but will break IPv6-only connectivity.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip6\\Parameters",
+            "name": "DisabledComponents",
+            "value": 255,
+            "valueType": "DWord"
+          },
+          {
+            "type": "ps.run",
+            "command": "Disable-NetAdapterBinding -Name '*' -ComponentID ms_tcpip6 -ErrorAction SilentlyContinue"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip6\\Parameters",
+            "name": "DisabledComponents"
+          },
+          {
+            "type": "ps.run",
+            "command": "Enable-NetAdapterBinding -Name '*' -ComponentID ms_tcpip6 -ErrorAction SilentlyContinue"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "Network",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip6\\Parameters",
+            "name": "DisabledComponents",
+            "valueType": "DWord",
+            "equals": 255
+          }
+        ]
+      }
+    },
+    {
+      "id": "net.reduce_telemetry_active_probing",
+      "type": "toggle",
+      "name": "Reduce Network Telemetry & Active Probing",
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Reduces network-related telemetry: disables Wi-Fi hotspot reporting and Delivery Optimization peer-to-peer and turns off active internet probing (NCSI). May cause Windows to misreport connectivity status.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\Software\\Microsoft\\PolicyManager\\default\\WiFi\\AllowWiFiHotSpotReporting",
+            "name": "Value",
+            "value": 0,
+            "valueType": "DWord"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKLM\\Software\\Microsoft\\PolicyManager\\default\\WiFi\\AllowAutoConnectToWiFiSenseHotspots",
+            "name": "Value",
+            "value": 0,
+            "valueType": "DWord"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Remote Assistance",
+            "name": "fAllowToGetHelp",
+            "value": 0,
+            "valueType": "DWord"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\DeliveryOptimization\\Config",
+            "name": "DODownloadMode",
+            "value": 1,
+            "valueType": "DWord"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\DeliveryOptimization",
+            "name": "DODownloadMode",
+            "value": 0,
+            "valueType": "DWord"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\NetworkConnectivityStatusIndicator",
+            "name": "NoActiveProbe",
+            "value": 1,
+            "valueType": "DWord"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\NlaSvc\\Parameters\\Internet",
+            "name": "EnableActiveProbing",
+            "value": 0,
+            "valueType": "DWord"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\NlaSvc\\Parameters\\Internet",
+            "name": "ActiveWebProbeHost",
+            "value": "",
+            "valueType": "String"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\NlaSvc\\Parameters\\Internet",
+            "name": "ActiveWebProbeHostV6",
+            "value": "",
+            "valueType": "String"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\Software\\Microsoft\\PolicyManager\\default\\WiFi\\AllowWiFiHotSpotReporting",
+            "name": "Value"
+          },
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\Software\\Microsoft\\PolicyManager\\default\\WiFi\\AllowAutoConnectToWiFiSenseHotspots",
+            "name": "Value"
+          },
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Remote Assistance",
+            "name": "fAllowToGetHelp"
+          },
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\DeliveryOptimization\\Config",
+            "name": "DODownloadMode"
+          },
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\DeliveryOptimization",
+            "name": "DODownloadMode"
+          },
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\NetworkConnectivityStatusIndicator",
+            "name": "NoActiveProbe"
+          },
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\NlaSvc\\Parameters\\Internet",
+            "name": "EnableActiveProbing"
+          },
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\NlaSvc\\Parameters\\Internet",
+            "name": "ActiveWebProbeHost"
+          },
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\NlaSvc\\Parameters\\Internet",
+            "name": "ActiveWebProbeHostV6"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "Network",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\Software\\Microsoft\\PolicyManager\\default\\WiFi\\AllowWiFiHotSpotReporting",
+            "name": "Value",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    }
+  ]
+}

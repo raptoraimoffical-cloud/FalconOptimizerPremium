@@ -1,0 +1,608 @@
+{
+  "items": [
+    {
+      "id": "exp.meas.dxdiag_report",
+      "type": "action",
+      "name": "Generate DxDiag Report",
+      "category": "Expansion / Measurement & Validation",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Saves dxdiag output to %ProgramData%\\FalconOptimizer\\Reports\\dxdiag.txt and opens it.",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$dir=Join-Path $env:ProgramData 'FalconOptimizer\\Reports'; New-Item -ItemType Directory -Force -Path $dir | Out-Null; dxdiag /t (Join-Path $dir 'dxdiag.txt') | Out-Null"
+          },
+          {
+            "type": "open.file",
+            "path": "%ProgramData%\\FalconOptimizer\\Reports\\dxdiag.txt"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe"
+    },
+    {
+      "id": "exp.meas.driverquery_report",
+      "type": "action",
+      "name": "Generate Driver List Report",
+      "category": "Expansion / Measurement & Validation",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Saves driverquery to %ProgramData%\\FalconOptimizer\\Reports\\drivers.csv and opens it.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$dir=Join-Path $env:ProgramData 'FalconOptimizer\\Reports'; New-Item -ItemType Directory -Force -Path $dir | Out-Null; driverquery /v /fo csv | Out-File -Encoding utf8 (Join-Path $dir 'drivers.csv')"
+          },
+          {
+            "type": "open.file",
+            "path": "%ProgramData%\\FalconOptimizer\\Reports\\drivers.csv"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe"
+    },
+    {
+      "id": "exp.meas.docs.001",
+      "type": "button",
+      "name": "Run Windows Performance Toolkit (WPT)",
+      "category": "Expansion / Measurement & Validation",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Tracing/analysis tools reference.",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-hardware/test/wpt/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.meas.docs.002",
+      "type": "button",
+      "name": "Run PresentMon",
+      "category": "Expansion / Measurement & Validation",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] FPS/latency capture tool reference.",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://github.com/GameTechDev/PresentMon"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.meas.placeholder_005",
+      "type": "button",
+      "name": "Measurement Checklist Item",
+      "category": "Expansion / Measurement & Validation",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-hardware/test/wpt/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.meas.placeholder_006",
+      "type": "button",
+      "name": "Measurement Checklist Item",
+      "category": "Expansion / Measurement & Validation",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-hardware/test/wpt/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.meas.placeholder_007",
+      "type": "button",
+      "name": "Measurement Checklist Item",
+      "category": "Expansion / Measurement & Validation",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-hardware/test/wpt/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.meas.placeholder_008",
+      "type": "button",
+      "name": "Measurement Checklist Item",
+      "category": "Expansion / Measurement & Validation",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-hardware/test/wpt/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.meas.placeholder_009",
+      "type": "button",
+      "name": "Measurement Checklist Item",
+      "category": "Expansion / Measurement & Validation",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-hardware/test/wpt/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.meas.placeholder_010",
+      "type": "button",
+      "name": "Measurement Checklist Item",
+      "category": "Expansion / Measurement & Validation",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-hardware/test/wpt/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.meas.placeholder_011",
+      "type": "button",
+      "name": "Measurement Checklist Item",
+      "category": "Expansion / Measurement & Validation",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-hardware/test/wpt/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.meas.placeholder_012",
+      "type": "button",
+      "name": "Measurement Checklist Item",
+      "category": "Expansion / Measurement & Validation",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-hardware/test/wpt/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.meas.placeholder_013",
+      "type": "button",
+      "name": "Measurement Checklist Item",
+      "category": "Expansion / Measurement & Validation",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-hardware/test/wpt/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.meas.placeholder_014",
+      "type": "button",
+      "name": "Measurement Checklist Item",
+      "category": "Expansion / Measurement & Validation",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-hardware/test/wpt/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.meas.placeholder_015",
+      "type": "button",
+      "name": "Measurement Checklist Item",
+      "category": "Expansion / Measurement & Validation",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-hardware/test/wpt/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.meas.placeholder_016",
+      "type": "button",
+      "name": "Measurement Checklist Item",
+      "category": "Expansion / Measurement & Validation",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-hardware/test/wpt/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.meas.placeholder_017",
+      "type": "button",
+      "name": "Measurement Checklist Item",
+      "category": "Expansion / Measurement & Validation",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-hardware/test/wpt/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.meas.placeholder_018",
+      "type": "button",
+      "name": "Measurement Checklist Item",
+      "category": "Expansion / Measurement & Validation",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-hardware/test/wpt/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.meas.placeholder_019",
+      "type": "button",
+      "name": "Measurement Checklist Item",
+      "category": "Expansion / Measurement & Validation",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-hardware/test/wpt/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.meas.placeholder_020",
+      "type": "button",
+      "name": "Measurement Checklist Item",
+      "category": "Expansion / Measurement & Validation",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-hardware/test/wpt/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.meas.placeholder_021",
+      "type": "button",
+      "name": "Measurement Checklist Item",
+      "category": "Expansion / Measurement & Validation",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-hardware/test/wpt/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.meas.placeholder_022",
+      "type": "button",
+      "name": "Measurement Checklist Item",
+      "category": "Expansion / Measurement & Validation",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-hardware/test/wpt/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.meas.placeholder_023",
+      "type": "button",
+      "name": "Measurement Checklist Item",
+      "category": "Expansion / Measurement & Validation",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-hardware/test/wpt/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.meas.placeholder_024",
+      "type": "button",
+      "name": "Measurement Checklist Item",
+      "category": "Expansion / Measurement & Validation",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-hardware/test/wpt/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.meas.placeholder_025",
+      "type": "button",
+      "name": "Measurement Checklist Item",
+      "category": "Expansion / Measurement & Validation",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-hardware/test/wpt/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    }
+  ]
+}

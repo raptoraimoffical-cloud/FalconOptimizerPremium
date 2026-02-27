@@ -1,0 +1,700 @@
+{
+  "items": [
+    {
+      "id": "exp.gpu.docs.001",
+      "type": "button",
+      "name": "Run NVIDIA Reflex (low latency)",
+      "category": "Expansion / GPU NVIDIA Advanced",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Reference for Reflex and latency.",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://www.nvidia.com/en-us/geforce/news/reflex-low-latency-platform/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.gpu.docs.002",
+      "type": "button",
+      "name": "Run NVIDIA Control Panel help",
+      "category": "Expansion / GPU NVIDIA Advanced",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Driver/support reference.",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://www.nvidia.com/en-us/geforce/drivers/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.gpu.docs.003",
+      "type": "button",
+      "name": "Run G-SYNC setup guide",
+      "category": "Expansion / GPU NVIDIA Advanced",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Reference for G-SYNC setup.",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://www.nvidia.com/en-us/geforce/products/g-sync-monitors/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.gpu.docs.004",
+      "type": "button",
+      "name": "Run NVIDIA App / GeForce Experience overlays info",
+      "category": "Expansion / GPU NVIDIA Advanced",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Overlay/capture reference.",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://www.nvidia.com/en-us/geforce/geforce-experience/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.gpu.open_device_manager",
+      "type": "action",
+      "name": "Open Device Manager",
+      "category": "Expansion / GPU NVIDIA Advanced",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Opens Device Manager for GPU/HD Audio/PCIe checks.",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "run.exe",
+            "file": "devmgmt.msc",
+            "args": [],
+            "wait": false
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe"
+    },
+    {
+      "id": "exp.gpu.placeholder_007",
+      "type": "button",
+      "name": "GPU Checklist Item",
+      "category": "Expansion / GPU NVIDIA Advanced",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://www.nvidia.com/en-us/geforce/news/reflex-low-latency-platform/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.gpu.placeholder_008",
+      "type": "button",
+      "name": "GPU Checklist Item",
+      "category": "Expansion / GPU NVIDIA Advanced",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://www.nvidia.com/en-us/geforce/news/reflex-low-latency-platform/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.gpu.placeholder_009",
+      "type": "button",
+      "name": "GPU Checklist Item",
+      "category": "Expansion / GPU NVIDIA Advanced",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://www.nvidia.com/en-us/geforce/news/reflex-low-latency-platform/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.gpu.placeholder_010",
+      "type": "button",
+      "name": "GPU Checklist Item",
+      "category": "Expansion / GPU NVIDIA Advanced",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://www.nvidia.com/en-us/geforce/news/reflex-low-latency-platform/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.gpu.placeholder_011",
+      "type": "button",
+      "name": "GPU Checklist Item",
+      "category": "Expansion / GPU NVIDIA Advanced",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://www.nvidia.com/en-us/geforce/news/reflex-low-latency-platform/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.gpu.placeholder_012",
+      "type": "button",
+      "name": "GPU Checklist Item",
+      "category": "Expansion / GPU NVIDIA Advanced",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://www.nvidia.com/en-us/geforce/news/reflex-low-latency-platform/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.gpu.placeholder_013",
+      "type": "button",
+      "name": "GPU Checklist Item",
+      "category": "Expansion / GPU NVIDIA Advanced",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://www.nvidia.com/en-us/geforce/news/reflex-low-latency-platform/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.gpu.placeholder_014",
+      "type": "button",
+      "name": "GPU Checklist Item",
+      "category": "Expansion / GPU NVIDIA Advanced",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://www.nvidia.com/en-us/geforce/news/reflex-low-latency-platform/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.gpu.placeholder_015",
+      "type": "button",
+      "name": "GPU Checklist Item",
+      "category": "Expansion / GPU NVIDIA Advanced",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://www.nvidia.com/en-us/geforce/news/reflex-low-latency-platform/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.gpu.placeholder_016",
+      "type": "button",
+      "name": "GPU Checklist Item",
+      "category": "Expansion / GPU NVIDIA Advanced",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://www.nvidia.com/en-us/geforce/news/reflex-low-latency-platform/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.gpu.placeholder_017",
+      "type": "button",
+      "name": "GPU Checklist Item",
+      "category": "Expansion / GPU NVIDIA Advanced",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://www.nvidia.com/en-us/geforce/news/reflex-low-latency-platform/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.gpu.placeholder_018",
+      "type": "button",
+      "name": "GPU Checklist Item",
+      "category": "Expansion / GPU NVIDIA Advanced",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://www.nvidia.com/en-us/geforce/news/reflex-low-latency-platform/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.gpu.placeholder_019",
+      "type": "button",
+      "name": "GPU Checklist Item",
+      "category": "Expansion / GPU NVIDIA Advanced",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://www.nvidia.com/en-us/geforce/news/reflex-low-latency-platform/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.gpu.placeholder_020",
+      "type": "button",
+      "name": "GPU Checklist Item",
+      "category": "Expansion / GPU NVIDIA Advanced",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://www.nvidia.com/en-us/geforce/news/reflex-low-latency-platform/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.gpu.placeholder_021",
+      "type": "button",
+      "name": "GPU Checklist Item",
+      "category": "Expansion / GPU NVIDIA Advanced",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://www.nvidia.com/en-us/geforce/news/reflex-low-latency-platform/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.gpu.placeholder_022",
+      "type": "button",
+      "name": "GPU Checklist Item",
+      "category": "Expansion / GPU NVIDIA Advanced",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://www.nvidia.com/en-us/geforce/news/reflex-low-latency-platform/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.gpu.placeholder_023",
+      "type": "button",
+      "name": "GPU Checklist Item",
+      "category": "Expansion / GPU NVIDIA Advanced",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://www.nvidia.com/en-us/geforce/news/reflex-low-latency-platform/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.gpu.placeholder_024",
+      "type": "button",
+      "name": "GPU Checklist Item",
+      "category": "Expansion / GPU NVIDIA Advanced",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://www.nvidia.com/en-us/geforce/news/reflex-low-latency-platform/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.gpu.placeholder_025",
+      "type": "button",
+      "name": "GPU Checklist Item",
+      "category": "Expansion / GPU NVIDIA Advanced",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://www.nvidia.com/en-us/geforce/news/reflex-low-latency-platform/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.gpu.placeholder_026",
+      "type": "button",
+      "name": "GPU Checklist Item",
+      "category": "Expansion / GPU NVIDIA Advanced",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://www.nvidia.com/en-us/geforce/news/reflex-low-latency-platform/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.gpu.placeholder_027",
+      "type": "button",
+      "name": "GPU Checklist Item",
+      "category": "Expansion / GPU NVIDIA Advanced",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://www.nvidia.com/en-us/geforce/news/reflex-low-latency-platform/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.gpu.placeholder_028",
+      "type": "button",
+      "name": "GPU Checklist Item",
+      "category": "Expansion / GPU NVIDIA Advanced",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://www.nvidia.com/en-us/geforce/news/reflex-low-latency-platform/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.gpu.placeholder_029",
+      "type": "button",
+      "name": "GPU Checklist Item",
+      "category": "Expansion / GPU NVIDIA Advanced",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://www.nvidia.com/en-us/geforce/news/reflex-low-latency-platform/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.gpu.placeholder_030",
+      "type": "button",
+      "name": "GPU Checklist Item",
+      "category": "Expansion / GPU NVIDIA Advanced",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://www.nvidia.com/en-us/geforce/news/reflex-low-latency-platform/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    }
+  ]
+}

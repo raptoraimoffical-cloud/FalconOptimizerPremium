@@ -1,0 +1,847 @@
+{
+  "items": [
+    {
+      "id": "privacy.disable_activity_feed__windows.privacy",
+      "type": "toggle",
+      "name": "Disable Activity Feed",
+      "risk": "Safe",
+      "description": "Disables the Windows activity feed.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\System",
+            "name": "EnableActivityFeed",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\System",
+            "name": "EnableActivityFeed"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "General / Privacy",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\System",
+            "name": "EnableActivityFeed",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "privacy.disable_advertising_id__windows.privacy",
+      "type": "toggle",
+      "name": "Disable Advertising ID",
+      "risk": "Safe",
+      "description": "Disables the Advertising ID used for personalized ads.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\AdvertisingInfo",
+            "name": "DisabledByGroupPolicy",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\AdvertisingInfo",
+            "name": "DisabledByGroupPolicy"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "General / Privacy",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\AdvertisingInfo",
+            "name": "DisabledByGroupPolicy",
+            "valueType": "DWord",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "privacy.disable_all_ads__windows.privacy",
+      "type": "toggle",
+      "name": "Disable All Ads",
+      "risk": "Safe",
+      "description": "Reduces Windows ad/suggestion content where controlled by policy.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+            "name": "SubscribedContent-338388Enabled",
+            "value": 0,
+            "valueType": "DWord"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+            "name": "SystemPaneSuggestionsEnabled",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+            "name": "SubscribedContent-338388Enabled"
+          },
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+            "name": "SystemPaneSuggestionsEnabled"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "General / Privacy",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+            "name": "SubscribedContent-338388Enabled",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "privacy.disable_ceip__windows.privacy",
+      "type": "toggle",
+      "name": "Disable CEIP",
+      "risk": "Safe",
+      "description": "Disables Customer Experience Improvement Program participation.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\SQMClient\\Windows",
+            "name": "CEIPEnable",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\SQMClient\\Windows",
+            "name": "CEIPEnable"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "General / Privacy",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\SQMClient\\Windows",
+            "name": "CEIPEnable",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "privacy.disable_compat_telemetry__windows.privacy",
+      "type": "toggle",
+      "name": "Disable Compatibility Telemetry",
+      "risk": "Warning",
+      "description": "Disables compatibility telemetry collectors where controlled by policy.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\DataCollection",
+            "name": "AllowTelemetry",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\DataCollection",
+            "name": "AllowTelemetry"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "General / Privacy",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\DataCollection",
+            "name": "AllowTelemetry",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "privacy.disable_diag_data_collection__windows.privacy",
+      "type": "toggle",
+      "name": "Disable Diagnostic Data Collection",
+      "risk": "Warning",
+      "description": "Disables diagnostic data collection to the extent allowed by policy.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\DataCollection",
+            "name": "AllowTelemetry",
+            "value": 0,
+            "valueType": "DWord"
+          },
+          {
+            "type": "service.startup",
+            "name": "DiagTrack",
+            "startType": "Disabled",
+            "stop": true
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\DataCollection",
+            "name": "AllowTelemetry"
+          },
+          {
+            "type": "service.startup",
+            "name": "DiagTrack",
+            "startType": "Manual",
+            "stop": false
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "General / Privacy",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\DataCollection",
+            "name": "AllowTelemetry",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "privacy.disable_diag_tracking__windows.privacy",
+      "type": "toggle",
+      "name": "Disable Diagnostic Tracking",
+      "risk": "Warning",
+      "description": "Stops and disables the Connected User Experiences and Telemetry service.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "DiagTrack",
+            "startType": "Disabled",
+            "stop": true
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "DiagTrack",
+            "startType": "Manual",
+            "stop": false
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "General / Privacy",
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "DiagTrack",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "privacy.disable_error_reporting_ads__windows.privacy",
+      "type": "toggle",
+      "name": "Disable Error Reporting And Advertising",
+      "risk": "Safe",
+      "description": "Disables Windows Error Reporting and reduces related prompts.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "WerSvc",
+            "startType": "Disabled",
+            "stop": true
+          },
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Microsoft\\Windows\\Windows Error Reporting",
+            "name": "Disabled",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "WerSvc",
+            "startType": "Manual",
+            "stop": false
+          },
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Microsoft\\Windows\\Windows Error Reporting",
+            "name": "Disabled"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "General / Privacy",
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "WerSvc",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "privacy.disable_feedback_hub__windows.privacy",
+      "type": "toggle",
+      "name": "Disable Feedback Hub",
+      "risk": "Safe",
+      "description": "Disables feedback notifications/prompts.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\DataCollection",
+            "name": "DoNotShowFeedbackNotifications",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\DataCollection",
+            "name": "DoNotShowFeedbackNotifications"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "General / Privacy",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\DataCollection",
+            "name": "DoNotShowFeedbackNotifications",
+            "valueType": "DWord",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "privacy.disable_help_experience__windows.privacy",
+      "type": "toggle",
+      "name": "Disable Help Experience Program",
+      "risk": "Safe",
+      "description": "Reduces help experience telemetry where policy-controlled.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\System",
+            "name": "EnableCdp",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\System",
+            "name": "EnableCdp"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "General / Privacy",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\System",
+            "name": "EnableCdp",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "privacy.disable_inventory_collector__windows.privacy",
+      "type": "toggle",
+      "name": "Disable Inventory Collector",
+      "risk": "Safe",
+      "description": "Disables common inventory/compatibility scheduled tasks.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "action": "disable",
+            "name": "\\Microsoft\\Windows\\Application Experience\\ProgramDataUpdater"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "action": "enable",
+            "name": "\\Microsoft\\Windows\\Application Experience\\ProgramDataUpdater"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "General / Privacy",
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Application Experience\\ProgramDataUpdater",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "privacy.disable_location_tracking__windows.privacy",
+      "type": "toggle",
+      "name": "Disable Location Tracking",
+      "risk": "Warning",
+      "description": "Disables Windows location services via policy.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\LocationAndSensors",
+            "name": "DisableLocation",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\LocationAndSensors",
+            "name": "DisableLocation"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "General / Privacy",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\LocationAndSensors",
+            "name": "DisableLocation",
+            "valueType": "DWord",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "privacy.disable_remote_assistance__windows.privacy",
+      "type": "toggle",
+      "name": "Disable Remote Assistance",
+      "risk": "Safe",
+      "description": "Disables Remote Assistance connections.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Remote Assistance",
+            "name": "fAllowToGetHelp",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Remote Assistance",
+            "name": "fAllowToGetHelp",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "General / Privacy",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Remote Assistance",
+            "name": "fAllowToGetHelp",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "privacy.disable_timeline_tracking__windows.privacy",
+      "type": "toggle",
+      "name": "Disable Timeline Tracking",
+      "risk": "Safe",
+      "description": "Disables Windows Timeline and activity upload.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\System",
+            "name": "PublishUserActivities",
+            "value": 0,
+            "valueType": "DWord"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\System",
+            "name": "UploadUserActivities",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\System",
+            "name": "PublishUserActivities"
+          },
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\System",
+            "name": "UploadUserActivities"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "General / Privacy",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\System",
+            "name": "PublishUserActivities",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "privacy.disable_advanced_telemetry__windows.privacy",
+      "type": "toggle",
+      "name": "Disable Advanced Telemetry",
+      "risk": "Warning",
+      "description": "Applies stricter telemetry policy settings where possible.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\DataCollection",
+            "name": "AllowTelemetry",
+            "value": 0,
+            "valueType": "DWord"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\DataCollection",
+            "name": "DisableTelemetryOptInSettingsUx",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\DataCollection",
+            "name": "AllowTelemetry"
+          },
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\DataCollection",
+            "name": "DisableTelemetryOptInSettingsUx"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "General / Privacy",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\DataCollection",
+            "name": "AllowTelemetry",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "privacy.disable_auto_loggers__windows.privacy",
+      "type": "toggle",
+      "name": "Disable All Auto Loggers",
+      "risk": "Warning",
+      "description": "Disables select ETW AutoLogger sessions used for diagnostics.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\WMI\\AutoLogger\\AutoLogger-Diagtrack-Listener",
+            "name": "Start",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\WMI\\AutoLogger\\AutoLogger-Diagtrack-Listener",
+            "name": "Start"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "General / Privacy",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\WMI\\AutoLogger\\AutoLogger-Diagtrack-Listener",
+            "name": "Start",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "privacy.disable_cimom_events__windows.privacy",
+      "type": "button",
+      "name": "Apply: Disable Cimom Events",
+      "risk": "Warning",
+      "description": "Disables the WMI Activity operational log (reduces WMI logging).",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "wevtutil sl Microsoft-Windows-WMI-Activity/Operational /e:false"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "wevtutil sl Microsoft-Windows-WMI-Activity/Operational /e:true"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "General / Privacy"
+    },
+    {
+      "risk": "Warning",
+      "description": "Disables the WMI Activity operational log (reduces WMI logging).",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "General / Privacy",
+      "id": "privacy.disable_cimom_events__windows.privacy__revert",
+      "type": "button",
+      "name": "Revert: Disable Cimom Events",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "wevtutil sl Microsoft-Windows-WMI-Activity/Operational /e:true"
+          }
+        ]
+      }
+    },
+    {
+      "id": "privacy.disable_data_collection_hosts__windows.privacy",
+      "type": "button",
+      "name": "Apply: Disable Data Collection Hosts",
+      "risk": "Warning",
+      "description": "Adds common telemetry hosts to the hosts file.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"Add-Content -Path $env:SystemRoot\\System32\\drivers\\etc\\hosts -Value \\\"0.0.0.0 vortex.data.microsoft.com`n0.0.0.0 settings-win.data.microsoft.com\\\"\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"((Get-Content $env:SystemRoot\\System32\\drivers\\etc\\hosts) | Where-Object {$_ -notmatch 'vortex\\.data\\.microsoft\\.com|settings-win\\.data\\.microsoft\\.com'}) | Set-Content $env:SystemRoot\\System32\\drivers\\etc\\hosts\""
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "General / Privacy"
+    },
+    {
+      "risk": "Warning",
+      "description": "Adds common telemetry hosts to the hosts file.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "General / Privacy",
+      "id": "privacy.disable_data_collection_hosts__windows.privacy__revert",
+      "type": "button",
+      "name": "Revert: Disable Data Collection Hosts",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"((Get-Content $env:SystemRoot\\System32\\drivers\\etc\\hosts) | Where-Object {$_ -notmatch 'vortex\\.data\\.microsoft\\.com|settings-win\\.data\\.microsoft\\.com'}) | Set-Content $env:SystemRoot\\System32\\drivers\\etc\\hosts\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "privacy.disable_ndu__windows.privacy",
+      "type": "toggle",
+      "name": "Disable NDU",
+      "risk": "Warning",
+      "description": "Disables Network Data Usage Monitoring (NDU).",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "Ndu",
+            "startType": "Disabled",
+            "stop": true
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "Ndu",
+            "startType": "Automatic",
+            "stop": false
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "General / Privacy",
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "Ndu",
+            "startupType": null
+          }
+        ]
+      }
+    }
+  ]
+}

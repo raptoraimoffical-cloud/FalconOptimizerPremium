@@ -1,0 +1,10 @@
+{
+  "id": "processlab.live",
+  "name": "Live Process Manager",
+  "type": "live",
+  "description": "Displays all running processes & allows Stop / Kill.",
+  "kind": "tool",
+  "risk": "Info",
+  "riskLevel": "Info",
+  "manualOnly": true
+}

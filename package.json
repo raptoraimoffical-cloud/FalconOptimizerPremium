@@ -1,0 +1,49 @@
+{
+  "name": "falcon-optimizer",
+  "version": "1.4.2",
+  "description": "Windows gaming optimization application",
+  "main": "main.js",
+  "author": "Eli",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
+    "validate:tweaks": "node tools/schema-validator.js --fix",
+    "validate:tweaks:report": "node tools/schema-validator.js"
+  },
+  "dependencies": {
+    "electron-store": "^8.2.0"
+  },
+  "devDependencies": {
+    "electron": "^30.0.0",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "com.falconoptimizer.app",
+    "productName": "Falcon Optimizer",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "**/*"
+    ],
+    "asar": true,
+    "win": {
+      "target": [
+        "nsis"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": true,
+      "allowElevation": true
+    },
+    "asarUnpack": [
+      "scripts/**",
+      "tools/**"
+    ]
+  },
+  "productName": "Falcon Optimizer"
+}

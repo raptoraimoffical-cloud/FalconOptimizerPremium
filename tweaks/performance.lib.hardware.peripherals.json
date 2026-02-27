@@ -1,0 +1,697 @@
+{
+  "items": [
+    {
+      "id": "usb_disable_selective_suspend__performance.lib.hardware.peripherals",
+      "type": "toggle",
+      "name": "Disable USB Selective Suspend",
+      "category": "Hardware / Peripherals",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables USB selective suspend (can reduce input dropouts).",
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\USB",
+            "name": "DisableSelectiveSuspend",
+            "valueType": "DWord",
+            "value": 1
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\USB",
+            "name": "DisableSelectiveSuspend"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\USB",
+            "name": "DisableSelectiveSuspend",
+            "valueType": "DWord",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "usb_disable_power_saving__performance.lib.hardware.peripherals",
+      "type": "button",
+      "name": "Apply: Disable USB Power Saving",
+      "category": "Hardware / Peripherals",
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay] Disables USB power saving features.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powercfg -SETACVALUEINDEX SCHEME_CURRENT SUB_USB USBSELECTIVE 0 | Out-Null; powercfg -S SCHEME_CURRENT | Out-Null"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powercfg -SETACVALUEINDEX SCHEME_CURRENT SUB_USB USBSELECTIVE 1 | Out-Null; powercfg -S SCHEME_CURRENT | Out-Null"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "requiresAdmin": true
+    },
+    {
+      "category": "Hardware / Peripherals",
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay] Disables USB power saving features.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "id": "usb_disable_power_saving__performance.lib.hardware.peripherals__revert",
+      "type": "button",
+      "name": "Revert: Disable USB Power Saving",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powercfg -SETACVALUEINDEX SCHEME_CURRENT SUB_USB USBSELECTIVE 1 | Out-Null; powercfg -S SCHEME_CURRENT | Out-Null"
+          }
+        ]
+      }
+    },
+    {
+      "id": "mouse_disable_enhanced_pointer_precision__performance.lib.hardware.peripherals",
+      "type": "toggle",
+      "name": "Disable Enhanced Pointer Precision",
+      "category": "Hardware / Peripherals",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Turns off Windows mouse acceleration.",
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU:\\Control Panel\\Mouse",
+            "name": "MouseSpeed",
+            "valueType": "String",
+            "value": "0"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKCU:\\Control Panel\\Mouse",
+            "name": "MouseThreshold1",
+            "valueType": "String",
+            "value": "0"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKCU:\\Control Panel\\Mouse",
+            "name": "MouseThreshold2",
+            "valueType": "String",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU:\\Control Panel\\Mouse",
+            "name": "MouseSpeed",
+            "valueType": "String",
+            "value": "1"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKCU:\\Control Panel\\Mouse",
+            "name": "MouseThreshold1",
+            "valueType": "String",
+            "value": "6"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKCU:\\Control Panel\\Mouse",
+            "name": "MouseThreshold2",
+            "valueType": "String",
+            "value": "10"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU:\\Control Panel\\Mouse",
+            "name": "MouseSpeed",
+            "valueType": "String",
+            "equals": "0"
+          }
+        ]
+      }
+    },
+    {
+      "id": "keyboard_repeat_fast__performance.lib.hardware.peripherals",
+      "type": "toggle",
+      "name": "Faster Keyboard Repeat",
+      "category": "Hardware / Peripherals",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Sets keyboard repeat delay/rate faster.",
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU:\\Control Panel\\Keyboard",
+            "name": "KeyboardDelay",
+            "valueType": "String",
+            "value": "0"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKCU:\\Control Panel\\Keyboard",
+            "name": "KeyboardSpeed",
+            "valueType": "String",
+            "value": "31"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU:\\Control Panel\\Keyboard",
+            "name": "KeyboardDelay",
+            "valueType": "String",
+            "value": "1"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKCU:\\Control Panel\\Keyboard",
+            "name": "KeyboardSpeed",
+            "valueType": "String",
+            "value": "20"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU:\\Control Panel\\Keyboard",
+            "name": "KeyboardDelay",
+            "valueType": "String",
+            "equals": "0"
+          }
+        ]
+      }
+    },
+    {
+      "id": "open_device_manager__performance.lib.hardware.peripherals",
+      "type": "action",
+      "name": "Run Device Manager",
+      "category": "Hardware / Peripherals",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Open Device Manager (for manual device tuning).",
+      "primaryLabel": "Open",
+      "apply": {
+        "steps": [
+          {
+            "type": "process.start",
+            "filePath": "devmgmt.msc",
+            "arguments": ""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "per_disable_enhance_pointer_precision__performance.lib.hardware.peripherals",
+      "type": "toggle",
+      "name": "Disable Enhance Pointer Precision",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Disables mouse acceleration.",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Control Panel\\Mouse",
+            "name": "MouseSpeed",
+            "value": "0",
+            "valueType": "String"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Control Panel\\Mouse",
+            "name": "MouseThreshold1",
+            "value": "0",
+            "valueType": "String"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Control Panel\\Mouse",
+            "name": "MouseThreshold2",
+            "value": "0",
+            "valueType": "String"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Control Panel\\Mouse",
+            "name": "MouseSpeed",
+            "value": "1",
+            "valueType": "String"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Control Panel\\Mouse",
+            "name": "MouseThreshold1",
+            "value": "6",
+            "valueType": "String"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Control Panel\\Mouse",
+            "name": "MouseThreshold2",
+            "value": "10",
+            "valueType": "String"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "Hardware / Peripherals",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Control Panel\\Mouse",
+            "name": "MouseSpeed",
+            "valueType": "String",
+            "equals": "0"
+          }
+        ]
+      }
+    },
+    {
+      "id": "per_disable_usb_power_saving_reg__performance.lib.hardware.peripherals",
+      "type": "toggle",
+      "name": "Disable USB Power Saving (Registry)",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Disables USB selective suspend power saving policies.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\USB",
+            "name": "DisableSelectiveSuspend",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\USB",
+            "name": "DisableSelectiveSuspend"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "Hardware / Peripherals",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\USB",
+            "name": "DisableSelectiveSuspend",
+            "valueType": "DWord",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "per_disable_hid_idle_timeout__performance.lib.hardware.peripherals",
+      "type": "toggle",
+      "name": "Disable HID Idle Timeout",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Prevents HID devices from idling aggressively.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\HidUsb\\Parameters",
+            "name": "SelectiveSuspendEnabled",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\HidUsb\\Parameters",
+            "name": "SelectiveSuspendEnabled"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "Hardware / Peripherals",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\HidUsb\\Parameters",
+            "name": "SelectiveSuspendEnabled",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "per_disable_bluetooth_power_saving__performance.lib.hardware.peripherals",
+      "type": "toggle",
+      "name": "Disable Bluetooth Power Saving",
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay] Reduces Bluetooth power saving behaviors.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\BthHFSrv",
+            "name": "Start",
+            "value": 2,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\BthHFSrv",
+            "name": "Start",
+            "value": 3,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "Hardware / Peripherals",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\BthHFSrv",
+            "name": "Start",
+            "valueType": "DWord",
+            "equals": 2
+          }
+        ]
+      }
+    },
+    {
+      "id": "per_disable_sticky_keys__performance.lib.hardware.peripherals",
+      "type": "toggle",
+      "name": "Disable Sticky Keys Shortcut",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables Sticky Keys hotkey popup.",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Control Panel\\Accessibility\\StickyKeys",
+            "name": "Flags",
+            "value": "506",
+            "valueType": "String"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Control Panel\\Accessibility\\StickyKeys",
+            "name": "Flags",
+            "value": "510",
+            "valueType": "String"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "Hardware / Peripherals",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Control Panel\\Accessibility\\StickyKeys",
+            "name": "Flags",
+            "valueType": "String",
+            "equals": "506"
+          }
+        ]
+      }
+    },
+    {
+      "id": "per_disable_filter_keys__performance.lib.hardware.peripherals",
+      "type": "toggle",
+      "name": "Disable Filter Keys Shortcut",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables Filter Keys hotkey popup.",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Control Panel\\Accessibility\\Keyboard Response",
+            "name": "Flags",
+            "value": "122",
+            "valueType": "String"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Control Panel\\Accessibility\\Keyboard Response",
+            "name": "Flags",
+            "value": "126",
+            "valueType": "String"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "Hardware / Peripherals",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Control Panel\\Accessibility\\Keyboard Response",
+            "name": "Flags",
+            "valueType": "String",
+            "equals": "122"
+          }
+        ]
+      }
+    },
+    {
+      "id": "per_disable_toggle_keys__performance.lib.hardware.peripherals",
+      "type": "toggle",
+      "name": "Disable Toggle Keys Shortcut",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables Toggle Keys hotkey popup.",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Control Panel\\Accessibility\\ToggleKeys",
+            "name": "Flags",
+            "value": "58",
+            "valueType": "String"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Control Panel\\Accessibility\\ToggleKeys",
+            "name": "Flags",
+            "value": "62",
+            "valueType": "String"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "Hardware / Peripherals",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Control Panel\\Accessibility\\ToggleKeys",
+            "name": "Flags",
+            "valueType": "String",
+            "equals": "58"
+          }
+        ]
+      }
+    },
+    {
+      "id": "per_disable_game_controller_services__performance.lib.hardware.peripherals",
+      "type": "toggle",
+      "name": "Disable Xbox Controller Services",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables Xbox services that can add background load.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "XblAuthManager",
+            "startType": "Disabled",
+            "stop": true
+          },
+          {
+            "type": "service.startup",
+            "name": "XblGameSave",
+            "startType": "Disabled",
+            "stop": true
+          },
+          {
+            "type": "service.startup",
+            "name": "XboxGipSvc",
+            "startType": "Disabled",
+            "stop": true
+          },
+          {
+            "type": "service.startup",
+            "name": "XboxNetApiSvc",
+            "startType": "Disabled",
+            "stop": true
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "XblAuthManager",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "XblGameSave",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "XboxGipSvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "XboxNetApiSvc",
+            "startType": "Manual"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "Hardware / Peripherals",
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "XblAuthManager",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "per_disable_tablet_input__performance.lib.hardware.peripherals",
+      "type": "toggle",
+      "name": "Disable Touch Keyboard and Handwriting Service",
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay] Disables tablet input service (if not used).",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "TabletInputService",
+            "startType": "Disabled",
+            "stop": true
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "TabletInputService",
+            "startType": "Manual"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "Hardware / Peripherals",
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "TabletInputService",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "per_open_mouse_settings__performance.lib.hardware.peripherals",
+      "type": "button",
+      "name": "Open Mouse Settings",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Opens Windows mouse settings.",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Start-Process 'ms-settings:mouse'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "category": "Hardware / Peripherals"
+    }
+  ]
+}

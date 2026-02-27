@@ -1,0 +1,1241 @@
+{
+  "items": [
+    {
+      "id": "processlab.preset_safe__process.lab",
+      "type": "button",
+      "name": "Safe Preset – Daily Use",
+      "category": "Process Lab / Presets",
+      "risk": "Safe",
+      "description": "Applies a low-risk baseline for cutting junk without breaking features. What this preset does:\n• Disables UWP background apps via AppPrivacy policy.\n• Keeps the shell, Store, updates, and anti-cheat completely intact.\n• Disables a small set of non-essential services: - DiagTrack (telemetry) - SysMain (old Superfetch) - WSearch (search indexing – search still works, just no indexer) - XblGameSave, XboxNetApiSvc (Xbox helpers) - MapsBroker (offline maps broker) - WerSvc (Windows Error Reporting service – Event Viewer still logs) Requirements:\n• Run Falcon Optimizer as Administrator.\n• Works on both Microsoft and local accounts.\n• Recommended as the first Process Lab pass before going Competitive/Extreme.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$runner = Join-Path $PSScriptRoot \"processlab-run.ps1\"\nif (Test-Path $runner) {\n  & $runner -Mode 'safe'\n} else {\n  Write-Host \"ProcessLab runner not found.\"\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe"
+    },
+    {
+      "id": "processlab.preset_competitive__process.lab",
+      "type": "button",
+      "name": "Competitive Preset – ~40–45 Processes",
+      "category": "Process Lab / Presets",
+      "risk": "Warning",
+      "description": "Pushes toward ~40–45 total processes on Windows 11 while keeping:\n• Epic / Steam / Store working\n• Anti-cheat, installers, and updates functional\n• Explorer, taskbar, notifications, and networking intact What this preset does, on top of Safe:\n• Re-applies Safe (UWP background apps + baseline services).\n• Forces svchost merging via SvcHostSplitThresholdInKB to reduce process count.\n• Disables extra non-critical services: - diagnosticshub.standardcollector.service, DSSVC, DusmSvc, DiagSvc (diagnostic helpers) - XboxGipSvc (Xbox game input service) - RetailDemo / RetailDemoService (demo features) - WbioSrvc (biometrics), PhoneSvc (phone integration), WalletService (wallet) - RemoteRegistry (remote registry access) - Fax, Spooler (if no printer used)\n• Trims harmless scheduled tasks: - ProgramDataUpdater, CEIP consolidator / USB CEIP - MapsUpdateTask, Feedback DMClient tasks Requirements:\n• Run Falcon Optimizer as Administrator.\n• Recommended: Local Windows account for the cleanest background footprint.\n• Do NOT use this on production work machines that need all Windows features.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$runner = Join-Path $PSScriptRoot \"processlab-run.ps1\"\nif (Test-Path $runner) {\n  & $runner -Mode 'competitive'\n} else {\n  Write-Host \"ProcessLab runner not found.\"\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Warning"
+    },
+    {
+      "id": "processlab.preset_extreme__process.lab",
+      "type": "button",
+      "name": "Extreme Preset – ~32–38 Processes (Local Account Recommended)",
+      "category": "Process Lab / Presets",
+      "risk": "Danger",
+      "description": "This is the most aggressive built-in Process Lab preset.\nGoal: push toward ~32–38 total processes on Windows 11 for tournament / grind sessions. Keeps:\n• Networking, DNS/DHCP, shell, licensing, Store and installer core intact.\n• Anti-cheat and major launchers in most normal setups. Adds on top of Competitive:\n• Re-enforces svchost merging.\n• Disables Delivery Optimization (DoSvc) – cuts update-related background traffic.\n• Disables extra telemetry / compatibility helpers (PcaSvc, DiagTrack again, WerSvc again).\n• Disables additional background scheduled tasks: - DiskDiagnostic data collector / resolver - Maps toast / update tasks - Feedback DMClient tasks - WER queue reporting Hard requirements:\n• MUST run Falcon Optimizer as Administrator.\n• STRONGLY recommended: LOCAL Windows account, not Microsoft account.\n• Only use this on a known-good gaming rig where you accept trade-offs.\n• For daily browsing/school/work use, stay on Safe or Competitive.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$runner = Join-Path $PSScriptRoot \"processlab-run.ps1\"\nif (Test-Path $runner) {\n  & $runner -Mode 'extreme'\n} else {\n  Write-Host \"ProcessLab runner not found.\"\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Danger"
+    },
+    {
+      "id": "processlab.bits_and_delivery__process.lab",
+      "type": "toggle",
+      "name": "Disable BITS + Delivery Optimization (Aggressive Background Killer)",
+      "category": "Process Lab / Extra Aggressive",
+      "risk": "Danger",
+      "description": "[Very aggressive] Kills almost all Windows background download logic. What this changes:\n• Sets BITS (Background Intelligent Transfer Service) startup to Disabled.\n• Sets DoSvc (Delivery Optimization) startup to Disabled (also in Extreme preset).\n• Stops both services immediately. Impact:\n• Reduces random update/download wakes and some background processes.\n• Can break or delay: - Windows Update downloads - Microsoft Store installs/updates - Some app updaters that rely on BITS Requirements:\n• Run as Administrator.\n• Only enable this if you are okay managing updates manually.\n• Recommended for offline/competitive sessions, not everyday use.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "BITS",
+            "startType": "Disabled",
+            "stop": true
+          },
+          {
+            "type": "service.startup",
+            "name": "DoSvc",
+            "startType": "Disabled",
+            "stop": true
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "BITS",
+            "startType": "Automatic",
+            "stop": false
+          },
+          {
+            "type": "service.startup",
+            "name": "DoSvc",
+            "startType": "Manual",
+            "stop": false
+          }
+        ]
+      },
+      "riskLevel": "Danger",
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "BITS",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "proc_kill_discord__process.lab",
+      "type": "button",
+      "name": "Apply: Close Discord",
+      "description": "Kills the process if running.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Process Lab / Kill List",
+      "apply": {
+        "steps": [
+          {
+            "type": "process.kill",
+            "name": "Discord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Discord closed; reopen manually.\""
+          }
+        ]
+      }
+    },
+    {
+      "description": "Kills the process if running.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Process Lab / Kill List",
+      "id": "proc_kill_discord__process.lab__revert",
+      "type": "button",
+      "name": "Revert: Close Discord",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Discord closed; reopen manually.\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "proc_kill_steam__process.lab",
+      "type": "button",
+      "name": "Apply: Close Steam",
+      "description": "Kills the process if running.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Process Lab / Kill List",
+      "apply": {
+        "steps": [
+          {
+            "type": "process.kill",
+            "name": "Steam"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Steam closed; reopen manually.\""
+          }
+        ]
+      }
+    },
+    {
+      "description": "Kills the process if running.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Process Lab / Kill List",
+      "id": "proc_kill_steam__process.lab__revert",
+      "type": "button",
+      "name": "Revert: Close Steam",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Steam closed; reopen manually.\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "proc_kill_epicgameslauncher__process.lab",
+      "type": "button",
+      "name": "Apply: Close EpicGamesLauncher",
+      "description": "Kills the process if running.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Process Lab / Kill List",
+      "apply": {
+        "steps": [
+          {
+            "type": "process.kill",
+            "name": "EpicGamesLauncher"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"EpicGamesLauncher closed; reopen manually.\""
+          }
+        ]
+      }
+    },
+    {
+      "description": "Kills the process if running.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Process Lab / Kill List",
+      "id": "proc_kill_epicgameslauncher__process.lab__revert",
+      "type": "button",
+      "name": "Revert: Close EpicGamesLauncher",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"EpicGamesLauncher closed; reopen manually.\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "proc_kill_onedrive__process.lab",
+      "type": "button",
+      "name": "Apply: Close OneDrive",
+      "description": "Kills the process if running.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Process Lab / Kill List",
+      "apply": {
+        "steps": [
+          {
+            "type": "process.kill",
+            "name": "OneDrive"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"OneDrive closed; reopen manually.\""
+          }
+        ]
+      }
+    },
+    {
+      "description": "Kills the process if running.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Process Lab / Kill List",
+      "id": "proc_kill_onedrive__process.lab__revert",
+      "type": "button",
+      "name": "Revert: Close OneDrive",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"OneDrive closed; reopen manually.\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "proc_kill_teams__process.lab",
+      "type": "button",
+      "name": "Apply: Close Teams",
+      "description": "Kills the process if running.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Process Lab / Kill List",
+      "apply": {
+        "steps": [
+          {
+            "type": "process.kill",
+            "name": "Teams"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Teams closed; reopen manually.\""
+          }
+        ]
+      }
+    },
+    {
+      "description": "Kills the process if running.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Process Lab / Kill List",
+      "id": "proc_kill_teams__process.lab__revert",
+      "type": "button",
+      "name": "Revert: Close Teams",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Teams closed; reopen manually.\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "proc_kill_overwolf__process.lab",
+      "type": "button",
+      "name": "Apply: Close Overwolf",
+      "description": "Kills the process if running.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Process Lab / Kill List",
+      "apply": {
+        "steps": [
+          {
+            "type": "process.kill",
+            "name": "Overwolf"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Overwolf closed; reopen manually.\""
+          }
+        ]
+      }
+    },
+    {
+      "description": "Kills the process if running.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Process Lab / Kill List",
+      "id": "proc_kill_overwolf__process.lab__revert",
+      "type": "button",
+      "name": "Revert: Close Overwolf",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Overwolf closed; reopen manually.\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "proc_kill_medal__process.lab",
+      "type": "button",
+      "name": "Apply: Close Medal",
+      "description": "Kills the process if running.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Process Lab / Kill List",
+      "apply": {
+        "steps": [
+          {
+            "type": "process.kill",
+            "name": "Medal"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Medal closed; reopen manually.\""
+          }
+        ]
+      }
+    },
+    {
+      "description": "Kills the process if running.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Process Lab / Kill List",
+      "id": "proc_kill_medal__process.lab__revert",
+      "type": "button",
+      "name": "Revert: Close Medal",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Medal closed; reopen manually.\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "proc_kill_xboxpcapp__process.lab",
+      "type": "button",
+      "name": "Apply: Close XboxPcApp",
+      "description": "Kills the process if running.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Process Lab / Kill List",
+      "apply": {
+        "steps": [
+          {
+            "type": "process.kill",
+            "name": "XboxPcApp"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"XboxPcApp closed; reopen manually.\""
+          }
+        ]
+      }
+    },
+    {
+      "description": "Kills the process if running.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Process Lab / Kill List",
+      "id": "proc_kill_xboxpcapp__process.lab__revert",
+      "type": "button",
+      "name": "Revert: Close XboxPcApp",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"XboxPcApp closed; reopen manually.\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "proc_kill_gamebar__process.lab",
+      "type": "button",
+      "name": "Apply: Close GameBar",
+      "description": "Kills the process if running.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Process Lab / Kill List",
+      "apply": {
+        "steps": [
+          {
+            "type": "process.kill",
+            "name": "GameBar"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"GameBar closed; reopen manually.\""
+          }
+        ]
+      }
+    },
+    {
+      "description": "Kills the process if running.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Process Lab / Kill List",
+      "id": "proc_kill_gamebar__process.lab__revert",
+      "type": "button",
+      "name": "Revert: Close GameBar",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"GameBar closed; reopen manually.\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "proc_kill_widgets__process.lab",
+      "type": "button",
+      "name": "Apply: Close Widgets",
+      "description": "Kills the process if running.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Process Lab / Kill List",
+      "apply": {
+        "steps": [
+          {
+            "type": "process.kill",
+            "name": "Widgets"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Widgets closed; reopen manually.\""
+          }
+        ]
+      }
+    },
+    {
+      "description": "Kills the process if running.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Process Lab / Kill List",
+      "id": "proc_kill_widgets__process.lab__revert",
+      "type": "button",
+      "name": "Revert: Close Widgets",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Widgets closed; reopen manually.\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "proc_kill_phoneexperiencehost__process.lab",
+      "type": "button",
+      "name": "Apply: Close PhoneExperienceHost",
+      "description": "Kills the process if running.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Process Lab / Kill List",
+      "apply": {
+        "steps": [
+          {
+            "type": "process.kill",
+            "name": "PhoneExperienceHost"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"PhoneExperienceHost closed; reopen manually.\""
+          }
+        ]
+      }
+    },
+    {
+      "description": "Kills the process if running.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Process Lab / Kill List",
+      "id": "proc_kill_phoneexperiencehost__process.lab__revert",
+      "type": "button",
+      "name": "Revert: Close PhoneExperienceHost",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"PhoneExperienceHost closed; reopen manually.\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "proc_kill_yourphone__process.lab",
+      "type": "button",
+      "name": "Apply: Close YourPhone",
+      "description": "Kills the process if running.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Process Lab / Kill List",
+      "apply": {
+        "steps": [
+          {
+            "type": "process.kill",
+            "name": "YourPhone"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"YourPhone closed; reopen manually.\""
+          }
+        ]
+      }
+    },
+    {
+      "description": "Kills the process if running.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Process Lab / Kill List",
+      "id": "proc_kill_yourphone__process.lab__revert",
+      "type": "button",
+      "name": "Revert: Close YourPhone",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"YourPhone closed; reopen manually.\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "proc_svc_disable_sysmain__process.lab",
+      "type": "toggle",
+      "name": "Disable service SysMain",
+      "description": "Stops and disables a background service.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Process Lab / Services",
+      "apply": {
+        "steps": [
+          {
+            "type": "service.disable",
+            "name": "SysMain"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.enable",
+            "name": "SysMain"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "SysMain",
+            "startupType": "disabled"
+          }
+        ]
+      }
+    },
+    {
+      "id": "proc_svc_disable_wsearch__process.lab",
+      "type": "toggle",
+      "name": "Disable service WSearch",
+      "description": "Stops and disables a background service.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Process Lab / Services",
+      "apply": {
+        "steps": [
+          {
+            "type": "service.disable",
+            "name": "WSearch"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.enable",
+            "name": "WSearch"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "WSearch",
+            "startupType": "disabled"
+          }
+        ]
+      }
+    },
+    {
+      "id": "proc_svc_disable_diagtrack__process.lab",
+      "type": "toggle",
+      "name": "Disable service DiagTrack",
+      "description": "Stops and disables a background service.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Process Lab / Services",
+      "apply": {
+        "steps": [
+          {
+            "type": "service.disable",
+            "name": "DiagTrack"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.enable",
+            "name": "DiagTrack"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "DiagTrack",
+            "startupType": "disabled"
+          }
+        ]
+      }
+    },
+    {
+      "id": "proc_svc_disable_pcasvc__process.lab",
+      "type": "toggle",
+      "name": "Disable service PcaSvc",
+      "description": "Stops and disables a background service.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Process Lab / Services",
+      "apply": {
+        "steps": [
+          {
+            "type": "service.disable",
+            "name": "PcaSvc"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.enable",
+            "name": "PcaSvc"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "PcaSvc",
+            "startupType": "disabled"
+          }
+        ]
+      }
+    },
+    {
+      "id": "proc_svc_disable_wpnservice__process.lab",
+      "type": "toggle",
+      "name": "Disable service WpnService",
+      "description": "Stops and disables a background service.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Process Lab / Services",
+      "apply": {
+        "steps": [
+          {
+            "type": "service.disable",
+            "name": "WpnService"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.enable",
+            "name": "WpnService"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "WpnService",
+            "startupType": "disabled"
+          }
+        ]
+      }
+    },
+    {
+      "id": "proc_svc_disable_mapsbroker__process.lab",
+      "type": "toggle",
+      "name": "Disable service MapsBroker",
+      "description": "Stops and disables a background service.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Process Lab / Services",
+      "apply": {
+        "steps": [
+          {
+            "type": "service.disable",
+            "name": "MapsBroker"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.enable",
+            "name": "MapsBroker"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "MapsBroker",
+            "startupType": "disabled"
+          }
+        ]
+      }
+    },
+    {
+      "id": "proc_svc_disable_fax__process.lab",
+      "type": "toggle",
+      "name": "Disable service Fax",
+      "description": "Stops and disables a background service.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Process Lab / Services",
+      "apply": {
+        "steps": [
+          {
+            "type": "service.disable",
+            "name": "Fax"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.enable",
+            "name": "Fax"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "Fax",
+            "startupType": "disabled"
+          }
+        ]
+      }
+    },
+    {
+      "id": "proc_svc_disable_spooler__process.lab",
+      "type": "toggle",
+      "name": "Disable service Spooler",
+      "description": "Stops and disables a background service.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Process Lab / Services",
+      "apply": {
+        "steps": [
+          {
+            "type": "service.disable",
+            "name": "Spooler"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.enable",
+            "name": "Spooler"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "Spooler",
+            "startupType": "disabled"
+          }
+        ]
+      }
+    },
+    {
+      "id": "proc_svc_disable_remoteregistry__process.lab",
+      "type": "toggle",
+      "name": "Disable service RemoteRegistry",
+      "description": "Stops and disables a background service.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Process Lab / Services",
+      "apply": {
+        "steps": [
+          {
+            "type": "service.disable",
+            "name": "RemoteRegistry"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.enable",
+            "name": "RemoteRegistry"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "RemoteRegistry",
+            "startupType": "disabled"
+          }
+        ]
+      }
+    },
+    {
+      "id": "proc_svc_disable_w32time__process.lab",
+      "type": "toggle",
+      "name": "Disable service W32Time",
+      "description": "Stops and disables a background service.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Process Lab / Services",
+      "apply": {
+        "steps": [
+          {
+            "type": "service.disable",
+            "name": "W32Time"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.enable",
+            "name": "W32Time"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "W32Time",
+            "startupType": "disabled"
+          }
+        ]
+      }
+    },
+    {
+      "id": "proc_svc_disable_dosvc__process.lab",
+      "type": "toggle",
+      "name": "Disable service DoSvc",
+      "description": "Stops and disables a background service.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Process Lab / Services",
+      "apply": {
+        "steps": [
+          {
+            "type": "service.disable",
+            "name": "DoSvc"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.enable",
+            "name": "DoSvc"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "DoSvc",
+            "startupType": "disabled"
+          }
+        ]
+      }
+    },
+    {
+      "id": "proc_svc_disable_bits__process.lab",
+      "type": "toggle",
+      "name": "Disable service BITS",
+      "description": "Stops and disables a background service.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Process Lab / Services",
+      "apply": {
+        "steps": [
+          {
+            "type": "service.disable",
+            "name": "BITS"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.enable",
+            "name": "BITS"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "BITS",
+            "startupType": "disabled"
+          }
+        ]
+      }
+    },
+    {
+      "id": "processlab.proc_backgroundtaskhost",
+      "type": "button",
+      "name": "Apply: Stop backgroundtaskhost.exe while gaming",
+      "category": "Process Lab / Processes",
+      "risk": "Extreme",
+      "riskLevel": "Extreme",
+      "description": "Stops this process for the current session. This may break input, language features, or background tasks. Use only if you understand the side effects.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "process.kill",
+            "image": "backgroundtaskhost.exe"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "process.start",
+            "image": "backgroundtaskhost.exe"
+          }
+        ]
+      }
+    },
+    {
+      "category": "Process Lab / Processes",
+      "risk": "Extreme",
+      "riskLevel": "Extreme",
+      "description": "Stops this process for the current session. This may break input, language features, or background tasks. Use only if you understand the side effects.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "id": "processlab.proc_backgroundtaskhost__revert",
+      "type": "button",
+      "name": "Revert: Stop backgroundtaskhost.exe while gaming",
+      "apply": {
+        "steps": [
+          {
+            "type": "process.start",
+            "image": "backgroundtaskhost.exe"
+          }
+        ]
+      }
+    },
+    {
+      "id": "processlab.proc_ctfmon",
+      "type": "button",
+      "name": "Apply: Stop ctfmon.exe while gaming",
+      "category": "Process Lab / Processes",
+      "risk": "Extreme",
+      "riskLevel": "Extreme",
+      "description": "Stops this process for the current session. This may break input, language features, or background tasks. Use only if you understand the side effects.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "process.kill",
+            "image": "ctfmon.exe"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "process.start",
+            "image": "ctfmon.exe"
+          }
+        ]
+      }
+    },
+    {
+      "category": "Process Lab / Processes",
+      "risk": "Extreme",
+      "riskLevel": "Extreme",
+      "description": "Stops this process for the current session. This may break input, language features, or background tasks. Use only if you understand the side effects.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "id": "processlab.proc_ctfmon__revert",
+      "type": "button",
+      "name": "Revert: Stop ctfmon.exe while gaming",
+      "apply": {
+        "steps": [
+          {
+            "type": "process.start",
+            "image": "ctfmon.exe"
+          }
+        ]
+      }
+    },
+    {
+      "id": "processlab.proc_textinputhost",
+      "type": "button",
+      "name": "Apply: Stop textinputhost.exe while gaming",
+      "category": "Process Lab / Processes",
+      "risk": "Extreme",
+      "riskLevel": "Extreme",
+      "description": "Stops this process for the current session. This may break input, language features, or background tasks. Use only if you understand the side effects.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "process.kill",
+            "image": "textinputhost.exe"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "process.start",
+            "image": "textinputhost.exe"
+          }
+        ]
+      }
+    },
+    {
+      "category": "Process Lab / Processes",
+      "risk": "Extreme",
+      "riskLevel": "Extreme",
+      "description": "Stops this process for the current session. This may break input, language features, or background tasks. Use only if you understand the side effects.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "id": "processlab.proc_textinputhost__revert",
+      "type": "button",
+      "name": "Revert: Stop textinputhost.exe while gaming",
+      "apply": {
+        "steps": [
+          {
+            "type": "process.start",
+            "image": "textinputhost.exe"
+          }
+        ]
+      }
+    },
+    {
+      "id": "processlab.kill_textinputhost_exe",
+      "type": "button",
+      "name": "Close TextInputHost.exe (Session Only)",
+      "category": "Process Lab / Imported",
+      "risk": "Danger",
+      "riskLevel": "Danger",
+      "description": "Closes TextInputHost.exe for the current session. Danger: can break typing/input/search or Windows UI depending on the process.\nReboot/logoff restores it.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "process.kill",
+            "imageName": "TextInputHost.exe",
+            "force": true
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "processlab.kill_backgroundtaskhost_exe",
+      "type": "button",
+      "name": "Close backgroundTaskHost.exe (Session Only)",
+      "category": "Process Lab / Imported",
+      "risk": "Danger",
+      "riskLevel": "Danger",
+      "description": "Closes backgroundTaskHost.exe for the current session. Danger: can break typing/input/search or Windows UI depending on the process.\nReboot/logoff restores it.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "process.kill",
+            "imageName": "backgroundTaskHost.exe",
+            "force": true
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "processlab.kill_ctfmon_exe",
+      "type": "button",
+      "name": "Close ctfmon.exe (Session Only)",
+      "category": "Process Lab / Imported",
+      "risk": "Danger",
+      "riskLevel": "Danger",
+      "description": "Closes ctfmon.exe for the current session. Danger: can break typing/input/search or Windows UI depending on the process.\nReboot/logoff restores it.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "process.kill",
+            "imageName": "ctfmon.exe",
+            "force": true
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    }
+  ]
+}

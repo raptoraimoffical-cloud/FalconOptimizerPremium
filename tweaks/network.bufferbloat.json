@@ -1,0 +1,96 @@
+{
+  "items": [
+    {
+      "id": "net.bufferbloat.tester",
+      "type": "button",
+      "name": "Bufferbloat Test (Ping Under Load)",
+      "description": "Runs baseline ping then pings while downloading a test file. Grade A-D based on latency increase. Requires internet.",
+      "requiresAdmin": false,
+      "riskLevel": "Safe",
+      "category": "Network / Bufferbloat",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "path": "scripts/network/bufferbloat-test.ps1",
+            "args": {
+              "PingHost": "1.1.1.1",
+              "Seconds": 20
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "net.bufferbloat.normal",
+      "type": "button",
+      "name": "Normal Mode",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Restores throughput-focused settings.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "netsh interface tcp set global autotuninglevel=normal"
+          },
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "netsh interface tcp set global ecncapability=disabled"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "Network",
+      "note": "Converted from toggle (missing revert)."
+    },
+    {
+      "id": "net.bufferbloat.ultralow",
+      "type": "button",
+      "name": "Ultra Low Bufferbloat",
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Latency-focused settings (reduced throughput).",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "netsh interface tcp set global autotuninglevel=disabled"
+          },
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "netsh interface tcp set global ecncapability=enabled"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "Network",
+      "note": "Converted from toggle (missing revert)."
+    },
+    {
+      "id": "net.bufferbloat.test",
+      "excludeFromApplyAll": true,
+      "type": "button",
+      "name": "Bufferbloat Test",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Opens a bufferbloat test in your browser.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "start \"\" \"https://www.waveform.com/tools/bufferbloat\""
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "Network",
+      "note": "Converted from toggle (missing revert)."
+    }
+  ]
+}

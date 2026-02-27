@@ -1,0 +1,3308 @@
+{
+  "items": [
+    {
+      "id": "exp_reg_hkcu_control_panel_desktop_menushowdelay",
+      "name": "Registry tweak: MenuShowDelay",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Explorer menu delay to 0ms (snappier menus).",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Control Panel\\Desktop",
+            "name": "MenuShowDelay",
+            "value": 0,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Control Panel\\Desktop",
+            "name": "MenuShowDelay"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Control Panel\\Desktop",
+            "name": "MenuShowDelay",
+            "valueType": "DWORD",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hkcu_control_panel_desktop_mousehovertime",
+      "name": "Registry tweak: MouseHoverTime",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Reduce mouse hover time.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Control Panel\\Desktop",
+            "name": "MouseHoverTime",
+            "value": 10,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Control Panel\\Desktop",
+            "name": "MouseHoverTime"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Control Panel\\Desktop",
+            "name": "MouseHoverTime",
+            "valueType": "DWORD",
+            "equals": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hkcu_control_panel_desktop_foregroundlocktimeout",
+      "name": "Registry tweak: ForegroundLockTimeout",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Reduce foreground lock timeout.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Control Panel\\Desktop",
+            "name": "ForegroundLockTimeout",
+            "value": 0,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Control Panel\\Desktop",
+            "name": "ForegroundLockTimeout"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Control Panel\\Desktop",
+            "name": "ForegroundLockTimeout",
+            "valueType": "DWORD",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hkcu_software_microsoft_windows_currentversion_explorer_advanced_disablepreviewdes",
+      "name": "Registry tweak: DisablePreviewDesktop",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Disable Aero Peek.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "DisablePreviewDesktop",
+            "value": 1,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "DisablePreviewDesktop"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "DisablePreviewDesktop",
+            "valueType": "DWORD",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hkcu_software_microsoft_windows_currentversion_explorer_advanced_taskbaranimations",
+      "name": "Registry tweak: TaskbarAnimations",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Disable taskbar animations.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "TaskbarAnimations",
+            "value": 0,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "TaskbarAnimations"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "TaskbarAnimations",
+            "valueType": "DWORD",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hkcu_software_microsoft_windows_currentversion_explorer_advanced_listviewalphasele",
+      "name": "Registry tweak: ListviewAlphaSelect",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Disable selection fade effects.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "ListviewAlphaSelect",
+            "value": 0,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "ListviewAlphaSelect"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "ListviewAlphaSelect",
+            "valueType": "DWORD",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hkcu_software_microsoft_windows_currentversion_explorer_advanced_listviewshadow",
+      "name": "Registry tweak: ListviewShadow",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Disable icon shadows.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "ListviewShadow",
+            "value": 0,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "ListviewShadow"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "ListviewShadow",
+            "valueType": "DWORD",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hkcu_software_microsoft_windows_dwm_colorprevalence",
+      "name": "Registry tweak: ColorPrevalence",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Enable accent color on title bars.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\DWM",
+            "name": "ColorPrevalence",
+            "value": 1,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\DWM",
+            "name": "ColorPrevalence"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\DWM",
+            "name": "ColorPrevalence",
+            "valueType": "DWORD",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hklm_software_policies_microsoft_windows_gamedvr_allowgamedvr",
+      "name": "Registry tweak: AllowGameDVR",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Disable GameDVR (policy).",
+      "riskLevel": "Safe",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\GameDVR",
+            "name": "AllowGameDVR",
+            "value": 0,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\GameDVR",
+            "name": "AllowGameDVR"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\GameDVR",
+            "name": "AllowGameDVR",
+            "valueType": "DWORD",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hkcu_software_microsoft_gamebar_showstartuppanel",
+      "name": "Registry tweak: ShowStartupPanel",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Disable Game Bar startup panel.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\GameBar",
+            "name": "ShowStartupPanel",
+            "value": 0,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\GameBar",
+            "name": "ShowStartupPanel"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\GameBar",
+            "name": "ShowStartupPanel",
+            "valueType": "DWORD",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hkcu_software_microsoft_gamebar_usenexusforgamebarenabled",
+      "name": "Registry tweak: UseNexusForGameBarEnabled",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Disable Game Bar Nexus.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\GameBar",
+            "name": "UseNexusForGameBarEnabled",
+            "value": 0,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\GameBar",
+            "name": "UseNexusForGameBarEnabled"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\GameBar",
+            "name": "UseNexusForGameBarEnabled",
+            "valueType": "DWORD",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hklm_software_policies_microsoft_windows_cloudcontent_disabletailoredexperienceswi",
+      "name": "Registry tweak: DisableTailoredExperiencesWithDiagnosticData",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Disable tailored experiences.",
+      "riskLevel": "Safe",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\CloudContent",
+            "name": "DisableTailoredExperiencesWithDiagnosticData",
+            "value": 1,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\CloudContent",
+            "name": "DisableTailoredExperiencesWithDiagnosticData"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\CloudContent",
+            "name": "DisableTailoredExperiencesWithDiagnosticData",
+            "valueType": "DWORD",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hkcu_software_microsoft_windows_currentversion_contentdeliverymanager_silentinstal",
+      "name": "Registry tweak: SilentInstalledAppsEnabled",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Disable silent app installs.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+            "name": "SilentInstalledAppsEnabled",
+            "value": 0,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+            "name": "SilentInstalledAppsEnabled"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+            "name": "SilentInstalledAppsEnabled",
+            "valueType": "DWORD",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hklm_software_policies_microsoft_windows_windows_search_disablewebsearch",
+      "name": "Registry tweak: DisableWebSearch",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Disable web search in Start.",
+      "riskLevel": "Safe",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search",
+            "name": "DisableWebSearch",
+            "value": 1,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search",
+            "name": "DisableWebSearch"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search",
+            "name": "DisableWebSearch",
+            "valueType": "DWORD",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hkcu_software_microsoft_windows_currentversion_search_allowsearchtouselocation",
+      "name": "Registry tweak: AllowSearchToUseLocation",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Disable search location usage.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Search",
+            "name": "AllowSearchToUseLocation",
+            "value": 0,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Search",
+            "name": "AllowSearchToUseLocation"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Search",
+            "name": "AllowSearchToUseLocation",
+            "valueType": "DWORD",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hklm_system_currentcontrolset_control_waittokillservicetimeout",
+      "name": "Registry tweak: WaitToKillServiceTimeout",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Reduce service stop timeout.",
+      "riskLevel": "Safe",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control",
+            "name": "WaitToKillServiceTimeout",
+            "value": "2000"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control",
+            "name": "WaitToKillServiceTimeout"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control",
+            "name": "WaitToKillServiceTimeout",
+            "valueType": null,
+            "equals": "2000"
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hkcu_software_microsoft_windows_currentversion_explorer_advanced_start_trackdocs",
+      "name": "Registry tweak: Start_TrackDocs",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Disable tracking of recent documents.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Start_TrackDocs",
+            "value": 0,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Start_TrackDocs"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Start_TrackDocs",
+            "valueType": "DWORD",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hkcu_software_microsoft_windows_currentversion_explorer_advanced_start_trackprogs",
+      "name": "Registry tweak: Start_TrackProgs",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Disable tracking of frequently used programs.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Start_TrackProgs",
+            "value": 0,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Start_TrackProgs"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Start_TrackProgs",
+            "valueType": "DWORD",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hkcu_software_microsoft_windows_currentversion_explorer_advanced_start_irisrecomme",
+      "name": "Registry tweak: Start_IrisRecommendations",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Disable Start recommendations.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Start_IrisRecommendations",
+            "value": 0,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Start_IrisRecommendations"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Start_IrisRecommendations",
+            "valueType": "DWORD",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hkcu_software_microsoft_windows_currentversion_explorer_advanced_showsyncprovidern",
+      "name": "Registry tweak: ShowSyncProviderNotifications",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Disable sync provider notifications.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "ShowSyncProviderNotifications",
+            "value": 0,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "ShowSyncProviderNotifications"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "ShowSyncProviderNotifications",
+            "valueType": "DWORD",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hkcu_software_microsoft_windows_currentversion_explorer_showfrequent",
+      "name": "Registry tweak: ShowFrequent",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Disable frequent files in Quick Access.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer",
+            "name": "ShowFrequent",
+            "value": 0,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer",
+            "name": "ShowFrequent"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer",
+            "name": "ShowFrequent",
+            "valueType": "DWORD",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hkcu_software_microsoft_windows_currentversion_explorer_showrecent",
+      "name": "Registry tweak: ShowRecent",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Disable recent files in Quick Access.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer",
+            "name": "ShowRecent",
+            "value": 0,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer",
+            "name": "ShowRecent"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer",
+            "name": "ShowRecent",
+            "valueType": "DWORD",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hkcu_software_microsoft_windows_currentversion_explorer_advanced_enableballoontips",
+      "name": "Registry tweak: EnableBalloonTips",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Disable balloon tips.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "EnableBalloonTips",
+            "value": 0,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "EnableBalloonTips"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "EnableBalloonTips",
+            "valueType": "DWORD",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hkcu_control_panel_international_ifirstdayofweek",
+      "name": "Registry tweak: iFirstDayOfWeek",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Set first day of week to Sunday (optional).",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Control Panel\\International",
+            "name": "iFirstDayOfWeek",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Control Panel\\International",
+            "name": "iFirstDayOfWeek"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Control Panel\\International",
+            "name": "iFirstDayOfWeek",
+            "valueType": null,
+            "equals": "0"
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hklm_software_policies_microsoft_windows_system_disablecmd",
+      "name": "Registry tweak: DisableCMD",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Ensure CMD is not disabled by policy.",
+      "riskLevel": "Safe",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\System",
+            "name": "DisableCMD",
+            "value": 0,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\System",
+            "name": "DisableCMD"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\System",
+            "name": "DisableCMD",
+            "valueType": "DWORD",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hklm_software_microsoft_windows_currentversion_explorer_advanced_separateprocess",
+      "name": "Registry tweak: SeparateProcess",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Run folder windows in separate process.",
+      "riskLevel": "Safe",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "SeparateProcess",
+            "value": 1,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "SeparateProcess"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "SeparateProcess",
+            "valueType": "DWORD",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hklm_software_policies_microsoft_windows_system_disableacrylicbackgroundonlogon",
+      "name": "Registry tweak: DisableAcrylicBackgroundOnLogon",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Disable acrylic background on logon.",
+      "riskLevel": "Safe",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\System",
+            "name": "DisableAcrylicBackgroundOnLogon",
+            "value": 1,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\System",
+            "name": "DisableAcrylicBackgroundOnLogon"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\System",
+            "name": "DisableAcrylicBackgroundOnLogon",
+            "valueType": "DWORD",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hkcu_software_microsoft_windows_currentversion_explorer_advanced_start_showmoretil",
+      "name": "Registry tweak: Start_ShowMoreTiles",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Reduce tiles/Start clutter.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Start_ShowMoreTiles",
+            "value": 0,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Start_ShowMoreTiles"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Start_ShowMoreTiles",
+            "valueType": "DWORD",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hklm_software_policies_microsoft_windows_explorer_disablenotificationcenter",
+      "name": "Registry tweak: DisableNotificationCenter",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Disable notification center (reduces background).",
+      "riskLevel": "Safe",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Explorer",
+            "name": "DisableNotificationCenter",
+            "value": 1,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Explorer",
+            "name": "DisableNotificationCenter"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Explorer",
+            "name": "DisableNotificationCenter",
+            "valueType": "DWORD",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hkcu_software_microsoft_windows_currentversion_notifications_settings_noc_global_s",
+      "name": "Registry tweak: NOC_GLOBAL_SETTING_TOASTS_ENABLED",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Disable toast notifications.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Notifications\\Settings",
+            "name": "NOC_GLOBAL_SETTING_TOASTS_ENABLED",
+            "value": 0,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Notifications\\Settings",
+            "name": "NOC_GLOBAL_SETTING_TOASTS_ENABLED"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Notifications\\Settings",
+            "name": "NOC_GLOBAL_SETTING_TOASTS_ENABLED",
+            "valueType": "DWORD",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hklm_software_policies_microsoft_windows_windows_feeds_enablefeeds",
+      "name": "Registry tweak: EnableFeeds",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Disable Windows Feeds.",
+      "riskLevel": "Safe",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Feeds",
+            "name": "EnableFeeds",
+            "value": 0,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Feeds",
+            "name": "EnableFeeds"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Feeds",
+            "name": "EnableFeeds",
+            "valueType": "DWORD",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hkcu_software_microsoft_windows_currentversion_feeds_shellfeedstaskbarviewmode",
+      "name": "Registry tweak: ShellFeedsTaskbarViewMode",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Disable widgets/feeds on taskbar.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Feeds",
+            "name": "ShellFeedsTaskbarViewMode",
+            "value": 2,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Feeds",
+            "name": "ShellFeedsTaskbarViewMode"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Feeds",
+            "name": "ShellFeedsTaskbarViewMode",
+            "valueType": "DWORD",
+            "equals": 2
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hklm_software_policies_microsoft_windows_explorer_disablesearchboxsuggestions",
+      "name": "Registry tweak: DisableSearchBoxSuggestions",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Disable search box suggestions.",
+      "riskLevel": "Safe",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Explorer",
+            "name": "DisableSearchBoxSuggestions",
+            "value": 1,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Explorer",
+            "name": "DisableSearchBoxSuggestions"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Explorer",
+            "name": "DisableSearchBoxSuggestions",
+            "valueType": "DWORD",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hkcu_software_microsoft_windows_currentversion_explorer_advanced_launchto",
+      "name": "Registry tweak: LaunchTo",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Open File Explorer to 'This PC'.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "LaunchTo",
+            "value": 1,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "LaunchTo"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "LaunchTo",
+            "valueType": "DWORD",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hklm_software_microsoft_windows_nt_currentversion_multimedia_systemprofile_tasks_g",
+      "name": "Registry tweak: SFIO Priority",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Games SFIO priority.",
+      "riskLevel": "Safe",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games",
+            "name": "SFIO Priority",
+            "value": "High"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games",
+            "name": "SFIO Priority"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games",
+            "name": "SFIO Priority",
+            "valueType": null,
+            "equals": "High"
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hkcu_software_microsoft_windows_currentversion_explorer_advanced_iconsonly",
+      "name": "Registry tweak: IconsOnly",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Show icons only (hide thumbnails).",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "IconsOnly",
+            "value": 1,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "IconsOnly"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "IconsOnly",
+            "valueType": "DWORD",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hkcu_software_microsoft_windows_currentversion_explorer_advanced_showinfotip",
+      "name": "Registry tweak: ShowInfoTip",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Disable infotips.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "ShowInfoTip",
+            "value": 0,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "ShowInfoTip"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "ShowInfoTip",
+            "valueType": "DWORD",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hkcu_software_microsoft_windows_currentversion_explorer_advanced_showtypeoverlay",
+      "name": "Registry tweak: ShowTypeOverlay",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Disable shortcut arrow overlay.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "ShowTypeOverlay",
+            "value": 0,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "ShowTypeOverlay"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "ShowTypeOverlay",
+            "valueType": "DWORD",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hkcu_software_microsoft_windows_currentversion_explorer_advanced_disablethumbnailc",
+      "name": "Registry tweak: DisableThumbnailCache",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Ensure thumbnail cache enabled (faster browsing).",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "DisableThumbnailCache",
+            "value": 0,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "DisableThumbnailCache"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "DisableThumbnailCache",
+            "valueType": "DWORD",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hklm_software_policies_microsoft_windows_explorer_nonewappalert",
+      "name": "Registry tweak: NoNewAppAlert",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Disable 'new app installed' notifications.",
+      "riskLevel": "Safe",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Explorer",
+            "name": "NoNewAppAlert",
+            "value": 1,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Explorer",
+            "name": "NoNewAppAlert"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Explorer",
+            "name": "NoNewAppAlert",
+            "valueType": "DWORD",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hklm_software_policies_microsoft_windows_system_allowclipboardhistory",
+      "name": "Registry tweak: AllowClipboardHistory",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Disable clipboard history.",
+      "riskLevel": "Safe",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\System",
+            "name": "AllowClipboardHistory",
+            "value": 0,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\System",
+            "name": "AllowClipboardHistory"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\System",
+            "name": "AllowClipboardHistory",
+            "valueType": "DWORD",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hklm_software_policies_microsoft_windows_system_allowcrossdeviceclipboard",
+      "name": "Registry tweak: AllowCrossDeviceClipboard",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Disable cross-device clipboard.",
+      "riskLevel": "Safe",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\System",
+            "name": "AllowCrossDeviceClipboard",
+            "value": 0,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\System",
+            "name": "AllowCrossDeviceClipboard"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\System",
+            "name": "AllowCrossDeviceClipboard",
+            "valueType": "DWORD",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hklm_software_policies_microsoft_windows_system_disableacrylicbackgroundonlogon_2",
+      "name": "Registry tweak: DisableAcrylicBackgroundOnLogon",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Disable acrylic background on logon.",
+      "riskLevel": "Safe",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\System",
+            "name": "DisableAcrylicBackgroundOnLogon",
+            "value": 1,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\System",
+            "name": "DisableAcrylicBackgroundOnLogon"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\System",
+            "name": "DisableAcrylicBackgroundOnLogon",
+            "valueType": "DWORD",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hklm_software_policies_microsoft_windows_system_enablesmartscreen",
+      "name": "Registry tweak: EnableSmartScreen",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Disable SmartScreen (policy).",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\System",
+            "name": "EnableSmartScreen",
+            "value": 0,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\System",
+            "name": "EnableSmartScreen"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\System",
+            "name": "EnableSmartScreen",
+            "valueType": "DWORD",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hkcu_software_microsoft_windows_currentversion_explorer_advanced_start_showclassic",
+      "name": "Registry tweak: Start_ShowClassicMode",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Use classic Start behavior where supported.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Start_ShowClassicMode",
+            "value": 1,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Start_ShowClassicMode"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Start_ShowClassicMode",
+            "valueType": "DWORD",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hkcu_software_microsoft_windows_currentversion_explorer_advanced_showcortanabutton",
+      "name": "Registry tweak: ShowCortanaButton",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Hide Cortana button (if present).",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "ShowCortanaButton",
+            "value": 0,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "ShowCortanaButton"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "ShowCortanaButton",
+            "valueType": "DWORD",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hkcu_software_microsoft_windows_currentversion_explorer_advanced_showtaskviewbutto",
+      "name": "Registry tweak: ShowTaskViewButton",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Hide Task View button.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "ShowTaskViewButton",
+            "value": 0,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "ShowTaskViewButton"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "ShowTaskViewButton",
+            "valueType": "DWORD",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hkcu_software_microsoft_windows_currentversion_explorer_advanced_showsecondsinsyst",
+      "name": "Registry tweak: ShowSecondsInSystemClock",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Show seconds in system clock.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "ShowSecondsInSystemClock",
+            "value": 1,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "ShowSecondsInSystemClock"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "ShowSecondsInSystemClock",
+            "valueType": "DWORD",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hkcu_software_microsoft_windows_currentversion_search_searchboxtaskbarmode",
+      "name": "Registry tweak: SearchboxTaskbarMode",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Hide Search box on taskbar.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Search",
+            "name": "SearchboxTaskbarMode",
+            "value": 0,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Search",
+            "name": "SearchboxTaskbarMode"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Search",
+            "name": "SearchboxTaskbarMode",
+            "valueType": "DWORD",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hkcu_software_microsoft_windows_currentversion_searchsettings_isdevicesearchhistor",
+      "name": "Registry tweak: IsDeviceSearchHistoryEnabled",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Disable device search history.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\SearchSettings",
+            "name": "IsDeviceSearchHistoryEnabled",
+            "value": 0,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\SearchSettings",
+            "name": "IsDeviceSearchHistoryEnabled"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\SearchSettings",
+            "name": "IsDeviceSearchHistoryEnabled",
+            "valueType": "DWORD",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hkcu_software_microsoft_windows_currentversion_searchsettings_iscloudsearchenabled",
+      "name": "Registry tweak: IsCloudSearchEnabled",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Disable cloud search.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\SearchSettings",
+            "name": "IsCloudSearchEnabled",
+            "value": 0,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\SearchSettings",
+            "name": "IsCloudSearchEnabled"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\SearchSettings",
+            "name": "IsCloudSearchEnabled",
+            "valueType": "DWORD",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hkcu_software_microsoft_windows_currentversion_explorer_advanced_useoledtaskbartra",
+      "name": "Registry tweak: UseOLEDTaskbarTransparency",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Disable taskbar transparency.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "UseOLEDTaskbarTransparency",
+            "value": 0,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "UseOLEDTaskbarTransparency"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "UseOLEDTaskbarTransparency",
+            "valueType": "DWORD",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hkcu_software_microsoft_windows_currentversion_explorer_advanced_enablesnapbar",
+      "name": "Registry tweak: EnableSnapBar",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Disable snap bar (Win11).",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "EnableSnapBar",
+            "value": 0,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "EnableSnapBar"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "EnableSnapBar",
+            "valueType": "DWORD",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hklm_system_currentcontrolset_control_graphicsdrivers_tdrddidelay",
+      "name": "Registry tweak: TdrDdiDelay",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Set GPU TDR DDI delay to 10.",
+      "riskLevel": "Safe",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\GraphicsDrivers",
+            "name": "TdrDdiDelay",
+            "value": 10,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\GraphicsDrivers",
+            "name": "TdrDdiDelay"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\GraphicsDrivers",
+            "name": "TdrDdiDelay",
+            "valueType": "DWORD",
+            "equals": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hkcu_software_microsoft_windows_currentversion_explorer_advanced_disablesearchboxs",
+      "name": "Registry tweak: DisableSearchBoxSuggestions",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Disable search box suggestions (user).",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "DisableSearchBoxSuggestions",
+            "value": 1,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "DisableSearchBoxSuggestions"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "DisableSearchBoxSuggestions",
+            "valueType": "DWORD",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hkcu_software_microsoft_windows_currentversion_explorer_advanced_start_notifynewap",
+      "name": "Registry tweak: Start_NotifyNewApps",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Disable 'new apps installed' notifications (user).",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Start_NotifyNewApps",
+            "value": 0,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Start_NotifyNewApps"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Start_NotifyNewApps",
+            "valueType": "DWORD",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hkcu_software_microsoft_windows_currentversion_explorer_advanced_taskbaral",
+      "name": "Registry tweak: TaskbarAl",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Disable taskbar alignment center (0=left) (Win11).",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "TaskbarAl",
+            "value": 0,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "TaskbarAl"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "TaskbarAl",
+            "valueType": "DWORD",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hkcu_software_microsoft_windows_currentversion_explorer_advanced_showcopilotbutton",
+      "name": "Registry tweak: ShowCopilotButton",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Hide Copilot button (if present).",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "ShowCopilotButton",
+            "value": 0,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "ShowCopilotButton"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "ShowCopilotButton",
+            "valueType": "DWORD",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hkcu_software_microsoft_windows_currentversion_explorer_advanced_start_layout",
+      "name": "Registry tweak: Start_Layout",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Reduce Start layout density (if supported).",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Start_Layout",
+            "value": 1,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Start_Layout"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Start_Layout",
+            "valueType": "DWORD",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hkcu_software_microsoft_windows_currentversion_explorer_advanced_snapassist",
+      "name": "Registry tweak: SnapAssist",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Disable Snap Assist.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "SnapAssist",
+            "value": 0,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "SnapAssist"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "SnapAssist",
+            "valueType": "DWORD",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hkcu_software_microsoft_windows_currentversion_explorer_advanced_disabletaskbarthu",
+      "name": "Registry tweak: DisableTaskbarThumbnails",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Ensure taskbar thumbnails enabled.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "DisableTaskbarThumbnails",
+            "value": 0,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "DisableTaskbarThumbnails"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "DisableTaskbarThumbnails",
+            "valueType": "DWORD",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hkcu_software_microsoft_windows_currentversion_explorer_advanced_extendeduihoverti",
+      "name": "Registry tweak: ExtendedUIHoverTime",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Reduce extended UI hover time.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "ExtendedUIHoverTime",
+            "value": 0,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "ExtendedUIHoverTime"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "ExtendedUIHoverTime",
+            "valueType": "DWORD",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hkcu_software_microsoft_windows_currentversion_explorer_advanced_start_searchfiles",
+      "name": "Registry tweak: Start_SearchFiles",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Prioritize local file search.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Start_SearchFiles",
+            "value": 1,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Start_SearchFiles"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Start_SearchFiles",
+            "valueType": "DWORD",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hkcu_software_microsoft_windows_currentversion_explorer_advanced_start_searchprogr",
+      "name": "Registry tweak: Start_SearchPrograms",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Prioritize programs in search.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Start_SearchPrograms",
+            "value": 1,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Start_SearchPrograms"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Start_SearchPrograms",
+            "valueType": "DWORD",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hkcu_software_microsoft_windows_currentversion_explorer_advanced_start_searchinter",
+      "name": "Registry tweak: Start_SearchInternet",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Disable internet search results.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Start_SearchInternet",
+            "value": 0,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Start_SearchInternet"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Start_SearchInternet",
+            "valueType": "DWORD",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hkcu_software_microsoft_windows_currentversion_explorer_advanced_start_showappsvie",
+      "name": "Registry tweak: Start_ShowAppsView",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Prefer all apps view (if supported).",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Start_ShowAppsView",
+            "value": 1,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Start_ShowAppsView"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Start_ShowAppsView",
+            "valueType": "DWORD",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hkcu_software_microsoft_windows_currentversion_explorer_advanced_start_showrecentl",
+      "name": "Registry tweak: Start_ShowRecentlyAddedApps",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Hide recently added apps.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Start_ShowRecentlyAddedApps",
+            "value": 0,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Start_ShowRecentlyAddedApps"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Start_ShowRecentlyAddedApps",
+            "valueType": "DWORD",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hkcu_software_microsoft_windows_currentversion_explorer_advanced_start_showmostuse",
+      "name": "Registry tweak: Start_ShowMostUsedApps",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Hide most used apps.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Start_ShowMostUsedApps",
+            "value": 0,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Start_ShowMostUsedApps"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Start_ShowMostUsedApps",
+            "valueType": "DWORD",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hkcu_software_microsoft_windows_currentversion_explorer_advanced_start_jumplistite",
+      "name": "Registry tweak: Start_JumpListItems",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Set jump list items to 10.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Start_JumpListItems",
+            "value": 10,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Start_JumpListItems"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Start_JumpListItems",
+            "valueType": "DWORD",
+            "equals": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hkcu_software_microsoft_windows_currentversion_explorer_advanced_start_trackdocs_2",
+      "name": "Registry tweak: Start_TrackDocs",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Disable tracking docs (duplicate-safe).",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Start_TrackDocs",
+            "value": 0,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Start_TrackDocs"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Start_TrackDocs",
+            "valueType": "DWORD",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hkcu_software_microsoft_windows_currentversion_explorer_advanced_disabledynamicscr",
+      "name": "Registry tweak: DisableDynamicScrollbars",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Disable dynamic scrollbars.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "DisableDynamicScrollbars",
+            "value": 1,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "DisableDynamicScrollbars"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "DisableDynamicScrollbars",
+            "valueType": "DWORD",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hkcu_control_panel_keyboard_keyboarddelay",
+      "name": "Registry tweak: KeyboardDelay",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Keyboard repeat delay to fastest.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Control Panel\\Keyboard",
+            "name": "KeyboardDelay",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Control Panel\\Keyboard",
+            "name": "KeyboardDelay"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Control Panel\\Keyboard",
+            "name": "KeyboardDelay",
+            "valueType": null,
+            "equals": "0"
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hkcu_control_panel_keyboard_keyboardspeed",
+      "name": "Registry tweak: KeyboardSpeed",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Keyboard repeat rate to max.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Control Panel\\Keyboard",
+            "name": "KeyboardSpeed",
+            "value": "31"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Control Panel\\Keyboard",
+            "name": "KeyboardSpeed"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Control Panel\\Keyboard",
+            "name": "KeyboardSpeed",
+            "valueType": null,
+            "equals": "31"
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hkcu_software_microsoft_windows_currentversion_explorer_advanced_start_showrun",
+      "name": "Registry tweak: Start_ShowRun",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Show Run in Start context.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Start_ShowRun",
+            "value": 1,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Start_ShowRun"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Start_ShowRun",
+            "valueType": "DWORD",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hkcu_software_microsoft_windows_currentversion_explorer_advanced_start_showcontrol",
+      "name": "Registry tweak: Start_ShowControlPanel",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Show Control Panel in Start.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Start_ShowControlPanel",
+            "value": 1,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Start_ShowControlPanel"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Start_ShowControlPanel",
+            "valueType": "DWORD",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hkcu_software_microsoft_windows_currentversion_explorer_advanced_start_showmygames",
+      "name": "Registry tweak: Start_ShowMyGames",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Hide My Games (if present).",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Start_ShowMyGames",
+            "value": 0,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Start_ShowMyGames"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Start_ShowMyGames",
+            "valueType": "DWORD",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hkcu_software_microsoft_windows_currentversion_explorer_advanced_start_showmymusic",
+      "name": "Registry tweak: Start_ShowMyMusic",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Hide My Music (if present).",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Start_ShowMyMusic",
+            "value": 0,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Start_ShowMyMusic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Start_ShowMyMusic",
+            "valueType": "DWORD",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_reg_hkcu_software_microsoft_windows_currentversion_explorer_advanced_start_showmypics",
+      "name": "Registry tweak: Start_ShowMyPics",
+      "category": "Expansion / Registry (Latency, UX, Power)",
+      "type": "toggle",
+      "description": "[Focus: Latency / Input Delay] Hide My Pictures (if present).",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Start_ShowMyPics",
+            "value": 0,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Start_ShowMyPics"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "Start_ShowMyPics",
+            "valueType": "DWORD",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "imported.imported.windows_version_check",
+      "type": "button",
+      "name": "Windows Version Check",
+      "category": "Expansion / Registry",
+      "riskLevel": "Safe",
+      "risk": "Safe",
+      "description": "[Imported] Runnable tweak extracted from your V8.3. This runs a command pack under Admin. Risk: Safe.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_windows_version_check.bat\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "imported.imported.global_regkey",
+      "type": "button",
+      "name": "Global Regkey",
+      "category": "Expansion / Registry",
+      "riskLevel": "Safe",
+      "risk": "Safe",
+      "description": "[Imported] Runnable tweak extracted from your V8.3. This runs a command pack under Admin. Risk: Safe.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_global_regkey.bat\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "imported.imported.win_server_check",
+      "type": "button",
+      "name": "Win Server Check",
+      "category": "Expansion / Registry",
+      "riskLevel": "Safe",
+      "risk": "Safe",
+      "description": "[Imported] Runnable tweak extracted from your V8.3. This runs a command pack under Admin. Risk: Safe.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_win_server_check.bat\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "imported.imported.autorun_imported",
+      "type": "button",
+      "name": "Autorun",
+      "category": "Expansion / Registry",
+      "riskLevel": "Safe",
+      "risk": "Safe",
+      "description": "[Imported] Runnable tweak extracted from your V8.3. This runs a command pack under Admin. Risk: Safe.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_autorun_oneclick.bat\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "imported.imported.priority_separation",
+      "type": "button",
+      "name": "Priority Separation",
+      "category": "Expansion / Registry",
+      "riskLevel": "Safe",
+      "risk": "Safe",
+      "description": "[Imported] Runnable tweak extracted from your V8.3. This runs a command pack under Admin. Risk: Safe.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_priority_separation.bat\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "imported.imported.custom_priority_separation",
+      "type": "button",
+      "name": "Custom Priority Separation",
+      "category": "Expansion / Registry",
+      "riskLevel": "Safe",
+      "risk": "Safe",
+      "description": "[Imported] Runnable tweak extracted from your V8.3. This runs a command pack under Admin. Risk: Safe.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_custom_priority_separation.bat\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "imported.imported.dpc_checker",
+      "type": "button",
+      "name": "Dpc Checker",
+      "category": "Expansion / Registry",
+      "riskLevel": "Safe",
+      "risk": "Safe",
+      "description": "[Imported] Runnable tweak extracted from your V8.3. This runs a command pack under Admin. Risk: Safe.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_dpc_checker.bat\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "imported.imported.timer_res_11",
+      "type": "button",
+      "name": "Timer Res 11",
+      "category": "Expansion / Registry",
+      "riskLevel": "Danger",
+      "risk": "Danger",
+      "description": "[Imported] Runnable tweak extracted from your V8.3. This runs a command pack under Admin. Risk: Danger.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_timer_res_11.bat\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "imported.imported.custom_timer_resolution",
+      "type": "button",
+      "name": "Custom Timer Resolution",
+      "category": "Expansion / Registry",
+      "riskLevel": "Safe",
+      "risk": "Safe",
+      "description": "[Imported] Runnable tweak extracted from your V8.3. This runs a command pack under Admin. Risk: Safe.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_custom_timer_resolution.bat\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,1594 @@
+{
+  "items": [
+    {
+      "id": "boost.clear_cache__speed.boost",
+      "name": "Clear Cache",
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Clears common Windows temp and cache folders to free space and reduce stutter.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:TEMP\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:WINDIR\\Temp\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "boost.clear_chrome_temp__speed.boost",
+      "name": "Clear Chrome Temp Files",
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Clears Google Chrome cache and code cache to improve responsiveness.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Google\\Chrome\\User Data\\Default\\Cache\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Google\\Chrome\\User Data\\Default\\Code Cache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "boost.clear_games_temp__speed.boost",
+      "name": "Clear Games Temp Files",
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Clears common game temp folders and NVIDIA cache to reduce hitching.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Temp\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:ProgramData\\NVIDIA Corporation\\NV_Cache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "boost.clear_history_recent__speed.boost",
+      "name": "Clear Recent History",
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Clears Windows Recent and JumpList data to speed up Explorer menus.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:APPDATA\\Microsoft\\Windows\\Recent\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:APPDATA\\Microsoft\\Windows\\Recent\\AutomaticDestinations\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "boost.clear_installer_caches__speed.boost",
+      "name": "Clear Installer & App Caches",
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Removes leftover installer caches and Windows Update downloads to recover space.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:WINDIR\\SoftwareDistribution\\Download\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:ProgramData\\Package Cache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "boost.clear_prefetch__speed.boost",
+      "name": "Clear Prefetch",
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Clears Windows Prefetch to regenerate fresh launch data for games and apps.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:WINDIR\\Prefetch\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "boost.clear_thumbnail_cache__speed.boost",
+      "name": "Clean Thumbnail Cache",
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Resets Explorer thumbnail cache to fix slow folders and glitches.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Microsoft\\Windows\\Explorer\\thumbcache*' -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "boost.clear_font_cache__speed.boost",
+      "name": "Clean Font Cache",
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Refreshes Windows font cache to avoid UI slowdowns and glitches.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Stop-Service -Name 'FontCache' -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Microsoft\\Windows\\FontCache\\*' -Recurse -Force -ErrorAction SilentlyContinue; Start-Service -Name 'FontCache' -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "boost.clear_discord_cache__speed.boost",
+      "name": "Clean Discord Cache",
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Clears Discord cache and GPU cache to free space and reduce background I/O.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:APPDATA\\discord\\Cache\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:APPDATA\\discord\\GPUCache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "boost.clear_steam_cache__speed.boost",
+      "name": "Clean Steam Cache",
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Cleans Steam download and HTML cache which can slow down library and updates.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:PROGRAMFILES(x86)\\Steam\\appcache\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:PROGRAMFILES(x86)\\Steam\\steamapps\\downloading\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "boost.clear_epic_cache__speed.boost",
+      "name": "Clean Epic Games Cache",
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Clears Epic Games launcher cache to keep game installs and updates snappy.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\EpicGamesLauncher\\Saved\\Logs\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:LOCALAPPDATA\\EpicGamesLauncher\\Saved\\webcache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "boost.clear_temp_files_bundle__speed.boost",
+      "name": "Temp Files Bundle",
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Aggressively clears multiple temp locations in one pass for maximum cleanup.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:TEMP\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Temp\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:WINDIR\\Temp\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "boost.empty_recycle_bin__speed.boost",
+      "name": "Empty Recycle Bin",
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Empties the recycle bin to free disk space and reduce background maintenance.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Clear-RecycleBin -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "boost.clear_directx_shader__speed.boost",
+      "name": "Clear DirectX Shader Cache",
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Clears DirectX and GPU shader cache so games can rebuild clean pipelines.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\D3DSCache\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:LOCALAPPDATA\\NVIDIA\\DXCache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "boost.clear_delivery_optimization__speed.boost",
+      "name": "Clear Delivery Optimization Cache",
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Clears Windows Delivery Optimization cache to reduce background disk I/O.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:ProgramData\\Microsoft\\Windows\\DeliveryOptimization\\Cache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "boost.clear_crash_dumps__speed.boost",
+      "name": "Clear Crash Dumps",
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Removes local crash dump files that waste SSD space and slow maintenance.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\CrashDumps\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:SYSTEMROOT\\Minidump\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "boost.clear_wer_reports__speed.boost",
+      "name": "Clear Error Reporting Logs",
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Clears Windows Error Reporting queues and archives to cut background disk churn.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:ProgramData\\Microsoft\\Windows\\WER\\ReportQueue\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:ProgramData\\Microsoft\\Windows\\WER\\ReportArchive\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "boost.clear_store_cache__speed.boost",
+      "name": "Clear Microsoft Store Cache",
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Resets Microsoft Store temp and cache data for faster app installs.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Packages\\Microsoft.WindowsStore_*\\LocalCache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "boost.clear_edge_cache__speed.boost",
+      "name": "Clear Edge Temp Files",
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Clears Microsoft Edge cache and code cache to improve browsing responsiveness.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Microsoft\\Edge\\User Data\\Default\\Cache\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Microsoft\\Edge\\User Data\\Default\\Code Cache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "boost.clear_firefox_cache__speed.boost",
+      "name": "Clear Firefox Temp Files",
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Clears Firefox cache folders for all profiles to reduce disk usage.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -Path '$env:APPDATA\\Mozilla\\Firefox\\Profiles\\*\\cache2\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "boost.clear_webview2_cache__speed.boost",
+      "name": "Clear WebView2 Cache",
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Clears WebView2 cache used by modern Windows apps for snappier UI.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Microsoft\\EdgeWebView\\Cache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "boost.clear_quick_access__speed.boost",
+      "name": "Clear Quick Access History",
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Clears Quick Access and Explorer jump history to speed up file dialogs.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:APPDATA\\Microsoft\\Windows\\Recent\\AutomaticDestinations\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:APPDATA\\Microsoft\\Windows\\Recent\\CustomDestinations\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "boost.clear_spotify_cache__speed.boost",
+      "name": "Clean Spotify Cache",
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Clears Spotify cache to free SSD space and reduce background I/O.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Spotify\\Storage\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "boost.clear_telegram_cache__speed.boost",
+      "name": "Clean Telegram Cache",
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Clears Telegram Desktop cache so it stops hoarding disk space.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:APPDATA\\Telegram Desktop\\tdata\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "boost.clear_temp_prefetch_mru__speed.boost",
+      "name": "Temp + Prefetch MRU Bundle",
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Aggressively clears temp, prefetch, and MRU-style recent files for a fresh start.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:TEMP\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Temp\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:WINDIR\\Prefetch\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "type": "button",
+      "riskLevel": "Safe",
+      "id": "boost.clear_battlenet_cache__speed.boost",
+      "name": "Clean Battle.net Cache",
+      "description": "[Focus: FPS] Clears Battle.net cache to speed up launcher and downloads.",
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:PROGRAMDATA\\Battle.net\\Cache\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Battle.net\\Cache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "type": "button",
+      "riskLevel": "Safe",
+      "id": "boost.clear_riot_cache__speed.boost",
+      "name": "Clean Riot Games Cache",
+      "description": "[Focus: FPS] Removes Riot client logs and temp data to reduce background I/O.",
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -Path '$env:LOCALAPPDATA\\Riot Games\\*\\Logs\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -Path '$env:LOCALAPPDATA\\Riot Games\\*\\Crash*\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "type": "button",
+      "riskLevel": "Safe",
+      "id": "boost.clear_xbox_cache__speed.boost",
+      "name": "Clean Xbox Game Bar Cache",
+      "description": "[Focus: Latency / Input Delay] Clears Xbox Game Bar cache for smoother overlays.",
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Packages\\Microsoft.XboxGamingOverlay_*\\LocalCache\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Packages\\Microsoft.XboxGamingOverlay_*\\TempState\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "type": "button",
+      "riskLevel": "Safe",
+      "id": "boost.clear_minecraft_cache__speed.boost",
+      "name": "Clean Minecraft Cache & Logs",
+      "description": "[Focus: FPS] Clears Minecraft logs, crash reports, and cache to reduce stutter.",
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:APPDATA\\.minecraft\\logs\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:APPDATA\\.minecraft\\crash-reports\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:APPDATA\\.minecraft\\cache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "type": "button",
+      "riskLevel": "Safe",
+      "id": "boost.clear_unreal_ddc__speed.boost",
+      "name": "Clean Unreal Derived Data Cache",
+      "description": "[Focus: FPS] Clears Unreal Engine derived data cache used by many modern games.",
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\UnrealEngine\\*\\DerivedDataCache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "type": "button",
+      "riskLevel": "Safe",
+      "id": "boost.clear_opera_cache__speed.boost",
+      "name": "Clear Opera Browser Cache",
+      "description": "[Focus: Latency / Input Delay] Clears Opera cache, code, and GPU cache.",
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:APPDATA\\Opera Software\\Opera Stable\\Cache\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:APPDATA\\Opera Software\\Opera Stable\\Code Cache\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:APPDATA\\Opera Software\\Opera Stable\\GPUCache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "type": "button",
+      "riskLevel": "Safe",
+      "id": "boost.clear_brave_cache__speed.boost",
+      "name": "Clear Brave Browser Cache",
+      "description": "[Focus: Latency / Input Delay] Clears Brave browser cache to free space and speed up browsing.",
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\BraveSoftware\\Brave-Browser\\User Data\\Default\\Cache\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:LOCALAPPDATA\\BraveSoftware\\Brave-Browser\\User Data\\Default\\Code Cache\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:LOCALAPPDATA\\BraveSoftware\\Brave-Browser\\User Data\\Default\\GPUCache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "type": "button",
+      "riskLevel": "Safe",
+      "id": "boost.clear_windows_logs__speed.boost",
+      "name": "Clear Windows Log Files",
+      "description": "[Focus: Latency / Input Delay] Clears accumulated log files that create background disk churn.",
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:WINDIR\\Logs\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "type": "button",
+      "riskLevel": "Safe",
+      "id": "boost.clear_event_logs__speed.boost",
+      "name": "Clear Windows Event Logs",
+      "description": "[Focus: Latency / Input Delay] Clears Windows event logs to shrink system log databases.",
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "wevtutil el | ForEach-Object { wevtutil cl $_ }"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "type": "button",
+      "riskLevel": "Safe",
+      "id": "boost.clear_network_logs__speed.boost",
+      "name": "Clear Network Log Files",
+      "description": "[Focus: Ping / Network] Clears HTTP and network service logs to keep log folders lean.",
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:SystemRoot\\System32\\LogFiles\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "type": "button",
+      "riskLevel": "Safe",
+      "id": "boost.clear_nvidia_installer_leftovers__speed.boost",
+      "name": "Clean NVIDIA Installer Leftovers",
+      "description": "[Focus: FPS] Removes leftover NVIDIA installer files that waste SSD space.",
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath 'C:\\NVIDIA\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:ProgramFiles\\NVIDIA Corporation\\Installer2\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "type": "button",
+      "riskLevel": "Safe",
+      "id": "boost.clear_amd_installer_leftovers__speed.boost",
+      "name": "Clean AMD Installer Leftovers",
+      "description": "[Focus: FPS] Removes leftover AMD installer folders from the system drive.",
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath 'C:\\AMD\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "type": "button",
+      "riskLevel": "Safe",
+      "id": "boost.clear_windows_upgrade_logs__speed.boost",
+      "name": "Clear Windows Upgrade Logs",
+      "description": "[Focus: Latency / Input Delay] Clears Windows upgrade temporary logs that can grow very large.",
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:SystemDrive\\$WINDOWS.~BT\\Sources\\Panther\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:SystemDrive\\$WINDOWS.~BT\\Sources\\Rollback\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "type": "button",
+      "riskLevel": "Safe",
+      "id": "boost.clear_office_cache__speed.boost",
+      "name": "Clean Microsoft Office Cache",
+      "description": "[Focus: Latency / Input Delay] Clears Microsoft Office file cache to free SSD space.",
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Microsoft\\Office\\16.0\\OfficeFileCache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "type": "button",
+      "riskLevel": "Safe",
+      "id": "boost.clear_adobe_cache__speed.boost",
+      "name": "Clean Adobe Media Cache",
+      "description": "[Focus: Latency / Input Delay] Clears Adobe media caches used by Premiere, After Effects, and others.",
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Adobe\\Common\\Media Cache Files\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "type": "button",
+      "riskLevel": "Safe",
+      "id": "boost.clear_roblox_cache__speed.boost",
+      "name": "Clean Roblox Cache & Logs",
+      "description": "[Focus: FPS] Clears Roblox logs and download cache to smooth load times.",
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Roblox\\logs\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Roblox\\downloads\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "type": "button",
+      "riskLevel": "Safe",
+      "id": "boost.clear_geforce_logs__speed.boost",
+      "name": "Clean GeForce Experience Logs",
+      "description": "[Focus: FPS] Clears GeForce Experience log files to keep NVIDIA folders lean.",
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:PROGRAMDATA\\NVIDIA Corporation\\GeForce Experience\\logs\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "type": "button",
+      "riskLevel": "Safe",
+      "id": "boost.clear_onedrive_logs__speed.boost",
+      "name": "Clear OneDrive Logs",
+      "description": "[Focus: Latency / Input Delay] Clears Microsoft OneDrive log files to reduce background disk writes.",
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Microsoft\\OneDrive\\logs\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "type": "button",
+      "riskLevel": "Safe",
+      "id": "boost.clear_msix_temp__speed.boost",
+      "name": "Clear Store App Temp Files",
+      "description": "[Focus: Latency / Input Delay] Clears temporary folders used by modern Store apps.",
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -Path '$env:LOCALAPPDATA\\Packages\\*\\AC\\Temp\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "type": "button",
+      "riskLevel": "Safe",
+      "id": "boost.clear_browser_crash_reports__speed.boost",
+      "name": "Clear Browser Crash Reports",
+      "description": "[Focus: Latency / Input Delay] Clears accumulated browser crash reports for Chrome-based browsers.",
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Remove-Item -Path '$env:LOCALAPPDATA\\Google\\Chrome\\User Data\\Crashpad\\reports\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -Path '$env:LOCALAPPDATA\\Microsoft\\Edge\\User Data\\Crashpad\\reports\\*' -Recurse -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "boost.junk_cleaner",
+      "name": "Junk Cleaner",
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Cleans common junk locations (Temp, Windows Temp, Prefetch, Recycle Bin, crash dumps) to free space and reduce stutter from bloated caches.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "$ErrorActionPreference='SilentlyContinue'; Remove-Item -LiteralPath $env:TEMP\\* -Recurse -Force; Remove-Item -LiteralPath $env:WINDIR\\Temp\\* -Recurse -Force; Remove-Item -LiteralPath $env:WINDIR\\Prefetch\\* -Recurse -Force; Remove-Item -LiteralPath $env:LOCALAPPDATA\\CrashDumps\\* -Recurse -Force; Clear-RecycleBin -Force;"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "boost.optimize_defrag_drives",
+      "name": "Optimize Defrag Drives",
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "description": "[Focus: Storage Health] Optimizes all volumes (HDD defrag + SSD trim) using Windows Defrag / Optimize Drives.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "cmd.exe",
+            "args": [
+              "/c",
+              "defrag.exe /C /O /U /V"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "boost.install_hone_nvidia_driver",
+      "name": "Install Hone NVIDIA Driver",
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Stability] Opens the NVIDIA driver download page so you can install the correct driver (clean install recommended).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "cmd.exe",
+            "args": [
+              "/c",
+              "start \"\" \"https://www.nvidia.com/Download/index.aspx\""
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "boost.clean_recent_documents",
+      "name": "Clean Recent Documents List",
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "description": "[Focus: Privacy + Snappiness] Clears Windows 'Recent' documents and jump-list caches.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "$ErrorActionPreference='SilentlyContinue'; $recent = Join-Path $env:APPDATA 'Microsoft\\Windows\\Recent'; Remove-Item -LiteralPath (Join-Path $recent '*') -Recurse -Force; $ad = Join-Path $env:APPDATA 'Microsoft\\Windows\\Recent\\AutomaticDestinations'; $cd = Join-Path $env:APPDATA 'Microsoft\\Windows\\Recent\\CustomDestinations'; Remove-Item -LiteralPath (Join-Path $ad '*') -Recurse -Force; Remove-Item -LiteralPath (Join-Path $cd '*') -Recurse -Force;"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "boost.clean_discord_history",
+      "name": "Clean Discord History",
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Medium",
+      "description": "[Focus: Privacy] Clears local Discord storage (logs, local storage, cache). Note: may log you out; server chat history is not deleted.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "$ErrorActionPreference='SilentlyContinue'; Get-Process discord,Discord,DiscordCanary,DiscordPTB -ErrorAction SilentlyContinue | Stop-Process -Force; $targets=@(Join-Path $env:APPDATA 'discord\\Local Storage\\leveldb',Join-Path $env:APPDATA 'discord\\logs',Join-Path $env:LOCALAPPDATA 'Discord\\Local Storage\\leveldb',Join-Path $env:LOCALAPPDATA 'Discord\\logs',Join-Path $env:APPDATA 'discordcanary\\Local Storage\\leveldb',Join-Path $env:APPDATA 'discordcanary\\logs',Join-Path $env:APPDATA 'discordptb\\Local Storage\\leveldb',Join-Path $env:APPDATA 'discordptb\\logs'); foreach($p in $targets){ if(Test-Path $p){ Remove-Item -LiteralPath $p -Recurse -Force } }"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Medium",
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "boost.scan_fix_drive_errors",
+      "name": "Scan & Fix Drive Errors",
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "description": "[Focus: Stability] Runs Windows volume scan/repair (Repair-Volume -Scan) for all fixed drives.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "$ErrorActionPreference='SilentlyContinue'; $drives = Get-Volume | Where-Object { $_.DriveLetter -and $_.DriveType -eq 'Fixed' } | Select-Object -ExpandProperty DriveLetter; foreach($d in $drives){ try { Repair-Volume -DriveLetter $d -Scan } catch { } }"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "boost.scan_fix_system_errors",
+      "name": "Scan & Fix System Errors",
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "description": "[Focus: Stability] Runs SFC and DISM health repair to fix corrupted system files.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "cmd.exe",
+            "args": [
+              "/c",
+              "sfc /scannow"
+            ],
+            "wait": true
+          },
+          {
+            "type": "shell.start",
+            "file": "cmd.exe",
+            "args": [
+              "/c",
+              "DISM /Online /Cleanup-Image /RestoreHealth"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "boost.hone_steam_cleaner",
+      "name": "Hone Steam Cleaner",
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "description": "[Focus: Storage + Snappiness] Cleans Steam download/cache folders (appcache/httpcache, htmlcache, dumps). Does not uninstall games.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "$ErrorActionPreference='SilentlyContinue'; Get-Process steam -ErrorAction SilentlyContinue | Stop-Process -Force; $steamPath = (Get-ItemProperty -Path 'HKCU:\\Software\\Valve\\Steam' -Name 'SteamPath' -ErrorAction SilentlyContinue).SteamPath; if(-not $steamPath){ $steamPath = Join-Path ${env:ProgramFiles(x86)} 'Steam' } $targets=@(Join-Path $steamPath 'appcache\\httpcache',Join-Path $steamPath 'appcache\\librarycache',Join-Path $steamPath 'appcache\\shadercache',Join-Path $steamPath 'steamapps\\downloading',Join-Path $steamPath 'steamapps\\temp',Join-Path $steamPath 'dumps',Join-Path $steamPath 'logs',Join-Path $steamPath 'config\\htmlcache'); foreach($p in $targets){ if(Test-Path $p){ Remove-Item -LiteralPath $p -Recurse -Force } }"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    }
+  ]
+}

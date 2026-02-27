@@ -1,0 +1,838 @@
+{
+  "items": [
+    {
+      "id": "exp.boot.disabledynamictick",
+      "type": "button",
+      "name": "Apply: Disable Dynamic Tick",
+      "category": "Expansion / Boot & Timer (BCDEdit)",
+      "risk": "High",
+      "description": "[Focus: Latency / Input Delay] Disables dynamic tick. Can reduce jitter on some systems; can increase idle power. Reboot required.",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "bcdedit /set {current} disabledynamictick yes"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "bcdedit /deletevalue {current} disabledynamictick"
+          }
+        ]
+      },
+      "riskLevel": "High"
+    },
+    {
+      "category": "Expansion / Boot & Timer (BCDEdit)",
+      "risk": "High",
+      "description": "[Focus: Latency / Input Delay] Disables dynamic tick. Can reduce jitter on some systems; can increase idle power. Reboot required.",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "riskLevel": "High",
+      "id": "exp.boot.disabledynamictick__revert",
+      "type": "button",
+      "name": "Revert: Disable Dynamic Tick",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "bcdedit /deletevalue {current} disabledynamictick"
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp.boot.useplatformclock_on",
+      "type": "button",
+      "name": "Apply: Force Platform Clock (useplatformclock)",
+      "category": "Expansion / Boot & Timer (BCDEdit)",
+      "risk": "High",
+      "description": "[Focus: Latency / Input Delay] Forces platform clock. Can help some systems, harm others. Reboot required.",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "bcdedit /set {current} useplatformclock yes"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "bcdedit /deletevalue {current} useplatformclock"
+          }
+        ]
+      },
+      "riskLevel": "High"
+    },
+    {
+      "category": "Expansion / Boot & Timer (BCDEdit)",
+      "risk": "High",
+      "description": "[Focus: Latency / Input Delay] Forces platform clock. Can help some systems, harm others. Reboot required.",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "riskLevel": "High",
+      "id": "exp.boot.useplatformclock_on__revert",
+      "type": "button",
+      "name": "Revert: Force Platform Clock (useplatformclock)",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "bcdedit /deletevalue {current} useplatformclock"
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp.boot.useplatformclock_off",
+      "type": "button",
+      "name": "Apply: Disable Platform Clock (useplatformclock)",
+      "category": "Expansion / Boot & Timer (BCDEdit)",
+      "risk": "High",
+      "description": "[Focus: Latency / Input Delay] Disables platform clock. Alternative to forcing it. Reboot required.",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "bcdedit /set {current} useplatformclock no"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "bcdedit /deletevalue {current} useplatformclock"
+          }
+        ]
+      },
+      "riskLevel": "High"
+    },
+    {
+      "category": "Expansion / Boot & Timer (BCDEdit)",
+      "risk": "High",
+      "description": "[Focus: Latency / Input Delay] Disables platform clock. Alternative to forcing it. Reboot required.",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "riskLevel": "High",
+      "id": "exp.boot.useplatformclock_off__revert",
+      "type": "button",
+      "name": "Revert: Disable Platform Clock (useplatformclock)",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "bcdedit /deletevalue {current} useplatformclock"
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp.boot.useplatformtick_on",
+      "type": "button",
+      "name": "Apply: Force Platform Tick",
+      "category": "Expansion / Boot & Timer (BCDEdit)",
+      "risk": "High",
+      "description": "[Focus: Latency / Input Delay] Forces platform tick. Rarely beneficial; included for experimentation. Reboot required.",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "bcdedit /set {current} useplatformtick yes"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "bcdedit /deletevalue {current} useplatformtick"
+          }
+        ]
+      },
+      "riskLevel": "High"
+    },
+    {
+      "category": "Expansion / Boot & Timer (BCDEdit)",
+      "risk": "High",
+      "description": "[Focus: Latency / Input Delay] Forces platform tick. Rarely beneficial; included for experimentation. Reboot required.",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "riskLevel": "High",
+      "id": "exp.boot.useplatformtick_on__revert",
+      "type": "button",
+      "name": "Revert: Force Platform Tick",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "bcdedit /deletevalue {current} useplatformtick"
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp.boot.useplatformtick_off",
+      "type": "button",
+      "name": "Apply: Disable Platform Tick",
+      "category": "Expansion / Boot & Timer (BCDEdit)",
+      "risk": "High",
+      "description": "[Focus: Latency / Input Delay] Disables platform tick. Reboot required.",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "bcdedit /set {current} useplatformtick no"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "bcdedit /deletevalue {current} useplatformtick"
+          }
+        ]
+      },
+      "riskLevel": "High"
+    },
+    {
+      "category": "Expansion / Boot & Timer (BCDEdit)",
+      "risk": "High",
+      "description": "[Focus: Latency / Input Delay] Disables platform tick. Reboot required.",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "riskLevel": "High",
+      "id": "exp.boot.useplatformtick_off__revert",
+      "type": "button",
+      "name": "Revert: Disable Platform Tick",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "bcdedit /deletevalue {current} useplatformtick"
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp.boot.tscsync_legacy",
+      "type": "button",
+      "name": "Apply: TSC Sync Policy: Legacy",
+      "category": "Expansion / Boot & Timer (BCDEdit)",
+      "risk": "High",
+      "description": "[Focus: Latency / Input Delay] Sets TSC synchronization policy to legacy. Advanced; may affect stability. Reboot required.",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "bcdedit /set {current} tscsyncpolicy legacy"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "bcdedit /deletevalue {current} tscsyncpolicy"
+          }
+        ]
+      },
+      "riskLevel": "High"
+    },
+    {
+      "category": "Expansion / Boot & Timer (BCDEdit)",
+      "risk": "High",
+      "description": "[Focus: Latency / Input Delay] Sets TSC synchronization policy to legacy. Advanced; may affect stability. Reboot required.",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "riskLevel": "High",
+      "id": "exp.boot.tscsync_legacy__revert",
+      "type": "button",
+      "name": "Revert: TSC Sync Policy: Legacy",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "bcdedit /deletevalue {current} tscsyncpolicy"
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp.boot.tscsync_enhanced",
+      "type": "button",
+      "name": "Apply: TSC Sync Policy: Enhanced",
+      "category": "Expansion / Boot & Timer (BCDEdit)",
+      "risk": "High",
+      "description": "[Focus: Latency / Input Delay] Sets TSC synchronization policy to enhanced (if supported). Advanced. Reboot required.",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "bcdedit /set {current} tscsyncpolicy enhanced"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "bcdedit /deletevalue {current} tscsyncpolicy"
+          }
+        ]
+      },
+      "riskLevel": "High"
+    },
+    {
+      "category": "Expansion / Boot & Timer (BCDEdit)",
+      "risk": "High",
+      "description": "[Focus: Latency / Input Delay] Sets TSC synchronization policy to enhanced (if supported). Advanced. Reboot required.",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "riskLevel": "High",
+      "id": "exp.boot.tscsync_enhanced__revert",
+      "type": "button",
+      "name": "Revert: TSC Sync Policy: Enhanced",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "bcdedit /deletevalue {current} tscsyncpolicy"
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp.boot.bootmenupolicy_legacy",
+      "type": "button",
+      "name": "Apply: Boot Menu Policy: Legacy",
+      "category": "Expansion / Boot & Timer (BCDEdit)",
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay] Sets boot menu policy to legacy (F8-style). Useful for recovery; minimal performance impact.",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "bcdedit /set {default} bootmenupolicy legacy"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "bcdedit /set {default} bootmenupolicy standard"
+          }
+        ]
+      },
+      "riskLevel": "Warning"
+    },
+    {
+      "category": "Expansion / Boot & Timer (BCDEdit)",
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay] Sets boot menu policy to legacy (F8-style). Useful for recovery; minimal performance impact.",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "riskLevel": "Warning",
+      "id": "exp.boot.bootmenupolicy_legacy__revert",
+      "type": "button",
+      "name": "Revert: Boot Menu Policy: Legacy",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "bcdedit /set {default} bootmenupolicy standard"
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp.boot.disable_debug",
+      "type": "button",
+      "name": "Apply: Disable Boot Debugging",
+      "category": "Expansion / Boot & Timer (BCDEdit)",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Ensures Windows boot debugging is disabled (recommended for normal use).",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "bcdedit /debug off"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "bcdedit /debug on"
+          }
+        ]
+      },
+      "riskLevel": "Safe"
+    },
+    {
+      "category": "Expansion / Boot & Timer (BCDEdit)",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Ensures Windows boot debugging is disabled (recommended for normal use).",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "riskLevel": "Safe",
+      "id": "exp.boot.disable_debug__revert",
+      "type": "button",
+      "name": "Revert: Disable Boot Debugging",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "bcdedit /debug on"
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp.boot.bootlog_on",
+      "type": "button",
+      "name": "Apply: Enable Boot Logging (ntbtlog.txt)",
+      "category": "Expansion / Boot & Timer (BCDEdit)",
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay] Enables boot logging for troubleshooting. Disable after use.",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "bcdedit /set {current} bootlog yes"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "bcdedit /deletevalue {current} bootlog"
+          }
+        ]
+      },
+      "riskLevel": "Warning"
+    },
+    {
+      "category": "Expansion / Boot & Timer (BCDEdit)",
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay] Enables boot logging for troubleshooting. Disable after use.",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "riskLevel": "Warning",
+      "id": "exp.boot.bootlog_on__revert",
+      "type": "button",
+      "name": "Revert: Enable Boot Logging (ntbtlog.txt)",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "bcdedit /deletevalue {current} bootlog"
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp.boot.timerhelper_persistent_0p5ms",
+      "type": "button",
+      "name": "Apply: Timer Helper Persistent (0.5ms request)",
+      "category": "Expansion / Boot & Timer (BCDEdit)",
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay] Starts the included timer-helper.ps1 to request 0.5ms while running; stop to revert.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "process.start",
+            "wait": false,
+            "arguments": "-NoProfile -ExecutionPolicy Bypass -File %~dp0\\scripts\\timer-helper.ps1 -Resolution 5000",
+            "filePath": "powershell.exe"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "process.kill",
+            "name": "powershell",
+            "match": "timer-helper.ps1"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "category": "Expansion / Boot & Timer (BCDEdit)",
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay] Starts the included timer-helper.ps1 to request 0.5ms while running; stop to revert.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "riskLevel": "Warning",
+      "kind": "tool",
+      "manualOnly": true,
+      "id": "exp.boot.timerhelper_persistent_0p5ms__revert",
+      "type": "button",
+      "name": "Revert: Timer Helper Persistent (0.5ms request)",
+      "apply": {
+        "steps": [
+          {
+            "type": "process.kill",
+            "name": "powershell",
+            "match": "timer-helper.ps1"
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp.boot.docs_bcdedit",
+      "type": "button",
+      "name": "Run BCDEdit Documentation",
+      "category": "Expansion / Boot & Timer (BCDEdit)",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Opens Microsoft documentation for BCDEdit options (reference).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-hardware/drivers/devtest/bcdedit--set"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.boot.docs_timer_resolution",
+      "type": "button",
+      "name": "Run Timer Resolution Background",
+      "category": "Expansion / Boot & Timer (BCDEdit)",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Background on Windows timer resolution and behavior (reference).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows/win32/sysinfo/acquiring-high-resolution-time-stamps"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.boot.report_bcd_current",
+      "type": "action",
+      "name": "Generate BCD Report (current)",
+      "category": "Expansion / Boot & Timer (BCDEdit)",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Saves bcdedit /enum {current} output to %ProgramData%\\FalconOptimizer\\Reports\\bcd_current.txt and opens it.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$dir=Join-Path $env:ProgramData 'FalconOptimizer\\Reports'; New-Item -ItemType Directory -Force -Path $dir | Out-Null; bcdedit /enum {current} | Out-File -Encoding utf8 (Join-Path $dir 'bcd_current.txt');"
+          },
+          {
+            "type": "open.file",
+            "path": "%ProgramData%\\FalconOptimizer\\Reports\\bcd_current.txt"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe"
+    },
+    {
+      "id": "exp.boot.reset_timer_flags",
+      "type": "action",
+      "name": "Reset Common Timer Flags (deletevalue)",
+      "category": "Expansion / Boot & Timer (BCDEdit)",
+      "risk": "High",
+      "description": "[Focus: Latency / Input Delay] Deletes common timer-related BCDEdit values from {current}: disabledynamictick, useplatformclock, useplatformtick, tscsyncpolicy.",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "bcdedit /deletevalue {current} disabledynamictick"
+          },
+          {
+            "type": "cmd.run",
+            "command": "bcdedit /deletevalue {current} useplatformclock"
+          },
+          {
+            "type": "cmd.run",
+            "command": "bcdedit /deletevalue {current} useplatformtick"
+          },
+          {
+            "type": "cmd.run",
+            "command": "bcdedit /deletevalue {current} tscsyncpolicy"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "High"
+    },
+    {
+      "id": "exp.boot.docs_safe_mode",
+      "type": "button",
+      "name": "Run Safe Mode Recovery Guide",
+      "category": "Expansion / Boot & Timer (BCDEdit)",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Reference guide for entering Safe Mode if a boot tweak causes issues.",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://support.microsoft.com/windows/start-your-pc-in-safe-mode-in-windows-92c27cff-db89-8644-1ce4-b3e5e56fe234"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.boot.check_bitlocker",
+      "type": "action",
+      "name": "Check BitLocker Status",
+      "category": "Expansion / Boot & Timer (BCDEdit)",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Shows BitLocker protection status (important before boot config changes).",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "manage-bde -status | Out-Host"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe"
+    },
+    {
+      "id": "exp.boot.check_secureboot",
+      "type": "action",
+      "name": "Check Secure Boot Status",
+      "category": "Expansion / Boot & Timer (BCDEdit)",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Displays Secure Boot status (informational).",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Confirm-SecureBootUEFI 2>$null; if($?){'Secure Boot: ON'} else {'Secure Boot: OFF or unsupported'} | Out-Host"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe"
+    },
+    {
+      "id": "exp.boot.report_qpc_source",
+      "type": "action",
+      "name": "Report QPC/Timer Source (basic)",
+      "category": "Expansion / Boot & Timer (BCDEdit)",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Writes a basic timer report to %ProgramData%\\FalconOptimizer\\Reports\\timer_report.txt and opens it.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$dir=Join-Path $env:ProgramData 'FalconOptimizer\\Reports'; New-Item -ItemType Directory -Force -Path $dir | Out-Null; $out=Join-Path $dir 'timer_report.txt'; \"Date: $(Get-Date)\" | Out-File -Encoding utf8 $out; \"WinVer: $([Environment]::OSVersion.VersionString)\" | Add-Content $out; bcdedit /enum {current} | Add-Content $out; w32tm /query /configuration 2>$null | Add-Content $out;"
+          },
+          {
+            "type": "open.file",
+            "path": "%ProgramData%\\FalconOptimizer\\Reports\\timer_report.txt"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe"
+    },
+    {
+      "id": "exp.boot.docs_hpet_bios",
+      "type": "button",
+      "name": "HPET / BIOS Checklist (Reference)",
+      "category": "Expansion / Boot & Timer (BCDEdit)",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] HPET is BIOS/platform dependent; use this as a starting point (reference).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-hardware/drivers/devtest/bcdedit--set"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.boot.docs_etw",
+      "type": "button",
+      "name": "ETW / Windows Performance Recorder Guide",
+      "category": "Expansion / Boot & Timer (BCDEdit)",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Reference for tracing stutter with Windows Performance Recorder/Analyzer.",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-hardware/test/wpt/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.boot.create_restore_point",
+      "type": "action",
+      "name": "Create Restore Point (Pre-Tweaks)",
+      "category": "Expansion / Boot & Timer (BCDEdit)",
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay] Creates a System Restore Point (requires System Protection enabled).",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Checkpoint-Computer -Description 'FalconOptimizer Pre-Tweaks' -RestorePointType 'MODIFY_SETTINGS'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Warning"
+    },
+    {
+      "id": "exp.boot.open_reports_folder",
+      "type": "action",
+      "name": "Run Reports Folder",
+      "category": "Expansion / Boot & Timer (BCDEdit)",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Opens %ProgramData%\\FalconOptimizer\\Reports.",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.path",
+            "path": "%ProgramData%\\FalconOptimizer\\Reports"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.boot.open_backups_folder",
+      "type": "action",
+      "name": "Run Backups Folder",
+      "category": "Expansion / Boot & Timer (BCDEdit)",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Opens %ProgramData%\\FalconOptimizer\\Backups.",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.path",
+            "path": "%ProgramData%\\FalconOptimizer\\Backups"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    }
+  ]
+}

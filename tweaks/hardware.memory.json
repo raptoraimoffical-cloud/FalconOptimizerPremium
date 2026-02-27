@@ -1,0 +1,530 @@
+{
+  "items": [
+    {
+      "id": "mem_disable_memory_compression",
+      "type": "button",
+      "name": "Apply: Disable Memory Compression",
+      "category": "Hardware / Memory",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables Windows memory compression.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Disable-MMAgent -MemoryCompression | Out-Null"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Enable-MMAgent -MemoryCompression | Out-Null"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "requiresAdmin": true
+    },
+    {
+      "category": "Hardware / Memory",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables Windows memory compression.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "id": "mem_disable_memory_compression__revert",
+      "type": "button",
+      "name": "Revert: Disable Memory Compression",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Enable-MMAgent -MemoryCompression | Out-Null"
+          }
+        ]
+      }
+    },
+    {
+      "id": "mem_disable_sysmain",
+      "type": "toggle",
+      "name": "Disable SysMain (Superfetch)",
+      "category": "Hardware / Memory",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Stops and disables SysMain.",
+      "apply": {
+        "steps": [
+          {
+            "type": "service.disable",
+            "name": "SysMain"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.enable",
+            "name": "SysMain"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "SysMain",
+            "startupType": "disabled"
+          }
+        ]
+      }
+    },
+    {
+      "id": "mem_disable_prefetch",
+      "type": "toggle",
+      "name": "Disable Prefetch",
+      "category": "Hardware / Memory",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables Prefetcher.",
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management\\PrefetchParameters",
+            "name": "EnablePrefetcher",
+            "valueType": "DWord",
+            "value": 0
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management\\PrefetchParameters",
+            "name": "EnablePrefetcher",
+            "valueType": "DWord",
+            "value": 3
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management\\PrefetchParameters",
+            "name": "EnablePrefetcher",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "mem_disable_superfetch",
+      "type": "toggle",
+      "name": "Disable Superfetch",
+      "category": "Hardware / Memory",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables Superfetch behaviour.",
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management\\PrefetchParameters",
+            "name": "EnableSuperfetch",
+            "valueType": "DWord",
+            "value": 0
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management\\PrefetchParameters",
+            "name": "EnableSuperfetch",
+            "valueType": "DWord",
+            "value": 3
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management\\PrefetchParameters",
+            "name": "EnableSuperfetch",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "mem_clear_workingsets",
+      "type": "button",
+      "name": "Trim Process Working Sets (one-time)",
+      "category": "Hardware / Memory",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Attempts to trim working sets for running processes.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$sig='[DllImport(\"psapi.dll\")]public static extern int EmptyWorkingSet(IntPtr h);'; Add-Type -MemberDefinition $sig -Name Native -Namespace Win; Get-Process | ForEach-Object { try {[Win.Native]::EmptyWorkingSet($_.Handle) | Out-Null} catch {} }"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "requiresAdmin": true,
+      "note": "Converted from toggle (missing revert)."
+    },
+    {
+      "id": "mem_open_pagefile",
+      "type": "action",
+      "name": "Run Virtual Memory (Page File) Settings",
+      "category": "Hardware / Memory",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Opens page file settings.",
+      "primaryLabel": "Open",
+      "apply": {
+        "steps": [
+          {
+            "type": "process.start",
+            "filePath": "SystemPropertiesPerformance.exe",
+            "arguments": "/pagefile"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "mem_disable_page_combining",
+      "type": "button",
+      "name": "Apply: Disable Page Combining",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables memory page combining.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Disable-MMAgent -PageCombining"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Enable-MMAgent -PageCombining"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "Hardware / Memory"
+    },
+    {
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables memory page combining.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Hardware / Memory",
+      "id": "mem_disable_page_combining__revert",
+      "type": "button",
+      "name": "Revert: Disable Page Combining",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Enable-MMAgent -PageCombining"
+          }
+        ]
+      }
+    },
+    {
+      "id": "mem_disable_standby_cache_trim",
+      "type": "toggle",
+      "name": "Disable Standby Cache Trimming (Policy)",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Reduces standby cache trimming aggressiveness.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management",
+            "name": "ClearPageFileAtShutdown",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management",
+            "name": "ClearPageFileAtShutdown"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "Hardware / Memory",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management",
+            "name": "ClearPageFileAtShutdown",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "mem_clear_standby_list",
+      "type": "button",
+      "name": "Clear Standby Memory List",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Clears standby list (temporary).",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$sig='[DllImport(\"ntdll.dll\")]public static extern int NtSetSystemInformation(int SystemInformationClass, IntPtr SystemInformation, int SystemInformationLength);'; Add-Type -MemberDefinition $sig -Name Ntdll -Namespace Win32; $ptr=[System.Runtime.InteropServices.Marshal]::AllocHGlobal(4); [System.Runtime.InteropServices.Marshal]::WriteInt32($ptr,4); [Win32.Ntdll]::NtSetSystemInformation(80,$ptr,4)|Out-Null; [System.Runtime.InteropServices.Marshal]::FreeHGlobal($ptr)"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "category": "Hardware / Memory"
+    },
+    {
+      "id": "mem_disk_write_cache_guidance",
+      "type": "button",
+      "name": "Enable Disk Write Caching (Guided)",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Guided: opens Device Manager to enable write caching per disk (risk on power loss).",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Start-Process devmgmt.msc"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "category": "Hardware / Memory"
+    },
+    {
+      "id": "mem_disable_paging_executive",
+      "type": "toggle",
+      "name": "Disable Paging Executive",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Keeps kernel drivers in RAM.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management",
+            "name": "DisablePagingExecutive",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management",
+            "name": "DisablePagingExecutive"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "Hardware / Memory",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management",
+            "name": "DisablePagingExecutive",
+            "valueType": "DWord",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "mem_large_system_cache_off",
+      "type": "toggle",
+      "name": "LargeSystemCache Off",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Ensures LargeSystemCache is disabled for gaming desktops.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management",
+            "name": "LargeSystemCache",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management",
+            "name": "LargeSystemCache"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "Hardware / Memory",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management",
+            "name": "LargeSystemCache",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "mem_numa_guidance",
+      "type": "button",
+      "name": "NUMA Locality (Guided)",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Guided: NUMA tuning is hardware-specific; opens guidance.",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows/win32/procthread/numa-support"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "category": "Hardware / Memory",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "mem_disable_page_combining_v2",
+      "type": "button",
+      "name": "Apply: Disable Page Combining",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables memory page combining.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Disable-MMAgent -PageCombining | Out-Null"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Enable-MMAgent -PageCombining | Out-Null"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "Hardware / Memory"
+    },
+    {
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables memory page combining.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Hardware / Memory",
+      "id": "mem_disable_page_combining_v2__revert",
+      "type": "button",
+      "name": "Revert: Disable Page Combining",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Enable-MMAgent -PageCombining | Out-Null"
+          }
+        ]
+      }
+    },
+    {
+      "id": "mem_disable_paging_executive_v2",
+      "type": "toggle",
+      "name": "Disable Paging Executive",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Keeps kernel drivers in RAM.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management",
+            "name": "DisablePagingExecutive",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management",
+            "name": "DisablePagingExecutive"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "Hardware / Memory",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management",
+            "name": "DisablePagingExecutive",
+            "valueType": "DWord",
+            "equals": 1
+          }
+        ]
+      }
+    }
+  ]
+}

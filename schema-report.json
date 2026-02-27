@@ -1,0 +1,234 @@
+{
+  "version": 2,
+  "generatedAt": "2026-01-18T01:31:37.668Z",
+  "ok": false,
+  "files": [
+    {
+      "file": "advanced.devices.json",
+      "itemCount": 6
+    },
+    {
+      "file": "advanced.msi_mode.json",
+      "itemCount": 5
+    },
+    {
+      "file": "advanced.security.json",
+      "itemCount": 5
+    },
+    {
+      "file": "debloat.autoruns.json",
+      "itemCount": 2
+    },
+    {
+      "file": "debloat.cleaner.json",
+      "itemCount": 11
+    },
+    {
+      "file": "debloat.services.json",
+      "itemCount": 3
+    },
+    {
+      "file": "debloat.tasks.json",
+      "itemCount": 0
+    },
+    {
+      "file": "debloat.uninstall.json",
+      "itemCount": 1
+    },
+    {
+      "file": "expansion.aphrodite_latency.json",
+      "itemCount": 40
+    },
+    {
+      "file": "expansion.audio.json",
+      "itemCount": 15
+    },
+    {
+      "file": "expansion.backgroundapps.json",
+      "itemCount": 99
+    },
+    {
+      "file": "expansion.boot_timer.bcdedit.json",
+      "itemCount": 25
+    },
+    {
+      "file": "expansion.ctt_paradime_system.json",
+      "itemCount": 40
+    },
+    {
+      "file": "expansion.engine_games.json",
+      "itemCount": 40
+    },
+    {
+      "file": "expansion.gpu_nvidia_advanced.json",
+      "itemCount": 30
+    },
+    {
+      "file": "expansion.measurement_validation.json",
+      "itemCount": 25
+    },
+    {
+      "file": "expansion.mmcss_scheduling.json",
+      "itemCount": 22
+    },
+    {
+      "file": "expansion.network_advanced.json",
+      "itemCount": 25
+    },
+    {
+      "file": "expansion.nvidia.tools.json",
+      "itemCount": 44
+    },
+    {
+      "file": "expansion.paradime_advanced.json",
+      "itemCount": 40
+    },
+    {
+      "file": "expansion.power_advanced.json",
+      "itemCount": 25
+    },
+    {
+      "file": "expansion.registry.json",
+      "itemCount": 78
+    },
+    {
+      "file": "expansion.security_tradeoffs.json",
+      "itemCount": 15
+    },
+    {
+      "file": "expansion.services.json",
+      "itemCount": 95
+    },
+    {
+      "file": "expansion.storage_io.json",
+      "itemCount": 20
+    },
+    {
+      "file": "expansion.tasks.json",
+      "itemCount": 122
+    },
+    {
+      "file": "expansion.ui_background.json",
+      "itemCount": 20
+    },
+    {
+      "file": "expansion.usb_input.json",
+      "itemCount": 20
+    },
+    {
+      "file": "falcon.services.json",
+      "itemCount": 0
+    },
+    {
+      "file": "fixes.modules.json",
+      "itemCount": 9
+    },
+    {
+      "file": "fortnite.competitive.json",
+      "itemCount": 8
+    },
+    {
+      "file": "game.mode.json",
+      "itemCount": 4
+    },
+    {
+      "file": "game.specific.json",
+      "itemCount": 24
+    },
+    {
+      "file": "gamemode.runtime.json",
+      "itemCount": 2
+    },
+    {
+      "file": "hardware.cpu.intel.json",
+      "itemCount": 18
+    },
+    {
+      "file": "hardware.gpu.nvidia.json",
+      "itemCount": 53
+    },
+    {
+      "file": "hardware.memory.json",
+      "itemCount": 15
+    },
+    {
+      "file": "hardware.peripherals.json",
+      "itemCount": 15
+    },
+    {
+      "file": "hardware.storage.json",
+      "itemCount": 17
+    },
+    {
+      "file": "network.adapter-tuner.json",
+      "itemCount": 2
+    },
+    {
+      "file": "network.bufferbloat.json",
+      "itemCount": 3
+    },
+    {
+      "file": "network.priority.json",
+      "itemCount": 2
+    },
+    {
+      "file": "network.tweaks.json",
+      "itemCount": 18
+    },
+    {
+      "file": "speed.boost.json",
+      "itemCount": 45
+    },
+    {
+      "file": "speed.integrity.json",
+      "itemCount": 9
+    },
+    {
+      "file": "utilities.json",
+      "itemCount": 10
+    },
+    {
+      "file": "windows.core.json",
+      "itemCount": 57
+    },
+    {
+      "file": "windows.power.json",
+      "itemCount": 13
+    },
+    {
+      "file": "windows.privacy.json",
+      "itemCount": 19
+    },
+    {
+      "file": "windows.qol.json",
+      "itemCount": 19
+    }
+  ],
+  "errors": [
+    {
+      "where": "game.specific.json.items[0](game.fortnite.launch_args_guide).apply.steps[0]",
+      "msg": "Invalid step type: log.only"
+    },
+    {
+      "where": "game.specific.json.items[2](game.valorant.guide).apply.steps[0]",
+      "msg": "Invalid step type: log.only"
+    },
+    {
+      "where": "game.specific.json.items[3](game.overwatch.guide).apply.steps[0]",
+      "msg": "Invalid step type: log.only"
+    },
+    {
+      "where": "game.specific.json.items[4](game.cod.guide).apply.steps[0]",
+      "msg": "Invalid step type: log.only"
+    },
+    {
+      "where": "game.specific.json.items[5](game.rocketleague.guide).apply.steps[0]",
+      "msg": "Invalid step type: log.only"
+    },
+    {
+      "where": "game.specific.json.items[6](game.gta.guide).apply.steps[0]",
+      "msg": "Invalid step type: log.only"
+    }
+  ],
+  "warnings": []
+}

@@ -1,0 +1,809 @@
+{
+  "items": [
+    {
+      "id": "ctt_paradime_system_disable_sysmain",
+      "type": "action",
+      "name": "CTT Paradime System: Disable SysMain",
+      "description": "Stops SysMain (Superfetch) to reduce background activity.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System/Core",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Stop-Service SysMain -Force -ErrorAction SilentlyContinue; Set-Service SysMain -StartupType Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Service SysMain -StartupType Automatic -ErrorAction SilentlyContinue; Start-Service SysMain -ErrorAction SilentlyContinue"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ctt_paradime_system_disable_windows_search",
+      "type": "action",
+      "name": "CTT Paradime System: Disable Windows Search",
+      "description": "Stops WSearch indexing service.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System/Core",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Stop-Service WSearch -Force -ErrorAction SilentlyContinue; Set-Service WSearch -StartupType Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Service WSearch -StartupType Automatic -ErrorAction SilentlyContinue; Start-Service WSearch -ErrorAction SilentlyContinue"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ctt_paradime_system_disable_delivery_optimization",
+      "type": "action",
+      "name": "CTT Paradime System: Disable Delivery Optimization",
+      "description": "Stops DoSvc to reduce background downloads.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System/Core",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Stop-Service DoSvc -Force -ErrorAction SilentlyContinue; Set-Service DoSvc -StartupType Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Service DoSvc -StartupType Manual -ErrorAction SilentlyContinue"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ctt_paradime_system_disable_hibernate",
+      "type": "action",
+      "name": "CTT Paradime System: Disable hibernate",
+      "description": "Disables hibernation file (frees disk and reduces some wake behavior).",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System/Core",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powercfg -h off"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powercfg -h on"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ctt_paradime_system_disable_usb_selective_suspend",
+      "type": "action",
+      "name": "CTT Paradime System: Disable USB selective suspend",
+      "description": "Disables selective suspend via power settings.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System/Core",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_USB USBSELECTSUSPEND 0; powercfg -S SCHEME_CURRENT"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_USB USBSELECTSUSPEND 1; powercfg -S SCHEME_CURRENT"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ctt_paradime_system_disable_nagle_tcpnodelay",
+      "type": "action",
+      "name": "CTT Paradime System: Disable Nagle (TcpNoDelay)",
+      "description": "Sets TcpNoDelay=1 on active interfaces (best-effort).",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System/Core",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$ifs = Get-ChildItem \"HKLM:\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\" -ErrorAction SilentlyContinue\nforeach($k in $ifs){ \n  New-ItemProperty -Path $k.PSPath -Name \"TcpNoDelay\" -Value 1 -PropertyType DWord -Force | Out-Null\n  New-ItemProperty -Path $k.PSPath -Name \"TcpAckFrequency\" -Value 1 -PropertyType DWord -Force | Out-Null\n}\nWrite-Output \"Set on interfaces\"\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "ctt_paradime_system_enable_ultimate_performance_plan_if_pres",
+      "type": "action",
+      "name": "CTT Paradime System: Enable ultimate performance plan (if present)",
+      "description": "Switches to Ultimate Performance if available.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System/Core",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$u = (powercfg /list | Select-String -Pattern \"Ultimate Performance\").ToString()\nif($u){\n  $guid = ($u -split '\\s+')[3]\n  powercfg /setactive $guid\n  Write-Output \"Activated $guid\"\n}else{\n  Write-Output \"Not present\"\n}\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "ctt_paradime_system_device_manager_summary",
+      "type": "action",
+      "name": "CTT Paradime System: Device manager summary",
+      "description": "Unique slice export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System/Core",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\ctt_paradime_system\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"ctt_paradime_system_slice_9_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== CTT Paradime System Slice 9: Device manager summary ===\" | Out-File $fn -Encoding utf8\nGet-PnpDevice | Select-Object -First 200 Class,FriendlyName,Status | Format-Table -Wrap | Out-String | Out-File $fn -Append\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "ctt_paradime_system_powercfg_qh_subset",
+      "type": "action",
+      "name": "CTT Paradime System: Powercfg qh subset",
+      "description": "Unique slice export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System/Core",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\ctt_paradime_system\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"ctt_paradime_system_slice_10_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== CTT Paradime System Slice 10: Powercfg qh subset ===\" | Out-File $fn -Encoding utf8\npowercfg /qh | Select-Object -First 220 | Out-String | Out-File $fn -Append\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "ctt_paradime_system_registry_multimedia_systemprofile",
+      "type": "action",
+      "name": "CTT Paradime System: Registry: multimedia systemprofile",
+      "description": "Unique slice export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System/Core",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\ctt_paradime_system\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"ctt_paradime_system_slice_11_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== CTT Paradime System Slice 11: Registry: multimedia systemprofile ===\" | Out-File $fn -Encoding utf8\nreg query \"HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\" /s 2>$null | Out-File $fn -Append\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "ctt_paradime_system_bcdedit_current",
+      "type": "action",
+      "name": "CTT Paradime System: BCDEdit current",
+      "description": "Unique slice export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System/Core",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\ctt_paradime_system\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"ctt_paradime_system_slice_12_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== CTT Paradime System Slice 12: BCDEdit current ===\" | Out-File $fn -Encoding utf8\nbcdedit /enum {current} | Out-File $fn -Append\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "ctt_paradime_system_netsh_tcp_global",
+      "type": "action",
+      "name": "CTT Paradime System: Netsh tcp global",
+      "description": "Unique slice export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System/Core",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\ctt_paradime_system\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"ctt_paradime_system_slice_13_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== CTT Paradime System Slice 13: Netsh tcp global ===\" | Out-File $fn -Encoding utf8\nnetsh int tcp show global | Out-File $fn -Append\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "ctt_paradime_system_device_manager_summary__expansion.ctt_paradime_system",
+      "type": "action",
+      "name": "CTT Paradime System: Device manager summary",
+      "description": "Unique slice export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System/Core",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\ctt_paradime_system\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"ctt_paradime_system_slice_14_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== CTT Paradime System Slice 14: Device manager summary ===\" | Out-File $fn -Encoding utf8\nGet-PnpDevice | Select-Object -First 200 Class,FriendlyName,Status | Format-Table -Wrap | Out-String | Out-File $fn -Append\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "ctt_paradime_system_powercfg_qh_subset__expansion.ctt_paradime_system",
+      "type": "action",
+      "name": "CTT Paradime System: Powercfg qh subset",
+      "description": "Unique slice export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System/Core",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\ctt_paradime_system\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"ctt_paradime_system_slice_15_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== CTT Paradime System Slice 15: Powercfg qh subset ===\" | Out-File $fn -Encoding utf8\npowercfg /qh | Select-Object -First 220 | Out-String | Out-File $fn -Append\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "ctt_paradime_system_registry_multimedia_systemprofile__expansion.ctt_paradime_system",
+      "type": "action",
+      "name": "CTT Paradime System: Registry: multimedia systemprofile",
+      "description": "Unique slice export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System/Core",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\ctt_paradime_system\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"ctt_paradime_system_slice_16_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== CTT Paradime System Slice 16: Registry: multimedia systemprofile ===\" | Out-File $fn -Encoding utf8\nreg query \"HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\" /s 2>$null | Out-File $fn -Append\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "ctt_paradime_system_bcdedit_current__expansion.ctt_paradime_system",
+      "type": "action",
+      "name": "CTT Paradime System: BCDEdit current",
+      "description": "Unique slice export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System/Core",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\ctt_paradime_system\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"ctt_paradime_system_slice_17_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== CTT Paradime System Slice 17: BCDEdit current ===\" | Out-File $fn -Encoding utf8\nbcdedit /enum {current} | Out-File $fn -Append\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "ctt_paradime_system_netsh_tcp_global__expansion.ctt_paradime_system",
+      "type": "action",
+      "name": "CTT Paradime System: Netsh tcp global",
+      "description": "Unique slice export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System/Core",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\ctt_paradime_system\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"ctt_paradime_system_slice_18_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== CTT Paradime System Slice 18: Netsh tcp global ===\" | Out-File $fn -Encoding utf8\nnetsh int tcp show global | Out-File $fn -Append\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "ctt_paradime_system_device_manager_summary__expansion.ctt_paradime_system_2",
+      "type": "action",
+      "name": "CTT Paradime System: Device manager summary",
+      "description": "Unique slice export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System/Core",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\ctt_paradime_system\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"ctt_paradime_system_slice_19_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== CTT Paradime System Slice 19: Device manager summary ===\" | Out-File $fn -Encoding utf8\nGet-PnpDevice | Select-Object -First 200 Class,FriendlyName,Status | Format-Table -Wrap | Out-String | Out-File $fn -Append\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "ctt_paradime_system_powercfg_qh_subset__expansion.ctt_paradime_system_2",
+      "type": "action",
+      "name": "CTT Paradime System: Powercfg qh subset",
+      "description": "Unique slice export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System/Core",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\ctt_paradime_system\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"ctt_paradime_system_slice_20_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== CTT Paradime System Slice 20: Powercfg qh subset ===\" | Out-File $fn -Encoding utf8\npowercfg /qh | Select-Object -First 220 | Out-String | Out-File $fn -Append\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "ctt_paradime_system_registry_multimedia_systemprofile__expansion.ctt_paradime_system_2",
+      "type": "action",
+      "name": "CTT Paradime System: Registry: multimedia systemprofile",
+      "description": "Unique slice export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System/Core",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\ctt_paradime_system\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"ctt_paradime_system_slice_21_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== CTT Paradime System Slice 21: Registry: multimedia systemprofile ===\" | Out-File $fn -Encoding utf8\nreg query \"HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\" /s 2>$null | Out-File $fn -Append\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "ctt_paradime_system_bcdedit_current__expansion.ctt_paradime_system_2",
+      "type": "action",
+      "name": "CTT Paradime System: BCDEdit current",
+      "description": "Unique slice export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System/Core",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\ctt_paradime_system\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"ctt_paradime_system_slice_22_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== CTT Paradime System Slice 22: BCDEdit current ===\" | Out-File $fn -Encoding utf8\nbcdedit /enum {current} | Out-File $fn -Append\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "ctt_paradime_system_netsh_tcp_global__expansion.ctt_paradime_system_2",
+      "type": "action",
+      "name": "CTT Paradime System: Netsh tcp global",
+      "description": "Unique slice export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System/Core",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\ctt_paradime_system\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"ctt_paradime_system_slice_23_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== CTT Paradime System Slice 23: Netsh tcp global ===\" | Out-File $fn -Encoding utf8\nnetsh int tcp show global | Out-File $fn -Append\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "ctt_paradime_system_device_manager_summary__expansion.ctt_paradime_system_3",
+      "type": "action",
+      "name": "CTT Paradime System: Device manager summary",
+      "description": "Unique slice export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System/Core",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\ctt_paradime_system\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"ctt_paradime_system_slice_24_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== CTT Paradime System Slice 24: Device manager summary ===\" | Out-File $fn -Encoding utf8\nGet-PnpDevice | Select-Object -First 200 Class,FriendlyName,Status | Format-Table -Wrap | Out-String | Out-File $fn -Append\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "ctt_paradime_system_powercfg_qh_subset__expansion.ctt_paradime_system_3",
+      "type": "action",
+      "name": "CTT Paradime System: Powercfg qh subset",
+      "description": "Unique slice export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System/Core",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\ctt_paradime_system\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"ctt_paradime_system_slice_25_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== CTT Paradime System Slice 25: Powercfg qh subset ===\" | Out-File $fn -Encoding utf8\npowercfg /qh | Select-Object -First 220 | Out-String | Out-File $fn -Append\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "ctt_paradime_system_registry_multimedia_systemprofile__expansion.ctt_paradime_system_3",
+      "type": "action",
+      "name": "CTT Paradime System: Registry: multimedia systemprofile",
+      "description": "Unique slice export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System/Core",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\ctt_paradime_system\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"ctt_paradime_system_slice_26_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== CTT Paradime System Slice 26: Registry: multimedia systemprofile ===\" | Out-File $fn -Encoding utf8\nreg query \"HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\" /s 2>$null | Out-File $fn -Append\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "ctt_paradime_system_bcdedit_current__expansion.ctt_paradime_system_3",
+      "type": "action",
+      "name": "CTT Paradime System: BCDEdit current",
+      "description": "Unique slice export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System/Core",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\ctt_paradime_system\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"ctt_paradime_system_slice_27_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== CTT Paradime System Slice 27: BCDEdit current ===\" | Out-File $fn -Encoding utf8\nbcdedit /enum {current} | Out-File $fn -Append\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "ctt_paradime_system_netsh_tcp_global__expansion.ctt_paradime_system_3",
+      "type": "action",
+      "name": "CTT Paradime System: Netsh tcp global",
+      "description": "Unique slice export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System/Core",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\ctt_paradime_system\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"ctt_paradime_system_slice_28_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== CTT Paradime System Slice 28: Netsh tcp global ===\" | Out-File $fn -Encoding utf8\nnetsh int tcp show global | Out-File $fn -Append\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "ctt_paradime_system_device_manager_summary__expansion.ctt_paradime_system_4",
+      "type": "action",
+      "name": "CTT Paradime System: Device manager summary",
+      "description": "Unique slice export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System/Core",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\ctt_paradime_system\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"ctt_paradime_system_slice_29_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== CTT Paradime System Slice 29: Device manager summary ===\" | Out-File $fn -Encoding utf8\nGet-PnpDevice | Select-Object -First 200 Class,FriendlyName,Status | Format-Table -Wrap | Out-String | Out-File $fn -Append\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "ctt_paradime_system_powercfg_qh_subset__expansion.ctt_paradime_system_4",
+      "type": "action",
+      "name": "CTT Paradime System: Powercfg qh subset",
+      "description": "Unique slice export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System/Core",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\ctt_paradime_system\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"ctt_paradime_system_slice_30_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== CTT Paradime System Slice 30: Powercfg qh subset ===\" | Out-File $fn -Encoding utf8\npowercfg /qh | Select-Object -First 220 | Out-String | Out-File $fn -Append\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "ctt_paradime_system_registry_multimedia_systemprofile__expansion.ctt_paradime_system_4",
+      "type": "action",
+      "name": "CTT Paradime System: Registry: multimedia systemprofile",
+      "description": "Unique slice export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System/Core",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\ctt_paradime_system\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"ctt_paradime_system_slice_31_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== CTT Paradime System Slice 31: Registry: multimedia systemprofile ===\" | Out-File $fn -Encoding utf8\nreg query \"HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\" /s 2>$null | Out-File $fn -Append\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "ctt_paradime_system_bcdedit_current__expansion.ctt_paradime_system_4",
+      "type": "action",
+      "name": "CTT Paradime System: BCDEdit current",
+      "description": "Unique slice export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System/Core",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\ctt_paradime_system\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"ctt_paradime_system_slice_32_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== CTT Paradime System Slice 32: BCDEdit current ===\" | Out-File $fn -Encoding utf8\nbcdedit /enum {current} | Out-File $fn -Append\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "ctt_paradime_system_netsh_tcp_global__expansion.ctt_paradime_system_4",
+      "type": "action",
+      "name": "CTT Paradime System: Netsh tcp global",
+      "description": "Unique slice export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System/Core",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\ctt_paradime_system\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"ctt_paradime_system_slice_33_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== CTT Paradime System Slice 33: Netsh tcp global ===\" | Out-File $fn -Encoding utf8\nnetsh int tcp show global | Out-File $fn -Append\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "ctt_paradime_system_device_manager_summary__expansion.ctt_paradime_system_5",
+      "type": "action",
+      "name": "CTT Paradime System: Device manager summary",
+      "description": "Unique slice export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System/Core",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\ctt_paradime_system\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"ctt_paradime_system_slice_34_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== CTT Paradime System Slice 34: Device manager summary ===\" | Out-File $fn -Encoding utf8\nGet-PnpDevice | Select-Object -First 200 Class,FriendlyName,Status | Format-Table -Wrap | Out-String | Out-File $fn -Append\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "ctt_paradime_system_powercfg_qh_subset__expansion.ctt_paradime_system_5",
+      "type": "action",
+      "name": "CTT Paradime System: Powercfg qh subset",
+      "description": "Unique slice export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System/Core",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\ctt_paradime_system\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"ctt_paradime_system_slice_35_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== CTT Paradime System Slice 35: Powercfg qh subset ===\" | Out-File $fn -Encoding utf8\npowercfg /qh | Select-Object -First 220 | Out-String | Out-File $fn -Append\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "ctt_paradime_system_registry_multimedia_systemprofile__expansion.ctt_paradime_system_5",
+      "type": "action",
+      "name": "CTT Paradime System: Registry: multimedia systemprofile",
+      "description": "Unique slice export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System/Core",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\ctt_paradime_system\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"ctt_paradime_system_slice_36_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== CTT Paradime System Slice 36: Registry: multimedia systemprofile ===\" | Out-File $fn -Encoding utf8\nreg query \"HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\" /s 2>$null | Out-File $fn -Append\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "ctt_paradime_system_bcdedit_current__expansion.ctt_paradime_system_5",
+      "type": "action",
+      "name": "CTT Paradime System: BCDEdit current",
+      "description": "Unique slice export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System/Core",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\ctt_paradime_system\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"ctt_paradime_system_slice_37_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== CTT Paradime System Slice 37: BCDEdit current ===\" | Out-File $fn -Encoding utf8\nbcdedit /enum {current} | Out-File $fn -Append\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "ctt_paradime_system_netsh_tcp_global__expansion.ctt_paradime_system_5",
+      "type": "action",
+      "name": "CTT Paradime System: Netsh tcp global",
+      "description": "Unique slice export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System/Core",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\ctt_paradime_system\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"ctt_paradime_system_slice_38_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== CTT Paradime System Slice 38: Netsh tcp global ===\" | Out-File $fn -Encoding utf8\nnetsh int tcp show global | Out-File $fn -Append\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "ctt_paradime_system_device_manager_summary__expansion.ctt_paradime_system_6",
+      "type": "action",
+      "name": "CTT Paradime System: Device manager summary",
+      "description": "Unique slice export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System/Core",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\ctt_paradime_system\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"ctt_paradime_system_slice_39_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== CTT Paradime System Slice 39: Device manager summary ===\" | Out-File $fn -Encoding utf8\nGet-PnpDevice | Select-Object -First 200 Class,FriendlyName,Status | Format-Table -Wrap | Out-String | Out-File $fn -Append\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "ctt_paradime_system_powercfg_qh_subset__expansion.ctt_paradime_system_6",
+      "type": "action",
+      "name": "CTT Paradime System: Powercfg qh subset",
+      "description": "Unique slice export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System/Core",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\ctt_paradime_system\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"ctt_paradime_system_slice_40_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== CTT Paradime System Slice 40: Powercfg qh subset ===\" | Out-File $fn -Encoding utf8\npowercfg /qh | Select-Object -First 220 | Out-String | Out-File $fn -Append\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "items": [
+    {
+      "id": "gm_start",
+      "type": "button",
+      "name": "Start Titan Game Mode",
+      "category": "Game Mode",
+      "risk": "Warning",
+      "description": "[Focus: FPS] Closes common background apps and restarts Explorer after gaming (use Stop to revert).",
+      "apply": {
+        "steps": [
+          {
+            "type": "process.kill",
+            "name": "OneDrive"
+          },
+          {
+            "type": "process.kill",
+            "name": "YourPhone"
+          },
+          {
+            "type": "process.kill",
+            "name": "Teams"
+          },
+          {
+            "type": "process.kill",
+            "name": "Discord"
+          },
+          {
+            "type": "ps.run",
+            "command": "Stop-Process -Name explorer -Force -ErrorAction SilentlyContinue"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "note": "Converted from toggle (missing revert)."
+    },
+    {
+      "id": "gm_stop",
+      "type": "button",
+      "name": "Stop Titan Game Mode",
+      "category": "Game Mode",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Restores desktop by restarting Explorer.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Start-Process explorer.exe"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "requiresAdmin": true,
+      "note": "Converted from toggle (missing revert)."
+    },
+    {
+      "id": "gm_open_gpu_stretch_panel",
+      "type": "action",
+      "name": "Game Mode: Open GPU stretch / scaling panel",
+      "category": "Game Mode / Stretch Resolution",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Detects your GPU vendor and opens NVIDIA Control Panel, AMD Radeon Software, or Windows Display settings so you can configure stretched resolution and scaling.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$gpu = Get-CimInstance Win32_VideoController | Sort-Object AdapterRAM -Descending | Select-Object -First 1 Name;\n$gpuName = ($gpu.Name | Out-String).Trim();\nif ($gpuName -match 'NVIDIA|GeForce|RTX|GTX') {\n  $paths = @(\n    \"$env:SystemRoot\\System32\\nvcplui.exe\",\n    \"$env:ProgramFiles\\NVIDIA Corporation\\Control Panel Client\\nvcplui.exe\"\n  );\n  foreach ($p in $paths) { if (Test-Path $p) { Start-Process $p; return } }\n  Start-Process ms-settings:display;\n} elseif ($gpuName -match 'AMD|Radeon|RX ') {\n  $paths = @(\n    \"$env:ProgramFiles\\AMD\\CNext\\CNext\\RadeonSoftware.exe\",\n    \"$env:ProgramFiles\\AMD\\CNext\\CNext\\AMDRadeonSoftware.exe\",\n    \"$env:ProgramFiles\\AMD\\CNext\\CNext\\AMDSoftware.exe\"\n  );\n  foreach ($p in $paths) { if (Test-Path $p) { Start-Process $p; return } }\n  Start-Process ms-settings:display;\n} else {\n  Start-Process ms-settings:display;\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "requiresAdmin": false
+    }
+  ]
+}

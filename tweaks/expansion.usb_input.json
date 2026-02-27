@@ -1,0 +1,503 @@
+{
+  "items": [
+    {
+      "id": "exp.usb.open_mouse_settings",
+      "type": "action",
+      "name": "Open Mouse Settings",
+      "category": "Expansion / USB & Input",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Opens Windows mouse settings (pointer precision, etc.).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "start ms-settings:mouse"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe"
+    },
+    {
+      "id": "exp.usb.open_keyboard_settings",
+      "type": "action",
+      "name": "Open Keyboard Settings",
+      "category": "Expansion / USB & Input",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Opens Windows keyboard settings.",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "start ms-settings:keyboard"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe"
+    },
+    {
+      "id": "exp.usb.controller_overclock",
+      "type": "button",
+      "name": "Controller Overclock (Polling Rate) — Guided Auto-Apply",
+      "category": "Expansion / USB & Input",
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay] Guided controller polling-rate overclock using bundled Hidusbf. Toggle ON to open the guided panel. Recommended: PlayStation controllers = 1000Hz. Xbox often cannot truly overclock due to firmware. Requires admin; may require unplug/replug or reboot.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "path": "scripts/controller-overclock.ps1",
+            "args": {
+              "Action": "list"
+            }
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "note": "Converted from toggle (missing revert)."
+    },
+    {
+      "id": "exp.usb.placeholder_003",
+      "type": "button",
+      "name": "USB/Input Checklist Item",
+      "category": "Expansion / USB & Input",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://support.microsoft.com/windows/mouse-keyboard-and-other-input-devices-6f6dfc8a-8c89-74d4-17e4-6a3d30b97c31"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.usb.placeholder_004",
+      "type": "button",
+      "name": "USB/Input Checklist Item",
+      "category": "Expansion / USB & Input",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://support.microsoft.com/windows/mouse-keyboard-and-other-input-devices-6f6dfc8a-8c89-74d4-17e4-6a3d30b97c31"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.usb.placeholder_005",
+      "type": "button",
+      "name": "USB/Input Checklist Item",
+      "category": "Expansion / USB & Input",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://support.microsoft.com/windows/mouse-keyboard-and-other-input-devices-6f6dfc8a-8c89-74d4-17e4-6a3d30b97c31"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.usb.placeholder_006",
+      "type": "button",
+      "name": "USB/Input Checklist Item",
+      "category": "Expansion / USB & Input",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://support.microsoft.com/windows/mouse-keyboard-and-other-input-devices-6f6dfc8a-8c89-74d4-17e4-6a3d30b97c31"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.usb.placeholder_007",
+      "type": "button",
+      "name": "USB/Input Checklist Item",
+      "category": "Expansion / USB & Input",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://support.microsoft.com/windows/mouse-keyboard-and-other-input-devices-6f6dfc8a-8c89-74d4-17e4-6a3d30b97c31"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.usb.placeholder_008",
+      "type": "button",
+      "name": "USB/Input Checklist Item",
+      "category": "Expansion / USB & Input",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://support.microsoft.com/windows/mouse-keyboard-and-other-input-devices-6f6dfc8a-8c89-74d4-17e4-6a3d30b97c31"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.usb.placeholder_009",
+      "type": "button",
+      "name": "USB/Input Checklist Item",
+      "category": "Expansion / USB & Input",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://support.microsoft.com/windows/mouse-keyboard-and-other-input-devices-6f6dfc8a-8c89-74d4-17e4-6a3d30b97c31"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.usb.placeholder_010",
+      "type": "button",
+      "name": "USB/Input Checklist Item",
+      "category": "Expansion / USB & Input",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://support.microsoft.com/windows/mouse-keyboard-and-other-input-devices-6f6dfc8a-8c89-74d4-17e4-6a3d30b97c31"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.usb.placeholder_011",
+      "type": "button",
+      "name": "USB/Input Checklist Item",
+      "category": "Expansion / USB & Input",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://support.microsoft.com/windows/mouse-keyboard-and-other-input-devices-6f6dfc8a-8c89-74d4-17e4-6a3d30b97c31"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.usb.placeholder_012",
+      "type": "button",
+      "name": "USB/Input Checklist Item",
+      "category": "Expansion / USB & Input",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://support.microsoft.com/windows/mouse-keyboard-and-other-input-devices-6f6dfc8a-8c89-74d4-17e4-6a3d30b97c31"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.usb.placeholder_013",
+      "type": "button",
+      "name": "USB/Input Checklist Item",
+      "category": "Expansion / USB & Input",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://support.microsoft.com/windows/mouse-keyboard-and-other-input-devices-6f6dfc8a-8c89-74d4-17e4-6a3d30b97c31"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.usb.placeholder_014",
+      "type": "button",
+      "name": "USB/Input Checklist Item",
+      "category": "Expansion / USB & Input",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://support.microsoft.com/windows/mouse-keyboard-and-other-input-devices-6f6dfc8a-8c89-74d4-17e4-6a3d30b97c31"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.usb.placeholder_015",
+      "type": "button",
+      "name": "USB/Input Checklist Item",
+      "category": "Expansion / USB & Input",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://support.microsoft.com/windows/mouse-keyboard-and-other-input-devices-6f6dfc8a-8c89-74d4-17e4-6a3d30b97c31"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.usb.placeholder_016",
+      "type": "button",
+      "name": "USB/Input Checklist Item",
+      "category": "Expansion / USB & Input",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://support.microsoft.com/windows/mouse-keyboard-and-other-input-devices-6f6dfc8a-8c89-74d4-17e4-6a3d30b97c31"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.usb.placeholder_017",
+      "type": "button",
+      "name": "USB/Input Checklist Item",
+      "category": "Expansion / USB & Input",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://support.microsoft.com/windows/mouse-keyboard-and-other-input-devices-6f6dfc8a-8c89-74d4-17e4-6a3d30b97c31"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.usb.placeholder_018",
+      "type": "button",
+      "name": "USB/Input Checklist Item",
+      "category": "Expansion / USB & Input",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://support.microsoft.com/windows/mouse-keyboard-and-other-input-devices-6f6dfc8a-8c89-74d4-17e4-6a3d30b97c31"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.usb.placeholder_019",
+      "type": "button",
+      "name": "USB/Input Checklist Item",
+      "category": "Expansion / USB & Input",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://support.microsoft.com/windows/mouse-keyboard-and-other-input-devices-6f6dfc8a-8c89-74d4-17e4-6a3d30b97c31"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.usb.placeholder_020",
+      "type": "button",
+      "name": "USB/Input Checklist Item",
+      "category": "Expansion / USB & Input",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://support.microsoft.com/windows/mouse-keyboard-and-other-input-devices-6f6dfc8a-8c89-74d4-17e4-6a3d30b97c31"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    }
+  ]
+}

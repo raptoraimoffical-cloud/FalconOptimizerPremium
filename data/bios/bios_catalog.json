@@ -1,0 +1,2229 @@
+{
+  "version": 1,
+  "sections": [
+    {
+      "id": "memory",
+      "label": "Memory",
+      "icon": "\ud83e\udde0",
+      "items": [
+        {
+          "id": "xmp_expo",
+          "name": "XMP / EXPO / DOCP (Profile 1)",
+          "whereKey": "OC",
+          "risk": "Safe",
+          "profiles": {
+            "balanced": "Enabled (Profile 1)",
+            "competitive": "Enabled (Profile 1)",
+            "extreme": "Enabled (Profile 1)"
+          },
+          "notes": "Use Profile 1 (usually most stable). Profile 2/tweaked can be unstable.",
+          "keywords": {
+            "ASUS": "AI Overclock Tuner \u2192 XMP I / EXPO I",
+            "MSI": "A-XMP / EXPO",
+            "Gigabyte": "Extreme Memory Profile (X.M.P.)",
+            "ASRock": "Load XMP Setting / EXPO"
+          },
+          "tags": []
+        },
+        {
+          "id": "dram_freq",
+          "name": "DRAM Frequency",
+          "whereKey": "OC",
+          "risk": "Safe",
+          "profiles": {
+            "balanced": "Match XMP/EXPO rated speed",
+            "competitive": "Match XMP/EXPO rated speed",
+            "extreme": "Match XMP/EXPO rated speed"
+          },
+          "notes": "Verify the selected frequency actually applied after save & reboot.",
+          "keywords": {
+            "ASUS": "DRAM Frequency",
+            "MSI": "DRAM Frequency",
+            "Gigabyte": "System Memory Multiplier",
+            "ASRock": "DRAM Frequency"
+          },
+          "tags": []
+        },
+        {
+          "id": "gear_mode",
+          "name": "Gear Mode / Memory Controller Ratio (Intel DDR4)",
+          "whereKey": "OC",
+          "risk": "Warning",
+          "profiles": {
+            "balanced": "DDR4: Gear 1  |  DDR5: Auto",
+            "competitive": "DDR4: Gear 1  |  DDR5: Auto",
+            "extreme": "DDR4: Gear 1 (test) | DDR5: Auto"
+          },
+          "notes": "On some boards called 'Gear Mode'. Gear 1 improves latency but may limit max RAM OC.",
+          "keywords": {
+            "ASUS": "Memory Controller DRAM Frequency Ratio / Gear Mode",
+            "MSI": "Gear Mode",
+            "Gigabyte": "Gear Mode",
+            "ASRock": "Gear Mode"
+          },
+          "tags": [
+            "intel",
+            "ddr4"
+          ]
+        },
+        {
+          "id": "cmd_rate",
+          "name": "Command Rate (CR)",
+          "whereKey": "OC",
+          "risk": "Warning",
+          "profiles": {
+            "balanced": "Auto (1T if stable)",
+            "competitive": "1T if stable",
+            "extreme": "1T (test)"
+          },
+          "notes": "1T can improve latency but may reduce stability.",
+          "keywords": {
+            "ASUS": "Command Rate",
+            "MSI": "Command Rate",
+            "Gigabyte": "Command Rate",
+            "ASRock": "Command Rate"
+          },
+          "tags": [
+            "ddr4",
+            "ddr5"
+          ]
+        },
+        {
+          "id": "trefi",
+          "name": "tREFI",
+          "whereKey": "OC",
+          "risk": "Danger",
+          "profiles": {
+            "balanced": "Auto",
+            "competitive": "Auto (tune only if you know)",
+            "extreme": "Higher (test, stress-test required)"
+          },
+          "notes": "Increasing tREFI can improve performance but can cause memory errors if too high.",
+          "keywords": {
+            "ASUS": "tREFI",
+            "MSI": "tREFI",
+            "Gigabyte": "tREFI",
+            "ASRock": "tREFI"
+          },
+          "tags": [
+            "memory_oc"
+          ]
+        },
+        {
+          "id": "power_down",
+          "name": "Power Down Enable",
+          "whereKey": "OC",
+          "risk": "Warning",
+          "profiles": {
+            "balanced": "Disabled (if stable)",
+            "competitive": "Disabled",
+            "extreme": "Disabled"
+          },
+          "notes": "Disabling can improve latency at idle; may raise idle power slightly.",
+          "keywords": {
+            "ASUS": "Power Down Enable",
+            "MSI": "Power Down Enable",
+            "Gigabyte": "Power Down Enable",
+            "ASRock": "Power Down Enable"
+          },
+          "tags": [
+            "ddr4",
+            "ddr5"
+          ]
+        },
+        {
+          "id": "gear_down",
+          "name": "Gear Down Mode (AMD)",
+          "whereKey": "OC",
+          "risk": "Warning",
+          "profiles": {
+            "balanced": "Auto",
+            "competitive": "Disabled (test)",
+            "extreme": "Disabled (test)"
+          },
+          "notes": "Disabling can reduce latency but can reduce stability; AMD-only.",
+          "keywords": {
+            "ASUS": "Gear Down Mode",
+            "MSI": "Gear Down Mode",
+            "Gigabyte": "Gear Down Mode",
+            "ASRock": "Gear Down Mode"
+          },
+          "tags": [
+            "amd"
+          ]
+        },
+        {
+          "id": "bgs",
+          "name": "Bank Group Swap (DDR4)",
+          "whereKey": "ADV",
+          "risk": "Warning",
+          "profiles": {
+            "balanced": "Auto",
+            "competitive": "Disabled (DDR4)",
+            "extreme": "Disabled (DDR4, test)"
+          },
+          "notes": "DDR4 only: can improve latency in some cases; requires stability testing.",
+          "keywords": {
+            "ASUS": "BankGroupSwap",
+            "MSI": "Bank Group Swap",
+            "Gigabyte": "Bank Group Swap",
+            "ASRock": "Bank Group Swap"
+          },
+          "tags": [
+            "ddr4"
+          ]
+        },
+        {
+          "id": "bgs_alt",
+          "name": "Bank Group Swap Alt (DDR4)",
+          "whereKey": "ADV",
+          "risk": "Warning",
+          "profiles": {
+            "balanced": "Auto",
+            "competitive": "Disabled (DDR4)",
+            "extreme": "Disabled (DDR4, test)"
+          },
+          "notes": "DDR4 only; test for stability.",
+          "keywords": {
+            "ASUS": "BankGroupSwapAlt",
+            "MSI": "Bank Group Swap Alt",
+            "Gigabyte": "Bank Group Swap Alt",
+            "ASRock": "Bank Group Swap Alt"
+          },
+          "tags": [
+            "ddr4"
+          ]
+        },
+        {
+          "id": "memory_scramble",
+          "name": "Memory Data Scramble / TSME",
+          "whereKey": "ADV",
+          "risk": "Warning",
+          "profiles": {
+            "balanced": "Enabled (security)",
+            "competitive": "Disabled (latency)",
+            "extreme": "Disabled (latency)"
+          },
+          "notes": "Disabling can reduce latency slightly but reduces certain memory security protections.",
+          "keywords": {
+            "ASUS": "TSME / Data Scramble",
+            "MSI": "TSME / Data Scramble",
+            "Gigabyte": "Memory Encryption / Scramble",
+            "ASRock": "TSME / Data Scramble"
+          },
+          "tags": [
+            "amd",
+            "security"
+          ]
+        },
+        {
+          "id": "prim_timings",
+          "name": "Primary timings (tCL/tRCD/tRP/tRAS)",
+          "whereKey": "OC",
+          "risk": "Danger",
+          "profiles": {
+            "balanced": "Auto (XMP/EXPO)",
+            "competitive": "XMP/EXPO defaults",
+            "extreme": "Manual tighten (expert only)"
+          },
+          "notes": "Manual timing tuning requires memory stress testing (TM5/Karhu).",
+          "keywords": {
+            "ASUS": "DRAM Timing Control",
+            "MSI": "DRAM Timing Mode",
+            "Gigabyte": "Advanced Memory Settings",
+            "ASRock": "DRAM Timing Configuration"
+          },
+          "tags": [
+            "memory_oc"
+          ]
+        },
+        {
+          "id": "vdimm",
+          "name": "DRAM Voltage (VDD/VDDQ for DDR5)",
+          "whereKey": "OC",
+          "risk": "Danger",
+          "profiles": {
+            "balanced": "Auto (XMP/EXPO)",
+            "competitive": "XMP/EXPO voltage",
+            "extreme": "Manual tune (expert only)"
+          },
+          "notes": "Incorrect voltage can cause instability or degrade memory over time.",
+          "keywords": {
+            "ASUS": "DRAM Voltage",
+            "MSI": "DRAM Voltage",
+            "Gigabyte": "DRAM Voltage",
+            "ASRock": "DRAM Voltage"
+          },
+          "tags": [
+            "memory_oc"
+          ]
+        },
+        {
+          "id": "sa_voltage",
+          "name": "System Agent / IMC voltage (Intel)",
+          "whereKey": "OC",
+          "risk": "Danger",
+          "profiles": {
+            "balanced": "Auto",
+            "competitive": "Auto",
+            "extreme": "Manual tune (expert only)"
+          },
+          "notes": "Only for high RAM OC; can degrade CPU if set too high.",
+          "keywords": {
+            "ASUS": "System Agent Voltage (VCCSA)",
+            "MSI": "CPU SA Voltage",
+            "Gigabyte": "VCCSA",
+            "ASRock": "VCCSA"
+          },
+          "tags": [
+            "intel",
+            "memory_oc"
+          ]
+        },
+        {
+          "id": "mcr",
+          "name": "Memory Context Restore (AMD)",
+          "whereKey": "ADV",
+          "risk": "Warning",
+          "profiles": {
+            "balanced": "Enabled (faster boot)",
+            "competitive": "Enabled",
+            "extreme": "Disabled (if stability issues)"
+          },
+          "notes": "If you get memory training issues, disable.",
+          "keywords": {
+            "ASUS": "Memory Context Restore",
+            "MSI": "Memory Context Restore",
+            "Gigabyte": "Memory Context Restore",
+            "ASRock": "Memory Context Restore"
+          },
+          "tags": [
+            "amd",
+            "ddr5"
+          ]
+        },
+        {
+          "id": "pdm",
+          "name": "Power Down Mode (AMD DDR5)",
+          "whereKey": "ADV",
+          "risk": "Warning",
+          "profiles": {
+            "balanced": "Auto",
+            "competitive": "Disabled (test)",
+            "extreme": "Disabled"
+          },
+          "notes": "Disabling can improve latency; test stability.",
+          "keywords": {
+            "ASUS": "Power Down Mode",
+            "MSI": "Power Down Mode",
+            "Gigabyte": "Power Down Mode",
+            "ASRock": "Power Down Mode"
+          },
+          "tags": [
+            "amd",
+            "ddr5"
+          ]
+        },
+        {
+          "id": "uclk",
+          "name": "UCLK==MEMCLK (AMD)",
+          "whereKey": "OC",
+          "risk": "Warning",
+          "profiles": {
+            "balanced": "Auto",
+            "competitive": "UCLK=MCLK (if stable)",
+            "extreme": "UCLK=MCLK (if stable)"
+          },
+          "notes": "Improves latency; may limit max frequency.",
+          "keywords": {
+            "ASUS": "UCLK DIV1 MODE",
+            "MSI": "UCLK DIV1 MODE",
+            "Gigabyte": "UCLK DIV1",
+            "ASRock": "UCLK"
+          },
+          "tags": [
+            "amd",
+            "ddr5",
+            "memory_oc"
+          ]
+        },
+        {
+          "id": "mrc_fastboot",
+          "name": "Memory Fast Boot / MRC Fast Boot",
+          "whereKey": "OC",
+          "risk": "Warning",
+          "profiles": {
+            "balanced": "Enabled",
+            "competitive": "Enabled",
+            "extreme": "Disabled (if instability)"
+          },
+          "notes": "Speeds boot. Disable if memory training issues.",
+          "keywords": {
+            "ASUS": "MRC Fast Boot",
+            "MSI": "Memory Fast Boot",
+            "Gigabyte": "Memory Fast Boot",
+            "ASRock": "Memory Fast Boot"
+          },
+          "tags": [
+            "intel"
+          ]
+        },
+        {
+          "id": "training",
+          "name": "Memory Training",
+          "whereKey": "OC",
+          "risk": "Warning",
+          "profiles": {
+            "balanced": "Auto",
+            "competitive": "Auto",
+            "extreme": "Auto"
+          },
+          "notes": "Leave on Auto unless troubleshooting boot loops.",
+          "keywords": {
+            "ASUS": "Memory Training",
+            "MSI": "Memory Training",
+            "Gigabyte": "Memory Training",
+            "ASRock": "Memory Training"
+          },
+          "tags": []
+        },
+        {
+          "id": "ecc",
+          "name": "ECC Support",
+          "whereKey": "ADV",
+          "risk": "Warning",
+          "profiles": {
+            "balanced": "Auto",
+            "competitive": "Auto",
+            "extreme": "Auto"
+          },
+          "notes": "Consumer boards typically ignore this; only relevant for ECC-capable platforms.",
+          "keywords": {
+            "ASUS": "ECC",
+            "MSI": "ECC",
+            "Gigabyte": "ECC",
+            "ASRock": "ECC"
+          },
+          "tags": [
+            "memory"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cpu",
+      "label": "CPU",
+      "icon": "\ud83e\udde9",
+      "items": [
+        {
+          "id": "mce",
+          "name": "Multi\u2011Core Enhancement / Remove All Limits (Intel)",
+          "whereKey": "OC",
+          "risk": "Warning",
+          "profiles": {
+            "balanced": "Auto (board default)",
+            "competitive": "Enabled (Remove Limits)",
+            "extreme": "Enabled (Remove Limits)"
+          },
+          "notes": "Increases power/heat. Requires strong cooling.",
+          "keywords": {
+            "ASUS": "MultiCore Enhancement",
+            "MSI": "Enhanced Turbo / CPU Lite Load",
+            "Gigabyte": "Enhanced Multi-Core Performance",
+            "ASRock": "Multi Core Enhancement"
+          },
+          "tags": [
+            "intel"
+          ]
+        },
+        {
+          "id": "abt",
+          "name": "Adaptive Boost Technology (Intel)",
+          "whereKey": "OC",
+          "risk": "Safe",
+          "profiles": {
+            "balanced": "Disabled",
+            "competitive": "Disabled",
+            "extreme": "Disabled"
+          },
+          "notes": "Usually not helpful for gaming latency; may increase heat.",
+          "keywords": {
+            "ASUS": "Adaptive Boost Technology",
+            "MSI": "ABT",
+            "Gigabyte": "Adaptive Boost",
+            "ASRock": "Adaptive Boost"
+          },
+          "tags": [
+            "intel"
+          ]
+        },
+        {
+          "id": "tvb",
+          "name": "Thermal Velocity Boost (Intel)",
+          "whereKey": "OC",
+          "risk": "Safe",
+          "profiles": {
+            "balanced": "Auto",
+            "competitive": "Disabled (consistency)",
+            "extreme": "Disabled"
+          },
+          "notes": "Disable for consistency; leaving Auto is fine if temps are excellent.",
+          "keywords": {
+            "ASUS": "Thermal Velocity Boost",
+            "MSI": "TVB",
+            "Gigabyte": "TVB",
+            "ASRock": "TVB"
+          },
+          "tags": [
+            "intel"
+          ]
+        },
+        {
+          "id": "e_cores",
+          "name": "Efficiency Cores (Intel 12/13/14th)",
+          "whereKey": "ADV",
+          "risk": "Danger",
+          "profiles": {
+            "balanced": "Enabled (Win11)",
+            "competitive": "Win11: Enabled | Win10: Optional disable",
+            "extreme": "Disable (Win10 test only)"
+          },
+          "notes": "Disabling can help latency on Win10 but may reduce performance in multitasking; Win11 schedules E-cores better.",
+          "keywords": {
+            "ASUS": "Active Efficient Cores",
+            "MSI": "E-Core Control",
+            "Gigabyte": "Efficient Core",
+            "ASRock": "E-Core"
+          },
+          "tags": [
+            "intel"
+          ]
+        },
+        {
+          "id": "ht_smt",
+          "name": "Hyper\u2011Threading / SMT",
+          "whereKey": "ADV",
+          "risk": "Warning",
+          "profiles": {
+            "balanced": "Enabled",
+            "competitive": "Enabled (disable only if tested)",
+            "extreme": "Optional disable (test)"
+          },
+          "notes": "Disabling can reduce stutters in rare cases but often reduces overall performance.",
+          "keywords": {
+            "ASUS": "Intel Hyper-Threading",
+            "MSI": "Intel Hyper-Threading",
+            "Gigabyte": "Hyper-Threading",
+            "ASRock": "Hyper-Threading"
+          },
+          "tags": [
+            "intel",
+            "amd"
+          ]
+        },
+        {
+          "id": "c_states",
+          "name": "CPU C\u2011States",
+          "whereKey": "ADV",
+          "risk": "Danger",
+          "profiles": {
+            "balanced": "Auto",
+            "competitive": "Disabled (test)",
+            "extreme": "Disabled"
+          },
+          "notes": "Can reduce latency spikes but increases idle power/temps.",
+          "keywords": {
+            "ASUS": "CPU C States",
+            "MSI": "CPU C-State",
+            "Gigabyte": "C States",
+            "ASRock": "CPU C States"
+          },
+          "tags": []
+        },
+        {
+          "id": "speedshift",
+          "name": "Intel Speed Shift / HWP",
+          "whereKey": "ADV",
+          "risk": "Warning",
+          "profiles": {
+            "balanced": "Enabled",
+            "competitive": "Disabled (test)",
+            "extreme": "Disabled (test)"
+          },
+          "notes": "May reduce latency on some systems; can reduce efficiency.",
+          "keywords": {
+            "ASUS": "Intel Speed Shift",
+            "MSI": "Intel Speed Shift",
+            "Gigabyte": "Speed Shift",
+            "ASRock": "Speed Shift"
+          },
+          "tags": [
+            "intel"
+          ]
+        },
+        {
+          "id": "speedstep",
+          "name": "Intel SpeedStep / EIST",
+          "whereKey": "ADV",
+          "risk": "Warning",
+          "profiles": {
+            "balanced": "Enabled",
+            "competitive": "Disabled (test)",
+            "extreme": "Disabled (test)"
+          },
+          "notes": "Disabling can increase consistency but raises idle power.",
+          "keywords": {
+            "ASUS": "Intel SpeedStep",
+            "MSI": "EIST",
+            "Gigabyte": "EIST",
+            "ASRock": "EIST"
+          },
+          "tags": [
+            "intel"
+          ]
+        },
+        {
+          "id": "thermal_monitor",
+          "name": "Thermal Monitor / PROCHOT",
+          "whereKey": "ADV",
+          "risk": "Danger",
+          "profiles": {
+            "balanced": "Enabled (recommended)",
+            "competitive": "Enabled",
+            "extreme": "Enabled"
+          },
+          "notes": "Do NOT disable unless you accept overheating risk.",
+          "keywords": {
+            "ASUS": "Thermal Monitor",
+            "MSI": "Thermal Monitor",
+            "Gigabyte": "Thermal Monitor",
+            "ASRock": "Thermal Monitor"
+          },
+          "tags": []
+        },
+        {
+          "id": "pl1pl2",
+          "name": "CPU Power Limits (PL1/PL2/Tau)",
+          "whereKey": "OC",
+          "risk": "Warning",
+          "profiles": {
+            "balanced": "Default",
+            "competitive": "Higher (within cooling)",
+            "extreme": "Max/Unlimited (cooling required)"
+          },
+          "notes": "Raising limits can improve sustained clocks; watch temps and VRM.",
+          "keywords": {
+            "ASUS": "Long/Short Duration Package Power Limit",
+            "MSI": "CPU Power Limit",
+            "Gigabyte": "Turbo Power Limits",
+            "ASRock": "Power Limit"
+          },
+          "tags": []
+        },
+        {
+          "id": "pbo",
+          "name": "Precision Boost Overdrive (AMD)",
+          "whereKey": "OC",
+          "risk": "Warning",
+          "profiles": {
+            "balanced": "Auto",
+            "competitive": "Advanced (motherboard limits)",
+            "extreme": "Advanced + curve optimizer (expert only)"
+          },
+          "notes": "Light PBO can help FPS; extreme tuning requires stability testing.",
+          "keywords": {
+            "ASUS": "Precision Boost Overdrive",
+            "MSI": "PBO",
+            "Gigabyte": "PBO",
+            "ASRock": "PBO"
+          },
+          "tags": [
+            "amd"
+          ]
+        },
+        {
+          "id": "pbo_boost",
+          "name": "CPU Boost Clock Override (AMD)",
+          "whereKey": "OC",
+          "risk": "Warning",
+          "profiles": {
+            "balanced": "0",
+            "competitive": "+100 to +200 (if stable)",
+            "extreme": "+200 (if stable)"
+          },
+          "notes": "Only if stable and temps are good.",
+          "keywords": {
+            "ASUS": "Max CPU Boost Clock Override",
+            "MSI": "CPU Boost Clock Override",
+            "Gigabyte": "Boost Override",
+            "ASRock": "Boost Override"
+          },
+          "tags": [
+            "amd"
+          ]
+        },
+        {
+          "id": "cppc",
+          "name": "CPPC (AMD)",
+          "whereKey": "ADV",
+          "risk": "Safe",
+          "profiles": {
+            "balanced": "Enabled",
+            "competitive": "Enabled",
+            "extreme": "Enabled"
+          },
+          "notes": "Improves core selection for boosting.",
+          "keywords": {
+            "ASUS": "CPPC",
+            "MSI": "CPPC",
+            "Gigabyte": "CPPC",
+            "ASRock": "CPPC"
+          },
+          "tags": [
+            "amd"
+          ]
+        },
+        {
+          "id": "global_cstate",
+          "name": "Global C\u2011State Control (AMD)",
+          "whereKey": "ADV",
+          "risk": "Danger",
+          "profiles": {
+            "balanced": "Auto",
+            "competitive": "Disabled (test)",
+            "extreme": "Disabled"
+          },
+          "notes": "Can improve consistency; raises idle power/temps.",
+          "keywords": {
+            "ASUS": "Global C-state Control",
+            "MSI": "Global C-state Control",
+            "Gigabyte": "Global C-state Control",
+            "ASRock": "Global C-state Control"
+          },
+          "tags": [
+            "amd"
+          ]
+        },
+        {
+          "id": "intel_turbo",
+          "name": "Intel Turbo Boost",
+          "whereKey": "ADV",
+          "risk": "Safe",
+          "profiles": {
+            "balanced": "Enabled",
+            "competitive": "Enabled",
+            "extreme": "Enabled"
+          },
+          "notes": "Keep enabled for performance.",
+          "keywords": {
+            "ASUS": "Intel Turbo Boost",
+            "MSI": "Intel Turbo Boost",
+            "Gigabyte": "Turbo Boost",
+            "ASRock": "Turbo Boost"
+          },
+          "tags": [
+            "intel"
+          ]
+        },
+        {
+          "id": "amd_cpb",
+          "name": "Core Performance Boost (AMD)",
+          "whereKey": "ADV",
+          "risk": "Safe",
+          "profiles": {
+            "balanced": "Enabled",
+            "competitive": "Enabled",
+            "extreme": "Enabled"
+          },
+          "notes": "Keep enabled for performance.",
+          "keywords": {
+            "ASUS": "Core Performance Boost",
+            "MSI": "Core Performance Boost",
+            "Gigabyte": "Core Performance Boost",
+            "ASRock": "Core Performance Boost"
+          },
+          "tags": [
+            "amd"
+          ]
+        },
+        {
+          "id": "smt",
+          "name": "SMT (AMD)",
+          "whereKey": "ADV",
+          "risk": "Warning",
+          "profiles": {
+            "balanced": "Enabled",
+            "competitive": "Enabled",
+            "extreme": "Optional disable (test)"
+          },
+          "notes": "Disabling can help rare games; usually worse overall.",
+          "keywords": {
+            "ASUS": "SMT Mode",
+            "MSI": "SMT Control",
+            "Gigabyte": "SMT",
+            "ASRock": "SMT"
+          },
+          "tags": [
+            "amd"
+          ]
+        },
+        {
+          "id": "cpb2",
+          "name": "AMD Precision Boost (CPB)",
+          "whereKey": "ADV",
+          "risk": "Safe",
+          "profiles": {
+            "balanced": "Enabled",
+            "competitive": "Enabled",
+            "extreme": "Enabled"
+          },
+          "notes": "Same as Core Performance Boost.",
+          "keywords": {
+            "ASUS": "Core Performance Boost",
+            "MSI": "Core Performance Boost",
+            "Gigabyte": "Core Performance Boost",
+            "ASRock": "Core Performance Boost"
+          },
+          "tags": [
+            "amd"
+          ]
+        },
+        {
+          "id": "llc",
+          "name": "Load Line Calibration (CPU)",
+          "whereKey": "OC",
+          "risk": "Danger",
+          "profiles": {
+            "balanced": "Auto",
+            "competitive": "Medium",
+            "extreme": "Higher (expert only)"
+          },
+          "notes": "Too aggressive LLC can cause voltage spikes.",
+          "keywords": {
+            "ASUS": "Load-line Calibration",
+            "MSI": "CPU Loadline Calibration Control",
+            "Gigabyte": "CPU Vcore Loadline Calibration",
+            "ASRock": "CPU Load-Line Calibration"
+          },
+          "tags": [
+            "cpu_oc"
+          ]
+        },
+        {
+          "id": "svid",
+          "name": "SVID Behavior (Intel)",
+          "whereKey": "OC",
+          "risk": "Danger",
+          "profiles": {
+            "balanced": "Auto",
+            "competitive": "Typical",
+            "extreme": "Trained/Best Case (expert)"
+          },
+          "notes": "Affects voltage behavior; wrong value can cause instability.",
+          "keywords": {
+            "ASUS": "SVID Behavior",
+            "MSI": "SVID Behavior",
+            "Gigabyte": "SVID",
+            "ASRock": "SVID"
+          },
+          "tags": [
+            "intel",
+            "cpu_oc"
+          ]
+        },
+        {
+          "id": "cep",
+          "name": "Current Excursion Protection (Intel)",
+          "whereKey": "OC",
+          "risk": "Warning",
+          "profiles": {
+            "balanced": "Enabled",
+            "competitive": "Enabled",
+            "extreme": "Optional disable (expert)"
+          },
+          "notes": "Disabling can increase performance but raises risk.",
+          "keywords": {
+            "ASUS": "CEP",
+            "MSI": "CEP",
+            "Gigabyte": "CEP",
+            "ASRock": "CEP"
+          },
+          "tags": [
+            "intel",
+            "cpu_oc"
+          ]
+        },
+        {
+          "id": "svm",
+          "name": "SVM Mode (AMD virtualization)",
+          "whereKey": "ADV",
+          "risk": "Warning",
+          "profiles": {
+            "balanced": "Enable only if needed",
+            "competitive": "Enable if Vanguard/FaceIT",
+            "extreme": "Optional"
+          },
+          "notes": "Virtualization may be needed for some anti-cheats.",
+          "keywords": {
+            "ASUS": "SVM Mode",
+            "MSI": "SVM Mode",
+            "Gigabyte": "SVM Mode",
+            "ASRock": "SVM Mode"
+          },
+          "tags": [
+            "amd",
+            "security"
+          ]
+        },
+        {
+          "id": "fmax_enhancer",
+          "name": "Fmax Enhancer (AMD, some boards)",
+          "whereKey": "OC",
+          "risk": "Danger",
+          "profiles": {
+            "balanced": "Disabled",
+            "competitive": "Disabled",
+            "extreme": "Disabled"
+          },
+          "notes": "Often unstable or unnecessary; leave disabled.",
+          "keywords": {
+            "ASUS": "Fmax Enhancer",
+            "MSI": "Fmax Enhancer",
+            "Gigabyte": "Fmax Enhancer",
+            "ASRock": "Fmax Enhancer"
+          },
+          "tags": [
+            "amd",
+            "cpu_oc"
+          ]
+        },
+        {
+          "id": "amd_psu_idle",
+          "name": "Power Supply Idle Control (AMD)",
+          "whereKey": "ADV",
+          "risk": "Warning",
+          "profiles": {
+            "balanced": "Auto",
+            "competitive": "Typical Current Idle",
+            "extreme": "Typical Current Idle"
+          },
+          "notes": "Prevents idle stability issues on some PSUs; can affect latency.",
+          "keywords": {
+            "ASUS": "Power Supply Idle Control",
+            "MSI": "Power Supply Idle Control",
+            "Gigabyte": "Power Supply Idle Control",
+            "ASRock": "Power Supply Idle Control"
+          },
+          "tags": [
+            "amd"
+          ]
+        },
+        {
+          "id": "cppc_pref",
+          "name": "CPPC Preferred Cores (AMD)",
+          "whereKey": "ADV",
+          "risk": "Safe",
+          "profiles": {
+            "balanced": "Enabled",
+            "competitive": "Enabled",
+            "extreme": "Enabled"
+          },
+          "notes": "Helps OS pick best cores for boosting.",
+          "keywords": {
+            "ASUS": "CPPC Preferred Cores",
+            "MSI": "CPPC Preferred Cores",
+            "Gigabyte": "Preferred Cores",
+            "ASRock": "Preferred Cores"
+          },
+          "tags": [
+            "amd"
+          ]
+        },
+        {
+          "id": "intel_sgx",
+          "name": "Intel SGX",
+          "whereKey": "SEC",
+          "risk": "Safe",
+          "profiles": {
+            "balanced": "Disabled",
+            "competitive": "Disabled",
+            "extreme": "Disabled"
+          },
+          "notes": "Usually unnecessary for gaming; disable to reduce attack surface.",
+          "keywords": {
+            "ASUS": "Intel SGX",
+            "MSI": "SGX",
+            "Gigabyte": "SGX",
+            "ASRock": "SGX"
+          },
+          "tags": [
+            "intel",
+            "security"
+          ]
+        },
+        {
+          "id": "intel_txt",
+          "name": "Intel TXT",
+          "whereKey": "SEC",
+          "risk": "Warning",
+          "profiles": {
+            "balanced": "Disabled",
+            "competitive": "Disabled",
+            "extreme": "Disabled"
+          },
+          "notes": "Enterprise feature; can affect boot/compatibility.",
+          "keywords": {
+            "ASUS": "Intel TXT",
+            "MSI": "Intel TXT",
+            "Gigabyte": "Intel TXT",
+            "ASRock": "Intel TXT"
+          },
+          "tags": [
+            "intel",
+            "security"
+          ]
+        },
+        {
+          "id": "intel_tbt",
+          "name": "Thunderbolt Support",
+          "whereKey": "ONB",
+          "risk": "Warning",
+          "profiles": {
+            "balanced": "Disable if unused",
+            "competitive": "Disable if unused",
+            "extreme": "Disable if unused"
+          },
+          "notes": "Disable if you don't use Thunderbolt devices.",
+          "keywords": {
+            "ASUS": "Thunderbolt Support",
+            "MSI": "Thunderbolt",
+            "Gigabyte": "Thunderbolt",
+            "ASRock": "Thunderbolt"
+          },
+          "tags": [
+            "onboard"
+          ]
+        },
+        {
+          "id": "c1e",
+          "name": "C1E",
+          "whereKey": "ADV",
+          "risk": "Warning",
+          "profiles": {
+            "balanced": "Enabled",
+            "competitive": "Disabled (test)",
+            "extreme": "Disabled"
+          },
+          "notes": "Disabling may improve consistency; increases idle power.",
+          "keywords": {
+            "ASUS": "C1E",
+            "MSI": "C1E Support",
+            "Gigabyte": "C1E",
+            "ASRock": "C1E"
+          },
+          "tags": []
+        },
+        {
+          "id": "package_cstate",
+          "name": "Package C State Limit",
+          "whereKey": "ADV",
+          "risk": "Warning",
+          "profiles": {
+            "balanced": "Auto",
+            "competitive": "C0/C1 only (test)",
+            "extreme": "C0/C1 only"
+          },
+          "notes": "Limiting package C-states can reduce latency spikes; increases idle power.",
+          "keywords": {
+            "ASUS": "Package C State Limit",
+            "MSI": "Package C State Limit",
+            "Gigabyte": "Package C State Limit",
+            "ASRock": "Package C State Limit"
+          },
+          "tags": []
+        },
+        {
+          "id": "intel_turbo_mode",
+          "name": "Turbo Mode",
+          "whereKey": "ADV",
+          "risk": "Safe",
+          "profiles": {
+            "balanced": "Enabled",
+            "competitive": "Enabled",
+            "extreme": "Enabled"
+          },
+          "notes": "Keep enabled for performance.",
+          "keywords": {
+            "ASUS": "Turbo Mode",
+            "MSI": "Turbo Mode",
+            "Gigabyte": "Turbo Mode",
+            "ASRock": "Turbo Mode"
+          },
+          "tags": [
+            "intel"
+          ]
+        },
+        {
+          "id": "amd_coolquiet",
+          "name": "Cool'n'Quiet (AMD)",
+          "whereKey": "ADV",
+          "risk": "Warning",
+          "profiles": {
+            "balanced": "Enabled",
+            "competitive": "Disabled (test)",
+            "extreme": "Disabled"
+          },
+          "notes": "Disabling may reduce latency; increases idle power.",
+          "keywords": {
+            "ASUS": "Cool'n'Quiet",
+            "MSI": "Cool'n'Quiet",
+            "Gigabyte": "Cool'n'Quiet",
+            "ASRock": "Cool'n'Quiet"
+          },
+          "tags": [
+            "amd"
+          ]
+        },
+        {
+          "id": "amd_c6",
+          "name": "C6 State (AMD)",
+          "whereKey": "ADV",
+          "risk": "Warning",
+          "profiles": {
+            "balanced": "Auto",
+            "competitive": "Disabled (test)",
+            "extreme": "Disabled"
+          },
+          "notes": "Can reduce latency spikes; increases idle power.",
+          "keywords": {
+            "ASUS": "C6 State",
+            "MSI": "C6 State",
+            "Gigabyte": "C6 State",
+            "ASRock": "C6 State"
+          },
+          "tags": [
+            "amd"
+          ]
+        },
+        {
+          "id": "intel_tsc",
+          "name": "TSC/HPET related (if present)",
+          "whereKey": "ADV",
+          "risk": "Warning",
+          "profiles": {
+            "balanced": "Default",
+            "competitive": "Default",
+            "extreme": "Default"
+          },
+          "notes": "Most boards don't expose this; OS-side tools handle timer settings.",
+          "keywords": {
+            "ASUS": "\u2014",
+            "MSI": "\u2014",
+            "Gigabyte": "\u2014",
+            "ASRock": "\u2014"
+          },
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "pcie_gpu",
+      "label": "PCIe & GPU",
+      "icon": "\ud83c\udfae",
+      "items": [
+        {
+          "id": "above4g",
+          "name": "Above 4G Decoding",
+          "whereKey": "PCI",
+          "risk": "Safe",
+          "profiles": {
+            "balanced": "Enabled",
+            "competitive": "Enabled",
+            "extreme": "Enabled"
+          },
+          "notes": "Required for Resizable BAR on many systems.",
+          "keywords": {
+            "ASUS": "Above 4G Decoding",
+            "MSI": "Above 4G memory/Crypto Currency mining",
+            "Gigabyte": "Above 4G Decoding",
+            "ASRock": "Above 4G Decoding"
+          },
+          "tags": [
+            "gpu"
+          ]
+        },
+        {
+          "id": "rebar",
+          "name": "Resizable BAR",
+          "whereKey": "PCI",
+          "risk": "Safe",
+          "profiles": {
+            "balanced": "Enabled (if RTX30+/RX6000+)",
+            "competitive": "Enabled (if supported)",
+            "extreme": "Enabled (if supported)"
+          },
+          "notes": "Only enable if supported by GPU + BIOS.",
+          "keywords": {
+            "ASUS": "Re-Size BAR Support",
+            "MSI": "Re-Size BAR Support",
+            "Gigabyte": "Resizable BAR",
+            "ASRock": "Resizable BAR"
+          },
+          "tags": [
+            "gpu"
+          ]
+        },
+        {
+          "id": "pcie_aspm",
+          "name": "ASPM / PCIe Link State Power Management (firmware)",
+          "whereKey": "PCI",
+          "risk": "Safe",
+          "profiles": {
+            "balanced": "Disabled",
+            "competitive": "Disabled",
+            "extreme": "Disabled"
+          },
+          "notes": "Disabling reduces latency spikes.",
+          "keywords": {
+            "ASUS": "ASPM",
+            "MSI": "ASPM",
+            "Gigabyte": "ASPM",
+            "ASRock": "ASPM"
+          },
+          "tags": []
+        },
+        {
+          "id": "pcie_speed",
+          "name": "PCIe Slot Link Speed",
+          "whereKey": "PCI",
+          "risk": "Warning",
+          "profiles": {
+            "balanced": "Auto",
+            "competitive": "Gen4/Gen5 (match GPU)",
+            "extreme": "Force highest supported (test)"
+          },
+          "notes": "Forcing higher can cause instability if signal quality is poor.",
+          "keywords": {
+            "ASUS": "PCIEX16_1 Link Speed",
+            "MSI": "PCIe Link Speed",
+            "Gigabyte": "PCIe Slot Configuration",
+            "ASRock": "PCIe Link Speed"
+          },
+          "tags": [
+            "gpu"
+          ]
+        },
+        {
+          "id": "pcie_spread",
+          "name": "PCIe Spread Spectrum",
+          "whereKey": "PCI",
+          "risk": "Warning",
+          "profiles": {
+            "balanced": "Auto",
+            "competitive": "Disabled",
+            "extreme": "Disabled"
+          },
+          "notes": "Disabling can improve consistency; in high EMI environments enabling can help.",
+          "keywords": {
+            "ASUS": "Spread Spectrum",
+            "MSI": "Spread Spectrum",
+            "Gigabyte": "Spread Spectrum",
+            "ASRock": "Spread Spectrum"
+          },
+          "tags": []
+        },
+        {
+          "id": "iommu",
+          "name": "IOMMU",
+          "whereKey": "ADV",
+          "risk": "Warning",
+          "profiles": {
+            "balanced": "Enabled (if virtualization)",
+            "competitive": "Disable if not needed",
+            "extreme": "Disable if not needed"
+          },
+          "notes": "Required for some virtualization; disabling can reduce overhead slightly.",
+          "keywords": {
+            "ASUS": "IOMMU",
+            "MSI": "IOMMU",
+            "Gigabyte": "IOMMU",
+            "ASRock": "IOMMU"
+          },
+          "tags": [
+            "amd"
+          ]
+        },
+        {
+          "id": "sr_iov",
+          "name": "SR-IOV Support",
+          "whereKey": "PCI",
+          "risk": "Warning",
+          "profiles": {
+            "balanced": "Disabled (unless needed)",
+            "competitive": "Disabled",
+            "extreme": "Disabled"
+          },
+          "notes": "Only needed for virtualization features.",
+          "keywords": {
+            "ASUS": "SR-IOV Support",
+            "MSI": "SR-IOV Support",
+            "Gigabyte": "SR-IOV Support",
+            "ASRock": "SR-IOV Support"
+          },
+          "tags": [
+            "security"
+          ]
+        },
+        {
+          "id": "pcie_acs",
+          "name": "ACS Control",
+          "whereKey": "PCI",
+          "risk": "Warning",
+          "profiles": {
+            "balanced": "Auto",
+            "competitive": "Auto",
+            "extreme": "Auto"
+          },
+          "notes": "Virtualization/PCIe isolation setting; leave default unless needed.",
+          "keywords": {
+            "ASUS": "ACS Control",
+            "MSI": "ACS Control",
+            "Gigabyte": "ACS",
+            "ASRock": "ACS"
+          },
+          "tags": [
+            "security"
+          ]
+        },
+        {
+          "id": "dmi_aspm",
+          "name": "DMI/Chipset ASPM",
+          "whereKey": "PCI",
+          "risk": "Safe",
+          "profiles": {
+            "balanced": "Disabled",
+            "competitive": "Disabled",
+            "extreme": "Disabled"
+          },
+          "notes": "Chipset link power saving can add latency.",
+          "keywords": {
+            "ASUS": "DMI ASPM",
+            "MSI": "DMI ASPM",
+            "Gigabyte": "DMI ASPM",
+            "ASRock": "DMI ASPM"
+          },
+          "tags": []
+        },
+        {
+          "id": "primary_display",
+          "name": "Primary Display",
+          "whereKey": "PCI",
+          "risk": "Safe",
+          "profiles": {
+            "balanced": "PEG (PCIe GPU)",
+            "competitive": "PEG",
+            "extreme": "PEG"
+          },
+          "notes": "Ensures discrete GPU is primary.",
+          "keywords": {
+            "ASUS": "Primary Display",
+            "MSI": "Initiate Graphic Adapter",
+            "Gigabyte": "Initial Display Output",
+            "ASRock": "Primary Graphics Adapter"
+          },
+          "tags": [
+            "gpu"
+          ]
+        },
+        {
+          "id": "csm",
+          "name": "CSM (Compatibility Support Module)",
+          "whereKey": "SEC",
+          "risk": "Warning",
+          "profiles": {
+            "balanced": "Disabled (UEFI)",
+            "competitive": "Disabled",
+            "extreme": "Disabled"
+          },
+          "notes": "CSM can prevent Resizable BAR and Secure Boot.",
+          "keywords": {
+            "ASUS": "CSM",
+            "MSI": "CSM",
+            "Gigabyte": "CSM Support",
+            "ASRock": "CSM"
+          },
+          "tags": [
+            "security"
+          ]
+        },
+        {
+          "id": "pci_native_pm",
+          "name": "PCIe Native Power Management",
+          "whereKey": "PCI",
+          "risk": "Safe",
+          "profiles": {
+            "balanced": "Disabled",
+            "competitive": "Disabled",
+            "extreme": "Disabled"
+          },
+          "notes": "Disabling can reduce latency spikes.",
+          "keywords": {
+            "ASUS": "Native ASPM",
+            "MSI": "Native ASPM",
+            "Gigabyte": "Native ASPM",
+            "ASRock": "Native ASPM"
+          },
+          "tags": []
+        },
+        {
+          "id": "l1_substates",
+          "name": "PCIe L1 Substates",
+          "whereKey": "PCI",
+          "risk": "Safe",
+          "profiles": {
+            "balanced": "Disabled",
+            "competitive": "Disabled",
+            "extreme": "Disabled"
+          },
+          "notes": "Disable for consistency/latency.",
+          "keywords": {
+            "ASUS": "L1 Substates",
+            "MSI": "L1 Substates",
+            "Gigabyte": "L1 Substates",
+            "ASRock": "L1 Substates"
+          },
+          "tags": []
+        },
+        {
+          "id": "pcie_ari",
+          "name": "ARI Support",
+          "whereKey": "PCI",
+          "risk": "Warning",
+          "profiles": {
+            "balanced": "Auto",
+            "competitive": "Auto",
+            "extreme": "Auto"
+          },
+          "notes": "Leave default unless needed for virtualization.",
+          "keywords": {
+            "ASUS": "ARI Support",
+            "MSI": "ARI Support",
+            "Gigabyte": "ARI",
+            "ASRock": "ARI"
+          },
+          "tags": [
+            "security"
+          ]
+        },
+        {
+          "id": "pcie_hotplug",
+          "name": "PCIe Hot Plug",
+          "whereKey": "PCI",
+          "risk": "Safe",
+          "profiles": {
+            "balanced": "Disabled (desktop)",
+            "competitive": "Disabled",
+            "extreme": "Disabled"
+          },
+          "notes": "Disable on desktops unless you need hot-plug.",
+          "keywords": {
+            "ASUS": "Hot Plug",
+            "MSI": "Hot Plug",
+            "Gigabyte": "Hot Plug",
+            "ASRock": "Hot Plug"
+          },
+          "tags": []
+        },
+        {
+          "id": "nvme_raid",
+          "name": "NVMe RAID / VMD",
+          "whereKey": "PCI",
+          "risk": "Warning",
+          "profiles": {
+            "balanced": "Disabled (if unused)",
+            "competitive": "Disabled",
+            "extreme": "Disabled"
+          },
+          "notes": "Disable if you don't use RAID/VMD; can simplify drivers and reduce overhead.",
+          "keywords": {
+            "ASUS": "VMD Controller",
+            "MSI": "VMD",
+            "Gigabyte": "VMD",
+            "ASRock": "VMD"
+          },
+          "tags": [
+            "intel"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "usb",
+      "label": "USB & Input",
+      "icon": "\u2328\ufe0f",
+      "items": [
+        {
+          "id": "xhci",
+          "name": "XHCI Handoff",
+          "whereKey": "USB",
+          "risk": "Safe",
+          "profiles": {
+            "balanced": "Enabled",
+            "competitive": "Enabled",
+            "extreme": "Enabled"
+          },
+          "notes": "Helps USB compatibility.",
+          "keywords": {
+            "ASUS": "XHCI Hand-off",
+            "MSI": "XHCI Hand-off",
+            "Gigabyte": "XHCI Hand-off",
+            "ASRock": "XHCI Hand-off"
+          },
+          "tags": [
+            "usb"
+          ]
+        },
+        {
+          "id": "legacy_usb",
+          "name": "Legacy USB Support",
+          "whereKey": "USB",
+          "risk": "Warning",
+          "profiles": {
+            "balanced": "Auto",
+            "competitive": "Auto (or Disabled if stable)",
+            "extreme": "Disabled (if stable)"
+          },
+          "notes": "If BIOS can\u2019t see keyboard/USB stick, keep Auto/Enabled.",
+          "keywords": {
+            "ASUS": "Legacy USB Support",
+            "MSI": "Legacy USB Support",
+            "Gigabyte": "Legacy USB Support",
+            "ASRock": "Legacy USB Support"
+          },
+          "tags": []
+        },
+        {
+          "id": "usb_power",
+          "name": "USB Power Delivery / ErP USB power",
+          "whereKey": "ONB",
+          "risk": "Warning",
+          "profiles": {
+            "balanced": "Disabled (if you don't need charging)",
+            "competitive": "Disabled",
+            "extreme": "Disabled"
+          },
+          "notes": "Disabling reduces standby power and background controllers.",
+          "keywords": {
+            "ASUS": "USB power delivery in Soft Off state",
+            "MSI": "USB Standby Power",
+            "Gigabyte": "USB power in Soft Off",
+            "ASRock": "USB power in S5"
+          },
+          "tags": []
+        },
+        {
+          "id": "xmp_fastboot",
+          "name": "Fast Boot",
+          "whereKey": "SEC",
+          "risk": "Warning",
+          "profiles": {
+            "balanced": "Enabled (optional)",
+            "competitive": "Disabled (for stability)",
+            "extreme": "Disabled"
+          },
+          "notes": "Fast boot can hide USB/boot device options and complicate troubleshooting.",
+          "keywords": {
+            "ASUS": "Fast Boot",
+            "MSI": "Fast Boot",
+            "Gigabyte": "Fast Boot",
+            "ASRock": "Fast Boot"
+          },
+          "tags": []
+        },
+        {
+          "id": "usb_xhci_mode",
+          "name": "XHCI Mode",
+          "whereKey": "USB",
+          "risk": "Safe",
+          "profiles": {
+            "balanced": "Smart Auto / Enabled",
+            "competitive": "Enabled",
+            "extreme": "Enabled"
+          },
+          "notes": "Ensure modern USB controller mode is enabled.",
+          "keywords": {
+            "ASUS": "XHCI Mode",
+            "MSI": "XHCI Mode",
+            "Gigabyte": "XHCI Mode",
+            "ASRock": "XHCI Mode"
+          },
+          "tags": []
+        },
+        {
+          "id": "usb_suspend",
+          "name": "USB selective suspend (firmware)",
+          "whereKey": "USB",
+          "risk": "Safe",
+          "profiles": {
+            "balanced": "Disabled",
+            "competitive": "Disabled",
+            "extreme": "Disabled"
+          },
+          "notes": "If present in BIOS, disable for input consistency.",
+          "keywords": {
+            "ASUS": "USB power saving",
+            "MSI": "USB power saving",
+            "Gigabyte": "USB power saving",
+            "ASRock": "USB power saving"
+          },
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "security",
+      "label": "Security & Anti\u2011Cheat",
+      "icon": "\ud83d\udee1\ufe0f",
+      "items": [
+        {
+          "id": "tpm",
+          "name": "TPM (fTPM/PTT)",
+          "whereKey": "SEC",
+          "risk": "Warning",
+          "profiles": {
+            "balanced": "Enabled",
+            "competitive": "Enabled (needed for some games)",
+            "extreme": "Enabled"
+          },
+          "notes": "Some games/anti-cheat require TPM and Secure Boot.",
+          "keywords": {
+            "ASUS": "PTT (Intel) / fTPM (AMD)",
+            "MSI": "Security Device Support / fTPM",
+            "Gigabyte": "Intel PTT / AMD fTPM",
+            "ASRock": "Intel PTT / AMD fTPM"
+          },
+          "tags": [
+            "security"
+          ]
+        },
+        {
+          "id": "secureboot",
+          "name": "Secure Boot",
+          "whereKey": "SEC",
+          "risk": "Warning",
+          "profiles": {
+            "balanced": "Enabled",
+            "competitive": "Enabled (Valorant/Fortnite)",
+            "extreme": "Enabled"
+          },
+          "notes": "Required for some anti-cheats; can break older OS installs.",
+          "keywords": {
+            "ASUS": "Secure Boot",
+            "MSI": "Secure Boot",
+            "Gigabyte": "Secure Boot",
+            "ASRock": "Secure Boot"
+          },
+          "tags": [
+            "security"
+          ]
+        },
+        {
+          "id": "virtualization",
+          "name": "Virtualization (VT-x / SVM)",
+          "whereKey": "ADV",
+          "risk": "Warning",
+          "profiles": {
+            "balanced": "Enabled (only if needed)",
+            "competitive": "Enable if Vanguard/FaceIT; else optional",
+            "extreme": "Optional"
+          },
+          "notes": "Some anti-cheats require virtualization; VMs require it too.",
+          "keywords": {
+            "ASUS": "Intel Virtualization Technology / SVM Mode",
+            "MSI": "Intel Virtualization Tech / SVM Mode",
+            "Gigabyte": "Intel Virtualization / SVM",
+            "ASRock": "Intel Virtualization / SVM"
+          },
+          "tags": [
+            "security"
+          ]
+        },
+        {
+          "id": "vtd",
+          "name": "VT-d",
+          "whereKey": "ADV",
+          "risk": "Warning",
+          "profiles": {
+            "balanced": "Enabled if required",
+            "competitive": "Enable if required by anti-cheat",
+            "extreme": "Optional disable if not needed"
+          },
+          "notes": "IOMMU/VTD can be required. Test compatibility.",
+          "keywords": {
+            "ASUS": "VT-d",
+            "MSI": "Intel VT-D",
+            "Gigabyte": "VT-d",
+            "ASRock": "VT-d"
+          },
+          "tags": [
+            "intel",
+            "security"
+          ]
+        },
+        {
+          "id": "kernel_dma",
+          "name": "Kernel DMA Protection",
+          "whereKey": "SEC",
+          "risk": "Warning",
+          "profiles": {
+            "balanced": "Enabled (security)",
+            "competitive": "Enabled (security)",
+            "extreme": "Enabled"
+          },
+          "notes": "Security feature; disabling not recommended.",
+          "keywords": {
+            "ASUS": "Kernel DMA Protection",
+            "MSI": "Kernel DMA Protection",
+            "Gigabyte": "Kernel DMA Protection",
+            "ASRock": "Kernel DMA Protection"
+          },
+          "tags": [
+            "security"
+          ]
+        },
+        {
+          "id": "secureboot_mode",
+          "name": "Secure Boot Mode",
+          "whereKey": "SEC",
+          "risk": "Warning",
+          "profiles": {
+            "balanced": "Standard",
+            "competitive": "Standard",
+            "extreme": "Standard"
+          },
+          "notes": "Use Standard unless managing custom keys.",
+          "keywords": {
+            "ASUS": "Secure Boot Mode",
+            "MSI": "Secure Boot Mode",
+            "Gigabyte": "Secure Boot Mode",
+            "ASRock": "Secure Boot Mode"
+          },
+          "tags": [
+            "security"
+          ]
+        },
+        {
+          "id": "tpm_device",
+          "name": "TPM Device Selection",
+          "whereKey": "SEC",
+          "risk": "Warning",
+          "profiles": {
+            "balanced": "Firmware TPM (fTPM/PTT)",
+            "competitive": "Firmware TPM (fTPM/PTT)",
+            "extreme": "Firmware TPM"
+          },
+          "notes": "Use firmware TPM unless you have a discrete TPM module.",
+          "keywords": {
+            "ASUS": "PTT / fTPM",
+            "MSI": "PTT / fTPM",
+            "Gigabyte": "PTT / fTPM",
+            "ASRock": "PTT / fTPM"
+          },
+          "tags": [
+            "security"
+          ]
+        },
+        {
+          "id": "fTPM_stutter",
+          "name": "fTPM (AMD) microstutter mitigation",
+          "whereKey": "SEC",
+          "risk": "Warning",
+          "profiles": {
+            "balanced": "Enabled (required for Win11)",
+            "competitive": "Enabled (required)",
+            "extreme": "Enabled"
+          },
+          "notes": "If you experience stutter, update BIOS/AGESA; do not disable on Win11 if TPM required.",
+          "keywords": {
+            "ASUS": "AMD fTPM",
+            "MSI": "fTPM",
+            "Gigabyte": "fTPM",
+            "ASRock": "fTPM"
+          },
+          "tags": [
+            "amd",
+            "security"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "onboard",
+      "label": "Onboard Devices",
+      "icon": "\ud83e\uddef",
+      "items": [
+        {
+          "id": "igpu",
+          "name": "Integrated Graphics (iGPU)",
+          "whereKey": "ONB",
+          "risk": "Warning",
+          "profiles": {
+            "balanced": "Disabled (if using dedicated GPU)",
+            "competitive": "Disabled",
+            "extreme": "Disabled"
+          },
+          "notes": "Disable to reduce drivers if you never use it. Keep enabled if you use QuickSync or display out from iGPU.",
+          "keywords": {
+            "ASUS": "iGPU Multi-Monitor / Integrated Graphics",
+            "MSI": "Integrated Graphics",
+            "Gigabyte": "Internal Graphics",
+            "ASRock": "iGPU"
+          },
+          "tags": [
+            "gpu"
+          ]
+        },
+        {
+          "id": "audio",
+          "name": "Onboard Audio",
+          "whereKey": "ONB",
+          "risk": "Warning",
+          "profiles": {
+            "balanced": "Enabled (unless using USB DAC)",
+            "competitive": "Disable if using USB DAC",
+            "extreme": "Disable if unused"
+          },
+          "notes": "Disabling reduces driver stack if you use an external DAC/headset.",
+          "keywords": {
+            "ASUS": "HD Audio Controller",
+            "MSI": "HD Audio Controller",
+            "Gigabyte": "Onboard Audio",
+            "ASRock": "HD Audio Controller"
+          },
+          "tags": []
+        },
+        {
+          "id": "wifi_bt",
+          "name": "Wi\u2011Fi / Bluetooth Controllers",
+          "whereKey": "ONB",
+          "risk": "Safe",
+          "profiles": {
+            "balanced": "Disable if unused",
+            "competitive": "Disable if unused",
+            "extreme": "Disable if unused"
+          },
+          "notes": "Reduces background drivers.",
+          "keywords": {
+            "ASUS": "Wi-Fi Controller / Bluetooth Controller",
+            "MSI": "Onboard WiFi / BT",
+            "Gigabyte": "Onboard WiFi/BT",
+            "ASRock": "WiFi/BT"
+          },
+          "tags": []
+        },
+        {
+          "id": "rgb",
+          "name": "RGB / Vendor Controllers",
+          "whereKey": "ONB",
+          "risk": "Safe",
+          "profiles": {
+            "balanced": "Disable if unused",
+            "competitive": "Disable if unused",
+            "extreme": "Disable if unused"
+          },
+          "notes": "Avoid vendor bloat utilities.",
+          "keywords": {
+            "ASUS": "LED lighting / Aura",
+            "MSI": "RGB / Mystic Light",
+            "Gigabyte": "RGB Fusion",
+            "ASRock": "Polychrome RGB"
+          },
+          "tags": []
+        },
+        {
+          "id": "lan2",
+          "name": "Secondary LAN Controller",
+          "whereKey": "ONB",
+          "risk": "Warning",
+          "profiles": {
+            "balanced": "Disable if unused",
+            "competitive": "Disable if unused",
+            "extreme": "Disable if unused"
+          },
+          "notes": "If you have dual LAN and only use one, disable the other.",
+          "keywords": {
+            "ASUS": "Intel LAN Controller",
+            "MSI": "Onboard LAN Controller",
+            "Gigabyte": "Onboard LAN",
+            "ASRock": "Onboard LAN"
+          },
+          "tags": []
+        },
+        {
+          "id": "sata_controller",
+          "name": "SATA Controller",
+          "whereKey": "ONB",
+          "risk": "Warning",
+          "profiles": {
+            "balanced": "Enabled (if using SATA)",
+            "competitive": "Disable if unused",
+            "extreme": "Disable if unused"
+          },
+          "notes": "Disable only if you have no SATA drives.",
+          "keywords": {
+            "ASUS": "SATA Controller(s)",
+            "MSI": "SATA Controller",
+            "Gigabyte": "SATA Controller",
+            "ASRock": "SATA Controller"
+          },
+          "tags": []
+        },
+        {
+          "id": "serial_port",
+          "name": "Serial/COM Port",
+          "whereKey": "ONB",
+          "risk": "Safe",
+          "profiles": {
+            "balanced": "Disabled",
+            "competitive": "Disabled",
+            "extreme": "Disabled"
+          },
+          "notes": "Disable legacy devices if present.",
+          "keywords": {
+            "ASUS": "Serial Port",
+            "MSI": "Serial Port",
+            "Gigabyte": "Serial Port",
+            "ASRock": "Serial Port"
+          },
+          "tags": []
+        },
+        {
+          "id": "hd_audio_front",
+          "name": "Front Panel HD Audio",
+          "whereKey": "ONB",
+          "risk": "Safe",
+          "profiles": {
+            "balanced": "Enabled if used",
+            "competitive": "Disable if unused",
+            "extreme": "Disable if unused"
+          },
+          "notes": "Disable if you never use front audio.",
+          "keywords": {
+            "ASUS": "Front Panel Type",
+            "MSI": "Front Panel",
+            "Gigabyte": "Front Panel",
+            "ASRock": "Front Panel"
+          },
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "platform",
+      "label": "Platform Power Saving",
+      "icon": "\u26a1",
+      "items": [
+        {
+          "id": "pcie_power_saving",
+          "name": "Platform PCIe Power Saving (Clock gating, L1 substates)",
+          "whereKey": "ADV",
+          "risk": "Safe",
+          "profiles": {
+            "balanced": "Disabled",
+            "competitive": "Disabled",
+            "extreme": "Disabled"
+          },
+          "notes": "Disable PCIe power saving for consistency/latency.",
+          "keywords": {
+            "ASUS": "Platform Misc Configuration \u2192 PCIe power saving",
+            "MSI": "PCIe power management",
+            "Gigabyte": "PCIe power saving",
+            "ASRock": "PCIe power saving"
+          },
+          "tags": []
+        },
+        {
+          "id": "erp",
+          "name": "ErP Ready",
+          "whereKey": "ADV",
+          "risk": "Safe",
+          "profiles": {
+            "balanced": "Disabled",
+            "competitive": "Disabled",
+            "extreme": "Disabled"
+          },
+          "notes": "Can affect USB power in shutdown; disable for gaming rigs.",
+          "keywords": {
+            "ASUS": "ErP Ready",
+            "MSI": "ErP Ready",
+            "Gigabyte": "ErP",
+            "ASRock": "ErP"
+          },
+          "tags": []
+        },
+        {
+          "id": "spread_spectrum_bclk",
+          "name": "BCLK Spread Spectrum",
+          "whereKey": "OC",
+          "risk": "Warning",
+          "profiles": {
+            "balanced": "Auto",
+            "competitive": "Disabled",
+            "extreme": "Disabled"
+          },
+          "notes": "Disabling can improve clock stability; sometimes enabling helps EMI.",
+          "keywords": {
+            "ASUS": "BCLK Spread Spectrum",
+            "MSI": "Spread Spectrum",
+            "Gigabyte": "CPU Spread Spectrum",
+            "ASRock": "Spread Spectrum"
+          },
+          "tags": []
+        },
+        {
+          "id": "intel_aspm_global",
+          "name": "Global ASPM",
+          "whereKey": "ADV",
+          "risk": "Safe",
+          "profiles": {
+            "balanced": "Disabled",
+            "competitive": "Disabled",
+            "extreme": "Disabled"
+          },
+          "notes": "Disable global PCIe power saving for gaming.",
+          "keywords": {
+            "ASUS": "ASPM",
+            "MSI": "ASPM",
+            "Gigabyte": "ASPM",
+            "ASRock": "ASPM"
+          },
+          "tags": [
+            "intel",
+            "amd"
+          ]
+        },
+        {
+          "id": "intel_sata_aspm",
+          "name": "SATA Aggressive Link Power Management",
+          "whereKey": "ADV",
+          "risk": "Safe",
+          "profiles": {
+            "balanced": "Disabled",
+            "competitive": "Disabled",
+            "extreme": "Disabled"
+          },
+          "notes": "Disable to avoid storage latency spikes.",
+          "keywords": {
+            "ASUS": "SATA Aggressive Link PM",
+            "MSI": "SATA ALPM",
+            "Gigabyte": "SATA ALPM",
+            "ASRock": "SATA ALPM"
+          },
+          "tags": []
+        },
+        {
+          "id": "pch_power",
+          "name": "PCH Power Saving",
+          "whereKey": "ADV",
+          "risk": "Safe",
+          "profiles": {
+            "balanced": "Disabled",
+            "competitive": "Disabled",
+            "extreme": "Disabled"
+          },
+          "notes": "Disable chipset power saving for consistency.",
+          "keywords": {
+            "ASUS": "PCH Power",
+            "MSI": "PCH Power",
+            "Gigabyte": "PCH Power",
+            "ASRock": "PCH Power"
+          },
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "thermals",
+      "label": "Thermals & Fans",
+      "icon": "\ud83e\uddca",
+      "items": [
+        {
+          "id": "fan_cpu_curve",
+          "name": "CPU Fan Curve",
+          "whereKey": "TOOL",
+          "risk": "Warning",
+          "profiles": {
+            "balanced": "Standard curve",
+            "competitive": "Aggressive (lower temps)",
+            "extreme": "Max (noise)"
+          },
+          "notes": "Lower temps improve boost behavior; aggressive curves increase noise.",
+          "keywords": {
+            "ASUS": "Q-Fan Control",
+            "MSI": "Hardware Monitor",
+            "Gigabyte": "Smart Fan 5",
+            "ASRock": "FAN-Tastic Tuning"
+          },
+          "tags": [
+            "thermals"
+          ]
+        },
+        {
+          "id": "fan_pump_full",
+          "name": "AIO Pump Speed",
+          "whereKey": "TOOL",
+          "risk": "Warning",
+          "profiles": {
+            "balanced": "Full speed",
+            "competitive": "Full speed",
+            "extreme": "Full speed"
+          },
+          "notes": "For AIO, keep pump at 100% unless pump noise is an issue.",
+          "keywords": {
+            "ASUS": "AIO PUMP",
+            "MSI": "PUMP Fan",
+            "Gigabyte": "AIO Pump",
+            "ASRock": "Water Pump"
+          },
+          "tags": [
+            "thermals"
+          ]
+        },
+        {
+          "id": "fan_case_turbo",
+          "name": "Case Fan Mode",
+          "whereKey": "TOOL",
+          "risk": "Safe",
+          "profiles": {
+            "balanced": "Standard/Turbo",
+            "competitive": "Turbo",
+            "extreme": "Max"
+          },
+          "notes": "Case airflow helps GPU and VRM temps.",
+          "keywords": {
+            "ASUS": "CHA_FAN curve",
+            "MSI": "SYS_FAN curve",
+            "Gigabyte": "SYS_FAN",
+            "ASRock": "CHA_FAN"
+          },
+          "tags": [
+            "thermals"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "boot",
+      "label": "Boot & Firmware",
+      "icon": "\ud83d\ude80",
+      "items": [
+        {
+          "id": "uefi_only",
+          "name": "Boot Mode",
+          "whereKey": "SEC",
+          "risk": "Warning",
+          "profiles": {
+            "balanced": "UEFI",
+            "competitive": "UEFI",
+            "extreme": "UEFI"
+          },
+          "notes": "UEFI required for Secure Boot and often for Resizable BAR.",
+          "keywords": {
+            "ASUS": "Boot \u2192 CSM",
+            "MSI": "Boot \u2192 CSM",
+            "Gigabyte": "Boot \u2192 CSM Support",
+            "ASRock": "Boot \u2192 CSM"
+          },
+          "tags": [
+            "boot"
+          ]
+        },
+        {
+          "id": "network_stack",
+          "name": "Network Stack / PXE Boot",
+          "whereKey": "SEC",
+          "risk": "Safe",
+          "profiles": {
+            "balanced": "Disabled (if unused)",
+            "competitive": "Disabled",
+            "extreme": "Disabled"
+          },
+          "notes": "Disable PXE/network boot for faster boot and less attack surface.",
+          "keywords": {
+            "ASUS": "Network Stack",
+            "MSI": "Network Stack",
+            "Gigabyte": "Network Stack",
+            "ASRock": "Network Stack"
+          },
+          "tags": [
+            "boot",
+            "security"
+          ]
+        },
+        {
+          "id": "fastboot",
+          "name": "Fast Boot",
+          "whereKey": "SEC",
+          "risk": "Warning",
+          "profiles": {
+            "balanced": "Optional",
+            "competitive": "Disabled (troubleshooting)",
+            "extreme": "Disabled"
+          },
+          "notes": "Fast boot can interfere with entering BIOS or USB detection.",
+          "keywords": {
+            "ASUS": "Fast Boot",
+            "MSI": "Fast Boot",
+            "Gigabyte": "Fast Boot",
+            "ASRock": "Fast Boot"
+          },
+          "tags": [
+            "boot"
+          ]
+        },
+        {
+          "id": "post_delay",
+          "name": "POST Delay Time",
+          "whereKey": "SEC",
+          "risk": "Safe",
+          "profiles": {
+            "balanced": "0s",
+            "competitive": "0s",
+            "extreme": "0s"
+          },
+          "notes": "Set to 0 to reduce boot time (optional).",
+          "keywords": {
+            "ASUS": "POST Delay Time",
+            "MSI": "POST Delay",
+            "Gigabyte": "POST Delay",
+            "ASRock": "Boot From Onboard LAN"
+          },
+          "tags": [
+            "boot"
+          ]
+        },
+        {
+          "id": "full_screen_logo",
+          "name": "Full Screen Logo",
+          "whereKey": "SEC",
+          "risk": "Safe",
+          "profiles": {
+            "balanced": "Disabled (optional)",
+            "competitive": "Disabled",
+            "extreme": "Disabled"
+          },
+          "notes": "Disabling can speed boot slightly and show POST info.",
+          "keywords": {
+            "ASUS": "Boot Logo Display",
+            "MSI": "Full Screen Logo Display",
+            "Gigabyte": "Full Screen LOGO Show",
+            "ASRock": "Full Screen Logo"
+          },
+          "tags": [
+            "boot"
+          ]
+        }
+      ]
+    }
+  ]
+}

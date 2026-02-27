@@ -1,0 +1,466 @@
+{
+  "items": [
+    {
+      "id": "util.autoruns.page__utilities",
+      "name": "Autoruns (Sysinternals) — download page",
+      "category": "Apps / Utilities",
+      "risk": "Safe",
+      "description": "Official Autoruns page.",
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/sysinternals/downloads/autoruns"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "type": "action",
+      "primaryLabel": "Open site",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "util.autoruns.run__utilities",
+      "name": "Autoruns (Download)",
+      "category": "Apps / Utilities",
+      "risk": "Warning",
+      "description": "Download Autoruns (Microsoft Sysinternals). Use to manage startup entries and scheduled tasks.",
+      "apply": {
+        "steps": [
+          {
+            "type": "file.ensureDir",
+            "path": "tools/autoruns"
+          },
+          {
+            "type": "open.path",
+            "path": "tools/autoruns"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "type": "action",
+      "primaryLabel": "Run",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "steps": [
+        {
+          "type": "open.url",
+          "url": "https://learn.microsoft.com/en-us/sysinternals/downloads/autoruns"
+        }
+      ]
+    },
+    {
+      "id": "util.bcu.page__utilities",
+      "name": "Bulk Crap Uninstaller — download page",
+      "category": "Apps / Utilities",
+      "risk": "Safe",
+      "description": "Official BCU site.",
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://www.bcuninstaller.com/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "type": "action",
+      "primaryLabel": "Open site",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "util.bcu.run__utilities",
+      "name": "Install/Run BCU (bundled)",
+      "category": "Apps / Utilities",
+      "risk": "Warning",
+      "description": "Runs BCU installer if you place it in tools/bcu/ as BCUninstallerSetup.exe. Put the file in the opened folder with the expected name, then re-run.",
+      "apply": {
+        "steps": [
+          {
+            "type": "file.ensureDir",
+            "path": "tools/bcu"
+          },
+          {
+            "type": "open.path",
+            "path": "tools/bcu"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "type": "action",
+      "primaryLabel": "Run",
+      "riskLevel": "Warning",
+      "requiresAdmin": true
+    },
+    {
+      "id": "util.openshell.page__utilities",
+      "name": "Open-Shell — releases",
+      "category": "Apps / Utilities",
+      "risk": "Safe",
+      "description": "Open-Shell releases page.",
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://github.com/Open-Shell/Open-Shell-Menu/releases"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "type": "action",
+      "primaryLabel": "Open site",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "util.openshell.run__utilities",
+      "name": "Install Open-Shell (bundled)",
+      "category": "Apps / Utilities",
+      "risk": "Warning",
+      "description": "Runs Open-Shell installer if you place it in tools/open-shell/ as OpenShellSetup.exe. Put the file in the opened folder with the expected name, then re-run.",
+      "apply": {
+        "steps": [
+          {
+            "type": "file.ensureDir",
+            "path": "tools/open-shell"
+          },
+          {
+            "type": "open.path",
+            "path": "tools/open-shell"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "type": "action",
+      "primaryLabel": "Run",
+      "riskLevel": "Warning",
+      "requiresAdmin": true
+    },
+    {
+      "id": "util.ddu.page__utilities",
+      "name": "DDU — download page",
+      "category": "Apps / Utilities",
+      "risk": "Safe",
+      "description": "Official DDU page.",
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://www.wagnardsoft.com/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "type": "action",
+      "primaryLabel": "Open site",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "util.ddu.run__utilities",
+      "name": "Open DDU folder (bundled)",
+      "category": "Apps / Utilities",
+      "risk": "Warning",
+      "description": "Opens and runs DDU if you place it in tools/ddu/ as DDU.exe. Put the file in the opened folder with the expected name, then re-run.",
+      "apply": {
+        "steps": [
+          {
+            "type": "file.ensureDir",
+            "path": "tools/ddu"
+          },
+          {
+            "type": "open.path",
+            "path": "tools/ddu"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "type": "action",
+      "primaryLabel": "Open",
+      "riskLevel": "Warning",
+      "requiresAdmin": true
+    },
+    {
+      "id": "util.defendercontrol.run__utilities",
+      "name": "Run Defender Control (bundled)",
+      "category": "Apps / Utilities",
+      "risk": "Warning",
+      "description": "Runs DefenderControl if you place it in tools/defender-control/ as DefenderControl.exe. Put the file in the opened folder with the expected name, then re-run.",
+      "apply": {
+        "steps": [
+          {
+            "type": "file.ensureDir",
+            "path": "tools/defender-control"
+          },
+          {
+            "type": "open.path",
+            "path": "tools/defender-control"
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "note": "Converted from toggle (missing revert)."
+    },
+    {
+      "id": "util.msi_utility_v3.run",
+      "name": "MSI Utility V3 (Download)",
+      "category": "Apps / Utilities",
+      "risk": "Warning",
+      "description": "Download MSI Utility V3 (external tool). Optional: Falcon can apply MSI mode via scripts too.",
+      "apply": {
+        "steps": [
+          {
+            "type": "process.start",
+            "filePath": "tools\\MSI_Utility_V3.exe",
+            "arguments": ""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "type": "action",
+      "primaryLabel": "Run",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "steps": [
+        {
+          "type": "open.url",
+          "url": "https://github.com/Sathango/Msi-Utility-v3"
+        }
+      ],
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "util.rweverything.run",
+      "name": "RWEverything (Download)",
+      "category": "Apps / Utilities",
+      "risk": "High",
+      "description": "Download RWEverything (external tool). Optional. Use only if you know what you are doing.",
+      "apply": {
+        "steps": [
+          {
+            "type": "process.start",
+            "filePath": "tools\\third_party\\rweverything\\RWeverything.exe",
+            "arguments": ""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "type": "action",
+      "primaryLabel": "Run",
+      "riskLevel": "High",
+      "requiresAdmin": true,
+      "steps": [
+        {
+          "type": "open.url",
+          "url": "https://rweverything.com/download/"
+        }
+      ],
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "util.system_diag_home",
+      "name": "System Temperature Quick-Check (UserDiag Home)",
+      "category": "Apps / Utilities",
+      "risk": "Safe",
+      "description": "Opens the guide's temperature diagnosis link. Target: keep CPU and GPU under ~80°C under load; if 90°C+ fix cooling first.",
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://userdiag.com/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "type": "action",
+      "primaryLabel": "Open site",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "imported.imported.vcruntime_download",
+      "type": "button",
+      "name": "Vcruntime Download",
+      "category": "Utilities",
+      "riskLevel": "Danger",
+      "risk": "Danger",
+      "description": "[Imported] Runnable tweak extracted from your V8.3. This runs a command pack under Admin. Risk: Danger.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_vcruntime_download.bat\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "imported.imported.download_tools",
+      "type": "button",
+      "name": "Download Tools",
+      "category": "Utilities",
+      "riskLevel": "Safe",
+      "risk": "Safe",
+      "description": "[Imported] Runnable tweak extracted from your V8.3. This runs a command pack under Admin. Risk: Safe.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_download_tools.bat\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "imported.imported.dcontrol_download",
+      "type": "button",
+      "name": "Dcontrol Download",
+      "category": "Utilities",
+      "riskLevel": "Danger",
+      "risk": "Danger",
+      "description": "[Imported] Runnable tweak extracted from your V8.3. This runs a command pack under Admin. Risk: Danger.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_dcontrol_download.bat\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "imported.imported.imported_start_screen_colors",
+      "type": "button",
+      "name": "Start Screen Colors",
+      "category": "Utilities",
+      "riskLevel": "Safe",
+      "risk": "Safe",
+      "description": "[Imported] Runnable tweak extracted from your V8.3. This runs a command pack under Admin. Risk: Safe.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_oneclick_start_screen_colors.bat\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "imported.imported.openshell_download",
+      "type": "button",
+      "name": "Openshell Download",
+      "category": "Utilities",
+      "riskLevel": "Danger",
+      "risk": "Danger",
+      "description": "[Imported] Runnable tweak extracted from your V8.3. This runs a command pack under Admin. Risk: Danger.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_openshell_download.bat\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "imported.imported.redetect_winver",
+      "type": "button",
+      "name": "Redetect Winver",
+      "category": "Utilities",
+      "riskLevel": "Danger",
+      "risk": "Danger",
+      "description": "[Imported] Runnable tweak extracted from your V8.3. This runs a command pack under Admin. Risk: Danger.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_redetect_winver.bat\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "imported.imported.recheck_winser",
+      "type": "button",
+      "name": "Recheck Winser",
+      "category": "Utilities",
+      "riskLevel": "Danger",
+      "risk": "Danger",
+      "description": "[Imported] Runnable tweak extracted from your V8.3. This runs a command pack under Admin. Risk: Danger.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_recheck_winser.bat\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    }
+  ]
+}

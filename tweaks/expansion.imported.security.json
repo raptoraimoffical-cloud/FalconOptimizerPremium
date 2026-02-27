@@ -1,0 +1,70 @@
+{
+  "items": [
+    {
+      "id": "import.imported.dcontrol_download_failed.bbc56d47a9",
+      "type": "button",
+      "name": "Dcontrol Download Failed",
+      "category": "Expansion / Imported / Security",
+      "risk": "Extreme",
+      "riskLevel": "Extreme",
+      "description": "Imported runnable tweak. Risk: Extreme",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\oneclick_all\\import_oneclick_dcontrol_download_failed_bbc56d47a9.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import.imported.disable_defender.f46fc14d4f",
+      "type": "button",
+      "name": "Disable Defender",
+      "category": "Expansion / Imported / Security",
+      "risk": "Extreme",
+      "riskLevel": "Extreme",
+      "description": "Imported runnable tweak. Risk: Extreme",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\oneclick_all\\import_oneclick_disable_defender_f46fc14d4f.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import.imported.rtp_tpr_disable.a278907a6a",
+      "type": "button",
+      "name": "RTP TPR Disable",
+      "category": "Expansion / Imported / Security",
+      "risk": "Extreme",
+      "riskLevel": "Extreme",
+      "description": "Imported runnable tweak. Risk: Extreme",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\oneclick_all\\import_oneclick_rtp_tpr_disable_a278907a6a.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    }
+  ]
+}

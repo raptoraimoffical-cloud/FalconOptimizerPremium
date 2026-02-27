@@ -1,0 +1,38 @@
+{
+  "id": "falcon.services",
+  "name": "Falcon Services",
+  "description": "Service actions packaged with Falcon.",
+  "category": "services",
+  "requiresAdmin": true,
+  "excludeFromApplyAll": true,
+  "items": [
+    {
+      "id": "falcon.disable_services",
+      "title": "Disable Services (Pack)",
+      "type": "action",
+      "risk": "high",
+      "apply": {
+        "steps": [
+          {
+            "type": "uac.disable"
+          },
+          {
+            "type": "nsudo.run",
+            "file": "scripts\\falcon-disable-services.bat"
+          },
+          {
+            "type": "uac.restore"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"No automatic revert available for this pack action. Use Service Disabler Restore / System Restore if needed.\""
+          }
+        ]
+      }
+    }
+  ]
+}

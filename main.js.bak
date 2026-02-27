@@ -1,0 +1,591 @@
+const { app, BrowserWindow, ipcMain, shell } = require("electron");
+const os = require("os");
+const path = require("path");
+const fs = require("fs");
+const { spawn, spawnSync } = require("child_process");
+
+let stateFile = null;
+let toggleState = {};
+
+let historyFile = null;
+let historyState = { version: 1, sessions: [] };
+let currentSessionId = null;
+
+function nowIso() { return new Date().toISOString(); }
+
+function safeJsonRead(filePath, fallback) {
+  try {
+    if (filePath && fs.existsSync(filePath)) {
+      return JSON.parse(fs.readFileSync(filePath, "utf8") || "null") || fallback;
+    }
+  } catch (_) {}
+  return fallback;
+}
+
+function safeJsonWrite(filePath, obj) {
+  try {
+    fs.writeFileSync(filePath, JSON.stringify(obj, null, 2), "utf8");
+    return true;
+  } catch (_) {
+    return false;
+  }
+}
+
+function loadState() {
+  toggleState = safeJsonRead(stateFile, {});
+}
+
+function saveState() {
+  safeJsonWrite(stateFile, toggleState || {});
+}
+
+function loadHistory() {
+  historyState = safeJsonRead(historyFile, { version: 1, sessions: [] });
+  if (!historyState || typeof historyState !== "object") historyState = { version: 1, sessions: [] };
+}
+
+function saveHistory() {
+  safeJsonWrite(historyFile, historyState);
+}
+
+function ensureSession() {
+  if (!currentSessionId) currentSessionId = "session_" + Date.now();
+  let s = (historyState.sessions || []).find(x => x && x.id === currentSessionId);
+  if (!s) {
+    s = { id: currentSessionId, startedAt: nowIso(), entries: [] };
+    historyState.sessions = historyState.sessions || [];
+    historyState.sessions.push(s);
+    saveHistory();
+  }
+  return s;
+}
+
+function createWindow() {
+  const win = new BrowserWindow({
+    width: 1200,
+    height: 760,
+    backgroundColor: "#0b0f14",
+    webPreferences: {
+      preload: path.join(__dirname, "preload.js"),
+      contextIsolation: true,
+      nodeIntegration: false
+    }
+  });
+
+  win.loadFile(path.join(__dirname, "index.html"));
+}
+
+function runPsSteps(payload) {
+  const projectRoot = app.isPackaged
+    ? path.join(process.resourcesPath, "app.asar.unpacked")
+    : __dirname;
+
+  const ps1 = path.join(projectRoot, "scripts", "run-action.ps1");
+  const json = JSON.stringify(payload || { steps: [] });
+
+  return new Promise((resolve) => {
+    const p = spawn("powershell.exe", [
+      "-NoProfile",
+      "-ExecutionPolicy", "Bypass",
+      "-File", ps1,
+      "-Json", json
+    ], { cwd: projectRoot, windowsHide: true });
+
+    let stdout = "";
+    let stderr = "";
+    let finished = false;
+
+    function finish(fromTimeout) {
+      if (finished) return;
+      finished = true;
+      const out = (stdout || "").trim();
+      let parsed = null;
+      try { parsed = out ? JSON.parse(out) : null; } catch (_) { parsed = null; }
+      if (!parsed || typeof parsed !== "object") {
+        parsed = { ok: false, errors: [], warnings: [], logFile: null };
+      }
+      if (fromTimeout) {
+        parsed.ok = false;
+        parsed.errors = parsed.errors || [];
+        parsed.errors.push({ msg: "Timed out while applying steps (global guard)." });
+      }
+      parsed.rawStdout = out;
+      parsed.rawStderr = (stderr || "").trim();
+      resolve(parsed);
+    }
+
+    const timeoutMs = 120000; // hard guard so a single tweak can't freeze the batch forever
+    const timer = setTimeout(() => {
+      try { p.kill(); } catch (_) {}
+      finish(true);
+    }, timeoutMs);
+
+    p.stdout.on("data", (d) => (stdout += d.toString()));
+    p.stderr.on("data", (d) => (stderr += d.toString()));
+
+    p.on("close", () => {
+      clearTimeout(timer);
+      finish(false);
+    });
+  });
+}
+
+function runPsFile(scriptRelPath, args = []) {
+  const projectRoot = app.isPackaged
+    ? path.join(process.resourcesPath, "app.asar.unpacked")
+    : __dirname;
+
+  const ps1 = path.join(projectRoot, scriptRelPath);
+  return new Promise((resolve) => {
+    const p = spawn("powershell.exe",
+      ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", ps1, ...args],
+      { cwd: projectRoot, windowsHide: true }
+    );
+
+    let stdout = "";
+    let stderr = "";
+    p.stdout.on("data", (d) => (stdout += d.toString()));
+    p.stderr.on("data", (d) => (stderr += d.toString()));
+    p.on("close", (code) => {
+      resolve({ ok: code === 0, code, stdout: stdout.trim(), stderr: stderr.trim() });
+    });
+  });
+}
+
+// --- IPC: Run raw steps (legacy) ---
+ipcMain.handle("falcon:runSteps", async (_evt, payload) => {
+  try {
+    const steps = (payload && Array.isArray(payload.steps)) ? payload.steps : [];
+    if (!steps.length) return { ok: false, stdout: "", stderr: "No steps.", logFile: null };
+    const res = await runPsSteps({ steps });
+    return { ok: !!res.ok, stdout: res.rawStdout || "", stderr: res.rawStderr || "", logFile: res.logFile || null };
+  } catch (e) {
+    return { ok: false, stdout: "", stderr: String(e && e.message ? e.message : e), logFile: null };
+  }
+});
+
+// --- IPC: Run a tweak (records history, supports simulation in UI via separate endpoint) ---
+ipcMain.handle("falcon:runTweak", async (_evt, payload) => {
+  const id = payload && payload.id ? String(payload.id) : "";
+  const mode = payload && payload.mode ? String(payload.mode) : "apply";
+  const steps = payload && Array.isArray(payload.steps) ? payload.steps : [];
+  const revertSteps = payload && Array.isArray(payload.revertSteps) ? payload.revertSteps : [];
+  const meta = (payload && payload.meta && typeof payload.meta === "object") ? payload.meta : {};
+
+  if (!id) return { ok: false, stdout: "", stderr: "Missing id.", logFile: null };
+  if (!steps.length) return { ok: false, stdout: "", stderr: "No runnable steps.", logFile: null };
+
+  const res = await runPsSteps({ steps });
+
+  const session = ensureSession();
+  session.entries.push({
+    ts: nowIso(),
+    id,
+    mode,
+    ok: !!res.ok,
+    logFile: res.logFile || null,
+    meta,
+    revertSteps: (mode === "apply") ? revertSteps : undefined
+  });
+  saveHistory();
+
+  return { ok: !!res.ok, stdout: res.rawStdout || "", stderr: res.rawStderr || "", logFile: res.logFile || null };
+});
+
+ipcMain.handle("falcon:dryRunSteps", async (_evt, payload) => {
+  const steps = (payload && Array.isArray(payload.steps)) ? payload.steps : [];
+  return {
+    ok: true,
+    plan: steps.map((s, i) => ({ i, type: s.type, step: s }))
+  };
+});
+
+// --- IPC: Backups ---
+ipcMain.handle("falcon:createBackup", async () => {
+  return await runPsFile(path.join("scripts", "snapshot.ps1"));
+});
+
+ipcMain.handle("falcon:restoreBackup", async () => {
+  return await runPsFile(path.join("scripts", "restore.ps1"));
+});
+
+// --- IPC: Undo ---
+ipcMain.handle("falcon:getHistory", async () => {
+  return historyState || { version: 1, sessions: [] };
+});
+
+ipcMain.handle("falcon:undoLastSession", async () => {
+  const s = (historyState.sessions || []).find(x => x && x.id === currentSessionId);
+  if (!s || !Array.isArray(s.entries) || !s.entries.length) {
+    return { ok: false, stdout: "", stderr: "No entries in current session.", logFile: null };
+  }
+  // Revert applied entries in reverse order (only apply entries with stored revertSteps)
+  const rev = s.entries.filter(e => e && e.mode === "apply" && Array.isArray(e.revertSteps) && e.revertSteps.length).reverse();
+  let combined = "";
+  let allOk = true;
+  for (const e of rev) {
+    const r = await runPsSteps({ steps: e.revertSteps });
+    allOk = allOk && !!r.ok;
+    combined += (r.rawStdout || "") + "\n" + (r.rawStderr || "") + "\n";
+  }
+  return { ok: allOk, stdout: combined.trim(), stderr: "", logFile: null };
+});
+
+ipcMain.handle("falcon:undoAll", async () => {
+  const sessions = Array.isArray(historyState.sessions) ? historyState.sessions : [];
+  const entries = [];
+  for (const s of sessions) {
+    if (s && Array.isArray(s.entries)) entries.push(...s.entries);
+  }
+  const rev = entries.filter(e => e && e.mode === "apply" && Array.isArray(e.revertSteps) && e.revertSteps.length).reverse();
+  if (!rev.length) return { ok: false, stdout: "", stderr: "No applied entries with revert steps.", logFile: null };
+
+  let combined = "";
+  let allOk = true;
+  for (const e of rev) {
+    const r = await runPsSteps({ steps: e.revertSteps });
+    allOk = allOk && !!r.ok;
+    combined += (r.rawStdout || "") + "\n" + (r.rawStderr || "") + "\n";
+  }
+  return { ok: allOk, stdout: combined.trim(), stderr: "", logFile: null };
+});
+
+// --- IPC: Toggle state persistence ---
+
+ipcMain.handle("falcon:listProcesses", async () => {
+  try {
+    const res = spawnSync("tasklist", ["/FO", "CSV", "/NH"], { windowsHide: true });
+    const stdout = res && res.stdout ? res.stdout.toString() : "";
+    const lines = stdout.split(/\r?\n/).filter(Boolean);
+    const processes = [];
+    for (const line of lines) {
+      const trimmed = line.trim();
+      if (!trimmed) continue;
+      const parts = trimmed.split('","').map(s => s.replace(/^"|"$/g, ''));
+      if (parts.length >= 2) {
+        const name = parts[0].trim();
+        const pid = parseInt(parts[1], 10) || 0;
+        if (name) processes.push({ name, pid });
+      }
+    }
+    return { ok: true, processes };
+  } catch (e) {
+    return { ok: false, processes: [], error: String(e && e.message ? e.message : e) };
+  }
+});
+
+ipcMain.handle("falcon:getState", async () => {
+  return toggleState || {};
+});
+
+ipcMain.handle("falcon:setState", async (_evt, payload) => {
+  const id = payload && payload.id ? String(payload.id) : "";
+  const on = !!(payload && payload.on);
+  if (id) {
+    toggleState[id] = on;
+    saveState();
+  }
+  return toggleState || {};
+});
+
+
+// --- IPC: System info (CPU / GPU / RAM / OS) ---
+
+ipcMain.handle("falcon:getSystemInfo", async () => {
+  const osmod = require("os");
+
+  const cpus = (osmod.cpus && osmod.cpus()) || [];
+  const cpu0 = cpus[0] || {};
+  const cpuName = cpu0.model || "Unknown CPU";
+  const cpuThreads = cpus.length || 0;
+  const ramBytes = osmod.totalmem ? osmod.totalmem() : 0;
+  const osType = osmod.type ? osmod.type() : "Windows";
+  const osRel = osmod.release ? osmod.release() : "";
+  let osVer = "";
+  try {
+    if (typeof osmod.version === "function") {
+      osVer = osmod.version();
+    }
+  } catch (_) {}
+
+  const baseInfo = {
+    CPU: cpuName,
+    CPUCores: cpuThreads,
+    CPUThreads: cpuThreads,
+    RAMBytes: ramBytes,
+    OS: (osType + " " + osRel).trim(),
+    OSVersion: osVer,
+    Build: ""
+  };
+
+  let motherboard = { manufacturer: null, product: null, label: null };
+  try {
+    const psBoard = spawnSync("powershell.exe", [
+      "-NoProfile",
+      "-ExecutionPolicy", "Bypass",
+      "-Command",
+      "Get-CimInstance Win32_BaseBoard | Select-Object -First 1 Manufacturer,Product | ConvertTo-Json -Compress"
+    ], { windowsHide: true });
+    const rawBoard = (psBoard && psBoard.stdout ? psBoard.stdout.toString() : "").trim();
+    if (rawBoard) {
+      try {
+        const js = JSON.parse(rawBoard);
+        const man = (js.Manufacturer || '').trim();
+        const prod = (js.Product || '').trim();
+        const label = (man + ' ' + prod).trim();
+        motherboard = { manufacturer: man || null, product: prod || null, label: label || null };
+      } catch (_e) {
+        // ignore baseboard parse errors
+      }
+    }
+  } catch (_e) {
+    // ignore baseboard detection errors
+  }
+
+  return await new Promise((resolve) => {
+    let stdout = "";
+    let stderr = "";
+    let child;
+    try {
+      child = spawn("wmic", ["path", "win32_videocontroller", "get", "name"], { windowsHide: true });
+    } catch (e) {
+      const merged = { ...baseInfo, GPUN: "Unknown GPU" };
+      return resolve({ ok: true, info: merged, stderr: String(e || "") });
+    }
+
+    child.stdout.on("data", (d) => (stdout += d.toString()));
+    child.stderr.on("data", (d) => (stderr += d.toString()));
+
+    child.on("error", (err) => {
+      const merged = { ...baseInfo, GPUN: "Unknown GPU" };
+      return resolve({
+        ok: true,
+        info: merged,
+        stderr: [stderr, String(err || "")].filter(Boolean).join(" | ")
+      });
+    });
+
+    child.on("close", () => {
+      const lines = (stdout || "").split(/\r?\n/).map((l) => l.trim()).filter(Boolean);
+      let gpuName = "";
+      if (lines.length > 1) {
+        const candidates = lines.slice(1).filter(Boolean);
+        const filtered = candidates.filter((n) => !/microsoft basic display adapter/i.test(n));
+        gpuName = (filtered[0] || candidates[0] || "").trim();
+      }
+
+      function finish(name, extraErr) {
+        let vramGb = null;
+        try {
+          const psRes = spawnSync("powershell.exe", [
+            "-NoProfile",
+            "-ExecutionPolicy", "Bypass",
+            "-Command",
+            "Get-CimInstance Win32_VideoController | Sort-Object -Property AdapterRAM -Descending | Select-Object -First 1 AdapterRAM | ConvertTo-Json -Compress"
+          ], { windowsHide: true });
+          const raw = (psRes && psRes.stdout ? psRes.stdout.toString() : "").trim();
+          if (raw) {
+            try {
+              const js = JSON.parse(raw);
+              let bytes = 0;
+              if (typeof js === "number") {
+                bytes = js;
+              } else if (js && js.AdapterRAM) {
+                bytes = js.AdapterRAM;
+              }
+              if (bytes && bytes > 0) {
+                vramGb = Math.round(bytes / (1024 * 1024 * 1024));
+              }
+            } catch (_e) {
+              // ignore parse errors, leave vramGb as null
+            }
+          }
+        } catch (_e) {
+          // ignore VRAM detection errors
+        }
+                let vendor = "unknown";
+        const lower = String(name || "").toLowerCase();
+        if (lower.includes("nvidia") || lower.includes("geforce") || lower.includes("rtx") || lower.includes("gtx")) {
+          vendor = "nvidia";
+        } else if (lower.includes("amd") || lower.includes("radeon") || lower.includes("rx ")) {
+          vendor = "amd";
+        } else if (lower.includes("intel") || lower.includes("uhd") || lower.includes("iris")) {
+          vendor = "intel";
+        }
+        const merged = { ...baseInfo, GPUN: name || "Unknown GPU", GPUVRAM: vramGb, GPUVendor: vendor, MotherboardManufacturer: motherboard.manufacturer, MotherboardProduct: motherboard.product, MotherboardLabel: motherboard.label };
+        const allErr = [stderr, extraErr].filter(Boolean).join(" | ");
+        resolve({ ok: true, info: merged, stderr: allErr });
+      }
+
+      if (gpuName) {
+        return finish(gpuName, "");
+      }
+
+      let psStdout = "";
+      let psStderr = "";
+      let ps;
+      try {
+        const cmd = 'Get-CimInstance Win32_VideoController | Sort-Object AdapterRAM -Descending | Select-Object -First 1 Name | ConvertTo-Json -Compress';
+        ps = spawn("powershell.exe", ["-NoProfile", "-ExecutionPolicy", "Bypass", "-Command", cmd], { windowsHide: true });
+      } catch (e) {
+        return finish("", String(e || ""));
+      }
+
+      ps.stdout.on("data", (d) => (psStdout += d.toString()));
+      ps.stderr.on("data", (d) => (psStderr += d.toString()));
+      ps.on("close", () => {
+        let name = "";
+        try {
+          const trimmed = (psStdout || "").trim();
+          if (trimmed) {
+            const js = JSON.parse(trimmed);
+            if (typeof js === "string") {
+              name = js;
+            } else if (js && js.Name) {
+              name = js.Name;
+            }
+          }
+        } catch (_) {}
+        finish(name, psStderr);
+      });
+    });
+  });
+});
+ipcMain.handle("falcon:detectXmpStatus", async () => {
+  try {
+    const res = spawnSync("powershell.exe", [
+      "-NoProfile",
+      "-ExecutionPolicy", "Bypass",
+      "-Command",
+      "Get-CimInstance Win32_PhysicalMemory | Select-Object -First 1 Speed,ConfiguredClockSpeed | ConvertTo-Json -Compress"
+    ], { windowsHide: true });
+    const raw = (res && res.stdout ? res.stdout.toString() : "").trim();
+    if (!raw) return { ok: true, status: "Unknown" };
+    let speed = 0, base = 0;
+    try {
+      const js = JSON.parse(raw);
+      if (js) {
+        speed = parseInt(js.Speed || js.speed || "0", 10) || 0;
+        base = parseInt(js.ConfiguredClockSpeed || js.configuredClockSpeed || "0", 10) || 0;
+      }
+    } catch (_) {}
+    if (!speed || !base) return { ok: true, status: "Unknown" };
+    const ratio = base ? (speed / base) : 0;
+    let status = "Unknown";
+    if (ratio >= 1.15) status = "Enabled";
+    else if (ratio <= 1.02) status = "Disabled";
+    else status = "Unknown";
+    return { ok: true, status, speed, base };
+  } catch (e) {
+    return { ok: false, status: "Unknown", error: String(e && e.message ? e.message : e) };
+  }
+});
+
+ipcMain.handle("falcon:getRebarStatus", async () => {
+  try {
+    const script = `
+      $result = @{ Status = 'Unknown' }
+      $paths = Get-ChildItem 'HKLM:\SYSTEM\CurrentControlSet\Control\Video' -ErrorAction SilentlyContinue | ForEach-Object { Join-Path $_.PsPath '0000' }
+      foreach($p in $paths){
+        try{
+          $props = Get-ItemProperty -Path $p -ErrorAction SilentlyContinue
+          if($props -and ($props.EnableReBar -ne $null)){
+            if($props.EnableReBar -eq 1){ $result.Status='Enabled'; break }
+            elseif($props.EnableReBar -eq 0){ $result.Status='Disabled' }
+          }
+        }catch{}
+      }
+      $result | ConvertTo-Json -Compress
+    `;
+    const res = spawnSync("powershell.exe", [
+      "-NoProfile",
+      "-ExecutionPolicy", "Bypass",
+      "-Command", script
+    ], { windowsHide: true });
+    const raw = (res && res.stdout ? res.stdout.toString() : "").trim();
+    if (!raw) return { ok: true, status: "Unknown" };
+    let status = "Unknown";
+    try {
+      const js = JSON.parse(raw);
+      if (js && (js.Status || js.status)) status = js.Status || js.status;
+    } catch (_) {}
+    if (status !== "Enabled" && status !== "Disabled") status = "Unknown";
+    return { ok: true, status };
+  } catch (e) {
+    return { ok: false, status: "Unknown", error: String(e && e.message ? e.message : e) };
+  }
+});
+
+ipcMain.handle("falcon:openExternal", async (_evt, payload) => {
+  const url = payload && payload.url ? String(payload.url) : "";
+  if (!url) return { ok: false };
+  await shell.openExternal(url);
+  return { ok: true };
+});
+
+ipcMain.handle("falcon:openPath", async (_evt, payload) => {
+  const p = payload && payload.path ? String(payload.path) : "";
+  if (!p) return { ok: false };
+  await shell.openPath(p);
+  return { ok: true };
+});
+
+// --- IPC: Validate tweaks (runs schema-validator.js) ---
+ipcMain.handle("falcon:validateTweaks", async () => {
+  const projectRoot = app.isPackaged
+    ? path.join(process.resourcesPath, "app.asar.unpacked")
+    : __dirname;
+  const validator = path.join(projectRoot, "tools", "schema-validator.js");
+  return new Promise((resolve) => {
+    const p = spawn("node", [validator, "--fix"], { cwd: projectRoot, windowsHide: true });
+    let stdout = ""; let stderr = "";
+    p.stdout.on("data", (d) => (stdout += d.toString()));
+    p.stderr.on("data", (d) => (stderr += d.toString()));
+    p.on("close", (code) => {
+      resolve({ ok: code === 0, stdout: stdout.trim(), stderr: stderr.trim() });
+    });
+  });
+});
+
+// --- IPC: Self-test ---
+ipcMain.handle("falcon:selfTest", async () => {
+  const res = await runPsSteps({
+    steps: [
+      { type: "cmd", command: 'Write-Output "=== Falcon Self-Test ==="' },
+      { type: "cmd", command: 'Write-Output ("PSVersion=" + $PSVersionTable.PSVersion.ToString())' },
+      { type: "cmd", command: 'Write-Output ("IsAdmin=" + ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator))' },
+      { type: "cmd", command: 'Write-Output ("User=" + (whoami))' },
+      { type: "cmd", command: 'Write-Output ("CWD=" + (Get-Location).Path)' }
+    ]
+  });
+
+  return {
+    ok: res && res.ok === true,
+    logFile: res ? res.logFile : null,
+    output: [
+      "---- STDOUT ----",
+      (res && res.rawStdout ? res.rawStdout : "(empty)"),
+      "---- STDERR ----",
+      (res && res.rawStderr ? res.rawStderr : "(empty)")
+    ]
+  };
+});
+
+app.whenReady().then(() => {
+  stateFile = path.join(app.getPath("userData"), "toggle-state.json");
+  historyFile = path.join(app.getPath("userData"), "applied-history.json");
+  currentSessionId = "session_" + Date.now();
+  loadState();
+  loadHistory();
+  ensureSession();
+
+  createWindow();
+
+  app.on("activate", () => {
+    if (BrowserWindow.getAllWindows().length === 0) createWindow();
+  });
+});
+
+app.on("window-all-closed", () => {
+  if (process.platform !== "darwin") app.quit();
+});

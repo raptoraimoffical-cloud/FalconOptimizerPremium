@@ -1,0 +1,71 @@
+{
+  "items": [
+    {
+      "id": "net.priority.dscp46",
+      "type": "button",
+      "name": "Apply: Network Priority (DSCP 46)",
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Creates a QoS policy that marks outbound UDP traffic with DSCP 46 (Expedited Forwarding).",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"New-NetQosPolicy -Name \\\"Falcon UDP DSCP46\\\" -IPProtocol UDP -DSCPAction 46 -PolicyStore ActiveStore -ErrorAction SilentlyContinue\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"Remove-NetQosPolicy -Name \\\"Falcon UDP DSCP46\\\" -PolicyStore ActiveStore -Confirm:$false -ErrorAction SilentlyContinue\""
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "Network"
+    },
+    {
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Creates a QoS policy that marks outbound UDP traffic with DSCP 46 (Expedited Forwarding).",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Network",
+      "id": "net.priority.dscp46__revert",
+      "type": "button",
+      "name": "Revert: Network Priority (DSCP 46)",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"Remove-NetQosPolicy -Name \\\"Falcon UDP DSCP46\\\" -PolicyStore ActiveStore -Confirm:$false -ErrorAction SilentlyContinue\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "net.priority.remove",
+      "type": "button",
+      "name": "Remove Network Priority Policy",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Removes Falcon UDP DSCP46 policy.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"Remove-NetQosPolicy -Name \\\"Falcon UDP DSCP46\\\" -PolicyStore ActiveStore -Confirm:$false -ErrorAction SilentlyContinue\""
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "Network",
+      "note": "Converted from toggle (missing revert)."
+    }
+  ]
+}

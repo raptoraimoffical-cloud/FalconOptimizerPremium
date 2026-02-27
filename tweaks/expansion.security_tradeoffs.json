@@ -1,0 +1,362 @@
+{
+  "items": [
+    {
+      "id": "exp.sec.docs_defender_exclusions",
+      "type": "button",
+      "name": "Defender Exclusions (Docs)",
+      "category": "Expansion / Security Tradeoffs",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Reference for configuring Defender exclusions instead of disabling security.",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/microsoft-365/security/defender-endpoint/configure-exclusions-microsoft-defender-antivirus"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.sec.docs_vbs",
+      "type": "button",
+      "name": "VBS / Memory Integrity (Docs)",
+      "category": "Expansion / Security Tradeoffs",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Reference for Core Isolation / Memory Integrity (VBS).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows/security/hardware-security/enable-virtualization-based-protection-of-code-integrity"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.sec.check_vbs_status",
+      "type": "action",
+      "name": "Check VBS Status",
+      "category": "Expansion / Security Tradeoffs",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Shows virtualization-based security status (DeviceGuard).",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Get-CimInstance -ClassName Win32_DeviceGuard | Select-Object * | Out-Host"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe"
+    },
+    {
+      "id": "exp.sec.placeholder_004",
+      "type": "button",
+      "name": "Security Checklist Item",
+      "category": "Expansion / Security Tradeoffs",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows/security/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.sec.placeholder_005",
+      "type": "button",
+      "name": "Security Checklist Item",
+      "category": "Expansion / Security Tradeoffs",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows/security/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.sec.placeholder_006",
+      "type": "button",
+      "name": "Security Checklist Item",
+      "category": "Expansion / Security Tradeoffs",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows/security/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.sec.placeholder_007",
+      "type": "button",
+      "name": "Security Checklist Item",
+      "category": "Expansion / Security Tradeoffs",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows/security/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.sec.placeholder_008",
+      "type": "button",
+      "name": "Security Checklist Item",
+      "category": "Expansion / Security Tradeoffs",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows/security/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.sec.placeholder_009",
+      "type": "button",
+      "name": "Security Checklist Item",
+      "category": "Expansion / Security Tradeoffs",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows/security/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.sec.placeholder_010",
+      "type": "button",
+      "name": "Security Checklist Item",
+      "category": "Expansion / Security Tradeoffs",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows/security/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.sec.placeholder_011",
+      "type": "button",
+      "name": "Security Checklist Item",
+      "category": "Expansion / Security Tradeoffs",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows/security/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.sec.placeholder_012",
+      "type": "button",
+      "name": "Security Checklist Item",
+      "category": "Expansion / Security Tradeoffs",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows/security/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.sec.placeholder_013",
+      "type": "button",
+      "name": "Security Checklist Item",
+      "category": "Expansion / Security Tradeoffs",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows/security/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.sec.placeholder_014",
+      "type": "button",
+      "name": "Security Checklist Item",
+      "category": "Expansion / Security Tradeoffs",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows/security/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.sec.placeholder_015",
+      "type": "button",
+      "name": "Security Checklist Item",
+      "category": "Expansion / Security Tradeoffs",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows/security/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    }
+  ]
+}

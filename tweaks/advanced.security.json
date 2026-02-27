@@ -1,0 +1,598 @@
+{
+  "items": [
+    {
+      "id": "adv.security.defender.restore_core",
+      "name": "Defender: ON (Safe restore)",
+      "category": "Security",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Full Windows Defender restore after external tweak packs / DefenderControl: removes policy locks + re-enables only Defender/SecurityCenter services & tasks. Does not touch unrelated services or exclusions.",
+      "type": "action",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "path": "scripts/security/defender-full-restore.ps1"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "adv.security.defender.disable_core",
+      "name": "Defender: OFF (Safe mode)",
+      "tags": [
+        "security",
+        "defender"
+      ],
+      "risk": "medium",
+      "requiresAdmin": true,
+      "description": "Disables Defender using reversible policy + stops Defender services. Does not disable SecurityHealthService or Security Center UI.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"try { $tp=(Get-ItemProperty -Path \\\"HKLM:\\\\SOFTWARE\\\\Microsoft\\\\Windows Defender\\\\Features\\\" -Name TamperProtection -ErrorAction SilentlyContinue).TamperProtection; if($tp -eq 5){ exit 1603 } } catch {}\" >nul 2>&1"
+          },
+          {
+            "type": "cmd.run",
+            "command": "reg add \"HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows Defender\" /v DisableAntiSpyware /t REG_DWORD /d 1 /f >nul 2>&1"
+          },
+          {
+            "type": "cmd.run",
+            "command": "reg add \"HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows Defender\" /v DisableAntiVirus /t REG_DWORD /d 1 /f >nul 2>&1"
+          },
+          {
+            "type": "cmd.run",
+            "command": "net stop WinDefend >nul 2>&1"
+          },
+          {
+            "type": "cmd.run",
+            "command": "net stop WdNisSvc >nul 2>&1"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "reg delete \"HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows Defender\" /f >nul 2>&1"
+          },
+          {
+            "type": "cmd.run",
+            "command": "sc config WinDefend start= auto >nul 2>&1"
+          },
+          {
+            "type": "cmd.run",
+            "command": "sc config WdNisSvc start= demand >nul 2>&1"
+          },
+          {
+            "type": "cmd.run",
+            "command": "net start WinDefend >nul 2>&1"
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv.security.defender.permanent_disable_advanced",
+      "name": "Defender: Permanent Disable (Advanced)",
+      "category": "Security",
+      "risk": "High",
+      "riskLevel": 5,
+      "description": "Permanently disables WinDefend service startup. May break Windows Security UI on some systems. Use only if you know how to recover.",
+      "type": "tweak",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "sc config WinDefend start= disabled >nul 2>&1"
+          },
+          {
+            "type": "cmd.run",
+            "command": "net stop WinDefend >nul 2>&1"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "sc config WinDefend start= auto >nul 2>&1"
+          },
+          {
+            "type": "cmd.run",
+            "command": "net start WinDefend >nul 2>&1"
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv.security.windows_installer.repair",
+      "name": "Repair Windows Installer (msiserver)",
+      "tags": [
+        "fix",
+        "windows",
+        "installer"
+      ],
+      "risk": "low",
+      "requiresAdmin": true,
+      "description": "Restores Windows Installer service configuration and re-registers msiexec. Fixes 'Windows Installer Service could not be accessed'. Does not touch other services.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\msiserver\" /v Start /t REG_DWORD /d 3 /f >nul 2>&1"
+          },
+          {
+            "type": "cmd.run",
+            "command": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\msiserver\" /v ImagePath /t REG_EXPAND_SZ /d \"%SystemRoot%\\System32\\msiexec.exe /V\" /f >nul 2>&1"
+          },
+          {
+            "type": "cmd.run",
+            "command": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\msiserver\\Parameters\" /v ServiceDll /t REG_EXPAND_SZ /d \"%SystemRoot%\\System32\\msi.dll\" /f >nul 2>&1"
+          },
+          {
+            "type": "cmd.run",
+            "command": "sc config msiserver start= demand >nul 2>&1"
+          },
+          {
+            "type": "cmd.run",
+            "command": "msiexec /unregister >nul 2>&1"
+          },
+          {
+            "type": "cmd.run",
+            "command": "msiexec /regserver >nul 2>&1"
+          },
+          {
+            "type": "cmd.run",
+            "command": "net stop msiserver /y >nul 2>&1"
+          },
+          {
+            "type": "cmd.run",
+            "command": "net start msiserver >nul 2>&1"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "adv.security.allow_dynamic_code",
+      "name": "Apply: Allow Dynamic Code",
+      "category": "Advanced / Security",
+      "risk": "Extreme",
+      "description": "[Focus: FPS, Latency / Input Delay] Changes Windows exploit mitigation/security settings. Use only if you understand the risk.",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Set-ProcessMitigation -System -Enable DynamicCode"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Set-ProcessMitigation -System -Disable DynamicCode"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "category": "Advanced / Security",
+      "risk": "Extreme",
+      "description": "[Focus: FPS, Latency / Input Delay] Changes Windows exploit mitigation/security settings. Use only if you understand the risk.",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true,
+      "id": "adv.security.allow_dynamic_code__revert",
+      "type": "button",
+      "name": "Revert: Allow Dynamic Code",
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Set-ProcessMitigation -System -Disable DynamicCode"
+            ],
+            "wait": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv.security.disable_bottomup_high_entropy_aslr",
+      "name": "Apply: Disable Bottomup / High-Entropy ASLR",
+      "category": "Advanced / Security",
+      "risk": "Extreme",
+      "description": "[Focus: FPS, Latency / Input Delay] Changes Windows exploit mitigation/security settings. Use only if you understand the risk.",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Set-ProcessMitigation -System -Disable BottomUpASLR,HighEntropyASLR"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Set-ProcessMitigation -System -Enable BottomUpASLR,HighEntropyASLR"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "category": "Advanced / Security",
+      "risk": "Extreme",
+      "description": "[Focus: FPS, Latency / Input Delay] Changes Windows exploit mitigation/security settings. Use only if you understand the risk.",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true,
+      "id": "adv.security.disable_bottomup_high_entropy_aslr__revert",
+      "type": "button",
+      "name": "Revert: Disable Bottomup / High-Entropy ASLR",
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Set-ProcessMitigation -System -Enable BottomUpASLR,HighEntropyASLR"
+            ],
+            "wait": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv.security.disable_code_signing_requirements",
+      "name": "Apply: Disable Code-Signing Requirements",
+      "category": "Advanced / Security",
+      "risk": "Extreme",
+      "description": "[Focus: FPS, Latency / Input Delay] Changes Windows exploit mitigation/security settings. Use only if you understand the risk.",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Set-ProcessMitigation -System -Disable SignedBinary"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Set-ProcessMitigation -System -Enable SignedBinary"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "category": "Advanced / Security",
+      "risk": "Extreme",
+      "description": "[Focus: FPS, Latency / Input Delay] Changes Windows exploit mitigation/security settings. Use only if you understand the risk.",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true,
+      "id": "adv.security.disable_code_signing_requirements__revert",
+      "type": "button",
+      "name": "Revert: Disable Code-Signing Requirements",
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Set-ProcessMitigation -System -Enable SignedBinary"
+            ],
+            "wait": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv.security.disable_control_flow_guard_cfg",
+      "name": "Apply: Disable Control Flow Guard (CFG)",
+      "category": "Advanced / Security",
+      "risk": "Extreme",
+      "description": "[Focus: FPS, Latency / Input Delay] Changes Windows exploit mitigation/security settings. Use only if you understand the risk.",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Set-ProcessMitigation -System -Disable CFG"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Set-ProcessMitigation -System -Enable CFG"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "category": "Advanced / Security",
+      "risk": "Extreme",
+      "description": "[Focus: FPS, Latency / Input Delay] Changes Windows exploit mitigation/security settings. Use only if you understand the risk.",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true,
+      "id": "adv.security.disable_control_flow_guard_cfg__revert",
+      "type": "button",
+      "name": "Revert: Disable Control Flow Guard (CFG)",
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Set-ProcessMitigation -System -Enable CFG"
+            ],
+            "wait": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "adv.security.disable_core_isolation_memory_integrity",
+      "name": "Apply: Disable Core Isolation (Memory Integrity)",
+      "category": "Advanced / Security",
+      "risk": "Extreme",
+      "description": "[Focus: FPS, Latency / Input Delay] Changes Windows exploit mitigation/security settings. Use only if you understand the risk.",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "New-Item -Path 'HKLM:\\SYSTEM\\CurrentControlSet\\Control\\DeviceGuard\\Scenarios\\HypervisorEnforcedCodeIntegrity' -Force | Out-Null; New-ItemProperty -Path 'HKLM:\\SYSTEM\\CurrentControlSet\\Control\\DeviceGuard\\Scenarios\\HypervisorEnforcedCodeIntegrity' -Name 'Enabled' -PropertyType DWord -Value 0 -Force | Out-Null"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "New-ItemProperty -Path 'HKLM:\\SYSTEM\\CurrentControlSet\\Control\\DeviceGuard\\Scenarios\\HypervisorEnforcedCodeIntegrity' -Name 'Enabled' -PropertyType DWord -Value 1 -Force | Out-Null"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "category": "Advanced / Security",
+      "risk": "Extreme",
+      "description": "[Focus: FPS, Latency / Input Delay] Changes Windows exploit mitigation/security settings. Use only if you understand the risk.",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true,
+      "id": "adv.security.disable_core_isolation_memory_integrity__revert",
+      "type": "button",
+      "name": "Revert: Disable Core Isolation (Memory Integrity)",
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "New-ItemProperty -Path 'HKLM:\\SYSTEM\\CurrentControlSet\\Control\\DeviceGuard\\Scenarios\\HypervisorEnforcedCodeIntegrity' -Name 'Enabled' -PropertyType DWord -Value 1 -Force | Out-Null"
+            ],
+            "wait": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "imported.imported.rtp_tpr_disable",
+      "type": "button",
+      "name": "Rtp Tpr Disable",
+      "category": "Advanced / Security",
+      "riskLevel": "Extreme",
+      "risk": "Extreme",
+      "description": "[Imported] Runnable tweak extracted from your V8.3. This runs a command pack under Admin. Risk: Extreme.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_rtp_tpr_disable.bat\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "imported.imported.dcontrol_run_check",
+      "type": "button",
+      "name": "Dcontrol Run Check",
+      "category": "Advanced / Security",
+      "riskLevel": "Extreme",
+      "risk": "Extreme",
+      "description": "[Imported] Runnable tweak extracted from your V8.3. This runs a command pack under Admin. Risk: Extreme.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_dcontrol_run_check.bat\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "imported.imported.system_visual_perferences",
+      "type": "button",
+      "name": "System Visual Perferences",
+      "category": "Advanced / Security",
+      "riskLevel": "Extreme",
+      "risk": "Extreme",
+      "description": "[Imported] Runnable tweak extracted from your V8.3. This runs a command pack under Admin. Risk: Extreme.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_system_visual_perferences.bat\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    }
+  ]
+}

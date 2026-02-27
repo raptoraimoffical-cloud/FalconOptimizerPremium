@@ -1,0 +1,2288 @@
+{
+  "items": [
+    {
+      "id": "gpu.nvidia.driver.installer",
+      "name": "Advanced NVIDIA GPU Driver Installer",
+      "category": "Hardware / GPU",
+      "risk": "Warning",
+      "description": "[Focus: FPS] Opens NVIDIA's official driver download page so you can grab the latest Game Ready or Studio drivers for your GPU.",
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://www.nvidia.com/Download/index.aspx"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "type": "action",
+      "primaryLabel": "Open site",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "gpu.nvidia.clean.install",
+      "name": "NV Clean Install (helper)",
+      "category": "Hardware / GPU",
+      "risk": "Warning",
+      "description": "[Focus: FPS] Opens the NV Clean Install (NVCleanstall) download page so you can perform advanced NVIDIA driver clean installs.",
+      "apply": {
+        "steps": [
+          {
+            "type": "tool.ensure",
+            "toolId": "nvcleanstall"
+          },
+          {
+            "type": "tool.launch",
+            "toolId": "nvcleanstall"
+          },
+          {
+            "type": "open.url",
+            "url": "https://www.techpowerup.com/download/techpowerup-nvcleanstall/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "type": "action",
+      "primaryLabel": "Install/Launch",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "gpu.nvidia.driver_installer",
+      "name": "Advanced NVIDIA GPU Driver Installer",
+      "category": "Hardware / GPU",
+      "risk": "Warning",
+      "description": "[Focus: FPS] Opens NVIDIA's official driver download page so you can grab the latest Game Ready or Studio drivers for your GPU.",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://www.nvidia.com/Download/index.aspx"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "type": "action",
+      "primaryLabel": "Open site",
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "gpu.nvidia.disable_driver_update",
+      "name": "Apply: Disable Geforce Driver Update",
+      "category": "Hardware / GPU",
+      "risk": "Warning",
+      "description": "[Focus: FPS] Disables NVIDIA update-related scheduled tasks and telemetry services.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Get-ScheduledTask | Where-Object {$_.TaskName -match 'Nv.*Update|NVIDIA.*Update|NvProfileUpdater'} | Disable-ScheduledTask -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          },
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Get-Service | Where-Object {$_.Name -match 'NvTelemetry'} | ForEach-Object { try { Set-Service $_.Name -StartupType Disabled -ErrorAction SilentlyContinue; Stop-Service $_.Name -Force -ErrorAction SilentlyContinue } catch {} }"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Get-ScheduledTask | Where-Object {$_.TaskName -match 'Nv.*Update|NVIDIA.*Update|NvProfileUpdater'} | Enable-ScheduledTask -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          },
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Get-Service | Where-Object {$_.Name -match 'NvTelemetry'} | ForEach-Object { try { Set-Service $_.Name -StartupType Manual -ErrorAction SilentlyContinue } catch {} }"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Warning",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "category": "Hardware / GPU",
+      "risk": "Warning",
+      "description": "[Focus: FPS] Disables NVIDIA update-related scheduled tasks and telemetry services.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "riskLevel": "Warning",
+      "kind": "tool",
+      "manualOnly": true,
+      "id": "gpu.nvidia.disable_driver_update__revert",
+      "type": "button",
+      "name": "Revert: Disable Geforce Driver Update",
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Get-ScheduledTask | Where-Object {$_.TaskName -match 'Nv.*Update|NVIDIA.*Update|NvProfileUpdater'} | Enable-ScheduledTask -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          },
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Get-Service | Where-Object {$_.Name -match 'NvTelemetry'} | ForEach-Object { try { Set-Service $_.Name -StartupType Manual -ErrorAction SilentlyContinue } catch {} }"
+            ],
+            "wait": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "gpu.nvidia.disable_nvidia_logging",
+      "name": "Apply: Disable NVIDIA Logging",
+      "category": "Hardware / GPU",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Disables NVIDIA telemetry/logging service if present.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Get-Service NvTelemetryContainer -ErrorAction SilentlyContinue | ForEach-Object { try { Set-Service $_.Name -StartupType Disabled; Stop-Service $_.Name -Force } catch {} }"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Get-Service NvTelemetryContainer -ErrorAction SilentlyContinue | ForEach-Object { try { Set-Service $_.Name -StartupType Manual } catch {} }"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "category": "Hardware / GPU",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Disables NVIDIA telemetry/logging service if present.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true,
+      "id": "gpu.nvidia.disable_nvidia_logging__revert",
+      "type": "button",
+      "name": "Revert: Disable NVIDIA Logging",
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Get-Service NvTelemetryContainer -ErrorAction SilentlyContinue | ForEach-Object { try { Set-Service $_.Name -StartupType Manual } catch {} }"
+            ],
+            "wait": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "gpu.nvidia.disable_hdcp",
+      "name": "Disable HDCP",
+      "category": "Hardware / GPU",
+      "risk": "Warning",
+      "description": "[Focus: FPS] Sets a registry flag to disable HDCP where supported (requires reboot).",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\NVIDIA Corporation\\Global\\HDCP",
+            "name": "DisableHDCP",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\NVIDIA Corporation\\Global\\HDCP",
+            "name": "DisableHDCP"
+          }
+        ]
+      },
+      "type": "toggle",
+      "riskLevel": "Warning",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SOFTWARE\\NVIDIA Corporation\\Global\\HDCP",
+            "name": "DisableHDCP",
+            "valueType": "DWord",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "gpu.nvidia.disable_dma_remapping",
+      "name": "Disable NVIDIA DMA Remapping",
+      "category": "Hardware / GPU",
+      "risk": "Warning",
+      "description": "[Focus: FPS] Sets a driver parameter flag for DMA remapping (requires reboot).",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "EnableDmaRemapping",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "EnableDmaRemapping"
+          }
+        ]
+      },
+      "type": "toggle",
+      "riskLevel": "Warning",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "EnableDmaRemapping",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "gpu.nvidia.disable_uvm",
+      "name": "Disable NVIDIA UVM",
+      "category": "Hardware / GPU",
+      "risk": "Warning",
+      "description": "[Focus: FPS] Sets a driver parameter flag to disable UVM where supported (requires reboot).",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "DisableUVM",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "DisableUVM"
+          }
+        ]
+      },
+      "type": "toggle",
+      "riskLevel": "Warning",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "DisableUVM",
+            "valueType": "DWord",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "gpu.nvidia.disable_aspm",
+      "name": "Disable NVIDIA ASPM",
+      "category": "Hardware / GPU",
+      "risk": "Warning",
+      "description": "[Focus: FPS] Applies a driver parameter registry flag (requires reboot).",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "DisableNVIDIAASPM",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "DisableNVIDIAASPM"
+          }
+        ]
+      },
+      "type": "toggle",
+      "riskLevel": "Warning",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "DisableNVIDIAASPM",
+            "valueType": "DWord",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "gpu.nvidia.disable_display_power_saving",
+      "name": "Disable NVIDIA Display Power Saving",
+      "category": "Hardware / GPU",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Applies a driver parameter registry flag (requires reboot).",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "DisableNVIDIADisplayPowerSaving",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "DisableNVIDIADisplayPowerSaving"
+          }
+        ]
+      },
+      "type": "toggle",
+      "riskLevel": "Warning",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "DisableNVIDIADisplayPowerSaving",
+            "valueType": "DWord",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "gpu.nvidia.disable_ecc",
+      "name": "Disable NVIDIA ECC",
+      "category": "Hardware / GPU",
+      "risk": "Warning",
+      "description": "[Focus: FPS] Applies a driver parameter registry flag (requires reboot).",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "DisableNVIDIAECC",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "DisableNVIDIAECC"
+          }
+        ]
+      },
+      "type": "toggle",
+      "riskLevel": "Warning",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "DisableNVIDIAECC",
+            "valueType": "DWord",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "gpu.nvidia.disable_gc5_caching",
+      "name": "Disable NVIDIA Gc5 Caching",
+      "category": "Hardware / GPU",
+      "risk": "Warning",
+      "description": "[Focus: FPS] Applies a driver parameter registry flag (requires reboot).",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "DisableNVIDIAGc5Caching",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "DisableNVIDIAGc5Caching"
+          }
+        ]
+      },
+      "type": "toggle",
+      "riskLevel": "Warning",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "DisableNVIDIAGc5Caching",
+            "valueType": "DWord",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "gpu.nvidia.disable_misc_power",
+      "name": "Disable NVIDIA Misc Power",
+      "category": "Hardware / GPU",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Applies a driver parameter registry flag (requires reboot).",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "DisableNVIDIAMiscPower",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "DisableNVIDIAMiscPower"
+          }
+        ]
+      },
+      "type": "toggle",
+      "riskLevel": "Warning",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "DisableNVIDIAMiscPower",
+            "valueType": "DWord",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "gpu.nvidia.disable_thermal_throttle",
+      "name": "Disable NVIDIA Thermal Throttle",
+      "category": "Hardware / GPU",
+      "risk": "Warning",
+      "description": "[Focus: FPS] Applies a driver parameter registry flag (requires reboot).",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "DisableNVIDIAThermalThrottle",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "DisableNVIDIAThermalThrottle"
+          }
+        ]
+      },
+      "type": "toggle",
+      "riskLevel": "Warning",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "DisableNVIDIAThermalThrottle",
+            "valueType": "DWord",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "gpu.nvidia.disable_tcc",
+      "name": "Disable TCC",
+      "category": "Hardware / GPU",
+      "risk": "Warning",
+      "description": "[Focus: FPS] Applies a driver parameter registry flag (requires reboot).",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "DisableTCC",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "DisableTCC"
+          }
+        ]
+      },
+      "type": "toggle",
+      "riskLevel": "Warning",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "DisableTCC",
+            "valueType": "DWord",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "gpu.nvidia.force_contiguous_memory_allocation",
+      "name": "Force Contiguous Memory Allocation",
+      "category": "Hardware / GPU",
+      "risk": "Warning",
+      "description": "[Focus: FPS] Applies a driver parameter registry flag (requires reboot).",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "ForceContiguousMemoryAllocation",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "ForceContiguousMemoryAllocation"
+          }
+        ]
+      },
+      "type": "toggle",
+      "riskLevel": "Warning",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "ForceContiguousMemoryAllocation",
+            "valueType": "DWord",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "gpu.nvidia.optimize_memory_latency_settings",
+      "name": "Optimize Memory Latency Settings",
+      "category": "Hardware / GPU",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Applies a driver parameter registry flag (requires reboot).",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "OptimizeMemoryLatencySettings",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "OptimizeMemoryLatencySettings"
+          }
+        ]
+      },
+      "type": "toggle",
+      "riskLevel": "Warning",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "OptimizeMemoryLatencySettings",
+            "valueType": "DWord",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "gpu.nvidia.optimize_gpu_idle_thresholds",
+      "name": "Optimize GPU Idle Thresholds",
+      "category": "Hardware / GPU",
+      "risk": "Warning",
+      "description": "[Focus: FPS] Applies a driver parameter registry flag (requires reboot).",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "OptimizeGPUIdleThresholds",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "OptimizeGPUIdleThresholds"
+          }
+        ]
+      },
+      "type": "toggle",
+      "riskLevel": "Warning",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "OptimizeGPUIdleThresholds",
+            "valueType": "DWord",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "gpu.nvidia.optimize_nvidia_frame_scheduling",
+      "name": "Optimize NVIDIA Frame Scheduling",
+      "category": "Hardware / GPU",
+      "risk": "Warning",
+      "description": "[Focus: FPS] Applies a driver parameter registry flag (requires reboot).",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "OptimizeNVIDIAFrameScheduling",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "OptimizeNVIDIAFrameScheduling"
+          }
+        ]
+      },
+      "type": "toggle",
+      "riskLevel": "Warning",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "OptimizeNVIDIAFrameScheduling",
+            "valueType": "DWord",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "gpu.nvidia.optimize_nvidia_direct_flip_vrr",
+      "name": "Optimize NVIDIA Direct Flip & VRR",
+      "category": "Hardware / GPU",
+      "risk": "Warning",
+      "description": "[Focus: FPS] Applies a driver parameter registry flag (requires reboot).",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "OptimizeNVIDIADirectFlipVRR",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "OptimizeNVIDIADirectFlipVRR"
+          }
+        ]
+      },
+      "type": "toggle",
+      "riskLevel": "Warning",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "OptimizeNVIDIADirectFlipVRR",
+            "valueType": "DWord",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "gpu.nvidia.optimize_nvidia_interrupts",
+      "name": "Optimize NVIDIA Interrupts",
+      "category": "Hardware / GPU",
+      "risk": "Warning",
+      "description": "[Focus: FPS] Applies a driver parameter registry flag (requires reboot).",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "OptimizeNVIDIAInterrupts",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "OptimizeNVIDIAInterrupts"
+          }
+        ]
+      },
+      "type": "toggle",
+      "riskLevel": "Warning",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "OptimizeNVIDIAInterrupts",
+            "valueType": "DWord",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "gpu.nvidia.reduce_nvidia_polling_latency",
+      "name": "Reduce NVIDIA Polling Latency",
+      "category": "Hardware / GPU",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Applies a driver parameter registry flag (requires reboot).",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "ReduceNVIDIAPollingLatency",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "ReduceNVIDIAPollingLatency"
+          }
+        ]
+      },
+      "type": "toggle",
+      "riskLevel": "Warning",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "ReduceNVIDIAPollingLatency",
+            "valueType": "DWord",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "gpu.nvidia.optimize_nvidia_pci_latency_controller",
+      "name": "Optimize NVIDIA PCI Latency Controller",
+      "category": "Hardware / GPU",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Applies a driver parameter registry flag (requires reboot).",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "OptimizeNVIDIAPCILatencyController",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "OptimizeNVIDIAPCILatencyController"
+          }
+        ]
+      },
+      "type": "toggle",
+      "riskLevel": "Warning",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "OptimizeNVIDIAPCILatencyController",
+            "valueType": "DWord",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "gpu.nvidia.optimize_nvidia_bus_clocks",
+      "name": "Optimize NVIDIA Bus Clocks",
+      "category": "Hardware / GPU",
+      "risk": "Warning",
+      "description": "[Focus: FPS] Applies a driver parameter registry flag (requires reboot).",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "OptimizeNVIDIABusClocks",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "OptimizeNVIDIABusClocks"
+          }
+        ]
+      },
+      "type": "toggle",
+      "riskLevel": "Warning",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "OptimizeNVIDIABusClocks",
+            "valueType": "DWord",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "gpu.nvidia.optimize_nvidia_engine_clocks",
+      "name": "Optimize NVIDIA Engine Clocks",
+      "category": "Hardware / GPU",
+      "risk": "Warning",
+      "description": "[Focus: FPS] Applies a driver parameter registry flag (requires reboot).",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "OptimizeNVIDIAEngineClocks",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "OptimizeNVIDIAEngineClocks"
+          }
+        ]
+      },
+      "type": "toggle",
+      "riskLevel": "Warning",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "OptimizeNVIDIAEngineClocks",
+            "valueType": "DWord",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "gpu.nvidia.optimize_nvidia_acpi_d3",
+      "name": "Optimize NVIDIA ACPI & D3",
+      "category": "Hardware / GPU",
+      "risk": "Warning",
+      "description": "[Focus: FPS] Applies a driver parameter registry flag (requires reboot).",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "OptimizeNVIDIAACPID3",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "OptimizeNVIDIAACPID3"
+          }
+        ]
+      },
+      "type": "toggle",
+      "riskLevel": "Warning",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "OptimizeNVIDIAACPID3",
+            "valueType": "DWord",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "gpu.nvidia.optimize_nvidia_gc6_idle",
+      "name": "Optimize NVIDIA Gc6 Idle",
+      "category": "Hardware / GPU",
+      "risk": "Warning",
+      "description": "[Focus: FPS] Applies a driver parameter registry flag (requires reboot).",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "OptimizeNVIDIAGc6Idle",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "OptimizeNVIDIAGc6Idle"
+          }
+        ]
+      },
+      "type": "toggle",
+      "riskLevel": "Warning",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "OptimizeNVIDIAGc6Idle",
+            "valueType": "DWord",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "gpu.nvidia.optimize_nvidia_power_features",
+      "name": "Optimize NVIDIA Power Features",
+      "category": "Hardware / GPU",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Applies a driver parameter registry flag (requires reboot).",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "OptimizeNVIDIAPowerFeatures",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "OptimizeNVIDIAPowerFeatures"
+          }
+        ]
+      },
+      "type": "toggle",
+      "riskLevel": "Warning",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "OptimizeNVIDIAPowerFeatures",
+            "valueType": "DWord",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "gpu.nvidia.set_unrestricted_clock_policy",
+      "name": "Set Unrestricted Clock Policy",
+      "category": "Hardware / GPU",
+      "risk": "Warning",
+      "description": "[Focus: FPS] Applies a driver parameter registry flag (requires reboot).",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "SetUnrestrictedClockPolicy",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "SetUnrestrictedClockPolicy"
+          }
+        ]
+      },
+      "type": "toggle",
+      "riskLevel": "Warning",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "SetUnrestrictedClockPolicy",
+            "valueType": "DWord",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "gpu.nvidia.force_p0_state",
+      "name": "Force P0-State",
+      "category": "Hardware / GPU",
+      "risk": "Warning",
+      "description": "[Focus: FPS] Applies a driver parameter registry flag (requires reboot).",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "ForceP0State",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "ForceP0State"
+          }
+        ]
+      },
+      "type": "toggle",
+      "riskLevel": "Warning",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "ForceP0State",
+            "valueType": "DWord",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "gpu.nvidia.keep_nvidia_dram_active",
+      "name": "Keep NVIDIA Dram Active",
+      "category": "Hardware / GPU",
+      "risk": "Warning",
+      "description": "[Focus: FPS] Applies a driver parameter registry flag (requires reboot).",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "KeepNVIDIADramActive",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "KeepNVIDIADramActive"
+          }
+        ]
+      },
+      "type": "toggle",
+      "riskLevel": "Warning",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "KeepNVIDIADramActive",
+            "valueType": "DWord",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "gpu.nvidia.optimize_nvidia_flpg",
+      "name": "Optimize NVIDIA Flpg",
+      "category": "Hardware / GPU",
+      "risk": "Warning",
+      "description": "[Focus: FPS] Applies a driver parameter registry flag (requires reboot).",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "OptimizeNVIDIAFlpg",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "OptimizeNVIDIAFlpg"
+          }
+        ]
+      },
+      "type": "toggle",
+      "riskLevel": "Warning",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "OptimizeNVIDIAFlpg",
+            "valueType": "DWord",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "gpu.nvidia.streamline_nvidia_watchdog",
+      "name": "Streamline NVIDIA Watchdog",
+      "category": "Hardware / GPU",
+      "risk": "Warning",
+      "description": "[Focus: FPS] Applies a driver parameter registry flag (requires reboot).",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "StreamlineNVIDIAWatchdog",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "StreamlineNVIDIAWatchdog"
+          }
+        ]
+      },
+      "type": "toggle",
+      "riskLevel": "Warning",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "StreamlineNVIDIAWatchdog",
+            "valueType": "DWord",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "gpu.nvidia.tune_nvidia_low_power",
+      "name": "Tune NVIDIA Low-power",
+      "category": "Hardware / GPU",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Applies a driver parameter registry flag (requires reboot).",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "TuneNVIDIALowpower",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "TuneNVIDIALowpower"
+          }
+        ]
+      },
+      "type": "toggle",
+      "riskLevel": "Warning",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "TuneNVIDIALowpower",
+            "valueType": "DWord",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "gpu.nvidia.unlock_nvidia_perf_limits",
+      "name": "Unlock NVIDIA Perf Limits",
+      "category": "Hardware / GPU",
+      "risk": "Warning",
+      "description": "[Focus: FPS] Applies a driver parameter registry flag (requires reboot).",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "UnlockNVIDIAPerfLimits",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "UnlockNVIDIAPerfLimits"
+          }
+        ]
+      },
+      "type": "toggle",
+      "riskLevel": "Warning",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\nvlddmkm\\Parameters",
+            "name": "UnlockNVIDIAPerfLimits",
+            "valueType": "DWord",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "gpu.nvidia.optimize_geforce_experience",
+      "name": "Apply: Optimize NVIDIA Geforce Experience",
+      "category": "Hardware / GPU",
+      "risk": "Warning",
+      "description": "[Focus: FPS] Stops NVIDIA overlay/telemetry processes and disables telemetry services where present.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Get-Process -Name 'NVIDIA Share','nvcontainer','nvsphelper64' -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          },
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Get-Service | Where-Object {$_.Name -match 'NvTelemetry'} | ForEach-Object { try { Set-Service $_.Name -StartupType Disabled -ErrorAction SilentlyContinue; Stop-Service $_.Name -Force -ErrorAction SilentlyContinue } catch {} }"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Get-Service | Where-Object {$_.Name -match 'NvTelemetry'} | ForEach-Object { try { Set-Service $_.Name -StartupType Manual -ErrorAction SilentlyContinue } catch {} }"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Warning",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "category": "Hardware / GPU",
+      "risk": "Warning",
+      "description": "[Focus: FPS] Stops NVIDIA overlay/telemetry processes and disables telemetry services where present.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "riskLevel": "Warning",
+      "kind": "tool",
+      "manualOnly": true,
+      "id": "gpu.nvidia.optimize_geforce_experience__revert",
+      "type": "button",
+      "name": "Revert: Optimize NVIDIA Geforce Experience",
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Get-Service | Where-Object {$_.Name -match 'NvTelemetry'} | ForEach-Object { try { Set-Service $_.Name -StartupType Manual -ErrorAction SilentlyContinue } catch {} }"
+            ],
+            "wait": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "gpu_disable_mpo",
+      "type": "toggle",
+      "name": "Disable MPO (Multiplane Overlay)",
+      "risk": "Warning",
+      "description": "[Focus: FPS] Disables MPO to reduce stutters/flicker on some systems (reboot/logoff may be required).",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Microsoft\\Windows\\Dwm",
+            "name": "OverlayTestMode",
+            "value": 5,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Microsoft\\Windows\\Dwm",
+            "name": "OverlayTestMode"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "Hardware / GPU",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SOFTWARE\\Microsoft\\Windows\\Dwm",
+            "name": "OverlayTestMode",
+            "valueType": "DWord",
+            "equals": 5
+          }
+        ]
+      }
+    },
+    {
+      "id": "gpu_disable_hags",
+      "type": "toggle",
+      "name": "Disable Hardware-Accelerated GPU Scheduling",
+      "risk": "Warning",
+      "description": "[Focus: FPS] Disables HAGS (requires reboot).",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\GraphicsDrivers",
+            "name": "HwSchMode",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\GraphicsDrivers",
+            "name": "HwSchMode"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "Hardware / GPU",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\GraphicsDrivers",
+            "name": "HwSchMode",
+            "valueType": "DWord",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "gpu_disable_nvidia_telemetry_services",
+      "type": "button",
+      "name": "Apply: Disable NVIDIA Telemetry Services",
+      "risk": "Warning",
+      "description": "[Focus: FPS] Disables NVIDIA telemetry services if present.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Get-Service | Where-Object {$_.Name -match 'NvTelemetry'} | ForEach-Object { Stop-Service $_.Name -Force -ErrorAction SilentlyContinue; Set-Service $_.Name -StartupType Disabled }"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Get-Service | Where-Object {$_.Name -match 'NvTelemetry'} | ForEach-Object { Set-Service $_.Name -StartupType Manual }"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "Hardware / GPU"
+    },
+    {
+      "risk": "Warning",
+      "description": "[Focus: FPS] Disables NVIDIA telemetry services if present.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Hardware / GPU",
+      "id": "gpu_disable_nvidia_telemetry_services__revert",
+      "type": "button",
+      "name": "Revert: Disable NVIDIA Telemetry Services",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Get-Service | Where-Object {$_.Name -match 'NvTelemetry'} | ForEach-Object { Set-Service $_.Name -StartupType Manual }"
+          }
+        ]
+      }
+    },
+    {
+      "id": "gpu_disable_nvidia_container_startup",
+      "type": "toggle",
+      "name": "Set NVIDIA Display Container to Manual",
+      "risk": "Warning",
+      "description": "[Focus: FPS] Reduces background container start behavior.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "NVDisplay.ContainerLocalSystem",
+            "startType": "Manual"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "NVDisplay.ContainerLocalSystem",
+            "startType": "Automatic",
+            "start": true
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "Hardware / GPU",
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "NVDisplay.ContainerLocalSystem",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "gpu_disable_nvidia_frameview",
+      "type": "toggle",
+      "name": "Disable NVIDIA FrameView SDK Service",
+      "risk": "Warning",
+      "description": "[Focus: FPS] Disables FrameView SDK service if installed.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "FrameViewSDKService",
+            "startType": "Disabled",
+            "stop": true
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "FrameViewSDKService",
+            "startType": "Manual"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "Hardware / GPU",
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "FrameViewSDKService",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "gpu_disable_nvidia_crash_report",
+      "type": "button",
+      "name": "Apply: Disable NVIDIA Crash Report",
+      "risk": "Warning",
+      "description": "[Focus: FPS] Disables NVIDIA crash reporting tasks/services where present.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Get-ScheduledTask | Where-Object {$_.TaskName -match 'Nv.*Crash|CrashReport'} | Disable-ScheduledTask -ErrorAction SilentlyContinue"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Get-ScheduledTask | Where-Object {$_.TaskName -match 'Nv.*Crash|CrashReport'} | Enable-ScheduledTask -ErrorAction SilentlyContinue"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "Hardware / GPU"
+    },
+    {
+      "risk": "Warning",
+      "description": "[Focus: FPS] Disables NVIDIA crash reporting tasks/services where present.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Hardware / GPU",
+      "id": "gpu_disable_nvidia_crash_report__revert",
+      "type": "button",
+      "name": "Revert: Disable NVIDIA Crash Report",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Get-ScheduledTask | Where-Object {$_.TaskName -match 'Nv.*Crash|CrashReport'} | Enable-ScheduledTask -ErrorAction SilentlyContinue"
+          }
+        ]
+      }
+    },
+    {
+      "id": "gpu_disable_windows_graphics_capture",
+      "type": "toggle",
+      "name": "Disable Windows Graphics Capture",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Disables Windows graphics capture to reduce overhead.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\GameDVR",
+            "name": "AudioCaptureEnabled",
+            "value": 0,
+            "valueType": "DWord"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\GameDVR",
+            "name": "VideoCaptureEnabled",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\GameDVR",
+            "name": "AudioCaptureEnabled"
+          },
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\GameDVR",
+            "name": "VideoCaptureEnabled"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "Hardware / GPU",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\GameDVR",
+            "name": "AudioCaptureEnabled",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "gpu_disable_gamebar_presence_writer",
+      "type": "toggle",
+      "name": "Disable GameBar Presence Writer",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Disables GameBarPresenceWriter startup.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run",
+            "name": "GameBarPresenceWriter",
+            "value": "",
+            "valueType": "String"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run",
+            "name": "GameBarPresenceWriter"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "Hardware / GPU",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run",
+            "name": "GameBarPresenceWriter",
+            "valueType": "String",
+            "equals": ""
+          }
+        ]
+      }
+    },
+    {
+      "id": "gpu_disable_dwm_animations",
+      "type": "toggle",
+      "name": "Disable DWM Animations",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Disables certain DWM animations for snappier UI.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\DWM",
+            "name": "EnableAeroPeek",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\DWM",
+            "name": "EnableAeroPeek"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "Hardware / GPU",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\DWM",
+            "name": "EnableAeroPeek",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "gpu_disable_nvidia_update_tasks",
+      "type": "button",
+      "name": "Apply: Disable NVIDIA Update Tasks",
+      "risk": "Warning",
+      "description": "[Focus: FPS] Disables NVIDIA update scheduled tasks where present.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Get-ScheduledTask | Where-Object {$_.TaskName -match 'Nv.*Update|NVIDIA.*Update'} | Disable-ScheduledTask -ErrorAction SilentlyContinue"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Get-ScheduledTask | Where-Object {$_.TaskName -match 'Nv.*Update|NVIDIA.*Update'} | Enable-ScheduledTask -ErrorAction SilentlyContinue"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "Hardware / GPU"
+    },
+    {
+      "risk": "Warning",
+      "description": "[Focus: FPS] Disables NVIDIA update scheduled tasks where present.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Hardware / GPU",
+      "id": "gpu_disable_nvidia_update_tasks__revert",
+      "type": "button",
+      "name": "Revert: Disable NVIDIA Update Tasks",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Get-ScheduledTask | Where-Object {$_.TaskName -match 'Nv.*Update|NVIDIA.*Update'} | Enable-ScheduledTask -ErrorAction SilentlyContinue"
+          }
+        ]
+      }
+    },
+    {
+      "id": "gpu_set_tdr_delay_10",
+      "type": "toggle",
+      "name": "Set TDR Delay (10s)",
+      "risk": "Warning",
+      "description": "[Focus: FPS] Increases TDR delay to reduce driver timeout crashes during spikes.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\GraphicsDrivers",
+            "name": "TdrDelay",
+            "value": 10,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\GraphicsDrivers",
+            "name": "TdrDelay"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "Hardware / GPU",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\GraphicsDrivers",
+            "name": "TdrDelay",
+            "valueType": "DWord",
+            "equals": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "gpu_disable_nvidia_overlay",
+      "type": "toggle",
+      "name": "Disable NVIDIA Overlay (Policy)",
+      "risk": "Warning",
+      "description": "[Focus: FPS] Disables NVIDIA overlay if installed by turning off Share/Overlay flags.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\NVIDIA Corporation\\Global\\ShadowPlay\\NVSPCAPS",
+            "name": "ShadowPlay",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\NVIDIA Corporation\\Global\\ShadowPlay\\NVSPCAPS",
+            "name": "ShadowPlay"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "Hardware / GPU",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\NVIDIA Corporation\\Global\\ShadowPlay\\NVSPCAPS",
+            "name": "ShadowPlay",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "gpu_disable_dxgkrnl_debug",
+      "type": "toggle",
+      "name": "Disable DXGI Debug Layer (Dev)",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Ensures DXGI debug layer is disabled.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Microsoft\\DirectX",
+            "name": "DisableDebugLayer",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Microsoft\\DirectX",
+            "name": "DisableDebugLayer"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "Hardware / GPU",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SOFTWARE\\Microsoft\\DirectX",
+            "name": "DisableDebugLayer",
+            "valueType": "DWord",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "gpu_clean_shader_cache",
+      "type": "button",
+      "name": "Clear DirectX Shader Cache",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Clears DirectX shader cache.",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Remove-Item -Recurse -Force \"$env:LOCALAPPDATA\\D3DSCache\" -ErrorAction SilentlyContinue"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "category": "Hardware / GPU"
+    },
+    {
+      "id": "gpu_restart_graphics_driver",
+      "type": "button",
+      "name": "Restart Graphics Driver (Win+Ctrl+Shift+B)",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Restarts the graphics driver stack by restarting DWM (safe).",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Stop-Process -Name dwm -Force -ErrorAction SilentlyContinue"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "category": "Hardware / GPU"
+    },
+    {
+      "id": "gpu_enable_hags",
+      "type": "toggle",
+      "name": "Enable Hardware-Accelerated GPU Scheduling",
+      "risk": "Warning",
+      "description": "[Focus: FPS] Enables HAGS (requires reboot).",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\GraphicsDrivers",
+            "name": "HwSchMode",
+            "value": 2,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\GraphicsDrivers",
+            "name": "HwSchMode"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "Hardware / GPU",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\GraphicsDrivers",
+            "name": "HwSchMode",
+            "valueType": "DWord",
+            "equals": 2
+          }
+        ]
+      }
+    },
+    {
+      "id": "imported.imported.nvidia_control_panel_download",
+      "type": "button",
+      "name": "Nvidia Control Panel Download",
+      "category": "Hardware / GPU (NVIDIA)",
+      "riskLevel": "Safe",
+      "risk": "Safe",
+      "description": "[Imported] Runnable tweak extracted from your V8.3. This runs a command pack under Admin. Risk: Safe.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_nvidia_control_panel_download.bat\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "imported.imported.nvidia_gpu_tweaks",
+      "type": "button",
+      "name": "Nvidia Gpu Tweaks",
+      "category": "Hardware / GPU (NVIDIA)",
+      "riskLevel": "Extreme",
+      "risk": "Extreme",
+      "description": "[Imported] Runnable tweak extracted from your V8.3. This runs a command pack under Admin. Risk: Extreme.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_nvidia_gpu_tweaks.bat\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "items": [
+    {
+      "id": "gpu.latency.preset.competitive",
+      "type": "button",
+      "name": "Apply Competitive Latency Preset",
+      "description": "Disables Game DVR capture, enables Game Mode, disables MPO (reversible), and sets HAGS to default/off. Reboot recommended.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "GPU / Latency Presets",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "path": "scripts/gpu/gpu-latency-presets.ps1",
+            "args": {
+              "Profile": "competitive"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "gpu.latency.preset.extreme",
+      "type": "button",
+      "name": "Apply Extreme Latency Preset",
+      "description": "Enables HAGS and disables MPO, plus disables Game DVR capture. Best for testing; benefit varies. Reboot recommended.",
+      "requiresAdmin": true,
+      "riskLevel": "High",
+      "category": "GPU / Latency Presets",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "path": "scripts/gpu/gpu-latency-presets.ps1",
+            "args": {
+              "Profile": "extreme"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "gpu.latency.preset.balanced",
+      "type": "button",
+      "name": "Apply Balanced Preset",
+      "description": "Keeps Windows default overlay behavior (MPO default) while disabling Game DVR capture and enabling Game Mode.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "GPU / Latency Presets",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "path": "scripts/gpu/gpu-latency-presets.ps1",
+            "args": {
+              "Profile": "balanced"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "gpu.latency.preset.revert",
+      "type": "button",
+      "name": "Revert GPU Latency Presets",
+      "description": "Removes Falcon’s MPO/HAGS/GameDVR keys (best-effort). Reboot recommended.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "GPU / Latency Presets",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "path": "scripts/gpu/gpu-latency-presets.ps1",
+            "args": {
+              "Profile": "revert"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

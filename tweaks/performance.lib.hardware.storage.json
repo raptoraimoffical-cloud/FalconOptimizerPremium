@@ -1,0 +1,575 @@
+{
+  "items": [
+    {
+      "id": "stor_disable_last_access__performance.lib.hardware.storage",
+      "type": "button",
+      "name": "Apply: Disable NTFS Last Access Timestamps",
+      "category": "Hardware / Storage",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables LastAccess updates on files (small perf win).",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "fsutil behavior set DisableLastAccess 1"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "fsutil behavior set DisableLastAccess 0"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "requiresAdmin": true
+    },
+    {
+      "category": "Hardware / Storage",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables LastAccess updates on files (small perf win).",
+      "riskLevel": "Safe",
+      "requiresAdmin": true,
+      "id": "stor_disable_last_access__performance.lib.hardware.storage__revert",
+      "type": "button",
+      "name": "Revert: Disable NTFS Last Access Timestamps",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "fsutil behavior set DisableLastAccess 0"
+          }
+        ]
+      }
+    },
+    {
+      "id": "stor_enable_trim__performance.lib.hardware.storage",
+      "type": "button",
+      "name": "Run SSD TRIM (ReTrim)",
+      "category": "Hardware / Storage",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Runs Optimize-Volume -ReTrim on SSD volumes.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Get-Volume | Where-Object { $_.DriveLetter -and $_.DriveType -eq 'Fixed' } | ForEach-Object { try { Optimize-Volume -DriveLetter $_.DriveLetter -ReTrim -Verbose | Out-Null } catch {} }"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "requiresAdmin": true,
+      "note": "Converted from toggle (missing revert)."
+    },
+    {
+      "id": "stor_optimize_drives_gui__performance.lib.hardware.storage",
+      "type": "action",
+      "name": "Run Optimize Drives",
+      "category": "Hardware / Storage",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Opens the Windows Optimize Drives UI.",
+      "primaryLabel": "Open",
+      "apply": {
+        "steps": [
+          {
+            "type": "process.start",
+            "filePath": "dfrgui.exe",
+            "arguments": ""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "stor_disable_hibernate__performance.lib.hardware.storage",
+      "type": "button",
+      "name": "Apply: Disable Hibernate",
+      "category": "Hardware / Storage",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables hibernation and removes hiberfil.sys (frees disk space).",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -h off"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -h on"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "requiresAdmin": true
+    },
+    {
+      "category": "Hardware / Storage",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables hibernation and removes hiberfil.sys (frees disk space).",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "id": "stor_disable_hibernate__performance.lib.hardware.storage__revert",
+      "type": "button",
+      "name": "Revert: Disable Hibernate",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -h on"
+          }
+        ]
+      }
+    },
+    {
+      "id": "stor_disable_fast_startup__performance.lib.hardware.storage",
+      "type": "toggle",
+      "name": "Disable Fast Startup",
+      "category": "Hardware / Storage",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables Fast Startup (recommended for stability when tweaking).",
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Power",
+            "name": "HiberbootEnabled",
+            "valueType": "DWord",
+            "value": 0
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Power",
+            "name": "HiberbootEnabled",
+            "valueType": "DWord",
+            "value": 1
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "requiresAdmin": true,
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Power",
+            "name": "HiberbootEnabled",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "stor_disable_storage_sense__performance.lib.hardware.storage",
+      "type": "toggle",
+      "name": "Disable Storage Sense",
+      "category": "Hardware / Storage",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables Storage Sense background cleanup.",
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\StorageSense\\Parameters\\StoragePolicy",
+            "name": "01",
+            "valueType": "DWord",
+            "value": 0
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\StorageSense\\Parameters\\StoragePolicy",
+            "name": "01"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\StorageSense\\Parameters\\StoragePolicy",
+            "name": "01",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "stor_open_temp__performance.lib.hardware.storage",
+      "type": "action",
+      "name": "Run Temp Folder",
+      "category": "Hardware / Storage",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Opens %TEMP%.",
+      "primaryLabel": "Open",
+      "apply": {
+        "steps": [
+          {
+            "type": "open.path",
+            "path": "%TEMP%"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "stor_disable_indexing_drive_c__performance.lib.hardware.storage",
+      "type": "button",
+      "name": "Apply: Disable Indexing on C",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables indexing on C: drive.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "attrib -I +S \"C:\\\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "attrib +I -S \"C:\\\""
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "Hardware / Storage"
+    },
+    {
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables indexing on C: drive.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Hardware / Storage",
+      "id": "stor_disable_indexing_drive_c__performance.lib.hardware.storage__revert",
+      "type": "button",
+      "name": "Revert: Disable Indexing on C",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "attrib +I -S \"C:\\\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "stor_disable_defrag_schedule__performance.lib.hardware.storage",
+      "type": "button",
+      "name": "Apply: Disable Scheduled Defrag",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled defrag/optimization task.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Get-ScheduledTask -TaskName 'ScheduledDefrag' -TaskPath '\\Microsoft\\Windows\\Defrag\\' -ErrorAction SilentlyContinue | Disable-ScheduledTask -ErrorAction SilentlyContinue"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Get-ScheduledTask -TaskName 'ScheduledDefrag' -TaskPath '\\Microsoft\\Windows\\Defrag\\' -ErrorAction SilentlyContinue | Enable-ScheduledTask -ErrorAction SilentlyContinue"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "Hardware / Storage"
+    },
+    {
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables scheduled defrag/optimization task.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Hardware / Storage",
+      "id": "stor_disable_defrag_schedule__performance.lib.hardware.storage__revert",
+      "type": "button",
+      "name": "Revert: Disable Scheduled Defrag",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Get-ScheduledTask -TaskName 'ScheduledDefrag' -TaskPath '\\Microsoft\\Windows\\Defrag\\' -ErrorAction SilentlyContinue | Enable-ScheduledTask -ErrorAction SilentlyContinue"
+          }
+        ]
+      }
+    },
+    {
+      "id": "stor_disable_ntfs_8dot3__performance.lib.hardware.storage",
+      "type": "button",
+      "name": "Apply: Disable 8.3 File Names",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables 8.3 name creation on NTFS (new volumes).",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "fsutil behavior set disable8dot3 1"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "fsutil behavior set disable8dot3 0"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "Hardware / Storage"
+    },
+    {
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables 8.3 name creation on NTFS (new volumes).",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Hardware / Storage",
+      "id": "stor_disable_ntfs_8dot3__performance.lib.hardware.storage__revert",
+      "type": "button",
+      "name": "Revert: Disable 8.3 File Names",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "fsutil behavior set disable8dot3 0"
+          }
+        ]
+      }
+    },
+    {
+      "id": "stor_disable_compression_global__performance.lib.hardware.storage",
+      "type": "button",
+      "name": "Disable NTFS Compression on C: (Guided)",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Guided: removes NTFS compression flag from C: (may take time).",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "compact /u /s:\"C:\\\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Warning",
+      "category": "Hardware / Storage"
+    },
+    {
+      "id": "stor_enable_write_caching_policy__performance.lib.hardware.storage",
+      "type": "button",
+      "name": "Apply: Disable Disk Power Saving",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Disables disk idle timeout power saving.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -change -disk-timeout-ac 0"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -change -disk-timeout-dc 0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -change -disk-timeout-ac 20"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -change -disk-timeout-dc 10"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "Hardware / Storage"
+    },
+    {
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Disables disk idle timeout power saving.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Hardware / Storage",
+      "id": "stor_enable_write_caching_policy__performance.lib.hardware.storage__revert",
+      "type": "button",
+      "name": "Revert: Disable Disk Power Saving",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -change -disk-timeout-ac 20"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -change -disk-timeout-dc 10"
+          }
+        ]
+      }
+    },
+    {
+      "id": "stor_trim_ssd_now__performance.lib.hardware.storage",
+      "type": "button",
+      "name": "Run TRIM Now (SSD)",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Runs TRIM/Optimize on C: (SSD).",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Optimize-Volume -DriveLetter C -ReTrim -Verbose"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "category": "Hardware / Storage"
+    },
+    {
+      "id": "stor_disable_write_caching_flush_guidance__performance.lib.hardware.storage",
+      "type": "button",
+      "name": "Write Cache Buffer Flushing (Guided)",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Guided: open disk properties to change write-cache flushing (risk).",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Start-Process 'control.exe' 'sysdm.cpl'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "category": "Hardware / Storage"
+    },
+    {
+      "id": "stor_disable_windows_telemetry_loggers__performance.lib.hardware.storage",
+      "type": "toggle",
+      "name": "Disable Diagnostics Loggers",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables some diagnostic loggers for disk/IO.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "diagnosticshub.standardcollector.service",
+            "startType": "Disabled",
+            "stop": true
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "diagnosticshub.standardcollector.service",
+            "startType": "Manual"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "Hardware / Storage",
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "diagnosticshub.standardcollector.service",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "stor_clean_temp__performance.lib.hardware.storage",
+      "type": "button",
+      "name": "Clean Temp Files",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Deletes user temp files.",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Remove-Item -Recurse -Force \"$env:TEMP\\*\" -ErrorAction SilentlyContinue"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "category": "Hardware / Storage"
+    },
+    {
+      "id": "stor_disable_usn_journal_c__performance.lib.hardware.storage",
+      "type": "button",
+      "name": "Disable USN Journal on C: (one-time)",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Deletes and disables USN journal on C: (Windows may recreate).",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "fsutil usn deletejournal /D C:"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Warning",
+      "category": "Hardware / Storage"
+    }
+  ]
+}

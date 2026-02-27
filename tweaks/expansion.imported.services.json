@@ -1,0 +1,70 @@
+{
+  "items": [
+    {
+      "id": "import.imported.restart.8d523157f7",
+      "type": "button",
+      "name": "Restart",
+      "category": "Expansion / Imported / Services",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "description": "Imported runnable tweak. Risk: Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\oneclick_all\\import_oneclick_restart_8d523157f7.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import.imported.trustedinstaller_check.44b344aa0a",
+      "type": "button",
+      "name": "TrustedInstaller Check",
+      "category": "Expansion / Imported / Services",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "description": "Imported runnable tweak. Risk: Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\oneclick_all\\import_oneclick_trustedinstaller_check_44b344aa0a.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import.imported.ucpd_disable.1347343a6d",
+      "type": "button",
+      "name": "UCPD Disable",
+      "category": "Expansion / Imported / Services",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "description": "Imported runnable tweak. Risk: Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\oneclick_all\\import_oneclick_ucpd_disable_1347343a6d.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    }
+  ]
+}

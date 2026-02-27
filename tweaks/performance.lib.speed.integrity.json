@@ -1,0 +1,232 @@
+{
+  "items": [
+    {
+      "id": "integrity.sfc_scannow",
+      "name": "Run SFC /scannow",
+      "category": "Falcon Speed & Integrity Core / Integrity & Repair",
+      "risk": "Safe",
+      "description": "Scans and repairs corrupted system files using System File Checker.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "sfc /scannow"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "type": "action",
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "integrity.chkdsk_scan",
+      "name": "Check Disk (Scan Only)",
+      "category": "Falcon Speed & Integrity Core / Integrity & Repair",
+      "risk": "Safe",
+      "description": "Runs CHKDSK in scan mode to look for file system errors without fixing.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "chkdsk C: /scan"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "type": "action",
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "integrity.chkdsk_fix",
+      "name": "Check Disk (Fix Errors)",
+      "category": "Falcon Speed & Integrity Core / Integrity & Repair",
+      "risk": "High",
+      "description": "Schedules CHKDSK with repair on next reboot to fix file system errors.",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "warningTitle": "CHKDSK with repair",
+      "warningBody": "This will schedule CHKDSK with repair on the system drive. It may take a long time and requires a reboot.",
+      "requiresSnapshot": false,
+      "requireExplicitConfirm": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "chkdsk C: /F /R /X"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "type": "action",
+      "riskLevel": "High",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "integrity.reset_network_stack",
+      "name": "Reset Network Stack",
+      "category": "Falcon Speed & Integrity Core / Integrity & Repair",
+      "risk": "Safe",
+      "description": "Resets Winsock, IP stack, and DNS cache to fix weird ping and connectivity issues.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "netsh winsock reset; netsh int ip reset; ipconfig /flushdns"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "type": "action",
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "integrity.rebuild_icon_cache",
+      "name": "Rebuild Icon Cache",
+      "category": "Falcon Speed & Integrity Core / Integrity & Repair",
+      "risk": "Safe",
+      "description": "Clears and rebuilds icon cache to fix broken icons and some Explorer slowdowns.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Stop-Process -Name explorer -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Microsoft\\Windows\\Explorer\\iconcache*' -Force -ErrorAction SilentlyContinue; Start-Process explorer.exe"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "type": "action",
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "integrity.rebuild_font_cache",
+      "name": "Rebuild Font Cache",
+      "category": "Falcon Speed & Integrity Core / Integrity & Repair",
+      "risk": "Safe",
+      "description": "Stops the font cache service, clears cache data, and restarts it to fix UI/text issues.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "Stop-Service -Name 'FontCache' -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Microsoft\\Windows\\FontCache\\*' -Recurse -Force -ErrorAction SilentlyContinue; Start-Service -Name 'FontCache' -ErrorAction SilentlyContinue"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "type": "action",
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "integrity.dism_full_health",
+      "name": "Run DISM full health repair",
+      "category": "Falcon Speed & Integrity Core / Integrity & Repair",
+      "risk": "Safe",
+      "description": "Runs a full DISM health repair pass (CheckHealth + ScanHealth + RestoreHealth behavior) in one shot. Use this when system image corruption is suspected.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "DISM /Online /Cleanup-Image /RestoreHealth"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "type": "action",
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    }
+  ]
+}

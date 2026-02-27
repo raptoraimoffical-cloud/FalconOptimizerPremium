@@ -1,0 +1,501 @@
+{
+  "items": [
+    {
+      "id": "gm_close_explorer",
+      "name": "Apply: Game Mode: Close Explorer (runtime)",
+      "category": "Gaming / Runtime",
+      "risk": "Warning",
+      "description": "[Focus: FPS] Closes explorer.exe while gaming to reduce background UI overhead. Reverting restarts Explorer.",
+      "apply": {
+        "steps": [
+          {
+            "type": "process.kill",
+            "name": "explorer"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd",
+            "command": "Start-Process explorer.exe"
+          }
+        ]
+      },
+      "requiresReboot": false,
+      "type": "button",
+      "riskLevel": "Warning",
+      "requiresAdmin": true
+    },
+    {
+      "category": "Gaming / Runtime",
+      "risk": "Warning",
+      "description": "[Focus: FPS] Closes explorer.exe while gaming to reduce background UI overhead. Reverting restarts Explorer.",
+      "requiresReboot": false,
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "id": "gm_close_explorer__revert",
+      "type": "button",
+      "name": "Revert: Game Mode: Close Explorer (runtime)",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd",
+            "command": "Start-Process explorer.exe"
+          }
+        ]
+      }
+    },
+    {
+      "id": "gm_kill_onedrive",
+      "name": "Game Mode: Close OneDrive (runtime)",
+      "category": "Gaming / Runtime",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Stops OneDrive process during gaming. Revert does not auto-restart; relaunch OneDrive if needed.",
+      "apply": {
+        "steps": [
+          {
+            "type": "process.kill",
+            "name": "OneDrive"
+          }
+        ]
+      },
+      "requiresReboot": false,
+      "type": "button",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "note": "Converted from toggle (missing revert)."
+    },
+    {
+      "id": "gm_kill_gamebar",
+      "name": "Game Mode: Close Xbox Game Bar (runtime)",
+      "category": "Gaming / Runtime",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Stops GameBar processes during gaming.",
+      "apply": {
+        "steps": [
+          {
+            "type": "process.kill",
+            "name": "GameBar"
+          },
+          {
+            "type": "process.kill",
+            "name": "GameBarFTServer"
+          }
+        ]
+      },
+      "requiresReboot": false,
+      "type": "button",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "note": "Converted from toggle (missing revert)."
+    },
+    {
+      "id": "gm_close_common_apps",
+      "name": "Game Mode: Close Common Background Apps (runtime)",
+      "category": "Game Mode",
+      "type": "action",
+      "description": "[Focus: FPS] Closes common background apps that steal focus/CPU/RAM (Discord, Chrome/Edge, Spotify, Steam/Epic helpers, OneDrive). Skips anything not running.",
+      "riskLevel": "Warning",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$names = @(\n \"discord\",\"chrome\",\"msedge\",\"spotify\",\"steam\",\"EpicGamesLauncher\",\"EpicWebHelper\",\n \"OneDrive\",\"Teams\",\"YourPhone\",\"PhoneExperienceHost\",\"GameBar\",\"GameBarFTServer\"\n)\nforeach($n in $names){\n  try {\n    $p = Get-Process -Name $n -ErrorAction SilentlyContinue\n    if($p){ Stop-Process -Id $p.Id -Force -ErrorAction SilentlyContinue }\n  } catch {}\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "gm_disable_segment_heap",
+      "name": "Disable Segment Heap",
+      "category": "Game Mode / Memory",
+      "type": "toggle",
+      "risk": "Warning",
+      "description": "[Focus: FPS] Disables the global Segment Heap to reduce memory overhead and improve performance on some systems. Requires reboot.",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Segment Heap",
+            "name": "Enabled",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Segment Heap",
+            "name": "Enabled"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Segment Heap",
+            "name": "Enabled",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "gm_disable_pcie_aspm",
+      "name": "Apply: Disable PCIe ASPM",
+      "category": "Game Mode / Power",
+      "type": "button",
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay] Disables PCIe Active State Power Management so GPU/PCIe devices don't downclock mid-game.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PCIEXPRESS ASPM 0"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_PCIEXPRESS ASPM 0"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PCIEXPRESS ASPM 2"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_PCIEXPRESS ASPM 2"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
+        ]
+      },
+      "riskLevel": "Warning"
+    },
+    {
+      "category": "Game Mode / Power",
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay] Disables PCIe Active State Power Management so GPU/PCIe devices don't downclock mid-game.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "riskLevel": "Warning",
+      "id": "gm_disable_pcie_aspm__revert",
+      "type": "button",
+      "name": "Revert: Disable PCIe ASPM",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PCIEXPRESS ASPM 2"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_PCIEXPRESS ASPM 2"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
+        ]
+      }
+    },
+    {
+      "id": "gm_disable_platform_idle",
+      "name": "Disable Platform Idle",
+      "category": "Game Mode / Power",
+      "type": "toggle",
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay] Prevents the CPU package from entering deep idle states for maximum responsiveness.",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Power",
+            "name": "PlatformAoAcOverride",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Power",
+            "name": "PlatformAoAcOverride"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Power",
+            "name": "PlatformAoAcOverride",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "gm_processor_idle_disable",
+      "name": "Processor Idle Disable",
+      "category": "Game Mode / Power",
+      "type": "toggle",
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay] Disables advanced processor idle states to keep cores fully active where supported.",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Power",
+            "name": "CsEnabled",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Power",
+            "name": "CsEnabled"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Power",
+            "name": "CsEnabled",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "gm_set_bbr_connections",
+      "name": "Apply: Set BBR Connections",
+      "category": "Game Mode / Network",
+      "type": "button",
+      "risk": "Warning",
+      "description": "[Focus: Ping / Network] Tries to set TCP congestion provider to BBR2 where supported for lower latency and higher responsiveness.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "netsh int tcp set supplemental Template=Internet CongestionProvider=bbr2"
+          },
+          {
+            "type": "cmd.run",
+            "command": "netsh int tcp set supplemental Template=Datacenter CongestionProvider=bbr2"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "netsh int tcp set supplemental Template=Internet CongestionProvider=cubic"
+          },
+          {
+            "type": "cmd.run",
+            "command": "netsh int tcp set supplemental Template=Datacenter CongestionProvider=cubic"
+          }
+        ]
+      },
+      "riskLevel": "Warning"
+    },
+    {
+      "category": "Game Mode / Network",
+      "risk": "Warning",
+      "description": "[Focus: Ping / Network] Tries to set TCP congestion provider to BBR2 where supported for lower latency and higher responsiveness.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "riskLevel": "Warning",
+      "id": "gm_set_bbr_connections__revert",
+      "type": "button",
+      "name": "Revert: Set BBR Connections",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "netsh int tcp set supplemental Template=Internet CongestionProvider=cubic"
+          },
+          {
+            "type": "cmd.run",
+            "command": "netsh int tcp set supplemental Template=Datacenter CongestionProvider=cubic"
+          }
+        ]
+      }
+    },
+    {
+      "id": "gm_timer_500us",
+      "name": "Apply: Game Mode: Set Timer Resolution (0.5ms)",
+      "category": "Gaming / Runtime",
+      "risk": "Warning",
+      "description": "[Focus: Input Delay / Frame pacing] Starts a background timer request to improve scheduling granularity. Stop Game Mode will end it.",
+      "requiresAdmin": true,
+      "type": "button",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts\\timer-helper.ps1 -Resolution 5000"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Get-CimInstance Win32_Process -Filter \"Name='powershell.exe'\" | Where-Object { $_.CommandLine -like '*timer-helper.ps1*' } | ForEach-Object { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue }"
+          }
+        ]
+      }
+    },
+    {
+      "category": "Gaming / Runtime",
+      "risk": "Warning",
+      "description": "[Focus: Input Delay / Frame pacing] Starts a background timer request to improve scheduling granularity. Stop Game Mode will end it.",
+      "requiresAdmin": true,
+      "id": "gm_timer_500us__revert",
+      "type": "button",
+      "name": "Revert: Game Mode: Set Timer Resolution (0.5ms)",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Get-CimInstance Win32_Process -Filter \"Name='powershell.exe'\" | Where-Object { $_.CommandLine -like '*timer-helper.ps1*' } | ForEach-Object { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue }"
+          }
+        ]
+      }
+    },
+    {
+      "id": "gm_tcp_bbr2",
+      "name": "Apply: Game Mode: Enable TCP BBR2 (if supported)",
+      "category": "Gaming / Network",
+      "risk": "Warning",
+      "description": "[Focus: Ping stability] Attempts to enable BBR2 congestion control for Internet profile (Windows 11+). If unsupported, command is ignored.",
+      "requiresAdmin": true,
+      "type": "button",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"try{ netsh int tcp set supplemental internet congestionprovider=bbr2 | Out-Null }catch{}\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"try{ netsh int tcp set supplemental internet congestionprovider=ctcp | Out-Null }catch{}\""
+          }
+        ]
+      }
+    },
+    {
+      "category": "Gaming / Network",
+      "risk": "Warning",
+      "description": "[Focus: Ping stability] Attempts to enable BBR2 congestion control for Internet profile (Windows 11+). If unsupported, command is ignored.",
+      "requiresAdmin": true,
+      "id": "gm_tcp_bbr2__revert",
+      "type": "button",
+      "name": "Revert: Game Mode: Enable TCP BBR2 (if supported)",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"try{ netsh int tcp set supplemental internet congestionprovider=ctcp | Out-Null }catch{}\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "gm_disable_gamebar",
+      "name": "Apply: Game Mode: Disable Xbox Game Bar (runtime)",
+      "category": "Gaming / Overlays",
+      "risk": "Safe",
+      "description": "[Focus: Stutter] Disables Game Bar captures & overlays via registry. Revert restores defaults.",
+      "requiresAdmin": true,
+      "type": "button",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"New-Item -Path 'HKCU:\\SOFTWARE\\Microsoft\\GameBar' -Force | Out-Null; Set-ItemProperty -Path 'HKCU:\\SOFTWARE\\Microsoft\\GameBar' -Name 'AllowAutoGameMode' -Type DWord -Value 0 -Force; Set-ItemProperty -Path 'HKCU:\\SOFTWARE\\Microsoft\\GameBar' -Name 'ShowStartupPanel' -Type DWord -Value 0 -Force; Set-ItemProperty -Path 'HKCU:\\SOFTWARE\\Microsoft\\GameBar' -Name 'UseNexusForGameBarEnabled' -Type DWord -Value 0 -Force\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"Remove-ItemProperty -Path 'HKCU:\\SOFTWARE\\Microsoft\\GameBar' -Name 'UseNexusForGameBarEnabled' -ErrorAction SilentlyContinue;\""
+          }
+        ]
+      }
+    },
+    {
+      "category": "Gaming / Overlays",
+      "risk": "Safe",
+      "description": "[Focus: Stutter] Disables Game Bar captures & overlays via registry. Revert restores defaults.",
+      "requiresAdmin": true,
+      "id": "gm_disable_gamebar__revert",
+      "type": "button",
+      "name": "Revert: Game Mode: Disable Xbox Game Bar (runtime)",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"Remove-ItemProperty -Path 'HKCU:\\SOFTWARE\\Microsoft\\GameBar' -Name 'UseNexusForGameBarEnabled' -ErrorAction SilentlyContinue;\""
+          }
+        ]
+      }
+    }
+  ]
+}

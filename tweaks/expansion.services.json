@@ -1,0 +1,3529 @@
+{
+  "items": [
+    {
+      "id": "exp_svc_wmpnetworksvc",
+      "name": "Set service startup: WMPNetworkSvc → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay, Ping / Network] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "WMPNetworkSvc",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "WMPNetworkSvc",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "WMPNetworkSvc",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_wercplsupport",
+      "name": "Set service startup: wercplsupport → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "wercplsupport",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "wercplsupport",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "wercplsupport",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_bcastdvruserservice",
+      "name": "Set service startup: BcastDVRUserService → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "BcastDVRUserService",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "BcastDVRUserService",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "BcastDVRUserService",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_gamingservices",
+      "name": "Set service startup: GamingServices → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "GamingServices",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "GamingServices",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "GamingServices",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_gamingservicesnet",
+      "name": "Set service startup: GamingServicesNet → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "GamingServicesNet",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "GamingServicesNet",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "GamingServicesNet",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_onesyncsvc",
+      "name": "Set service startup: OneSyncSvc → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "OneSyncSvc",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "OneSyncSvc",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "OneSyncSvc",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_unistoresvc",
+      "name": "Set service startup: UnistoreSvc → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "UnistoreSvc",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "UnistoreSvc",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "UnistoreSvc",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_userdatasvc",
+      "name": "Set service startup: UserDataSvc → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "UserDataSvc",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "UserDataSvc",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "UserDataSvc",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_messagingservice",
+      "name": "Set service startup: MessagingService → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "MessagingService",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "MessagingService",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "MessagingService",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_pimindexmaintenancesvc",
+      "name": "Set service startup: PimIndexMaintenanceSvc → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "PimIndexMaintenanceSvc",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "PimIndexMaintenanceSvc",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "PimIndexMaintenanceSvc",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_printnotify",
+      "name": "Set service startup: PrintNotify → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "PrintNotify",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "PrintNotify",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "PrintNotify",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_fax",
+      "name": "Set service startup: Fax → Manual",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "Fax",
+            "startType": "Manual"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "Fax",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "Fax",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_phonesvc",
+      "name": "Set service startup: PhoneSvc → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "PhoneSvc",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "PhoneSvc",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "PhoneSvc",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_remoteregistry",
+      "name": "Set service startup: RemoteRegistry → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "RemoteRegistry",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "RemoteRegistry",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "RemoteRegistry",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_remoteaccess",
+      "name": "Set service startup: RemoteAccess → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "RemoteAccess",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "RemoteAccess",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "RemoteAccess",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_seclogon",
+      "name": "Set service startup: seclogon → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "seclogon",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "seclogon",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "seclogon",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_iphlpsvc",
+      "name": "Set service startup: iphlpsvc → Manual",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "iphlpsvc",
+            "startType": "Manual"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "iphlpsvc",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "iphlpsvc",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_btagservice",
+      "name": "Set service startup: BTAGService → Manual",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "BTAGService",
+            "startType": "Manual"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "BTAGService",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "BTAGService",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_bthavctpsvc",
+      "name": "Set service startup: BthAvctpSvc → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "BthAvctpSvc",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "BthAvctpSvc",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "BthAvctpSvc",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_wbiosrvc",
+      "name": "Set service startup: WbioSrvc → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "WbioSrvc",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "WbioSrvc",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "WbioSrvc",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_walletservice",
+      "name": "Set service startup: WalletService → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "WalletService",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "WalletService",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "WalletService",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_wisvc",
+      "name": "Set service startup: wisvc → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "wisvc",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "wisvc",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "wisvc",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_wpnservice",
+      "name": "Set service startup: WpnService → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "WpnService",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "WpnService",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "WpnService",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_wpnuserservice",
+      "name": "Set service startup: WpnUserService → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "WpnUserService",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "WpnUserService",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "WpnUserService",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_pushtoinstall",
+      "name": "Set service startup: PushToInstall → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "PushToInstall",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "PushToInstall",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "PushToInstall",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_waasmedicsvc",
+      "name": "Set service startup: WaaSMedicSvc → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "WaaSMedicSvc",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "WaaSMedicSvc",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "WaaSMedicSvc",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_bits",
+      "name": "Set service startup: BITS → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "BITS",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "BITS",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "BITS",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_cryptsvc",
+      "name": "Set service startup: CryptSvc → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "CryptSvc",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "CryptSvc",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "CryptSvc",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_appxsvc",
+      "name": "Set service startup: AppXSvc → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "AppXSvc",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "AppXSvc",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "AppXSvc",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_cdpsvc",
+      "name": "Set service startup: CDPSvc → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "CDPSvc",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "CDPSvc",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "CDPSvc",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_cdpusersvc",
+      "name": "Set service startup: CDPUserSvc → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "CDPUserSvc",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "CDPUserSvc",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "CDPUserSvc",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_dusmsvc",
+      "name": "Set service startup: DusmSvc → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "DusmSvc",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "DusmSvc",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "DusmSvc",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_nlasvc",
+      "name": "Set service startup: NlaSvc → Manual",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "NlaSvc",
+            "startType": "Manual"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "NlaSvc",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "NlaSvc",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_trkwks",
+      "name": "Set service startup: TrkWks → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "TrkWks",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "TrkWks",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "TrkWks",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_ssdpsrv",
+      "name": "Set service startup: SSDPSRV → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "SSDPSRV",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "SSDPSRV",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "SSDPSRV",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_upnphost",
+      "name": "Set service startup: upnphost → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "upnphost",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "upnphost",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "upnphost",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_rmsvc",
+      "name": "Set service startup: RmSvc → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "RmSvc",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "RmSvc",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "RmSvc",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_lmhosts",
+      "name": "Set service startup: lmhosts → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "lmhosts",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "lmhosts",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "lmhosts",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_lanmanworkstation",
+      "name": "Set service startup: LanmanWorkstation → Manual",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "LanmanWorkstation",
+            "startType": "Manual"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "LanmanWorkstation",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "LanmanWorkstation",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_lanmanserver",
+      "name": "Set service startup: LanmanServer → Manual",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "LanmanServer",
+            "startType": "Manual"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "LanmanServer",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "LanmanServer",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_sharedaccess",
+      "name": "Set service startup: SharedAccess → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "SharedAccess",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "SharedAccess",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "SharedAccess",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_ikeext",
+      "name": "Set service startup: IKEEXT → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "IKEEXT",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "IKEEXT",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "IKEEXT",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_policyagent",
+      "name": "Set service startup: PolicyAgent → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "PolicyAgent",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "PolicyAgent",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "PolicyAgent",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_w32time",
+      "name": "Set service startup: W32Time → Manual",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "W32Time",
+            "startType": "Manual"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "W32Time",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "W32Time",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_fontcache",
+      "name": "Set service startup: FontCache → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "FontCache",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "FontCache",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "FontCache",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_stisvc",
+      "name": "Set service startup: stisvc → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "stisvc",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "stisvc",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "stisvc",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_frameserver",
+      "name": "Set service startup: FrameServer → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "FrameServer",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "FrameServer",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "FrameServer",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_scdeviceenum",
+      "name": "Set service startup: ScDeviceEnum → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "ScDeviceEnum",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "ScDeviceEnum",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "ScDeviceEnum",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_scardsvr",
+      "name": "Set service startup: SCardSvr → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "SCardSvr",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "SCardSvr",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "SCardSvr",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_wiarpc",
+      "name": "Set service startup: WiaRpc → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "WiaRpc",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "WiaRpc",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "WiaRpc",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_diagsvc",
+      "name": "Set service startup: DiagSvc → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "DiagSvc",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "DiagSvc",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "DiagSvc",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_dps",
+      "name": "Set service startup: DPS → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "DPS",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "DPS",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "DPS",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_wdiservicehost",
+      "name": "Set service startup: WdiServiceHost → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "WdiServiceHost",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "WdiServiceHost",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "WdiServiceHost",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_wdisystemhost",
+      "name": "Set service startup: WdiSystemHost → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "WdiSystemHost",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "WdiSystemHost",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "WdiSystemHost",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_pcasvc",
+      "name": "Set service startup: PcaSvc → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "PcaSvc",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "PcaSvc",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "PcaSvc",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_pcasvc2",
+      "name": "Set service startup: PcaSvc2 → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "PcaSvc2",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "PcaSvc2",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "PcaSvc2",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_gupdate",
+      "name": "Set service startup: gupdate → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "gupdate",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "gupdate",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "gupdate",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_gupdatem",
+      "name": "Set service startup: gupdatem → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "gupdatem",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "gupdatem",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "gupdatem",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_googlechromeelevationservice",
+      "name": "Set service startup: GoogleChromeElevationService → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "GoogleChromeElevationService",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "GoogleChromeElevationService",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "GoogleChromeElevationService",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_steamclientservice",
+      "name": "Set service startup: SteamClientService → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "SteamClientService",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "SteamClientService",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "SteamClientService",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_epiconlineservices",
+      "name": "Set service startup: EpicOnlineServices → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "EpicOnlineServices",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "EpicOnlineServices",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "EpicOnlineServices",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_eosservice",
+      "name": "Set service startup: EosService → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "EosService",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "EosService",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "EosService",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_nvtelemetrycontainer",
+      "name": "Set service startup: NvTelemetryContainer → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "NvTelemetryContainer",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "NvTelemetryContainer",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "NvTelemetryContainer",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_nvcontainerlocalsystem",
+      "name": "Set service startup: NvContainerLocalSystem → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "NvContainerLocalSystem",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "NvContainerLocalSystem",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "NvContainerLocalSystem",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_nvidia_display_container_ls",
+      "name": "Set service startup: NVIDIA Display Container LS → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "NVIDIA Display Container LS",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "NVIDIA Display Container LS",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "NVIDIA Display Container LS",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_ajrouter",
+      "name": "Set service startup: AJRouter → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "AJRouter",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "AJRouter",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "AJRouter",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_assignedaccessmanagersvc",
+      "name": "Set service startup: AssignedAccessManagerSvc → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "AssignedAccessManagerSvc",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "AssignedAccessManagerSvc",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "AssignedAccessManagerSvc",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_bthhfsrv",
+      "name": "Set service startup: BthHFSrv → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "BthHFSrv",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "BthHFSrv",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "BthHFSrv",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_captureservice",
+      "name": "Set service startup: CaptureService → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "CaptureService",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "CaptureService",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "CaptureService",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_cbdhsvc",
+      "name": "Set service startup: cbdhsvc → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "cbdhsvc",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "cbdhsvc",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "cbdhsvc",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_cscservice",
+      "name": "Set service startup: CscService → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "CscService",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "CscService",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "CscService",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_entappsvc",
+      "name": "Set service startup: EntAppSvc → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "EntAppSvc",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "EntAppSvc",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "EntAppSvc",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_graphicsperfsvc",
+      "name": "Set service startup: GraphicsPerfSvc → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "GraphicsPerfSvc",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "GraphicsPerfSvc",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "GraphicsPerfSvc",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_homegrouplistener",
+      "name": "Set service startup: HomeGroupListener → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "HomeGroupListener",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "HomeGroupListener",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "HomeGroupListener",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_homegroupprovider",
+      "name": "Set service startup: HomeGroupProvider → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "HomeGroupProvider",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "HomeGroupProvider",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "HomeGroupProvider",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_hvhost",
+      "name": "Set service startup: HvHost → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "HvHost",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "HvHost",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "HvHost",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_icssvc",
+      "name": "Set service startup: icssvc → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "icssvc",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "icssvc",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "icssvc",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_lltdsvc",
+      "name": "Set service startup: lltdsvc → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "lltdsvc",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "lltdsvc",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "lltdsvc",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_nettcpportsharing",
+      "name": "Set service startup: NetTcpPortSharing → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "NetTcpPortSharing",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "NetTcpPortSharing",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "NetTcpPortSharing",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_p9rdrservice",
+      "name": "Set service startup: P9RdrService → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "P9RdrService",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "P9RdrService",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "P9RdrService",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_peerdistsvc",
+      "name": "Set service startup: PeerDistSvc → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "PeerDistSvc",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "PeerDistSvc",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "PeerDistSvc",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_perfhost",
+      "name": "Set service startup: PerfHost → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "PerfHost",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "PerfHost",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "PerfHost",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_qwave",
+      "name": "Set service startup: QWAVE → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "QWAVE",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "QWAVE",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "QWAVE",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_rasauto",
+      "name": "Set service startup: RasAuto → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "RasAuto",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "RasAuto",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "RasAuto",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_rasman",
+      "name": "Set service startup: RasMan → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "RasMan",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "RasMan",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "RasMan",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_retaildemo",
+      "name": "Set service startup: RetailDemo → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "RetailDemo",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "RetailDemo",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "RetailDemo",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_sens",
+      "name": "Set service startup: SENS → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "SENS",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "SENS",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "SENS",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_sensordataservice",
+      "name": "Set service startup: SensorDataService → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "SensorDataService",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "SensorDataService",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "SensorDataService",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_sensorservice",
+      "name": "Set service startup: SensorService → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "SensorService",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "SensorService",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "SensorService",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_sensrsvc",
+      "name": "Set service startup: SensrSvc → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "SensrSvc",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "SensrSvc",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "SensrSvc",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_sharedrealitysvc",
+      "name": "Set service startup: SharedRealitySvc → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "SharedRealitySvc",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "SharedRealitySvc",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "SharedRealitySvc",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_shellhwdetection",
+      "name": "Set service startup: ShellHWDetection → Manual",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "ShellHWDetection",
+            "startType": "Manual"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "ShellHWDetection",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "ShellHWDetection",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_smsrouter",
+      "name": "Set service startup: SmsRouter → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "SmsRouter",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "SmsRouter",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "SmsRouter",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_snmptrap",
+      "name": "Set service startup: SNMPTRAP → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "SNMPTRAP",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "SNMPTRAP",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "SNMPTRAP",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "exp_svc_tzautoupdate",
+      "name": "Set service startup: tzautoupdate → Disabled",
+      "category": "Expansion / Services",
+      "type": "toggle",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "tzautoupdate",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "tzautoupdate",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "tzautoupdate",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "imported.imported.trustedinstaller_check",
+      "type": "button",
+      "name": "Trustedinstaller Check",
+      "category": "Expansion / Services",
+      "riskLevel": "Danger",
+      "risk": "Danger",
+      "description": "[Imported] Runnable tweak extracted from your V8.3. This runs a command pack under Admin. Risk: Danger.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_trustedinstaller_check.bat\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "imported.imported.setup_restore_point",
+      "type": "button",
+      "name": "Setup Restore Point",
+      "category": "Expansion / Services",
+      "riskLevel": "Danger",
+      "risk": "Danger",
+      "description": "[Imported] Runnable tweak extracted from your V8.3. This runs a command pack under Admin. Risk: Danger.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_setup_restore_point.bat\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "imported.imported.replace_basebrd",
+      "type": "button",
+      "name": "Replace Basebrd",
+      "category": "Expansion / Services",
+      "riskLevel": "Extreme",
+      "risk": "Extreme",
+      "description": "[Imported] Runnable tweak extracted from your V8.3. This runs a command pack under Admin. Risk: Extreme.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_replace_basebrd.bat\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "imported.imported.fixers",
+      "type": "button",
+      "name": "Fixers",
+      "category": "Expansion / Services",
+      "riskLevel": "Warning",
+      "risk": "Warning",
+      "description": "[Imported] Runnable tweak extracted from your V8.3. This runs a command pack under Admin. Risk: Warning.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_fixers.bat\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "imported.imported.restart",
+      "type": "button",
+      "name": "Restart",
+      "category": "Expansion / Services",
+      "riskLevel": "Danger",
+      "risk": "Danger",
+      "description": "[Imported] Runnable tweak extracted from your V8.3. This runs a command pack under Admin. Risk: Danger.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_restart.bat\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "items": [
+    {
+      "id": "game.priority.scheduler.info",
+      "type": "action",
+      "name": "Game Priority Scheduler",
+      "category": "Game Specific / Scheduler",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "primaryLabel": "Open",
+      "description": "Interactive panel to apply QoS DSCP 46 (UDP/TCP) per-game and for a custom .exe with a single menu.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nUse the Game Priority Scheduler UI in Falcon Optimizer.\n\"@"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,155 @@
+{
+  "items": [
+    {
+      "id": "audio_scan_engine",
+      "type": "action",
+      "name": "Scan Audio Engine & Devices",
+      "description": "[Analyzer] Lists audio devices and MMDevices render endpoints to help you see what the OS is using.",
+      "requiresAdmin": false,
+      "riskLevel": "Safe",
+      "category": "Audio Lab / Analyzer",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"=== FALCON AUDIO LAB: ENGINE & DEVICE SCAN ===\"\nWrite-Output \"\"\n\n# List sound devices\ntry {\n  $snd = Get-CimInstance Win32_SoundDevice\n  Write-Output \"Sound Devices:\"\n  foreach ($s in $snd) {\n    Write-Output (\"  - {0} | Manufacturer: {1} | Status: {2}\" -f $s.Name, $s.Manufacturer, $s.Status)\n  }\n} catch {\n  Write-Output \"Sound Devices: <failed to query>\"\n}\n\nWrite-Output \"\"\nWrite-Output \"Audio Render Endpoints (from MMDevices registry):\"\n$mmBase = \"HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\MMDevices\\Audio\\Render\"\nif (Test-Path $mmBase) {\n  Get-ChildItem $mmBase -ErrorAction SilentlyContinue | ForEach-Object {\n    $devKey = $_.PsPath\n    $propKey = Join-Path $devKey \"Properties\"\n    Write-Output (\"  Endpoint: {0}\" -f $devKey)\n    if (Test-Path $propKey) {\n      try {\n        $p = Get-ItemProperty $propKey -ErrorAction SilentlyContinue\n        $friendly = $p.'{a45c254e-df1c-4efd-8020-67d146a850e0},2'  # PKEY_Device_FriendlyName\n        $desc     = $p.'{b3f8fa53-0004-438e-9003-51a46e139bfc},6'  # PKEY_AudioEndpoint_FormFactor or similar\n        Write-Output (\"    Name: {0}\" -f $friendly)\n        if ($desc) {\n          Write-Output (\"    Extra: {0}\" -f $desc)\n        }\n      } catch {\n        Write-Output \"    (Failed to read endpoint properties.)\"\n      }\n    }\n    Write-Output \"\"\n  }\n} else {\n  Write-Output \"  MMDevices\\\\Audio\\\\Render key not found.\"\n}\n\nWrite-Output \"\"\nWrite-Output \"Note: Audio Lab will focus on disabling enhancements/spatial sound and simplifying the audio stack for lowest latency.\"\nWrite-Output \"\"\nWrite-Output \"=== END OF AUDIO SCAN ===\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nScan is read-only and requires no revert.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "id": "audio_disable_enhancements_global",
+      "type": "button",
+      "name": "Apply: Disable Global Audio Enhancements & System Sounds",
+      "description": "[Focus: Stutter / Latency] Sets DisableAudioEnhancements=1 (global) and turns off the system sound scheme to reduce audio engine overhead and distractions.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Audio Lab / Engine Simplification",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"=== FALCON AUDIO LAB: DISABLE ENHANCEMENTS & SPATIAL SOUND (GLOBAL) ===\"\nWrite-Output \"\"\nWrite-Output \"This will attempt to disable global audio enhancements and spatial sound flags where exposed in the registry.\"\nWrite-Output \"Per-device audio enhancement flags are complex; Falcon focuses on the main global switches.\"\nWrite-Output \"\"\n\n# Global audio enhancements off\ntry {\n  $globalPath = \"HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Audio\"\n  if (-not (Test-Path $globalPath)) {\n    New-Item -Path $globalPath -Force | Out-Null\n  }\n  New-ItemProperty -Path $globalPath -Name \"DisableAudioEnhancements\" -Value 1 -PropertyType DWord -Force | Out-Null\n  Write-Output \"Set HKLM\\\\...\\\\Audio\\\\DisableAudioEnhancements = 1\"\n} catch {\n  Write-Output (\"Failed to set DisableAudioEnhancements: {0}\" -f $_.Exception.Message)\n}\n\n# Disable system sounds scheme (optional latency / distraction)\ntry {\n  $schemePath = \"HKCU:\\AppEvents\\Schemes\"\n  if (Test-Path $schemePath) {\n    New-ItemProperty -Path $schemePath -Name \"(Default)\" -Value \".None\" -PropertyType String -Force | Out-Null\n    Write-Output \"Set system sound scheme to 'No Sounds'.\"\n  } else {\n    Write-Output \"AppEvents\\\\Schemes not found under HKCU.\"\n  }\n} catch {\n  Write-Output (\"Failed to adjust system sound scheme: {0}\" -f $_.Exception.Message)\n}\n\n# Spatial sound hint (cannot robustly disable all vendor-specific implementations)\nWrite-Output \"\"\nWrite-Output \"NOTE: Per-device spatial sound (Dolby Atmos, Sonic) usually must be turned off in the Sound control panel / UWP apps.\"\nWrite-Output \"      Falcon does not attempt to patch every vendor-specific spatial sound setting.\"\nWrite-Output \"\"\nWrite-Output \"A reboot or sign-out/in may be required for all audio changes to fully apply.\"\nWrite-Output \"\"\nWrite-Output \"=== END OF AUDIO ENHANCEMENT DISABLE ===\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nRe-enabling enhancements/system sounds requires manually restoring your previous sound scheme and enhancement settings.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "description": "[Focus: Stutter / Latency] Sets DisableAudioEnhancements=1 (global) and turns off the system sound scheme to reduce audio engine overhead and distractions.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Audio Lab / Engine Simplification",
+      "id": "audio_disable_enhancements_global__revert",
+      "type": "button",
+      "name": "Revert: Disable Global Audio Enhancements & System Sounds",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nRe-enabling enhancements/system sounds requires manually restoring your previous sound scheme and enhancement settings.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "id": "audio_disable_enhancements",
+      "type": "button",
+      "name": "Apply: Disable audio enhancements (endpoint)",
+      "description": "Disables Windows audio enhancements to reduce processing.",
+      "requiresAdmin": false,
+      "riskLevel": "Warning",
+      "category": "Audio Lab / Latency",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$k = \"HKCU:\\Software\\Microsoft\\Multimedia\\Audio\"\nNew-Item -Force -Path $k | Out-Null\nNew-ItemProperty -Path $k -Name \"DisableAudioEnhancements\" -Value 1 -PropertyType DWord -Force | Out-Null\nWrite-Output \"DisableAudioEnhancements set.\"\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$k = \"HKCU:\\Software\\Microsoft\\Multimedia\\Audio\"\nRemove-ItemProperty -Path $k -Name \"DisableAudioEnhancements\" -ErrorAction SilentlyContinue\nWrite-Output \"DisableAudioEnhancements removed.\"\n"
+          }
+        ]
+      }
+    },
+    {
+      "description": "Disables Windows audio enhancements to reduce processing.",
+      "requiresAdmin": false,
+      "riskLevel": "Warning",
+      "category": "Audio Lab / Latency",
+      "id": "audio_disable_enhancements__revert",
+      "type": "button",
+      "name": "Revert: Disable audio enhancements (endpoint)",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$k = \"HKCU:\\Software\\Microsoft\\Multimedia\\Audio\"\nRemove-ItemProperty -Path $k -Name \"DisableAudioEnhancements\" -ErrorAction SilentlyContinue\nWrite-Output \"DisableAudioEnhancements removed.\"\n"
+          }
+        ]
+      }
+    },
+    {
+      "id": "audio_restart_service",
+      "type": "button",
+      "name": "Apply: Restart Windows Audio services",
+      "description": "Restarts Audiosrv/AudioEndpointBuilder.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Audio Lab / Tools",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Restart-Service Audiosrv -Force -ErrorAction SilentlyContinue; Restart-Service AudioEndpointBuilder -Force -ErrorAction SilentlyContinue; Write-Output 'Audio services restarted.'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"No revert needed.\""
+          }
+        ]
+      }
+    },
+    {
+      "description": "Restarts Audiosrv/AudioEndpointBuilder.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Audio Lab / Tools",
+      "id": "audio_restart_service__revert",
+      "type": "button",
+      "name": "Revert: Restart Windows Audio services",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"No revert needed.\""
+          }
+        ]
+      }
+    }
+  ]
+}

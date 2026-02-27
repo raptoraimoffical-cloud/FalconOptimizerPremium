@@ -1,0 +1,2558 @@
+{
+  "items": [
+    {
+      "id": "core.disable_notifications__windows.core",
+      "type": "toggle",
+      "name": "Disable All Notifications",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables toast notifications.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\PushNotifications",
+            "name": "ToastEnabled",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\PushNotifications",
+            "name": "ToastEnabled",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "General / Core",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\PushNotifications",
+            "name": "ToastEnabled",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "core.disable_animations__windows.core",
+      "type": "toggle",
+      "name": "Disable Animations",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables UI animations.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Control Panel\\Desktop\\WindowMetrics",
+            "name": "MinAnimate",
+            "value": "0",
+            "valueType": "String"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Control Panel\\Desktop\\WindowMetrics",
+            "name": "MinAnimate",
+            "value": "1",
+            "valueType": "String"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "General / Core",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Control Panel\\Desktop\\WindowMetrics",
+            "name": "MinAnimate",
+            "valueType": "String",
+            "equals": "0"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core.disable_bluetooth_services__windows.core",
+      "type": "toggle",
+      "name": "Disable Bluetooth Services",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Stops and disables Bluetooth service.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "bthserv",
+            "startType": "Disabled",
+            "stop": true
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "bthserv",
+            "startType": "Manual",
+            "stop": false
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "General / Core",
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "bthserv",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "core.disable_driver_searching__windows.core",
+      "type": "toggle",
+      "name": "Disable Driver Searching",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Prevents Windows from searching Windows Update for drivers.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\DriverSearching",
+            "name": "SearchOrderConfig",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\DriverSearching",
+            "name": "SearchOrderConfig",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "General / Core",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\DriverSearching",
+            "name": "SearchOrderConfig",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "core.disable_experimental_features__windows.core",
+      "type": "toggle",
+      "name": "Disable Experimental Features",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables preview/experimental features via policy.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\PreviewBuilds",
+            "name": "AllowBuildPreview",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\PreviewBuilds",
+            "name": "AllowBuildPreview"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "General / Core",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\PreviewBuilds",
+            "name": "AllowBuildPreview",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "core.disable_gamedvr__windows.core",
+      "type": "toggle",
+      "name": "Disable GameDVR",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables Xbox Game Bar capture/GameDVR.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\GameDVR",
+            "name": "AppCaptureEnabled",
+            "value": 0,
+            "valueType": "DWord"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKCU\\System\\GameConfigStore",
+            "name": "GameDVR_Enabled",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\GameDVR",
+            "name": "AppCaptureEnabled",
+            "value": 1,
+            "valueType": "DWord"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKCU\\System\\GameConfigStore",
+            "name": "GameDVR_Enabled",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "General / Core",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\GameDVR",
+            "name": "AppCaptureEnabled",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "core.enable_game_mode__windows.core",
+      "type": "toggle",
+      "name": "Enable Game Mode",
+      "risk": "Safe",
+      "description": "[Focus: FPS] Enables Windows Game Mode.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\GameBar",
+            "name": "AutoGameModeEnabled",
+            "value": 1,
+            "valueType": "DWord"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\GameBar",
+            "name": "AllowAutoGameMode",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\GameBar",
+            "name": "AutoGameModeEnabled",
+            "value": 0,
+            "valueType": "DWord"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\GameBar",
+            "name": "AllowAutoGameMode",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "General / Core",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\GameBar",
+            "name": "AutoGameModeEnabled",
+            "valueType": "DWord",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "core.disable_xbox_services__windows.core",
+      "type": "toggle",
+      "name": "Disable Xbox Services",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Stops and disables Xbox services.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "XblAuthManager",
+            "startType": "Disabled",
+            "stop": true
+          },
+          {
+            "type": "service.startup",
+            "name": "XblGameSave",
+            "startType": "Disabled",
+            "stop": true
+          },
+          {
+            "type": "service.startup",
+            "name": "XboxNetApiSvc",
+            "startType": "Disabled",
+            "stop": true
+          },
+          {
+            "type": "service.startup",
+            "name": "XboxGipSvc",
+            "startType": "Disabled",
+            "stop": true
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "XblAuthManager",
+            "startType": "Manual",
+            "stop": false
+          },
+          {
+            "type": "service.startup",
+            "name": "XblGameSave",
+            "startType": "Manual",
+            "stop": false
+          },
+          {
+            "type": "service.startup",
+            "name": "XboxNetApiSvc",
+            "startType": "Manual",
+            "stop": false
+          },
+          {
+            "type": "service.startup",
+            "name": "XboxGipSvc",
+            "startType": "Manual",
+            "stop": false
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "General / Core",
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "XblAuthManager",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "core.disable_edge__windows.core",
+      "type": "toggle",
+      "name": "Disable Microsoft Edge",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables Edge prelaunch/tab preloading via policy.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\MicrosoftEdge\\Main",
+            "name": "AllowPrelaunch",
+            "value": 0,
+            "valueType": "DWord"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\MicrosoftEdge\\TabPreloader",
+            "name": "AllowTabPreloading",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\MicrosoftEdge\\Main",
+            "name": "AllowPrelaunch"
+          },
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\MicrosoftEdge\\TabPreloader",
+            "name": "AllowTabPreloading"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "General / Core",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\MicrosoftEdge\\Main",
+            "name": "AllowPrelaunch",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "core.disable_search_indexing__windows.core",
+      "type": "toggle",
+      "name": "Disable Search Indexing",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Stops and disables Windows Search indexing service.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "WSearch",
+            "startType": "Disabled",
+            "stop": true
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "WSearch",
+            "startType": "Automatic",
+            "stop": false
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "General / Core",
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "WSearch",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "core.optimize_windows_search__windows.core",
+      "type": "toggle",
+      "name": "Optimize Windows Search",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables web/Bing search suggestions in Start search.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Search",
+            "name": "BingSearchEnabled",
+            "value": 0,
+            "valueType": "DWord"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Search",
+            "name": "CortanaConsent",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Search",
+            "name": "BingSearchEnabled"
+          },
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Search",
+            "name": "CortanaConsent"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "General / Core",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Search",
+            "name": "BingSearchEnabled",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "core.disable_windows_updates__windows.core",
+      "type": "toggle",
+      "name": "Disable Windows Updates",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables Windows Update services and NoAutoUpdate policy.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "wuauserv",
+            "startType": "Disabled",
+            "stop": true
+          },
+          {
+            "type": "service.startup",
+            "name": "bits",
+            "startType": "Disabled",
+            "stop": true
+          },
+          {
+            "type": "service.startup",
+            "name": "UsoSvc",
+            "startType": "Disabled",
+            "stop": true
+          },
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU",
+            "name": "NoAutoUpdate",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "wuauserv",
+            "startType": "Manual",
+            "stop": false
+          },
+          {
+            "type": "service.startup",
+            "name": "bits",
+            "startType": "Manual",
+            "stop": false
+          },
+          {
+            "type": "service.startup",
+            "name": "UsoSvc",
+            "startType": "Manual",
+            "stop": false
+          },
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU",
+            "name": "NoAutoUpdate"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "General / Core",
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "wuauserv",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "core.disable_scheduled_maintenance__windows.core",
+      "type": "toggle",
+      "name": "Disable Scheduled Maintenance",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables Automatic Maintenance scheduling.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Schedule\\Maintenance",
+            "name": "MaintenanceDisabled",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Schedule\\Maintenance",
+            "name": "MaintenanceDisabled"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "General / Core",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Schedule\\Maintenance",
+            "name": "MaintenanceDisabled",
+            "valueType": "DWord",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "core.disable_scheduled_tasks__windows.core",
+      "type": "toggle",
+      "name": "Disable Scheduled Tasks",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables common telemetry scheduled tasks.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "task",
+            "action": "disable",
+            "name": "\\Microsoft\\Windows\\Application Experience\\Microsoft Compatibility Appraiser"
+          },
+          {
+            "type": "task",
+            "action": "disable",
+            "name": "\\Microsoft\\Windows\\Application Experience\\ProgramDataUpdater"
+          },
+          {
+            "type": "task",
+            "action": "disable",
+            "name": "\\Microsoft\\Windows\\Customer Experience Improvement Program\\Consolidator"
+          },
+          {
+            "type": "task",
+            "action": "disable",
+            "name": "\\Microsoft\\Windows\\Customer Experience Improvement Program\\UsbCeip"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "action": "enable",
+            "name": "\\Microsoft\\Windows\\Application Experience\\Microsoft Compatibility Appraiser"
+          },
+          {
+            "type": "task",
+            "action": "enable",
+            "name": "\\Microsoft\\Windows\\Application Experience\\ProgramDataUpdater"
+          },
+          {
+            "type": "task",
+            "action": "enable",
+            "name": "\\Microsoft\\Windows\\Customer Experience Improvement Program\\Consolidator"
+          },
+          {
+            "type": "task",
+            "action": "enable",
+            "name": "\\Microsoft\\Windows\\Customer Experience Improvement Program\\UsbCeip"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "General / Core",
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Application Experience\\Microsoft Compatibility Appraiser",
+            "enabled": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "core.disable_startup_delay__windows.core",
+      "type": "toggle",
+      "name": "Disable Startup Delay For Apps",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Removes Windows startup delay for apps.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Serialize",
+            "name": "StartupDelayInMSec",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Serialize",
+            "name": "StartupDelayInMSec"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "General / Core",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Serialize",
+            "name": "StartupDelayInMSec",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "core.disable_transparency__windows.core",
+      "type": "toggle",
+      "name": "Disable Transparency Effects",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables transparency effects.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize",
+            "name": "EnableTransparency",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize",
+            "name": "EnableTransparency",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "General / Core",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize",
+            "name": "EnableTransparency",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "core.disable_rounded_tooltips__windows.core",
+      "type": "toggle",
+      "name": "Disable Rounded Tooltips",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables balloon tips where possible.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "EnableBalloonTips",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "EnableBalloonTips",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "General / Core",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+            "name": "EnableBalloonTips",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "core.optimize_visual_settings__windows.core",
+      "type": "toggle",
+      "name": "Optimize Visual Settings",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets visual effects to performance profile.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\VisualEffects",
+            "name": "VisualFXSetting",
+            "value": 2,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\VisualEffects",
+            "name": "VisualFXSetting"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "General / Core",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\VisualEffects",
+            "name": "VisualFXSetting",
+            "valueType": "DWord",
+            "equals": 2
+          }
+        ]
+      }
+    },
+    {
+      "id": "core.optimize_hung_apps__windows.core",
+      "type": "toggle",
+      "name": "Optimize Hung Apps",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Shortens hung app timeouts.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Control Panel\\Desktop",
+            "name": "HungAppTimeout",
+            "value": "2000",
+            "valueType": "String"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Control Panel\\Desktop",
+            "name": "WaitToKillAppTimeout",
+            "value": "2000",
+            "valueType": "String"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Control Panel\\Desktop",
+            "name": "AutoEndTasks",
+            "value": "1",
+            "valueType": "String"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Control Panel\\Desktop",
+            "name": "HungAppTimeout"
+          },
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Control Panel\\Desktop",
+            "name": "WaitToKillAppTimeout"
+          },
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Control Panel\\Desktop",
+            "name": "AutoEndTasks"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "General / Core",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Control Panel\\Desktop",
+            "name": "HungAppTimeout",
+            "valueType": "String",
+            "equals": "2000"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core.set_win32_priority_sep__windows.core",
+      "type": "toggle",
+      "name": "Priority Separation (Scheduler)",
+      "risk": "Warning",
+      "description": "Controls Windows scheduler foreground boost and time slice via Win32PrioritySeparation. Balanced = stable feel; Latency = snappier input/foreground bias; FPS = more throughput/longer slices. Custom lets you enter the exact DWORD (decimal or hex like 0x26).",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\PriorityControl",
+            "name": "Win32PrioritySeparation",
+            "value": 36,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\PriorityControl",
+            "name": "Win32PrioritySeparation"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "General / Core",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\PriorityControl",
+            "name": "Win32PrioritySeparation",
+            "valueType": "DWord",
+            "equals": 36
+          }
+        ]
+      }
+    },
+    {
+      "id": "core.configure_tsync__windows.core",
+      "type": "toggle",
+      "name": "Configure Tsync Policy",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets kernel TscSyncPolicy (requires reboot on some systems).",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\kernel",
+            "name": "TscSyncPolicy",
+            "value": 2,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\kernel",
+            "name": "TscSyncPolicy"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "General / Core",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\kernel",
+            "name": "TscSyncPolicy",
+            "valueType": "DWord",
+            "equals": 2
+          }
+        ]
+      }
+    },
+    {
+      "id": "core.disable_hypervisor__windows.core",
+      "type": "button",
+      "name": "Apply: Disable Hypervisor",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables Hyper-V hypervisor launch. Requires reboot.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "bcdedit /set hypervisorlaunchtype off"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "bcdedit /set hypervisorlaunchtype auto"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "General / Core"
+    },
+    {
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables Hyper-V hypervisor launch. Requires reboot.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "General / Core",
+      "id": "core.disable_hypervisor__windows.core__revert",
+      "type": "button",
+      "name": "Revert: Disable Hypervisor",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "bcdedit /set hypervisorlaunchtype auto"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core.tweak_latency_tolerance__windows.core",
+      "type": "toggle",
+      "name": "Tweak Latency Tolerance",
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay] Sets multimedia scheduling defaults for low latency.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile",
+            "name": "SystemResponsiveness",
+            "value": 10,
+            "valueType": "DWORD"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile",
+            "name": "NetworkThrottlingIndex",
+            "value": 4294967295,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile",
+            "name": "SystemResponsiveness"
+          },
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile",
+            "name": "NetworkThrottlingIndex"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "General / Core",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile",
+            "name": "SystemResponsiveness",
+            "valueType": "DWORD",
+            "equals": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "core.disable_device_power_saving__windows.core",
+      "type": "toggle",
+      "name": "Disable Device Power Saving",
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay] Disables USB selective suspend.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\USB",
+            "name": "DisableSelectiveSuspend",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\USB",
+            "name": "DisableSelectiveSuspend"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "General / Core",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\USB",
+            "name": "DisableSelectiveSuspend",
+            "valueType": "DWord",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "core.timer_set__windows.core",
+      "type": "button",
+      "name": "Apply: Set Timer Resolution",
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay] Requests 0.500ms timer resolution for the duration of the runner process (non-persistent). Prefer the persistent helper action.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "timer.set"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "timer.reset"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "General / Core"
+    },
+    {
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay] Requests 0.500ms timer resolution for the duration of the runner process (non-persistent). Prefer the persistent helper action.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "General / Core",
+      "id": "core.timer_set__windows.core__revert",
+      "type": "button",
+      "name": "Revert: Set Timer Resolution",
+      "apply": {
+        "steps": [
+          {
+            "type": "timer.reset"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core.timer_revert__windows.core",
+      "type": "button",
+      "name": "Revert to Default",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay] Releases Falcon Optimizer's timer period request (best-effort).",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd",
+            "shell": "cmd",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"try { Add-Type -TypeDefinition \\\"using System; using System.Runtime.InteropServices; public static class T { [DllImport(\\\\\\\"winmm.dll\\\\\\\")] public static extern uint timeBeginPeriod(uint uPeriod); [DllImport(\\\\\\\"winmm.dll\\\\\\\")] public static extern uint timeEndPeriod(uint uPeriod);} \\\"; [T]::timeEndPeriod(1) | Out-Null } catch { }\""
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "General / Core",
+      "note": "Converted from toggle (missing revert)."
+    },
+    {
+      "id": "core.theme_darkmode__windows.core",
+      "type": "toggle",
+      "name": "Windows Dark Mode",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Toggles Windows dark/light mode (Apps + System). Restarts Explorer to apply immediately.",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize",
+            "name": "AppsUseLightTheme",
+            "value": 0,
+            "valueType": "DWord"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize",
+            "name": "SystemUsesLightTheme",
+            "value": 0,
+            "valueType": "DWord"
+          },
+          {
+            "type": "process.kill",
+            "name": "explorer",
+            "force": true
+          },
+          {
+            "type": "process.start",
+            "filePath": "explorer.exe",
+            "arguments": ""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize",
+            "name": "AppsUseLightTheme",
+            "value": 1,
+            "valueType": "DWord"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize",
+            "name": "SystemUsesLightTheme",
+            "value": 1,
+            "valueType": "DWord"
+          },
+          {
+            "type": "process.kill",
+            "name": "explorer",
+            "force": true
+          },
+          {
+            "type": "process.start",
+            "filePath": "explorer.exe",
+            "arguments": ""
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "General / Core",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize",
+            "name": "AppsUseLightTheme",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "core_bcd_disable_dynamic_tick__windows.core",
+      "type": "button",
+      "name": "Apply: Disable Dynamic Tick",
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay] Disables dynamic tick for more consistent timers (requires reboot).",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "bcdedit /set disabledynamictick yes"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "bcdedit /deletevalue disabledynamictick"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "General / Core"
+    },
+    {
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay] Disables dynamic tick for more consistent timers (requires reboot).",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "General / Core",
+      "id": "core_bcd_disable_dynamic_tick__windows.core__revert",
+      "type": "button",
+      "name": "Revert: Disable Dynamic Tick",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "bcdedit /deletevalue disabledynamictick"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core_bcd_tsc_sync_enhanced__windows.core",
+      "type": "button",
+      "name": "Apply: TSC Sync Policy (Enhanced)",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets TSC sync policy to Enhanced (requires reboot).",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "bcdedit /set tscsyncpolicy Enhanced"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "bcdedit /deletevalue tscsyncpolicy"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "General / Core"
+    },
+    {
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets TSC sync policy to Enhanced (requires reboot).",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "General / Core",
+      "id": "core_bcd_tsc_sync_enhanced__windows.core__revert",
+      "type": "button",
+      "name": "Revert: TSC Sync Policy (Enhanced)",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "bcdedit /deletevalue tscsyncpolicy"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core_disable_power_throttling__windows.core",
+      "type": "toggle",
+      "name": "Disable Power Throttling",
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay] Disables Windows Power Throttling for better foreground performance.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Power\\PowerThrottling",
+            "name": "PowerThrottlingOff",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Power\\PowerThrottling",
+            "name": "PowerThrottlingOff"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "General / Core",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Power\\PowerThrottling",
+            "name": "PowerThrottlingOff",
+            "valueType": "DWord",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "core_disable_vbs__windows.core",
+      "type": "toggle",
+      "name": "Disable VBS (Virtualization Based Security)",
+      "risk": "Danger",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables VBS. Security tradeoff; may require reboot.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\DeviceGuard",
+            "name": "EnableVirtualizationBasedSecurity",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\DeviceGuard",
+            "name": "EnableVirtualizationBasedSecurity",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "General / Core",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\DeviceGuard",
+            "name": "EnableVirtualizationBasedSecurity",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "core_disable_hvci__windows.core",
+      "type": "toggle",
+      "name": "Disable Memory Integrity (HVCI)",
+      "risk": "Danger",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables HVCI/Memory Integrity. Security tradeoff; may require reboot.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\DeviceGuard\\Scenarios\\HypervisorEnforcedCodeIntegrity",
+            "name": "Enabled",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\DeviceGuard\\Scenarios\\HypervisorEnforcedCodeIntegrity",
+            "name": "Enabled",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "General / Core",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\DeviceGuard\\Scenarios\\HypervisorEnforcedCodeIntegrity",
+            "name": "Enabled",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "core_disable_wer_service__windows.core",
+      "type": "toggle",
+      "name": "Disable Windows Error Reporting Service",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables WER service to reduce background work.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "WerSvc",
+            "startType": "Disabled",
+            "stop": true
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "WerSvc",
+            "startType": "Manual"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "General / Core",
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "WerSvc",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "core_disable_sysmain__windows.core",
+      "type": "toggle",
+      "name": "Disable SysMain (Superfetch)",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables SysMain to reduce background disk activity.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "SysMain",
+            "startType": "Disabled",
+            "stop": true
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "SysMain",
+            "startType": "Automatic",
+            "start": true
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "General / Core",
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "SysMain",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "core_disable_search_indexer__windows.core",
+      "type": "toggle",
+      "name": "Disable Windows Search Indexer",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables Windows Search indexing service.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "WSearch",
+            "startType": "Disabled",
+            "stop": true
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "WSearch",
+            "startType": "Automatic",
+            "start": true
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "General / Core",
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "WSearch",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "core_disable_diagnostics_tracking__windows.core",
+      "type": "toggle",
+      "name": "Disable Diagnostics Tracking Service",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables Connected User Experiences and Telemetry service.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "DiagTrack",
+            "startType": "Disabled",
+            "stop": true
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "DiagTrack",
+            "startType": "Manual"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "General / Core",
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "DiagTrack",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "core_disable_scheduled_maintenance__windows.core",
+      "type": "button",
+      "name": "Apply: Disable Scheduled Maintenance",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables automatic maintenance tasks that can run in background.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Get-ScheduledTask | Where-Object {$_.TaskName -match 'Maintenance|Diagnostic|DiskDiagnostic|WinSAT'} | Disable-ScheduledTask -ErrorAction SilentlyContinue"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Get-ScheduledTask | Where-Object {$_.TaskName -match 'Maintenance|Diagnostic|DiskDiagnostic|WinSAT'} | Enable-ScheduledTask -ErrorAction SilentlyContinue"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "General / Core"
+    },
+    {
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables automatic maintenance tasks that can run in background.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "General / Core",
+      "id": "core_disable_scheduled_maintenance__windows.core__revert",
+      "type": "button",
+      "name": "Revert: Disable Scheduled Maintenance",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Get-ScheduledTask | Where-Object {$_.TaskName -match 'Maintenance|Diagnostic|DiskDiagnostic|WinSAT'} | Enable-ScheduledTask -ErrorAction SilentlyContinue"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core_disable_background_apps__windows.core",
+      "type": "toggle",
+      "name": "Disable Background Apps",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables background apps capability for current user.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\BackgroundAccessApplications",
+            "name": "GlobalUserDisabled",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\BackgroundAccessApplications",
+            "name": "GlobalUserDisabled"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "General / Core",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\BackgroundAccessApplications",
+            "name": "GlobalUserDisabled",
+            "valueType": "DWord",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "core_disable_game_dvr__windows.core",
+      "type": "toggle",
+      "name": "Disable Game DVR (Global)",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables GameDVR/GameBar recording backend.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\System\\GameConfigStore",
+            "name": "GameDVR_Enabled",
+            "value": 0,
+            "valueType": "DWord"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\GameDVR",
+            "name": "AppCaptureEnabled",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\System\\GameConfigStore",
+            "name": "GameDVR_Enabled",
+            "value": 1,
+            "valueType": "DWord"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\GameDVR",
+            "name": "AppCaptureEnabled",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "General / Core",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\System\\GameConfigStore",
+            "name": "GameDVR_Enabled",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "core_disable_hibernation__windows.core",
+      "type": "button",
+      "name": "Apply: Disable Hibernation",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables hibernation (also disables Fast Startup).",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg /hibernate off"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg /hibernate on"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "General / Core"
+    },
+    {
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables hibernation (also disables Fast Startup).",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "General / Core",
+      "id": "core_disable_hibernation__windows.core__revert",
+      "type": "button",
+      "name": "Revert: Disable Hibernation",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg /hibernate on"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core_disable_fast_startup__windows.core",
+      "type": "toggle",
+      "name": "Disable Fast Startup",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables Fast Startup.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Power",
+            "name": "HiberbootEnabled",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Power",
+            "name": "HiberbootEnabled",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "General / Core",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Power",
+            "name": "HiberbootEnabled",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "core_disable_transparency__windows.core",
+      "type": "toggle",
+      "name": "Disable Transparency",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables transparency effects.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize",
+            "name": "EnableTransparency",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize",
+            "name": "EnableTransparency",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "General / Core",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize",
+            "name": "EnableTransparency",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "core_disable_startup_delay__windows.core",
+      "type": "toggle",
+      "name": "Disable Startup Delay",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables Windows startup delay.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Serialize",
+            "name": "StartupDelayInMSec",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Serialize",
+            "name": "StartupDelayInMSec"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "General / Core",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Serialize",
+            "name": "StartupDelayInMSec",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "core_disable_ntfs_last_access__windows.core",
+      "type": "button",
+      "name": "Apply: Disable NTFS Last Access Updates",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables last access timestamps on NTFS.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "fsutil behavior set disablelastaccess 1"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "fsutil behavior set disablelastaccess 0"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "General / Core"
+    },
+    {
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables last access timestamps on NTFS.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "General / Core",
+      "id": "core_disable_ntfs_last_access__windows.core__revert",
+      "type": "button",
+      "name": "Revert: Disable NTFS Last Access Updates",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "fsutil behavior set disablelastaccess 0"
+          }
+        ]
+      }
+    },
+    {
+      "id": "core_disable_delivery_optimization__windows.core",
+      "type": "toggle",
+      "name": "Disable Delivery Optimization",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables Delivery Optimization service.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "DoSvc",
+            "startType": "Disabled",
+            "stop": true
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "DoSvc",
+            "startType": "Manual"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "General / Core",
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "DoSvc",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "core_disable_windows_tips__windows.core",
+      "type": "toggle",
+      "name": "Disable Windows Tips",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables tips, tricks, and suggestions.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+            "name": "SubscribedContent-338388Enabled",
+            "value": 0,
+            "valueType": "DWord"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+            "name": "SubscribedContent-338389Enabled",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+            "name": "SubscribedContent-338388Enabled"
+          },
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+            "name": "SubscribedContent-338389Enabled"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "General / Core",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+            "name": "SubscribedContent-338388Enabled",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "core_explorer_restart__windows.core",
+      "type": "button",
+      "name": "Restart Explorer (Apply UI Changes)",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Restarts Windows Explorer to apply UI-related tweaks instantly.",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Stop-Process -Name explorer -Force; Start-Process explorer"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "category": "General / Core"
+    },
+    {
+      "id": "core_disable_widgets__windows.core",
+      "type": "toggle",
+      "name": "Disable Windows Widgets",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables Widgets/News and Interests.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Dsh",
+            "name": "AllowNewsAndInterests",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Dsh",
+            "name": "AllowNewsAndInterests"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "General / Core",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Dsh",
+            "name": "AllowNewsAndInterests",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "core_disable_cortana__windows.core",
+      "type": "toggle",
+      "name": "Disable Cortana",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables Cortana.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search",
+            "name": "AllowCortana",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search",
+            "name": "AllowCortana"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "General / Core",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search",
+            "name": "AllowCortana",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "core_disable_telemetry_policies__windows.core",
+      "type": "toggle",
+      "name": "Reduce Telemetry (Policy)",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets telemetry collection to minimum (policy-based).",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\DataCollection",
+            "name": "AllowTelemetry",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\DataCollection",
+            "name": "AllowTelemetry"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "General / Core",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\DataCollection",
+            "name": "AllowTelemetry",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "core_disable_windows_update_pauses__windows.core",
+      "type": "toggle",
+      "name": "Disable Windows Update Auto-Reboot",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Reduces forced update restarts during active hours.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU",
+            "name": "NoAutoRebootWithLoggedOnUsers",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU",
+            "name": "NoAutoRebootWithLoggedOnUsers"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "General / Core",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU",
+            "name": "NoAutoRebootWithLoggedOnUsers",
+            "valueType": "DWord",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "core_disable_mitigations__windows.core",
+      "type": "toggle",
+      "name": "Disable Spectre/Meltdown Mitigations",
+      "risk": "Danger",
+      "description": "[Focus: FPS, Latency / Input Delay] Advanced: disables CPU vulnerability mitigations for performance. Security tradeoff; reboot required.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management",
+            "name": "FeatureSettingsOverride",
+            "value": 3,
+            "valueType": "DWord"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management",
+            "name": "FeatureSettingsOverrideMask",
+            "value": 3,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management",
+            "name": "FeatureSettingsOverride"
+          },
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management",
+            "name": "FeatureSettingsOverrideMask"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "General / Core",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management",
+            "name": "FeatureSettingsOverride",
+            "valueType": "DWord",
+            "equals": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "core_disable_clipboard_history__windows.core",
+      "type": "toggle",
+      "name": "Disable Clipboard History",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables clipboard history & sync.",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Clipboard",
+            "name": "EnableClipboardHistory",
+            "value": 0,
+            "valueType": "DWord"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Clipboard",
+            "name": "CloudClipboardAutomaticUpload",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Clipboard",
+            "name": "EnableClipboardHistory"
+          },
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Clipboard",
+            "name": "CloudClipboardAutomaticUpload"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "General / Core",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Software\\Microsoft\\Clipboard",
+            "name": "EnableClipboardHistory",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "core.timer_start_persistent__windows.core",
+      "name": "Start Timer Resolution Helper (0.500ms)",
+      "category": "General / Core",
+      "type": "action",
+      "description": "[Focus: Latency / Input Delay] Starts a background helper that keeps 0.500ms timer resolution active until stopped.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "excludeFromApplyAll": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "# Start helper if not already running\ntry {\n  $exists = Get-CimInstance Win32_Process -Filter \"Name='powershell.exe'\" -ErrorAction SilentlyContinue |\n    Where-Object { $_.CommandLine -like \"*timer-helper.ps1*\" }\n  if($exists){ return }\n} catch {}\n$helper = Join-Path $PSScriptRoot \"timer-helper.ps1\"\nStart-Process -FilePath \"powershell.exe\" -ArgumentList (\"-NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File `\"\" + $helper + \"`\" -Resolution 5000\") -WindowStyle Hidden"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "core.timer_stop_persistent__windows.core",
+      "name": "Stop Timer Resolution Helper",
+      "category": "General / Core",
+      "type": "action",
+      "description": "[Focus: Latency / Input Delay] Stops the timer resolution helper and resets timer resolution request.",
+      "riskLevel": "Safe",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "try {\n  $procs = Get-CimInstance Win32_Process -Filter \"Name='powershell.exe'\" -ErrorAction SilentlyContinue |\n    Where-Object { $_.CommandLine -like \"*timer-helper.ps1*\" }\n  if($procs){\n    foreach($p in $procs){\n      try { Stop-Process -Id $p.ProcessId -Force -ErrorAction SilentlyContinue } catch {}\n    }\n  }\n} catch {}"
+          },
+          {
+            "type": "timer.reset"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "core.enable_hags__windows.core",
+      "type": "toggle",
+      "name": "Hardware-Accelerated GPU Scheduling (HAGS)",
+      "risk": "Warning",
+      "description": "[Focus: FPS] Toggles Hardware-Accelerated GPU Scheduling via GraphicsDrivers\\HwSchMode. Can help newer GPUs; may hurt older ones.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\GraphicsDrivers",
+            "name": "HwSchMode",
+            "value": 2,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\GraphicsDrivers",
+            "name": "HwSchMode"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "General / Core",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\GraphicsDrivers",
+            "name": "HwSchMode",
+            "valueType": "DWord",
+            "equals": 2
+          }
+        ]
+      }
+    },
+    {
+      "id": "core.disable_mpo__windows.core",
+      "type": "toggle",
+      "name": "Disable MPO (Multiplane Overlay)",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables DWM Multiplane Overlay via OverlayTestMode=5. Can fix stutter/flicker on some systems.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Microsoft\\Windows\\Dwm",
+            "name": "OverlayTestMode",
+            "value": 5,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Microsoft\\Windows\\Dwm",
+            "name": "OverlayTestMode"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "General / Core",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SOFTWARE\\Microsoft\\Windows\\Dwm",
+            "name": "OverlayTestMode",
+            "valueType": "DWord",
+            "equals": 5
+          }
+        ]
+      }
+    }
+  ]
+}

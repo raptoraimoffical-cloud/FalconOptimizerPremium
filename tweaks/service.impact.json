@@ -1,0 +1,1220 @@
+{
+  "items": [
+    {
+      "id": "service_lab_backup_restorepoint__service.impact",
+      "type": "action",
+      "name": "Create Service Backup + Restore Point",
+      "description": "Snapshots current Start types for all managed services and attempts a Windows Restore Point. Required before applying presets.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Service Impact Lab / Presets",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "path": "scripts/services/falcon-service-pack.ps1",
+            "args": [
+              "-Action",
+              "backup"
+            ]
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Backup creation is non-destructive and does not require revert.\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "service_lab_apply_updatesafe__service.impact",
+      "type": "action",
+      "name": "Apply Service Preset: Update-Safe",
+      "description": "Disables the full performance service set while protecting Windows Update + driver installation services.",
+      "requiresAdmin": true,
+      "riskLevel": "Medium",
+      "category": "Service Impact Lab / Presets",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "path": "scripts/services/falcon-service-pack.ps1",
+            "args": [
+              "-Action",
+              "apply_safe"
+            ]
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "path": "scripts/services/falcon-service-pack.ps1",
+            "args": [
+              "-Action",
+              "restore"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "service_lab_apply_performance__service.impact",
+      "type": "action",
+      "name": "Apply Service Preset: Performance",
+      "description": "Performance-focused preset with update/driver protection. Uses the same full list with safe guards; combine with custom overrides for per-service tuning.",
+      "requiresAdmin": true,
+      "riskLevel": "Medium",
+      "category": "Service Impact Lab / Presets",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "path": "scripts/services/falcon-service-pack.ps1",
+            "args": [
+              "-Action",
+              "apply_performance"
+            ]
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "path": "scripts/services/falcon-service-pack.ps1",
+            "args": [
+              "-Action",
+              "restore"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "service_lab_apply_latency__service.impact",
+      "type": "action",
+      "name": "Apply Service Preset: Latency",
+      "description": "Latency-focused preset with update/driver protection. Combine with custom overrides for best per-PC results.",
+      "requiresAdmin": true,
+      "riskLevel": "Medium",
+      "category": "Service Impact Lab / Presets",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "path": "scripts/services/falcon-service-pack.ps1",
+            "args": [
+              "-Action",
+              "apply_latency"
+            ]
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "path": "scripts/services/falcon-service-pack.ps1",
+            "args": [
+              "-Action",
+              "restore"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "service_lab_apply_extreme__service.impact",
+      "type": "action",
+      "name": "Apply Service Preset: Extreme (Breaks Updates)",
+      "description": "Disables everything in the managed list, including update/driver-critical services. Not recommended unless you know how to recover.",
+      "requiresAdmin": true,
+      "riskLevel": "High",
+      "category": "Service Impact Lab / Presets",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "path": "scripts/services/falcon-service-pack.ps1",
+            "args": [
+              "-Action",
+              "apply_extreme"
+            ]
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "path": "scripts/services/falcon-service-pack.ps1",
+            "args": [
+              "-Action",
+              "restore"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "service_lab_restore__service.impact",
+      "type": "action",
+      "name": "Restore Services from Backup",
+      "description": "Restores Start types for all managed services from the last backup snapshot.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Service Impact Lab / Presets",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "path": "scripts/services/falcon-service-pack.ps1",
+            "args": [
+              "-Action",
+              "restore"
+            ]
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Restore is itself the revert action.\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "service_lab_overrides_ensure__service.impact",
+      "type": "action",
+      "name": "Create / Open Custom Overrides File",
+      "description": "Creates the overrides JSON (if missing) and opens it so you can set per-service custom Start types (2=Auto, 3=Manual, 4=Disabled) and stop behavior.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Service Impact Lab / Custom Values",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "path": "scripts/services/falcon-service-pack.ps1",
+            "args": [
+              "-Action",
+              "ensure_overrides"
+            ]
+          },
+          {
+            "type": "open.path",
+            "path": "C:\\\\ProgramData\\\\FalconOptimizer"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Custom overrides file creation is non-destructive.\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "service_impact_baseline__service.impact",
+      "type": "action",
+      "name": "Capture Baseline Snapshot",
+      "description": "[Analyzer] Records CPU/DPC/ISR %, RAM, process count, and top processes into a JSON baseline file before changes.",
+      "requiresAdmin": false,
+      "riskLevel": "Safe",
+      "category": "Service Impact Lab / Snapshots",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"=== FALCON SERVICE IMPACT LAB: BASELINE SNAPSHOT ===\"\nWrite-Output \"\"\nWrite-Output \"Capturing a baseline performance snapshot (CPU, DPC/ISR %, RAM, process count, top processes).\"\nWrite-Output \"Run this BEFORE disabling services, then run the AFTER snapshot and compare.\"\nWrite-Output \"\"\n\n$logsDir = Join-Path $PSScriptRoot \"..\\logs\"\ntry {\n  if (-not (Test-Path $logsDir)) {\n    New-Item -ItemType Directory -Path $logsDir -Force | Out-Null\n  }\n} catch {\n  Write-Output \"Failed to create logs directory.\"\n}\n\n$timestamp = Get-Date -Format \"yyyyMMdd_HHmmss\"\n$snapFile = Join-Path $logsDir (\"service_baseline_{0}.json\" -f $timestamp)\n\n# Collect counters\n$data = [ordered]@{}\n$data.TimestampUtc = (Get-Date).ToUniversalTime().ToString(\"o\")\n\ntry {\n  $cpu = Get-Counter '\\Processor(_Total)\\% Processor Time' -ErrorAction SilentlyContinue\n  if ($cpu) { $data.CpuPercent = [math]::Round($cpu.CounterSamples[0].CookedValue, 2) }\n} catch {}\ntry {\n  $dpc = Get-Counter '\\Processor(_Total)\\% DPC Time' -ErrorAction SilentlyContinue\n  if ($dpc) { $data.DpcPercent = [math]::Round($dpc.CounterSamples[0].CookedValue, 3) }\n} catch {}\ntry {\n  $isr = Get-Counter '\\Processor(_Total)\\% Interrupt Time' -ErrorAction SilentlyContinue\n  if ($isr) { $data.IsrPercent = [math]::Round($isr.CounterSamples[0].CookedValue, 3) }\n} catch {}\n\ntry {\n  $os = Get-CimInstance Win32_OperatingSystem\n  if ($os) {\n    $total = [double]$os.TotalVisibleMemorySize\n    $free  = [double]$os.FreePhysicalMemory\n    $usedMB = ($total - $free) / 1024.0\n    $totalMB = $total / 1024.0\n    $data.RamUsedMB = [math]::Round($usedMB, 1)\n    $data.RamTotalMB = [math]::Round($totalMB, 1)\n    $data.RamUsedPercent = [math]::Round(($usedMB / $totalMB) * 100.0, 1)\n  }\n} catch {}\n\ntry {\n  $procs = Get-Process -ErrorAction SilentlyContinue\n  if ($procs) {\n    $data.ProcessCount = $procs.Count\n    $top = $procs | Sort-Object CPU -Descending | Select-Object -First 10 | ForEach-Object {\n      [ordered]@{\n        Name   = $_.ProcessName\n        Id     = $_.Id\n        CPU    = $_.CPU\n        WS_MB  = [math]::Round(($_.WorkingSet64 / 1MB), 1)\n      }\n    }\n    $data.TopProcesses = $top\n  }\n} catch {}\n\n$json = $data | ConvertTo-Json -Depth 4\n$json | Out-File -FilePath $snapFile -Encoding UTF8 -Force\n\nWrite-Output (\"Baseline snapshot saved to: {0}\" -f $snapFile)\nWrite-Output \"Now: disable the services you want to test, then run the 'AFTER Snapshot & Compare' action.\"\nWrite-Output \"=== END OF BASELINE SNAPSHOT ===\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nBaseline capture is read-only and requires no revert.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "id": "service_impact_after_compare__service.impact",
+      "type": "action",
+      "name": "Capture AFTER Snapshot & Compare",
+      "description": "[Analyzer] Takes a new snapshot after you change services and compares metrics to the latest baseline.",
+      "requiresAdmin": false,
+      "riskLevel": "Safe",
+      "category": "Service Impact Lab / Snapshots",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"=== FALCON SERVICE IMPACT LAB: AFTER SNAPSHOT & COMPARE ===\"\nWrite-Output \"\"\nWrite-Output \"Capturing a new snapshot and comparing against the latest baseline.\"\nWrite-Output \"\"\n\n$logsDir = Join-Path $PSScriptRoot \"..\\logs\"\nif (-not (Test-Path $logsDir)) {\n  Write-Output \"No logs directory found. Run the baseline snapshot first.\"\n  return\n}\n\n# Find latest baseline file\n$baselineFiles = Get-ChildItem $logsDir -Filter \"service_baseline_*.json\" -ErrorAction SilentlyContinue | Sort-Object LastWriteTime -Descending\nif (-not $baselineFiles -or $baselineFiles.Count -eq 0) {\n  Write-Output \"No baseline snapshot found. Run the baseline snapshot before using this.\"\n  return\n}\n\n$baselineFile = $baselineFiles[0].FullName\nWrite-Output (\"Using baseline: {0}\" -f $baselineFile)\n\n# Load baseline JSON\ntry {\n  $baselineJson = Get-Content $baselineFile -Raw -ErrorAction SilentlyContinue\n  $baseline = $baselineJson | ConvertFrom-Json -ErrorAction SilentlyContinue\n} catch {\n  Write-Output \"Failed to parse baseline JSON.\"\n  return\n}\n\n# Capture current snapshot\n$timestamp = Get-Date -Format \"yyyyMMdd_HHmmss\"\n$afterFile = Join-Path $logsDir (\"service_after_{0}.json\" -f $timestamp)\n\n$data = [ordered]@{}\n$data.TimestampUtc = (Get-Date).ToUniversalTime().ToString(\"o\")\n\ntry {\n  $cpu = Get-Counter '\\Processor(_Total)\\% Processor Time' -ErrorAction SilentlyContinue\n  if ($cpu) { $data.CpuPercent = [math]::Round($cpu.CounterSamples[0].CookedValue, 2) }\n} catch {}\ntry {\n  $dpc = Get-Counter '\\Processor(_Total)\\% DPC Time' -ErrorAction SilentlyContinue\n  if ($dpc) { $data.DpcPercent = [math]::Round($dpc.CounterSamples[0].CookedValue, 3) }\n} catch {}\ntry {\n  $isr = Get-Counter '\\Processor(_Total)\\% Interrupt Time' -ErrorAction SilentlyContinue\n  if ($isr) { $data.IsrPercent = [math]::Round($isr.CounterSamples[0].CookedValue, 3) }\n} catch {}\n\ntry {\n  $os = Get-CimInstance Win32_OperatingSystem\n  if ($os) {\n    $total = [double]$os.TotalVisibleMemorySize\n    $free  = [double]$os.FreePhysicalMemory\n    $usedMB = ($total - $free) / 1024.0\n    $totalMB = $total / 1024.0\n    $data.RamUsedMB = [math]::Round($usedMB, 1)\n    $data.RamTotalMB = [math]::Round($totalMB, 1)\n    $data.RamUsedPercent = [math]::Round(($usedMB / $totalMB) * 100.0, 1)\n  }\n} catch {}\n\ntry {\n  $procs = Get-Process -ErrorAction SilentlyContinue\n  if ($procs) {\n    $data.ProcessCount = $procs.Count\n  }\n} catch {}\n\n$jsonAfter = $data | ConvertTo-Json -Depth 4\n$jsonAfter | Out-File -FilePath $afterFile -Encoding UTF8 -Force\n\nWrite-Output (\"After snapshot saved to: {0}\" -f $afterFile)\nWrite-Output \"\"\n\n# Compare key metrics\nfunction Print-Diff($label, $baseVal, $afterVal, $format = \"N2\") {\n  if ($null -eq $baseVal -or $null -eq $afterVal) {\n    return\n  }\n  $delta = $afterVal - $baseVal\n  $sign = if ($delta -gt 0) { \"+\" } elseif ($delta -lt 0) { \"-\" } else { \"±\" }\n  Write-Output (\"{0}: Baseline={1}, After={2}, Delta={3}{4}\" -f $label, [string]::Format(\"{0:\"+$format+\"}\",$baseVal), [string]::Format(\"{0:\"+$format+\"}\",$afterVal), $sign, [string]::Format(\"{0:\"+$format+\"}\",[math]::Abs($delta)))\n}\n\nWrite-Output \"=== Metric Comparison ===\"\nPrint-Diff \"CPU % (_Total)\"    $baseline.CpuPercent     $data.CpuPercent     \"N2\"\nPrint-Diff \"DPC % (_Total)\"    $baseline.DpcPercent     $data.DpcPercent     \"N3\"\nPrint-Diff \"ISR % (_Total)\"    $baseline.IsrPercent     $data.IsrPercent     \"N3\"\nPrint-Diff \"RAM Used MB\"       $baseline.RamUsedMB      $data.RamUsedMB      \"N1\"\nPrint-Diff \"RAM Used %\"        $baseline.RamUsedPercent $data.RamUsedPercent \"N1\"\nPrint-Diff \"Process Count\"     $baseline.ProcessCount   $data.ProcessCount   \"N0\"\n\nWrite-Output \"\"\nWrite-Output \"Heuristic notes:\"\nWrite-Output \"  - Lower CPU%, DPC%, ISR% and RAM usage after disabling services is good.\"\nWrite-Output \"  - If CPU or DPC/ISR got worse, the changes likely did not help or increased overhead.\"\nWrite-Output \"\"\nWrite-Output \"Use this as a data point while testing different service sets; it does not auto-disable services by itself.\"\nWrite-Output \"=== END OF AFTER SNAPSHOT & COMPARE ===\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nAfter snapshot and comparison are read-only and require no revert.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "id": "service_impact_list_services__service.impact",
+      "type": "action",
+      "name": "List Running Services & Top Processes",
+      "description": "[Helper] Lists running services and top CPU processes to help you decide which presets or services to test.",
+      "requiresAdmin": false,
+      "riskLevel": "Safe",
+      "category": "Service Impact Lab / Helper",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"=== FALCON SERVICE IMPACT LAB: SERVICE & PROCESS VIEW ===\"\nWrite-Output \"\"\nWrite-Output \"Listing running services and top processes to help you decide what to target.\"\nWrite-Output \"\"\n\ntry {\n  $svc = Get-Service | Where-Object { $_.Status -eq 'Running' } | Sort-Object DisplayName\n  Write-Output (\"Running services: {0}\" -f $svc.Count)\n  foreach ($s in $svc) {\n    Write-Output (\"  {0} ({1}) - Status: {2}\" -f $s.DisplayName, $s.Name, $s.Status)\n  }\n} catch {\n  Write-Output \"Failed to query services.\"\n}\n\nWrite-Output \"\"\nWrite-Output \"Top 15 processes by CPU time:\"\ntry {\n  $procs = Get-Process -ErrorAction SilentlyContinue\n  if ($procs) {\n    $top = $procs | Sort-Object CPU -Descending | Select-Object -First 15\n    foreach ($p in $top) {\n      Write-Output (\"  {0} (PID {1}) CPU={2} WS={3} MB\" -f $p.ProcessName, $p.Id, $p.CPU, [math]::Round($p.WorkingSet64/1MB,1))\n    }\n  }\n} catch {\n  Write-Output \"Failed to query process list.\"\n}\n\nWrite-Output \"\"\nWrite-Output \"Use this listing to choose candidates for Falcon's existing process/service disable presets.\"\nWrite-Output \"=== END OF SERVICE & PROCESS VIEW ===\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nListing is read-only and requires no revert.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "id": "svc_disable_diagtrack__service.impact",
+      "type": "toggle",
+      "name": "Disable DiagTrack",
+      "description": "Stops and disables a background service.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Service Impact Lab / Toggles",
+      "apply": {
+        "steps": [
+          {
+            "type": "service.disable",
+            "name": "DiagTrack"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.enable",
+            "name": "DiagTrack"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "DiagTrack",
+            "startupType": "disabled"
+          }
+        ]
+      }
+    },
+    {
+      "id": "svc_disable_sysmain__service.impact",
+      "type": "toggle",
+      "name": "Disable SysMain",
+      "description": "Stops and disables a background service.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Service Impact Lab / Toggles",
+      "apply": {
+        "steps": [
+          {
+            "type": "service.disable",
+            "name": "SysMain"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.enable",
+            "name": "SysMain"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "SysMain",
+            "startupType": "disabled"
+          }
+        ]
+      }
+    },
+    {
+      "id": "svc_disable_wsearch__service.impact",
+      "type": "toggle",
+      "name": "Disable WSearch",
+      "description": "Stops and disables a background service.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Service Impact Lab / Toggles",
+      "apply": {
+        "steps": [
+          {
+            "type": "service.disable",
+            "name": "WSearch"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.enable",
+            "name": "WSearch"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "WSearch",
+            "startupType": "disabled"
+          }
+        ]
+      }
+    },
+    {
+      "id": "svc_disable_wersvc__service.impact",
+      "type": "toggle",
+      "name": "Disable WerSvc",
+      "description": "Stops and disables a background service.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Service Impact Lab / Toggles",
+      "apply": {
+        "steps": [
+          {
+            "type": "service.disable",
+            "name": "WerSvc"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.enable",
+            "name": "WerSvc"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "WerSvc",
+            "startupType": "disabled"
+          }
+        ]
+      }
+    },
+    {
+      "id": "svc_disable_mapsbroker__service.impact",
+      "type": "toggle",
+      "name": "Disable MapsBroker",
+      "description": "Stops and disables a background service.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Service Impact Lab / Toggles",
+      "apply": {
+        "steps": [
+          {
+            "type": "service.disable",
+            "name": "MapsBroker"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.enable",
+            "name": "MapsBroker"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "MapsBroker",
+            "startupType": "disabled"
+          }
+        ]
+      }
+    },
+    {
+      "id": "svc_disable_fax__service.impact",
+      "type": "toggle",
+      "name": "Disable Fax",
+      "description": "Stops and disables a background service.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Service Impact Lab / Toggles",
+      "apply": {
+        "steps": [
+          {
+            "type": "service.disable",
+            "name": "Fax"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.enable",
+            "name": "Fax"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "Fax",
+            "startupType": "disabled"
+          }
+        ]
+      }
+    },
+    {
+      "id": "svc_disable_spooler__service.impact",
+      "type": "toggle",
+      "name": "Disable Spooler",
+      "description": "Stops and disables a background service.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Service Impact Lab / Toggles",
+      "apply": {
+        "steps": [
+          {
+            "type": "service.disable",
+            "name": "Spooler"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.enable",
+            "name": "Spooler"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "Spooler",
+            "startupType": "disabled"
+          }
+        ]
+      }
+    },
+    {
+      "id": "svc_disable_wmpnetworksvc__service.impact",
+      "type": "toggle",
+      "name": "Disable WMPNetworkSvc",
+      "description": "Stops and disables a background service.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Service Impact Lab / Toggles",
+      "apply": {
+        "steps": [
+          {
+            "type": "service.disable",
+            "name": "WMPNetworkSvc"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.enable",
+            "name": "WMPNetworkSvc"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "WMPNetworkSvc",
+            "startupType": "disabled"
+          }
+        ]
+      }
+    },
+    {
+      "id": "svc_disable_wbiosrvc__service.impact",
+      "type": "toggle",
+      "name": "Disable WbioSrvc",
+      "description": "Stops and disables a background service.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Service Impact Lab / Toggles",
+      "apply": {
+        "steps": [
+          {
+            "type": "service.disable",
+            "name": "WbioSrvc"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.enable",
+            "name": "WbioSrvc"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "WbioSrvc",
+            "startupType": "disabled"
+          }
+        ]
+      }
+    },
+    {
+      "id": "svc_disable_wpnservice__service.impact",
+      "type": "toggle",
+      "name": "Disable WpnService",
+      "description": "Stops and disables a background service.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Service Impact Lab / Toggles",
+      "apply": {
+        "steps": [
+          {
+            "type": "service.disable",
+            "name": "WpnService"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.enable",
+            "name": "WpnService"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "WpnService",
+            "startupType": "disabled"
+          }
+        ]
+      }
+    },
+    {
+      "id": "svc_disable_xblauthmanager__service.impact",
+      "type": "toggle",
+      "name": "Disable XblAuthManager",
+      "description": "Stops and disables a background service.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Service Impact Lab / Toggles",
+      "apply": {
+        "steps": [
+          {
+            "type": "service.disable",
+            "name": "XblAuthManager"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.enable",
+            "name": "XblAuthManager"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "XblAuthManager",
+            "startupType": "disabled"
+          }
+        ]
+      }
+    },
+    {
+      "id": "svc_disable_xblgamesave__service.impact",
+      "type": "toggle",
+      "name": "Disable XblGameSave",
+      "description": "Stops and disables a background service.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Service Impact Lab / Toggles",
+      "apply": {
+        "steps": [
+          {
+            "type": "service.disable",
+            "name": "XblGameSave"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.enable",
+            "name": "XblGameSave"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "XblGameSave",
+            "startupType": "disabled"
+          }
+        ]
+      }
+    },
+    {
+      "id": "svc_disable_xboxgipsvc__service.impact",
+      "type": "toggle",
+      "name": "Disable XboxGipSvc",
+      "description": "Stops and disables a background service.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Service Impact Lab / Toggles",
+      "apply": {
+        "steps": [
+          {
+            "type": "service.disable",
+            "name": "XboxGipSvc"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.enable",
+            "name": "XboxGipSvc"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "XboxGipSvc",
+            "startupType": "disabled"
+          }
+        ]
+      }
+    },
+    {
+      "id": "svc_disable_xboxnetapisvc__service.impact",
+      "type": "toggle",
+      "name": "Disable XboxNetApiSvc",
+      "description": "Stops and disables a background service.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Service Impact Lab / Toggles",
+      "apply": {
+        "steps": [
+          {
+            "type": "service.disable",
+            "name": "XboxNetApiSvc"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.enable",
+            "name": "XboxNetApiSvc"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "XboxNetApiSvc",
+            "startupType": "disabled"
+          }
+        ]
+      }
+    },
+    {
+      "id": "svc_disable_pcasvc__service.impact",
+      "type": "toggle",
+      "name": "Disable PcaSvc",
+      "description": "Stops and disables a background service.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Service Impact Lab / Toggles",
+      "apply": {
+        "steps": [
+          {
+            "type": "service.disable",
+            "name": "PcaSvc"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.enable",
+            "name": "PcaSvc"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "PcaSvc",
+            "startupType": "disabled"
+          }
+        ]
+      }
+    },
+    {
+      "id": "svc_disable_remoteregistry__service.impact",
+      "type": "toggle",
+      "name": "Disable RemoteRegistry",
+      "description": "Stops and disables a background service.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Service Impact Lab / Toggles",
+      "apply": {
+        "steps": [
+          {
+            "type": "service.disable",
+            "name": "RemoteRegistry"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.enable",
+            "name": "RemoteRegistry"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "RemoteRegistry",
+            "startupType": "disabled"
+          }
+        ]
+      }
+    },
+    {
+      "id": "svc_disable_w32time__service.impact",
+      "type": "toggle",
+      "name": "Disable W32Time",
+      "description": "Stops and disables a background service.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Service Impact Lab / Toggles",
+      "apply": {
+        "steps": [
+          {
+            "type": "service.disable",
+            "name": "W32Time"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.enable",
+            "name": "W32Time"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "W32Time",
+            "startupType": "disabled"
+          }
+        ]
+      }
+    },
+    {
+      "id": "svc_disable_printnotify__service.impact",
+      "type": "toggle",
+      "name": "Disable PrintNotify",
+      "description": "Stops and disables a background service.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Service Impact Lab / Toggles",
+      "apply": {
+        "steps": [
+          {
+            "type": "service.disable",
+            "name": "PrintNotify"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.enable",
+            "name": "PrintNotify"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "PrintNotify",
+            "startupType": "disabled"
+          }
+        ]
+      }
+    },
+    {
+      "id": "svc_disable_bthavctpsvc__service.impact",
+      "type": "toggle",
+      "name": "Disable BthAvctpSvc",
+      "description": "Stops and disables a background service.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Service Impact Lab / Toggles",
+      "apply": {
+        "steps": [
+          {
+            "type": "service.disable",
+            "name": "BthAvctpSvc"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.enable",
+            "name": "BthAvctpSvc"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "BthAvctpSvc",
+            "startupType": "disabled"
+          }
+        ]
+      }
+    },
+    {
+      "id": "svc_disable_bluetoothuserservice__service.impact",
+      "type": "toggle",
+      "name": "Disable BluetoothUserService",
+      "description": "Stops and disables a background service.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Service Impact Lab / Toggles",
+      "apply": {
+        "steps": [
+          {
+            "type": "service.disable",
+            "name": "BluetoothUserService"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.enable",
+            "name": "BluetoothUserService"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "BluetoothUserService",
+            "startupType": "disabled"
+          }
+        ]
+      }
+    },
+    {
+      "id": "svc_disable_lfsvc__service.impact",
+      "type": "toggle",
+      "name": "Disable lfsvc",
+      "description": "Stops and disables a background service.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Service Impact Lab / Toggles",
+      "apply": {
+        "steps": [
+          {
+            "type": "service.disable",
+            "name": "lfsvc"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.enable",
+            "name": "lfsvc"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "lfsvc",
+            "startupType": "disabled"
+          }
+        ]
+      }
+    },
+    {
+      "id": "svc_disable_waasmedicsvc__service.impact",
+      "type": "toggle",
+      "name": "Disable WaaSMedicSvc",
+      "description": "Stops and disables a background service.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Service Impact Lab / Toggles",
+      "apply": {
+        "steps": [
+          {
+            "type": "service.disable",
+            "name": "WaaSMedicSvc"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.enable",
+            "name": "WaaSMedicSvc"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "WaaSMedicSvc",
+            "startupType": "disabled"
+          }
+        ]
+      }
+    },
+    {
+      "id": "svc_disable_dosvc__service.impact",
+      "type": "toggle",
+      "name": "Disable DoSvc",
+      "description": "Stops and disables a background service.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Service Impact Lab / Toggles",
+      "apply": {
+        "steps": [
+          {
+            "type": "service.disable",
+            "name": "DoSvc"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.enable",
+            "name": "DoSvc"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "DoSvc",
+            "startupType": "disabled"
+          }
+        ]
+      }
+    },
+    {
+      "id": "svc_disable_bits__service.impact",
+      "type": "toggle",
+      "name": "Disable BITS",
+      "description": "Stops and disables a background service.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Service Impact Lab / Toggles",
+      "apply": {
+        "steps": [
+          {
+            "type": "service.disable",
+            "name": "BITS"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.enable",
+            "name": "BITS"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "BITS",
+            "startupType": "disabled"
+          }
+        ]
+      }
+    },
+    {
+      "id": "svc_disable_usosvc__service.impact",
+      "type": "toggle",
+      "name": "Disable UsoSvc",
+      "description": "Stops and disables a background service.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Service Impact Lab / Toggles",
+      "apply": {
+        "steps": [
+          {
+            "type": "service.disable",
+            "name": "UsoSvc"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.enable",
+            "name": "UsoSvc"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "UsoSvc",
+            "startupType": "disabled"
+          }
+        ]
+      }
+    },
+    {
+      "id": "service_preset_backup__service.impact",
+      "type": "action",
+      "name": "Create Backup + Restore Point",
+      "description": "Saves current service start types and attempts a restore point for safe rollback.",
+      "requiresAdmin": false,
+      "riskLevel": "Safe",
+      "category": "Service Impact Lab / Presets",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& \"$PSScriptRoot\\services\\falcon-service-pack.ps1\" -Action backup"
+          }
+        ]
+      }
+    },
+    {
+      "id": "service_preset_apply_safe__service.impact",
+      "type": "action",
+      "name": "Apply Preset (Update-safe)",
+      "description": "Disables non-essential services while preserving Windows Update and driver install capability.",
+      "requiresAdmin": true,
+      "riskLevel": "Medium",
+      "category": "Service Impact Lab / Presets",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& \"$PSScriptRoot\\services\\falcon-service-pack.ps1\" -Action apply_safe"
+          }
+        ]
+      }
+    },
+    {
+      "id": "service_preset_apply_aggressive__service.impact",
+      "type": "action",
+      "name": "Apply Preset (Aggressive)",
+      "description": "High-risk: disables the full service target list including update/driver-related services.",
+      "requiresAdmin": true,
+      "riskLevel": "High",
+      "category": "Service Impact Lab / Presets",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& \"$PSScriptRoot\\services\\falcon-service-pack.ps1\" -Action apply_aggressive"
+          }
+        ]
+      }
+    },
+    {
+      "id": "service_preset_restore__service.impact",
+      "type": "action",
+      "name": "Restore Services from Backup",
+      "description": "Restores service start types from the last backup snapshot.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Service Impact Lab / Presets",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "& \"$PSScriptRoot\\services\\falcon-service-pack.ps1\" -Action restore"
+          }
+        ]
+      }
+    }
+  ]
+}

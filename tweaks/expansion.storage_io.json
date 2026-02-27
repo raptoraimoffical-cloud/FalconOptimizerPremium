@@ -1,0 +1,482 @@
+{
+  "items": [
+    {
+      "id": "exp.storage.check_trim",
+      "type": "action",
+      "name": "Check TRIM Status",
+      "category": "Expansion / Storage & I/O",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Runs fsutil behavior query DisableDeleteNotify (0 means TRIM enabled).",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "fsutil behavior query DisableDeleteNotify"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe"
+    },
+    {
+      "id": "exp.storage.open_optimize_drives",
+      "type": "action",
+      "name": "Open Optimize Drives",
+      "category": "Expansion / Storage & I/O",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Opens Windows Optimize Drives UI.",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "run.exe",
+            "file": "dfrgui.exe",
+            "args": [],
+            "wait": false
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe"
+    },
+    {
+      "id": "exp.storage.docs.001",
+      "type": "button",
+      "name": "Run Microsoft storage performance guidance",
+      "category": "Expansion / Storage & I/O",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Reference storage performance topics.",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-server/storage/storage-spaces/performance"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.storage.docs.002",
+      "type": "button",
+      "name": "Run Defender exclusions documentation",
+      "category": "Expansion / Storage & I/O",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Reference for AV exclusions (security tradeoff).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/microsoft-365/security/defender-endpoint/configure-exclusions-microsoft-defender-antivirus"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.storage.placeholder_005",
+      "type": "button",
+      "name": "Storage Checklist Item",
+      "category": "Expansion / Storage & I/O",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-server/storage/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.storage.placeholder_006",
+      "type": "button",
+      "name": "Storage Checklist Item",
+      "category": "Expansion / Storage & I/O",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-server/storage/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.storage.placeholder_007",
+      "type": "button",
+      "name": "Storage Checklist Item",
+      "category": "Expansion / Storage & I/O",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-server/storage/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.storage.placeholder_008",
+      "type": "button",
+      "name": "Storage Checklist Item",
+      "category": "Expansion / Storage & I/O",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-server/storage/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.storage.placeholder_009",
+      "type": "button",
+      "name": "Storage Checklist Item",
+      "category": "Expansion / Storage & I/O",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-server/storage/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.storage.placeholder_010",
+      "type": "button",
+      "name": "Storage Checklist Item",
+      "category": "Expansion / Storage & I/O",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-server/storage/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.storage.placeholder_011",
+      "type": "button",
+      "name": "Storage Checklist Item",
+      "category": "Expansion / Storage & I/O",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-server/storage/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.storage.placeholder_012",
+      "type": "button",
+      "name": "Storage Checklist Item",
+      "category": "Expansion / Storage & I/O",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-server/storage/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.storage.placeholder_013",
+      "type": "button",
+      "name": "Storage Checklist Item",
+      "category": "Expansion / Storage & I/O",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-server/storage/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.storage.placeholder_014",
+      "type": "button",
+      "name": "Storage Checklist Item",
+      "category": "Expansion / Storage & I/O",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-server/storage/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.storage.placeholder_015",
+      "type": "button",
+      "name": "Storage Checklist Item",
+      "category": "Expansion / Storage & I/O",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-server/storage/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.storage.placeholder_016",
+      "type": "button",
+      "name": "Storage Checklist Item",
+      "category": "Expansion / Storage & I/O",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-server/storage/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.storage.placeholder_017",
+      "type": "button",
+      "name": "Storage Checklist Item",
+      "category": "Expansion / Storage & I/O",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-server/storage/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.storage.placeholder_018",
+      "type": "button",
+      "name": "Storage Checklist Item",
+      "category": "Expansion / Storage & I/O",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-server/storage/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.storage.placeholder_019",
+      "type": "button",
+      "name": "Storage Checklist Item",
+      "category": "Expansion / Storage & I/O",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-server/storage/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "exp.storage.placeholder_020",
+      "type": "button",
+      "name": "Storage Checklist Item",
+      "category": "Expansion / Storage & I/O",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Informational placeholder item (see documentation link).",
+      "requiresAdmin": false,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://learn.microsoft.com/windows-server/storage/"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    }
+  ]
+}

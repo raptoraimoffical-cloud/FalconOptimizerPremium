@@ -1,0 +1,488 @@
+{
+  "items": [
+    {
+      "id": "import.imported.adfeatures.dafb335255",
+      "type": "button",
+      "name": "AdFeatures",
+      "category": "Expansion / Imported / Misc",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "description": "Imported runnable tweak. Risk: Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\oneclick_all\\import_oneclick_adfeatures_dafb335255.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import.imported.audio_bloat_warning.8fb8837b9c",
+      "type": "button",
+      "name": "Audio Bloat Warning",
+      "category": "Expansion / Imported / Misc",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "description": "Imported runnable tweak. Risk: Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\oneclick_all\\import_oneclick_audio_bloat_warning_8fb8837b9c.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import.imported.imported_backup_folder_check.252b4dff37",
+      "type": "button",
+      "name": "Backup Folder Check",
+      "category": "Expansion / Imported / Misc",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "description": "Imported runnable tweak. Risk: Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\oneclick_all\\import_oneclick_oneclick_backup_folder_check_252b4dff37.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import.imported.create_restore_point.cbde6886a6",
+      "type": "button",
+      "name": "Create Restore Point",
+      "category": "Expansion / Imported / Misc",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "description": "Imported runnable tweak. Risk: Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\oneclick_all\\import_oneclick_create_restore_point_cbde6886a6.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import.imported.defender_check.8c32eb83cd",
+      "type": "button",
+      "name": "Defender Check",
+      "category": "Expansion / Imported / Misc",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "description": "Imported runnable tweak. Risk: Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\oneclick_all\\import_oneclick_defender_check_8c32eb83cd.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import.imported.device_manager.00fdfa881f",
+      "type": "button",
+      "name": "Device Manager",
+      "category": "Expansion / Imported / Misc",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "description": "Imported runnable tweak. Risk: Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\oneclick_all\\import_oneclick_device_manager_00fdfa881f.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import.imported.device_manager_warning.8fb8837b9c",
+      "type": "button",
+      "name": "Device Manager Warning",
+      "category": "Expansion / Imported / Misc",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "description": "Imported runnable tweak. Risk: Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\oneclick_all\\import_oneclick_device_manager_warning_8fb8837b9c.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import.imported.extras.fddc4dee2a",
+      "type": "button",
+      "name": "Extras",
+      "category": "Expansion / Imported / Misc",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "description": "Imported runnable tweak. Risk: Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\oneclick_all\\import_oneclick_extras_fddc4dee2a.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import.imported.gpu_tweaks.7e04f2bf22",
+      "type": "button",
+      "name": "GPU Tweaks",
+      "category": "Expansion / Imported / Misc",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "description": "Imported runnable tweak. Risk: Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\oneclick_all\\import_oneclick_gpu_tweaks_7e04f2bf22.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import.imported.process_destroyer.8fb8837b9c",
+      "type": "button",
+      "name": "Imported Tweak Process_Destroyer",
+      "category": "Expansion / Imported / Misc",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "description": "Imported runnable tweak. Risk: Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\oneclick_all\\import_oneclick_process_destroyer_8fb8837b9c.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import.imported.network_tweaks_warning.8fb8837b9c",
+      "type": "button",
+      "name": "Network Tweaks Warning",
+      "category": "Expansion / Imported / Misc",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "description": "Imported runnable tweak. Risk: Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\oneclick_all\\import_oneclick_network_tweaks_warning_8fb8837b9c.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import.imported.no_registry_backup.8fb8837b9c",
+      "type": "button",
+      "name": "No Registry Backup",
+      "category": "Expansion / Imported / Misc",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "description": "Imported runnable tweak. Risk: Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\oneclick_all\\import_oneclick_no_registry_backup_8fb8837b9c.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import.imported.no_restore_point.8fb8837b9c",
+      "type": "button",
+      "name": "No Restore Point",
+      "category": "Expansion / Imported / Misc",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "description": "Imported runnable tweak. Risk: Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\oneclick_all\\import_oneclick_no_restore_point_8fb8837b9c.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import.imported.optional_features.8c4421bab1",
+      "type": "button",
+      "name": "Optional Features",
+      "category": "Expansion / Imported / Misc",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "description": "Imported runnable tweak. Risk: Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\oneclick_all\\import_oneclick_optional_features_8c4421bab1.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import.imported.registry_backup.8fb8837b9c",
+      "type": "button",
+      "name": "Registry Backup",
+      "category": "Expansion / Imported / Misc",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "description": "Imported runnable tweak. Risk: Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\oneclick_all\\import_oneclick_registry_backup_8fb8837b9c.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import.imported.registry_backup_failure.8fb8837b9c",
+      "type": "button",
+      "name": "Registry Backup Failure",
+      "category": "Expansion / Imported / Misc",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "description": "Imported runnable tweak. Risk: Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\oneclick_all\\import_oneclick_registry_backup_failure_8fb8837b9c.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import.imported.restore_failure.8fb8837b9c",
+      "type": "button",
+      "name": "Restore Failure",
+      "category": "Expansion / Imported / Misc",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "description": "Imported runnable tweak. Risk: Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\oneclick_all\\import_oneclick_restore_failure_8fb8837b9c.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import.imported.restore_point.8fb8837b9c",
+      "type": "button",
+      "name": "Restore Point",
+      "category": "Expansion / Imported / Misc",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "description": "Imported runnable tweak. Risk: Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\oneclick_all\\import_oneclick_restore_point_8fb8837b9c.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import.imported.ucpd_check.2e5d049e95",
+      "type": "button",
+      "name": "UCPD Check",
+      "category": "Expansion / Imported / Misc",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "description": "Imported runnable tweak. Risk: Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\oneclick_all\\import_oneclick_ucpd_check_2e5d049e95.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import.imported.vcruntime_check.5fa80e81b8",
+      "type": "button",
+      "name": "VCRuntime Check",
+      "category": "Expansion / Imported / Misc",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "description": "Imported runnable tweak. Risk: Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\oneclick_all\\import_oneclick_vcruntime_check_5fa80e81b8.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import.imported.win_server_check.46f45afe23",
+      "type": "button",
+      "name": "Win Server Check",
+      "category": "Expansion / Imported / Misc",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "description": "Imported runnable tweak. Risk: Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\oneclick_all\\import_oneclick_win_server_check_46f45afe23.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "import.imported.windows_version_check.0c782f91cd",
+      "type": "button",
+      "name": "Windows Version Check",
+      "category": "Expansion / Imported / Misc",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "description": "Imported runnable tweak. Risk: Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\oneclick_all\\import_oneclick_windows_version_check_0c782f91cd.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    }
+  ]
+}

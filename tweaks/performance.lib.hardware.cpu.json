@@ -1,0 +1,984 @@
+{
+  "items": [
+    {
+      "id": "cpu.disable_basic_cstates__performance.lib.hardware.cpu",
+      "name": "Disable Basic C-states",
+      "category": "Hardware / CPU",
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay] Sets the current power plan to reduce CPU idle states (may increase power/temps).",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "powercfg.set",
+            "args": [
+              "/SETACVALUEINDEX",
+              "SCHEME_CURRENT",
+              "SUB_PROCESSOR",
+              "IDLEDISABLE",
+              "1"
+            ]
+          },
+          {
+            "type": "powercfg.set",
+            "args": [
+              "/SETACTIVE",
+              "SCHEME_CURRENT"
+            ]
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "powercfg.set",
+            "args": [
+              "/SETACVALUEINDEX",
+              "SCHEME_CURRENT",
+              "SUB_PROCESSOR",
+              "IDLEDISABLE",
+              "0"
+            ]
+          },
+          {
+            "type": "powercfg.set",
+            "args": [
+              "/SETACTIVE",
+              "SCHEME_CURRENT"
+            ]
+          }
+        ]
+      },
+      "type": "toggle",
+      "riskLevel": "Warning",
+      "check": {
+        "steps": [
+          {
+            "type": "powercfg.check",
+            "guid": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "cpu.disable_coalescable_timer__performance.lib.hardware.cpu",
+      "name": "Apply: Disable Coalescable Timer",
+      "category": "Hardware / CPU",
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay] Disables dynamic tick to reduce timer coalescing (requires reboot).",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "bcdedit",
+            "args": [
+              "/set",
+              "disabledynamictick",
+              "yes"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "bcdedit",
+            "args": [
+              "/deletevalue",
+              "disabledynamictick"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Warning",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "category": "Hardware / CPU",
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay] Disables dynamic tick to reduce timer coalescing (requires reboot).",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "riskLevel": "Warning",
+      "kind": "tool",
+      "manualOnly": true,
+      "id": "cpu.disable_coalescable_timer__performance.lib.hardware.cpu__revert",
+      "type": "button",
+      "name": "Revert: Disable Coalescable Timer",
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "bcdedit",
+            "args": [
+              "/deletevalue",
+              "disabledynamictick"
+            ],
+            "wait": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "cpu.disable_core_parking__performance.lib.hardware.cpu",
+      "name": "Disable CPU Core Parking",
+      "category": "Hardware / CPU",
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay] Sets core parking min/max cores to 100% on the active power plan.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "powercfg.set",
+            "args": [
+              "/SETACVALUEINDEX",
+              "SCHEME_CURRENT",
+              "54533251-82be-4824-96c1-47b60b740d00",
+              "0cc5b647-c1df-4637-891a-dec35c318583",
+              "100"
+            ]
+          },
+          {
+            "type": "powercfg.set",
+            "args": [
+              "/SETACVALUEINDEX",
+              "SCHEME_CURRENT",
+              "54533251-82be-4824-96c1-47b60b740d00",
+              "68dd2f27-a4ce-4e11-8487-3794e4135dfa",
+              "100"
+            ]
+          },
+          {
+            "type": "powercfg.set",
+            "args": [
+              "/SETACTIVE",
+              "SCHEME_CURRENT"
+            ]
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "powercfg.set",
+            "args": [
+              "/SETACVALUEINDEX",
+              "SCHEME_CURRENT",
+              "54533251-82be-4824-96c1-47b60b740d00",
+              "0cc5b647-c1df-4637-891a-dec35c318583",
+              "10"
+            ]
+          },
+          {
+            "type": "powercfg.set",
+            "args": [
+              "/SETACVALUEINDEX",
+              "SCHEME_CURRENT",
+              "54533251-82be-4824-96c1-47b60b740d00",
+              "68dd2f27-a4ce-4e11-8487-3794e4135dfa",
+              "100"
+            ]
+          },
+          {
+            "type": "powercfg.set",
+            "args": [
+              "/SETACTIVE",
+              "SCHEME_CURRENT"
+            ]
+          }
+        ]
+      },
+      "type": "toggle",
+      "riskLevel": "Warning",
+      "check": {
+        "steps": [
+          {
+            "type": "powercfg.check",
+            "guid": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "cpu.disable_power_throttling__performance.lib.hardware.cpu",
+      "name": "Disable CPU Power Throttling",
+      "category": "Hardware / CPU",
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay] Disables Windows power throttling for background tasks.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\System\\CurrentControlSet\\Control\\Power\\PowerThrottling",
+            "name": "PowerThrottlingOff",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\System\\CurrentControlSet\\Control\\Power\\PowerThrottling",
+            "name": "PowerThrottlingOff"
+          }
+        ]
+      },
+      "type": "toggle",
+      "riskLevel": "Warning",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\System\\CurrentControlSet\\Control\\Power\\PowerThrottling",
+            "name": "PowerThrottlingOff",
+            "valueType": "DWord",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "cpu.disable_modern_standby__performance.lib.hardware.cpu",
+      "name": "Disable Modern Standby",
+      "category": "Hardware / CPU",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables Modern Standby (S0) by setting CsEnabled=0 (requires reboot).",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\System\\CurrentControlSet\\Control\\Power",
+            "name": "CsEnabled",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\System\\CurrentControlSet\\Control\\Power",
+            "name": "CsEnabled"
+          }
+        ]
+      },
+      "type": "toggle",
+      "riskLevel": "Warning",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\System\\CurrentControlSet\\Control\\Power",
+            "name": "CsEnabled",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "cpu.set_epp__performance.lib.hardware.cpu",
+      "name": "Set Energy Performance Preference",
+      "category": "Hardware / CPU",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets Energy Performance Preference (EPP) to 0 (max performance) on AC.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "powercfg.set",
+            "args": [
+              "/SETACVALUEINDEX",
+              "SCHEME_CURRENT",
+              "SUB_PROCESSOR",
+              "36687f9e-e3a5-4dbf-b1dc-15eb381c6863",
+              "0"
+            ]
+          },
+          {
+            "type": "powercfg.set",
+            "args": [
+              "/SETACTIVE",
+              "SCHEME_CURRENT"
+            ]
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "powercfg.set",
+            "args": [
+              "/SETACVALUEINDEX",
+              "SCHEME_CURRENT",
+              "SUB_PROCESSOR",
+              "36687f9e-e3a5-4dbf-b1dc-15eb381c6863",
+              "50"
+            ]
+          },
+          {
+            "type": "powercfg.set",
+            "args": [
+              "/SETACTIVE",
+              "SCHEME_CURRENT"
+            ]
+          }
+        ]
+      },
+      "type": "toggle",
+      "riskLevel": "Warning",
+      "check": {
+        "steps": [
+          {
+            "type": "powercfg.check",
+            "guid": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "cpu.set_minmax_proc_state__performance.lib.hardware.cpu",
+      "name": "Set Minimum And Maximum Processor State",
+      "category": "Hardware / CPU",
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay] Sets Min/Max processor state to 100% on AC in the current power plan.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "powercfg.set",
+            "args": [
+              "/SETACVALUEINDEX",
+              "SCHEME_CURRENT",
+              "SUB_PROCESSOR",
+              "893dee8e-2bef-41e0-89c6-b55d0929964c",
+              "100"
+            ]
+          },
+          {
+            "type": "powercfg.set",
+            "args": [
+              "/SETACVALUEINDEX",
+              "SCHEME_CURRENT",
+              "SUB_PROCESSOR",
+              "bc5038f7-23e0-4960-96da-33abaf5935ec",
+              "100"
+            ]
+          },
+          {
+            "type": "powercfg.set",
+            "args": [
+              "/SETACTIVE",
+              "SCHEME_CURRENT"
+            ]
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "powercfg.set",
+            "args": [
+              "/SETACVALUEINDEX",
+              "SCHEME_CURRENT",
+              "SUB_PROCESSOR",
+              "893dee8e-2bef-41e0-89c6-b55d0929964c",
+              "5"
+            ]
+          },
+          {
+            "type": "powercfg.set",
+            "args": [
+              "/SETACVALUEINDEX",
+              "SCHEME_CURRENT",
+              "SUB_PROCESSOR",
+              "bc5038f7-23e0-4960-96da-33abaf5935ec",
+              "100"
+            ]
+          },
+          {
+            "type": "powercfg.set",
+            "args": [
+              "/SETACTIVE",
+              "SCHEME_CURRENT"
+            ]
+          }
+        ]
+      },
+      "type": "toggle",
+      "riskLevel": "Warning",
+      "check": {
+        "steps": [
+          {
+            "type": "powercfg.check",
+            "guid": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "cpu.disable_eventprocessor__performance.lib.hardware.cpu",
+      "name": "Disable Eventprocessor",
+      "category": "Hardware / CPU",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets a registry flag to disable EventProcessor behavior (requires reboot).",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Kernel",
+            "name": "EventProcessorEnabled",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Kernel",
+            "name": "EventProcessorEnabled"
+          }
+        ]
+      },
+      "type": "toggle",
+      "riskLevel": "Warning",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Kernel",
+            "name": "EventProcessorEnabled",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "cpu.set_kernel_worker_threads__performance.lib.hardware.cpu",
+      "name": "Set Kernel Worker Threads",
+      "category": "Hardware / CPU",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets additional kernel worker threads (requires reboot).",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Executive",
+            "name": "AdditionalCriticalWorkerThreads",
+            "value": 4,
+            "valueType": "DWord"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Executive",
+            "name": "AdditionalDelayedWorkerThreads",
+            "value": 4,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Executive",
+            "name": "AdditionalCriticalWorkerThreads"
+          },
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Executive",
+            "name": "AdditionalDelayedWorkerThreads"
+          }
+        ]
+      },
+      "type": "toggle",
+      "riskLevel": "Warning",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Executive",
+            "name": "AdditionalCriticalWorkerThreads",
+            "valueType": "DWord",
+            "equals": 4
+          }
+        ]
+      }
+    },
+    {
+      "id": "cpu_disable_core_parking__performance.lib.hardware.cpu",
+      "type": "button",
+      "name": "Apply: Disable Core Parking (PowerCfg)",
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay] Disables core parking by setting min cores to 100%.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR CPMINCORES 100"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR CPMINCORES 100"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR CPMINCORES 10"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR CPMINCORES 10"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "Hardware / CPU"
+    },
+    {
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay] Disables core parking by setting min cores to 100%.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Hardware / CPU",
+      "id": "cpu_disable_core_parking__performance.lib.hardware.cpu__revert",
+      "type": "button",
+      "name": "Revert: Disable Core Parking (PowerCfg)",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR CPMINCORES 10"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR CPMINCORES 10"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
+        ]
+      }
+    },
+    {
+      "id": "cpu_disable_processor_boost_mode_aggressive__performance.lib.hardware.cpu",
+      "type": "button",
+      "name": "Apply: Processor Boost Mode: Aggressive",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets processor boost mode to Aggressive.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PERFBOOSTMODE 2"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR PERFBOOSTMODE 2"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PERFBOOSTMODE 1"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR PERFBOOSTMODE 1"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "Hardware / CPU"
+    },
+    {
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets processor boost mode to Aggressive.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Hardware / CPU",
+      "id": "cpu_disable_processor_boost_mode_aggressive__performance.lib.hardware.cpu__revert",
+      "type": "button",
+      "name": "Revert: Processor Boost Mode: Aggressive",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PERFBOOSTMODE 1"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR PERFBOOSTMODE 1"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
+        ]
+      }
+    },
+    {
+      "id": "cpu_disable_processor_energy_perf_pref__performance.lib.hardware.cpu",
+      "type": "button",
+      "name": "Apply: EPP: Max Performance",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets Energy Performance Preference to 0.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PERFEPP 0"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR PERFEPP 0"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PERFEPP 50"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR PERFEPP 50"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "Hardware / CPU"
+    },
+    {
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets Energy Performance Preference to 0.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Hardware / CPU",
+      "id": "cpu_disable_processor_energy_perf_pref__performance.lib.hardware.cpu__revert",
+      "type": "button",
+      "name": "Revert: EPP: Max Performance",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PERFEPP 50"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR PERFEPP 50"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
+        ]
+      }
+    },
+    {
+      "id": "cpu_disable_idle_disable__performance.lib.hardware.cpu",
+      "type": "toggle",
+      "name": "Disable CPU Idle Disable (Advanced)",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Enables high-performance behavior by disabling certain idle behaviors.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Power\\PowerSettings\\54533251-82be-4824-96c1-47b60b740d00\\5d76a2ca-e8c0-402f-a133-2158492d58ad",
+            "name": "Attributes",
+            "value": 2,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Power\\PowerSettings\\54533251-82be-4824-96c1-47b60b740d00\\5d76a2ca-e8c0-402f-a133-2158492d58ad",
+            "name": "Attributes",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "Hardware / CPU",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Power\\PowerSettings\\54533251-82be-4824-96c1-47b60b740d00\\5d76a2ca-e8c0-402f-a133-2158492d58ad",
+            "name": "Attributes",
+            "valueType": "DWord",
+            "equals": 2
+          }
+        ]
+      }
+    },
+    {
+      "id": "cpu_set_mmcss_games_priority__performance.lib.hardware.cpu",
+      "type": "toggle",
+      "name": "MMCSS Games Priority Boost",
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay] Boosts MMCSS Games task priority.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games",
+            "name": "Priority",
+            "value": 6,
+            "valueType": "DWord"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games",
+            "name": "Scheduling Category",
+            "value": "High",
+            "valueType": "String"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games",
+            "name": "Priority",
+            "value": 2,
+            "valueType": "DWord"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games",
+            "name": "Scheduling Category",
+            "value": "Medium",
+            "valueType": "String"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "Hardware / CPU",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games",
+            "name": "Priority",
+            "valueType": "DWord",
+            "equals": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "cpu_disable_network_throttling_index__performance.lib.hardware.cpu",
+      "type": "toggle",
+      "name": "Disable Network Throttling Index",
+      "risk": "Safe",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Sets network throttling to off for multimedia/gaming.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile",
+            "name": "NetworkThrottlingIndex",
+            "value": 4294967295,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile",
+            "name": "NetworkThrottlingIndex"
+          }
+        ]
+      },
+      "riskLevel": "Safe",
+      "category": "Hardware / CPU",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile",
+            "name": "NetworkThrottlingIndex",
+            "valueType": "DWord",
+            "equals": 4294967295
+          }
+        ]
+      }
+    },
+    {
+      "id": "cpu_disable_system_responsiveness__performance.lib.hardware.cpu",
+      "type": "toggle",
+      "name": "System Responsiveness 0%",
+      "risk": "Warning",
+      "description": "[Focus: FPS, Latency / Input Delay] Sets system responsiveness to 0% for gaming.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile",
+            "name": "SystemResponsiveness",
+            "value": 10,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile",
+            "name": "SystemResponsiveness"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "Hardware / CPU",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile",
+            "name": "SystemResponsiveness",
+            "valueType": "DWORD",
+            "equals": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "cpu_disable_c_states_guidance__performance.lib.hardware.cpu",
+      "type": "button",
+      "name": "Disable Deep C-States (Guided)",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Opens BIOS guidance for disabling deep C-states (can’t force via Windows).",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://www.intel.com/content/www/us/en/gaming/resources/c-state.html"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "riskLevel": "Safe",
+      "category": "Hardware / CPU",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "cpu_set_foreground_boost__performance.lib.hardware.cpu",
+      "type": "toggle",
+      "name": "Foreground Boost (Win32PrioritySeparation)",
+      "risk": "Warning",
+      "description": "[Focus: Latency / Input Delay] Adjusts foreground scheduling priority boost.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\PriorityControl",
+            "name": "Win32PrioritySeparation",
+            "value": 38,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\PriorityControl",
+            "name": "Win32PrioritySeparation"
+          }
+        ]
+      },
+      "riskLevel": "Warning",
+      "category": "Hardware / CPU",
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\PriorityControl",
+            "name": "Win32PrioritySeparation",
+            "valueType": "DWord",
+            "equals": 38
+          }
+        ]
+      }
+    }
+  ]
+}

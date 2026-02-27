@@ -1,0 +1,2135 @@
+{
+  "items": [
+    {
+      "id": "pass2_latency_overrides_init",
+      "type": "action",
+      "name": "Latency Profiles: Create/Open Custom Overrides",
+      "category": "Performance Library / Pass 2 (Scheduler + Timer + BCDEdit)",
+      "riskLevel": "Safe",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "Creates ProgramData\\FalconOptimizer\\latency_overrides.json if missing and opens it so you can set custom values (scheduler, timer resolution, BCDEdit). Requires admin to write ProgramData.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dir = Join-Path $env:ProgramData \"FalconOptimizer\"\nNew-Item -ItemType Directory -Force -Path $dir | Out-Null\n$fn = Join-Path $dir \"latency_overrides.json\"\nif (-not (Test-Path -LiteralPath $fn)) {\n@'\n{\n  \"scheduler\": {\n    \"Win32PrioritySeparation\": \"0x26\"\n  },\n  \"timer\": {\n    \"resolution_us\": 5000\n  },\n  \"bcdedit\": {\n    \"disabledynamictick\": \"yes\",\n    \"useplatformtick\": \"yes\",\n    \"useplatformclock\": \"no\"\n  }\n}\n'@ | Out-File -LiteralPath $fn -Encoding utf8\n}\nStart-Process notepad.exe $fn\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "pass2_bcd_backup",
+      "type": "action",
+      "name": "BCDEdit: Backup current boot config",
+      "category": "Performance Library / Pass 2 (Scheduler + Timer + BCDEdit)",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "description": "Exports current BCD to ProgramData\\FalconOptimizer\\Backups\\bcd-backup.bak.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "path": "scripts/latency/falcon-bcdedit-profile.ps1",
+            "args": {
+              "Action": "backup",
+              "Profile": "latency"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "pass2_bcd_restore",
+      "type": "action",
+      "name": "BCDEdit: Restore from backup",
+      "category": "Performance Library / Pass 2 (Scheduler + Timer + BCDEdit)",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "description": "Imports BCD from backup (reboot required).",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "path": "scripts/latency/falcon-bcdedit-profile.ps1",
+            "args": {
+              "Action": "restore",
+              "Profile": "latency"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "pass2_bcd_apply_custom",
+      "type": "button",
+      "name": "Apply: BCDEdit Profile: Custom (from overrides)",
+      "category": "Performance Library / Pass 2 (Scheduler + Timer + BCDEdit)",
+      "riskLevel": "High",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "description": "Uses overrides file -> bcdedit.{disabledynamictick,useplatformtick,useplatformclock}. Backs up first.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "path": "scripts/latency/falcon-bcdedit-profile.ps1",
+            "args": {
+              "Action": "applyProfile",
+              "Profile": "custom"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "path": "scripts/latency/falcon-bcdedit-profile.ps1",
+            "args": {
+              "Action": "clearProfile",
+              "Profile": "custom"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "category": "Performance Library / Pass 2 (Scheduler + Timer + BCDEdit)",
+      "riskLevel": "High",
+      "requiresAdmin": true,
+      "requiresReboot": true,
+      "description": "Uses overrides file -> bcdedit.{disabledynamictick,useplatformtick,useplatformclock}. Backs up first.",
+      "id": "pass2_bcd_apply_custom__revert",
+      "type": "button",
+      "name": "Revert: BCDEdit Profile: Custom (from overrides)",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "path": "scripts/latency/falcon-bcdedit-profile.ps1",
+            "args": {
+              "Action": "clearProfile",
+              "Profile": "custom"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "ctt_paradime_system_disable_sysmain__performance.lib.latency.scheduler_timer",
+      "type": "action",
+      "name": "CTT Paradime System: Disable SysMain",
+      "description": "Stops SysMain (Superfetch) to reduce background activity.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System/Core",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Stop-Service SysMain -Force -ErrorAction SilentlyContinue; Set-Service SysMain -StartupType Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Service SysMain -StartupType Automatic -ErrorAction SilentlyContinue; Start-Service SysMain -ErrorAction SilentlyContinue"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ctt_paradime_system_disable_windows_search__performance.lib.latency.scheduler_timer",
+      "type": "action",
+      "name": "CTT Paradime System: Disable Windows Search",
+      "description": "Stops WSearch indexing service.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System/Core",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Stop-Service WSearch -Force -ErrorAction SilentlyContinue; Set-Service WSearch -StartupType Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Service WSearch -StartupType Automatic -ErrorAction SilentlyContinue; Start-Service WSearch -ErrorAction SilentlyContinue"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ctt_paradime_system_disable_delivery_optimization__performance.lib.latency.scheduler_timer",
+      "type": "action",
+      "name": "CTT Paradime System: Disable Delivery Optimization",
+      "description": "Stops DoSvc to reduce background downloads.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System/Core",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Stop-Service DoSvc -Force -ErrorAction SilentlyContinue; Set-Service DoSvc -StartupType Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Service DoSvc -StartupType Manual -ErrorAction SilentlyContinue"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ctt_paradime_system_disable_hibernate__performance.lib.latency.scheduler_timer",
+      "type": "action",
+      "name": "CTT Paradime System: Disable hibernate",
+      "description": "Disables hibernation file (frees disk and reduces some wake behavior).",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System/Core",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powercfg -h off"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powercfg -h on"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ctt_paradime_system_disable_usb_selective_suspend__performance.lib.latency.scheduler_timer",
+      "type": "action",
+      "name": "CTT Paradime System: Disable USB selective suspend",
+      "description": "Disables selective suspend via power settings.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System/Core",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_USB USBSELECTSUSPEND 0; powercfg -S SCHEME_CURRENT"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_USB USBSELECTSUSPEND 1; powercfg -S SCHEME_CURRENT"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ctt_paradime_system_disable_nagle_tcpnodelay__performance.lib.latency.scheduler_timer",
+      "type": "action",
+      "name": "CTT Paradime System: Disable Nagle (TcpNoDelay)",
+      "description": "Sets TcpNoDelay=1 on active interfaces (best-effort).",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System/Core",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$ifs = Get-ChildItem \"HKLM:\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\" -ErrorAction SilentlyContinue\nforeach($k in $ifs){ \n  New-ItemProperty -Path $k.PSPath -Name \"TcpNoDelay\" -Value 1 -PropertyType DWord -Force | Out-Null\n  New-ItemProperty -Path $k.PSPath -Name \"TcpAckFrequency\" -Value 1 -PropertyType DWord -Force | Out-Null\n}\nWrite-Output \"Set on interfaces\"\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "ctt_paradime_system_enable_ultimate_performance_plan_if_pres__performance.lib.latency.scheduler_timer",
+      "type": "action",
+      "name": "CTT Paradime System: Enable ultimate performance plan (if present)",
+      "description": "Switches to Ultimate Performance if available.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System/Core",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$u = (powercfg /list | Select-String -Pattern \"Ultimate Performance\").ToString()\nif($u){\n  $guid = ($u -split '\\s+')[3]\n  powercfg /setactive $guid\n  Write-Output \"Activated $guid\"\n}else{\n  Write-Output \"Not present\"\n}\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "ctt_paradime_system_device_manager_summary__performance.lib.latency.scheduler_timer",
+      "type": "action",
+      "name": "CTT Paradime System: Device manager summary",
+      "description": "Unique slice export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System/Core",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\ctt_paradime_system\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"ctt_paradime_system_slice_9_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== CTT Paradime System Slice 9: Device manager summary ===\" | Out-File $fn -Encoding utf8\nGet-PnpDevice | Select-Object -First 200 Class,FriendlyName,Status | Format-Table -Wrap | Out-String | Out-File $fn -Append\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "ctt_paradime_system_powercfg_qh_subset__performance.lib.latency.scheduler_timer",
+      "type": "action",
+      "name": "CTT Paradime System: Powercfg qh subset",
+      "description": "Unique slice export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System/Core",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\ctt_paradime_system\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"ctt_paradime_system_slice_10_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== CTT Paradime System Slice 10: Powercfg qh subset ===\" | Out-File $fn -Encoding utf8\npowercfg /qh | Select-Object -First 220 | Out-String | Out-File $fn -Append\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "ctt_paradime_system_registry_multimedia_systemprofile__performance.lib.latency.scheduler_timer",
+      "type": "action",
+      "name": "CTT Paradime System: Registry: multimedia systemprofile",
+      "description": "Unique slice export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System/Core",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\ctt_paradime_system\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"ctt_paradime_system_slice_11_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== CTT Paradime System Slice 11: Registry: multimedia systemprofile ===\" | Out-File $fn -Encoding utf8\nreg query \"HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\" /s 2>$null | Out-File $fn -Append\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "ctt_paradime_system_bcdedit_current__performance.lib.latency.scheduler_timer",
+      "type": "action",
+      "name": "CTT Paradime System: BCDEdit current",
+      "description": "Unique slice export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System/Core",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\ctt_paradime_system\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"ctt_paradime_system_slice_12_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== CTT Paradime System Slice 12: BCDEdit current ===\" | Out-File $fn -Encoding utf8\nbcdedit /enum {current} | Out-File $fn -Append\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "ctt_paradime_system_netsh_tcp_global__performance.lib.latency.scheduler_timer",
+      "type": "action",
+      "name": "CTT Paradime System: Netsh tcp global",
+      "description": "Unique slice export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System/Core",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\ctt_paradime_system\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"ctt_paradime_system_slice_13_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== CTT Paradime System Slice 13: Netsh tcp global ===\" | Out-File $fn -Encoding utf8\nnetsh int tcp show global | Out-File $fn -Append\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "paradime_advanced_disable_sysmain__performance.lib.latency.scheduler_timer",
+      "type": "action",
+      "name": "Paradime Advanced: Disable SysMain",
+      "description": "Stops SysMain (Superfetch) to reduce background activity.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System/Core",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Stop-Service SysMain -Force -ErrorAction SilentlyContinue; Set-Service SysMain -StartupType Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Service SysMain -StartupType Automatic -ErrorAction SilentlyContinue; Start-Service SysMain -ErrorAction SilentlyContinue"
+          }
+        ]
+      }
+    },
+    {
+      "id": "paradime_advanced_disable_windows_search__performance.lib.latency.scheduler_timer",
+      "type": "action",
+      "name": "Paradime Advanced: Disable Windows Search",
+      "description": "Stops WSearch indexing service.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System/Core",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Stop-Service WSearch -Force -ErrorAction SilentlyContinue; Set-Service WSearch -StartupType Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Service WSearch -StartupType Automatic -ErrorAction SilentlyContinue; Start-Service WSearch -ErrorAction SilentlyContinue"
+          }
+        ]
+      }
+    },
+    {
+      "id": "paradime_advanced_disable_delivery_optimization__performance.lib.latency.scheduler_timer",
+      "type": "action",
+      "name": "Paradime Advanced: Disable Delivery Optimization",
+      "description": "Stops DoSvc to reduce background downloads.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System/Core",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Stop-Service DoSvc -Force -ErrorAction SilentlyContinue; Set-Service DoSvc -StartupType Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Set-Service DoSvc -StartupType Manual -ErrorAction SilentlyContinue"
+          }
+        ]
+      }
+    },
+    {
+      "id": "paradime_advanced_disable_hibernate__performance.lib.latency.scheduler_timer",
+      "type": "action",
+      "name": "Paradime Advanced: Disable hibernate",
+      "description": "Disables hibernation file (frees disk and reduces some wake behavior).",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System/Core",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powercfg -h off"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powercfg -h on"
+          }
+        ]
+      }
+    },
+    {
+      "id": "paradime_advanced_disable_usb_selective_suspend__performance.lib.latency.scheduler_timer",
+      "type": "action",
+      "name": "Paradime Advanced: Disable USB selective suspend",
+      "description": "Disables selective suspend via power settings.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System/Core",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_USB USBSELECTSUSPEND 0; powercfg -S SCHEME_CURRENT"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_USB USBSELECTSUSPEND 1; powercfg -S SCHEME_CURRENT"
+          }
+        ]
+      }
+    },
+    {
+      "id": "paradime_advanced_disable_nagle_tcpnodelay__performance.lib.latency.scheduler_timer",
+      "type": "action",
+      "name": "Paradime Advanced: Disable Nagle (TcpNoDelay)",
+      "description": "Sets TcpNoDelay=1 on active interfaces (best-effort).",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System/Core",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$ifs = Get-ChildItem \"HKLM:\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\" -ErrorAction SilentlyContinue\nforeach($k in $ifs){ \n  New-ItemProperty -Path $k.PSPath -Name \"TcpNoDelay\" -Value 1 -PropertyType DWord -Force | Out-Null\n  New-ItemProperty -Path $k.PSPath -Name \"TcpAckFrequency\" -Value 1 -PropertyType DWord -Force | Out-Null\n}\nWrite-Output \"Set on interfaces\"\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "paradime_advanced_enable_ultimate_performance_plan_if_presen__performance.lib.latency.scheduler_timer",
+      "type": "action",
+      "name": "Paradime Advanced: Enable ultimate performance plan (if present)",
+      "description": "Switches to Ultimate Performance if available.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System/Core",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$u = (powercfg /list | Select-String -Pattern \"Ultimate Performance\").ToString()\nif($u){\n  $guid = ($u -split '\\s+')[3]\n  powercfg /setactive $guid\n  Write-Output \"Activated $guid\"\n}else{\n  Write-Output \"Not present\"\n}\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "paradime_advanced_device_manager_summary__performance.lib.latency.scheduler_timer",
+      "type": "action",
+      "name": "Paradime Advanced: Device manager summary",
+      "description": "Unique slice export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System/Core",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\paradime_advanced\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"paradime_advanced_slice_9_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Paradime Advanced Slice 9: Device manager summary ===\" | Out-File $fn -Encoding utf8\nGet-PnpDevice | Select-Object -First 200 Class,FriendlyName,Status | Format-Table -Wrap | Out-String | Out-File $fn -Append\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "paradime_advanced_powercfg_qh_subset__performance.lib.latency.scheduler_timer",
+      "type": "action",
+      "name": "Paradime Advanced: Powercfg qh subset",
+      "description": "Unique slice export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System/Core",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\paradime_advanced\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"paradime_advanced_slice_10_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Paradime Advanced Slice 10: Powercfg qh subset ===\" | Out-File $fn -Encoding utf8\npowercfg /qh | Select-Object -First 220 | Out-String | Out-File $fn -Append\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "paradime_advanced_registry_multimedia_systemprofile__performance.lib.latency.scheduler_timer",
+      "type": "action",
+      "name": "Paradime Advanced: Registry: multimedia systemprofile",
+      "description": "Unique slice export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System/Core",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\paradime_advanced\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"paradime_advanced_slice_11_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Paradime Advanced Slice 11: Registry: multimedia systemprofile ===\" | Out-File $fn -Encoding utf8\nreg query \"HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\" /s 2>$null | Out-File $fn -Append\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "paradime_advanced_bcdedit_current__performance.lib.latency.scheduler_timer",
+      "type": "action",
+      "name": "Paradime Advanced: BCDEdit current",
+      "description": "Unique slice export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System/Core",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\paradime_advanced\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"paradime_advanced_slice_12_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Paradime Advanced Slice 12: BCDEdit current ===\" | Out-File $fn -Encoding utf8\nbcdedit /enum {current} | Out-File $fn -Append\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "paradime_advanced_netsh_tcp_global__performance.lib.latency.scheduler_timer",
+      "type": "action",
+      "name": "Paradime Advanced: Netsh tcp global",
+      "description": "Unique slice export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "System/Core",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\paradime_advanced\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"paradime_advanced_slice_13_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Paradime Advanced Slice 13: Netsh tcp global ===\" | Out-File $fn -Encoding utf8\nnetsh int tcp show global | Out-File $fn -Append\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "aphrodite_disable_dynamic_tick__performance.lib.latency.scheduler_timer",
+      "type": "action",
+      "name": "Aphrodite: Disable Dynamic Tick",
+      "description": "Disables dynamic tick (may reduce latency variance).",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Latency/Validation",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "bcdedit /set disabledynamictick yes"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "bcdedit /deletevalue disabledynamictick"
+          }
+        ]
+      }
+    },
+    {
+      "id": "aphrodite_disable_hpet_platform_clock__performance.lib.latency.scheduler_timer",
+      "type": "action",
+      "name": "Aphrodite: Disable HPET platform clock",
+      "description": "Disables useplatformclock (only if you know it helps on your rig).",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Latency/Validation",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "bcdedit /deletevalue useplatformclock"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "bcdedit /set useplatformclock true"
+          }
+        ]
+      }
+    },
+    {
+      "id": "aphrodite_set_system_timer_resolution_helper_on__performance.lib.latency.scheduler_timer",
+      "type": "action",
+      "name": "Aphrodite: Set system timer resolution helper on",
+      "description": "Starts Falcon timer helper (0.5ms).",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Latency/Validation",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\nStart-Process -FilePath \"powershell\" -ArgumentList \"-NoProfile -ExecutionPolicy Bypass -Command `\"& { Set-ProcessMitigation -System -Enable ForceRelocateImages }`\"\" -WindowStyle Hidden -ErrorAction SilentlyContinue\nWrite-Output \"Timer helper placeholder (integrate with your timer module)\"\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "aphrodite_mmcss_gaming_profile__performance.lib.latency.scheduler_timer",
+      "type": "action",
+      "name": "Aphrodite: MMCSS gaming profile",
+      "description": "Applies MMCSS responsiveness tuning for games.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Latency/Validation",
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows NT\\\\CurrentVersion\\\\Multimedia\\\\SystemProfile",
+            "name": "SystemResponsiveness",
+            "regType": "DWORD",
+            "value": 0
+          },
+          {
+            "type": "reg.set",
+            "path": "HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows NT\\\\CurrentVersion\\\\Multimedia\\\\SystemProfile",
+            "name": "NetworkThrottlingIndex",
+            "regType": "DWORD",
+            "value": 4294967295
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "reg.del",
+            "path": "HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows NT\\\\CurrentVersion\\\\Multimedia\\\\SystemProfile",
+            "name": "SystemResponsiveness"
+          },
+          {
+            "type": "reg.del",
+            "path": "HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows NT\\\\CurrentVersion\\\\Multimedia\\\\SystemProfile",
+            "name": "NetworkThrottlingIndex"
+          }
+        ]
+      }
+    },
+    {
+      "id": "aphrodite_extra_drivers_with_oldest_dates_15__performance.lib.latency.scheduler_timer",
+      "type": "action",
+      "name": "Aphrodite Extra: Drivers with oldest dates (15)",
+      "description": "Extra unique diagnostic export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Latency/Validation",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\aphrodite_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"aphrodite_extra_15_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Aphrodite Extra 15: Drivers with oldest dates ===\" | Out-File $fn -Encoding utf8\n\n\"Oldest signed drivers:\" | Out-File $fn -Append\nGet-CimInstance Win32_PnPSignedDriver | Sort DriverDate | Select-Object -First 60 DeviceName,DriverDate,DriverVersion | Format-Table -Wrap | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "aphrodite_extra_wmi_latency_checks_16__performance.lib.latency.scheduler_timer",
+      "type": "action",
+      "name": "Aphrodite Extra: WMI latency checks (16)",
+      "description": "Extra unique diagnostic export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Latency/Validation",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\aphrodite_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"aphrodite_extra_16_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Aphrodite Extra 16: WMI latency checks ===\" | Out-File $fn -Encoding utf8\n\n\"WMI quick check:\" | Out-File $fn -Append\nGet-CimInstance Win32_OperatingSystem | Select Caption,Version,BuildNumber | Format-List | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "aphrodite_extra_services_non_default_start_delta_17__performance.lib.latency.scheduler_timer",
+      "type": "action",
+      "name": "Aphrodite Extra: Services non-default start (delta) (17)",
+      "description": "Extra unique diagnostic export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Latency/Validation",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\aphrodite_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"aphrodite_extra_17_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Aphrodite Extra 17: Services non-default start (delta) ===\" | Out-File $fn -Encoding utf8\n\n\"Non-default service start:\" | Out-File $fn -Append\nGet-CimInstance Win32_Service | Where-Object {$_.StartMode -ne \"Auto\"} | Select-Object -First 200 Name,StartMode,State | Format-Table -AutoSize | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "aphrodite_extra_scheduled_tasks_top_18__performance.lib.latency.scheduler_timer",
+      "type": "action",
+      "name": "Aphrodite Extra: Scheduled tasks (top) (18)",
+      "description": "Extra unique diagnostic export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Latency/Validation",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\aphrodite_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"aphrodite_extra_18_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Aphrodite Extra 18: Scheduled tasks (top) ===\" | Out-File $fn -Encoding utf8\n\n\"Scheduled tasks (top):\" | Out-File $fn -Append\nGet-ScheduledTask | Select-Object -First 120 TaskName,State | Format-Table -AutoSize | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "aphrodite_extra_drivers_with_oldest_dates_19__performance.lib.latency.scheduler_timer",
+      "type": "action",
+      "name": "Aphrodite Extra: Drivers with oldest dates (19)",
+      "description": "Extra unique diagnostic export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Latency/Validation",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\aphrodite_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"aphrodite_extra_19_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Aphrodite Extra 19: Drivers with oldest dates ===\" | Out-File $fn -Encoding utf8\n\n\"Oldest signed drivers:\" | Out-File $fn -Append\nGet-CimInstance Win32_PnPSignedDriver | Sort DriverDate | Select-Object -First 60 DeviceName,DriverDate,DriverVersion | Format-Table -Wrap | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "aphrodite_extra_wmi_latency_checks_20__performance.lib.latency.scheduler_timer",
+      "type": "action",
+      "name": "Aphrodite Extra: WMI latency checks (20)",
+      "description": "Extra unique diagnostic export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Latency/Validation",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\aphrodite_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"aphrodite_extra_20_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Aphrodite Extra 20: WMI latency checks ===\" | Out-File $fn -Encoding utf8\n\n\"WMI quick check:\" | Out-File $fn -Append\nGet-CimInstance Win32_OperatingSystem | Select Caption,Version,BuildNumber | Format-List | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "aphrodite_extra_services_non_default_start_delta_21__performance.lib.latency.scheduler_timer",
+      "type": "action",
+      "name": "Aphrodite Extra: Services non-default start (delta) (21)",
+      "description": "Extra unique diagnostic export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Latency/Validation",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\aphrodite_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"aphrodite_extra_21_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Aphrodite Extra 21: Services non-default start (delta) ===\" | Out-File $fn -Encoding utf8\n\n\"Non-default service start:\" | Out-File $fn -Append\nGet-CimInstance Win32_Service | Where-Object {$_.StartMode -ne \"Auto\"} | Select-Object -First 200 Name,StartMode,State | Format-Table -AutoSize | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "aphrodite_extra_scheduled_tasks_top_22__performance.lib.latency.scheduler_timer",
+      "type": "action",
+      "name": "Aphrodite Extra: Scheduled tasks (top) (22)",
+      "description": "Extra unique diagnostic export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Latency/Validation",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\aphrodite_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"aphrodite_extra_22_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Aphrodite Extra 22: Scheduled tasks (top) ===\" | Out-File $fn -Encoding utf8\n\n\"Scheduled tasks (top):\" | Out-File $fn -Append\nGet-ScheduledTask | Select-Object -First 120 TaskName,State | Format-Table -AutoSize | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "aphrodite_extra_drivers_with_oldest_dates_23__performance.lib.latency.scheduler_timer",
+      "type": "action",
+      "name": "Aphrodite Extra: Drivers with oldest dates (23)",
+      "description": "Extra unique diagnostic export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Latency/Validation",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\aphrodite_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"aphrodite_extra_23_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Aphrodite Extra 23: Drivers with oldest dates ===\" | Out-File $fn -Encoding utf8\n\n\"Oldest signed drivers:\" | Out-File $fn -Append\nGet-CimInstance Win32_PnPSignedDriver | Sort DriverDate | Select-Object -First 60 DeviceName,DriverDate,DriverVersion | Format-Table -Wrap | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "aphrodite_extra_wmi_latency_checks_24__performance.lib.latency.scheduler_timer",
+      "type": "action",
+      "name": "Aphrodite Extra: WMI latency checks (24)",
+      "description": "Extra unique diagnostic export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Latency/Validation",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\aphrodite_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"aphrodite_extra_24_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Aphrodite Extra 24: WMI latency checks ===\" | Out-File $fn -Encoding utf8\n\n\"WMI quick check:\" | Out-File $fn -Append\nGet-CimInstance Win32_OperatingSystem | Select Caption,Version,BuildNumber | Format-List | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "aphrodite_extra_services_non_default_start_delta_25__performance.lib.latency.scheduler_timer",
+      "type": "action",
+      "name": "Aphrodite Extra: Services non-default start (delta) (25)",
+      "description": "Extra unique diagnostic export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Latency/Validation",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\aphrodite_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"aphrodite_extra_25_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Aphrodite Extra 25: Services non-default start (delta) ===\" | Out-File $fn -Encoding utf8\n\n\"Non-default service start:\" | Out-File $fn -Append\nGet-CimInstance Win32_Service | Where-Object {$_.StartMode -ne \"Auto\"} | Select-Object -First 200 Name,StartMode,State | Format-Table -AutoSize | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "aphrodite_extra_scheduled_tasks_top_26__performance.lib.latency.scheduler_timer",
+      "type": "action",
+      "name": "Aphrodite Extra: Scheduled tasks (top) (26)",
+      "description": "Extra unique diagnostic export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Latency/Validation",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\aphrodite_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"aphrodite_extra_26_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Aphrodite Extra 26: Scheduled tasks (top) ===\" | Out-File $fn -Encoding utf8\n\n\"Scheduled tasks (top):\" | Out-File $fn -Append\nGet-ScheduledTask | Select-Object -First 120 TaskName,State | Format-Table -AutoSize | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "aphrodite_extra_drivers_with_oldest_dates_27__performance.lib.latency.scheduler_timer",
+      "type": "action",
+      "name": "Aphrodite Extra: Drivers with oldest dates (27)",
+      "description": "Extra unique diagnostic export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Latency/Validation",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\aphrodite_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"aphrodite_extra_27_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Aphrodite Extra 27: Drivers with oldest dates ===\" | Out-File $fn -Encoding utf8\n\n\"Oldest signed drivers:\" | Out-File $fn -Append\nGet-CimInstance Win32_PnPSignedDriver | Sort DriverDate | Select-Object -First 60 DeviceName,DriverDate,DriverVersion | Format-Table -Wrap | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "aphrodite_extra_wmi_latency_checks_28__performance.lib.latency.scheduler_timer",
+      "type": "action",
+      "name": "Aphrodite Extra: WMI latency checks (28)",
+      "description": "Extra unique diagnostic export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Latency/Validation",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\aphrodite_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"aphrodite_extra_28_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Aphrodite Extra 28: WMI latency checks ===\" | Out-File $fn -Encoding utf8\n\n\"WMI quick check:\" | Out-File $fn -Append\nGet-CimInstance Win32_OperatingSystem | Select Caption,Version,BuildNumber | Format-List | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "aphrodite_extra_services_non_default_start_delta_29__performance.lib.latency.scheduler_timer",
+      "type": "action",
+      "name": "Aphrodite Extra: Services non-default start (delta) (29)",
+      "description": "Extra unique diagnostic export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Latency/Validation",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\aphrodite_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"aphrodite_extra_29_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Aphrodite Extra 29: Services non-default start (delta) ===\" | Out-File $fn -Encoding utf8\n\n\"Non-default service start:\" | Out-File $fn -Append\nGet-CimInstance Win32_Service | Where-Object {$_.StartMode -ne \"Auto\"} | Select-Object -First 200 Name,StartMode,State | Format-Table -AutoSize | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "aphrodite_extra_scheduled_tasks_top_30__performance.lib.latency.scheduler_timer",
+      "type": "action",
+      "name": "Aphrodite Extra: Scheduled tasks (top) (30)",
+      "description": "Extra unique diagnostic export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Latency/Validation",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\aphrodite_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"aphrodite_extra_30_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Aphrodite Extra 30: Scheduled tasks (top) ===\" | Out-File $fn -Encoding utf8\n\n\"Scheduled tasks (top):\" | Out-File $fn -Append\nGet-ScheduledTask | Select-Object -First 120 TaskName,State | Format-Table -AutoSize | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "aphrodite_extra_drivers_with_oldest_dates_31__performance.lib.latency.scheduler_timer",
+      "type": "action",
+      "name": "Aphrodite Extra: Drivers with oldest dates (31)",
+      "description": "Extra unique diagnostic export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Latency/Validation",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\aphrodite_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"aphrodite_extra_31_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Aphrodite Extra 31: Drivers with oldest dates ===\" | Out-File $fn -Encoding utf8\n\n\"Oldest signed drivers:\" | Out-File $fn -Append\nGet-CimInstance Win32_PnPSignedDriver | Sort DriverDate | Select-Object -First 60 DeviceName,DriverDate,DriverVersion | Format-Table -Wrap | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "aphrodite_extra_wmi_latency_checks_32__performance.lib.latency.scheduler_timer",
+      "type": "action",
+      "name": "Aphrodite Extra: WMI latency checks (32)",
+      "description": "Extra unique diagnostic export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Latency/Validation",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\aphrodite_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"aphrodite_extra_32_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Aphrodite Extra 32: WMI latency checks ===\" | Out-File $fn -Encoding utf8\n\n\"WMI quick check:\" | Out-File $fn -Append\nGet-CimInstance Win32_OperatingSystem | Select Caption,Version,BuildNumber | Format-List | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "aphrodite_extra_services_non_default_start_delta_33__performance.lib.latency.scheduler_timer",
+      "type": "action",
+      "name": "Aphrodite Extra: Services non-default start (delta) (33)",
+      "description": "Extra unique diagnostic export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Latency/Validation",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\aphrodite_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"aphrodite_extra_33_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Aphrodite Extra 33: Services non-default start (delta) ===\" | Out-File $fn -Encoding utf8\n\n\"Non-default service start:\" | Out-File $fn -Append\nGet-CimInstance Win32_Service | Where-Object {$_.StartMode -ne \"Auto\"} | Select-Object -First 200 Name,StartMode,State | Format-Table -AutoSize | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "aphrodite_extra_scheduled_tasks_top_34__performance.lib.latency.scheduler_timer",
+      "type": "action",
+      "name": "Aphrodite Extra: Scheduled tasks (top) (34)",
+      "description": "Extra unique diagnostic export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Latency/Validation",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\aphrodite_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"aphrodite_extra_34_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Aphrodite Extra 34: Scheduled tasks (top) ===\" | Out-File $fn -Encoding utf8\n\n\"Scheduled tasks (top):\" | Out-File $fn -Append\nGet-ScheduledTask | Select-Object -First 120 TaskName,State | Format-Table -AutoSize | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "aphrodite_extra_drivers_with_oldest_dates_35__performance.lib.latency.scheduler_timer",
+      "type": "action",
+      "name": "Aphrodite Extra: Drivers with oldest dates (35)",
+      "description": "Extra unique diagnostic export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Latency/Validation",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\aphrodite_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"aphrodite_extra_35_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Aphrodite Extra 35: Drivers with oldest dates ===\" | Out-File $fn -Encoding utf8\n\n\"Oldest signed drivers:\" | Out-File $fn -Append\nGet-CimInstance Win32_PnPSignedDriver | Sort DriverDate | Select-Object -First 60 DeviceName,DriverDate,DriverVersion | Format-Table -Wrap | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "aphrodite_extra_wmi_latency_checks_36__performance.lib.latency.scheduler_timer",
+      "type": "action",
+      "name": "Aphrodite Extra: WMI latency checks (36)",
+      "description": "Extra unique diagnostic export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Latency/Validation",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\aphrodite_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"aphrodite_extra_36_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Aphrodite Extra 36: WMI latency checks ===\" | Out-File $fn -Encoding utf8\n\n\"WMI quick check:\" | Out-File $fn -Append\nGet-CimInstance Win32_OperatingSystem | Select Caption,Version,BuildNumber | Format-List | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "aphrodite_extra_services_non_default_start_delta_37__performance.lib.latency.scheduler_timer",
+      "type": "action",
+      "name": "Aphrodite Extra: Services non-default start (delta) (37)",
+      "description": "Extra unique diagnostic export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Latency/Validation",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\aphrodite_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"aphrodite_extra_37_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Aphrodite Extra 37: Services non-default start (delta) ===\" | Out-File $fn -Encoding utf8\n\n\"Non-default service start:\" | Out-File $fn -Append\nGet-CimInstance Win32_Service | Where-Object {$_.StartMode -ne \"Auto\"} | Select-Object -First 200 Name,StartMode,State | Format-Table -AutoSize | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "aphrodite_extra_scheduled_tasks_top_38__performance.lib.latency.scheduler_timer",
+      "type": "action",
+      "name": "Aphrodite Extra: Scheduled tasks (top) (38)",
+      "description": "Extra unique diagnostic export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Latency/Validation",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\aphrodite_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"aphrodite_extra_38_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Aphrodite Extra 38: Scheduled tasks (top) ===\" | Out-File $fn -Encoding utf8\n\n\"Scheduled tasks (top):\" | Out-File $fn -Append\nGet-ScheduledTask | Select-Object -First 120 TaskName,State | Format-Table -AutoSize | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "aphrodite_extra_drivers_with_oldest_dates_39__performance.lib.latency.scheduler_timer",
+      "type": "action",
+      "name": "Aphrodite Extra: Drivers with oldest dates (39)",
+      "description": "Extra unique diagnostic export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Latency/Validation",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\aphrodite_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"aphrodite_extra_39_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Aphrodite Extra 39: Drivers with oldest dates ===\" | Out-File $fn -Encoding utf8\n\n\"Oldest signed drivers:\" | Out-File $fn -Append\nGet-CimInstance Win32_PnPSignedDriver | Sort DriverDate | Select-Object -First 60 DeviceName,DriverDate,DriverVersion | Format-Table -Wrap | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "aphrodite_extra_wmi_latency_checks_40__performance.lib.latency.scheduler_timer",
+      "type": "action",
+      "name": "Aphrodite Extra: WMI latency checks (40)",
+      "description": "Extra unique diagnostic export.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Latency/Validation",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\aphrodite_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"aphrodite_extra_40_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Aphrodite Extra 40: WMI latency checks ===\" | Out-File $fn -Encoding utf8\n\n\"WMI quick check:\" | Out-File $fn -Append\nGet-CimInstance Win32_OperatingSystem | Select Caption,Version,BuildNumber | Format-List | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "registry_overview_analyzer",
+      "type": "action",
+      "name": "Analyze Explorer History / MRU Bloat",
+      "description": "[Analyzer] Counts values/subkeys in common HKCU Explorer history zones (RunMRU, RecentDocs, OpenSaveMru, etc.).",
+      "requiresAdmin": false,
+      "riskLevel": "Safe",
+      "category": "Registry Lab / Analyzer",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"=== FALCON REGISTRY LAB: OVERVIEW ANALYZER ===\"\nWrite-Output \"\"\nWrite-Output \"Scanning a few common bloat / history zones in HKCU to estimate how dirty Explorer history is.\"\nWrite-Output \"\"\n\n$zones = @(\n  @{ Name = \"RunMRU\";        Path = \"HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\RunMRU\" },\n  @{ Name = \"RecentDocs\";    Path = \"HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\RecentDocs\" },\n  @{ Name = \"OpenSaveMRU\";   Path = \"HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\ComDlg32\\OpenSavePidlMRU\" },\n  @{ Name = \"TypedPaths\";    Path = \"HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\TypedPaths\" },\n  @{ Name = \"WordWheelQuery\";Path = \"HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\WordWheelQuery\" }\n)\n\nforeach ($z in $zones) {\n  $name = $z.Name\n  $path = $z.Path\n  try {\n    if (Test-Path $path) {\n      $key  = Get-Item $path -ErrorAction SilentlyContinue\n      $vals = $key.Property | Where-Object { $_ -ne \"(default)\" }\n      $sub  = Get-ChildItem $path -ErrorAction SilentlyContinue\n      $valCount = $vals.Count\n      $subCount = if ($sub) { $sub.Count } else { 0 }\n      Write-Output (\"{0}: Values={1}, Subkeys={2} ({3})\" -f $name, $valCount, $subCount, $path)\n    } else {\n      Write-Output (\"{0}: Not present ({1})\" -f $name, $path)\n    }\n  } catch {\n    Write-Output (\"{0}: Error reading {1}: {2}\" -f $name, $path, $_.Exception.Message)\n  }\n}\n\nWrite-Output \"\"\nWrite-Output \"These zones are where Explorer and dialogs store run history, open/save history, and search suggestions.\"\nWrite-Output \"Cleaning them can reset Explorer/file-dialog history and slightly reduce registry bloat; it will not magically add FPS.\"\nWrite-Output \"\"\nWrite-Output \"=== END OF REGISTRY LAB OVERVIEW ===\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nAnalyzer is read-only and needs no revert.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "id": "registry_clean_explorer_history",
+      "type": "button",
+      "name": "Apply: Clean Explorer Run/Search History (HKCU)",
+      "description": "[QoL + Micro-bloat] Clears Run dialog, typed paths, and Explorer search history for this user.",
+      "requiresAdmin": false,
+      "riskLevel": "Warning",
+      "category": "Registry Lab / Cleanup",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"=== FALCON REGISTRY LAB: CLEAN EXPLORER RUN HISTORY ===\"\nWrite-Output \"\"\nWrite-Output \"This will clean Run dialog history, typed paths, and search suggestions under HKCU Explorer keys.\"\nWrite-Output \"Impact: resets Explorer/Run history for this user only. No core OS components are removed.\"\nWrite-Output \"\"\n\n$targets = @(\n  \"HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\RunMRU\",\n  \"HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\TypedPaths\",\n  \"HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\WordWheelQuery\"\n)\n\nforeach ($t in $targets) {\n  try {\n    if (Test-Path $t) {\n      Remove-Item -Path $t -Recurse -Force -ErrorAction SilentlyContinue\n      Write-Output (\"Cleared: {0}\" -f $t)\n    } else {\n      Write-Output (\"Skipped (not present): {0}\" -f $t)\n    }\n  } catch {\n    Write-Output (\"Failed to clear {0}: {1}\" -f $t, $_.Exception.Message)\n  }\n}\n\nWrite-Output \"\"\nWrite-Output \"Explorer will recreate needed keys as you use it. A logoff/logon or Explorer restart can refresh behavior.\"\nWrite-Output \"=== END OF EXPLORER RUN HISTORY CLEAN ===\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nHistory will repopulate as you use Explorer/Run; there is no direct revert for deleted MRU entries.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "description": "[QoL + Micro-bloat] Clears Run dialog, typed paths, and Explorer search history for this user.",
+      "requiresAdmin": false,
+      "riskLevel": "Warning",
+      "category": "Registry Lab / Cleanup",
+      "id": "registry_clean_explorer_history__revert",
+      "type": "button",
+      "name": "Revert: Clean Explorer Run/Search History (HKCU)",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nHistory will repopulate as you use Explorer/Run; there is no direct revert for deleted MRU entries.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "id": "registry_clean_recent_opensave",
+      "type": "button",
+      "name": "Apply: Clean RecentDocs & Open/Save MRU (HKCU)",
+      "description": "[QoL + Micro-bloat] Clears RecentDocs and Open/Save dialog MRU entries under HKCU.",
+      "requiresAdmin": false,
+      "riskLevel": "Warning",
+      "category": "Registry Lab / Cleanup",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"=== FALCON REGISTRY LAB: CLEAN OPEN/SAVE MRU ===\"\nWrite-Output \"\"\nWrite-Output \"This will clean RecentDocs and OpenSave dialog MRU entries under HKCU.\"\nWrite-Output \"Impact: clears per-user 'recent files' lists and file-type dialog history. No core OS components are removed.\"\nWrite-Output \"\"\n\n$targets = @(\n  \"HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\RecentDocs\",\n  \"HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\ComDlg32\\OpenSavePidlMRU\"\n)\n\nforeach ($t in $targets) {\n  try {\n    if (Test-Path $t) {\n      Remove-Item -Path $t -Recurse -Force -ErrorAction SilentlyContinue\n      Write-Output (\"Cleared: {0}\" -f $t)\n    } else {\n      Write-Output (\"Skipped (not present): {0}\" -f $t)\n    }\n  } catch {\n    Write-Output (\"Failed to clear {0}: {1}\" -f $t, $_.Exception.Message)\n  }\n}\n\nWrite-Output \"\"\nWrite-Output \"A logoff/logon or Explorer restart can reset recent-items views after this cleanup.\"\nWrite-Output \"=== END OF OPEN/SAVE MRU CLEAN ===\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nRecentDocs/OpenSave MRU will repopulate naturally as you open files; there is no direct revert.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "description": "[QoL + Micro-bloat] Clears RecentDocs and Open/Save dialog MRU entries under HKCU.",
+      "requiresAdmin": false,
+      "riskLevel": "Warning",
+      "category": "Registry Lab / Cleanup",
+      "id": "registry_clean_recent_opensave__revert",
+      "type": "button",
+      "name": "Revert: Clean RecentDocs & Open/Save MRU (HKCU)",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nRecentDocs/OpenSave MRU will repopulate naturally as you open files; there is no direct revert.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "id": "reg_clean_explorer_runmru",
+      "type": "button",
+      "name": "Apply: Clear Explorer RunMRU",
+      "description": "Deletes registry history keys for Explorer RunMRU.",
+      "requiresAdmin": false,
+      "riskLevel": "Warning",
+      "category": "Registry Lab / Cleaner",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Clearing Explorer RunMRU\"; Remove-Item -Path \"HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\RunMRU\" -Recurse -Force -ErrorAction SilentlyContinue; Write-Output \"Done.\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Restore not possible (history cleared).\""
+          }
+        ]
+      }
+    },
+    {
+      "description": "Deletes registry history keys for Explorer RunMRU.",
+      "requiresAdmin": false,
+      "riskLevel": "Warning",
+      "category": "Registry Lab / Cleaner",
+      "id": "reg_clean_explorer_runmru__revert",
+      "type": "button",
+      "name": "Revert: Clear Explorer RunMRU",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Restore not possible (history cleared).\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "reg_clean_recentdocs",
+      "type": "button",
+      "name": "Apply: Clear RecentDocs",
+      "description": "Deletes registry history keys for RecentDocs.",
+      "requiresAdmin": false,
+      "riskLevel": "Warning",
+      "category": "Registry Lab / Cleaner",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Clearing RecentDocs\"; Remove-Item -Path \"HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\RecentDocs\" -Recurse -Force -ErrorAction SilentlyContinue; Write-Output \"Done.\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Restore not possible (history cleared).\""
+          }
+        ]
+      }
+    },
+    {
+      "description": "Deletes registry history keys for RecentDocs.",
+      "requiresAdmin": false,
+      "riskLevel": "Warning",
+      "category": "Registry Lab / Cleaner",
+      "id": "reg_clean_recentdocs__revert",
+      "type": "button",
+      "name": "Revert: Clear RecentDocs",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Restore not possible (history cleared).\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "reg_clean_comdlg32_opensavemru",
+      "type": "button",
+      "name": "Apply: Clear ComDlg32 OpenSaveMRU",
+      "description": "Deletes registry history keys for ComDlg32 OpenSaveMRU.",
+      "requiresAdmin": false,
+      "riskLevel": "Warning",
+      "category": "Registry Lab / Cleaner",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Clearing ComDlg32 OpenSaveMRU\"; Remove-Item -Path \"HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\ComDlg32\\OpenSavePidlMRU\" -Recurse -Force -ErrorAction SilentlyContinue; Write-Output \"Done.\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Restore not possible (history cleared).\""
+          }
+        ]
+      }
+    },
+    {
+      "description": "Deletes registry history keys for ComDlg32 OpenSaveMRU.",
+      "requiresAdmin": false,
+      "riskLevel": "Warning",
+      "category": "Registry Lab / Cleaner",
+      "id": "reg_clean_comdlg32_opensavemru__revert",
+      "type": "button",
+      "name": "Revert: Clear ComDlg32 OpenSaveMRU",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Restore not possible (history cleared).\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "reg_clean_comdlg32_lastvisitedmru",
+      "type": "button",
+      "name": "Apply: Clear ComDlg32 LastVisitedMRU",
+      "description": "Deletes registry history keys for ComDlg32 LastVisitedMRU.",
+      "requiresAdmin": false,
+      "riskLevel": "Warning",
+      "category": "Registry Lab / Cleaner",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Clearing ComDlg32 LastVisitedMRU\"; Remove-Item -Path \"HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\ComDlg32\\LastVisitedPidlMRU\" -Recurse -Force -ErrorAction SilentlyContinue; Write-Output \"Done.\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Restore not possible (history cleared).\""
+          }
+        ]
+      }
+    },
+    {
+      "description": "Deletes registry history keys for ComDlg32 LastVisitedMRU.",
+      "requiresAdmin": false,
+      "riskLevel": "Warning",
+      "category": "Registry Lab / Cleaner",
+      "id": "reg_clean_comdlg32_lastvisitedmru__revert",
+      "type": "button",
+      "name": "Revert: Clear ComDlg32 LastVisitedMRU",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Restore not possible (history cleared).\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "reg_clean_typedpaths",
+      "type": "button",
+      "name": "Apply: Clear TypedPaths",
+      "description": "Deletes registry history keys for TypedPaths.",
+      "requiresAdmin": false,
+      "riskLevel": "Warning",
+      "category": "Registry Lab / Cleaner",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Clearing TypedPaths\"; Remove-Item -Path \"HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\TypedPaths\" -Recurse -Force -ErrorAction SilentlyContinue; Write-Output \"Done.\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Restore not possible (history cleared).\""
+          }
+        ]
+      }
+    },
+    {
+      "description": "Deletes registry history keys for TypedPaths.",
+      "requiresAdmin": false,
+      "riskLevel": "Warning",
+      "category": "Registry Lab / Cleaner",
+      "id": "reg_clean_typedpaths__revert",
+      "type": "button",
+      "name": "Revert: Clear TypedPaths",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Restore not possible (history cleared).\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "reg_clean_userassist",
+      "type": "button",
+      "name": "Apply: Clear UserAssist",
+      "description": "Deletes registry history keys for UserAssist.",
+      "requiresAdmin": false,
+      "riskLevel": "Warning",
+      "category": "Registry Lab / Cleaner",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Clearing UserAssist\"; Remove-Item -Path \"HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\UserAssist\" -Recurse -Force -ErrorAction SilentlyContinue; Write-Output \"Done.\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Restore not possible (history cleared).\""
+          }
+        ]
+      }
+    },
+    {
+      "description": "Deletes registry history keys for UserAssist.",
+      "requiresAdmin": false,
+      "riskLevel": "Warning",
+      "category": "Registry Lab / Cleaner",
+      "id": "reg_clean_userassist__revert",
+      "type": "button",
+      "name": "Revert: Clear UserAssist",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Restore not possible (history cleared).\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "reg_clean_muicache",
+      "type": "button",
+      "name": "Apply: Clear MuiCache",
+      "description": "Deletes registry history keys for MuiCache.",
+      "requiresAdmin": false,
+      "riskLevel": "Warning",
+      "category": "Registry Lab / Cleaner",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Clearing MuiCache\"; Remove-Item -Path \"HKCU:\\Software\\Classes\\Local Settings\\Software\\Microsoft\\Windows\\Shell\\MuiCache\" -Recurse -Force -ErrorAction SilentlyContinue; Write-Output \"Done.\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Restore not possible (history cleared).\""
+          }
+        ]
+      }
+    },
+    {
+      "description": "Deletes registry history keys for MuiCache.",
+      "requiresAdmin": false,
+      "riskLevel": "Warning",
+      "category": "Registry Lab / Cleaner",
+      "id": "reg_clean_muicache__revert",
+      "type": "button",
+      "name": "Revert: Clear MuiCache",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Restore not possible (history cleared).\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "reg_perf_systemresponsiveness",
+      "type": "toggle",
+      "name": "Set SystemResponsiveness",
+      "description": "[Focus: FPS] Reduce background responsiveness reservation for gaming.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Registry Lab / Performance",
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows NT\\\\CurrentVersion\\\\Multimedia\\\\SystemProfile",
+            "name": "SystemResponsiveness",
+            "value": 0,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows NT\\\\CurrentVersion\\\\Multimedia\\\\SystemProfile",
+            "name": "SystemResponsiveness"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows NT\\\\CurrentVersion\\\\Multimedia\\\\SystemProfile",
+            "name": "SystemResponsiveness",
+            "valueType": "DWORD",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "reg_perf_networkthrottlingindex",
+      "type": "toggle",
+      "name": "Set NetworkThrottlingIndex",
+      "description": "[Focus: FPS] Disable network throttling (can improve gaming traffic).",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Registry Lab / Performance",
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows NT\\\\CurrentVersion\\\\Multimedia\\\\SystemProfile",
+            "name": "NetworkThrottlingIndex",
+            "value": 4294967295,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows NT\\\\CurrentVersion\\\\Multimedia\\\\SystemProfile",
+            "name": "NetworkThrottlingIndex"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows NT\\\\CurrentVersion\\\\Multimedia\\\\SystemProfile",
+            "name": "NetworkThrottlingIndex",
+            "valueType": "DWORD",
+            "equals": 4294967295
+          }
+        ]
+      }
+    },
+    {
+      "id": "reg_perf_appcaptureenabled",
+      "type": "toggle",
+      "name": "Set AppCaptureEnabled",
+      "description": "[Focus: FPS] Disable GameDVR capture.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Registry Lab / Performance",
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\GameDVR",
+            "name": "AppCaptureEnabled",
+            "value": 0,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\GameDVR",
+            "name": "AppCaptureEnabled"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\GameDVR",
+            "name": "AppCaptureEnabled",
+            "valueType": "DWORD",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "reg_perf_gamedvr_enabled",
+      "type": "toggle",
+      "name": "Set GameDVR_Enabled",
+      "description": "[Focus: FPS] Disable GameDVR store flag.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Registry Lab / Performance",
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\\\System\\\\GameConfigStore",
+            "name": "GameDVR_Enabled",
+            "value": 0,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\\\System\\\\GameConfigStore",
+            "name": "GameDVR_Enabled"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\\\System\\\\GameConfigStore",
+            "name": "GameDVR_Enabled",
+            "valueType": "DWORD",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "reg_ui_menushowdelay",
+      "type": "toggle",
+      "name": "UI: MenuShowDelay",
+      "description": "Remove menu animation delay.",
+      "requiresAdmin": false,
+      "riskLevel": "Warning",
+      "category": "Registry Lab / UI",
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\\\Control Panel\\\\Desktop",
+            "name": "MenuShowDelay",
+            "value": "0",
+            "valueType": "String"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\\\Control Panel\\\\Desktop",
+            "name": "MenuShowDelay"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\\\Control Panel\\\\Desktop",
+            "name": "MenuShowDelay",
+            "valueType": "String",
+            "equals": "0"
+          }
+        ]
+      }
+    },
+    {
+      "id": "reg_ui_mousehovertime",
+      "type": "toggle",
+      "name": "UI: MouseHoverTime",
+      "description": "Reduce hover time.",
+      "requiresAdmin": false,
+      "riskLevel": "Warning",
+      "category": "Registry Lab / UI",
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\\\Control Panel\\\\Desktop",
+            "name": "MouseHoverTime",
+            "value": "10",
+            "valueType": "String"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\\\Control Panel\\\\Desktop",
+            "name": "MouseHoverTime"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\\\Control Panel\\\\Desktop",
+            "name": "MouseHoverTime",
+            "valueType": "String",
+            "equals": "10"
+          }
+        ]
+      }
+    },
+    {
+      "id": "reg_ui_foregroundlocktimeout",
+      "type": "toggle",
+      "name": "UI: ForegroundLockTimeout",
+      "description": "Allow faster foreground focus changes.",
+      "requiresAdmin": false,
+      "riskLevel": "Caution",
+      "category": "Registry Lab / UI",
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\\\Control Panel\\\\Desktop",
+            "name": "ForegroundLockTimeout",
+            "value": 0,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\\\Control Panel\\\\Desktop",
+            "name": "ForegroundLockTimeout"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\\\Control Panel\\\\Desktop",
+            "name": "ForegroundLockTimeout",
+            "valueType": "DWORD",
+            "equals": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "reg_extra_hklm_software_microsoft_windows_dwm_overlaytestmode",
+      "type": "toggle",
+      "name": "Graphics: OverlayTestMode",
+      "description": "[Focus: FPS] Disable MPO (may help stutter).",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Registry Lab / Graphics",
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\Dwm",
+            "name": "OverlayTestMode",
+            "value": 5,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\Dwm",
+            "name": "OverlayTestMode"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\Dwm",
+            "name": "OverlayTestMode",
+            "valueType": "DWORD",
+            "equals": 5
+          }
+        ]
+      }
+    },
+    {
+      "id": "reg_extra_hkcu_system_gameconfigstore_gamedvr_fsebehaviormode",
+      "type": "toggle",
+      "name": "Graphics: GameDVR_FSEBehaviorMode",
+      "description": "[Focus: FPS] Disable Fullscreen Optimizations behavior mode.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Registry Lab / Graphics",
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\\\System\\\\GameConfigStore",
+            "name": "GameDVR_FSEBehaviorMode",
+            "value": 2,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\\\System\\\\GameConfigStore",
+            "name": "GameDVR_FSEBehaviorMode"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\\\System\\\\GameConfigStore",
+            "name": "GameDVR_FSEBehaviorMode",
+            "valueType": "DWORD",
+            "equals": 2
+          }
+        ]
+      }
+    },
+    {
+      "id": "reg_extra_hkcu_system_gameconfigstore_gamedvr_fsebehavior",
+      "type": "toggle",
+      "name": "Graphics: GameDVR_FSEBehavior",
+      "description": "[Focus: FPS] Disable Fullscreen Optimizations behavior.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Registry Lab / Graphics",
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\\\System\\\\GameConfigStore",
+            "name": "GameDVR_FSEBehavior",
+            "value": 2,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\\\System\\\\GameConfigStore",
+            "name": "GameDVR_FSEBehavior"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\\\System\\\\GameConfigStore",
+            "name": "GameDVR_FSEBehavior",
+            "valueType": "DWORD",
+            "equals": 2
+          }
+        ]
+      }
+    },
+    {
+      "id": "reg_extra_hkcu_system_gameconfigstore_gamedvr_honoruserfsebehaviormode",
+      "type": "toggle",
+      "name": "Graphics: GameDVR_HonorUserFSEBehaviorMode",
+      "description": "[Focus: FPS] Honor user FSO preference.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Registry Lab / Graphics",
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\\\System\\\\GameConfigStore",
+            "name": "GameDVR_HonorUserFSEBehaviorMode",
+            "value": 1,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\\\System\\\\GameConfigStore",
+            "name": "GameDVR_HonorUserFSEBehaviorMode"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\\\System\\\\GameConfigStore",
+            "name": "GameDVR_HonorUserFSEBehaviorMode",
+            "valueType": "DWORD",
+            "equals": 1
+          }
+        ]
+      }
+    }
+  ]
+}

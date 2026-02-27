@@ -1,0 +1,341 @@
+{
+  "items": [
+    {
+      "id": "engine_game_disable_game_bar_dvr_global",
+      "type": "action",
+      "name": "Engine/Game: Disable Game Bar + DVR (global)",
+      "description": "Disables Xbox Game Bar and GameDVR capture features to reduce background hooks/overlays.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Engine/Games",
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "HKCU\\\\Software\\\\Microsoft\\\\GameBar",
+            "name": "AllowAutoGameMode",
+            "regType": "DWORD",
+            "value": 0
+          },
+          {
+            "type": "reg.set",
+            "path": "HKCU\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\GameDVR",
+            "name": "AppCaptureEnabled",
+            "regType": "DWORD",
+            "value": 0
+          },
+          {
+            "type": "reg.set",
+            "path": "HKCU\\\\System\\\\GameConfigStore",
+            "name": "GameDVR_Enabled",
+            "regType": "DWORD",
+            "value": 0
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "reg.del",
+            "path": "HKCU\\\\Software\\\\Microsoft\\\\GameBar",
+            "name": "AllowAutoGameMode"
+          },
+          {
+            "type": "reg.del",
+            "path": "HKCU\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\GameDVR",
+            "name": "AppCaptureEnabled"
+          },
+          {
+            "type": "reg.del",
+            "path": "HKCU\\\\System\\\\GameConfigStore",
+            "name": "GameDVR_Enabled"
+          }
+        ]
+      }
+    },
+    {
+      "id": "engine_game_prefer_max_performance_gpu_for_common_launchers",
+      "type": "action",
+      "name": "Engine/Game: Prefer max performance GPU for common launchers",
+      "description": "Sets Windows graphics preference to High performance for Steam/Epic/Battle.net/Riot clients.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Engine/Games",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$apps = @(\n  \"$env:ProgramFiles(x86)\\Steam\\steam.exe\",\n  \"$env:ProgramFiles\\Epic Games\\Launcher\\Portal\\Binaries\\Win64\\EpicGamesLauncher.exe\",\n  \"$env:ProgramFiles(x86)\\Battle.net\\Battle.net.exe\",\n  \"$env:ProgramFiles\\Riot Vanguard\\vgc.exe\"\n)\n$gp = \"HKCU:\\Software\\Microsoft\\DirectX\\UserGpuPreferences\"\nforeach($a in $apps){ if(Test-Path $a){ New-Item -Path $gp -Force | Out-Null; New-ItemProperty -Path $gp -Name $a -Value \"GpuPreference=2;\" -PropertyType String -Force | Out-Null } }\nWrite-Output \"Done\"\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "engine_game_disable_fullscreen_optimizations_global_policy",
+      "type": "action",
+      "name": "Engine/Game: Disable Fullscreen Optimizations (global policy)",
+      "description": "Disables Fullscreen Optimizations system-wide for fewer presentation mode surprises.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Engine/Games",
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "HKCU\\\\System\\\\GameConfigStore",
+            "name": "GameDVR_FSEBehaviorMode",
+            "regType": "DWORD",
+            "value": 2
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "reg.del",
+            "path": "HKCU\\\\System\\\\GameConfigStore",
+            "name": "GameDVR_FSEBehaviorMode"
+          }
+        ]
+      }
+    },
+    {
+      "id": "engine_game_disable_pointer_precision_mouse_accel_off",
+      "type": "action",
+      "name": "Engine/Game: Disable Pointer Precision (mouse accel off)",
+      "description": "Turns off Windows enhanced pointer precision for consistent aim.",
+      "requiresAdmin": false,
+      "riskLevel": "Safe",
+      "category": "Engine/Games",
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "HKCU\\\\Control Panel\\\\Mouse",
+            "name": "MouseSpeed",
+            "regType": "String",
+            "value": "0"
+          },
+          {
+            "type": "reg.set",
+            "path": "HKCU\\\\Control Panel\\\\Mouse",
+            "name": "MouseThreshold1",
+            "regType": "String",
+            "value": "0"
+          },
+          {
+            "type": "reg.set",
+            "path": "HKCU\\\\Control Panel\\\\Mouse",
+            "name": "MouseThreshold2",
+            "regType": "String",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "reg.del",
+            "path": "HKCU\\\\Control Panel\\\\Mouse",
+            "name": "MouseSpeed"
+          },
+          {
+            "type": "reg.del",
+            "path": "HKCU\\\\Control Panel\\\\Mouse",
+            "name": "MouseThreshold1"
+          },
+          {
+            "type": "reg.del",
+            "path": "HKCU\\\\Control Panel\\\\Mouse",
+            "name": "MouseThreshold2"
+          }
+        ]
+      }
+    },
+    {
+      "id": "engine_game_disable_xbox_services_safe_stop",
+      "type": "action",
+      "name": "Engine/Game: Disable Xbox services (safe stop)",
+      "description": "Stops Xbox-related services (can reduce background activity if you don't use Xbox features).",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Engine/Games",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$svcs = \"XblAuthManager\",\"XblGameSave\",\"XboxGipSvc\",\"XboxNetApiSvc\"\nforeach($s in $svcs){ \n  $svc = Get-Service -Name $s -ErrorAction SilentlyContinue\n  if($svc){ try{ Stop-Service $s -Force -ErrorAction SilentlyContinue }catch{} }\n}\nWrite-Output \"Stopped\"\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$svcs = \"XblAuthManager\",\"XblGameSave\",\"XboxGipSvc\",\"XboxNetApiSvc\"\nforeach($s in $svcs){ \n  $svc = Get-Service -Name $s -ErrorAction SilentlyContinue\n  if($svc){ try{ Start-Service $s -ErrorAction SilentlyContinue }catch{} }\n}\nWrite-Output \"Attempted restore\"\n"
+          }
+        ]
+      }
+    },
+    {
+      "id": "engine_game_disable_background_apps_per_user",
+      "type": "action",
+      "name": "Engine/Game: Disable background apps (per-user)",
+      "description": "Blocks background app execution for UWP apps to reduce background wakeups.",
+      "requiresAdmin": false,
+      "riskLevel": "Safe",
+      "category": "Engine/Games",
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "HKCU\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\BackgroundAccessApplications",
+            "name": "GlobalUserDisabled",
+            "regType": "DWORD",
+            "value": 1
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "reg.del",
+            "path": "HKCU\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\BackgroundAccessApplications",
+            "name": "GlobalUserDisabled"
+          }
+        ]
+      }
+    },
+    {
+      "id": "engine_game_disable_windows_tips_suggestions",
+      "type": "action",
+      "name": "Engine/Game: Disable Windows tips/suggestions",
+      "description": "Reduces OS suggestion content and background fetching.",
+      "requiresAdmin": false,
+      "riskLevel": "Safe",
+      "category": "Engine/Games",
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "HKCU\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\ContentDeliveryManager",
+            "name": "SubscribedContent-338389Enabled",
+            "regType": "DWORD",
+            "value": 0
+          },
+          {
+            "type": "reg.set",
+            "path": "HKCU\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\ContentDeliveryManager",
+            "name": "SubscribedContent-338388Enabled",
+            "regType": "DWORD",
+            "value": 0
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "reg.del",
+            "path": "HKCU\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\ContentDeliveryManager",
+            "name": "SubscribedContent-338389Enabled"
+          },
+          {
+            "type": "reg.del",
+            "path": "HKCU\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\ContentDeliveryManager",
+            "name": "SubscribedContent-338388Enabled"
+          }
+        ]
+      }
+    },
+    {
+      "id": "engine_game_disable_animations_performance_ui",
+      "type": "action",
+      "name": "Engine/Game: Disable animations (performance UI)",
+      "description": "Reduces UI animation overhead.",
+      "requiresAdmin": false,
+      "riskLevel": "Safe",
+      "category": "Engine/Games",
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "HKCU\\\\Control Panel\\\\Desktop\\\\WindowMetrics",
+            "name": "MinAnimate",
+            "regType": "String",
+            "value": "0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "reg.del",
+            "path": "HKCU\\\\Control Panel\\\\Desktop\\\\WindowMetrics",
+            "name": "MinAnimate"
+          }
+        ]
+      }
+    },
+    {
+      "id": "engine_game_enable_game_mode",
+      "type": "action",
+      "name": "Engine/Game: Enable Game Mode",
+      "description": "Enables Windows Game Mode scheduler behavior.",
+      "requiresAdmin": false,
+      "riskLevel": "Safe",
+      "category": "Engine/Games",
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "HKCU\\\\Software\\\\Microsoft\\\\GameBar",
+            "name": "AutoGameModeEnabled",
+            "regType": "DWORD",
+            "value": 1
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "reg.del",
+            "path": "HKCU\\\\Software\\\\Microsoft\\\\GameBar",
+            "name": "AutoGameModeEnabled"
+          }
+        ]
+      }
+    },
+    {
+      "id": "engine_game_disable_onedrive_startup_per_user",
+      "type": "action",
+      "name": "Engine/Game: Disable OneDrive startup (per-user)",
+      "description": "Prevents OneDrive from auto-starting (less background).",
+      "requiresAdmin": false,
+      "riskLevel": "Safe",
+      "category": "Engine/Games",
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.set",
+            "path": "HKCU\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Run",
+            "name": "OneDrive",
+            "regType": "String",
+            "value": ""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "reg.del",
+            "path": "HKCU\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Run",
+            "name": "OneDrive"
+          }
+        ]
+      }
+    }
+  ]
+}

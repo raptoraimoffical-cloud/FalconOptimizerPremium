@@ -1,0 +1,53 @@
+{
+  "items": [
+    {
+      "id": "debloat.uninstall.open_apps",
+      "name": "Run Installed Apps",
+      "category": "Debloat / Uninstall",
+      "risk": "Safe",
+      "description": "[Focus: FPS, Latency / Input Delay] Opens Windows 'Installed apps' so you can uninstall programs.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "ms-settings:appsfeatures",
+            "args": [],
+            "wait": false
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "type": "action",
+      "primaryLabel": "Open",
+      "riskLevel": "Safe",
+      "excludeFromApplyAll": true,
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "imported.imported.end3",
+      "type": "button",
+      "name": "End3",
+      "category": "Debloat / Uninstall",
+      "riskLevel": "Danger",
+      "risk": "Danger",
+      "description": "[Imported] Runnable tweak extracted from your V8.3. This runs a command pack under Admin. Risk: Danger.",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_end3.bat\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    }
+  ]
+}

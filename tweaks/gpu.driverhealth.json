@@ -1,0 +1,237 @@
+{
+  "items": [
+    {
+      "id": "gpu_driver_health_scan",
+      "type": "action",
+      "name": "Scan GPU Driver Health",
+      "description": "[Analyzer] Detects GPU vendor, lists driver cache/profile paths, and shows basic driver package info.",
+      "requiresAdmin": false,
+      "riskLevel": "Safe",
+      "category": "Driver Lab / Analyzer",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"=== FALCON DRIVER LAB: GPU DRIVER HEALTH SCAN ===\"\nWrite-Output \"\"\n\n# Detect main GPU vendor\n$gpuVendor = \"Unknown\"\ntry {\n  $gpus = Get-CimInstance Win32_VideoController | Where-Object { $_.AdapterRAM -gt 0 }\n  if ($gpus) {\n    $primary = $gpus | Sort-Object AdapterRAM -Descending | Select-Object -First 1\n    $name = $primary.Name\n    if ($name -match \"NVIDIA\") { $gpuVendor = \"NVIDIA\" }\n    elseif ($name -match \"AMD\" -or $name -match \"Radeon\") { $gpuVendor = \"AMD\" }\n    elseif ($name -match \"Intel\") { $gpuVendor = \"Intel\" }\n    Write-Output (\"Primary GPU: {0} (Vendor: {1})\" -f $name, $gpuVendor)\n  } else {\n    Write-Output \"No VRAM GPUs found in Win32_VideoController.\"\n  }\n} catch {\n  Write-Output \"Failed to query GPU from Win32_VideoController.\"\n}\n\nWrite-Output \"\"\n\n# Common driver folders and cache paths\n$paths = @()\n\n# DirectX shader cache\n$dxCache = Join-Path $env:LOCALAPPDATA \"D3DSCache\"\n$paths += @{ Name = \"DirectX Shader Cache\"; Path = $dxCache }\n\nif ($gpuVendor -eq \"NVIDIA\") {\n  $paths += @{ Name = \"NV Shader Cache\"; Path = Join-Path $env:LOCALAPPDATA \"NVIDIA\\DXCache\" }\n  $paths += @{ Name = \"NV GLCache\"; Path = Join-Path $env:LOCALAPPDATA \"NVIDIA\\GLCache\" }\n  $paths += @{ Name = \"NV Profile Store (DRS)\"; Path = \"C:\\ProgramData\\NVIDIA Corporation\\Drs\" }\n} elseif ($gpuVendor -eq \"AMD\") {\n  $paths += @{ Name = \"AMD DX Cache\"; Path = Join-Path $env:LOCALAPPDATA \"AMD\\DxCache\" }\n  $paths += @{ Name = \"AMD GL Cache\"; Path = Join-Path $env:LOCALAPPDATA \"AMD\\GLCache\" }\n} elseif ($gpuVendor -eq \"Intel\") {\n  $paths += @{ Name = \"Intel Shader Cache\"; Path = Join-Path $env:LOCALAPPDATA \"Intel\\ShaderCache\" }\n}\n\nWrite-Output \"Cache / profile paths:\"\nforeach ($p in $paths) {\n  $exists = Test-Path $p.Path\n  Write-Output (\"  - {0}: {1} [{2}]\" -f $p.Name, $p.Path, ($exists ? \"Exists\" : \"Missing\"))\n}\n\nWrite-Output \"\"\nWrite-Output \"Driver package overview (PnP signed drivers referencing GPU vendor):\"\ntry {\n  if ($gpuVendor -ne \"Unknown\") {\n    $drv = Get-WmiObject Win32_PnPSignedDriver -ErrorAction SilentlyContinue | Where-Object {\n      $_.DeviceName -match $gpuVendor -or $_.DriverProviderName -match $gpuVendor\n    }\n    foreach ($d in $drv | Select-Object -First 10) {\n      Write-Output (\"  {0} | Version: {1} | Date: {2}\" -f $d.DeviceName, $d.DriverVersion, $d.DriverDate)\n    }\n    if (-not $drv) {\n      Write-Output \"  (No matching PnP signed drivers found for vendor.)\"\n    }\n  } else {\n    Write-Output \"  (GPU vendor unknown; skipping PnP driver scan.)\"\n  }\n} catch {\n  Write-Output \"  Failed to query PnP signed drivers.\"\n}\n\nWrite-Output \"\"\nWrite-Output \"NVIDIA-specific checks (if NVIDIA detected):\"\nif ($gpuVendor -eq \"NVIDIA\") {\n  # nvidia-smi basic check\n  try {\n    $nv = & nvidia-smi -q -d DRIVER 2>$null\n    if ($nv) {\n      Write-Output \"  nvidia-smi driver info:\"\n      $nv.Split([Environment]::NewLine) | Where-Object { $_ -match \"Driver Version\" -or $_ -match \"Driver Model\" } | ForEach-Object {\n        Write-Output (\"    {0}\" -f $_.Trim())\n      }\n    } else {\n      Write-Output \"  nvidia-smi not available or failed.\"\n    }\n  } catch {\n    Write-Output \"  Failed to run nvidia-smi for driver info.\"\n  }\n\n  # NV Telemetry / GeForce Experience tasks hint\n  try {\n    $tasks = schtasks /Query /FO LIST /V 2>$null\n    if ($tasks) {\n      $nvTasks = $tasks -split \"[\\r\\n]+\" | Where-Object { $_ -match \"NVIDIA\" -or $_ -match \"NvTelemetry\" -or $_ -match \"GeForce\" }\n      if ($nvTasks) {\n        Write-Output \"  NVIDIA-related scheduled task entries detected (telemetry/experience may be installed).\"\n      } else {\n        Write-Output \"  No obvious NVIDIA scheduled tasks detected.\"\n      }\n    }\n  } catch {\n    Write-Output \"  Failed to query scheduled tasks for NVIDIA entries.\"\n  }\n}\n\nWrite-Output \"\"\nWrite-Output \"Summary:\"\nWrite-Output \"  - If caches are large/old and stuttery, you can clear them using the Falcon cache cleanup action.\"\nWrite-Output \"  - For broken drivers, use vendor clean-installer tools; Falcon will not fake a driver reinstall.\"\nWrite-Output \"\"\nWrite-Output \"=== END OF GPU DRIVER HEALTH SCAN ===\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nHealth scan is read-only and needs no revert.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "id": "gpu_driver_cache_cleanup",
+      "type": "button",
+      "name": "Apply: Clean GPU & DirectX Shader Caches",
+      "description": "[Focus: Stutter / Hitching] Clears DirectX and GPU-specific shader caches so they can rebuild cleanly.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Driver Lab / Cleanup",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"=== FALCON DRIVER LAB: GPU/DX CACHE CLEANUP ===\"\nWrite-Output \"\"\nWrite-Output \"This will attempt to clear common GPU and DirectX shader caches for the primary GPU vendor.\"\nWrite-Output \"It does NOT uninstall or reinstall drivers.\"\nWrite-Output \"\"\n\n$gpuVendor = \"Unknown\"\ntry {\n  $gpus = Get-CimInstance Win32_VideoController | Where-Object { $_.AdapterRAM -gt 0 }\n  if ($gpus) {\n    $primary = $gpus | Sort-Object AdapterRAM -Descending | Select-Object -First 1\n    $name = $primary.Name\n    if ($name -match \"NVIDIA\") { $gpuVendor = \"NVIDIA\" }\n    elseif ($name -match \"AMD\" -or $name -match \"Radeon\") { $gpuVendor = \"AMD\" }\n    elseif ($name -match \"Intel\") { $gpuVendor = \"Intel\" }\n    Write-Output (\"Primary GPU: {0} (Vendor: {1})\" -f $name, $gpuVendor)\n  }\n} catch {}\n\n$paths = @()\n$paths += @{ Name = \"DirectX Shader Cache\"; Path = Join-Path $env:LOCALAPPDATA \"D3DSCache\" }\n\nif ($gpuVendor -eq \"NVIDIA\") {\n  $paths += @{ Name = \"NV DXCache\"; Path = Join-Path $env:LOCALAPPDATA \"NVIDIA\\DXCache\" }\n  $paths += @{ Name = \"NV GLCache\"; Path = Join-Path $env:LOCALAPPDATA \"NVIDIA\\GLCache\" }\n} elseif ($gpuVendor -eq \"AMD\") {\n  $paths += @{ Name = \"AMD DxCache\"; Path = Join-Path $env:LOCALAPPDATA \"AMD\\DxCache\" }\n  $paths += @{ Name = \"AMD GLCache\"; Path = Join-Path $env:LOCALAPPDATA \"AMD\\GLCache\" }\n} elseif ($gpuVendor -eq \"Intel\") {\n  $paths += @{ Name = \"Intel Shader Cache\"; Path = Join-Path $env:LOCALAPPDATA \"Intel\\ShaderCache\" }\n}\n\nforeach ($p in $paths) {\n  Write-Output (\"Clearing {0}: {1}\" -f $p.Name, $p.Path)\n  try {\n    if (Test-Path $p.Path) {\n      Get-ChildItem $p.Path -Recurse -Force -ErrorAction SilentlyContinue | Remove-Item -Force -Recurse -ErrorAction SilentlyContinue\n      Write-Output \"  -> Cleared.\"\n    } else {\n      Write-Output \"  -> Path does not exist; nothing to clear.\"\n    }\n  } catch {\n    Write-Output (\"  -> Failed to clear: {0}\" -f $_.Exception.Message)\n  }\n}\n\nWrite-Output \"\"\nWrite-Output \"Recommended: Reboot or at least restart GPU-intensive apps so they rebuild caches cleanly.\"\nWrite-Output \"=== END OF GPU/DX CACHE CLEANUP ===\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nCache cleanup cannot be reverted; caches will rebuild automatically as games run.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "description": "[Focus: Stutter / Hitching] Clears DirectX and GPU-specific shader caches so they can rebuild cleanly.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "Driver Lab / Cleanup",
+      "id": "gpu_driver_cache_cleanup__revert",
+      "type": "button",
+      "name": "Revert: Clean GPU & DirectX Shader Caches",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nCache cleanup cannot be reverted; caches will rebuild automatically as games run.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "id": "drv_cache_clear_directx_shader_cache",
+      "type": "button",
+      "name": "Apply: Clear DirectX Shader Cache",
+      "description": "Deletes cached shader data (first load rebuild).",
+      "requiresAdmin": false,
+      "riskLevel": "Warning",
+      "category": "Driver Lab / Shader Cache",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$p1=Join-Path $env:LocalAppData 'D3DSCache'; if(Test-Path $p1){Remove-Item $p1 -Recurse -Force -ErrorAction SilentlyContinue}; Write-Output 'Cleared D3DSCache.'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"No revert (cache deleted).\""
+          }
+        ]
+      }
+    },
+    {
+      "description": "Deletes cached shader data (first load rebuild).",
+      "requiresAdmin": false,
+      "riskLevel": "Warning",
+      "category": "Driver Lab / Shader Cache",
+      "id": "drv_cache_clear_directx_shader_cache__revert",
+      "type": "button",
+      "name": "Revert: Clear DirectX Shader Cache",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"No revert (cache deleted).\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "drv_cache_clear_nvidia_dxcache",
+      "type": "button",
+      "name": "Apply: Clear NVIDIA DXCache",
+      "description": "Deletes cached shader data (first load rebuild).",
+      "requiresAdmin": false,
+      "riskLevel": "Warning",
+      "category": "Driver Lab / Shader Cache",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$p=Join-Path $env:LocalAppData 'NVIDIA\\DXCache'; if(Test-Path $p){Remove-Item $p -Recurse -Force -ErrorAction SilentlyContinue}; Write-Output 'Cleared NVIDIA DXCache.'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"No revert (cache deleted).\""
+          }
+        ]
+      }
+    },
+    {
+      "description": "Deletes cached shader data (first load rebuild).",
+      "requiresAdmin": false,
+      "riskLevel": "Warning",
+      "category": "Driver Lab / Shader Cache",
+      "id": "drv_cache_clear_nvidia_dxcache__revert",
+      "type": "button",
+      "name": "Revert: Clear NVIDIA DXCache",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"No revert (cache deleted).\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "drv_cache_clear_nvidia_glcache",
+      "type": "button",
+      "name": "Apply: Clear NVIDIA GLCache",
+      "description": "Deletes cached shader data (first load rebuild).",
+      "requiresAdmin": false,
+      "riskLevel": "Warning",
+      "category": "Driver Lab / Shader Cache",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$p=Join-Path $env:LocalAppData 'NVIDIA\\GLCache'; if(Test-Path $p){Remove-Item $p -Recurse -Force -ErrorAction SilentlyContinue}; Write-Output 'Cleared NVIDIA GLCache.'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"No revert (cache deleted).\""
+          }
+        ]
+      }
+    },
+    {
+      "description": "Deletes cached shader data (first load rebuild).",
+      "requiresAdmin": false,
+      "riskLevel": "Warning",
+      "category": "Driver Lab / Shader Cache",
+      "id": "drv_cache_clear_nvidia_glcache__revert",
+      "type": "button",
+      "name": "Revert: Clear NVIDIA GLCache",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"No revert (cache deleted).\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "drv_disable_mpo",
+      "type": "toggle",
+      "name": "Disable MPO",
+      "description": "Disables MPO via DWM OverlayTestMode.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "Driver Lab / Presentation",
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\Dwm",
+            "name": "OverlayTestMode",
+            "value": 5,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\Dwm",
+            "name": "OverlayTestMode"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\Dwm",
+            "name": "OverlayTestMode",
+            "valueType": "DWORD",
+            "equals": 5
+          }
+        ]
+      }
+    }
+  ]
+}

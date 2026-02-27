@@ -1,0 +1,384 @@
+{
+  "items": [
+    {
+      "id": "dpc.snapshot.fast",
+      "type": "button",
+      "name": "DPC/ISR Snapshot (Fast)",
+      "description": "Samples %DPC and %Interrupt over 15 seconds and prints avg/p95/max.",
+      "requiresAdmin": false,
+      "riskLevel": "Safe",
+      "category": "DPC Lab / Analyzer",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "path": "scripts/dpc/dpc-snapshot.ps1",
+            "args": {
+              "Seconds": 15,
+              "IntervalMs": 250
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "dpc_latency_overview",
+      "type": "action",
+      "name": "DPC / ISR Latency Snapshot",
+      "description": "[Analyzer] Samples % DPC Time and % Interrupt Time over ~30 seconds and prints basic stats.",
+      "requiresAdmin": false,
+      "riskLevel": "Safe",
+      "category": "DPC Lab / Analyzer",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"=== FALCON DPC LATENCY LAB: GLOBAL DPC/ISR OVERVIEW ===\"\nWrite-Output \"\"\nWrite-Output \"Note: This is an approximate, OS-level DPC/ISR snapshot. For deep driver-level analysis, tools like LatencyMon are still recommended.\"\nWrite-Output \"\"\n\ntry {\n  $cpu = Get-Counter '\\Processor(_Total)\\% DPC Time' -ErrorAction SilentlyContinue\n  $isr = Get-Counter '\\Processor(_Total)\\% Interrupt Time' -ErrorAction SilentlyContinue\n\n  if ($cpu) {\n    $dpcVal = [math]::Round($cpu.CounterSamples[0].CookedValue, 3)\n    Write-Output (\"Current % DPC Time: {0} %\" -f $dpcVal)\n  } else {\n    Write-Output \"Could not read % DPC Time counter.\"\n  }\n\n  if ($isr) {\n    $isrVal = [math]::Round($isr.CounterSamples[0].CookedValue, 3)\n    Write-Output (\"Current % Interrupt Time: {0} %\" -f $isrVal)\n  } else {\n    Write-Output \"Could not read % Interrupt Time counter.\"\n  }\n} catch {\n  Write-Output (\"Failed to query DPC/ISR counters: {0}\" -f $_.Exception.Message)\n}\n\nWrite-Output \"\"\nWrite-Output \"Sampling DPC latency trend for 30 samples (~30 seconds)...\"\nWrite-Output \"\"\n\n$samples = @()\nfor ($i = 1; $i -le 30; $i++) {\n  try {\n    $c = Get-Counter '\\Processor(_Total)\\% DPC Time' -ErrorAction SilentlyContinue\n    if ($c) {\n      $val = $c.CounterSamples[0].CookedValue\n      $samples += $val\n      Write-Output (\"[{0}/30] % DPC Time: {1:N3}\" -f $i, $val)\n    } else {\n      Write-Output (\"[{0}/30] Failed to read DPC counter.\" -f $i)\n    }\n  } catch {\n    Write-Output (\"[{0}/30] Error: {1}\" -f $i, $_.Exception.Message)\n  }\n  Start-Sleep -Seconds 1\n}\n\nif ($samples.Count -gt 0) {\n  $avg = ($samples | Measure-Object -Average).Average\n  $max = ($samples | Measure-Object -Maximum).Maximum\n  $stdev = [math]::Sqrt((($samples | ForEach-Object { ($_ - $avg) * ($_ - $avg) }) | Measure-Object -Sum).Sum / $samples.Count)\n  Write-Output \"\"\n  Write-Output (\"Avg % DPC Time: {0:N3}\" -f $avg)\n  Write-Output (\"Max % DPC Time: {0:N3}\" -f $max)\n  Write-Output (\"StdDev: {0:N3}\" -f $stdev)\n}\n\nWrite-Output \"\"\nWrite-Output \"Heuristic guidance:\"\nWrite-Output \"  - Sustained DPC % close to 0 with low spikes is ideal.\"\nWrite-Output \"  - High spikes or sustained values may indicate problematic drivers (storage, NIC, audio).\"\nWrite-Output \"\"\nWrite-Output \"=== END OF DPC LATENCY OVERVIEW ===\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output @\"\nDPC snapshot is read-only and needs no revert.\n\"@"
+          }
+        ]
+      }
+    },
+    {
+      "id": "dpc_bcd_disable_dynamic_tick",
+      "type": "button",
+      "name": "Apply: Disable Dynamic Tick",
+      "description": "May reduce latency spikes; can increase idle power.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "DPC Lab / Boot Timers (BCD)",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "bcdedit /set disabledynamictick yes"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "bcdedit /deletevalue disabledynamictick"
+          }
+        ]
+      }
+    },
+    {
+      "description": "May reduce latency spikes; can increase idle power.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "DPC Lab / Boot Timers (BCD)",
+      "id": "dpc_bcd_disable_dynamic_tick__revert",
+      "type": "button",
+      "name": "Revert: Disable Dynamic Tick",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "bcdedit /deletevalue disabledynamictick"
+          }
+        ]
+      }
+    },
+    {
+      "id": "dpc_bcd_use_platform_tick",
+      "type": "button",
+      "name": "Apply: Use Platform Tick",
+      "description": "Forces platform tick; only helps on some systems.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "DPC Lab / Boot Timers (BCD)",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "bcdedit /set useplatformtick yes"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "bcdedit /deletevalue useplatformtick"
+          }
+        ]
+      }
+    },
+    {
+      "description": "Forces platform tick; only helps on some systems.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "DPC Lab / Boot Timers (BCD)",
+      "id": "dpc_bcd_use_platform_tick__revert",
+      "type": "button",
+      "name": "Revert: Use Platform Tick",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "bcdedit /deletevalue useplatformtick"
+          }
+        ]
+      }
+    },
+    {
+      "id": "dpc_bcd_tsc_sync_policy_enhanced",
+      "type": "button",
+      "name": "Apply: TSC Sync Policy Enhanced",
+      "description": "May improve timer stability on some platforms.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "DPC Lab / Boot Timers (BCD)",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "bcdedit /set tscsyncpolicy Enhanced"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "bcdedit /deletevalue tscsyncpolicy"
+          }
+        ]
+      }
+    },
+    {
+      "description": "May improve timer stability on some platforms.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "DPC Lab / Boot Timers (BCD)",
+      "id": "dpc_bcd_tsc_sync_policy_enhanced__revert",
+      "type": "button",
+      "name": "Revert: TSC Sync Policy Enhanced",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "bcdedit /deletevalue tscsyncpolicy"
+          }
+        ]
+      }
+    },
+    {
+      "id": "dpc_bcd_platform_clock_true",
+      "type": "button",
+      "name": "Apply: Platform Clock True",
+      "description": "HPET/platform clock forcing (often worse; use carefully).",
+      "requiresAdmin": true,
+      "riskLevel": "Danger",
+      "category": "DPC Lab / Boot Timers (BCD)",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "bcdedit /set useplatformclock true"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "bcdedit /deletevalue useplatformclock"
+          }
+        ]
+      }
+    },
+    {
+      "description": "HPET/platform clock forcing (often worse; use carefully).",
+      "requiresAdmin": true,
+      "riskLevel": "Danger",
+      "category": "DPC Lab / Boot Timers (BCD)",
+      "id": "dpc_bcd_platform_clock_true__revert",
+      "type": "button",
+      "name": "Revert: Platform Clock True",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "bcdedit /deletevalue useplatformclock"
+          }
+        ]
+      }
+    },
+    {
+      "id": "dpc_usb_selective_suspend_off",
+      "type": "toggle",
+      "name": "Disable USB Selective Suspend",
+      "description": "Disables USB selective suspend to reduce input latency spikes.",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "DPC Lab / USB",
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\\\SYSTEM\\\\CurrentControlSet\\\\Services\\\\USB",
+            "name": "DisableSelectiveSuspend",
+            "value": 1,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\\\SYSTEM\\\\CurrentControlSet\\\\Services\\\\USB",
+            "name": "DisableSelectiveSuspend"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\\\SYSTEM\\\\CurrentControlSet\\\\Services\\\\USB",
+            "name": "DisableSelectiveSuspend",
+            "valueType": "DWORD",
+            "equals": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "dpc_netsh_disable_tcp_chimney_offload",
+      "type": "button",
+      "name": "Apply: Disable TCP Chimney Offload",
+      "description": "Reduce offload variability; may help latency.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "DPC Lab / Network ISR",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "netsh int tcp set global chimney=disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "netsh int tcp set global chimney=default"
+          }
+        ]
+      }
+    },
+    {
+      "description": "Reduce offload variability; may help latency.",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "DPC Lab / Network ISR",
+      "id": "dpc_netsh_disable_tcp_chimney_offload__revert",
+      "type": "button",
+      "name": "Revert: Disable TCP Chimney Offload",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "netsh int tcp set global chimney=default"
+          }
+        ]
+      }
+    },
+    {
+      "id": "dpc_netsh_disable_rss",
+      "type": "button",
+      "name": "Apply: Disable RSS",
+      "description": "Disables RSS (can help on some CPUs; can hurt throughput).",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "DPC Lab / Network ISR",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "netsh int tcp set global rss=disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "netsh int tcp set global rss=enabled"
+          }
+        ]
+      }
+    },
+    {
+      "description": "Disables RSS (can help on some CPUs; can hurt throughput).",
+      "requiresAdmin": true,
+      "riskLevel": "Caution",
+      "category": "DPC Lab / Network ISR",
+      "id": "dpc_netsh_disable_rss__revert",
+      "type": "button",
+      "name": "Revert: Disable RSS",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "netsh int tcp set global rss=enabled"
+          }
+        ]
+      }
+    },
+    {
+      "id": "dpc_netsh_disable_rsc",
+      "type": "button",
+      "name": "Apply: Disable RSC",
+      "description": "Disables receive segment coalescing (lower latency).",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "DPC Lab / Network ISR",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "netsh int tcp set global rsc=disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "netsh int tcp set global rsc=enabled"
+          }
+        ]
+      }
+    },
+    {
+      "description": "Disables receive segment coalescing (lower latency).",
+      "requiresAdmin": true,
+      "riskLevel": "Warning",
+      "category": "DPC Lab / Network ISR",
+      "id": "dpc_netsh_disable_rsc__revert",
+      "type": "button",
+      "name": "Revert: Disable RSC",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "netsh int tcp set global rsc=enabled"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,1717 @@
+{
+  "generatedAt": "2026-02-06T06:28:16.708285Z",
+  "serviceConflicts": [
+    {
+      "service": "AJRouter",
+      "falconItems": [
+        {
+          "item": "exp_svc_ajrouter",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "AssignedAccessManagerSvc",
+      "falconItems": [
+        {
+          "item": "exp_svc_assignedaccessmanagersvc",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "BITS",
+      "falconItems": [
+        {
+          "item": "exp_svc_bits",
+          "startType": "Disabled"
+        },
+        {
+          "item": "processlab.bits_and_delivery",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": true
+    },
+    {
+      "service": "BTAGService",
+      "falconItems": [
+        {
+          "item": "exp_svc_btagservice",
+          "startType": "Manual"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "BcastDVRUserService",
+      "falconItems": [
+        {
+          "item": "exp_svc_bcastdvruserservice",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "BthAvctpSvc",
+      "falconItems": [
+        {
+          "item": "exp_svc_bthavctpsvc",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "CDPSvc",
+      "falconItems": [
+        {
+          "item": "exp_svc_cdpsvc",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "CDPUserSvc",
+      "falconItems": [
+        {
+          "item": "exp_svc_cdpusersvc",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "CaptureService",
+      "falconItems": [
+        {
+          "item": "exp_svc_captureservice",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "CscService",
+      "falconItems": [
+        {
+          "item": "exp_svc_cscservice",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "DPS",
+      "falconItems": [
+        {
+          "item": "exp_svc_dps",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "DiagTrack",
+      "falconItems": [
+        {
+          "item": "debloat.services.basic",
+          "startType": "Disabled"
+        },
+        {
+          "item": "debloat.services.advanced",
+          "startType": "Disabled"
+        },
+        {
+          "item": "fix.diagnostics",
+          "startType": "Manual"
+        },
+        {
+          "item": "hc_windows.core_core_disable_diagnostics_tracking",
+          "startType": "Disabled"
+        },
+        {
+          "item": "hc_windows.privacy_privacy.disable_diag_data_collection",
+          "startType": "Disabled"
+        },
+        {
+          "item": "hc_windows.privacy_privacy.disable_diag_tracking",
+          "startType": "Disabled"
+        },
+        {
+          "item": "hc_debloat.services_debloat.services.basic",
+          "startType": "Disabled"
+        },
+        {
+          "item": "core_disable_diagnostics_tracking",
+          "startType": "Disabled"
+        },
+        {
+          "item": "privacy.disable_diag_data_collection",
+          "startType": "Disabled"
+        },
+        {
+          "item": "privacy.disable_diag_tracking",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "DusmSvc",
+      "falconItems": [
+        {
+          "item": "exp_svc_dusmsvc",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "FontCache",
+      "falconItems": [
+        {
+          "item": "exp_svc_fontcache",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "FrameServer",
+      "falconItems": [
+        {
+          "item": "exp_svc_frameserver",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "GraphicsPerfSvc",
+      "falconItems": [
+        {
+          "item": "exp_svc_graphicsperfsvc",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "HvHost",
+      "falconItems": [
+        {
+          "item": "exp_svc_hvhost",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "IKEEXT",
+      "falconItems": [
+        {
+          "item": "exp_svc_ikeext",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "InstallService",
+      "falconItems": [
+        {
+          "item": "debloat.services.advanced",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": true
+    },
+    {
+      "service": "LanmanServer",
+      "falconItems": [
+        {
+          "item": "exp_svc_lanmanserver",
+          "startType": "Manual"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "LanmanWorkstation",
+      "falconItems": [
+        {
+          "item": "exp_svc_lanmanworkstation",
+          "startType": "Manual"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "MapsBroker",
+      "falconItems": [
+        {
+          "item": "debloat.services.basic",
+          "startType": "Disabled"
+        },
+        {
+          "item": "debloat.services.advanced",
+          "startType": "Disabled"
+        },
+        {
+          "item": "hc_debloat.services_debloat.services.basic",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "MessagingService",
+      "falconItems": [
+        {
+          "item": "exp_svc_messagingservice",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "NetTcpPortSharing",
+      "falconItems": [
+        {
+          "item": "exp_svc_nettcpportsharing",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "NlaSvc",
+      "falconItems": [
+        {
+          "item": "exp_svc_nlasvc",
+          "startType": "Manual"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "OneSyncSvc",
+      "falconItems": [
+        {
+          "item": "exp_svc_onesyncsvc",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "P9RdrService",
+      "falconItems": [
+        {
+          "item": "exp_svc_p9rdrservice",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "PcaSvc",
+      "falconItems": [
+        {
+          "item": "exp_svc_pcasvc",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "PeerDistSvc",
+      "falconItems": [
+        {
+          "item": "exp_svc_peerdistsvc",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "PerfHost",
+      "falconItems": [
+        {
+          "item": "exp_svc_perfhost",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "PhoneSvc",
+      "falconItems": [
+        {
+          "item": "exp_svc_phonesvc",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "PimIndexMaintenanceSvc",
+      "falconItems": [
+        {
+          "item": "exp_svc_pimindexmaintenancesvc",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "PolicyAgent",
+      "falconItems": [
+        {
+          "item": "exp_svc_policyagent",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "PrintNotify",
+      "falconItems": [
+        {
+          "item": "exp_svc_printnotify",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "PushToInstall",
+      "falconItems": [
+        {
+          "item": "exp_svc_pushtoinstall",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "QWAVE",
+      "falconItems": [
+        {
+          "item": "exp_svc_qwave",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "RasAuto",
+      "falconItems": [
+        {
+          "item": "exp_svc_rasauto",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "RasMan",
+      "falconItems": [
+        {
+          "item": "exp_svc_rasman",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "RemoteAccess",
+      "falconItems": [
+        {
+          "item": "exp_svc_remoteaccess",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "RemoteRegistry",
+      "falconItems": [
+        {
+          "item": "exp_svc_remoteregistry",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "RetailDemo",
+      "falconItems": [
+        {
+          "item": "exp_svc_retaildemo",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "RmSvc",
+      "falconItems": [
+        {
+          "item": "exp_svc_rmsvc",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "SCardSvr",
+      "falconItems": [
+        {
+          "item": "exp_svc_scardsvr",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "SENS",
+      "falconItems": [
+        {
+          "item": "exp_svc_sens",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "SSDPSRV",
+      "falconItems": [
+        {
+          "item": "exp_svc_ssdpsrv",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "ScDeviceEnum",
+      "falconItems": [
+        {
+          "item": "exp_svc_scdeviceenum",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "SensorDataService",
+      "falconItems": [
+        {
+          "item": "exp_svc_sensordataservice",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "SensorService",
+      "falconItems": [
+        {
+          "item": "exp_svc_sensorservice",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "SensrSvc",
+      "falconItems": [
+        {
+          "item": "exp_svc_sensrsvc",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "SharedAccess",
+      "falconItems": [
+        {
+          "item": "exp_svc_sharedaccess",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "SharedRealitySvc",
+      "falconItems": [
+        {
+          "item": "exp_svc_sharedrealitysvc",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "ShellHWDetection",
+      "falconItems": [
+        {
+          "item": "exp_svc_shellhwdetection",
+          "startType": "Manual"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "SmsRouter",
+      "falconItems": [
+        {
+          "item": "exp_svc_smsrouter",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "Spooler",
+      "falconItems": [
+        {
+          "item": "fix.fax_printing",
+          "startType": "Automatic"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "SysMain",
+      "falconItems": [
+        {
+          "item": "hc_windows.core_core_disable_sysmain",
+          "startType": "Disabled"
+        },
+        {
+          "item": "core_disable_sysmain",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "TrkWks",
+      "falconItems": [
+        {
+          "item": "exp_svc_trkwks",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "UnistoreSvc",
+      "falconItems": [
+        {
+          "item": "exp_svc_unistoresvc",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "UserDataSvc",
+      "falconItems": [
+        {
+          "item": "exp_svc_userdatasvc",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "UsoSvc",
+      "falconItems": [
+        {
+          "item": "hc_windows.core_core.disable_windows_updates",
+          "startType": "Disabled"
+        },
+        {
+          "item": "core.disable_windows_updates",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": true
+    },
+    {
+      "service": "W32Time",
+      "falconItems": [
+        {
+          "item": "exp_svc_w32time",
+          "startType": "Manual"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "WMPNetworkSvc",
+      "falconItems": [
+        {
+          "item": "exp_svc_wmpnetworksvc",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "WSearch",
+      "falconItems": [
+        {
+          "item": "hc_windows.core_core.disable_search_indexing",
+          "startType": "Disabled"
+        },
+        {
+          "item": "hc_windows.core_core_disable_search_indexer",
+          "startType": "Disabled"
+        },
+        {
+          "item": "core.disable_search_indexing",
+          "startType": "Disabled"
+        },
+        {
+          "item": "core_disable_search_indexer",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "WalletService",
+      "falconItems": [
+        {
+          "item": "exp_svc_walletservice",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "WbioSrvc",
+      "falconItems": [
+        {
+          "item": "exp_svc_wbiosrvc",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "WdiServiceHost",
+      "falconItems": [
+        {
+          "item": "exp_svc_wdiservicehost",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "WdiSystemHost",
+      "falconItems": [
+        {
+          "item": "exp_svc_wdisystemhost",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "WerSvc",
+      "falconItems": [
+        {
+          "item": "fix.diagnostics",
+          "startType": "Manual"
+        },
+        {
+          "item": "hc_windows.core_core_disable_wer_service",
+          "startType": "Disabled"
+        },
+        {
+          "item": "core_disable_wer_service",
+          "startType": "Disabled"
+        },
+        {
+          "item": "privacy.disable_error_reporting_ads",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "WiaRpc",
+      "falconItems": [
+        {
+          "item": "exp_svc_wiarpc",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "WpnService",
+      "falconItems": [
+        {
+          "item": "exp_svc_wpnservice",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "WpnUserService",
+      "falconItems": [
+        {
+          "item": "exp_svc_wpnuserservice",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "XblAuthManager",
+      "falconItems": [
+        {
+          "item": "hc_windows.core_core.disable_xbox_services",
+          "startType": "Disabled"
+        },
+        {
+          "item": "hc_hardware.peripherals_per_disable_game_controller_services",
+          "startType": "Disabled"
+        },
+        {
+          "item": "per_disable_game_controller_services",
+          "startType": "Disabled"
+        },
+        {
+          "item": "core.disable_xbox_services",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "XblGameSave",
+      "falconItems": [
+        {
+          "item": "hc_windows.core_core.disable_xbox_services",
+          "startType": "Disabled"
+        },
+        {
+          "item": "hc_hardware.peripherals_per_disable_game_controller_services",
+          "startType": "Disabled"
+        },
+        {
+          "item": "per_disable_game_controller_services",
+          "startType": "Disabled"
+        },
+        {
+          "item": "core.disable_xbox_services",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "XboxGipSvc",
+      "falconItems": [
+        {
+          "item": "debloat.services.advanced",
+          "startType": "Disabled"
+        },
+        {
+          "item": "hc_windows.core_core.disable_xbox_services",
+          "startType": "Disabled"
+        },
+        {
+          "item": "hc_hardware.peripherals_per_disable_game_controller_services",
+          "startType": "Disabled"
+        },
+        {
+          "item": "per_disable_game_controller_services",
+          "startType": "Disabled"
+        },
+        {
+          "item": "core.disable_xbox_services",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "XboxNetApiSvc",
+      "falconItems": [
+        {
+          "item": "hc_windows.core_core.disable_xbox_services",
+          "startType": "Disabled"
+        },
+        {
+          "item": "hc_hardware.peripherals_per_disable_game_controller_services",
+          "startType": "Disabled"
+        },
+        {
+          "item": "per_disable_game_controller_services",
+          "startType": "Disabled"
+        },
+        {
+          "item": "core.disable_xbox_services",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "bthserv",
+      "falconItems": [
+        {
+          "item": "fix.bluetooth",
+          "startType": "Automatic"
+        },
+        {
+          "item": "hc_windows.core_core.disable_bluetooth_services",
+          "startType": "Disabled"
+        },
+        {
+          "item": "core.disable_bluetooth_services",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "cbdhsvc",
+      "falconItems": [
+        {
+          "item": "exp_svc_cbdhsvc",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "diagnosticshub.standardcollector.service",
+      "falconItems": [
+        {
+          "item": "hc_hardware.storage_stor_disable_windows_telemetry_loggers",
+          "startType": "Disabled"
+        },
+        {
+          "item": "stor_disable_windows_telemetry_loggers",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "dmwappushservice",
+      "falconItems": [
+        {
+          "item": "debloat.services.basic",
+          "startType": "Disabled"
+        },
+        {
+          "item": "debloat.services.advanced",
+          "startType": "Disabled"
+        },
+        {
+          "item": "hc_debloat.services_debloat.services.basic",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "icssvc",
+      "falconItems": [
+        {
+          "item": "exp_svc_icssvc",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "lfsvc",
+      "falconItems": [
+        {
+          "item": "debloat.services.basic",
+          "startType": "Disabled"
+        },
+        {
+          "item": "debloat.services.advanced",
+          "startType": "Disabled"
+        },
+        {
+          "item": "hc_debloat.services_debloat.services.basic",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "lltdsvc",
+      "falconItems": [
+        {
+          "item": "exp_svc_lltdsvc",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "lmhosts",
+      "falconItems": [
+        {
+          "item": "exp_svc_lmhosts",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "seclogon",
+      "falconItems": [
+        {
+          "item": "exp_svc_seclogon",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "stisvc",
+      "falconItems": [
+        {
+          "item": "exp_svc_stisvc",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "tzautoupdate",
+      "falconItems": [
+        {
+          "item": "exp_svc_tzautoupdate",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "upnphost",
+      "falconItems": [
+        {
+          "item": "exp_svc_upnphost",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "vds",
+      "falconItems": [
+        {
+          "item": "fix.disk_shrinking",
+          "startType": "Manual"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "wercplsupport",
+      "falconItems": [
+        {
+          "item": "exp_svc_wercplsupport",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "wisvc",
+      "falconItems": [
+        {
+          "item": "exp_svc_wisvc",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "optimizer_pack",
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": false
+    },
+    {
+      "service": "wuauserv",
+      "falconItems": [
+        {
+          "item": "debloat.services.advanced",
+          "startType": "Disabled"
+        },
+        {
+          "item": "hc_windows.core_core.disable_windows_updates",
+          "startType": "Disabled"
+        },
+        {
+          "item": "core.disable_windows_updates",
+          "startType": "Disabled"
+        }
+      ],
+      "imported": {
+        "disabled": true,
+        "sources": [
+          "service_pack"
+        ]
+      },
+      "isUpdateCritical": true
+    }
+  ],
+  "notes": {
+    "defaultRule": "Falcon existing service bundles remain default; imported aggressive disables are optional and gated behind Update-safe/Aggressive.",
+    "updateCriticalServices": [
+      "BITS",
+      "CryptSvc",
+      "DeviceInstall",
+      "DoSvc",
+      "DsmSvc",
+      "InstallService",
+      "TrustedInstaller",
+      "UsoSvc",
+      "WaaSMedicSvc",
+      "msiserver",
+      "wuauserv"
+    ]
+  }
+}

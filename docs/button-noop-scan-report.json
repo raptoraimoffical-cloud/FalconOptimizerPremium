@@ -1,0 +1,2016 @@
+{
+  "summary": {
+    "total_tweak_files": 205,
+    "total_items_scanned": 474,
+    "items_with_no_apply_steps": 0,
+    "items_open_only": 948,
+    "items_meta_only": 0,
+    "notes": [
+      "No items were found with empty apply.steps. All previously 'do nothing' issues were due to unsupported step types and open.path relative path resolution.",
+      "open.path now resolves relative paths against Falcon root BEFORE creating directories, preventing open actions from silently failing or creating folders in the wrong working directory.",
+      "open.url/open.file now throw explicit errors if Start-Process fails, so you will see a real error message instead of a silent no-op."
+    ]
+  },
+  "open_only_items_sample": [
+    {
+      "file": "FalconOptimizer-main/tweaks/hardware.cpu.intel.json",
+      "path": ".items[16]",
+      "title": "Disable Deep C-States (Guided)",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/hardware.gpu.nvidia.json",
+      "path": ".items[0]",
+      "title": "Advanced NVIDIA GPU Driver Installer",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/hardware.gpu.nvidia.json",
+      "path": ".items[1]",
+      "title": "NV Clean Install (helper)",
+      "steps": 3,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/hardware.gpu.nvidia.json",
+      "path": ".items[2]",
+      "title": "Advanced NVIDIA GPU Driver Installer",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/hardware.gpu.nvidia.json",
+      "path": ".items[3]",
+      "title": "Laptop NVIDIA profile folder",
+      "steps": 2,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/hardware.gpu.nvidia.json",
+      "path": ".items[4]",
+      "title": "Desktop NVIDIA profile folder",
+      "steps": 2,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/hardware.memory.json",
+      "path": ".items[12]",
+      "title": "NUMA Locality (Guided)",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/hardware.storage.json",
+      "path": ".items[6]",
+      "title": "Open Temp Folder",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/fortnite.competitive.json",
+      "path": ".items[0]",
+      "title": "Open Fortnite Config Folder",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/fortnite.competitive.json",
+      "path": ".items[6]",
+      "title": "Open Epic: How to set Launch Options",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/utilities.json",
+      "path": ".items[0]",
+      "title": "Autoruns (Sysinternals) \u2014 download page",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/utilities.json",
+      "path": ".items[1]",
+      "title": "Autoruns (Download)",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/utilities.json",
+      "path": ".items[2]",
+      "title": "Bulk Crap Uninstaller \u2014 download page",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/utilities.json",
+      "path": ".items[3]",
+      "title": "Install/Run BCU (bundled)",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/utilities.json",
+      "path": ".items[4]",
+      "title": "Open-Shell \u2014 releases",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/utilities.json",
+      "path": ".items[5]",
+      "title": "Install Open-Shell (bundled)",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/utilities.json",
+      "path": ".items[6]",
+      "title": "DDU \u2014 download page",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/utilities.json",
+      "path": ".items[7]",
+      "title": "Open DDU folder (bundled)",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/utilities.json",
+      "path": ".items[8]",
+      "title": "Run Defender Control (bundled)",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/utilities.json",
+      "path": ".items[10]",
+      "title": "NVIDIA Profile Inspector (bundled)",
+      "steps": 2,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/utilities.json",
+      "path": ".items[12]",
+      "title": "System Temperature Quick-Check (UserDiag Home)",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/advanced.msi_mode.json",
+      "path": ".items[1]",
+      "title": "MSI Utility V3 (Download/Install)",
+      "steps": 3,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.boot_timer.bcdedit.json",
+      "path": ".items[12]",
+      "title": "Open BCDEdit Documentation",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.boot_timer.bcdedit.json",
+      "path": ".items[13]",
+      "title": "Open Timer Resolution Background",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.boot_timer.bcdedit.json",
+      "path": ".items[14]",
+      "title": "Generate BCD Report (current)",
+      "steps": 2,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.boot_timer.bcdedit.json",
+      "path": ".items[16]",
+      "title": "Open Safe Mode Recovery Guide",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.boot_timer.bcdedit.json",
+      "path": ".items[19]",
+      "title": "Report QPC/Timer Source (basic)",
+      "steps": 2,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.boot_timer.bcdedit.json",
+      "path": ".items[20]",
+      "title": "HPET / BIOS Checklist (Reference)",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.boot_timer.bcdedit.json",
+      "path": ".items[21]",
+      "title": "ETW / Windows Performance Recorder Guide",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.boot_timer.bcdedit.json",
+      "path": ".items[23]",
+      "title": "Open Reports Folder",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.boot_timer.bcdedit.json",
+      "path": ".items[24]",
+      "title": "Open Backups Folder",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.mmcss_scheduling.json",
+      "path": ".items[2]",
+      "title": "Open MMCSS Overview (Microsoft)",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.mmcss_scheduling.json",
+      "path": ".items[3]",
+      "title": "Open Game Mode Documentation",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.mmcss_scheduling.json",
+      "path": ".items[4]",
+      "title": "Open Process Priority Guidance",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.mmcss_scheduling.json",
+      "path": ".items[5]",
+      "title": "Open Fullscreen Optimizations Guidance",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.mmcss_scheduling.json",
+      "path": ".items[7]",
+      "title": "Open Xbox Game Bar Settings",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.mmcss_scheduling.json",
+      "path": ".items[8]",
+      "title": "Open NVIDIA Reflex Guide",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.mmcss_scheduling.json",
+      "path": ".items[9]",
+      "title": "Open Windows Performance Analyzer (WPA)",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.mmcss_scheduling.json",
+      "path": ".items[10]",
+      "title": "Open Windows Performance Recorder (WPR)",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.mmcss_scheduling.json",
+      "path": ".items[11]",
+      "title": "Open LatencyMon (third-party)",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.mmcss_scheduling.json",
+      "path": ".items[12]",
+      "title": "Open PresentMon",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.mmcss_scheduling.json",
+      "path": ".items[13]",
+      "title": "Open Windows Scheduler Concepts",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.mmcss_scheduling.json",
+      "path": ".items[14]",
+      "title": "MMCSS Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.mmcss_scheduling.json",
+      "path": ".items[15]",
+      "title": "MMCSS Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.mmcss_scheduling.json",
+      "path": ".items[16]",
+      "title": "MMCSS Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.mmcss_scheduling.json",
+      "path": ".items[17]",
+      "title": "MMCSS Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.mmcss_scheduling.json",
+      "path": ".items[18]",
+      "title": "MMCSS Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.mmcss_scheduling.json",
+      "path": ".items[19]",
+      "title": "MMCSS Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.power_advanced.json",
+      "path": ".items[4]",
+      "title": "Open powercfg documentation",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.power_advanced.json",
+      "path": ".items[5]",
+      "title": "Open Power Plans guidance",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.power_advanced.json",
+      "path": ".items[6]",
+      "title": "Open Energy Report guide",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.power_advanced.json",
+      "path": ".items[7]",
+      "title": "Power Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.power_advanced.json",
+      "path": ".items[8]",
+      "title": "Power Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.power_advanced.json",
+      "path": ".items[9]",
+      "title": "Power Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.power_advanced.json",
+      "path": ".items[10]",
+      "title": "Power Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.power_advanced.json",
+      "path": ".items[11]",
+      "title": "Power Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.power_advanced.json",
+      "path": ".items[12]",
+      "title": "Power Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.power_advanced.json",
+      "path": ".items[13]",
+      "title": "Power Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.power_advanced.json",
+      "path": ".items[14]",
+      "title": "Power Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.power_advanced.json",
+      "path": ".items[15]",
+      "title": "Power Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.power_advanced.json",
+      "path": ".items[16]",
+      "title": "Power Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.power_advanced.json",
+      "path": ".items[17]",
+      "title": "Power Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.power_advanced.json",
+      "path": ".items[18]",
+      "title": "Power Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.power_advanced.json",
+      "path": ".items[19]",
+      "title": "Power Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.power_advanced.json",
+      "path": ".items[20]",
+      "title": "Power Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.power_advanced.json",
+      "path": ".items[21]",
+      "title": "Power Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.power_advanced.json",
+      "path": ".items[22]",
+      "title": "Power Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.power_advanced.json",
+      "path": ".items[23]",
+      "title": "Power Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.power_advanced.json",
+      "path": ".items[24]",
+      "title": "Power Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.gpu_nvidia_advanced.json",
+      "path": ".items[0]",
+      "title": "Open NVIDIA profile folder",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.gpu_nvidia_advanced.json",
+      "path": ".items[1]",
+      "title": "Open NVIDIA Reflex (low latency)",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.gpu_nvidia_advanced.json",
+      "path": ".items[2]",
+      "title": "Open NVIDIA Control Panel help",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.gpu_nvidia_advanced.json",
+      "path": ".items[3]",
+      "title": "Open G-SYNC setup guide",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.gpu_nvidia_advanced.json",
+      "path": ".items[4]",
+      "title": "Open NVIDIA App / GeForce Experience overlays info",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.gpu_nvidia_advanced.json",
+      "path": ".items[6]",
+      "title": "GPU Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.gpu_nvidia_advanced.json",
+      "path": ".items[7]",
+      "title": "GPU Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.gpu_nvidia_advanced.json",
+      "path": ".items[8]",
+      "title": "GPU Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.gpu_nvidia_advanced.json",
+      "path": ".items[9]",
+      "title": "GPU Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.gpu_nvidia_advanced.json",
+      "path": ".items[10]",
+      "title": "GPU Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.gpu_nvidia_advanced.json",
+      "path": ".items[11]",
+      "title": "GPU Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.gpu_nvidia_advanced.json",
+      "path": ".items[12]",
+      "title": "GPU Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.gpu_nvidia_advanced.json",
+      "path": ".items[13]",
+      "title": "GPU Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.gpu_nvidia_advanced.json",
+      "path": ".items[14]",
+      "title": "GPU Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.gpu_nvidia_advanced.json",
+      "path": ".items[15]",
+      "title": "GPU Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.gpu_nvidia_advanced.json",
+      "path": ".items[16]",
+      "title": "GPU Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.gpu_nvidia_advanced.json",
+      "path": ".items[17]",
+      "title": "GPU Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.gpu_nvidia_advanced.json",
+      "path": ".items[18]",
+      "title": "GPU Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.gpu_nvidia_advanced.json",
+      "path": ".items[19]",
+      "title": "GPU Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.gpu_nvidia_advanced.json",
+      "path": ".items[20]",
+      "title": "GPU Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.gpu_nvidia_advanced.json",
+      "path": ".items[21]",
+      "title": "GPU Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.gpu_nvidia_advanced.json",
+      "path": ".items[22]",
+      "title": "GPU Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.gpu_nvidia_advanced.json",
+      "path": ".items[23]",
+      "title": "GPU Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.gpu_nvidia_advanced.json",
+      "path": ".items[24]",
+      "title": "GPU Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.gpu_nvidia_advanced.json",
+      "path": ".items[25]",
+      "title": "GPU Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.gpu_nvidia_advanced.json",
+      "path": ".items[26]",
+      "title": "GPU Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.gpu_nvidia_advanced.json",
+      "path": ".items[27]",
+      "title": "GPU Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.gpu_nvidia_advanced.json",
+      "path": ".items[28]",
+      "title": "GPU Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.gpu_nvidia_advanced.json",
+      "path": ".items[29]",
+      "title": "GPU Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.storage_io.json",
+      "path": ".items[2]",
+      "title": "Open Microsoft storage performance guidance",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.storage_io.json",
+      "path": ".items[3]",
+      "title": "Open Defender exclusions documentation",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.storage_io.json",
+      "path": ".items[4]",
+      "title": "Storage Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.storage_io.json",
+      "path": ".items[5]",
+      "title": "Storage Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.storage_io.json",
+      "path": ".items[6]",
+      "title": "Storage Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.storage_io.json",
+      "path": ".items[7]",
+      "title": "Storage Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.storage_io.json",
+      "path": ".items[8]",
+      "title": "Storage Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.storage_io.json",
+      "path": ".items[9]",
+      "title": "Storage Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.storage_io.json",
+      "path": ".items[10]",
+      "title": "Storage Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.storage_io.json",
+      "path": ".items[11]",
+      "title": "Storage Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.storage_io.json",
+      "path": ".items[12]",
+      "title": "Storage Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.storage_io.json",
+      "path": ".items[13]",
+      "title": "Storage Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.storage_io.json",
+      "path": ".items[14]",
+      "title": "Storage Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.storage_io.json",
+      "path": ".items[15]",
+      "title": "Storage Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.storage_io.json",
+      "path": ".items[16]",
+      "title": "Storage Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.storage_io.json",
+      "path": ".items[17]",
+      "title": "Storage Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.storage_io.json",
+      "path": ".items[18]",
+      "title": "Storage Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.storage_io.json",
+      "path": ".items[19]",
+      "title": "Storage Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.network_advanced.json",
+      "path": ".items[2]",
+      "title": "Open Windows TCP/IP tuning reference",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.network_advanced.json",
+      "path": ".items[3]",
+      "title": "Open Wi-Fi troubleshooting guide",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.network_advanced.json",
+      "path": ".items[4]",
+      "title": "Network Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.network_advanced.json",
+      "path": ".items[5]",
+      "title": "Network Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.network_advanced.json",
+      "path": ".items[6]",
+      "title": "Network Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.network_advanced.json",
+      "path": ".items[7]",
+      "title": "Network Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.network_advanced.json",
+      "path": ".items[8]",
+      "title": "Network Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.network_advanced.json",
+      "path": ".items[9]",
+      "title": "Network Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.network_advanced.json",
+      "path": ".items[10]",
+      "title": "Network Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.network_advanced.json",
+      "path": ".items[11]",
+      "title": "Network Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.network_advanced.json",
+      "path": ".items[12]",
+      "title": "Network Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.network_advanced.json",
+      "path": ".items[13]",
+      "title": "Network Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.network_advanced.json",
+      "path": ".items[14]",
+      "title": "Network Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.network_advanced.json",
+      "path": ".items[15]",
+      "title": "Network Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.network_advanced.json",
+      "path": ".items[16]",
+      "title": "Network Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.network_advanced.json",
+      "path": ".items[17]",
+      "title": "Network Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.network_advanced.json",
+      "path": ".items[18]",
+      "title": "Network Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.network_advanced.json",
+      "path": ".items[19]",
+      "title": "Network Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.network_advanced.json",
+      "path": ".items[20]",
+      "title": "Network Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.network_advanced.json",
+      "path": ".items[21]",
+      "title": "Network Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.network_advanced.json",
+      "path": ".items[22]",
+      "title": "Network Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.network_advanced.json",
+      "path": ".items[23]",
+      "title": "Network Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.network_advanced.json",
+      "path": ".items[24]",
+      "title": "Network Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.usb_input.json",
+      "path": ".items[3]",
+      "title": "USB/Input Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.usb_input.json",
+      "path": ".items[4]",
+      "title": "USB/Input Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.usb_input.json",
+      "path": ".items[5]",
+      "title": "USB/Input Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.usb_input.json",
+      "path": ".items[6]",
+      "title": "USB/Input Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.usb_input.json",
+      "path": ".items[7]",
+      "title": "USB/Input Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.usb_input.json",
+      "path": ".items[8]",
+      "title": "USB/Input Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.usb_input.json",
+      "path": ".items[9]",
+      "title": "USB/Input Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.usb_input.json",
+      "path": ".items[10]",
+      "title": "USB/Input Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.usb_input.json",
+      "path": ".items[11]",
+      "title": "USB/Input Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.usb_input.json",
+      "path": ".items[12]",
+      "title": "USB/Input Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.usb_input.json",
+      "path": ".items[13]",
+      "title": "USB/Input Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.usb_input.json",
+      "path": ".items[14]",
+      "title": "USB/Input Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.usb_input.json",
+      "path": ".items[15]",
+      "title": "USB/Input Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.usb_input.json",
+      "path": ".items[16]",
+      "title": "USB/Input Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.usb_input.json",
+      "path": ".items[17]",
+      "title": "USB/Input Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.usb_input.json",
+      "path": ".items[18]",
+      "title": "USB/Input Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.usb_input.json",
+      "path": ".items[19]",
+      "title": "USB/Input Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.usb_input.json",
+      "path": ".items[20]",
+      "title": "USB/Input Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.audio.json",
+      "path": ".items[1]",
+      "title": "Open Audio Troubleshooting Guide",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.audio.json",
+      "path": ".items[2]",
+      "title": "Audio Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.audio.json",
+      "path": ".items[3]",
+      "title": "Audio Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.audio.json",
+      "path": ".items[4]",
+      "title": "Audio Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.audio.json",
+      "path": ".items[5]",
+      "title": "Audio Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.audio.json",
+      "path": ".items[6]",
+      "title": "Audio Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.audio.json",
+      "path": ".items[7]",
+      "title": "Audio Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.audio.json",
+      "path": ".items[8]",
+      "title": "Audio Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.audio.json",
+      "path": ".items[9]",
+      "title": "Audio Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.audio.json",
+      "path": ".items[10]",
+      "title": "Audio Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.audio.json",
+      "path": ".items[11]",
+      "title": "Audio Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.audio.json",
+      "path": ".items[12]",
+      "title": "Audio Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.audio.json",
+      "path": ".items[13]",
+      "title": "Audio Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.audio.json",
+      "path": ".items[14]",
+      "title": "Audio Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.ui_background.json",
+      "path": ".items[3]",
+      "title": "UI/Background Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.ui_background.json",
+      "path": ".items[4]",
+      "title": "UI/Background Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.ui_background.json",
+      "path": ".items[5]",
+      "title": "UI/Background Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.ui_background.json",
+      "path": ".items[6]",
+      "title": "UI/Background Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.ui_background.json",
+      "path": ".items[7]",
+      "title": "UI/Background Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.ui_background.json",
+      "path": ".items[8]",
+      "title": "UI/Background Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.ui_background.json",
+      "path": ".items[9]",
+      "title": "UI/Background Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.ui_background.json",
+      "path": ".items[10]",
+      "title": "UI/Background Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.ui_background.json",
+      "path": ".items[11]",
+      "title": "UI/Background Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.ui_background.json",
+      "path": ".items[12]",
+      "title": "UI/Background Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.ui_background.json",
+      "path": ".items[13]",
+      "title": "UI/Background Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.ui_background.json",
+      "path": ".items[14]",
+      "title": "UI/Background Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.ui_background.json",
+      "path": ".items[15]",
+      "title": "UI/Background Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.ui_background.json",
+      "path": ".items[16]",
+      "title": "UI/Background Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.ui_background.json",
+      "path": ".items[17]",
+      "title": "UI/Background Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.ui_background.json",
+      "path": ".items[18]",
+      "title": "UI/Background Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.ui_background.json",
+      "path": ".items[19]",
+      "title": "UI/Background Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.security_tradeoffs.json",
+      "path": ".items[0]",
+      "title": "Defender Exclusions (Docs)",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.security_tradeoffs.json",
+      "path": ".items[1]",
+      "title": "VBS / Memory Integrity (Docs)",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.security_tradeoffs.json",
+      "path": ".items[3]",
+      "title": "Security Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.security_tradeoffs.json",
+      "path": ".items[4]",
+      "title": "Security Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.security_tradeoffs.json",
+      "path": ".items[5]",
+      "title": "Security Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.security_tradeoffs.json",
+      "path": ".items[6]",
+      "title": "Security Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.security_tradeoffs.json",
+      "path": ".items[7]",
+      "title": "Security Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.security_tradeoffs.json",
+      "path": ".items[8]",
+      "title": "Security Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.security_tradeoffs.json",
+      "path": ".items[9]",
+      "title": "Security Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.security_tradeoffs.json",
+      "path": ".items[10]",
+      "title": "Security Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.security_tradeoffs.json",
+      "path": ".items[11]",
+      "title": "Security Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    },
+    {
+      "file": "FalconOptimizer-main/tweaks/expansion.security_tradeoffs.json",
+      "path": ".items[12]",
+      "title": "Security Checklist Item",
+      "steps": 1,
+      "empty": false,
+      "open_steps": 1,
+      "meaningful_steps": 0,
+      "meta_steps": 0
+    }
+  ]
+}

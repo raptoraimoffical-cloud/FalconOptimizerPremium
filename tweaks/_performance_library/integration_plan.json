@@ -1,0 +1,119 @@
+{
+  "generatedAt": "2026-02-06T06:28:16.708285Z",
+  "importCoverage": {
+    "optimizer_pack_actions": 1518,
+    "service_pack_actions": 353,
+    "typeCounts": {
+      "shell": 75,
+      "other": 936,
+      "reg_add": 358,
+      "service": 477,
+      "schtasks": 1,
+      "reg_delete": 14,
+      "netsh": 1,
+      "bcdedit": 3,
+      "powercfg": 6
+    }
+  },
+  "globalModes": [
+    {
+      "id": "falcon",
+      "label": "Falcon (recommended)",
+      "description": "Uses Falcon\u2019s existing tuned defaults."
+    },
+    {
+      "id": "fps",
+      "label": "FPS-Max",
+      "description": "Chooses higher throughput values where the imported pack has explicit FPS-oriented values."
+    },
+    {
+      "id": "latency",
+      "label": "Latency-Max",
+      "description": "Chooses lower-latency values where available."
+    },
+    {
+      "id": "balanced",
+      "label": "Balanced",
+      "description": "Chooses balanced values where available."
+    },
+    {
+      "id": "extreme",
+      "label": "Extreme (manual)",
+      "description": "Unlocks high-risk actions (may break updates/drivers/security)."
+    }
+  ],
+  "gatingRules": {
+    "updateSafeExclusions": [
+      "BITS",
+      "CryptSvc",
+      "DeviceInstall",
+      "DoSvc",
+      "DsmSvc",
+      "InstallService",
+      "TrustedInstaller",
+      "UsoSvc",
+      "WaaSMedicSvc",
+      "msiserver",
+      "wuauserv"
+    ],
+    "notes": [
+      "Update-safe mode must never disable services required for driver installs or Windows servicing.",
+      "Extreme mode may include those actions but must present a restore action and require explicit confirmation."
+    ]
+  },
+  "uiIntegrationMap": [
+    {
+      "page": "Latency Lab",
+      "adds": [
+        "Timer resolution presets (apply + startup)",
+        "Scheduler profiles (FPS/Latency/Balanced/Custom)",
+        "BCDEdit timer flags (reboot)"
+      ]
+    },
+    {
+      "page": "GPU Lab",
+      "adds": [
+        "NVIDIA/AMD registry tuning actions",
+        "MPO toggle (optional)",
+        "MSI mode toggles (if present)"
+      ]
+    },
+    {
+      "page": "Service Impact Lab",
+      "adds": [
+        "Update-safe preset (default)",
+        "Aggressive preset",
+        "Extreme preset",
+        "Snapshot + restore"
+      ]
+    },
+    {
+      "page": "Power Plans",
+      "adds": [
+        "Desktop/Laptop plan toggles",
+        "Import/activate flows via powercfg"
+      ]
+    },
+    {
+      "page": "Utilities",
+      "adds": [
+        "Cleanup actions (non-performance-critical)",
+        "Optional tool workflows (apply + open)"
+      ]
+    }
+  ],
+  "conflicts": {
+    "services": {
+      "overlapCount": 90,
+      "conflictMapFile": "tweaks/_performance_library/conflict_map.json"
+    },
+    "registry": {
+      "overlapCount": 0,
+      "note": "No direct overlaps found between imported reg add targets and Falcon reg.set steps in current tweak catalog."
+    }
+  },
+  "openButtonPolicy": {
+    "rule": "No button labeled Open unless it opens a path/settings URI. Complex items must become Apply/Workflow actions.",
+    "toDo": "Run an automated scan of renderer.js/index.html for buttons whose label contains 'Open' and map each to an action or remove."
+  }
+}
