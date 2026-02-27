@@ -3550,6 +3550,7 @@ refreshSecurityHome();
         });
 
         const hasAggressive = filtered.some(it => itemRequiresAggressiveConsent(it));
+        let suppressPerItemRiskPrompts = false;
         if (hasAggressive) {
           const accepted = await ensureAggressiveConsent('profile');
           if (!accepted) {
@@ -3557,6 +3558,19 @@ refreshSecurityHome();
             setBatchProgress(false, 0, 0, "");
             return;
           }
+
+          const continueWithoutPrompts = await showConfirmModal({
+            title: "Apply risky items without repeated prompts?",
+            body: "This profile includes multiple high-risk tweaks. Continue once and run all selected profile items without per-item confirmation popups.",
+            risk: "High",
+            requireTyped: false
+          });
+          if (!continueWithoutPrompts) {
+            logEl.innerHTML = `<pre class="log">${__eh('Profile run cancelled.')}</pre>`;
+            setBatchProgress(false, 0, 0, "");
+            return;
+          }
+          suppressPerItemRiskPrompts = true;
         }
 
         const needsSnap = filtered.some(it => it.requiresSnapshot);
@@ -3610,7 +3624,9 @@ ${topReasons}
           try {
             const risk = normRisk(it);
 
-            if(isHighOrCritical(risk) || it.requireExplicitConfirm || it.requiresSnapshot){
+            const needsItemPrompt = (isHighOrCritical(risk) || it.requireExplicitConfirm || it.requiresSnapshot);
+            const shouldPromptItem = needsItemPrompt && !suppressPerItemRiskPrompts;
+            if(shouldPromptItem){
               const ok = await showConfirmModal({
                 title: it.warningTitle || `${risk} risk`,
                 body: it.warningBody || it.description || it.name,
