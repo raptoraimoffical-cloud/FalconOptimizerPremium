@@ -43,6 +43,23 @@ let lastLog = '';
 let lastLogFile = null;
 let lastSystemInfo = null;
 let currentGpuVendor = 'auto';
+const HW_PROFILE_STORAGE_KEY = 'falcon.hwProfile';
+
+function normalizeHwProfile(value){
+  const v = String(value || '').toLowerCase().trim();
+  return (v === 'low' || v === 'mid' || v === 'high' || v === 'auto') ? v : 'auto';
+}
+
+function readSavedHwProfile(){
+  try{
+    if (!window.localStorage) return 'auto';
+    return normalizeHwProfile(window.localStorage.getItem(HW_PROFILE_STORAGE_KEY));
+  }catch(_e){
+    return 'auto';
+  }
+}
+
+let currentHwProfile = readSavedHwProfile();
 
 let gameModePhotoOptimizations = [];
 
@@ -394,11 +411,11 @@ function updateThemeFxParticles(themeId) {
   }
 }
 
-function adjustStepsForHwProfile(item, mode, steps) {
+function adjustStepsForHwProfile(item, mode, steps, hwProfile) {
   if (!item || !Array.isArray(steps) || !steps.length) return steps;
 
   const id = item.id || "";
-  const profile = currentHwProfile || "auto";
+  const profile = normalizeHwProfile(hwProfile || currentHwProfile);
 
   // No-op for auto: keep JSON defaults.
   if (profile === "auto") return steps;
@@ -1410,12 +1427,20 @@ function setBatchProgress(show, current, total, label){
   const pct = document.getElementById('batchProgressPct');
   const lab = document.getElementById('batchProgressLabel');
   if(!wrap || !bar || !pct || !lab) return;
-  if(!show){ wrap.style.display='none'; return; }
+  if(!show){
+    wrap.style.display='none';
+    bar.style.width = '0%';
+    pct.textContent = '0%';
+    lab.textContent = '';
+    return;
+  }
   wrap.style.display='block';
-  const p = total>0 ? Math.round((current/total)*100) : 0;
+  const safeTotal = Math.max(0, Number(total) || 0);
+  const safeCurrent = Math.max(0, Math.min(safeTotal || 0, Number(current) || 0));
+  const p = safeTotal>0 ? Math.round((safeCurrent/safeTotal)*100) : 0;
   bar.style.width = `${p}%`;
   pct.textContent = `${p}%`;
-  lab.textContent = label || `Running ${current}/${total}`;
+  lab.textContent = label || `Running ${safeCurrent}/${safeTotal}`;
 }
 
 function resolveConflictGroups(items){
@@ -2967,12 +2992,15 @@ function renderHome(){
       <div class="card-desc">Apply curated sets. Excluded items and Critical actions require extra confirmation.</div>
       <div id="profileButtons" style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;"></div>
       <div id="batchProgressWrap" style="display:none; margin-top:12px;">
-        <div class="progress-row"><div id="batchProgressLabel" class="muted">Running…</div><div id="batchProgressPct" class="muted">0%</div></div>
-        
-          </div>
+        <div class="progress-row">
+          <div id="batchProgressLabel" class="muted">Preparing…</div>
+          <div id="batchProgressPct" class="muted">0%</div>
+        </div>
+        <div class="progress" style="margin-top:8px;"><div id="batchProgressBar" class="progress-bar" style="width:0%"></div></div>
+      </div>
+      <div id="profileLog" style="margin-top:12px;"></div>
+    </div>
 
-
-        
         <div class="panel" style="margin-top:14px;">
           <div class="card-title-row">
             <div class="card-title">Security stack</div>
@@ -3233,9 +3261,6 @@ function renderHome(){
         </div>
       </div>
       <div id="homeBackupLog" style="margin-top:12px;"></div>
-    </div><div class="progress"><div id="batchProgressBar" class="progress-bar" style="width:0%"></div></div>
-      </div>
-      <div id="profileLog" style="margin-top:12px;"></div>
     </div>
 
     <div class="panel" style="margin-top:14px;">
@@ -3619,7 +3644,7 @@ ${topReasons}
         let timeoutCount = 0;
         for(const it of finalList){
           idxRun++;
-          setBatchProgress(true, idxRun, finalList.length, `${idxRun}/${finalList.length}  ${it.name}`);
+          setBatchProgress(true, idxRun, finalList.length, `Applying ${idxRun}/${finalList.length}: ${it.name || it.id || 'Optimization'}`);
 
           try {
             const risk = normRisk(it);
@@ -4360,9 +4385,56 @@ if ($r -eq [DisplayUtil]::DISP_CHANGE_SUCCESSFUL) { Write-Output 'Restored Windo
 
 
 // --- Auto-Apply integration: default Stretch preset ---
+function buildSafeDefaultStretchPreset(){
+  let w = 1920;
+  let h = 1080;
+  try{
+    const si = lastSystemInfo || {};
+    const dw = Number(si.displayWidth || si.displayW || si.screenWidth);
+    const dh = Number(si.displayHeight || si.displayH || si.screenHeight);
+    if(Number.isFinite(dw) && Number.isFinite(dh) && dw > 0 && dh > 0){
+      w = Math.round(dw);
+      h = Math.round(dh);
+    }
+  }catch(_e){}
+  return {
+    w,
+    h,
+    mode: 'pc',
+    gameKey: 'any',
+    presetId: 'stretch_default_native',
+    presetName: `Native ${w}x${h}`
+  };
+}
+
+function ensureDefaultStretchPreset(){
+  try {
+    if (!window.localStorage) return { ok:false, reason:'no localStorage' };
+    const raw = window.localStorage.getItem('falcon.stretch.default');
+    if (raw) {
+      try {
+        const cfg = JSON.parse(raw);
+        const w = parseInt(cfg && cfg.w, 10);
+        const h = parseInt(cfg && cfg.h, 10);
+        if (Number.isFinite(w) && Number.isFinite(h) && w > 0 && h > 0) {
+          return { ok:true, created:false, preset: cfg };
+        }
+      } catch(_e) {}
+    }
+
+    const preset = buildSafeDefaultStretchPreset();
+    window.localStorage.setItem('falcon.stretch.default', JSON.stringify(preset));
+    showToast(`Created safe default Stretch preset (${preset.w}x${preset.h}).`, 'info');
+    return { ok:true, created:true, preset };
+  } catch (e) {
+    return { ok:false, reason: String((e && e.message) || e || 'unknown error') };
+  }
+}
+
 async function applyDefaultStretchPreset(){
   try {
     if (!window.localStorage) return { skipped:true, reason:'no localStorage' };
+    ensureDefaultStretchPreset();
     const raw = window.localStorage.getItem('falcon.stretch.default');
     if (!raw) return { skipped:true, reason:'no default preset set' };
     let cfg = null;
@@ -4371,6 +4443,7 @@ async function applyDefaultStretchPreset(){
     if (!Number.isFinite(w) || !Number.isFinite(h)) return { skipped:true, reason:'missing width/height' };
 
     const mode = String(cfg.mode||'pc').toLowerCase();
+    const fpsCap = Number.isFinite(Number(cfg.fpsCap)) ? Number(cfg.fpsCap) : null;
 
     // Reuse the same apply helpers used by StretchLab
     if (mode === 'fortnite') {
@@ -7347,6 +7420,8 @@ async function runItem(item, mode) {
 
 document.addEventListener("DOMContentLoaded", () => {
 
+  try { ensureDefaultStretchPreset(); } catch(_e) {}
+
   // Phase 4: sidebar toggle + persistence
   try{
     const toggleBtn = document.getElementById('sidebarToggle');
@@ -7518,20 +7593,19 @@ document.addEventListener("DOMContentLoaded", () => {
     if (grp) {
       // Restore last selection
       try {
-        const saved = window.localStorage ? window.localStorage.getItem('falcon.hwProfile') : null;
-        if (saved) currentHwProfile = saved;
+        currentHwProfile = readSavedHwProfile();
       } catch (_e) {}
       grp.querySelectorAll('[data-hw]').forEach(btn => {
-        const val = btn.getAttribute('data-hw') || 'auto';
+        const val = normalizeHwProfile(btn.getAttribute('data-hw') || 'auto');
         btn.classList.toggle('active', val === currentHwProfile);
         btn.addEventListener('click', () => {
           currentHwProfile = val;
           grp.querySelectorAll('[data-hw]').forEach(b2 => {
-            const v2 = b2.getAttribute('data-hw') || 'auto';
+            const v2 = normalizeHwProfile(b2.getAttribute('data-hw') || 'auto');
             b2.classList.toggle('active', v2 === currentHwProfile);
           });
           try {
-            if (window.localStorage) window.localStorage.setItem('falcon.hwProfile', currentHwProfile);
+            if (window.localStorage) window.localStorage.setItem(HW_PROFILE_STORAGE_KEY, currentHwProfile);
           } catch (_e) {}
           showToast('Hardware profile set to ' + (val === 'auto' ? 'Auto-detect' : val.toUpperCase()), 'info');
         });
