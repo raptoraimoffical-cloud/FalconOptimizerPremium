@@ -113,3 +113,20 @@ removePowerPlans: () => ipcRenderer.invoke("falcon:removePowerPlans"),
   toolLaunch: (payload) => ipcRenderer.invoke("falcon:toolLaunch", payload)
 
 });
+
+contextBridge.exposeInMainWorld("falconUpdates", {
+  onStatus: (callback) => {
+    if (typeof callback !== "function") return () => {};
+    const listener = (_event, payload) => {
+      try {
+        callback(payload || {});
+      } catch (_) {}
+    };
+    ipcRenderer.on("falcon:update-status", listener);
+    return () => {
+      try {
+        ipcRenderer.removeListener("falcon:update-status", listener);
+      } catch (_) {}
+    };
+  }
+});

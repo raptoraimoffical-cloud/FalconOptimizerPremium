@@ -14,7 +14,8 @@
     "validate:tweaks:report": "node tools/schema-validator.js"
   },
   "dependencies": {
-    "electron-store": "^8.2.0"
+    "electron-store": "^8.2.0",
+    "electron-updater": "^6.3.9"
   },
   "devDependencies": {
     "electron": "^30.0.0",
@@ -35,6 +36,13 @@
         "nsis"
       ]
     },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "<REPLACE_WITH_OWNER>",
+        "repo": "<REPLACE_WITH_REPO>"
+      }
+    ],
     "nsis": {
       "oneClick": false,
       "perMachine": true,

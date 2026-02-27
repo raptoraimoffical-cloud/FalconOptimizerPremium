@@ -222,6 +222,28 @@ function toastRunResult(label, res){
   }catch(_e){}
 }
 
+function humanizeUpdateStatus(payload){
+  const status = payload && payload.status ? String(payload.status) : "";
+  if (status === "checking") return { text: "Checking for updates…", kind: "info" };
+  if (status === "available") return { text: "Update available. Downloading now…", kind: "info" };
+  if (status === "not-available") return { text: "You are on the latest version.", kind: "success" };
+  if (status === "download-progress") {
+    const percent = payload && Number.isFinite(payload.percent) ? Math.round(payload.percent) : 0;
+    return { text: `Downloading update… ${percent}%`, kind: "info" };
+  }
+  if (status === "downloaded") return { text: "Update downloaded. Restarting to install…", kind: "success" };
+  if (status === "error") return { text: `Update check failed: ${payload && payload.message ? payload.message : "Unknown error"}`, kind: "error" };
+  return null;
+}
+
+if (window.falconUpdates && typeof window.falconUpdates.onStatus === "function") {
+  window.falconUpdates.onStatus((payload) => {
+    const info = humanizeUpdateStatus(payload);
+    if (!info) return;
+    showToast(info.text, info.kind);
+  });
+}
+
 
 function bindHorizontalWheelScroll(root=document){
   const nodes = root && root.querySelectorAll ? root.querySelectorAll('.hscroll-wheel') : [];
@@ -8451,5 +8473,4 @@ async function revertGameProfile(tab){
     showToast('Failed to revert profile: ' + String(e?.message||e));
   }
 }
-
 

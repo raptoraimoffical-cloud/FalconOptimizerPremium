@@ -1,4 +1,5 @@
 const { app, BrowserWindow, ipcMain, shell } = require("electron");
+const { autoUpdater } = require("electron-updater");
 const os = require("os");
 const path = require("path");
 const fs = require("fs");
@@ -44,6 +45,75 @@ let jobManager = null;
 let actionRunner = null;
 let currentSessionId = null;
 let _fileReaderIpcRegistered = false;
+let autoUpdateInterval = null;
+
+function broadcastUpdateStatus(status, extra = {}) {
+  const payload = { status, ...extra };
+  try {
+    for (const win of BrowserWindow.getAllWindows()) {
+      try {
+        win.webContents.send("falcon:update-status", payload);
+      } catch (_) {}
+    }
+  } catch (_) {}
+}
+
+function setupAutoUpdater() {
+  if (!app.isPackaged) {
+    console.log("[auto-update] Skipping update checks in development mode.");
+    return;
+  }
+
+  autoUpdater.autoDownload = true;
+
+  autoUpdater.on("checking-for-update", () => {
+    console.log("[auto-update] checking for update");
+    broadcastUpdateStatus("checking");
+  });
+  autoUpdater.on("update-available", (info) => {
+    const version = info && info.version ? String(info.version) : null;
+    console.log("[auto-update] update available", version || "");
+    broadcastUpdateStatus("available", { version });
+  });
+  autoUpdater.on("update-not-available", (info) => {
+    const version = info && info.version ? String(info.version) : null;
+    console.log("[auto-update] no update available", version || "");
+    broadcastUpdateStatus("not-available", { version });
+  });
+  autoUpdater.on("download-progress", (progress) => {
+    const percent = progress && Number.isFinite(progress.percent) ? Number(progress.percent) : 0;
+    broadcastUpdateStatus("download-progress", { percent });
+  });
+  autoUpdater.on("update-downloaded", (info) => {
+    const version = info && info.version ? String(info.version) : null;
+    console.log("[auto-update] update downloaded", version || "");
+    broadcastUpdateStatus("downloaded", { version });
+    try {
+      autoUpdater.quitAndInstall();
+    } catch (e) {
+      console.error("[auto-update] quitAndInstall failed", e);
+    }
+  });
+  autoUpdater.on("error", (err) => {
+    const message = String((err && err.message) || err || "Unknown update error");
+    console.error("[auto-update] error", message);
+    broadcastUpdateStatus("error", { message });
+  });
+
+  autoUpdater.checkForUpdatesAndNotify().catch((e) => {
+    const message = String((e && e.message) || e || "Failed to check updates");
+    console.error("[auto-update] initial check failed", message);
+    broadcastUpdateStatus("error", { message });
+  });
+
+  autoUpdateInterval = setInterval(() => {
+    autoUpdater.checkForUpdatesAndNotify().catch((e) => {
+      const message = String((e && e.message) || e || "Failed to check updates");
+      console.error("[auto-update] periodic check failed", message);
+      broadcastUpdateStatus("error", { message });
+    });
+  }, 6 * 60 * 60 * 1000);
+}
 
 function nowIso() { return new Date().toISOString(); }
 
@@ -1722,6 +1792,7 @@ app.whenReady().then(() => {
   } catch (_) { actionRunner = null; }
 
   createWindow();
+  setupAutoUpdater();
 
   app.on("activate", () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
@@ -1730,4 +1801,11 @@ app.whenReady().then(() => {
 
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") app.quit();
+});
+
+app.on("before-quit", () => {
+  if (autoUpdateInterval) {
+    clearInterval(autoUpdateInterval);
+    autoUpdateInterval = null;
+  }
 });
