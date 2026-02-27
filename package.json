@@ -1,6 +1,6 @@
 {
   "name": "falcon-optimizer",
-  "version": "1.4.4",
+  "version": "1.4.5",
   "description": "Windows gaming optimization application",
   "main": "main.js",
   "author": "Eli",
