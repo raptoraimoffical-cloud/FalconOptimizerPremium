@@ -64,9 +64,9 @@ body{
 }
 
 .brand-name{ font-weight:800; letter-spacing:1px; font-size:13px; }
-.brand-sub{ color:var(--muted); font-size:12px; letter-spacing:2px; }
+.brand-sub{ color:var(--muted); font-size:14px; letter-spacing:1.2px; }
 .nav{ display:flex; flex-direction:column; gap:6px; }
-.nav-section{ margin-top:6px; margin-bottom:2px; font-size:12px; letter-spacing:1px; color:rgba(154,160,178,0.85); text-transform:uppercase; padding:0 10px; }
+.nav-section{ margin-top:6px; margin-bottom:2px; font-size:13px; letter-spacing:0.8px; color:rgba(154,160,178,0.95); text-transform:uppercase; padding:0 10px; }
 .nav-item{
   text-align:left;
   padding:10px 12px;
@@ -103,7 +103,7 @@ body{
   font-weight:700;
 }
 .userid{ font-weight:700; font-size:13px; }
-.userplan{ color:var(--muted); font-size:11px; }
+.userplan{ color:var(--muted); font-size:13px; }
 .main{ flex:1; display:flex; flex-direction:column; min-width:0; }
 .topbar{ padding:22px 26px; display:flex; align-items:center; justify-content:space-between; }
 .page-title{ font-size:34px; font-weight:850; }
@@ -473,7 +473,7 @@ body{
   border-top:1px solid rgba(255,255,255,0.08);
   color:var(--muted);
 }
-.muted{ color:var(--muted); font-size:12px; }
+.muted{ color:var(--muted); font-size:14px; }
 .kpi-row{ display:grid; grid-template-columns: 1fr 1fr 1fr; gap:14px; }
 .kpi{ border-radius:18px; border:1px solid rgba(255,255,255,0.08); background: rgba(18,19,27,0.45); padding:14px; }
 .kpi .label{ color:var(--muted); font-size:12px; }
@@ -1037,7 +1037,7 @@ body{
 
 /* Primary text + muted text */
 
-.muted{ color:#4b5563; font-size:12px; }
+.muted{ color:#374151; font-size:14px; }
 .page-sub{ color:#4b5563; }
 .card-desc{ color:#4b5563; }
 .kpi .label{ color:#4b5563; }
@@ -4148,7 +4148,7 @@ label, .muted{
 
 /* Small inline button */
 .btn.inline{ flex:0; width:auto; }
-.btn.small{ padding:7px 10px; font-size:11px; border-radius:12px; }
+.btn.small{ padding:7px 10px; font-size:13px; border-radius:12px; }
 
 /* Title row with action */
 .card-title-row{ display:flex; align-items:center; justify-content:space-between; gap:10px; }
@@ -4265,7 +4265,7 @@ label, .muted{
 }
 .gp-meta{ flex:1; min-width:0; }
 .gp-name{ font-weight:900; }
-.gp-sub{ color: rgba(232,232,239,0.58); font-size:12px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.gp-sub{ color: rgba(232,232,239,0.88); font-size:13px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .gp-badge{
   font-size:10px;
   font-weight:900;
@@ -4558,3 +4558,7 @@ html, body{ height:100% !important; overflow:hidden !important; }
 #panel{ min-height:0 !important; }
 .grid{ min-height:0 !important; }
 .panel{ overflow:hidden; } /* keep visuals; scrolling happens on .content */
+
+
+/* Readability hard floor */
+label, .badge, .chip, .pill, .hint { font-size: 13px; }

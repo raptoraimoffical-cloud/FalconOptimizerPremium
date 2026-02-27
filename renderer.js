@@ -53,7 +53,12 @@ function normalizeHwProfile(value){
 function readSavedHwProfile(){
   try{
     if (!window.localStorage) return 'auto';
-    return normalizeHwProfile(window.localStorage.getItem(HW_PROFILE_STORAGE_KEY));
+    const raw = window.localStorage.getItem(HW_PROFILE_STORAGE_KEY);
+    const normalized = normalizeHwProfile(raw);
+    if (raw && normalized === 'auto' && String(raw).toLowerCase() !== 'auto') {
+      console && console.warn && console.warn('[hw-profile] Invalid saved value, defaulting to auto:', raw);
+    }
+    return normalized;
   }catch(_e){
     return 'auto';
   }
@@ -78,6 +83,33 @@ function getStepsFor(item, mode) {
   const v = item[mode];
   if (Array.isArray(v)) return v;
   return [];
+}
+
+const EXPLORE_NON_ACTIONABLE_STEP_TYPES = new Set(['open.url', 'open.path', 'copy.clipboard', 'message', 'noop']);
+const EXPLORE_EXCLUDED_CATEGORY_KEYWORDS = ['stretch resolution lab'];
+
+function isMeaningfulOptimizationStep(step){
+  const t = String(step && step.type || '').toLowerCase();
+  if (!t) return false;
+  return !EXPLORE_NON_ACTIONABLE_STEP_TYPES.has(t);
+}
+
+function isOpenOnlyItem(item){
+  const steps = Array.isArray(item && item.steps) ? item.steps : [];
+  if (!steps.length) return true;
+  return steps.every((s) => !isMeaningfulOptimizationStep(s));
+}
+
+function shouldHideFromExplore(item){
+  const id = String(item && item.id || '').toLowerCase();
+  if (!id) return true;
+  if (id.endsWith('__revert')) return true;
+  if (isOpenOnlyItem(item)) return true;
+  const file = String(item && item.file || '').toLowerCase();
+  if (file.includes('stretchres')) return true;
+  const pathText = String(item && item.path || '').toLowerCase();
+  if (EXPLORE_EXCLUDED_CATEGORY_KEYWORDS.some((kw) => pathText.includes(kw))) return true;
+  return false;
 }
 
 
@@ -150,7 +182,9 @@ async function __renderRunHistory(){
           note: e.note || e.risk || '',
           stdout: e.stdout || '',
           stderr: e.stderr || '',
-          logFile: e.logFile || null
+          logFile: e.logFile || null,
+          stepResults: Array.isArray(e.stepResults) ? e.stepResults : [],
+          verifySummary: (e.verifySummary && typeof e.verifySummary === 'object') ? e.verifySummary : null
         });
       }
     }
@@ -239,6 +273,29 @@ function toastRunResult(label, res){
       showToast((label ? (label + ': ') : '') + (err || 'Failed'), 'error');
     }
   }catch(_e){}
+}
+
+function summarizeStepResults(res){
+  const stepResults = Array.isArray(res && res.stepResults) ? res.stepResults : [];
+  const failed = stepResults.filter((x) => x && x.ok === false).length;
+  const verified = stepResults.filter((x) => x && x.verified === true).length;
+  return {
+    total: stepResults.length,
+    failed,
+    verified,
+    success: stepResults.length ? (stepResults.length - failed) : 0
+  };
+}
+
+function toastRunResultWithVerification(label, res){
+  const summary = summarizeStepResults(res);
+  const base = String(label || 'Optimization');
+  if (res && res.ok) {
+    showToast(`${base}: Success (${summary.verified} verified / ${summary.failed} failed)`, 'success');
+    return;
+  }
+  const reason = String((res && (res.error || res.stderr || res.message)) || 'Failed').trim();
+  showToast(`${base}: Failed (${summary.verified} verified / ${summary.failed} failed) — ${reason}`, 'error');
 }
 
 function humanizeUpdateStatus(payload){
@@ -464,10 +521,17 @@ try{
 const runPromise = window.falcon && typeof window.falcon.runTweak === "function"
       ? window.falcon.runTweak(payload)
       : Promise.resolve({ ok:false, error:"runTweak not available" });
+    const stillRunningTimer = setTimeout(() => {
+      try {
+        const nm = payload && payload.id ? payload.id : 'Optimization';
+        showToast(nm + ' is still running…', 'info');
+      } catch(_e){}
+    }, 8000);
     const timeoutPromise = new Promise(resolve => {
       setTimeout(() => resolve({ ok:false, timeout:true }), t);
     });
     const res = await Promise.race([runPromise, timeoutPromise]);
+    clearTimeout(stillRunningTimer);
     if(res && res.timeout){
       try {
         const nm = payload && payload.id ? payload.id : "Optimization";
@@ -2883,7 +2947,7 @@ async function renderPerformanceLibrary(){
     const active = (mode===id) ? 'btn-red' : 'btn-ghost';
     return `<button class="btn ${active}" data-pl-mode="${id}" style="min-width:140px;">
       <div style="font-weight:700; font-size:13px;">${label}</div>
-      <div class="muted" style="font-size:11px; margin-top:2px;">${desc}</div>
+      <div class="muted" style="font-size:13px; margin-top:2px;">${desc}</div>
     </button>`;
   }
 
@@ -7226,7 +7290,7 @@ async function renderExplore(){
     if(node.id && (hasApply || Array.isArray(node.steps))) {
       const title = String(node.title || node.label || node.name || node.id);
       const desc = String(node.desc || node.description || '');
-      out.push({
+      const item = {
         id: String(node.id),
         title,
         desc,
@@ -7237,7 +7301,8 @@ async function renderExplore(){
         hasRevert: !!hasRevert,
         steps: (hasApply ? node.apply.steps : (Array.isArray(node.steps) ? node.steps : [])),
         revertSteps: (hasRevert ? node.revert.steps : [])
-      });
+      };
+      if (!shouldHideFromExplore(item)) out.push(item);
     }
   }
 
@@ -7253,7 +7318,24 @@ async function renderExplore(){
       const ctx = { file: f.replace('tweaks/',''), path: '' };
       extractItems(j, ctx, out);
     }
-    return out;
+
+    const merged = new Map();
+    for (const item of out){
+      const id = String(item.id || '');
+      if (!id) continue;
+      if (id.endsWith('__revert')) {
+        const baseId = id.replace(/__revert$/,'');
+        if (!baseId) continue;
+        const base = merged.get(baseId) || null;
+        if (base && (!base.revertSteps || !base.revertSteps.length)) {
+          base.revertSteps = Array.isArray(item.steps) ? item.steps : [];
+          base.hasRevert = base.revertSteps.length > 0;
+        }
+        continue;
+      }
+      merged.set(id, item);
+    }
+    return Array.from(merged.values()).filter((it) => !shouldHideFromExplore(it));
   }
 
   let index = [];
@@ -7310,7 +7392,7 @@ async function renderExplore(){
             <div style="font-weight:700;">${escapeHtml(it.title)}</div>
             <div class="${badge}" style="text-transform:uppercase;">${escapeHtml(it.risk)}</div>
           </div>
-          <div class="muted" style="font-size:11px; margin-top:2px;">${meta}</div>
+          <div class="muted" style="font-size:13px; margin-top:2px;">${meta}</div>
           ${it.desc ? `<div class="muted" style="font-size:12px; margin-top:4px;">${escapeHtml(it.desc)}</div>` : ``}
         </div>
       `;
@@ -7366,8 +7448,8 @@ async function renderExplore(){
     if(applyBtn) applyBtn.onclick = async ()=>{
       try{
         setRunning(true);
-        const res = await window.falcon.runTweak({ id: it.id, mode:'apply', steps: it.steps, revertSteps: it.revertSteps, meta:{ title: it.title, location: it.path, risk: it.risk } });
-        toast(res && res.ok ? 'Applied' : 'Failed', (res && res.ok) ? 'ok' : 'error');
+        const res = await runTweakWithTimeout({ id: it.id, mode:'apply', steps: it.steps, revertSteps: it.revertSteps, meta:{ title: it.title, location: it.path, risk: it.risk } }, 120000);
+        toastRunResultWithVerification(it.title, res);
       }catch(e){
         toast(String(e && e.message ? e.message : e), 'error');
       }finally{
@@ -7377,8 +7459,8 @@ async function renderExplore(){
     if(revBtn) revBtn.onclick = async ()=>{
       try{
         setRunning(true);
-        const res = await window.falcon.runTweak({ id: it.id, mode:'revert', steps: it.revertSteps, meta:{ title: it.title, location: it.path, risk: it.risk } });
-        toast(res && res.ok ? 'Reverted' : 'Failed', (res && res.ok) ? 'ok' : 'error');
+        const res = await runTweakWithTimeout({ id: it.id, mode:'revert', steps: it.revertSteps, meta:{ title: it.title, location: it.path, risk: it.risk } }, 120000);
+        toastRunResultWithVerification(it.title + ' revert', res);
       }catch(e){
         toast(String(e && e.message ? e.message : e), 'error');
       }finally{
@@ -7594,6 +7676,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // Restore last selection
       try {
         currentHwProfile = readSavedHwProfile();
+        console && console.info && console.info('[hw-profile] initialized:', currentHwProfile);
       } catch (_e) {}
       grp.querySelectorAll('[data-hw]').forEach(btn => {
         const val = normalizeHwProfile(btn.getAttribute('data-hw') || 'auto');
@@ -7700,11 +7783,21 @@ document.addEventListener("DOMContentLoaded", () => {
           const ok = !!(res && res.ok);
           const id = payload && payload.id ? payload.id : "Profile";
           const label = payload && payload.meta && payload.meta.profile ? payload.meta.profile : id;
-          if (ok) {
-            showToast("Profile " + label + " applied successfully.", "success");
-          } else {
-            showToast("Profile " + label + " failed or partially applied. Check log for details.", "error");
-          }
+          toastRunResultWithVerification("Profile " + label, res);
+          try {
+            lastLogFile = res && res.logFile ? res.logFile : lastLogFile;
+            __pushRunHistory({
+              ts: Date.now(),
+              ok,
+              label: String(label),
+              logFile: (res && res.logFile) ? res.logFile : null,
+              note: (Date.now()-startedAt) + ' ms',
+              stdout: (res && (res.stdout||res.rawStdout)) ? (res.stdout||res.rawStdout) : '',
+              stderr: (res && (res.stderr||res.rawStderr)) ? (res.stderr||res.rawStderr) : '',
+              stepResults: Array.isArray(res && res.stepResults) ? res.stepResults : [],
+              verifySummary: (res && res.verifySummary && typeof res.verifySummary === 'object') ? res.verifySummary : null
+            });
+          } catch(_e){}
         } catch (inner) {
           console && console.warn && console.warn('runTweak toast failed', inner);
         }

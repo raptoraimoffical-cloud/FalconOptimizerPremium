@@ -95,7 +95,9 @@ class JobManager {
           durationMs,
           logFile: (res && res.logFile) ? res.logFile : null,
           stderr: (res && res.rawStderr) ? String(res.rawStderr).slice(0, 4000) : '',
-          stdout: (res && res.rawStdout) ? String(res.rawStdout).slice(0, 4000) : ''
+          stdout: (res && res.rawStdout) ? String(res.rawStdout).slice(0, 4000) : '',
+          stepResults: (res && Array.isArray(res.stepResults)) ? res.stepResults : [],
+          verifySummary: (res && res.verifySummary && typeof res.verifySummary === 'object') ? res.verifySummary : null
         };
         this._pushEntry(entry);
         return res;

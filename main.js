@@ -207,6 +207,19 @@ function __readTail(filePath, maxBytes=16384){
     }
   }catch(_){ return ""; }
 }
+
+function normalizeRunnerResult(res){
+  const r = (res && typeof res === "object") ? res : {};
+  return {
+    ok: !!r.ok,
+    stdout: r.rawStdout || "",
+    stderr: r.rawStderr || "",
+    logFile: r.logFile || null,
+    stepResults: Array.isArray(r.stepResults) ? r.stepResults : [],
+    verifySummary: (r.verifySummary && typeof r.verifySummary === "object") ? r.verifySummary : null
+  };
+}
+
 function createWindow() {
   const win = new BrowserWindow({
     width: 1200,
@@ -476,10 +489,10 @@ ipcMain.handle("falcon:runSteps", async (_evt, payload) => {
       // Best-effort history fallback
       try {
         const session = ensureSession();
-        session.entries.push({ ts: nowIso(), id, mode: "apply", ok: !!res.ok, logFile: res.logFile || null, meta, label: __cleanLabel((meta && (meta.title || meta.name)) ? (meta.title || meta.name) : id), stdout: (res.rawStdout && String(res.rawStdout).trim()) ? res.rawStdout : ((res.stdout && String(res.stdout).trim()) ? res.stdout : (__readTail(res.logFile, 20000) || "")), stderr: (res.rawStderr && String(res.rawStderr).trim()) ? res.rawStderr : ((res.stderr && String(res.stderr).trim()) ? res.stderr : "") });
+        session.entries.push({ ts: nowIso(), id, mode: "apply", ok: !!res.ok, logFile: res.logFile || null, meta, label: __cleanLabel((meta && (meta.title || meta.name)) ? (meta.title || meta.name) : id), stdout: (res.rawStdout && String(res.rawStdout).trim()) ? res.rawStdout : ((res.stdout && String(res.stdout).trim()) ? res.stdout : (__readTail(res.logFile, 20000) || "")), stderr: (res.rawStderr && String(res.rawStderr).trim()) ? res.rawStderr : ((res.stderr && String(res.stderr).trim()) ? res.stderr : ""), stepResults: Array.isArray(res.stepResults) ? res.stepResults : [], verifySummary: (res.verifySummary && typeof res.verifySummary === "object") ? res.verifySummary : null });
         saveHistory();
       } catch (_) {}
-      return { ok: !!res.ok, stdout: res.rawStdout || "", stderr: res.rawStderr || "", logFile: res.logFile || null };
+      return normalizeRunnerResult(res);
     } catch (e) {
       return { ok: false, stdout: "", stderr: String(e && e.message ? e.message : e), logFile: null };
     }
@@ -490,7 +503,7 @@ ipcMain.handle("falcon:runSteps", async (_evt, payload) => {
   historyState = jobManager.getHistory();
   currentSessionId = jobManager.currentSessionId || currentSessionId;
 
-  return { ok: !!res.ok, stdout: res.rawStdout || "", stderr: res.rawStderr || "", logFile: res.logFile || null };
+  return normalizeRunnerResult(res);
 });
 
 // --- IPC: Run a tweak (records history, supports simulation in UI via separate endpoint) ---
@@ -514,9 +527,9 @@ ipcMain.handle("falcon:runTweak", async (_evt, payload) => {
     const res = await runner();
     // legacy history
     const session = ensureSession();
-    session.entries.push({ ts: nowIso(), id, mode, ok: !!res.ok, logFile: res.logFile || null, meta, label: __cleanLabel((meta && (meta.title || meta.name)) ? (meta.title || meta.name) : id), stdout: (res.rawStdout && String(res.rawStdout).trim()) ? res.rawStdout : ((res.stdout && String(res.stdout).trim()) ? res.stdout : (__readTail(res.logFile, 20000) || "")), stderr: (res.rawStderr && String(res.rawStderr).trim()) ? res.rawStderr : ((res.stderr && String(res.stderr).trim()) ? res.stderr : ""), revertSteps: (mode === "apply") ? revertSteps : undefined });
+    session.entries.push({ ts: nowIso(), id, mode, ok: !!res.ok, logFile: res.logFile || null, meta, label: __cleanLabel((meta && (meta.title || meta.name)) ? (meta.title || meta.name) : id), stdout: (res.rawStdout && String(res.rawStdout).trim()) ? res.rawStdout : ((res.stdout && String(res.stdout).trim()) ? res.stdout : (__readTail(res.logFile, 20000) || "")), stderr: (res.rawStderr && String(res.rawStderr).trim()) ? res.rawStderr : ((res.stderr && String(res.stderr).trim()) ? res.stderr : ""), stepResults: Array.isArray(res.stepResults) ? res.stepResults : [], verifySummary: (res.verifySummary && typeof res.verifySummary === "object") ? res.verifySummary : null, revertSteps: (mode === "apply") ? revertSteps : undefined });
     saveHistory();
-    return { ok: !!res.ok, stdout: res.rawStdout || "", stderr: res.rawStderr || "", logFile: res.logFile || null };
+    return normalizeRunnerResult(res);
   }
 
   const res = await jobManager.enqueue(
@@ -527,7 +540,7 @@ ipcMain.handle("falcon:runTweak", async (_evt, payload) => {
   historyState = jobManager.getHistory();
   currentSessionId = jobManager.currentSessionId || currentSessionId;
 
-  return { ok: !!res.ok, stdout: res.rawStdout || "", stderr: res.rawStderr || "", logFile: res.logFile || null };
+  return normalizeRunnerResult(res);
 });
 
 ipcMain.handle("falcon:dryRunSteps", async (_evt, payload) => {
@@ -1716,7 +1729,7 @@ const isProtectedServiceDisableCmd = (c) => {
       // remove IFEO blocks for wuauclt
       restoreSteps.push({ type: "cmd.run", command: 'reg delete "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Image File Execution Options\\wuauclt.exe" /f >nul 2>&1' });
       const res = await runPsSteps({ steps: restoreSteps });
-      return { ok: !!res.ok, stdout: res.rawStdout || "", stderr: res.rawStderr || "", logFile: res.logFile || null };
+      return normalizeRunnerResult(res);
     }
 
     for (const cmd of filteredActions) {
@@ -1730,7 +1743,7 @@ const isProtectedServiceDisableCmd = (c) => {
     }
 
     const res = await runPsSteps({ steps });
-    return { ok: !!res.ok, stdout: res.rawStdout || "", stderr: res.rawStderr || "", logFile: res.logFile || null };
+    return normalizeRunnerResult(res);
   } catch (e) {
     return { ok: false, stdout: "", stderr: String(e && e.stack ? e.stack : e), logFile: null };
   }
