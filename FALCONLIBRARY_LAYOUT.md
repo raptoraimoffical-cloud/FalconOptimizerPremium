@@ -1,38 +1,28 @@
 # FalconLibrary Canonical Layout
 
-## Canonical root
+Canonical tool root for all `falconlib.run` cards:
 
-`tools/FalconLibrary/` is the only supported FalconLibrary runtime root.
+- `tools/FalconLibrary/`
 
-## Why
+## Required executable locations
 
-Previous builds contained three roots (`tools/FalconLibrary`, `FalconLibrary`, and `FalconLibrary/FalconLibrary`) which caused nondeterministic path resolution and broken runtime links in packaged/dev environments.
+- `tools/FalconLibrary/NSudo/NSudoLG.exe`
+- `tools/FalconLibrary/Timer Resolution/SetTimerResolution.exe`
+- `tools/FalconLibrary/DPC Checker/dpclat.exe`
+- `tools/FalconLibrary/OOshutup10/OOSU10.exe`
+- `tools/FalconLibrary/Nvidia/Nvidia Profile Inspector/nvidiaProfileInspector.exe`
+- `tools/FalconLibrary/Edge Remover/setup.exe`
 
-## Final canonical tool tree
+## Companion files copied with tool families
 
-- tools/FalconLibrary/Audio Bloat Remover/Audio Bloat Remover V1.0.bat
-- tools/FalconLibrary/Autologger Destroyer/FalconLibrary Autologger Destroyer V1.0.bat
-- tools/FalconLibrary/Browser Download/Browser Downloader V1.0.bat
-- tools/FalconLibrary/DPC Checker/dpclat.exe
-- tools/FalconLibrary/Edge Remover/setup.exe
-- tools/FalconLibrary/Nvidia/Nvidia Container/Nvidia Container OFF.bat
-- tools/FalconLibrary/Nvidia/Nvidia Container/Nvidia Container ON.bat
-- tools/FalconLibrary/Nvidia/Nvidia Profile Inspector/nvidiaProfileInspector.exe
-- tools/FalconLibrary/NSudo/NSudoLG.exe
-- tools/FalconLibrary/OOshutup10/OOSU10.exe
-- tools/FalconLibrary/Process Destroyer/FalconLibrary Process Destroyer Extreme V2.5.bat
-- tools/FalconLibrary/Process Destroyer/FalconLibrary Process Destroyer V2.5.bat
-- tools/FalconLibrary/Task Destroyer/FalconLibrary Task Destroyer V1.3.bat
-- tools/FalconLibrary/Timer Resolution/SetTimerResolution.exe
-- tools/FalconLibrary/Update Disabler/FalconLibrary Update Disabler V1.2.bat
+- `tools/FalconLibrary/NSudo/1- What's NSudo.txt`
+- `tools/FalconLibrary/Timer Resolution/1- What's SetTimerResolution.txt`
+- `tools/FalconLibrary/DPC Checker/1- What's dpclat.txt`
+- `tools/FalconLibrary/OOshutup10/FalconOOshutup10 V2.cfg`
+- `tools/FalconLibrary/Nvidia/Nvidia Profile Inspector/NovaOS.nip`
+- `tools/FalconLibrary/Edge Remover/1- What's Setup.txt`
 
-## Legacy roots
+## Enforcement
 
-`FalconLibrary/**` and `FalconLibrary/FalconLibrary/**` are treated as legacy/ignored for resolution.
-
-Runner changes enforce deterministic lookup to:
-1) absolute path (if provided),
-2) `<repoRoot>/<toolPath>`,
-3) `<dataRoot>/<toolPath>`.
-
-No silent fallback probing of legacy FalconLibrary roots remains.
+- `scripts/run-action.ps1` resolves `falconlib.run.toolPath` strictly against repo root (dev) and `resources/app.asar.unpacked` (packaged).
+- `scripts/qa_links.js` fails the build if any `falconlib.run.toolPath` is missing or points to legacy `FalconLibrary/**` roots.
