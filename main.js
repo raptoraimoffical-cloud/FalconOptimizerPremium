@@ -209,6 +209,8 @@ function getCachedTagFromError(err) {
 
 function getLatestTagFromInfo(info) {
   if (!info || typeof info !== "object") return null;
+  const normalizedVersionTag = normalizeVersionTag(info.version);
+  if (normalizedVersionTag) return normalizedVersionTag;
   const files = Array.isArray(info.files) ? info.files : [];
   for (const f of files) {
     const tag = detectTagFromString((f && f.url) || "");
