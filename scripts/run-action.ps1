@@ -99,6 +99,106 @@ function Expand-String([object]$v) {
   return $s
 }
 
+
+function Convert-HexStringToByteArray([object]$value) {
+  if ($null -eq $value) { return @() }
+  if ($value -is [byte[]]) { return $value }
+  $text = [string]$value
+  $hex = ($text -replace '[^0-9A-Fa-f]', '')
+  if ([string]::IsNullOrWhiteSpace($hex)) { return @() }
+  if (($hex.Length % 2) -ne 0) { throw "Invalid binary hex string length: $($hex.Length)" }
+  $bytes = New-Object byte[] ($hex.Length / 2)
+  for ($i=0; $i -lt $hex.Length; $i+=2) {
+    $bytes[$i/2] = [Convert]::ToByte($hex.Substring($i,2),16)
+  }
+  return $bytes
+}
+
+function Convert-ToDword([object]$value) {
+  if ($null -eq $value) { return [uint32]0 }
+  if ($value -is [uint32]) { return $value }
+  if ($value -is [int] -or $value -is [long]) { return [uint32]$value }
+  $text = [string]$value
+  if ($text -match '^0x[0-9A-Fa-f]+$') { return [uint32]([Convert]::ToUInt64($text.Substring(2),16)) }
+  return [uint32]([Convert]::ToUInt64($text,10))
+}
+
+function Convert-ToQword([object]$value) {
+  if ($null -eq $value) { return [uint64]0 }
+  if ($value -is [uint64]) { return $value }
+  if ($value -is [int] -or $value -is [long]) { return [uint64]$value }
+  $text = [string]$value
+  if ($text -match '^0x[0-9A-Fa-f]+$') { return [uint64]([Convert]::ToUInt64($text.Substring(2),16)) }
+  return [uint64]([Convert]::ToUInt64($text,10))
+}
+
+function Compare-ByteArray([byte[]]$a, [byte[]]$b) {
+  if ($null -eq $a) { $a = @() }
+  if ($null -eq $b) { $b = @() }
+  if ($a.Length -ne $b.Length) {
+    return [pscustomobject]@{ ok = $false; details = "binary length mismatch expected=$($b.Length) actual=$($a.Length)" }
+  }
+  for ($i=0; $i -lt $a.Length; $i++) {
+    if ($a[$i] -ne $b[$i]) {
+      return [pscustomobject]@{ ok = $false; details = "binary mismatch at index $i expected=$($b[$i]) actual=$($a[$i])" }
+    }
+  }
+  return [pscustomobject]@{ ok = $true; details = "binary match length=$($a.Length)" }
+}
+
+function Resolve-FalconBasePath() {
+  $candidate = Join-Path $PSScriptRoot ".."
+  try { return (Resolve-Path -LiteralPath $candidate -ErrorAction Stop).Path } catch {}
+  if ((Test-Path variable:Global:FalconRoot) -and $Global:FalconRoot) { return $Global:FalconRoot }
+  return (Get-Location).Path
+}
+
+function Resolve-FalconToolPath([string]$toolPath) {
+  if ([string]::IsNullOrWhiteSpace($toolPath)) { throw "toolPath is required" }
+  $expanded = Expand-String $toolPath
+  if (Is-FileSystemPath $expanded) { return $expanded }
+  $base = Resolve-FalconBasePath
+  $candidates = @(
+    (Join-Path $base $expanded),
+    (Join-Path $base (Join-Path "tools" $expanded)),
+    (Join-Path $base (Join-Path "tools\FalconLibrary" $expanded)),
+    (Join-Path $base (Join-Path "FalconLibrary" $expanded)),
+    (Join-Path $base (Join-Path "FalconLibrary\FalconLibrary" $expanded))
+  )
+  foreach ($c in $candidates) { if (Test-Path -LiteralPath $c) { return $c } }
+  return $candidates[0]
+}
+
+function Invoke-WithElevation([string]$filePath, [string[]]$args, [string]$elevation = "none", [string]$workingDir = "", [bool]$wait = $true, [int]$timeoutSec = 0) {
+  $exe = Resolve-FalconToolPath $filePath
+  $mode = ([string]$elevation).ToLowerInvariant()
+  if ([string]::IsNullOrWhiteSpace($mode)) { $mode = "none" }
+  if ([string]::IsNullOrWhiteSpace($workingDir)) { $workingDir = Split-Path -Parent $exe }
+  Log ("ELEVATION RUN mode={0} file={1} args={2} wd={3}" -f $mode, $exe, (($args -join ' ')), $workingDir)
+
+  if ($mode -eq "trustedinstaller") {
+    $nsudo = Resolve-FalconToolPath "tools/FalconLibrary/NSudo/NSudoLG.exe"
+    if (!(Test-Path -LiteralPath $nsudo)) { throw "NSudo not found: $nsudo" }
+    $quotedExe = '"' + $exe + '"'
+    $argLine = if ($args) { ($args | ForEach-Object { '"' + [string]$_ + '"' }) -join ' ' } else { "" }
+    $cmd = if ([string]::IsNullOrWhiteSpace($argLine)) { $quotedExe } else { "$quotedExe $argLine" }
+    $p = Start-Process -FilePath $nsudo -ArgumentList @('-U:T','-P:E','-Wait','cmd','/c',$cmd) -PassThru -WindowStyle Hidden -WorkingDirectory $workingDir
+    if ($wait) { $p.WaitForExit() }
+    return [pscustomobject]@{ exitCode = $(if($wait){$p.ExitCode}else{0}); executable = $exe; elevation = $mode }
+  }
+
+  $argLine2 = if ($args) { $args -join ' ' } else { "" }
+  $startSplat = @{ FilePath = $exe; PassThru = $true; WindowStyle = 'Hidden'; WorkingDirectory = $workingDir }
+  if (-not [string]::IsNullOrWhiteSpace($argLine2)) { $startSplat['ArgumentList'] = $argLine2 }
+  if ($mode -eq 'admin') { $startSplat['Verb'] = 'RunAs' }
+  $proc = Start-Process @startSplat
+  if ($wait) {
+    if ($timeoutSec -gt 0) { $null = $proc.WaitForExit($timeoutSec * 1000); if(-not $proc.HasExited){ try{$proc.Kill()}catch{}; throw "Process timeout after $timeoutSec seconds" } }
+    else { $proc.WaitForExit() }
+  }
+  return [pscustomobject]@{ exitCode = $(if($wait){$proc.ExitCode}else{0}); executable = $exe; elevation = $mode }
+}
+
 function Normalize-RegPath([string]$p){
   if([string]::IsNullOrWhiteSpace($p)){ return $p }
   if($p -match '^(HKLM|HKCU|HKCR|HKU|HKCC)\\'){
@@ -185,7 +285,27 @@ function Verify-StepOutcome([object]$step) {
         $p = Normalize-RegPath (Expand-String $step.path)
         $n = [string]$step.name
         $expected = $step.value
+        $vt = [string]$step.valueType
         $actual = (Get-ItemProperty -Path $p -Name $n -ErrorAction Stop).$n
+        if ($vt -match '^(DWORD|DWord)$') {
+          $expDw = Convert-ToDword $expected
+          $actDw = Convert-ToDword $actual
+          $ok = ($actDw -eq $expDw)
+          return [pscustomobject]@{ verified = $ok; verifyDetails = ("registry DWORD expected={0} actual={1}" -f $expDw, $actDw) }
+        }
+        if ($vt -match '^(QWORD|QWord)$') {
+          $expQw = Convert-ToQword $expected
+          $actQw = Convert-ToQword $actual
+          $ok = ($actQw -eq $expQw)
+          return [pscustomobject]@{ verified = $ok; verifyDetails = ("registry QWORD expected={0} actual={1}" -f $expQw, $actQw) }
+        }
+        if ($vt -match '^(Binary)$') {
+          $expBin = Convert-HexStringToByteArray $expected
+          [byte[]]$actBin = $actual
+          $cmp = Compare-ByteArray $actBin $expBin
+          return [pscustomobject]@{ verified = [bool]$cmp.ok; verifyDetails = [string]$cmp.details }
+        }
+
         $ok = ([string]$actual -eq [string]$expected)
         return [pscustomobject]@{ verified = $ok; verifyDetails = ("registry value expected={0} actual={1}" -f [string]$expected, [string]$actual) }
       }
@@ -211,9 +331,13 @@ function Verify-StepOutcome([object]$step) {
       }
       "service.startup" {
         $info = Get-ServiceInfoSafe ([string]$step.name)
-        $exp = [string]($step.startupType)
-        if ([string]::IsNullOrWhiteSpace($exp)) { $exp = [string]($step.mode) }
-        if ([string]::IsNullOrWhiteSpace($exp)) { $exp = [string]($step.value) }
+        $exp = ""
+        foreach($k in @('startType','startupType','startup','mode','value')) {
+          if ($step.PSObject.Properties.Name -contains $k) {
+            $candidate = [string]($step.$k)
+            if (-not [string]::IsNullOrWhiteSpace($candidate)) { $exp = $candidate; break }
+          }
+        }
         $ok = $info.exists
         if ($ok -and -not [string]::IsNullOrWhiteSpace($exp)) {
           $actual = [string]$info.startMode
@@ -465,10 +589,15 @@ for ($i = 0; $i -lt $steps.Count; $i++) {
         if ([string]::IsNullOrWhiteSpace($path)) { throw "reg.set missing path" }
         if ($null -eq $name) { throw "reg.set missing name" }
         if (!(Test-Path $path)) { New-Item -Path $path -Force | Out-Null }
-        if ($vt -and ($vt -eq "DWORD" -or $vt -eq "DWord")) {
-          New-ItemProperty -Path $path -Name $name -Value ([int]$val) -PropertyType DWord -Force | Out-Null
-        } elseif ($vt -and ($vt -eq "QWORD" -or $vt -eq "QWord")) {
-          New-ItemProperty -Path $path -Name $name -Value ([long]$val) -PropertyType QWord -Force | Out-Null
+        if ($vt -and ($vt -match '^(DWORD|DWord)$')) {
+          $dw = Convert-ToDword $val
+          New-ItemProperty -Path $path -Name $name -Value $dw -PropertyType DWord -Force | Out-Null
+        } elseif ($vt -and ($vt -match '^(QWORD|QWord)$')) {
+          $qw = Convert-ToQword $val
+          New-ItemProperty -Path $path -Name $name -Value $qw -PropertyType QWord -Force | Out-Null
+        } elseif ($vt -and ($vt -eq 'Binary')) {
+          $bytes = Convert-HexStringToByteArray $val
+          New-ItemProperty -Path $path -Name $name -Value $bytes -PropertyType Binary -Force | Out-Null
         } else {
           New-ItemProperty -Path $path -Name $name -Value $val -Force | Out-Null
         }
@@ -494,10 +623,15 @@ for ($i = 0; $i -lt $steps.Count; $i++) {
         if ($null -eq $name) { throw "registry.set missing name" }
 
         if (!(Test-Path $path)) { New-Item -Path $path -Force | Out-Null }
-        if ($vt -and ($vt -eq "DWORD" -or $vt -eq "DWord")) {
-          New-ItemProperty -Path $path -Name $name -Value ([int]$val) -PropertyType DWord -Force | Out-Null
-        } elseif ($vt -and ($vt -eq "QWORD" -or $vt -eq "QWord")) {
-          New-ItemProperty -Path $path -Name $name -Value ([long]$val) -PropertyType QWord -Force | Out-Null
+        if ($vt -and ($vt -match '^(DWORD|DWord)$')) {
+          $dw = Convert-ToDword $val
+          New-ItemProperty -Path $path -Name $name -Value $dw -PropertyType DWord -Force | Out-Null
+        } elseif ($vt -and ($vt -match '^(QWORD|QWord)$')) {
+          $qw = Convert-ToQword $val
+          New-ItemProperty -Path $path -Name $name -Value $qw -PropertyType QWord -Force | Out-Null
+        } elseif ($vt -and ($vt -eq 'Binary')) {
+          $bytes = Convert-HexStringToByteArray $val
+          New-ItemProperty -Path $path -Name $name -Value $bytes -PropertyType Binary -Force | Out-Null
         } else {
           New-ItemProperty -Path $path -Name $name -Value $val -Force | Out-Null
         }
@@ -576,22 +710,29 @@ for ($i = 0; $i -lt $steps.Count; $i++) {
 
       "service.startup" {
         $svc = [string]$s.name
-        $st  = [string]$s.startType
-        if ([string]::IsNullOrWhiteSpace($st) -and ($s.PSObject.Properties.Name -contains "startupType")) { $st = [string]$s.startupType }
-        if ([string]::IsNullOrWhiteSpace($st) -and ($s.PSObject.Properties.Name -contains "mode")) { $st = [string]$s.mode }
-        if ([string]::IsNullOrWhiteSpace($st) -and ($s.PSObject.Properties.Name -contains "value")) { $st = [string]$s.value }
-        if ([string]::IsNullOrWhiteSpace($st) -and ($s.PSObject.Properties.Name -contains "startType")) { $st = [string]$s.startType }
-        if ([string]::IsNullOrWhiteSpace($st) -and ($s.PSObject.Properties.Name -contains "start")) { $st = [string]$s.start }
+        $st = ""
+        foreach($k in @('startType','startupType','startup','mode','value')) {
+          if ($s.PSObject.Properties.Name -contains $k) {
+            $candidate = [string]($s.$k)
+            if (-not [string]::IsNullOrWhiteSpace($candidate)) { $st = $candidate; break }
+          }
+        }
         if ([string]::IsNullOrWhiteSpace($svc)) { throw "service.startup missing name" }
-        if ([string]::IsNullOrWhiteSpace($st)) { throw "service.startup missing startType" }
-        
+        if ([string]::IsNullOrWhiteSpace($st)) { throw "service.startup missing startType/startupType/startup/mode/value" }
+
+        $failIfMissing = $false
+        if ($s.PSObject.Properties.Name -contains 'failIfMissing') { $failIfMissing = [bool]$s.failIfMissing }
         $pre = Get-ServiceInfoSafe $svc
         if (-not $pre.exists) {
-          Log "SERVICE NOT FOUND: $svc"
-        } else {
-          Log ("SERVICE BEFORE: {0} startMode={1} state={2}" -f $svc, $pre.startMode, $pre.state)
+          $msg = "SERVICE NOT FOUND: $svc"
+          Log $msg
+          if ($failIfMissing) { throw $msg }
+          $script:Warnings.Add($msg) | Out-Null
+          Add-StepResult "service.startup" $svc $true ([pscustomobject]@{ skipped = $true; reason = 'service-missing' })
+          break
         }
-Safe-SetServiceStartup $svc $st
+        Log ("SERVICE BEFORE: {0} startMode={1} state={2}" -f $svc, $pre.startMode, $pre.state)
+        Safe-SetServiceStartup $svc $st
 
         # Optional restart semantics used by Fix modules.
         $doStop = $false
@@ -767,6 +908,27 @@ if ($fp.ToLower().EndsWith(".cpl")) {
         }
       }
 
+      "falconlib.run" {
+        $toolPath = [string]$s.toolPath
+        if ([string]::IsNullOrWhiteSpace($toolPath)) { throw "falconlib.run missing toolPath" }
+        $args = @()
+        if ($s.PSObject.Properties.Name -contains 'args' -and $null -ne $s.args) {
+          if ($s.args -is [System.Array]) { foreach($a in $s.args){ $args += (Expand-String ([string]$a)) } }
+          else { $args += (Expand-String ([string]$s.args)) }
+        }
+        $elevation = 'none'
+        if ($s.PSObject.Properties.Name -contains 'elevation' -and $s.elevation) { $elevation = [string]$s.elevation }
+        $workingDir = ''
+        if ($s.PSObject.Properties.Name -contains 'workingDir' -and $s.workingDir) { $workingDir = Resolve-FalconToolPath ([string]$s.workingDir) }
+        $wait = $true
+        if ($s.PSObject.Properties.Name -contains 'wait') { $wait = [bool]$s.wait }
+        $timeoutSec = 0
+        if ($s.PSObject.Properties.Name -contains 'timeoutSec') { $timeoutSec = [int]$s.timeoutSec }
+        $inv = Invoke-WithElevation -filePath $toolPath -args $args -elevation $elevation -workingDir $workingDir -wait $wait -timeoutSec $timeoutSec
+        Add-StepResult "falconlib.run" $toolPath ($inv.exitCode -eq 0) $inv
+        if ($wait -and $inv.exitCode -ne 0) { throw ("falconlib.run failed exitCode=" + $inv.exitCode) }
+      }
+
       "tool.ensure" {
         $id = [string]$s.toolId
         if ([string]::IsNullOrWhiteSpace($id)) { throw "tool.ensure missing toolId" }
@@ -899,10 +1061,19 @@ public static class TimerRes2 {
   if (-not $mustExist -and $exists) { throw ("registry.check expected missing but found: " + $path + " :: " + $name) }
 
   if ($mustExist) {
-    if ($vt -and ($vt -eq "DWORD" -or $vt -eq "DWord")) {
-      if ([int]$actual -ne [int]$expect) { throw ("registry.check mismatch (DWORD) " + $path + " :: " + $name + " expected=" + [int]$expect + " actual=" + [int]$actual) }
-    } elseif ($vt -and ($vt -eq "QWORD" -or $vt -eq "QWord")) {
-      if ([long]$actual -ne [long]$expect) { throw ("registry.check mismatch (QWORD) " + $path + " :: " + $name + " expected=" + [long]$expect + " actual=" + [long]$actual) }
+    if ($vt -and ($vt -match '^(DWORD|DWord)$')) {
+      $actDw = Convert-ToDword $actual
+      $expDw = Convert-ToDword $expect
+      if ($actDw -ne $expDw) { throw ("registry.check mismatch (DWORD) " + $path + " :: " + $name + " expected=" + $expDw + " actual=" + $actDw) }
+    } elseif ($vt -and ($vt -match '^(QWORD|QWord)$')) {
+      $actQw = Convert-ToQword $actual
+      $expQw = Convert-ToQword $expect
+      if ($actQw -ne $expQw) { throw ("registry.check mismatch (QWORD) " + $path + " :: " + $name + " expected=" + $expQw + " actual=" + $actQw) }
+    } elseif ($vt -and ($vt -eq 'Binary')) {
+      [byte[]]$actualBytes = $actual
+      [byte[]]$expectBytes = Convert-HexStringToByteArray $expect
+      $cmp = Compare-ByteArray $actualBytes $expectBytes
+      if (-not $cmp.ok) { throw ("registry.check mismatch (BINARY) " + $path + " :: " + $name + " " + $cmp.details) }
     } else {
       if ([string]$actual -ne [string]$expect) { throw ("registry.check mismatch " + $path + " :: " + $name + " expected=" + [string]$expect + " actual=" + [string]$actual) }
     }
@@ -1075,11 +1246,25 @@ public static class TimerRes2 {
       "service.startup" {
         # Legacy alias block (keep compatible with older catalogs)
         $svc = Expand-String $s.name
-        $st  = Expand-String $s.startup
-        if ([string]::IsNullOrWhiteSpace($st) -and ($s.PSObject.Properties.Name -contains "startType")) { $st = Expand-String $s.startType }
-        if ([string]::IsNullOrWhiteSpace($st) -and ($s.PSObject.Properties.Name -contains "startupType")) { $st = Expand-String $s.startupType }
-        if ([string]::IsNullOrWhiteSpace($st) -and ($s.PSObject.Properties.Name -contains "mode")) { $st = Expand-String $s.mode }
+        $st  = ""
+        foreach($k in @('startType','startupType','startup','mode','value')) {
+          if ($s.PSObject.Properties.Name -contains $k) {
+            $candidate = Expand-String ($s.$k)
+            if (-not [string]::IsNullOrWhiteSpace($candidate)) { $st = $candidate; break }
+          }
+        }
         if ([string]::IsNullOrWhiteSpace($svc) -or [string]::IsNullOrWhiteSpace($st)) { throw "service.startup missing name/startType" }
+
+        $failIfMissing = $false
+        if ($s.PSObject.Properties.Name -contains 'failIfMissing') { $failIfMissing = [bool]$s.failIfMissing }
+        $preSvc = Get-ServiceInfoSafe $svc
+        if (-not $preSvc.exists) {
+          $msg = "SERVICE NOT FOUND: $svc"
+          Log $msg
+          if ($failIfMissing) { throw $msg }
+          $script:Warnings.Add($msg) | Out-Null
+          break
+        }
 
         Safe-SetServiceStartup $svc $st
 

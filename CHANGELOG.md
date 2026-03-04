@@ -1,3 +1,14 @@
+## 1.5.3
+- Added catalog QA script (`scripts/qa_catalog.js`) and generated `QA_REPORT.txt` for manifest/schema/duplicate validation.
+- Hardened `scripts/run-action.ps1` registry handling for DWORD/QWORD unsigned values and REG_BINARY write/verify support.
+- Added centralized FalconLibrary tool execution (`falconlib.run`) with elevation routing (none/admin/trustedinstaller via NSudo).
+- Improved `service.startup` strict-mode-safe parsing and missing-service warning behavior (`failIfMissing` supported).
+- Normalized risk labels to canonical enum (Safe/Warning/Danger/Extreme) in renderer with explicit normalization logging.
+- Added Danger/Extreme confirmation body content with change + revert details before run.
+- Fixed Fixes route semantics to run check/apply/re-check or dedicated fix sequence.
+- Added FalconLibrary cards for Audio Bloat Remover and Timer Resolution apply/stop/status in `tweaks/utilities.json`.
+- Fixed malformed tweak metadata causing unnamed/misgrouped cards in security/controller/services catalogs.
+
 # CHANGELOG
 
 ## Falcon Optimizer 1.2 (Phase 2: UI Safety + Profiles + Undo + Validation)

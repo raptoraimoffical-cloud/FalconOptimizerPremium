@@ -210,7 +210,7 @@
       "id": "util.defendercontrol.run__utilities",
       "name": "Run Defender Control (bundled)",
       "category": "Apps / Utilities",
-      "risk": "Warning",
+      "risk": "Extreme",
       "description": "Runs DefenderControl if you place it in tools/defender-control/ as DefenderControl.exe. Put the file in the opened folder with the expected name, then re-run.",
       "apply": {
         "steps": [
@@ -225,9 +225,12 @@
         ]
       },
       "type": "button",
-      "riskLevel": "Warning",
+      "riskLevel": "Extreme",
       "requiresAdmin": true,
-      "note": "Converted from toggle (missing revert)."
+      "note": "Converted from toggle (missing revert).",
+      "requireExplicitConfirm": true,
+      "warningTitle": "Defender disable warning",
+      "warningBody": "Defender disable can reduce system security. Tamper Protection may block changes."
     },
     {
       "id": "util.msi_utility_v3.run",
@@ -461,6 +464,102 @@
       "revert": {
         "steps": []
       }
+    },
+    {
+      "id": "falcon.audio.bloat_remover.run",
+      "name": "Audio Bloat Remover",
+      "category": "Apps / Utilities",
+      "risk": "Danger",
+      "riskLevel": "Danger",
+      "requiresAdmin": true,
+      "requireExplicitConfirm": true,
+      "warningTitle": "Audio Bloat Remover Warning",
+      "warningBody": "This script removes audio-related background components. It may be hard to revert automatically on some systems.",
+      "description": "Runs FalconLibrary Audio Bloat Remover batch script. This can remove audio software/services and may require reinstalling vendor audio packages to restore defaults.",
+      "apply": {
+        "steps": [
+          {
+            "type": "falconlib.run",
+            "toolPath": "tools/FalconLibrary/Audio Bloat Remover/Audio Bloat Remover V1.0.bat",
+            "elevation": "admin",
+            "wait": true
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "echo Audio Bloat Remover executed (state may require manual verification)"
+          }
+        ]
+      },
+      "type": "button",
+      "primaryLabel": "Run"
+    },
+    {
+      "id": "falcon.timer_resolution.apply",
+      "name": "Timer Resolution (Apply)",
+      "category": "Apps / Utilities",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "description": "Starts SetTimerResolution.exe at 0.500ms (5000us).",
+      "apply": {
+        "steps": [
+          {
+            "type": "falconlib.run",
+            "toolPath": "tools/FalconLibrary/Timer Resolution/SetTimerResolution.exe",
+            "args": [
+              "--resolution",
+              "5000",
+              "--no-console"
+            ],
+            "elevation": "admin",
+            "wait": false
+          }
+        ]
+      },
+      "type": "button",
+      "primaryLabel": "Apply"
+    },
+    {
+      "id": "falcon.timer_resolution.stop",
+      "name": "Timer Resolution (Stop/Restore)",
+      "category": "Apps / Utilities",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "description": "Stops SetTimerResolution helper process to restore default timer behavior.",
+      "apply": {
+        "steps": [
+          {
+            "type": "process.kill",
+            "name": "SetTimerResolution"
+          }
+        ]
+      },
+      "type": "button",
+      "primaryLabel": "Stop"
+    },
+    {
+      "id": "falcon.timer_resolution.status",
+      "name": "Timer Resolution (Status)",
+      "category": "Apps / Utilities",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "description": "Shows whether SetTimerResolution process is running. Method: FalconLibrary SetTimerResolution.exe process check.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$p = Get-Process -Name SetTimerResolution -ErrorAction SilentlyContinue; if($p){ Write-Output \"Timer resolution helper is running (FalconLibrary SetTimerResolution.exe).\" } else { Write-Output \"Timer resolution helper is NOT running.\" }"
+          }
+        ]
+      },
+      "type": "button",
+      "primaryLabel": "Check"
     }
   ]
 }

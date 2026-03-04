@@ -74,7 +74,8 @@
             "command": "net start WinDefend >nul 2>&1"
           }
         ]
-      }
+      },
+      "category": "Advanced / Security"
     },
     {
       "id": "adv.security.defender.permanent_disable_advanced",
@@ -159,7 +160,8 @@
       },
       "revert": {
         "steps": []
-      }
+      },
+      "category": "Advanced / Security"
     },
     {
       "id": "adv.security.allow_dynamic_code",
