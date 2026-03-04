@@ -69,6 +69,7 @@ async function runUpdateCheckUnavailable() {
   throw new Error("Updater is unavailable.");
 }
 let runUpdateCheck = runUpdateCheckUnavailable;
+let runUpdateCheck = async () => { throw new Error("Updater is unavailable."); };
 
 function isStrictSemver(version) {
   return /^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?(?:\+[0-9A-Za-z.-]+)?$/.test(String(version || "").trim());
@@ -84,6 +85,7 @@ function ensureAutoUpdaterReady() {
     return { ok: false, message };
   }
 }
+let runUpdateCheck = async () => autoUpdater.checkForUpdates();
 
 function detectGithubConfigSource(owner, repo) {
   if (process.env.FALCON_UPDATER_OWNER || process.env.FALCON_UPDATER_REPO) return "env";
