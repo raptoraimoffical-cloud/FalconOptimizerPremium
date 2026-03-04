@@ -81,6 +81,7 @@ function ensureAutoUpdaterReady() {
     return { ok: false, message };
   }
 }
+let runUpdateCheck = async () => autoUpdater.checkForUpdates();
 
 function detectGithubConfigSource(owner, repo) {
   if (process.env.FALCON_UPDATER_OWNER || process.env.FALCON_UPDATER_REPO) return "env";
