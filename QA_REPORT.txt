@@ -1,63 +1,10 @@
-Falcon Optimizer Catalog QA Report
-Generated: 2026-03-04T06:06:45.231Z
+Manifest files: 114
+Parsed tweak items: 4788
+Runner step handlers: 42
+Unique step types in tweaks: 33
+StrictMode property access scan matches: 292
 
-Summary
-Manifest files listed: 113
-Unique categories: 199
-Total tweaks: 4781
-Total steps: 12713
+WARNINGS:
+- Review property access manually for null/missing guards.
 
-Step type counts:
-- cmd: 323
-- cmd.run: 1917
-- falconlib.run: 2
-- file.ensureDir: 5
-- nsudo.run: 1
-- open.file: 8
-- open.path: 34
-- open.url: 428
-- powercfg.check: 16
-- powercfg.set: 80
-- process.kill: 104
-- process.start: 27
-- ps.file: 61
-- ps.run: 2511
-- reg.del: 30
-- reg.set: 30
-- registry.check: 853
-- registry.remove: 1558
-- registry.set: 1780
-- run.exe: 6
-- service.check: 361
-- service.disable: 96
-- service.enable: 100
-- service.startup: 1167
-- shell.start: 365
-- task: 556
-- task.check: 266
-- timer.reset: 14
-- timer.set: 6
-- tool.ensure: 3
-- tool.launch: 3
-- uac.disable: 1
-- uac.restore: 1
-
-Raw risk values:
-- 5: 1
-- Caution: 154
-- Critical: 2
-- Danger: 657
-- Extreme: 20
-- high: 1
-- High: 50
-- Info: 3
-- low: 9
-- Low: 2
-- medium: 6
-- Medium: 15
-- Safe: 2165
-- Warning: 1696
-
-Errors (0):
-
-Warnings (0):
+QA STATUS: PASS
