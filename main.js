@@ -65,6 +65,10 @@ let updaterDiagnostics = {
 };
 let updaterRecoveryAttempted = false;
 let updaterDownloadInProgress = false;
+async function runUpdateCheckUnavailable() {
+  throw new Error("Updater is unavailable.");
+}
+let runUpdateCheck = runUpdateCheckUnavailable;
 let runUpdateCheck = async () => { throw new Error("Updater is unavailable."); };
 
 function isStrictSemver(version) {
@@ -344,6 +348,7 @@ function setupAutoUpdater() {
     console.error("[auto-update]", message);
     updateUpdaterDiagnostics({ enabled: false, lastCheckResult: "init-failed", lastError: { message, statusCode: null, url: null, at: nowIso() } });
     broadcastUpdateStatus("error", { message });
+    runUpdateCheck = runUpdateCheckUnavailable;
     return;
   }
 
@@ -367,6 +372,7 @@ function setupAutoUpdater() {
     console.error("[auto-update]", message);
     updateUpdaterDiagnostics({ lastCheckResult: "invalid-config", lastError: { message, url: updaterDiagnostics.feedUrl, statusCode: null, at: nowIso() } });
     broadcastUpdateStatus("error", { message });
+    runUpdateCheck = runUpdateCheckUnavailable;
     return;
   }
 
