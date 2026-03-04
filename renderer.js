@@ -696,27 +696,32 @@ function debounce(fn, waitMs){
 
 function normalizeRiskLabel(input){
   const raw = (typeof input === "string") ? input : (input && (input.riskLevel || input.risk));
-  const key = String(raw || "Safe").trim().toLowerCase();
-  if (!key || key === "unknown") return "Safe";
-  if (key === "safe" || key === "info" || key === "low") return "Safe";
-  if (key === "warning" || key === "caution" || key === "medium") return "Warning";
-  if (key === "high" || key === "danger" || key === "extreme") return "High";
-  if (key === "critical") return "Critical";
-  return "Safe";
+  const text = String(raw || "Safe").trim();
+  const key = text.toLowerCase();
+  let normalized = "Safe";
+  if (!key || key === "unknown") normalized = "Safe";
+  else if (["safe","info","low"].includes(key)) normalized = "Safe";
+  else if (["warning","caution","medium"].includes(key)) normalized = "Warning";
+  else if (["high","danger"].includes(key)) normalized = "Danger";
+  else if (["critical","extreme"].includes(key)) normalized = "Extreme";
+  if (text && text !== normalized) {
+    try { console.warn(`[risk-normalize] ${text} -> ${normalized}`); } catch(_e) {}
+  }
+  return normalized;
 }
 function normRisk(item){
   return normalizeRiskLabel(item);
 }
 function riskRank(value){
-  const rank = { Safe:0, Warning:1, High:2, Critical:3 };
+  const rank = { Safe:0, Warning:1, Danger:2, Extreme:3 };
   return rank[normalizeRiskLabel(value)] || 0;
 }
 function isHighOrCritical(risk){
   const r = normalizeRiskLabel(risk);
-  return r === "High" || r === "Critical";
+  return r === "Danger" || r === "Extreme";
 }
 function getConfirmPhrase(risk){
-  return risk === "Critical" ? "I UNDERSTAND" : "";
+  return risk === "Extreme" ? "I UNDERSTAND" : "";
 }
 
 function getConfirmSkipKey(risk){
@@ -725,13 +730,13 @@ function getConfirmSkipKey(risk){
 
 function shouldSkipConfirmForRisk(risk){
   const normalized = normalizeRiskLabel(risk);
-  if (normalized === "Critical") return false;
+  if (normalized === "Extreme") return false;
   try { return window.localStorage.getItem(getConfirmSkipKey(normalized)) === "1"; } catch (_) { return false; }
 }
 
 function persistSkipConfirmRisk(risk, value){
   const normalized = normalizeRiskLabel(risk);
-  if (normalized === "Critical") return;
+  if (normalized === "Extreme") return;
   try {
     const key = getConfirmSkipKey(normalized);
     if (value) window.localStorage.setItem(key, "1");
@@ -741,7 +746,7 @@ function persistSkipConfirmRisk(risk, value){
 
 function showConfirmModal({ title, body, risk, requireTyped }){
   const normalizedRisk = normalizeRiskLabel(risk);
-  if (normalizedRisk === "High" && shouldSkipConfirmForRisk(normalizedRisk)) {
+  if (normalizedRisk === "Danger" && shouldSkipConfirmForRisk(normalizedRisk)) {
     return Promise.resolve(true);
   }
   return new Promise((resolve) => {
@@ -762,10 +767,10 @@ function showConfirmModal({ title, body, risk, requireTyped }){
     t.textContent = title || "Warning";
     b.textContent = body || "";
     chk.checked = false;
-    chkText.textContent = (normalizedRisk === "Critical") ? "I understand this can make the PC unbootable or unstable." : "I understand and want to continue.";
+    chkText.textContent = (normalizedRisk === "Extreme") ? "I understand this can make the PC unbootable or unstable." : "I understand and want to continue.";
     typeInput.value = "";
 
-    const canSkip = normalizedRisk !== "Critical";
+    const canSkip = normalizedRisk !== "Extreme";
     if (skipWrap) skipWrap.style.display = canSkip ? "block" : "none";
     if (skipRisk) skipRisk.checked = false;
     if (skipRiskText) skipRiskText.textContent = `Don't show again for ${normalizedRisk}-level actions.`;
@@ -820,7 +825,7 @@ async function ensureAggressiveConsent(reason) {
   const ok = await showConfirmModal({
     title: "Aggressive Tweaks & BIOS Helper",
     body: bodyLines.join("\n"),
-    risk: "High",
+    risk: "Danger",
     requireTyped: true
   });
   if (ok) aggressiveConsentAccepted = true;
@@ -837,7 +842,7 @@ function itemRequiresAggressiveConsent(item) {
   const desc = String(item.description || "").toLowerCase();
   const cat = String(item.category || "").toLowerCase();
   const tags = Array.isArray(item.tags) ? item.tags.join(" ").toLowerCase() : String(item.tags || "").toLowerCase();
-  if (riskKey === "high" || riskKey === "critical") return true;
+  if (riskKey === "danger" || riskKey === "extreme") return true;
   if (tags.includes("aggressive") || tags.includes("expert")) return true;
   if (desc.includes("[aggressive]") || desc.includes("[expert]")) return true;
   if (cat.includes("aggressive") || cat.includes("expert")) return true;
@@ -1601,7 +1606,7 @@ function renderTabs(route){
 
 function riskBadge(risk){
   const r = String(risk||"Safe");
-  const cls = r==="Critical" ? "risk-critical" : (r==="High" ? "risk-high" : (r==="Warning" ? "risk-warning" : ""));
+  const cls = r==="Extreme" ? "risk-critical" : (r==="Danger" ? "risk-high" : (r==="Warning" ? "risk-warning" : ""));
   return `<span class="badge ${cls}">${__eh(r)}</span>`;
 }
 
@@ -3705,7 +3710,7 @@ refreshSecurityHome();
           const continueWithoutPrompts = await showConfirmModal({
             title: "Apply risky items without repeated prompts?",
             body: "This profile includes multiple high-risk tweaks. Continue once and run all selected profile items without per-item confirmation popups.",
-            risk: "High",
+            risk: "Danger",
             requireTyped: false
           });
           if (!continueWithoutPrompts) {
@@ -4616,17 +4621,42 @@ async function renderFixes(){
     `;
     card.querySelector('button').onclick = async () => {
       showRunPanel('Running: ' + item.name);
-      setProgress(10, 'Executing steps...');
-      const res = await window.falcon.runAction({ action:'apply', tweak:item, meta:{ label: item.name || 'Fix' } });
-      setProgress(100, res && res.ok ? 'Done' : 'Failed');
-      renderResult(res);
-      // Ensure the output panel always updates, even if renderResult fails for some edge payload.
-      try{
-        lastLog = ((res && (res.stdout || res.rawStdout)) ? String(res.stdout || res.rawStdout) : '')
-               + ((res && (res.stderr || res.rawStderr)) ? ('\n' + String(res.stderr || res.rawStderr)) : '');
-      }catch(_e){}
-      hideRunPanel();
-      refresh(false);
+      let res = null;
+      try {
+        const hasFix = !!(item && item.fix && Array.isArray(item.fix.steps) && item.fix.steps.length);
+        const hasCheck = !!(item && item.check && Array.isArray(item.check.steps) && item.check.steps.length);
+        if (hasFix) {
+          setProgress(20, 'Running dedicated fix steps...');
+          res = await window.falcon.runAction({ steps: item.fix.steps, meta:{ label: item.name || 'Fix', source:'FixSequence' } });
+        } else if (hasCheck) {
+          setProgress(20, 'Checking compliance...');
+          const checkBefore = await window.falcon.runAction({ steps: item.check.steps, meta:{ label: item.name || 'Fix-CheckBefore' } });
+          const compliant = !!(checkBefore && checkBefore.ok);
+          if (compliant) {
+            res = checkBefore;
+          } else {
+            setProgress(55, 'Applying repair...');
+            const applyRes = await window.falcon.runAction({ action:'apply', tweak:item, meta:{ label: item.name || 'Fix' } });
+            setProgress(80, 'Re-checking compliance...');
+            const checkAfter = await window.falcon.runAction({ steps: item.check.steps, meta:{ label: item.name || 'Fix-CheckAfter' } });
+            res = Object.assign({}, applyRes || {}, { ok: !!(applyRes && applyRes.ok && checkAfter && checkAfter.ok), checkBefore, checkAfter });
+          }
+        } else {
+          setProgress(40, 'Applying tweak steps...');
+          res = await window.falcon.runAction({ action:'apply', tweak:item, meta:{ label: item.name || 'Fix' } });
+        }
+      } finally {
+        setProgress(100, res && res.ok ? 'Done' : 'Failed');
+        renderResult(res);
+        try{
+          lastLog = ((res && (res.stdout || res.rawStdout)) ? String(res.stdout || res.rawStdout) : '')
+                 + ((res && (res.stderr || res.rawStderr)) ? ('\n' + String(res.stderr || res.rawStderr)) : '');
+          if (res && res.checkBefore) lastLog += '\n\n[check-before]\n' + JSON.stringify(res.checkBefore, null, 2);
+          if (res && res.checkAfter) lastLog += '\n\n[check-after]\n' + JSON.stringify(res.checkAfter, null, 2);
+        }catch(_e){}
+        hideRunPanel();
+        refresh(false);
+      }
     };
     grid.appendChild(card);
   });
@@ -5833,11 +5863,21 @@ card.innerHTML = `
       }
       const needsConfirm = isHighOrCritical(risk) || item.requiresSnapshot || item.requireExplicitConfirm || item.excludeFromApplyAll;
       if(needsConfirm){
+        const applyCount = Array.isArray(item?.apply?.steps) ? item.apply.steps.length : 0;
+        const revertCount = Array.isArray(item?.revert?.steps) ? item.revert.steps.length : 0;
+        const warningBody = (risk === 'Danger' || risk === 'Extreme')
+          ? [
+              (item.warningBody || item.description || item.name || 'Risky action'),
+              '',
+              `What it changes: executes ${applyCount} action step(s).`,
+              `How to revert: ${revertCount > 0 ? `use Revert (${revertCount} step(s)) from this card` : 'no automatic revert is defined; create a restore point before applying.'}`
+            ] .join('\n')
+          : (item.warningBody || item.description || item.name);
         const ok = await showConfirmModal({
-          title: item.warningTitle || (risk === "Critical" ? "CRITICAL ACTION" : "Warning"),
-          body: item.warningBody || item.description || item.name,
+          title: item.warningTitle || (risk === "Extreme" ? "EXTREME ACTION" : "Warning"),
+          body: warningBody,
           risk,
-          requireTyped: !!item.requireExplicitConfirm || risk==="Critical"
+          requireTyped: !!item.requireExplicitConfirm || risk==="Extreme"
         });
         if(!ok) return;
       }

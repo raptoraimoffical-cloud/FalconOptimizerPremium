@@ -23,7 +23,10 @@
       },
       "revert": {
         "steps": []
-      }
+      },
+      "category": "Controller / Input",
+      "risk": "Warning",
+      "riskLevel": "Warning"
     },
     {
       "id": "controller.oc.guided",
@@ -51,7 +54,10 @@
             }
           }
         ]
-      }
+      },
+      "category": "Controller / Input",
+      "risk": "Warning",
+      "riskLevel": "Warning"
     },
     {
       "description": "Opens HidUSBF Setup (included). In HidUSBF: select your controller, enable Filter On Device, pick polling rate (250/500/1000 Hz), click Restart. Toggle ON after you apply in HidUSBF; toggle OFF after you disable Filter On Device in HidUSBF.",
@@ -68,7 +74,10 @@
             }
           }
         ]
-      }
+      },
+      "category": "Controller / Input",
+      "risk": "Warning",
+      "riskLevel": "Warning"
     },
     {
       "id": "controller.usb.selective_suspend",
@@ -106,7 +115,10 @@
             "command": "powercfg -S SCHEME_CURRENT"
           }
         ]
-      }
+      },
+      "category": "Controller / Input",
+      "risk": "Warning",
+      "riskLevel": "Warning"
     },
     {
       "description": "Disables USB selective suspend on the current power scheme. Helps prevent random disconnects / input drops on some systems.",
@@ -128,7 +140,10 @@
             "command": "powercfg -S SCHEME_CURRENT"
           }
         ]
-      }
+      },
+      "category": "Controller / Input",
+      "risk": "Warning",
+      "riskLevel": "Warning"
     },
     {
       "id": "controller.usb.power_mgmt_checklist",
@@ -149,7 +164,8 @@
       "kind": "tool",
       "risk": "Info",
       "riskLevel": "Info",
-      "manualOnly": true
+      "manualOnly": true,
+      "category": "Controller / Input"
     },
     {
       "id": "controller.gameinput.service",
@@ -175,7 +191,10 @@
             "command": "sc.exe config GameInputSvc start= demand"
           }
         ]
-      }
+      },
+      "category": "Controller / Input",
+      "risk": "Warning",
+      "riskLevel": "Warning"
     },
     {
       "description": "Optional: disables GameInputSvc which can reduce background overhead. Do not disable if you play Xbox / Game Pass titles that rely on it.",
@@ -189,7 +208,10 @@
             "command": "sc.exe config GameInputSvc start= demand"
           }
         ]
-      }
+      },
+      "category": "Controller / Input",
+      "risk": "Warning",
+      "riskLevel": "Warning"
     },
     {
       "id": "controller.steam_input",
@@ -210,7 +232,8 @@
       "kind": "tool",
       "risk": "Info",
       "riskLevel": "Info",
-      "manualOnly": true
+      "manualOnly": true,
+      "category": "Controller / Input"
     },
     {
       "id": "controller.ds4windows",
@@ -231,7 +254,8 @@
       "kind": "tool",
       "risk": "Info",
       "riskLevel": "Info",
-      "manualOnly": true
+      "manualOnly": true,
+      "category": "Controller / Input"
     }
   ]
 }

@@ -32,7 +32,10 @@
             "command": "Write-Output \"No automatic revert available for this pack action. Use Service Disabler Restore / System Restore if needed.\""
           }
         ]
-      }
+      },
+      "name": "Falcon Service Pack (Disable Services)",
+      "category": "Services",
+      "riskLevel": "high"
     }
   ]
 }
