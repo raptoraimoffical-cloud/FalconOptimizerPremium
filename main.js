@@ -1,5 +1,5 @@
 const { app, BrowserWindow, ipcMain, shell } = require("electron");
-const { autoUpdater } = require("electron-updater");
+let autoUpdater = null;
 const os = require("os");
 const path = require("path");
 const fs = require("fs");
@@ -65,6 +65,22 @@ let updaterDiagnostics = {
 };
 let updaterRecoveryAttempted = false;
 let updaterDownloadInProgress = false;
+let runUpdateCheck = async () => { throw new Error("Updater is unavailable."); };
+
+function isStrictSemver(version) {
+  return /^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?(?:\+[0-9A-Za-z.-]+)?$/.test(String(version || "").trim());
+}
+
+function ensureAutoUpdaterReady() {
+  if (autoUpdater) return { ok: true, updater: autoUpdater };
+  try {
+    autoUpdater = require("electron-updater").autoUpdater;
+    return { ok: true, updater: autoUpdater };
+  } catch (e) {
+    const message = String((e && e.message) || e || "Failed to initialize updater");
+    return { ok: false, message };
+  }
+}
 let runUpdateCheck = async () => autoUpdater.checkForUpdates();
 
 function detectGithubConfigSource(owner, repo) {
@@ -292,6 +308,7 @@ function broadcastUpdateStatus(status, extra = {}) {
 }
 
 async function startUpdateDownload(info) {
+  if (!autoUpdater) throw new Error("Updater is unavailable.");
   if (updaterDownloadInProgress) return;
   updaterDownloadInProgress = true;
   const version = info && info.version ? String(info.version) : null;
@@ -309,6 +326,24 @@ function setupAutoUpdater() {
   if (!app.isPackaged) {
     console.log("[auto-update] Skipping update checks in development mode.");
     updateUpdaterDiagnostics({ enabled: false, lastCheckResult: "skipped-dev" });
+    return;
+  }
+
+  const appVersion = app.getVersion();
+  if (!isStrictSemver(appVersion)) {
+    const message = `Auto-update is disabled: app version must be strict semver (x.y.z), got "${appVersion}".`;
+    console.error("[auto-update]", message);
+    updateUpdaterDiagnostics({ enabled: false, lastCheckResult: "invalid-app-version", lastError: { message, statusCode: null, url: null, at: nowIso() } });
+    broadcastUpdateStatus("error", { message });
+    return;
+  }
+
+  const updaterInit = ensureAutoUpdaterReady();
+  if (!updaterInit.ok) {
+    const message = `Auto-update init failed: ${updaterInit.message}`;
+    console.error("[auto-update]", message);
+    updateUpdaterDiagnostics({ enabled: false, lastCheckResult: "init-failed", lastError: { message, statusCode: null, url: null, at: nowIso() } });
+    broadcastUpdateStatus("error", { message });
     return;
   }
 
