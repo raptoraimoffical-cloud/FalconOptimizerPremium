@@ -3152,6 +3152,7 @@ function renderHome(){
           </div>
 
           <div class="hint">If Defender OFF fails: turn off Tamper Protection in Windows Security, reboot, then try again. This stack never uses Start=4 for SecurityHealthService.</div>
+          <div class="hint" style="margin-top:8px;">Registry Editor (All versions): Open regedit via Run, go to HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender, create a new DWORD (32-bit) Value named DisableAntiSpyware and set its value to 1.</div>
         </div>
 
 <div class="panel panel-topo" style="margin-top:14px;">
@@ -8778,6 +8779,48 @@ async function openSystemInfoModal(){
 let updateUnsubscribe = null;
 let updaterLastStatus = null;
 
+function updateUpdaterProgressUi(payload){
+  const wrap = document.getElementById('updProgressWrap');
+  const bar = document.getElementById('updProgressBar');
+  const pct = document.getElementById('updProgressPct');
+  const label = document.getElementById('updProgressLabel');
+  if (!wrap || !bar || !pct || !label) return;
+
+  const status = String((payload && payload.status) || 'unknown');
+  if (status === 'download-progress') {
+    const percent = Math.max(0, Math.min(100, Number(payload.percent) || 0));
+    wrap.style.display = 'block';
+    bar.style.width = `${percent.toFixed(1)}%`;
+    pct.textContent = `${percent.toFixed(1)}%`;
+    label.textContent = 'Downloading update…';
+    return;
+  }
+  if (status === 'downloading') {
+    wrap.style.display = 'block';
+    bar.style.width = '0%';
+    pct.textContent = '0%';
+    label.textContent = 'Preparing update download…';
+    return;
+  }
+  if (status === 'downloaded') {
+    wrap.style.display = 'block';
+    bar.style.width = '100%';
+    pct.textContent = '100%';
+    label.textContent = 'Update downloaded. Installing…';
+    return;
+  }
+  if (status === 'manual-download') {
+    wrap.style.display = 'block';
+    bar.style.width = '100%';
+    pct.textContent = '100%';
+    label.textContent = 'Download fallback opened in browser.';
+    return;
+  }
+  if (status === 'error' || status === 'not-available') {
+    wrap.style.display = 'none';
+  }
+}
+
 function renderUpdaterStatusLine(statusEl, payload){
   if (!statusEl) return;
   const status = String((payload && payload.status) || 'unknown');
@@ -8795,12 +8838,16 @@ function attachUpdateStatusListener(statusEl){
     updateUnsubscribe = window.falconUpdates.onStatus((payload) => {
       updaterLastStatus = payload || null;
       renderUpdaterStatusLine(statusEl, updaterLastStatus || {});
+      updateUpdaterProgressUi(updaterLastStatus || {});
       if (payload && payload.status === 'cache-reset') {
         showToast('Updater cache was stale and has been refreshed.', 'info');
       }
     });
   }
-  if (updaterLastStatus) renderUpdaterStatusLine(statusEl, updaterLastStatus);
+  if (updaterLastStatus) {
+    renderUpdaterStatusLine(statusEl, updaterLastStatus);
+    updateUpdaterProgressUi(updaterLastStatus);
+  }
 }
 
 async function renderUpdates(){
@@ -8814,6 +8861,13 @@ async function renderUpdates(){
         <button class="btn" id="updResetCache">Reset Updater Cache</button>
       </div>
       <div id="updStatus" class="muted" style="margin-top:10px;">Updater: waiting for events…</div>
+      <div id="updProgressWrap" style="display:none; margin-top:10px;">
+        <div class="progress-row">
+          <div id="updProgressLabel" class="muted">Preparing update…</div>
+          <div id="updProgressPct" class="muted">0%</div>
+        </div>
+        <div class="progress" style="margin-top:8px;"><div id="updProgressBar" class="progress-bar" style="width:0%"></div></div>
+      </div>
       <div id="updSummary" class="muted" style="margin-top:10px;"></div>
       <pre id="updDiagOut" class="log" style="margin-top:10px;">Loading…</pre>
     </div>
@@ -8871,6 +8925,7 @@ async function renderUpdates(){
   document.getElementById('updCheckNow').onclick = async () => {
     const r = await window.falcon.checkForUpdates();
     updStatus.textContent = (r && r.ok) ? 'Updater: check requested.' : ('Updater: check failed – ' + String((r && r.message) || 'Unknown error'));
+    updateUpdaterProgressUi({ status: (r && r.ok) ? 'checking' : 'error' });
     await loadDiagnostics();
   };
   document.getElementById('updResetCache').onclick = async () => {
