@@ -1,9 +1,0 @@
-What does Basebrd.dll do?
-
-:: Use case:
-It's a modified windows dll, that changes what the Windows logo in Winver looks like.
-FalconLibrary will automatically run it!
-
-:: Links:
-Basebrd.dll Link: https://github.com/FalconK/FalconLibrary/blob/main/Downloads/V8.0/Basebrd.zip
-
