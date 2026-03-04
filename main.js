@@ -64,6 +64,7 @@ let updaterDiagnostics = {
   retryAttempted: false
 };
 let updaterRecoveryAttempted = false;
+let updaterDownloadInProgress = false;
 let runUpdateCheck = async () => autoUpdater.checkForUpdates();
 
 function detectGithubConfigSource(owner, repo) {
@@ -290,6 +291,20 @@ function broadcastUpdateStatus(status, extra = {}) {
   } catch (_) {}
 }
 
+async function startUpdateDownload(info) {
+  if (updaterDownloadInProgress) return;
+  updaterDownloadInProgress = true;
+  const version = info && info.version ? String(info.version) : null;
+  updateUpdaterDiagnostics({ lastCheckResult: "downloading" });
+  broadcastUpdateStatus("downloading", { version });
+  try {
+    await autoUpdater.downloadUpdate();
+  } catch (err) {
+    updaterDownloadInProgress = false;
+    throw err;
+  }
+}
+
 function setupAutoUpdater() {
   if (!app.isPackaged) {
     console.log("[auto-update] Skipping update checks in development mode.");
@@ -381,6 +396,16 @@ function setupAutoUpdater() {
     updateUpdaterDiagnostics({ lastCheckResult: "available", latestTagDetected: latestTagDetected || updaterDiagnostics.latestTagDetected, assetUrlUsed: (info && info.path) || updaterDiagnostics.assetUrlUsed });
     updaterRecoveryAttempted = false;
     broadcastUpdateStatus("available", { version, latestTagDetected: latestTagDetected || null });
+    startUpdateDownload(info).catch((err) => {
+      const message = String((err && err.message) || err || "Failed to download update");
+      console.error("[auto-update] failed to start download", message);
+      const statusCode = err && Number.isFinite(err.statusCode) ? Number(err.statusCode) : null;
+      updateUpdaterDiagnostics({
+        lastCheckResult: "error",
+        lastError: { message, statusCode, url: updaterDiagnostics.feedUrl || null, at: nowIso() }
+      });
+      broadcastUpdateStatus("error", { message, statusCode, url: updaterDiagnostics.feedUrl || null });
+    });
   });
   autoUpdater.on("update-not-available", (info) => {
     const version = info && info.version ? String(info.version) : null;
@@ -388,6 +413,7 @@ function setupAutoUpdater() {
     console.log("[auto-update] no update available", version || "");
     updateUpdaterDiagnostics({ lastCheckResult: "not-available", latestTagDetected: latestTagDetected || updaterDiagnostics.latestTagDetected });
     updaterRecoveryAttempted = false;
+    updaterDownloadInProgress = false;
     broadcastUpdateStatus("not-available", { version });
   });
   autoUpdater.on("download-progress", (progress) => {
@@ -398,6 +424,7 @@ function setupAutoUpdater() {
     const version = info && info.version ? String(info.version) : null;
     console.log("[auto-update] update downloaded", version || "");
     updateUpdaterDiagnostics({ lastCheckResult: "downloaded", assetUrlUsed: (info && info.path) || updaterDiagnostics.assetUrlUsed });
+    updaterDownloadInProgress = false;
     broadcastUpdateStatus("downloaded", { version });
     try {
       autoUpdater.quitAndInstall();
@@ -413,6 +440,7 @@ function setupAutoUpdater() {
     const url = (err && err.url) || (urlMatch ? urlMatch[0] : updaterDiagnostics.feedUrl);
     const cachedTag = getCachedTagFromError(err);
     if (cachedTag) updateUpdaterDiagnostics({ cachedTag, assetUrlUsed: url || updaterDiagnostics.assetUrlUsed });
+    updaterDownloadInProgress = false;
     updateUpdaterDiagnostics({
       lastCheckResult: classified.lastCheckResult,
       lastError: { message: classified.message, statusCode, url: url || null, at: nowIso() }
