@@ -1,5 +1,5 @@
 const { app, BrowserWindow, ipcMain, shell } = require("electron");
-const { autoUpdater } = require("electron-updater");
+let autoUpdater = null;
 const os = require("os");
 const path = require("path");
 const fs = require("fs");
@@ -64,7 +64,26 @@ let updaterDiagnostics = {
   retryAttempted: false
 };
 let updaterRecoveryAttempted = false;
-let runUpdateCheck = async () => autoUpdater.checkForUpdates();
+let updaterDownloadInProgress = false;
+async function runUpdateCheckUnavailable() {
+  throw new Error("Updater is unavailable.");
+}
+let runUpdateCheck = runUpdateCheckUnavailable;
+
+function isStrictSemver(version) {
+  return /^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?(?:\+[0-9A-Za-z.-]+)?$/.test(String(version || "").trim());
+}
+
+function ensureAutoUpdaterReady() {
+  if (autoUpdater) return { ok: true, updater: autoUpdater };
+  try {
+    autoUpdater = require("electron-updater").autoUpdater;
+    return { ok: true, updater: autoUpdater };
+  } catch (e) {
+    const message = String((e && e.message) || e || "Failed to initialize updater");
+    return { ok: false, message };
+  }
+}
 
 function detectGithubConfigSource(owner, repo) {
   if (process.env.FALCON_UPDATER_OWNER || process.env.FALCON_UPDATER_REPO) return "env";
@@ -290,10 +309,44 @@ function broadcastUpdateStatus(status, extra = {}) {
   } catch (_) {}
 }
 
+async function startUpdateDownload(info) {
+  if (!autoUpdater) throw new Error("Updater is unavailable.");
+  if (updaterDownloadInProgress) return;
+  updaterDownloadInProgress = true;
+  const version = info && info.version ? String(info.version) : null;
+  updateUpdaterDiagnostics({ lastCheckResult: "downloading" });
+  broadcastUpdateStatus("downloading", { version });
+  try {
+    await autoUpdater.downloadUpdate();
+  } catch (err) {
+    updaterDownloadInProgress = false;
+    throw err;
+  }
+}
+
 function setupAutoUpdater() {
   if (!app.isPackaged) {
     console.log("[auto-update] Skipping update checks in development mode.");
     updateUpdaterDiagnostics({ enabled: false, lastCheckResult: "skipped-dev" });
+    return;
+  }
+
+  const appVersion = app.getVersion();
+  if (!isStrictSemver(appVersion)) {
+    const message = `Auto-update is disabled: app version must be strict semver (x.y.z), got "${appVersion}".`;
+    console.error("[auto-update]", message);
+    updateUpdaterDiagnostics({ enabled: false, lastCheckResult: "invalid-app-version", lastError: { message, statusCode: null, url: null, at: nowIso() } });
+    broadcastUpdateStatus("error", { message });
+    return;
+  }
+
+  const updaterInit = ensureAutoUpdaterReady();
+  if (!updaterInit.ok) {
+    const message = `Auto-update init failed: ${updaterInit.message}`;
+    console.error("[auto-update]", message);
+    updateUpdaterDiagnostics({ enabled: false, lastCheckResult: "init-failed", lastError: { message, statusCode: null, url: null, at: nowIso() } });
+    broadcastUpdateStatus("error", { message });
+    runUpdateCheck = runUpdateCheckUnavailable;
     return;
   }
 
@@ -317,6 +370,7 @@ function setupAutoUpdater() {
     console.error("[auto-update]", message);
     updateUpdaterDiagnostics({ lastCheckResult: "invalid-config", lastError: { message, url: updaterDiagnostics.feedUrl, statusCode: null, at: nowIso() } });
     broadcastUpdateStatus("error", { message });
+    runUpdateCheck = runUpdateCheckUnavailable;
     return;
   }
 
@@ -381,6 +435,16 @@ function setupAutoUpdater() {
     updateUpdaterDiagnostics({ lastCheckResult: "available", latestTagDetected: latestTagDetected || updaterDiagnostics.latestTagDetected, assetUrlUsed: (info && info.path) || updaterDiagnostics.assetUrlUsed });
     updaterRecoveryAttempted = false;
     broadcastUpdateStatus("available", { version, latestTagDetected: latestTagDetected || null });
+    startUpdateDownload(info).catch((err) => {
+      const message = String((err && err.message) || err || "Failed to download update");
+      console.error("[auto-update] failed to start download", message);
+      const statusCode = err && Number.isFinite(err.statusCode) ? Number(err.statusCode) : null;
+      updateUpdaterDiagnostics({
+        lastCheckResult: "error",
+        lastError: { message, statusCode, url: updaterDiagnostics.feedUrl || null, at: nowIso() }
+      });
+      broadcastUpdateStatus("error", { message, statusCode, url: updaterDiagnostics.feedUrl || null });
+    });
   });
   autoUpdater.on("update-not-available", (info) => {
     const version = info && info.version ? String(info.version) : null;
@@ -388,6 +452,7 @@ function setupAutoUpdater() {
     console.log("[auto-update] no update available", version || "");
     updateUpdaterDiagnostics({ lastCheckResult: "not-available", latestTagDetected: latestTagDetected || updaterDiagnostics.latestTagDetected });
     updaterRecoveryAttempted = false;
+    updaterDownloadInProgress = false;
     broadcastUpdateStatus("not-available", { version });
   });
   autoUpdater.on("download-progress", (progress) => {
@@ -398,6 +463,7 @@ function setupAutoUpdater() {
     const version = info && info.version ? String(info.version) : null;
     console.log("[auto-update] update downloaded", version || "");
     updateUpdaterDiagnostics({ lastCheckResult: "downloaded", assetUrlUsed: (info && info.path) || updaterDiagnostics.assetUrlUsed });
+    updaterDownloadInProgress = false;
     broadcastUpdateStatus("downloaded", { version });
     try {
       autoUpdater.quitAndInstall();
@@ -413,6 +479,7 @@ function setupAutoUpdater() {
     const url = (err && err.url) || (urlMatch ? urlMatch[0] : updaterDiagnostics.feedUrl);
     const cachedTag = getCachedTagFromError(err);
     if (cachedTag) updateUpdaterDiagnostics({ cachedTag, assetUrlUsed: url || updaterDiagnostics.assetUrlUsed });
+    updaterDownloadInProgress = false;
     updateUpdaterDiagnostics({
       lastCheckResult: classified.lastCheckResult,
       lastError: { message: classified.message, statusCode, url: url || null, at: nowIso() }
