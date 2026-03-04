@@ -65,6 +65,7 @@ let updaterDiagnostics = {
 };
 let updaterRecoveryAttempted = false;
 let updaterDownloadInProgress = false;
+let updaterLastDownloadProgressAt = null;
 async function runUpdateCheckUnavailable() {
   throw new Error("Updater is unavailable.");
 }
@@ -220,6 +221,34 @@ function isVersionTag(tag) {
   return /^v?\d+\.\d+\.\d+(?:[-+][0-9A-Za-z.-]+)?$/i.test(String(tag || "").trim());
 }
 
+function normalizeVersionTag(version) {
+  const v = String(version || "").trim();
+  if (!v) return null;
+  return v.startsWith("v") ? v : `v${v}`;
+}
+
+function resolveUpdateAssetUrl(info, owner, repo) {
+  if (!info || typeof info !== "object") return null;
+  const files = Array.isArray(info.files) ? info.files : [];
+  const fromFileUrl = files.map((f) => String((f && f.url) || "").trim()).find(Boolean) || "";
+  const fromPath = String(info.path || "").trim();
+  const raw = fromFileUrl || fromPath;
+  if (!raw) return null;
+  if (/^https?:\/\//i.test(raw)) return raw;
+  if (raw.startsWith("/")) return `https://github.com${raw}`;
+  if (!owner || !repo) return raw;
+
+  const version = String(info.version || "").trim();
+  const tagCandidates = [normalizeVersionTag(version), version].filter(Boolean);
+  if (!tagCandidates.length) return raw;
+  const fileName = path.basename(raw);
+  for (const tag of tagCandidates) {
+    if (!tag) continue;
+    return `https://github.com/${owner}/${repo}/releases/download/${encodeURIComponent(tag)}/${encodeURIComponent(fileName)}`;
+  }
+  return raw;
+}
+
 function fetchLatestGithubTag(owner, repo, token) {
   return new Promise((resolve) => {
     if (!owner || !repo) return resolve(null);
@@ -313,6 +342,7 @@ async function startUpdateDownload(info) {
   if (!autoUpdater) throw new Error("Updater is unavailable.");
   if (updaterDownloadInProgress) return;
   updaterDownloadInProgress = true;
+  updaterLastDownloadProgressAt = Date.now();
   const version = info && info.version ? String(info.version) : null;
   updateUpdaterDiagnostics({ lastCheckResult: "downloading" });
   broadcastUpdateStatus("downloading", { version });
@@ -432,9 +462,10 @@ function setupAutoUpdater() {
     if (latestTagDetected && !isVersionTag(latestTagDetected)) {
       console.warn(`[auto-update] Latest release tag is not version formatted: ${latestTagDetected}. Recommended format: vX.Y.Z`);
     }
-    updateUpdaterDiagnostics({ lastCheckResult: "available", latestTagDetected: latestTagDetected || updaterDiagnostics.latestTagDetected, assetUrlUsed: (info && info.path) || updaterDiagnostics.assetUrlUsed });
+    const assetUrl = resolveUpdateAssetUrl(info, owner, repo) || updaterDiagnostics.assetUrlUsed;
+    updateUpdaterDiagnostics({ lastCheckResult: "available", latestTagDetected: latestTagDetected || updaterDiagnostics.latestTagDetected, assetUrlUsed: assetUrl });
     updaterRecoveryAttempted = false;
-    broadcastUpdateStatus("available", { version, latestTagDetected: latestTagDetected || null });
+    broadcastUpdateStatus("available", { version, latestTagDetected: latestTagDetected || null, assetUrl: assetUrl || null });
     startUpdateDownload(info).catch((err) => {
       const message = String((err && err.message) || err || "Failed to download update");
       console.error("[auto-update] failed to start download", message);
@@ -445,6 +476,28 @@ function setupAutoUpdater() {
       });
       broadcastUpdateStatus("error", { message, statusCode, url: updaterDiagnostics.feedUrl || null });
     });
+
+    setTimeout(() => {
+      if (!updaterDownloadInProgress) return;
+      const lastProgressAt = Number(updaterLastDownloadProgressAt || 0);
+      if (Date.now() - lastProgressAt < 45000) return;
+      const fallbackUrl = resolveUpdateAssetUrl(info, owner, repo) || updaterDiagnostics.assetUrlUsed;
+      if (!fallbackUrl || !/^https?:\/\//i.test(fallbackUrl)) return;
+      console.warn("[auto-update] download appears stalled; opening installer URL", fallbackUrl);
+      updateUpdaterDiagnostics({
+        lastCheckResult: "download-stalled",
+        assetUrlUsed: fallbackUrl,
+        lastError: {
+          message: "Download stalled. Opened direct installer URL as fallback.",
+          statusCode: null,
+          url: fallbackUrl,
+          at: nowIso()
+        }
+      });
+      broadcastUpdateStatus("manual-download", { url: fallbackUrl, version });
+      shell.openExternal(fallbackUrl).catch(() => {});
+      updaterDownloadInProgress = false;
+    }, 45000);
   });
   autoUpdater.on("update-not-available", (info) => {
     const version = info && info.version ? String(info.version) : null;
@@ -457,6 +510,7 @@ function setupAutoUpdater() {
   });
   autoUpdater.on("download-progress", (progress) => {
     const percent = progress && Number.isFinite(progress.percent) ? Number(progress.percent) : 0;
+    updaterLastDownloadProgressAt = Date.now();
     broadcastUpdateStatus("download-progress", { percent });
   });
   autoUpdater.on("update-downloaded", (info) => {
