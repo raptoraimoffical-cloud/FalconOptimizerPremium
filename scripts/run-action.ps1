@@ -80,7 +80,14 @@ function Get-ServiceInfoSafe([string]$name) {
       status = $svc.Status
     }
   } catch {
-    return [pscustomobject]@{ exists = $false; name = $name }
+    return [pscustomobject]@{
+      exists = $false
+      name = $name
+      displayName = ""
+      startMode = ""
+      state = ""
+      status = ""
+    }
   }
 }
 
@@ -161,31 +168,26 @@ function Get-RunnerDataRoot() {
   return $base
 }
 
-function Resolve-FalconToolPath([string]$toolPath) {
+function Resolve-FalconToolPathCandidates([string]$toolPath) {
   if ([string]::IsNullOrWhiteSpace($toolPath)) { throw "toolPath is required" }
   $expanded = Expand-String $toolPath
-  if (Is-FileSystemPath $expanded) { return $expanded }
+  if (Is-FileSystemPath $expanded) { return @($expanded) }
   $base = Resolve-FalconBasePath
   $dataRoot = Get-RunnerDataRoot
-  $candidates = @(
-    (Join-Path $dataRoot $expanded),
+  return @(
     (Join-Path $base $expanded),
-    (Join-Path $dataRoot (Join-Path "tools" $expanded)),
-    (Join-Path $base (Join-Path "tools" $expanded)),
-    (Join-Path $base (Join-Path "tools\FalconLibrary" $expanded)),
-    (Join-Path $base (Join-Path "FalconLibrary" $expanded)),
-    (Join-Path $base (Join-Path "FalconLibrary\FalconLibrary" $expanded))
+    (Join-Path $dataRoot $expanded)
   )
+}
+
+function Resolve-FalconToolPath([string]$toolPath) {
+  $candidates = Resolve-FalconToolPathCandidates $toolPath
   foreach ($c in $candidates) { if (Test-Path -LiteralPath $c) { return $c } }
   return $candidates[0]
 }
 
 function Resolve-NSudoPath() {
-  foreach ($c in @(
-    (Resolve-FalconToolPath "tools/FalconLibrary/NSudo/NSudoLG.exe"),
-    (Resolve-FalconToolPath "FalconLibrary/NSudo/NSudoLG.exe"),
-    (Resolve-FalconToolPath "FalconLibrary/FalconLibrary/NSudo/NSudoLG.exe")
-  )) {
+  foreach ($c in (Resolve-FalconToolPathCandidates "tools/FalconLibrary/NSudo/NSudoLG.exe")) {
     if (Test-Path -LiteralPath $c) { return $c }
   }
   return ""
@@ -256,9 +258,16 @@ function Should-AllowExplorer([object]$step){
 $runnerRoot = Get-RunnerDataRoot
 $logDir = Join-Path $runnerRoot "logs"
 $backupDir = Join-Path $runnerRoot "backups"
-if (!(Test-Path -LiteralPath $logDir)) { New-Item -ItemType Directory -Path $logDir -Force | Out-Null }
-if (!(Test-Path -LiteralPath $backupDir)) { New-Item -ItemType Directory -Path $backupDir -Force | Out-Null }
-$logDir = (Resolve-Path -LiteralPath $logDir).Path
+try {
+  if (!(Test-Path -LiteralPath $logDir)) { New-Item -ItemType Directory -Path $logDir -Force -ErrorAction Stop | Out-Null }
+  $logDir = (Resolve-Path -LiteralPath $logDir -ErrorAction Stop).Path
+} catch {
+  $fallbackLogDir = Join-Path $env:TEMP "FalconOptimizer\logs"
+  if (!(Test-Path -LiteralPath $fallbackLogDir)) { New-Item -ItemType Directory -Path $fallbackLogDir -Force -ErrorAction Stop | Out-Null }
+  $script:Warnings.Add("Primary log directory unavailable. Using fallback: $fallbackLogDir") | Out-Null
+  $logDir = (Resolve-Path -LiteralPath $fallbackLogDir -ErrorAction Stop).Path
+}
+if (!(Test-Path -LiteralPath $backupDir)) { New-Item -ItemType Directory -Path $backupDir -Force -ErrorAction Stop | Out-Null }
 $logFile = Join-Path $logDir ("action-" + (Get-Date -Format "yyyyMMdd-HHmmss") + ".log")
 
 Log "Falcon run-action.ps1 starting"
@@ -362,9 +371,15 @@ function Verify-StepOutcome([object]$step) {
           return [pscustomobject]@{ verified = $false; verifyDetails = "service.startup missing service name" }
         }
 
+        $failIfMissing = $false
+        if ($step.PSObject.Properties.Name -contains 'failIfMissing') { $failIfMissing = [bool]$step.failIfMissing }
+
         $cim = $null
         try { $cim = Get-CimInstance -ClassName Win32_Service -Filter ("Name='{0}'" -f $svcName.Replace("'", "''")) -ErrorAction Stop } catch { $cim = $null }
         if ($null -eq $cim) {
+          if ($failIfMissing) {
+            return [pscustomobject]@{ verified = $false; verifyDetails = "service-missing (failIfMissing=true)"; skipped = $false; reason = "service-missing" }
+          }
           return [pscustomobject]@{ verified = $true; verifyDetails = "service-missing"; skipped = $true; reason = "service-missing" }
         }
 
@@ -969,6 +984,14 @@ if ($fp.ToLower().EndsWith(".cpl")) {
       "falconlib.run" {
         $toolPath = [string]$s.toolPath
         if ([string]::IsNullOrWhiteSpace($toolPath)) { throw "falconlib.run missing toolPath" }
+        $toolCandidates = Resolve-FalconToolPathCandidates $toolPath
+        $resolvedTool = ""
+        foreach ($candidate in $toolCandidates) {
+          if (Test-Path -LiteralPath $candidate) { $resolvedTool = $candidate; break }
+        }
+        if ([string]::IsNullOrWhiteSpace($resolvedTool)) {
+          throw ("falconlib.run missing file: " + $toolPath + " | attempts: " + ($toolCandidates -join " ; "))
+        }
         $args = @()
         if ($s.PSObject.Properties.Name -contains 'args' -and $null -ne $s.args) {
           if ($s.args -is [System.Array]) { foreach($a in $s.args){ $args += (Expand-String ([string]$a)) } }
@@ -982,7 +1005,7 @@ if ($fp.ToLower().EndsWith(".cpl")) {
         if ($s.PSObject.Properties.Name -contains 'wait') { $wait = [bool]$s.wait }
         $timeoutSec = 0
         if ($s.PSObject.Properties.Name -contains 'timeoutSec') { $timeoutSec = [int]$s.timeoutSec }
-        $inv = Invoke-WithElevation -filePath $toolPath -args $args -elevation $elevation -workingDir $workingDir -wait $wait -timeoutSec $timeoutSec
+        $inv = Invoke-WithElevation -filePath $resolvedTool -args $args -elevation $elevation -workingDir $workingDir -wait $wait -timeoutSec $timeoutSec
         Add-StepResult "falconlib.run" $toolPath ($inv.exitCode -eq 0) $inv
         if ($wait -and $inv.exitCode -ne 0) { throw ("falconlib.run failed exitCode=" + $inv.exitCode) }
       }
@@ -1256,23 +1279,6 @@ public static class TimerRes2 {
         netsh.exe @args | Out-Null
       }
 
-      "run.exe" {
-        $exe = Expand-String $s.path
-        $args = @()
-        if ($s.PSObject.Properties.Name -contains "args" -and $null -ne $s.args) {
-          foreach($a in $s.args){ $args += (Expand-String $a) }
-        }
-        if ([string]::IsNullOrWhiteSpace($exe)) { throw "run.exe missing path" }
-        Log ("RUN.EXE: " + $exe + " " + ($args -join " "))
-        Start-Process -FilePath $exe -ArgumentList $args -Wait -NoNewWindow
-      }
-
-      "file.ensureDir" {
-        $p = Expand-String $s.path
-        if ([string]::IsNullOrWhiteSpace($p)) { throw "file.ensureDir missing path" }
-        Log "ENSURE DIR: $p"
-        New-Item -ItemType Directory -Path $p -Force | Out-Null
-      }
 
 default {
         Log "WARN unknown step type: $type"
