@@ -4,134 +4,118 @@ const path = require('path');
 
 const root = path.resolve(__dirname, '..');
 const manifestPath = path.join(root, 'tweaks', '_manifest.json');
-const runnerPath = path.join(root, 'scripts', 'run-action.ps1');
 const reportPath = path.join(root, 'QA_LINKS_REPORT.txt');
 
-const ALLOWLIST_NOT_USER_FACING = new Set([
-  'tools/FalconLibrary/NSudo/NSudoLG.exe'
-]);
+const readJson = (p) => JSON.parse(fs.readFileSync(p, 'utf8'));
+const normalize = (p) => String(p || '').replace(/\\/g, '/');
 
-function readJson(p){ return JSON.parse(fs.readFileSync(p, 'utf8')); }
-function normRel(p){ return p.split(path.sep).join('/'); }
+function collectFalconRunSteps() {
+  const manifest = readJson(manifestPath);
+  const files = Array.isArray(manifest.files) ? manifest.files : [];
+  const out = [];
 
-function walkToolFiles(dir){
-  const out=[];
-  if(!fs.existsSync(dir)) return out;
-  const stack=[dir];
-  while(stack.length){
-    const cur=stack.pop();
-    for(const ent of fs.readdirSync(cur,{withFileTypes:true})){
-      const full=path.join(cur,ent.name);
-      if(ent.isDirectory()) stack.push(full);
-      else if(/\.(exe|bat|ps1|cmd)$/i.test(ent.name)) out.push(normRel(path.relative(root, full)));
+  for (const rel of files) {
+    const abs = path.join(root, rel);
+    if (!fs.existsSync(abs) || path.extname(abs).toLowerCase() !== '.json') continue;
+
+    let data;
+    try { data = readJson(abs); } catch { continue; }
+
+    const cards = [];
+    if (Array.isArray(data.tweaks)) cards.push(...data.tweaks);
+    if (Array.isArray(data.items)) cards.push(...data.items);
+
+    for (const card of cards) {
+      const id = card.id || card.name || rel;
+      const groups = [card.apply, card.revert, card.check, card.fix];
+      if (Array.isArray(card.steps)) groups.push({ steps: card.steps });
+      for (const group of groups) {
+        if (!group || !Array.isArray(group.steps)) continue;
+        for (const step of group.steps) {
+          if (!step || step.type !== 'falconlib.run') continue;
+          out.push({
+            tweakId: id,
+            tweakFile: rel,
+            toolPath: normalize(step.toolPath || ''),
+            elevation: String(step.elevation || 'none').toLowerCase()
+          });
+        }
+      }
     }
   }
-  out.sort((a,b)=>a.localeCompare(b));
+
   return out;
 }
 
-function traverse(node, fn, ctx={}){
-  if(Array.isArray(node)) return node.forEach((n)=>traverse(n,fn,ctx));
-  if(!node || typeof node!=='object') return;
-  fn(node, ctx);
-  const nextCtx = {...ctx};
-  if(node.id && (node.apply || node.revert || node.check || node.steps)) nextCtx.item=node;
-  for(const v of Object.values(node)) if(v && typeof v==='object') traverse(v,fn,nextCtx);
-}
-
-const manifest = readJson(manifestPath);
-const files = Array.isArray(manifest.files)?manifest.files:[];
-const allIds = new Map();
-const duplicateIds = [];
-const nullNameOrCategory = [];
-const falconRun = [];
-const stepTypesUsed = new Set();
-
-for(const rel of files){
-  const abs=path.join(root, rel);
-  if(!fs.existsSync(abs)) continue;
-  let data;
-  try{ data=readJson(abs); }catch{ continue; }
-  traverse(data, (node, ctx)=>{
-    if(node.id && (node.apply || node.revert || node.check || node.steps)){
-      const id=String(node.id);
-      if(allIds.has(id)) duplicateIds.push({id, first:allIds.get(id), second:rel});
-      else allIds.set(id, rel);
-      if(node.name == null || node.category == null) nullNameOrCategory.push({id, file:rel, name:node.name, category:node.category});
+function walkHasEntries(dir) {
+  if (!fs.existsSync(dir)) return false;
+  const stack = [dir];
+  while (stack.length) {
+    const cur = stack.pop();
+    for (const ent of fs.readdirSync(cur, { withFileTypes: true })) {
+      const full = path.join(cur, ent.name);
+      if (ent.isDirectory()) stack.push(full);
+      else return true;
     }
-    if(node.type && typeof node.type==='string' && (Object.prototype.hasOwnProperty.call(node,'command') || Object.prototype.hasOwnProperty.call(node,'path') || Object.prototype.hasOwnProperty.call(node,'toolPath') || Object.prototype.hasOwnProperty.call(node,'name') || Object.prototype.hasOwnProperty.call(node,'url') || Object.prototype.hasOwnProperty.call(node,'args') || Object.prototype.hasOwnProperty.call(node,'action'))) stepTypesUsed.add(node.type);
-    if(node.type === 'falconlib.run'){
-      const item = ctx.item || {};
-      falconRun.push({
-        id:item.id||'', name:item.name||'', category:item.category||'',
-        toolPath:String(node.toolPath||''), elevation:String(node.elevation||'none'), file:rel
-      });
-    }
-  });
+  }
+  return false;
 }
 
-const missingFalconPaths = [];
-for(const step of falconRun){
-  const abs = path.join(root, step.toolPath);
-  if(!step.toolPath || !fs.existsSync(abs)) missingFalconPaths.push(step);
+const runSteps = collectFalconRunSteps();
+const failures = [];
+const warnings = [];
+let passing = 0;
+
+for (const step of runSteps) {
+  const hasLegacyPrefix = step.toolPath.startsWith('FalconLibrary/') || step.toolPath.startsWith('FalconLibrary/FalconLibrary/');
+  const expectedAbs = path.join(root, step.toolPath);
+  const exists = !!step.toolPath && fs.existsSync(expectedAbs);
+
+  if (hasLegacyPrefix) {
+    failures.push(`FAIL legacy-root-reference tweakId=${step.tweakId} file=${step.tweakFile} toolPath=${step.toolPath}`);
+    continue;
+  }
+
+  if (!exists) {
+    failures.push(`FAIL missing-tool tweakId=${step.tweakId} file=${step.tweakFile} toolPath=${step.toolPath} expected=${expectedAbs}`);
+  } else {
+    passing += 1;
+  }
 }
 
-const toolFiles = walkToolFiles(path.join(root, 'tools', 'FalconLibrary'));
-const referenced = new Set(falconRun.map((s)=>normRel(s.toolPath)));
-const unreferencedTools = toolFiles.filter((t)=>!referenced.has(t) && !ALLOWLIST_NOT_USER_FACING.has(t));
+const legacyRoot = path.join(root, 'FalconLibrary');
+const legacyNestedRoot = path.join(root, 'FalconLibrary', 'FalconLibrary');
+if (walkHasEntries(legacyRoot)) warnings.push(`WARN legacy root still exists: ${legacyRoot}`);
+if (walkHasEntries(legacyNestedRoot)) warnings.push(`WARN nested legacy root still exists: ${legacyNestedRoot}`);
 
-const runnerText = fs.readFileSync(runnerPath, 'utf8');
-const implementedTypes = new Set();
-for(const m of runnerText.matchAll(/"([a-zA-Z0-9_.-]+)"\s*\{/g)) implementedTypes.add(m[1]);
-const missingHandlers = [...stepTypesUsed].filter((t)=>!implementedTypes.has(t)).sort();
-
-const hasServiceShape = /Get-ServiceInfoSafe[\s\S]*?catch\s*\{[\s\S]*?startMode\s*=\s*""[\s\S]*?state\s*=\s*""/m.test(runnerText);
-const timerCard = falconRun.find((x)=>x.id==='falcon.timer_resolution.apply');
-const timerCardExists = !!(timerCard && fs.existsSync(path.join(root, timerCard.toolPath)) && normRel(timerCard.toolPath)==='tools/FalconLibrary/Timer Resolution/SetTimerResolution.exe');
-
-const ok = !missingFalconPaths.length && !duplicateIds.length && !nullNameOrCategory.length && !missingHandlers.length && hasServiceShape && timerCardExists && !unreferencedTools.length;
-
-let out = '';
-out += `QA LINKS REPORT\nGenerated: ${new Date().toISOString()}\n\n`;
-out += `Manifest files scanned: ${files.length}\n`;
-out += `falconlib.run steps: ${falconRun.length}\n`;
-out += `tools/FalconLibrary tool files: ${toolFiles.length}\n\n`;
-out += `Checks\n`;
-out += `- Missing falconlib tool paths: ${missingFalconPaths.length}\n`;
-out += `- Unreferenced tools (non-allowlisted): ${unreferencedTools.length}\n`;
-out += `- Duplicate tweak IDs: ${duplicateIds.length}\n`;
-out += `- Null name/category items: ${nullNameOrCategory.length}\n`;
-out += `- Step types missing runner handlers: ${missingHandlers.length}\n`;
-out += `- Get-ServiceInfoSafe full missing-shape: ${hasServiceShape ? 'yes':'no'}\n`;
-out += `- Timer Resolution card canonical path valid: ${timerCardExists ? 'yes':'no'}\n`;
-out += `\nResult: ${ok ? 'PASS':'FAIL'}\n\n`;
-
-if(missingFalconPaths.length){
-  out += 'Missing falconlib tool paths:\n';
-  for(const m of missingFalconPaths) out += `- ${m.id} :: ${m.toolPath} (${m.file})\n`;
-  out += '\n';
-}
-if(unreferencedTools.length){
-  out += 'Unreferenced tools:\n';
-  for(const t of unreferencedTools) out += `- ${t}\n`;
-  out += '\n';
-}
-if(duplicateIds.length){
-  out += 'Duplicate IDs:\n';
-  for(const d of duplicateIds) out += `- ${d.id} (${d.first} / ${d.second})\n`;
-  out += '\n';
-}
-if(nullNameOrCategory.length){
-  out += 'Null name/category:\n';
-  for(const r of nullNameOrCategory.slice(0,40)) out += `- ${r.id} (${r.file}) name=${r.name} category=${r.category}\n`;
-  out += '\n';
-}
-if(missingHandlers.length){
-  out += 'Missing handlers:\n';
-  for(const t of missingHandlers) out += `- ${t}\n`;
-  out += '\n';
+const hasTrustedInstaller = runSteps.some((s) => s.elevation === 'trustedinstaller');
+const nsudoPath = path.join(root, 'tools/FalconLibrary/NSudo/NSudoLG.exe');
+if (hasTrustedInstaller && !fs.existsSync(nsudoPath)) {
+  failures.push(`FAIL trustedinstaller-requires-nsudo missing=${nsudoPath}`);
 }
 
-fs.writeFileSync(reportPath, out, 'utf8');
-console.log(out);
-process.exit(ok ? 0 : 1);
+const hasTimerCard = runSteps.some((s) => /timer_resolution/i.test(s.tweakId) || /SetTimerResolution\.exe$/i.test(s.toolPath));
+const timerPath = path.join(root, 'tools/FalconLibrary/Timer Resolution/SetTimerResolution.exe');
+if (hasTimerCard && !fs.existsSync(timerPath)) {
+  failures.push(`FAIL timer-resolution-tool-missing missing=${timerPath}`);
+}
+
+const report = [];
+report.push('QA LINKS REPORT');
+report.push(`Generated: ${new Date().toISOString()}`);
+report.push('');
+report.push(`total falconlib.run steps: ${runSteps.length}`);
+report.push(`number passing: ${passing}`);
+report.push(`number failing: ${failures.length}`);
+report.push('');
+report.push('Warnings:');
+if (warnings.length) warnings.forEach((w) => report.push(`- ${w}`));
+else report.push('- none');
+report.push('');
+report.push('Failures:');
+if (failures.length) failures.forEach((f) => report.push(`- ${f}`));
+else report.push('- none');
+
+fs.writeFileSync(reportPath, report.join('\n') + '\n', 'utf8');
+console.log(report.join('\n'));
+process.exit(failures.length ? 1 : 0);

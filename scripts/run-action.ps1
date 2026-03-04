@@ -162,8 +162,8 @@ function Resolve-FalconBasePath() {
 
 function Get-RunnerDataRoot() {
   $base = Resolve-FalconBasePath
-  if ($base -match 'resources\app.asar($|\)') {
-    return ($base -replace 'resources\app\.asar($|\)', 'resources\app.asar.unpacked\')
+  if ($base -match 'resources\\app\.asar($|\\)') {
+    return ($base -replace 'resources\\app\.asar($|\\)', 'resources\\app.asar.unpacked\\')
   }
   return $base
 }
@@ -174,10 +174,12 @@ function Resolve-FalconToolPathCandidates([string]$toolPath) {
   if (Is-FileSystemPath $expanded) { return @($expanded) }
   $base = Resolve-FalconBasePath
   $dataRoot = Get-RunnerDataRoot
-  return @(
-    (Join-Path $base $expanded),
-    (Join-Path $dataRoot $expanded)
-  )
+  $candidates = New-Object System.Collections.Generic.List[string]
+  $candidates.Add((Join-Path $base $expanded)) | Out-Null
+  if ($dataRoot -ne $base) {
+    $candidates.Add((Join-Path $dataRoot $expanded)) | Out-Null
+  }
+  return $candidates.ToArray()
 }
 
 function Resolve-FalconToolPath([string]$toolPath) {
@@ -187,14 +189,28 @@ function Resolve-FalconToolPath([string]$toolPath) {
 }
 
 function Resolve-NSudoPath() {
-  foreach ($c in (Resolve-FalconToolPathCandidates "tools/FalconLibrary/NSudo/NSudoLG.exe")) {
-    if (Test-Path -LiteralPath $c) { return $c }
+  $canonical = "tools/FalconLibrary/NSudo/NSudoLG.exe"
+  foreach ($c in (Resolve-FalconToolPathCandidates $canonical)) {
+    if (Test-Path -LiteralPath $c) {
+      Log ("NSUDO PATH RESOLVED: toolPath={0} resolved={1}" -f $canonical, $c)
+      return $c
+    }
   }
   return ""
 }
 
+function Test-IsProcessElevated() {
+  try {
+    $identity = [Security.Principal.WindowsIdentity]::GetCurrent()
+    $principal = New-Object Security.Principal.WindowsPrincipal($identity)
+    return $principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+  } catch {
+    return $false
+  }
+}
+
 function Invoke-WithElevation([string]$filePath, [string[]]$args, [string]$elevation = "none", [string]$workingDir = "", [bool]$wait = $true, [int]$timeoutSec = 0) {
-  $exe = Resolve-FalconToolPath $filePath
+  $exe = $filePath
   $mode = ([string]$elevation).ToLowerInvariant()
   if ([string]::IsNullOrWhiteSpace($mode)) { $mode = "none" }
   if ([string]::IsNullOrWhiteSpace($workingDir)) { $workingDir = Split-Path -Parent $exe }
@@ -202,10 +218,11 @@ function Invoke-WithElevation([string]$filePath, [string[]]$args, [string]$eleva
 
   if ($mode -eq "trustedinstaller") {
     $nsudo = Resolve-NSudoPath
-    if ([string]::IsNullOrWhiteSpace($nsudo) -or !(Test-Path -LiteralPath $nsudo)) { throw "NSudo not found in FalconLibrary paths" }
+    if ([string]::IsNullOrWhiteSpace($nsudo) -or !(Test-Path -LiteralPath $nsudo)) { throw "NSudo missing at tools/FalconLibrary/NSudo/NSudoLG.exe" }
     $quotedExe = '"' + $exe + '"'
     $argLine = if ($args) { ($args | ForEach-Object { '"' + [string]$_ + '"' }) -join ' ' } else { "" }
     $cmd = if ([string]::IsNullOrWhiteSpace($argLine)) { $quotedExe } else { "$quotedExe $argLine" }
+    Log ("NSUDO COMMAND: {0} {1}" -f $nsudo, ('-U:T -P:E -Wait cmd /c ' + $cmd))
     $p = Start-Process -FilePath $nsudo -ArgumentList @('-U:T','-P:E','-Wait','cmd','/c',$cmd) -PassThru -WindowStyle Hidden -WorkingDirectory $workingDir
     if ($wait) { $p.WaitForExit() }
     return [pscustomobject]@{ exitCode = $(if($wait){$p.ExitCode}else{0}); executable = $exe; elevation = $mode }
@@ -214,7 +231,14 @@ function Invoke-WithElevation([string]$filePath, [string[]]$args, [string]$eleva
   $argLine2 = if ($args) { $args -join ' ' } else { "" }
   $startSplat = @{ FilePath = $exe; PassThru = $true; WindowStyle = 'Hidden'; WorkingDirectory = $workingDir }
   if (-not [string]::IsNullOrWhiteSpace($argLine2)) { $startSplat['ArgumentList'] = $argLine2 }
-  if ($mode -eq 'admin') { $startSplat['Verb'] = 'RunAs' }
+  if ($mode -eq 'admin') {
+    if (-not (Test-IsProcessElevated)) {
+      Log "ADMIN ELEVATION: process not elevated, using Start-Process -Verb RunAs (stdout/stderr capture unavailable)."
+      $startSplat['Verb'] = 'RunAs'
+    } else {
+      Log "ADMIN ELEVATION: process already elevated, running directly."
+    }
+  }
   $proc = Start-Process @startSplat
   if ($wait) {
     if ($timeoutSec -gt 0) { $null = $proc.WaitForExit($timeoutSec * 1000); if(-not $proc.HasExited){ try{$proc.Kill()}catch{}; throw "Process timeout after $timeoutSec seconds" } }
@@ -985,12 +1009,16 @@ if ($fp.ToLower().EndsWith(".cpl")) {
         $toolPath = [string]$s.toolPath
         if ([string]::IsNullOrWhiteSpace($toolPath)) { throw "falconlib.run missing toolPath" }
         $toolCandidates = Resolve-FalconToolPathCandidates $toolPath
+        foreach ($candidate in $toolCandidates) {
+          Log ("FALCONLIB.RUN RESOLVE: toolPath={0} resolved={1} exists={2}" -f $toolPath, $candidate, (Test-Path -LiteralPath $candidate))
+        }
         $resolvedTool = ""
         foreach ($candidate in $toolCandidates) {
           if (Test-Path -LiteralPath $candidate) { $resolvedTool = $candidate; break }
         }
         if ([string]::IsNullOrWhiteSpace($resolvedTool)) {
-          throw ("falconlib.run missing file: " + $toolPath + " | attempts: " + ($toolCandidates -join " ; "))
+          $attempted = ($toolCandidates -join " ; ")
+          throw ("falconlib.run missing file: toolPath=" + $toolPath + " | attempted=" + $attempted)
         }
         $args = @()
         if ($s.PSObject.Properties.Name -contains 'args' -and $null -ne $s.args) {
@@ -1005,6 +1033,7 @@ if ($fp.ToLower().EndsWith(".cpl")) {
         if ($s.PSObject.Properties.Name -contains 'wait') { $wait = [bool]$s.wait }
         $timeoutSec = 0
         if ($s.PSObject.Properties.Name -contains 'timeoutSec') { $timeoutSec = [int]$s.timeoutSec }
+        Log ("FALCONLIB.RUN EXEC: path={0} exists={1} elevation={2}" -f $resolvedTool, (Test-Path -LiteralPath $resolvedTool), $elevation)
         $inv = Invoke-WithElevation -filePath $resolvedTool -args $args -elevation $elevation -workingDir $workingDir -wait $wait -timeoutSec $timeoutSec
         Add-StepResult "falconlib.run" $toolPath ($inv.exitCode -eq 0) $inv
         if ($wait -and $inv.exitCode -ne 0) { throw ("falconlib.run failed exitCode=" + $inv.exitCode) }

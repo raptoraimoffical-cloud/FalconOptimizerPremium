@@ -4637,22 +4637,24 @@ async function renderFixes(){
       try {
         const hasFix = !!(item && item.fix && Array.isArray(item.fix.steps) && item.fix.steps.length);
         const hasCheck = !!(item && item.check && Array.isArray(item.check.steps) && item.check.steps.length);
-        if (hasFix) {
-          setProgress(20, 'Running dedicated fix steps...');
-          res = await window.falcon.runAction({ steps: item.fix.steps, meta:{ label: item.name || 'Fix', source:'FixSequence' } });
-        } else if (hasCheck) {
+        if (hasCheck) {
           setProgress(20, 'Checking compliance...');
           const checkBefore = await window.falcon.runAction({ steps: item.check.steps, meta:{ label: item.name || 'Fix-CheckBefore' } });
           const compliant = !!(checkBefore && checkBefore.ok);
           if (compliant) {
-            res = checkBefore;
+            res = Object.assign({}, checkBefore || {}, { ok:true, checkBefore, checkAfter:checkBefore });
           } else {
             setProgress(55, 'Applying repair...');
-            const applyRes = await window.falcon.runAction({ action:'apply', tweak:item, meta:{ label: item.name || 'Fix' } });
+            const applyRes = hasFix
+              ? await window.falcon.runAction({ steps: item.fix.steps, meta:{ label: item.name || 'Fix', source:'FixSequence' } })
+              : await window.falcon.runAction({ action:'apply', tweak:item, meta:{ label: item.name || 'Fix' } });
             setProgress(80, 'Re-checking compliance...');
             const checkAfter = await window.falcon.runAction({ steps: item.check.steps, meta:{ label: item.name || 'Fix-CheckAfter' } });
             res = Object.assign({}, applyRes || {}, { ok: !!(applyRes && applyRes.ok && checkAfter && checkAfter.ok), checkBefore, checkAfter });
           }
+        } else if (hasFix) {
+          setProgress(40, 'Running dedicated fix steps...');
+          res = await window.falcon.runAction({ steps: item.fix.steps, meta:{ label: item.name || 'Fix', source:'FixSequence' } });
         } else {
           setProgress(40, 'Applying tweak steps...');
           res = await window.falcon.runAction({ action:'apply', tweak:item, meta:{ label: item.name || 'Fix' } });
