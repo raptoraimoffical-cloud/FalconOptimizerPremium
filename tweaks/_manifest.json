@@ -113,6 +113,7 @@
     "tweaks/expansion.imported.power_bcd.json",
     "tweaks/expansion.imported.debloat_cleanup.json",
     "tweaks/expansion.imported.security.json",
-    "tweaks/expansion.imported.misc.json"
+    "tweaks/expansion.imported.misc.json",
+    "tweaks/falconlibrary.integration.json"
   ]
 }

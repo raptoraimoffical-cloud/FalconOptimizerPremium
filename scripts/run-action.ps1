@@ -147,10 +147,18 @@ function Compare-ByteArray([byte[]]$a, [byte[]]$b) {
 }
 
 function Resolve-FalconBasePath() {
-  $candidate = Join-Path $PSScriptRoot ".."
-  try { return (Resolve-Path -LiteralPath $candidate -ErrorAction Stop).Path } catch {}
+  $repoCandidate = Join-Path $PSScriptRoot ".."
+  try { return (Resolve-Path -LiteralPath $repoCandidate -ErrorAction Stop).Path } catch {}
   if ((Test-Path variable:Global:FalconRoot) -and $Global:FalconRoot) { return $Global:FalconRoot }
   return (Get-Location).Path
+}
+
+function Get-RunnerDataRoot() {
+  $base = Resolve-FalconBasePath
+  if ($base -match 'resources\app.asar($|\)') {
+    return ($base -replace 'resources\app\.asar($|\)', 'resources\app.asar.unpacked\')
+  }
+  return $base
 }
 
 function Resolve-FalconToolPath([string]$toolPath) {
@@ -158,8 +166,11 @@ function Resolve-FalconToolPath([string]$toolPath) {
   $expanded = Expand-String $toolPath
   if (Is-FileSystemPath $expanded) { return $expanded }
   $base = Resolve-FalconBasePath
+  $dataRoot = Get-RunnerDataRoot
   $candidates = @(
+    (Join-Path $dataRoot $expanded),
     (Join-Path $base $expanded),
+    (Join-Path $dataRoot (Join-Path "tools" $expanded)),
     (Join-Path $base (Join-Path "tools" $expanded)),
     (Join-Path $base (Join-Path "tools\FalconLibrary" $expanded)),
     (Join-Path $base (Join-Path "FalconLibrary" $expanded)),
@@ -167,6 +178,17 @@ function Resolve-FalconToolPath([string]$toolPath) {
   )
   foreach ($c in $candidates) { if (Test-Path -LiteralPath $c) { return $c } }
   return $candidates[0]
+}
+
+function Resolve-NSudoPath() {
+  foreach ($c in @(
+    (Resolve-FalconToolPath "tools/FalconLibrary/NSudo/NSudoLG.exe"),
+    (Resolve-FalconToolPath "FalconLibrary/NSudo/NSudoLG.exe"),
+    (Resolve-FalconToolPath "FalconLibrary/FalconLibrary/NSudo/NSudoLG.exe")
+  )) {
+    if (Test-Path -LiteralPath $c) { return $c }
+  }
+  return ""
 }
 
 function Invoke-WithElevation([string]$filePath, [string[]]$args, [string]$elevation = "none", [string]$workingDir = "", [bool]$wait = $true, [int]$timeoutSec = 0) {
@@ -177,8 +199,8 @@ function Invoke-WithElevation([string]$filePath, [string[]]$args, [string]$eleva
   Log ("ELEVATION RUN mode={0} file={1} args={2} wd={3}" -f $mode, $exe, (($args -join ' ')), $workingDir)
 
   if ($mode -eq "trustedinstaller") {
-    $nsudo = Resolve-FalconToolPath "tools/FalconLibrary/NSudo/NSudoLG.exe"
-    if (!(Test-Path -LiteralPath $nsudo)) { throw "NSudo not found: $nsudo" }
+    $nsudo = Resolve-NSudoPath
+    if ([string]::IsNullOrWhiteSpace($nsudo) -or !(Test-Path -LiteralPath $nsudo)) { throw "NSudo not found in FalconLibrary paths" }
     $quotedExe = '"' + $exe + '"'
     $argLine = if ($args) { ($args | ForEach-Object { '"' + [string]$_ + '"' }) -join ' ' } else { "" }
     $cmd = if ([string]::IsNullOrWhiteSpace($argLine)) { $quotedExe } else { "$quotedExe $argLine" }
@@ -231,14 +253,12 @@ function Should-AllowExplorer([object]$step){
 }
 
 # log file location
-try {
-  $root = Split-Path -Parent $MyInvocation.MyCommand.Path
-  $logDir = Join-Path $root "..\logs"
-  $logDir = (Resolve-Path -LiteralPath $logDir).Path
-} catch {
-  $logDir = Join-Path (Get-Location) "logs"
-}
-if (!(Test-Path $logDir)) { New-Item -ItemType Directory -Path $logDir -Force | Out-Null }
+$runnerRoot = Get-RunnerDataRoot
+$logDir = Join-Path $runnerRoot "logs"
+$backupDir = Join-Path $runnerRoot "backups"
+if (!(Test-Path -LiteralPath $logDir)) { New-Item -ItemType Directory -Path $logDir -Force | Out-Null }
+if (!(Test-Path -LiteralPath $backupDir)) { New-Item -ItemType Directory -Path $backupDir -Force | Out-Null }
+$logDir = (Resolve-Path -LiteralPath $logDir).Path
 $logFile = Join-Path $logDir ("action-" + (Get-Date -Format "yyyyMMdd-HHmmss") + ".log")
 
 Log "Falcon run-action.ps1 starting"
@@ -330,7 +350,7 @@ function Verify-StepOutcome([object]$step) {
         return [pscustomobject]@{ verified = $ok; verifyDetails = ("service startMode=" + [string]$info.startMode + " state=" + [string]$info.state) }
       }
       "service.startup" {
-        $info = Get-ServiceInfoSafe ([string]$step.name)
+        $svcName = [string]$step.name
         $exp = ""
         foreach($k in @('startType','startupType','startup','mode','value')) {
           if ($step.PSObject.Properties.Name -contains $k) {
@@ -338,13 +358,41 @@ function Verify-StepOutcome([object]$step) {
             if (-not [string]::IsNullOrWhiteSpace($candidate)) { $exp = $candidate; break }
           }
         }
-        $ok = $info.exists
-        if ($ok -and -not [string]::IsNullOrWhiteSpace($exp)) {
-          $actual = [string]$info.startMode
-          if ($actual -eq "Auto") { $actual = "Automatic" }
-          $ok = ($actual -eq $exp)
+        if ([string]::IsNullOrWhiteSpace($svcName)) {
+          return [pscustomobject]@{ verified = $false; verifyDetails = "service.startup missing service name" }
         }
-        return [pscustomobject]@{ verified = $ok; verifyDetails = ("service startMode=" + [string]$info.startMode + " expected=" + [string]$exp) }
+
+        $cim = $null
+        try { $cim = Get-CimInstance -ClassName Win32_Service -Filter ("Name='{0}'" -f $svcName.Replace("'", "''")) -ErrorAction Stop } catch { $cim = $null }
+        if ($null -eq $cim) {
+          return [pscustomobject]@{ verified = $true; verifyDetails = "service-missing"; skipped = $true; reason = "service-missing" }
+        }
+
+        $actual = [string]$cim.StartMode
+        if ($actual -eq "Auto") { $actual = "Automatic" }
+        $expected = [string]$exp
+        if ($expected -eq "Auto") { $expected = "Automatic" }
+
+        $delayedOk = $true
+        $actualDelayed = $false
+        try {
+          $delayed = Get-ItemProperty -Path ("HKLM:\SYSTEM\CurrentControlSet\Services\{0}" -f $svcName) -Name DelayedAutoStart -ErrorAction SilentlyContinue
+          if ($null -ne $delayed -and $delayed.PSObject.Properties.Name -contains 'DelayedAutoStart') {
+            $actualDelayed = ([int]$delayed.DelayedAutoStart -eq 1)
+          }
+        } catch {}
+
+        $ok = $true
+        if (-not [string]::IsNullOrWhiteSpace($expected)) {
+          if ($expected -eq "AutomaticDelayedStart") {
+            $ok = ($actual -eq "Automatic")
+            $delayedOk = $actualDelayed
+          } else {
+            $ok = ($actual -eq $expected)
+          }
+        }
+
+        return [pscustomobject]@{ verified = ($ok -and $delayedOk); verifyDetails = ("service startMode=" + $actual + " delayed=" + $actualDelayed + " expected=" + $expected) }
       }
       "task" {
         $tn = [string]$step.name
@@ -392,20 +440,30 @@ function Safe-SetServiceStartup([string]$name, [string]$startType) {
     $script:Warnings.Add("SKIP service not found: $name") | Out-Null
     return
   }
+
+  $normalized = [string]$startType
+  if ($normalized -eq "Auto") { $normalized = "Automatic" }
+  $isDelayed = ($normalized -eq "AutomaticDelayedStart")
+  $setType = $(if($isDelayed){"Automatic"}else{$normalized})
+
   try {
-    Set-Service -Name $name -StartupType $startType -ErrorAction Stop
-    Log "SERVICE STARTUP: $name -> $startType"
+    Set-Service -Name $name -StartupType $setType -ErrorAction Stop
+    if ($isDelayed) { Set-ItemProperty -Path ("HKLM:\SYSTEM\CurrentControlSet\Services\{0}" -f $name) -Name DelayedAutoStart -Type DWord -Value 1 -Force -ErrorAction SilentlyContinue }
+    Log "SERVICE STARTUP: $name -> $normalized"
   } catch {
-    # Retry as TrustedInstaller using NSudo + sc.exe (for protected services)
     try {
-      $nsudo = Join-Path $PSScriptRoot "..\tools\NSudoLG.exe"
-      if (Test-Path $nsudo) {
+      $nsudo = Resolve-NSudoPath
+      if (-not [string]::IsNullOrWhiteSpace($nsudo)) {
         $map = @{ "Automatic"="auto"; "Manual"="demand"; "Disabled"="disabled" }
-        $scVal = $map[$startType]
+        $scVal = $map[$setType]
         if (-not $scVal) { $scVal = "demand" }
-        $cmd = "cmd /c sc.exe config `"$name`" start= $scVal"
-        Start-Process $nsudo -ArgumentList "-U:T -P:E -Wait $cmd" -WindowStyle Hidden -Wait
-        Log "SERVICE STARTUP (TI): $name -> $startType"
+        $cmd = "sc.exe config `"$name`" start= $scVal"
+        Start-Process $nsudo -ArgumentList @('-U:T','-P:E','-Wait','cmd','/c',$cmd) -WindowStyle Hidden -Wait
+        if ($isDelayed) {
+          $regCmd = "reg.exe add `"HKLM\SYSTEM\CurrentControlSet\Services\$name`" /v DelayedAutoStart /t REG_DWORD /d 1 /f"
+          Start-Process $nsudo -ArgumentList @('-U:T','-P:E','-Wait','cmd','/c',$regCmd) -WindowStyle Hidden -Wait
+        }
+        Log "SERVICE STARTUP (TI): $name -> $normalized"
         return
       }
     } catch {}
@@ -700,12 +758,12 @@ for ($i = 0; $i -lt $steps.Count; $i++) {
       "nsudo.run" {
         $file = Expand-String $s.file
         if ([string]::IsNullOrWhiteSpace($file)) { throw "nsudo.run missing file" }
-        $nsudo = Join-Path $PSScriptRoot "..\tools\NSudoLG.exe"
-        $scriptPath = Join-Path $PSScriptRoot "..\$file"
-        if (!(Test-Path $nsudo)) { throw "NSudo not found at $nsudo" }
-        if (!(Test-Path $scriptPath)) { throw "Script not found at $scriptPath" }
+        $nsudo = Resolve-NSudoPath
+        $scriptPath = Resolve-FalconToolPath $file
+        if ([string]::IsNullOrWhiteSpace($nsudo) -or !(Test-Path -LiteralPath $nsudo)) { throw "NSudo not found in FalconLibrary paths" }
+        if (!(Test-Path -LiteralPath $scriptPath)) { throw "Script not found at $scriptPath" }
         Log "NSUDO RUN (SYSTEM): $scriptPath"
-        Start-Process $nsudo -ArgumentList "-U:S -P:E -Wait `"$scriptPath`"" -WindowStyle Hidden -Wait
+        Start-Process $nsudo -ArgumentList @("-U:T","-P:E","-Wait",$scriptPath) -WindowStyle Hidden -Wait
       }
 
       "service.startup" {
@@ -1137,152 +1195,6 @@ public static class TimerRes2 {
 
 
       
-      "cmd" {
-        $cmd = Expand-String $s.command
-        if ([string]::IsNullOrWhiteSpace($cmd)) { throw "cmd missing command" }
-        Log "CMD: $cmd"
-        cmd.exe /c $cmd | Out-Null
-      }
-
-      "powercfg" {
-        $args = @()
-        if ($s.PSObject.Properties.Name -contains "args" -and $null -ne $s.args) {
-          foreach($a in $s.args){ $args += (Expand-String $a) }
-        }
-        if ($args.Count -lt 1) { throw "powercfg missing args" }
-        Log ("POWERCFG: " + ($args -join " "))
-        powercfg @args | Out-Null
-      }
-
-      "powercfg.set" {
-        $args = @()
-        if ($s.PSObject.Properties.Name -contains "args" -and $null -ne $s.args) {
-          foreach($a in $s.args){ $args += (Expand-String $a) }
-        }
-        if ($args.Count -lt 1) { throw "powercfg.set missing args" }
-        Log ("POWERCFG.SET: " + ($args -join " "))
-        powercfg @args | Out-Null
-      }
-
-      "registry.set" {
-        $path = Expand-String $s.path
-        $name = Expand-String $s.name
-        $val  = $s.value
-        $vt   = Expand-String $s.valueType
-        if ([string]::IsNullOrWhiteSpace($path) -or [string]::IsNullOrWhiteSpace($name)) { throw "registry.set missing path/name" }
-        if ([string]::IsNullOrWhiteSpace($vt)) { $vt = "DWord" }
-        $typeMap = @{
-          "dword"="REG_DWORD"; "qword"="REG_QWORD"; "string"="REG_SZ"; "sz"="REG_SZ";
-          "expandstring"="REG_EXPAND_SZ"; "multistring"="REG_MULTI_SZ"; "binary"="REG_BINARY"
-        }
-        $regType = $typeMap[$vt.ToLowerInvariant()]
-        if (-not $regType) { $regType = "REG_DWORD" }
-        $valStr = ""
-        if ($null -ne $val) {
-          if ($val -is [bool]) { $valStr = ($(if($val){1}else{0})) }
-          else { $valStr = [string]$val }
-        }
-        Log "REG SET: $path\$name = $valStr ($regType)"
-        reg.exe add "$path" /v "$name" /t $regType /d "$valStr" /f | Out-Null
-      }
-
-      "registry.remove" {
-        $path = Expand-String $s.path
-        $name = Expand-String $s.name
-        if ([string]::IsNullOrWhiteSpace($path) -or [string]::IsNullOrWhiteSpace($name)) { throw "registry.remove missing path/name" }
-        Log "REG DEL: $path\$name"
-        reg.exe delete "$path" /v "$name" /f | Out-Null
-      }
-
-      "reg.set" {
-        # alias
-        $path = Expand-String $s.path
-        $name = Expand-String $s.name
-        $val  = $s.value
-        $vt   = Expand-String $s.valueType
-        if ([string]::IsNullOrWhiteSpace($vt)) { $vt = "DWord" }
-        $s2 = [pscustomobject]@{ path=$path; name=$name; value=$val; valueType=$vt }
-        $s = $s2
-        # fallthrough is not supported; execute via calling registry.set
-        $path = Expand-String $s.path
-        $name = Expand-String $s.name
-        $val  = $s.value
-        $vt   = Expand-String $s.valueType
-        $typeMap = @{ "dword"="REG_DWORD"; "qword"="REG_QWORD"; "string"="REG_SZ"; "expandstring"="REG_EXPAND_SZ"; "multistring"="REG_MULTI_SZ"; "binary"="REG_BINARY" }
-        $regType = $typeMap[$vt.ToLowerInvariant()]
-        if (-not $regType) { $regType = "REG_DWORD" }
-        $valStr = ""
-        if ($null -ne $val) { $valStr = [string]$val }
-        Log "REG SET: $path\$name = $valStr ($regType)"
-        reg.exe add "$path" /v "$name" /t $regType /d "$valStr" /f | Out-Null
-      }
-
-      "reg.del" {
-        $path = Expand-String $s.path
-        $name = Expand-String $s.name
-        if ([string]::IsNullOrWhiteSpace($path) -or [string]::IsNullOrWhiteSpace($name)) { throw "reg.del missing path/name" }
-        Log "REG DEL: $path\$name"
-        reg.exe delete "$path" /v "$name" /f | Out-Null
-      }
-
-      "service.disable" {
-        $svc = Expand-String $s.name
-        if ([string]::IsNullOrWhiteSpace($svc)) { throw "service.disable missing name" }
-        Log "SERVICE DISABLE: $svc"
-        sc.exe stop "$svc" | Out-Null
-        sc.exe config "$svc" start= disabled | Out-Null
-      }
-
-      "service.enable" {
-        $svc = Expand-String $s.name
-        if ([string]::IsNullOrWhiteSpace($svc)) { throw "service.enable missing name" }
-        $startup = "auto"
-        if ($s.PSObject.Properties.Name -contains "startup" -and $s.startup) { $startup = (Expand-String $s.startup) }
-        Log "SERVICE ENABLE: $svc (startup=$startup)"
-        sc.exe config "$svc" start= $startup | Out-Null
-        sc.exe start "$svc" | Out-Null
-      }
-
-      "service.startup" {
-        # Legacy alias block (keep compatible with older catalogs)
-        $svc = Expand-String $s.name
-        $st  = ""
-        foreach($k in @('startType','startupType','startup','mode','value')) {
-          if ($s.PSObject.Properties.Name -contains $k) {
-            $candidate = Expand-String ($s.$k)
-            if (-not [string]::IsNullOrWhiteSpace($candidate)) { $st = $candidate; break }
-          }
-        }
-        if ([string]::IsNullOrWhiteSpace($svc) -or [string]::IsNullOrWhiteSpace($st)) { throw "service.startup missing name/startType" }
-
-        $failIfMissing = $false
-        if ($s.PSObject.Properties.Name -contains 'failIfMissing') { $failIfMissing = [bool]$s.failIfMissing }
-        $preSvc = Get-ServiceInfoSafe $svc
-        if (-not $preSvc.exists) {
-          $msg = "SERVICE NOT FOUND: $svc"
-          Log $msg
-          if ($failIfMissing) { throw $msg }
-          $script:Warnings.Add($msg) | Out-Null
-          break
-        }
-
-        Safe-SetServiceStartup $svc $st
-
-        $doStop = $false
-        $doStart = $false
-        try {
-          if ($s.PSObject.Properties.Name -contains "stop") {
-            if ([bool]$s.stop) { $doStop = $true; $doStart = $true }
-          }
-          if ($s.PSObject.Properties.Name -contains "start") {
-            if ([bool]$s.start) { $doStart = $true } else { $doStop = $true }
-          }
-        } catch {}
-        if ($st -eq "Disabled") { $doStop = $true; $doStart = $false }
-        if ($doStop) { try { Stop-Service -Name $svc -Force -ErrorAction SilentlyContinue | Out-Null } catch {} }
-        if ($doStart) { try { Start-Service -Name $svc -ErrorAction SilentlyContinue | Out-Null } catch {} }
-      }
-
       "schtasks" {
         $args = @()
         if ($s.PSObject.Properties.Name -contains "args" -and $null -ne $s.args) {

@@ -1,0 +1,102 @@
+{
+  "items": [
+    {
+      "id": "processlab.process_destroyer.standard",
+      "name": "Process Destroyer (Standard)",
+      "category": "Process Lab",
+      "description": "Runs FalconLibrary Process Destroyer standard profile.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresTrustedInstaller": true,
+      "type": "action",
+      "apply": {
+        "steps": [
+          { "type": "falconlib.run", "toolPath": "tools/FalconLibrary/Process Destroyer/FalconLibrary Process Destroyer V2.5.bat", "elevation": "trustedinstaller", "wait": true }
+        ]
+      },
+      "check": { "steps": [ { "type": "cmd.run", "command": "tasklist | findstr /I explorer.exe" } ] },
+      "revert": { "steps": [] }
+    },
+    {
+      "id": "processlab.process_destroyer.extreme",
+      "name": "Process Destroyer (Extreme)",
+      "category": "Process Lab",
+      "description": "Runs FalconLibrary Process Destroyer extreme profile.",
+      "riskLevel": "Danger",
+      "requiresAdmin": true,
+      "requiresTrustedInstaller": true,
+      "type": "action",
+      "apply": {
+        "steps": [
+          { "type": "falconlib.run", "toolPath": "tools/FalconLibrary/Process Destroyer/FalconLibrary Process Destroyer Extreme V2.5.bat", "elevation": "trustedinstaller", "wait": true }
+        ]
+      },
+      "check": { "steps": [ { "type": "cmd.run", "command": "tasklist | findstr /I explorer.exe" } ] },
+      "revert": { "steps": [] }
+    },
+    {
+      "id": "processlab.task_destroyer.apply",
+      "name": "Task Destroyer",
+      "category": "Process Lab",
+      "description": "Disables FalconLibrary scheduled task set.",
+      "riskLevel": "Danger",
+      "requiresAdmin": true,
+      "requiresTrustedInstaller": true,
+      "type": "action",
+      "apply": { "steps": [ { "type": "falconlib.run", "toolPath": "tools/FalconLibrary/Task Destroyer/FalconLibrary Task Destroyer V1.3.bat", "elevation": "trustedinstaller", "wait": true } ] },
+      "check": { "steps": [ { "type": "task.check", "name": "\\Microsoft\\Windows\\Application Experience\\Microsoft Compatibility Appraiser", "enabled": false, "continueOnError": true } ] },
+      "revert": { "steps": [] }
+    },
+    {
+      "id": "windows.update_disabler.apply",
+      "name": "Update Disabler",
+      "category": "Windows Updates",
+      "description": "Runs FalconLibrary Update Disabler script.",
+      "riskLevel": "Danger",
+      "requiresAdmin": true,
+      "requiresTrustedInstaller": true,
+      "type": "action",
+      "apply": { "steps": [ { "type": "falconlib.run", "toolPath": "tools/FalconLibrary/Update Disabler/FalconLibrary Update Disabler V1.2.bat", "elevation": "trustedinstaller", "wait": true } ] },
+      "check": { "steps": [ { "type": "service.startup", "name": "wuauserv", "startType": "Disabled", "failIfMissing": false } ] },
+      "revert": { "steps": [ { "type": "service.startup", "name": "wuauserv", "startType": "Manual", "start": false, "failIfMissing": false } ] }
+    },
+    {
+      "id": "privacy.autologger_destroyer.apply",
+      "name": "Autologger Destroyer",
+      "category": "Telemetry / Logging",
+      "description": "Runs FalconLibrary Autologger Destroyer script.",
+      "riskLevel": "Danger",
+      "requiresAdmin": true,
+      "requiresTrustedInstaller": true,
+      "type": "action",
+      "apply": { "steps": [ { "type": "falconlib.run", "toolPath": "tools/FalconLibrary/Autologger Destroyer/FalconLibrary Autologger Destroyer V1.0.bat", "elevation": "trustedinstaller", "wait": true } ] },
+      "check": { "steps": [ { "type": "registry.check", "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\WMI\\Autologger\\AutoLogger-Diagtrack-Listener", "name": "Start", "equals": 0, "valueType": "DWORD", "continueOnError": true } ] },
+      "revert": { "steps": [] }
+    },
+    {
+      "id": "gpu.nvidia_container.off",
+      "name": "NVIDIA Container OFF",
+      "category": "GPU",
+      "description": "Disables NVIDIA container service stack.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "requiresTrustedInstaller": true,
+      "type": "action",
+      "apply": { "steps": [ { "type": "falconlib.run", "toolPath": "tools/FalconLibrary/Nvidia/Nvidia Container/Nvidia Container OFF.bat", "elevation": "trustedinstaller", "wait": true } ] },
+      "check": { "steps": [ { "type": "service.startup", "name": "NVDisplay.ContainerLocalSystem", "startType": "Disabled", "failIfMissing": false } ] },
+      "revert": { "steps": [ { "type": "falconlib.run", "toolPath": "tools/FalconLibrary/Nvidia/Nvidia Container/Nvidia Container ON.bat", "elevation": "trustedinstaller", "wait": true } ] }
+    },
+    {
+      "id": "utilities.browser_downloader.apply",
+      "name": "Browser Downloader",
+      "category": "Utilities",
+      "description": "Launches FalconLibrary Browser Downloader.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "type": "action",
+      "apply": { "steps": [ { "type": "falconlib.run", "toolPath": "tools/FalconLibrary/Browser Download/Browser Downloader V1.0.bat", "elevation": "none", "wait": true } ] },
+      "check": { "steps": [] },
+      "revert": { "steps": [] }
+    }
+  ]
+}
