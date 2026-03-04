@@ -1,0 +1,9 @@
+What does dpclat.exe do?
+
+:: Use case:
+It measures DPC latency and fixes Timer Res/Delta's on Win 10 20H2 and above.
+
+:: Links:
+DPC Link 1: https://www.softpedia.com/get/System/System-Info/DPC-Latency-Checker.shtml
+DPC Link 2: https://drive.google.com/file/d/1luOOphMA5CCNVWG-RARAfB6bDxMyPaeU/view
+Timer Res Fix Video: https://www.youtube.com/watch?v=vt1n4j9lWF0

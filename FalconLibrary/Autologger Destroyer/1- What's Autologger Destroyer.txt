@@ -1,0 +1,12 @@
+What does Autologger Destroyer V1.0.bat do?
+
+:: Use case:
+It's a program that can disable Windows Telemetry/Auto Loggers.
+FalconLibrary will automatically run it!
+
+:: Links:
+Autologger Destroyer Link: https://github.com/FalconK/Autologger-Destroyer/releases/download/AutologgerDisabler/FalconLibrary-Autologger-Destroyer-V1.0.bat
+Autologger Destroyer Github: https://github.com/FalconK/Autologger-Destroyer
+Autologger Docs: https://github.com/FalconK/Scripting-Station/blob/main/System%20Docs/Windows%20Autologgers.md
+
+

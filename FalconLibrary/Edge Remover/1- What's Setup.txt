@@ -1,0 +1,9 @@
+What does NSudoLG.exe do?
+
+:: Use case:
+It the old and offical Edge Setup that can be used to uninstall Edge!
+FalconLibrary will automatically run it!
+
+:: Links:
+Edge Setup Link: https://github.com/FalconK/Edge-Remover/blob/main/Downloads/setup.exe
+Edge Remover Github: https://github.com/FalconK/Edge-Remover
