@@ -1,0 +1,18 @@
+QA LINKS REPORT
+Generated: 2026-03-04T07:50:22.162Z
+
+Manifest files scanned: 114
+falconlib.run steps: 14
+tools/FalconLibrary tool files: 15
+
+Checks
+- Missing falconlib tool paths: 0
+- Unreferenced tools (non-allowlisted): 0
+- Duplicate tweak IDs: 0
+- Null name/category items: 0
+- Step types missing runner handlers: 0
+- Get-ServiceInfoSafe full missing-shape: yes
+- Timer Resolution card canonical path valid: yes
+
+Result: PASS
+

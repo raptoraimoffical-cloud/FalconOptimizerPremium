@@ -712,6 +712,18 @@ function normalizeRiskLabel(input){
 function normRisk(item){
   return normalizeRiskLabel(item);
 }
+
+function normalizeItemRisk(item, source){
+  if(!item || typeof item !== 'object') return item;
+  const before = String(item.riskLevel || item.risk || 'Safe');
+  const normalized = normalizeRiskLabel(before);
+  item.riskLevel = normalized;
+  if (!item.risk) item.risk = normalized;
+  if (before !== normalized) {
+    try { console.warn(`[normalized risk] ${item.id || item.name || 'unknown'} (${source || 'unknown'}) ${before} -> ${normalized}`); } catch(_e) {}
+  }
+  return item;
+}
 function riskRank(value){
   const rank = { Safe:0, Warning:1, Danger:2, Extreme:3 };
   return rank[normalizeRiskLabel(value)] || 0;
@@ -5018,6 +5030,7 @@ async function renderTweaksFromSource(source){
       if (it.apply && it.revert) it.type = 'toggle';
       else it.type = 'action';
     }
+    normalizeItemRisk(it, source);
     return it;
   });
 

@@ -15,22 +15,37 @@
         ]
       },
       "check": { "steps": [ { "type": "cmd.run", "command": "tasklist | findstr /I explorer.exe" } ] },
-      "revert": { "steps": [] }
+      "revert": { "steps": [ { "type": "process.start", "path": "explorer.exe", "wait": false } ] }
     },
     {
       "id": "processlab.process_destroyer.extreme",
       "name": "Process Destroyer (Extreme)",
       "category": "Process Lab",
       "description": "Runs FalconLibrary Process Destroyer extreme profile.",
-      "riskLevel": "Danger",
+      "riskLevel": "Extreme",
       "requiresAdmin": true,
       "requiresTrustedInstaller": true,
+      "requireExplicitConfirm": true,
+      "warningTitle": "Process Destroyer Extreme Warning",
+      "warningBody": "Extreme mode force-terminates additional processes and can interrupt shell/session functionality.",
       "type": "action",
       "apply": {
         "steps": [
           { "type": "falconlib.run", "toolPath": "tools/FalconLibrary/Process Destroyer/FalconLibrary Process Destroyer Extreme V2.5.bat", "elevation": "trustedinstaller", "wait": true }
         ]
       },
+      "check": { "steps": [ { "type": "cmd.run", "command": "tasklist | findstr /I explorer.exe" } ] },
+      "revert": { "steps": [ { "type": "process.start", "path": "explorer.exe", "wait": false } ] }
+    },
+    {
+      "id": "processlab.process_destroyer.status",
+      "name": "Process Destroyer (Status)",
+      "category": "Process Lab",
+      "description": "Checks if Explorer is running after Process Destroyer runs.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "type": "action",
+      "apply": { "steps": [ { "type": "cmd.run", "command": "tasklist | findstr /I explorer.exe" } ] },
       "check": { "steps": [ { "type": "cmd.run", "command": "tasklist | findstr /I explorer.exe" } ] },
       "revert": { "steps": [] }
     },
@@ -44,6 +59,18 @@
       "requiresTrustedInstaller": true,
       "type": "action",
       "apply": { "steps": [ { "type": "falconlib.run", "toolPath": "tools/FalconLibrary/Task Destroyer/FalconLibrary Task Destroyer V1.3.bat", "elevation": "trustedinstaller", "wait": true } ] },
+      "check": { "steps": [ { "type": "task.check", "name": "\\Microsoft\\Windows\\Application Experience\\Microsoft Compatibility Appraiser", "enabled": false, "continueOnError": true } ] },
+      "revert": { "steps": [ { "type": "task", "name": "\\Microsoft\\Windows\\Application Experience\\Microsoft Compatibility Appraiser", "action": "enable", "continueOnError": true } ] }
+    },
+    {
+      "id": "processlab.task_destroyer.status",
+      "name": "Task Destroyer (Status)",
+      "category": "Process Lab",
+      "description": "Checks one representative task disabled by Task Destroyer.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "type": "action",
+      "apply": { "steps": [ { "type": "task.check", "name": "\\Microsoft\\Windows\\Application Experience\\Microsoft Compatibility Appraiser", "enabled": false, "continueOnError": true } ] },
       "check": { "steps": [ { "type": "task.check", "name": "\\Microsoft\\Windows\\Application Experience\\Microsoft Compatibility Appraiser", "enabled": false, "continueOnError": true } ] },
       "revert": { "steps": [] }
     },
@@ -96,6 +123,72 @@
       "type": "action",
       "apply": { "steps": [ { "type": "falconlib.run", "toolPath": "tools/FalconLibrary/Browser Download/Browser Downloader V1.0.bat", "elevation": "none", "wait": true } ] },
       "check": { "steps": [] },
+      "revert": { "steps": [] }
+    },
+    {
+      "id": "utilities.dpclat.run",
+      "name": "DPC Latency Checker",
+      "category": "Utilities",
+      "description": "Launches dpclat.exe for DPC latency diagnostics.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "type": "action",
+      "apply": { "steps": [ { "type": "falconlib.run", "toolPath": "tools/FalconLibrary/DPC Checker/dpclat.exe", "elevation": "none", "wait": false } ] },
+      "check": { "steps": [ { "type": "cmd.run", "command": "if exist \"tools\\FalconLibrary\\DPC Checker\\dpclat.exe\" (echo dpclat ready) else (exit /b 1)" } ] },
+      "revert": { "steps": [] }
+    },
+    {
+      "id": "privacy.oosu10.apply",
+      "name": "O&O ShutUp10++",
+      "category": "Privacy / Telemetry",
+      "description": "Launches OOSU10 privacy hardening tool. Review each toggle before applying.",
+      "riskLevel": "Danger",
+      "requiresAdmin": true,
+      "requireExplicitConfirm": true,
+      "warningTitle": "Privacy Hardening Warning",
+      "warningBody": "O&O ShutUp10 can disable telemetry and system features. Ensure you understand each setting before applying.",
+      "type": "action",
+      "apply": { "steps": [ { "type": "falconlib.run", "toolPath": "tools/FalconLibrary/OOshutup10/OOSU10.exe", "elevation": "admin", "wait": false } ] },
+      "check": { "steps": [ { "type": "cmd.run", "command": "if exist \"tools\\FalconLibrary\\OOshutup10\\OOSU10.exe\" (echo OOSU10 ready) else (exit /b 1)" } ] },
+      "revert": { "steps": [] }
+    },
+    {
+      "id": "gpu.nvidia_profile_inspector.apply",
+      "name": "NVIDIA Profile Inspector",
+      "category": "GPU",
+      "description": "Launches NVIDIA Profile Inspector. Not applicable on systems without NVIDIA GPU.",
+      "riskLevel": "Warning",
+      "requiresAdmin": false,
+      "type": "action",
+      "apply": { "steps": [ { "type": "falconlib.run", "toolPath": "tools/FalconLibrary/Nvidia/Nvidia Profile Inspector/nvidiaProfileInspector.exe", "elevation": "none", "wait": false } ] },
+      "check": { "steps": [ { "type": "ps.run", "command": "$gpu = Get-CimInstance Win32_VideoController -ErrorAction SilentlyContinue | Where-Object { $_.Name -match 'NVIDIA' }; if($gpu){ Write-Output 'NVIDIA GPU detected.' } else { Write-Output 'Not applicable: NVIDIA GPU not detected.' }" } ] },
+      "revert": { "steps": [] }
+    },
+    {
+      "id": "debloat.edge_remover.apply",
+      "name": "Edge Remover",
+      "category": "Debloat / Browsers",
+      "description": "Launches Edge Remover setup. Reinstall Edge via Microsoft installer if you need to restore.",
+      "riskLevel": "Extreme",
+      "requiresAdmin": true,
+      "requireExplicitConfirm": true,
+      "warningTitle": "Edge Removal Warning",
+      "warningBody": "This action can remove Microsoft Edge components. Keep a restoration plan before proceeding.",
+      "type": "action",
+      "apply": { "steps": [ { "type": "falconlib.run", "toolPath": "tools/FalconLibrary/Edge Remover/setup.exe", "elevation": "admin", "wait": false } ] },
+      "check": { "steps": [ { "type": "cmd.run", "command": "if exist \"tools\\FalconLibrary\\Edge Remover\\setup.exe\" (echo Edge Remover ready) else (exit /b 1)" } ] },
+      "revert": { "steps": [ { "type": "open.url", "url": "https://www.microsoft.com/edge" } ] }
+    },
+    {
+      "id": "falcon.timer_resolution.restore",
+      "name": "Timer Resolution (Restore)",
+      "category": "Utilities",
+      "description": "Stops SetTimerResolution helper process to restore default timer behavior.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "type": "action",
+      "apply": { "steps": [ { "type": "process.kill", "name": "SetTimerResolution" } ] },
+      "check": { "steps": [ { "type": "ps.run", "command": "$p = Get-Process -Name SetTimerResolution -ErrorAction SilentlyContinue; if($p){ throw 'SetTimerResolution still running' } else { Write-Output 'Timer resolution helper not running.' }" } ] },
       "revert": { "steps": [] }
     }
   ]
