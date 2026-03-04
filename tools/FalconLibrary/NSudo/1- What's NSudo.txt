@@ -1,0 +1,14 @@
+What does NSudoLG.exe do?
+
+:: Use case:
+It helps disables/remove things with the highest possible privileges.
+FalconLibrary will automatically run it, along side other programs to get around permission issues.
+
+:: Links:
+Nsudo Link: https://github.com/M2TeamArchived/NSudo/releases/tag/9.0-Preview1
+
+
+
+
+
+

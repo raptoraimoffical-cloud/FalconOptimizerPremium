@@ -1,0 +1,13 @@
+What does Falcon Ultimate Performance.pow or Falcon Ultimate Performance Idle Off.pow do?
+
+:: Use case:
+Its Windows Power Plan!
+
+:: Links:
+Power Plan Links: https://github.com/FalconK/FalconLibrary/blob/main/Downloads/V8.0/PowerPlans.zip
+
+
+
+
+
+

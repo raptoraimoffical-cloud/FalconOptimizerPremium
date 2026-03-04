@@ -1,0 +1,7 @@
+What does OOSU10.exe do?
+
+It disables tracking, spyware and various different forms of bloat.
+FalconOOshutup10.cfg gets imported with my settings, optimizing the users system!
+
+OOSU10 Link: https://dl5.oo-software.com/files/ooshutup10/OOSU10.exe
+FalconOOshutup10 V2.cfg Link: https://github.com/FalconK/FalconLibrary/blob/main/Downloads/V8.0/FalconOOshutup10%20V2.cfg

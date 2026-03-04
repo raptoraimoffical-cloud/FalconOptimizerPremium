@@ -1,0 +1,14 @@
+What does SetTimerResolution.exe do?
+
+:: Use case:
+It's a program that lowers syetem latency by adjusting the system clock.
+FalconLibrary will add it to startup, adjust the resolution all automatically!
+
+:: Links:
+SetTimerResolution Link: https://github.com/valleyofdoom/TimerResolution/releases/tag/SetTimerResolution-v1.0.0
+Timer Resolution Help: https://github.com/FalconK/FalconLibrary/blob/main/Help/Timer%20Resolution%20Options.md
+
+
+
+
+

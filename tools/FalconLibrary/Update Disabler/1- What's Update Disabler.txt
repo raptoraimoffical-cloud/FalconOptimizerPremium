@@ -1,0 +1,12 @@
+What does Update Disabler V1.2.bat do?
+
+:: Use case:
+It's a program that can delete and remove Windows Updates.
+FalconLibrary will automatically run it!
+
+:: Links:
+Update Disabler Link: https://github.com/FalconK/Update-Disabler/releases/download/Winupdatedisabler/FalconLibrary-Update-Disabler-V1.2.bat
+Update Disabler Github: https://github.com/FalconK/Update-Disabler
+Windows Updates Info: https://github.com/FalconK/Scripting-Station/blob/main/System%20Docs/Windows%20Updates.md
+
+

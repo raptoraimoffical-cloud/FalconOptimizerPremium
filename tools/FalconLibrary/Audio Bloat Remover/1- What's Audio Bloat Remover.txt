@@ -1,0 +1,9 @@
+What does Audio Bloat Remover V1.0.bat do?
+
+:: Use case:
+It's a program that can delete Realtek, Sound Research and VisiSonics audio bloat.
+
+:: Links:
+Audio Bloat Remover Link: https://github.com/FalconK/FalconLibrary/blob/main/Downloads/V8.0/Audio%20Bloat%20Remover%20V1.0.bat
+
+
