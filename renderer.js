@@ -326,6 +326,7 @@ function humanizeUpdateStatus(payload){
     return { text: `Downloading update… ${percent}%`, kind: "info" };
   }
   if (status === "downloaded") return { text: "Update downloaded. Restarting to install…", kind: "success" };
+  if (status === "manual-download") return { text: "Auto-download stalled. Opened direct installer download.", kind: "info" };
   if (status === "error") return { text: `Update check failed: ${payload && payload.message ? payload.message : "Unknown error"}`, kind: "error" };
   return null;
 }
