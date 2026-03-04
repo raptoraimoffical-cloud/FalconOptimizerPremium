@@ -1,0 +1,9 @@
+What does Browser Downloader V1.0.bat do?
+
+:: Use case:
+It's a program that can download browsers like Chrome, Brave and Edge.
+
+:: Links:
+Browser Downloader Link: https://github.com/FalconK/FalconLibrary/blob/main/Downloads/V8.0/Browser%20Downloader%20V1.0.bat
+
+

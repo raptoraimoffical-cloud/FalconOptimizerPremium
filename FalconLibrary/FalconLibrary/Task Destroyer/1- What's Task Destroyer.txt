@@ -1,0 +1,11 @@
+What does Task Destroyer V1.3.bat do?
+
+:: Use case:
+It's a program that can delete and remove system task from Task Scheduler.
+FalconLibrary will automatically run it!
+
+:: Links:
+Task Destroyer Link: https://github.com/FalconK/Task-Destroyer/releases/download/TaskSchedulerDeleter/FalconLibrary-Task-Destroyer-V1.3.bat
+Task Destroyer Github: https://github.com/FalconK/Task-Destroyer
+
+
