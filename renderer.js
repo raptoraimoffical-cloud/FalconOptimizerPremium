@@ -67,6 +67,7 @@ function readSavedHwProfile(){
 let currentHwProfile = readSavedHwProfile();
 
 let gameModePhotoOptimizations = [];
+let navToken = 0;
 
 
 function getStepsFor(item, mode) {
@@ -1441,6 +1442,18 @@ function renderResult(res){
   }
 }
 
+
+function buildStructuredDetails(item){
+  const d = (item && item.details && typeof item.details === 'object') ? item.details : {};
+  const recommendedFor = d.recommendedFor || 'General users who want measurable performance gains with clear rollback options.';
+  const benefits = Array.isArray(d.benefits) ? d.benefits : ['Performance or responsiveness improvements based on this tweak category.'];
+  const tradeoffs = Array.isArray(d.tradeoffs) ? d.tradeoffs : ['May reduce default Windows convenience or diagnostics.'];
+  const riskNotes = Array.isArray(d.riskNotes) ? d.riskNotes : [String(item && (item.riskLevel || item.risk) || 'Safe') + ' risk. Validate on your hardware.'];
+  const reversible = d.reversible || ((getStepsFor(item,'revert')||[]).length ? 'Yes. Use Revert for this item.' : 'No built-in revert steps were found.');
+  const requiresReboot = (d.requiresReboot !== undefined) ? d.requiresReboot : !!item.requiresReboot;
+  return { recommendedFor, benefits, tradeoffs, riskNotes, reversible, requiresReboot };
+}
+
 function renderTweakDetails(item){
   try{
     const detailsEl = document.getElementById('tweakDetails');
@@ -2479,7 +2492,15 @@ function buildBiosAdvancedGuidePanel(systemInfo) {
 
 
 async function renderBiosHelper(){
+  const myToken = navToken;
+  els.panel.innerHTML = `
+    <div class="panel">
+      <div class="card-title">BIOS Optimizer</div>
+      <div class="card-desc">Loading BIOS signals…</div>
+    </div>
+  `;
   const allowed = await ensureAggressiveConsent("bios");
+  if (currentRoute !== 'bios' || myToken !== navToken) return;
   if (!allowed) {
     els.panel.innerHTML = `
       <div class="panel">
@@ -2495,7 +2516,7 @@ async function renderBiosHelper(){
       const b = document.getElementById('biosAcceptContinue');
       if (b) b.onclick = async () => { const ok = await ensureAggressiveConsent("bios"); if (ok) { aggressiveConsentAccepted = true; renderBiosHelper(); } };
       const back = document.getElementById('biosBackHome');
-      if (back) back.onclick = () => { try{ setPage('home'); }catch(_e){} };
+      if (back) back.onclick = () => { try{ setRoute('home'); }catch(_e){} };
     }catch(_e){}
     return;
   }
@@ -3169,7 +3190,6 @@ function renderHome(){
           </div>
 
           <div class="hint">If Defender OFF fails: turn off Tamper Protection in Windows Security, reboot, then try again. This stack never uses Start=4 for SecurityHealthService.</div>
-          <div class="hint" style="margin-top:8px;">Registry Editor (All versions): Open regedit via Run, go to HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender, create a new DWORD (32-bit) Value named DisableAntiSpyware and set its value to 1.</div>
         </div>
 
 <div class="panel panel-topo" style="margin-top:14px;">
@@ -7294,6 +7314,7 @@ async function refresh(resetTabs=true){
   }
 }
 function setRoute(route){
+  navToken++;
   currentRoute = route;
   setActiveNav(route);
   refresh(true);
@@ -8051,6 +8072,28 @@ async function detectRunningGame(){
   }
 }
 
+
+function canonicalGameId(raw){
+  const t = String(raw || '').toLowerCase().trim();
+  const aliases = {
+    'counter-strike 2':'cs2',
+    'counter strike 2':'cs2',
+    'gta v':'gta5',
+    'call of duty':'cod'
+  };
+  if (aliases[t]) return aliases[t];
+  return t.replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
+}
+
+async function resolveGameImage(gameId){
+  const id = canonicalGameId(gameId);
+  try{
+    const res = await window.falcon.resolveGameImage(id);
+    if (res && res.ok && res.path) return res.path;
+  }catch(_e){}
+  return 'images/games/default.png';
+}
+
 async function buildGameDetectionBanner(gridEl){
   if (!gridEl) return;
   const detected = await detectRunningGame();
@@ -8252,24 +8295,17 @@ function buildGamePrioritySchedulerPanel() {
 
 // --- Custom panel: Network Priority with game scanning + images ---
 async function buildNetworkPriorityPanel(){
-  const headerDesc = 'Set per-game QoS (DSCP 46) policies to prioritize game traffic on your PC. If your router honors DSCP, it can help stabilize ping and reduce packet loss.';
-
   els.panel.innerHTML = `
     <div class="panel">
       <div class="card-title">Network Priority</div>
-      <div class="card-desc">${__eh(headerDesc)}</div>
-      <div class="toolbar" style="margin-top:12px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;">
-        <div class="search-wrap" style="flex:1;min-width:220px;">
-          <input id="npSearch" class="search" placeholder="Search games..." />
-        </div>
-        <button class="btn" id="npRefresh">Refresh</button>
-        <button class="btn primary" id="npAddGames">Add games</button>
+      <div class="card-desc">Per-game QoS (DSCP 46) with custom game support. Policies are created per selected executable and are fully reversible.</div>
+      <div class="row" style="margin-top:10px; gap:10px; flex-wrap:wrap;">
+        <input id="npSearch" class="search" placeholder="Search games..." />
+        <button class="btn" id="npRefresh">Refresh scan</button>
+        <button class="btn primary" id="npApplySelected">Apply priority to selected</button>
+        <button class="btn" id="npRemoveSelected">Remove priority from selected</button>
+        <button class="btn" id="npAddGames">Add custom game</button>
       </div>
-    </div>
-
-    <div class="panel">
-      <div class="card-title">How does it work?</div>
-      <div class="card-desc">Creates a Windows QoS policy for a game's executable and marks packets with DSCP 46 (Expedited Forwarding). This is reversible at any time.</div>
     </div>
 
     <div class="panel">
@@ -8287,79 +8323,96 @@ async function buildNetworkPriorityPanel(){
   const listEl = document.getElementById('npList');
   const statusEl = document.getElementById('npStatus');
   const searchEl = document.getElementById('npSearch');
+  const getSelected = (games) => (games||[]).filter(g => g.selected && g.exe);
 
-  const render = (games) => {
+  const render = async (games) => {
     const q = (searchEl.value||'').toLowerCase().trim();
-    const filtered = (games||[]).filter(g => !q || String(g.name||'').toLowerCase().includes(q));
+    const filtered = (games||[]).filter(g => !q || String(g.name||'').toLowerCase().includes(q) || String(g.exe||'').toLowerCase().includes(q));
     if (!filtered.length) {
-      listEl.innerHTML = `<div class="card-desc">No supported games detected yet. Use “Add games” to track a custom executable.</div>`;
+      listEl.innerHTML = `<div class="card-desc">No games found. Add custom games to continue.</div>`;
       return;
     }
-    listEl.innerHTML = filtered.map(g => {
-      const img = `images/games/${encodeURIComponent(g.id)}.png`;
-      const imgJpg = `images/games/${encodeURIComponent(g.name || g.id)}.jpg`;
-      const imgJpeg = `images/games/${encodeURIComponent(g.name || g.id)}.jpeg`;
-      return `
+    const rows = [];
+    for (const g of filtered){
+      const imgSrc = await resolveGameImage(g.id || g.name);
+      rows.push(`
         <div class="card game-tile">
-          <div class="game-thumb">
-            <img src="${img}" alt="" onerror="if(!this.dataset.tryJpg){this.dataset.tryJpg='1';this.src='${imgJpg}';return;} if(!this.dataset.tryJpeg){this.dataset.tryJpeg='1';this.src='${imgJpeg}';return;} this.style.display='none'; this.parentElement.classList.add('noimg');" />
-            <div class="game-thumb-fallback">${__eh(String(g.name||g.id||'Game'))}</div>
-          </div>
-          <div class="card-title" style="margin-top:10px;">${__eh(String(g.name||g.id))}</div>
-          <div class="card-desc" style="margin-top:6px;word-break:break-all;">${__eh(String(g.exePath||'').slice(0,120))}${(g.exePath && g.exePath.length>120)?'…':''}</div>
-          <div class="card-actions" style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;">
-            <button class="btn primary" data-act="enable" data-id="${__eh(g.id)}">Enable DSCP 46</button>
-            <button class="btn" data-act="disable" data-id="${__eh(g.id)}">Disable</button>
-          </div>
+          <div class="game-thumb"><img src="${imgSrc}" alt="" /><div class="game-thumb-fallback">${__eh(g.name||g.id)}</div></div>
+          <label style="display:flex; gap:8px; align-items:center; margin-top:8px;"><input type="checkbox" data-sel="${__eh(g.id)}" ${g.selected ? 'checked' : ''}/> <strong>${__eh(g.name||g.id)}</strong></label>
+          <div class="card-desc" style="margin-top:6px;word-break:break-all;">${__eh(g.exe||g.exePath||'')}</div>
+          <div class="card-actions" style="margin-top:8px;"><label class="btn" style="cursor:pointer;">Upload icon<input type="file" data-upload="${__eh(g.id)}" accept="image/png,image/jpeg" style="display:none;" /></label></div>
         </div>
-      `;
-    }).join('');
+      `);
+    }
+    listEl.innerHTML = rows.join('');
+
+    listEl.querySelectorAll('input[data-sel]').forEach(cb=>{ cb.onchange=()=>{ const id=cb.getAttribute('data-sel'); const hit=games.find(x=>String(x.id)===String(id)); if(hit) hit.selected=!!cb.checked; }; });
+    listEl.querySelectorAll('input[data-upload]').forEach(inp=>{
+      inp.onchange = async () => {
+        const file = inp.files && inp.files[0];
+        if (!file) return;
+        const gameId = canonicalGameId(inp.getAttribute('data-upload'));
+        const fr = new FileReader();
+        fr.onload = async () => {
+          const res = await window.falcon.saveGameImage(gameId, fr.result);
+          showToast(res && res.ok ? 'Icon saved.' : 'Failed to save icon.', res && res.ok ? 'success':'error');
+          await render(games);
+        };
+        fr.readAsDataURL(file);
+      };
+    });
+  };
+
+  const fromCatalog = async () => {
+    const [detected, catalogRes] = await Promise.all([
+      window.falcon.scanInstalledGames().catch(()=>[]),
+      window.falcon.getGamesCatalog().catch(()=>({ ok:false, games:[] }))
+    ]);
+    const detectedMap = new Map((detected||[]).map(g=>[canonicalGameId(g.id||g.name), g]));
+    const catalog = (catalogRes && catalogRes.ok && Array.isArray(catalogRes.games)) ? catalogRes.games : [];
+    const all = catalog.map(g=>{
+      const id = canonicalGameId(g.id || g.name);
+      const d = detectedMap.get(id);
+      return { id, name:g.name, exe:(d&&d.exePath) || ((g.exes&&g.exes[0])||''), selected:!!d };
+    });
+    for (const d of detected||[]) {
+      const id = canonicalGameId(d.id || d.name);
+      if (!all.some(x=>x.id===id)) all.push({ id, name:d.name||id, exe:d.exePath||'', selected:true });
+    }
+    return all;
   };
 
   let games = [];
-  try {
-    games = await window.falcon.scanInstalledGames();
-    statusEl.textContent = games.length ? `Detected ${games.length} supported game(s).` : 'No supported games detected.';
-  } catch(e) {
-    statusEl.textContent = 'Scan failed. Run as admin, or use Add games.';
-  }
-  render(games);
+  try { games = await fromCatalog(); statusEl.textContent = `Loaded ${games.length} game(s).`; } catch(e){ statusEl.textContent = 'Scan failed.'; }
+  await render(games);
 
+  if (searchEl) searchEl.oninput = () => { render(games); };
   const refreshBtn = document.getElementById('npRefresh');
-  if (refreshBtn) refreshBtn.onclick = async () => {
-    statusEl.textContent = 'Scanning for installed games…';
-    try {
-      games = await window.falcon.scanInstalledGames();
-      statusEl.textContent = games.length ? `Detected ${games.length} supported game(s).` : 'No supported games detected.';
-    } catch(e) {
-      statusEl.textContent = 'Scan failed.';
-    }
-    render(games);
+  if (refreshBtn) refreshBtn.onclick = async () => { statusEl.textContent='Scanning…'; games = await fromCatalog(); statusEl.textContent=`Loaded ${games.length} game(s).`; await render(games); };
+
+  document.getElementById('npApplySelected').onclick = async () => {
+    const selected = getSelected(games);
+    const res = await window.falcon.applyGameQoS(selected);
+    lastLog = ((res&&res.stdout)||'') + '\n' + ((res&&res.stderr)||'');
+    document.getElementById('npLog').textContent = lastLog.trim();
+    showToast(res && res.ok ? `Applied ${selected.length} policy item(s).` : 'Apply failed.', res && res.ok ? 'success' : 'error');
   };
-
-  if (searchEl) searchEl.oninput = () => render(games);
-
-  listEl.addEventListener('click', async (ev) => {
-    const btn = ev.target && ev.target.closest ? ev.target.closest('button[data-act]') : null;
-    if (!btn) return;
-    const id = btn.getAttribute('data-id');
-    const act = btn.getAttribute('data-act');
-    if (!id || !act) return;
-
-    const action = (act === 'enable') ? 'EnableQoS' : 'DisableQoS';
-    try {
-      const res = await window.falcon.runGamePack(id, action);
-      lastLog = (res && (res.stdout || res.stderr)) ? ((res.stdout||'') + '\n' + (res.stderr||'')).trim() : lastLog;
-      document.getElementById('npLog').textContent = lastLog || '';
-      showToast((act === 'enable') ? 'Enabled DSCP 46 for ' + id : 'Disabled DSCP 46 for ' + id, (res && res.ok) ? 'success' : 'error');
-    } catch(e) {
-      showToast('Failed to run game policy for ' + id, 'error');
-    }
-  });
-
-  const addBtn = document.getElementById('npAddGames');
-  if (addBtn) addBtn.onclick = () => {
-    showToast('Custom game adds: coming next. For now, drop a cover image into images/games and use the built-in supported list.', 'info');
+  document.getElementById('npRemoveSelected').onclick = async () => {
+    const selected = getSelected(games);
+    const res = await window.falcon.removeGameQoS(selected);
+    lastLog = ((res&&res.stdout)||'') + '\n' + ((res&&res.stderr)||'');
+    document.getElementById('npLog').textContent = lastLog.trim();
+    showToast(res && res.ok ? `Removed ${selected.length} policy item(s).` : 'Remove failed.', res && res.ok ? 'success' : 'error');
+  };
+  document.getElementById('npAddGames').onclick = async () => {
+    const name = prompt('Custom game name');
+    if (!name) return;
+    const exe = prompt('Executable name (example: MyGame.exe)');
+    if (!exe) return;
+    const id = canonicalGameId(name);
+    games.unshift({ id, name, exe, selected:true, custom:true });
+    await render(games);
+    showToast('Custom game added. Select it then click Apply priority to selected.', 'success');
   };
 }
 

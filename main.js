@@ -1724,52 +1724,25 @@ ipcMain.handle("falcon:scanInstalledGames", async () => {
 
     const steamCommons = getSteamCommonDirs();
 
-    const games = [
-      { id:"fortnite", name:"Fortnite", paths:[
-        path.join(pf, "Epic Games","Fortnite","FortniteGame","Binaries","Win64","FortniteClient-Win64-Shipping.exe"),
-        path.join(pfx86, "Epic Games","Fortnite","FortniteGame","Binaries","Win64","FortniteClient-Win64-Shipping.exe"),
-      ]},
-      { id:"valorant", name:"VALORANT", paths:[
-        path.join(pf, "Riot Games","VALORANT","live","ShooterGame","Binaries","Win64","VALORANT-Win64-Shipping.exe"),
-        path.join(pfx86, "Riot Games","VALORANT","live","ShooterGame","Binaries","Win64","VALORANT-Win64-Shipping.exe"),
-      ]},
-      { id:"cs2", name:"Counter-Strike 2", paths: steamCommons.flatMap(sc => ([
-        path.join(sc, "Counter-Strike Global Offensive","game","bin","win64","cs2.exe"),
-        path.join(sc, "Counter-Strike 2","game","bin","win64","cs2.exe"),
-      ]))},
-      { id:"apex", name:"Apex Legends", paths:[
-        ...steamCommons.map(sc => path.join(sc, "Apex Legends","r5apex.exe")),
-        path.join(pf, "EA Games","Apex Legends","r5apex.exe"),
-        path.join(pfx86, "EA Games","Apex Legends","r5apex.exe"),
-        path.join(pf, "Origin Games","Apex","r5apex.exe"),
-        path.join(pfx86, "Origin Games","Apex","r5apex.exe"),
-      ]},
-      { id:"overwatch2", name:"Overwatch 2", paths:[
-        path.join(pf, "Overwatch","_retail_","Overwatch.exe"),
-        path.join(pfx86, "Overwatch","_retail_","Overwatch.exe"),
-      ]},
-      { id:"rocketleague", name:"Rocket League", paths:[
-        ...steamCommons.map(sc => path.join(sc, "rocketleague","Binaries","Win64","RocketLeague.exe")),
-        ...steamCommons.map(sc => path.join(sc, "Rocket League","Binaries","Win64","RocketLeague.exe")),
-        path.join(pf, "Epic Games","rocketleague","Binaries","Win64","RocketLeague.exe"),
-      ]},
-      { id:"gta5", name:"GTA V", paths:[
-        ...steamCommons.map(sc => path.join(sc, "Grand Theft Auto V","GTA5.exe")),
-        path.join(pf, "Rockstar Games","Grand Theft Auto V","GTA5.exe"),
-      ]},
-      { id:"league", name:"League of Legends", paths:[
-        path.join(pf, "Riot Games","League of Legends","LeagueClient.exe"),
-        path.join(pfx86, "Riot Games","League of Legends","LeagueClient.exe"),
-      ]},
-      { id:"geforcenow", name:"GeForce NOW", paths:[
-        path.join(lad, "NVIDIA Corporation","GeForceNOW","CEF","GeForceNOW.exe"),
-        path.join(pf, "NVIDIA Corporation","GeForceNOW","CEF","GeForceNOW.exe"),
-      ]},
-      { id:"cod", name:"Call of Duty", paths:[
-        ...steamCommons.map(sc => path.join(sc, "Call of Duty HQ","cod.exe")),
-        ...steamCommons.map(sc => path.join(sc, "Call of Duty","cod.exe")),
-      ]},
-    ];
+    const catalogPath = path.join(__dirname, 'data', 'games.json');
+    const catalog = fs.existsSync(catalogPath)
+      ? JSON.parse(fs.readFileSync(catalogPath, 'utf-8'))
+      : { games: [] };
+    const knownGames = Array.isArray(catalog.games) ? catalog.games : [];
+    const games = knownGames.map((g) => {
+      const exes = Array.isArray(g.exes) ? g.exes : [];
+      const paths = [];
+      for (const exe of exes) {
+        paths.push(...steamCommons.map(sc => path.join(sc, g.name || '', exe)));
+        paths.push(path.join(pf, 'Epic Games', g.name || '', exe));
+        paths.push(path.join(pfx86, 'Epic Games', g.name || '', exe));
+        paths.push(path.join(pf, 'Riot Games', g.name || '', exe));
+        paths.push(path.join(pfx86, 'Riot Games', g.name || '', exe));
+        paths.push(path.join(pf, 'Battle.net', g.name || '', exe));
+        paths.push(path.join(lad, g.name || '', exe));
+      }
+      return { id: g.id, name: g.name, exes, paths: Array.from(new Set(paths)) };
+    });
 
     const found = [];
     for (const g of games) {
@@ -1782,6 +1755,84 @@ ipcMain.handle("falcon:scanInstalledGames", async () => {
     return found;
   } catch (e) {
     return [];
+  }
+});
+
+ipcMain.handle("falcon:getGamesCatalog", async () => {
+  try {
+    const catalogPath = path.join(__dirname, 'data', 'games.json');
+    const raw = fs.readFileSync(catalogPath, 'utf-8');
+    return { ok: true, games: (JSON.parse(raw).games || []) };
+  } catch (e) {
+    return { ok: false, games: [], error: String(e && e.message ? e.message : e) };
+  }
+});
+
+ipcMain.handle("falcon:applyGameQoS", async (_evt, payload) => {
+  try {
+    const entries = Array.isArray(payload && payload.entries) ? payload.entries : [];
+    if (!entries.length) return { ok: false, stdout: '', stderr: 'No games selected' };
+    const cmdParts = entries.map((e) => {
+      const exe = String(e.exe || '').replace(/'/g, "''");
+      const name = String(e.name || e.id || exe || 'Custom').replace(/'/g, "''");
+      const policy = `Falcon DSCP46 ${name}`;
+      return `try { New-NetQosPolicy -Name '${policy}' -AppPathNameMatchCondition '*${exe}' -DSCPAction 46 -IPProtocol Both -ErrorAction Stop | Out-Null; Write-Output 'Applied:${policy}' } catch { Write-Output 'Failed:${policy}'; Write-Output $_.Exception.Message }`;
+    });
+    return await runPsInline(cmdParts.join('; '));
+  } catch (e) {
+    return { ok: false, stdout: '', stderr: String(e && e.message ? e.message : e) };
+  }
+});
+
+ipcMain.handle("falcon:removeGameQoS", async (_evt, payload) => {
+  try {
+    const entries = Array.isArray(payload && payload.entries) ? payload.entries : [];
+    if (!entries.length) return { ok: false, stdout: '', stderr: 'No games selected' };
+    const cmdParts = entries.map((e) => {
+      const name = String(e.name || e.id || '').replace(/'/g, "''");
+      const policy = `Falcon DSCP46 ${name}`;
+      return `try { Remove-NetQosPolicy -Name '${policy}' -Confirm:$false -ErrorAction Stop; Write-Output 'Removed:${policy}' } catch { Write-Output 'Failed:${policy}'; Write-Output $_.Exception.Message }`;
+    });
+    return await runPsInline(cmdParts.join('; '));
+  } catch (e) {
+    return { ok: false, stdout: '', stderr: String(e && e.message ? e.message : e) };
+  }
+});
+
+ipcMain.handle("falcon:resolveGameImage", async (_evt, payload) => {
+  try {
+    const id = String(payload && payload.gameId || '').toLowerCase().replace(/[^a-z0-9-]/g, '');
+    if (!id) return { ok: false, path: '' };
+    const userDir = path.join(app.getPath('userData'), 'user-images', 'games');
+    const exts = ['png', 'jpg', 'jpeg'];
+    for (const ext of exts) {
+      const p = path.join(userDir, `${id}.${ext}`);
+      if (fs.existsSync(p)) return { ok: true, path: `file://${p.replace(/\\/g, '/')}`, source: 'userData' };
+    }
+    for (const ext of exts) {
+      const p = path.join(__dirname, 'images', 'games', `${id}.${ext}`);
+      if (fs.existsSync(p)) return { ok: true, path: `file://${p.replace(/\\/g, '/')}`, source: 'bundled' };
+    }
+    const fallback = path.join(__dirname, 'images', 'games', 'default.png');
+    return { ok: true, path: `file://${fallback.replace(/\\/g, '/')}`, source: 'fallback' };
+  } catch (e) {
+    return { ok: false, path: '', error: String(e && e.message ? e.message : e) };
+  }
+});
+
+ipcMain.handle("falcon:saveGameImage", async (_evt, payload) => {
+  try {
+    const id = String(payload && payload.gameId || '').toLowerCase().replace(/[^a-z0-9-]/g, '');
+    const dataUrl = String(payload && payload.dataUrl || '');
+    if (!id || !dataUrl.startsWith('data:image/')) return { ok: false, error: 'Invalid upload payload' };
+    const b64 = dataUrl.split(',')[1] || '';
+    const outDir = path.join(app.getPath('userData'), 'user-images', 'games');
+    fs.mkdirSync(outDir, { recursive: true });
+    const outPath = path.join(outDir, `${id}.png`);
+    fs.writeFileSync(outPath, Buffer.from(b64, 'base64'));
+    return { ok: true, path: outPath };
+  } catch (e) {
+    return { ok: false, error: String(e && e.message ? e.message : e) };
   }
 });
 

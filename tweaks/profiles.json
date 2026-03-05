@@ -1,68 +1,55 @@
 {
-  "version": 2,
+  "version": 3,
   "profiles": [
     {
-      "id": "safe_competitive",
-      "name": "Safe Competitive",
-      "description": "Safe performance + latency improvements. Excludes High/Critical and excludes items flagged excludeFromApplyAll.",
-      "includeRiskLevels": [
-        "Safe",
-        "Warning"
-      ],
-      "includeExcluded": false,
-      "applyStretchDefault": true
-    },
-    {
-      "id": "aggressive_competitive",
-      "name": "Aggressive Competitive",
-      "description": "Includes most performance tweaks including some High risk. Still excludes Critical and excluded items by default.",
-      "includeRiskLevels": [
-        "Safe",
-        "Warning",
-        "High"
-      ],
-      "includeExcluded": false,
-      "applyStretchDefault": true
-    },
-    {
-      "id": "all_in_risky",
-      "name": "All In (Risky)",
-      "description": "Includes everything including excluded items. Requires typed confirmation.",
-      "includeRiskLevels": [
-        "Safe",
-        "Warning",
-        "High",
-        "Critical"
-      ],
-      "includeExcluded": true,
-      "requireTypedPhrase": "I UNDERSTAND",
-      "applyStretchDefault": true
-    },
-    {
-      "id": "laptop_gaming_thermal_safe",
-      "name": "Laptop Gaming (Thermal-Safe)",
-      "includeRiskLevels": [
-        "Safe",
-        "Warning",
-        "High"
-      ],
+      "id": "balanced",
+      "name": "Balanced",
+      "description": "Daily stable profile: safe + warning optimizations with reversible defaults.",
+      "includeRiskLevels": ["Safe", "Warning"],
       "includeExcluded": false,
       "applyStretchDefault": true,
-      "machineProfiles": [
-        "laptop"
+      "actions": [
+        { "type": "boostpack", "id": "boostpack.v8_3_safe" },
+        { "type": "tool", "id": "falconlib.timer_resolution" }
       ]
     },
     {
-      "id": "laptop_balanced",
-      "name": "Laptop Balanced (Battery + Performance)",
-      "includeRiskLevels": [
-        "Safe",
-        "Warning"
-      ],
+      "id": "performance",
+      "name": "Performance",
+      "description": "Higher performance profile with selected high-risk tweaks and BoostPack 8.3.",
+      "includeRiskLevels": ["Safe", "Warning", "High"],
       "includeExcluded": false,
       "applyStretchDefault": true,
-      "machineProfiles": [
-        "laptop"
+      "actions": [
+        { "type": "boostpack", "id": "boostpack.v8_3" },
+        { "type": "tool", "id": "falconlib.network_tweaks" }
+      ]
+    },
+    {
+      "id": "hardcore_extreme",
+      "name": "Hardcore Extreme",
+      "description": "Aggressive tuning with explicit warnings; avoids irreversible removals by default.",
+      "includeRiskLevels": ["Safe", "Warning", "High", "Critical"],
+      "includeExcluded": false,
+      "requireTypedPhrase": "HARDCORE",
+      "applyStretchDefault": true,
+      "actions": [
+        { "type": "boostpack", "id": "boostpack.v8_3" },
+        { "type": "tool", "id": "falconlib.process_cleanup" }
+      ]
+    },
+    {
+      "id": "lethal_mode",
+      "name": "Lethal Mode",
+      "description": "Extreme process/service stripping mode. Requires typed confirmation and backup snapshot first.",
+      "includeRiskLevels": ["Safe", "Warning", "High", "Critical"],
+      "includeExcluded": true,
+      "requireTypedPhrase": "LETHAL",
+      "requireSnapshot": true,
+      "applyStretchDefault": false,
+      "actions": [
+        { "type": "boostpack", "id": "process-destroyer-extreme.v2_5" },
+        { "type": "tool", "id": "falconlib.process_destroyer" }
       ]
     }
   ]

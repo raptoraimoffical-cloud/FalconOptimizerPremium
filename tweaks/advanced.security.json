@@ -595,6 +595,76 @@
       "revert": {
         "steps": []
       }
+    },
+    {
+      "id": "adv.security.defender.disableantispyware_policy",
+      "name": "Defender Policy: DisableAntiSpyware (Legacy Policy Toggle)",
+      "category": "Advanced / Security",
+      "risk": "High",
+      "description": "Sets Defender policy key DisableAntiSpyware=1 and verifies readback. Modern Windows builds may ignore this policy; Defender UI remains available.",
+      "details": {
+        "recommendedFor": "Advanced users testing legacy Defender policy behavior on controlled systems.",
+        "benefits": [
+          "Applies known legacy policy key quickly",
+          "Logs verification output"
+        ],
+        "tradeoffs": [
+          "May be ignored by modern builds",
+          "Potentially lowers malware protection if honored"
+        ],
+        "riskNotes": [
+          "High risk security tradeoff",
+          "Windows may ignore this setting on current builds"
+        ],
+        "reversible": "Yes. Use Revert to delete the policy value.",
+        "requiresReboot": false
+      },
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "cmd.exe",
+            "args": [
+              "/c",
+              "reg add \"HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows Defender\" /v DisableAntiSpyware /t REG_DWORD /d 1 /f"
+            ],
+            "wait": true
+          },
+          {
+            "type": "shell.start",
+            "file": "cmd.exe",
+            "args": [
+              "/c",
+              "reg query \"HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows Defender\" /v DisableAntiSpyware"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "cmd.exe",
+            "args": [
+              "/c",
+              "reg delete \"HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows Defender\" /v DisableAntiSpyware /f"
+            ],
+            "wait": true
+          },
+          {
+            "type": "shell.start",
+            "file": "cmd.exe",
+            "args": [
+              "/c",
+              "reg query \"HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows Defender\" /v DisableAntiSpyware"
+            ],
+            "wait": true
+          }
+        ]
+      }
     }
   ]
 }
