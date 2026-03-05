@@ -1,0 +1,24 @@
+{
+  "games": [
+    {"id":"fortnite","name":"Fortnite","exes":["FortniteClient-Win64-Shipping.exe"]},
+    {"id":"valorant","name":"VALORANT","exes":["VALORANT-Win64-Shipping.exe"]},
+    {"id":"cs2","name":"Counter-Strike 2","exes":["cs2.exe"]},
+    {"id":"apex","name":"Apex Legends","exes":["r5apex.exe"]},
+    {"id":"overwatch2","name":"Overwatch 2","exes":["Overwatch.exe"]},
+    {"id":"rocketleague","name":"Rocket League","exes":["RocketLeague.exe"]},
+    {"id":"gta5","name":"GTA V","exes":["GTA5.exe"]},
+    {"id":"league","name":"League of Legends","exes":["LeagueClient.exe"]},
+    {"id":"cod","name":"Call of Duty","exes":["cod.exe"]},
+    {"id":"geforcenow","name":"GeForce NOW","exes":["GeForceNOW.exe"]},
+    {"id":"pubg","name":"PUBG","exes":["TslGame.exe"]},
+    {"id":"rainbowsix","name":"Rainbow Six Siege","exes":["RainbowSix.exe"]},
+    {"id":"dota2","name":"Dota 2","exes":["dota2.exe"]},
+    {"id":"warframe","name":"Warframe","exes":["Warframe.x64.exe"]},
+    {"id":"destiny2","name":"Destiny 2","exes":["destiny2.exe"]},
+    {"id":"rust","name":"Rust","exes":["RustClient.exe"]},
+    {"id":"thefinals","name":"THE FINALS","exes":["Discovery.exe"]},
+    {"id":"battlefield2042","name":"Battlefield 2042","exes":["bf2042.exe"]},
+    {"id":"halo-infinite","name":"Halo Infinite","exes":["HaloInfinite.exe"]},
+    {"id":"fivem","name":"FiveM","exes":["FiveM_b2545_GTAProcess.exe"]}
+  ]
+}

@@ -227,6 +227,72 @@
       "riskLevel": "Safe",
       "kind": "tool",
       "manualOnly": true
+    },
+    {
+      "id": "boost.scan_fix_drive_errors",
+      "name": "Scan & Fix Drive Errors",
+      "category": "Falcon Speed & Integrity Core / Integrity & Repair",
+      "risk": "Safe",
+      "description": "[Focus: Stability] Runs Windows volume scan/repair (Repair-Volume -Scan) for all fixed drives.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "$ErrorActionPreference='SilentlyContinue'; $drives = Get-Volume | Where-Object { $_.DriveLetter -and $_.DriveType -eq 'Fixed' } | Select-Object -ExpandProperty DriveLetter; foreach($d in $drives){ try { Repair-Volume -DriveLetter $d -Scan } catch { } }"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "boost.scan_fix_system_errors",
+      "name": "Scan & Fix System Errors",
+      "category": "Falcon Speed & Integrity Core / Integrity & Repair",
+      "risk": "Safe",
+      "description": "[Focus: Stability] Runs SFC and DISM health repair to fix corrupted system files.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "cmd.exe",
+            "args": [
+              "/c",
+              "sfc /scannow"
+            ],
+            "wait": true
+          },
+          {
+            "type": "shell.start",
+            "file": "cmd.exe",
+            "args": [
+              "/c",
+              "DISM /Online /Cleanup-Image /RestoreHealth"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "note": "Converted from toggle (missing revert).",
+      "kind": "tool",
+      "manualOnly": true
     }
   ]
 }

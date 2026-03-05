@@ -86,6 +86,11 @@ selfTest: () => ipcRenderer.invoke("falcon:selfTest"),
 // game scan + per-game QoS (Network Priority)
 scanInstalledGames: () => ipcRenderer.invoke("falcon:scanInstalledGames"),
 runGamePack: (gameId, action) => ipcRenderer.invoke("falcon:runGamePack", { gameId, action }),
+getGamesCatalog: () => ipcRenderer.invoke("falcon:getGamesCatalog"),
+applyGameQoS: (entries) => ipcRenderer.invoke("falcon:applyGameQoS", { entries }),
+removeGameQoS: (entries) => ipcRenderer.invoke("falcon:removeGameQoS", { entries }),
+resolveGameImage: (gameId) => ipcRenderer.invoke("falcon:resolveGameImage", { gameId }),
+saveGameImage: (gameId, dataUrl) => ipcRenderer.invoke("falcon:saveGameImage", { gameId, dataUrl }),
 
 // power plans
 applyPowerPlan: (mode) => ipcRenderer.invoke("falcon:applyPowerPlan", { mode }),
