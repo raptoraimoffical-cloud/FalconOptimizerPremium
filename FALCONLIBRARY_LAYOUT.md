@@ -1,28 +1,34 @@
-# FalconLibrary Canonical Layout
+# FalconLibrary Layout (Canonical)
 
-Canonical tool root for all `falconlib.run` cards:
+## Canonical root
+All FalconLibrary tool invocations must resolve under:
 
 - `tools/FalconLibrary/`
 
-## Required executable locations
+## Required structure
 
-- `tools/FalconLibrary/NSudo/NSudoLG.exe`
-- `tools/FalconLibrary/Timer Resolution/SetTimerResolution.exe`
-- `tools/FalconLibrary/DPC Checker/dpclat.exe`
-- `tools/FalconLibrary/OOshutup10/OOSU10.exe`
-- `tools/FalconLibrary/Nvidia/Nvidia Profile Inspector/nvidiaProfileInspector.exe`
-- `tools/FalconLibrary/Edge Remover/setup.exe`
+```text
+tools/
+  FalconLibrary/
+    NSudo/
+      NSudoLG.exe
+    Timer Resolution/
+      SetTimerResolution.exe
+    DPC Checker/
+      dpclat.exe
+    OOshutup10/
+      OOSU10.exe
+    Nvidia/
+      Nvidia Profile Inspector/
+        nvidiaProfileInspector.exe
+    Edge Remover/
+      setup.exe
+```
 
-## Companion files copied with tool families
-
-- `tools/FalconLibrary/NSudo/1- What's NSudo.txt`
-- `tools/FalconLibrary/Timer Resolution/1- What's SetTimerResolution.txt`
-- `tools/FalconLibrary/DPC Checker/1- What's dpclat.txt`
-- `tools/FalconLibrary/OOshutup10/FalconOOshutup10 V2.cfg`
-- `tools/FalconLibrary/Nvidia/Nvidia Profile Inspector/NovaOS.nip`
-- `tools/FalconLibrary/Edge Remover/1- What's Setup.txt`
-
-## Enforcement
-
-- `scripts/run-action.ps1` resolves `falconlib.run.toolPath` strictly against repo root (dev) and `resources/app.asar.unpacked` (packaged).
-- `scripts/qa_links.js` fails the build if any `falconlib.run.toolPath` is missing or points to legacy `FalconLibrary/**` roots.
+## Enforcement rules
+- `falconlib.run.toolPath` values must use `tools/FalconLibrary/**`.
+- Legacy prefixes are prohibited:
+  - `FalconLibrary/`
+  - `FalconLibrary/FalconLibrary/`
+- TrustedInstaller elevation must use only:
+  - `tools/FalconLibrary/NSudo/NSudoLG.exe`

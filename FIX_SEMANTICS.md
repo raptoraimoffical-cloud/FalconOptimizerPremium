@@ -1,18 +1,20 @@
 # Fix Semantics
 
-`Fix now` is standardized to behave like `Apply`, but only after a compliance check.
+`Fix` follows deterministic repair flow and mirrors Apply/Verify behavior.
 
-## Flow used by Fix cards
+## Execution contract
+1. Run `check`.
+2. If compliant, return success (no repair).
+3. If non-compliant, run `fix.steps` when present; otherwise run `apply.steps`.
+4. Re-run verification and return success only if post-repair verification succeeds.
 
-1. Run `check` steps first.
-2. If already compliant, return success without running repair.
-3. If not compliant, run repair action:
-   - `fix.steps` when present.
-   - otherwise fallback to regular `apply`.
-4. Run `check` again and return success only when repair and post-check both pass.
+## Service-specific behavior
+- `Get-ServiceInfoSafe()` returns a stable object shape with keys:
+  - `exists`, `name`, `startMode`, `state`, `status`
+- Missing service behavior during verification:
+  - default: warning + skipped verification
+  - hard-fail only when `failIfMissing: true`
 
 ## Guardrails
-
-- No legacy extras/alternate fix routing is used.
-- Missing services during `service.startup` verification are treated as warning+skipped, not hard failure, unless `failIfMissing: true` is set on the step.
-- Skipped service checks do not turn Fix into a failed state.
+- No legacy one-off fix scripts are required for standard Fix behavior.
+- Skipped missing services do not convert Fix into failure unless explicitly configured.

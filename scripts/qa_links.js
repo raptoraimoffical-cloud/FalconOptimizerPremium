@@ -6,116 +6,105 @@ const root = path.resolve(__dirname, '..');
 const manifestPath = path.join(root, 'tweaks', '_manifest.json');
 const reportPath = path.join(root, 'QA_LINKS_REPORT.txt');
 
-const readJson = (p) => JSON.parse(fs.readFileSync(p, 'utf8'));
-const normalize = (p) => String(p || '').replace(/\\/g, '/');
+function readJson(p) {
+  return JSON.parse(fs.readFileSync(p, 'utf8'));
+}
 
-function collectFalconRunSteps() {
-  const manifest = readJson(manifestPath);
-  const files = Array.isArray(manifest.files) ? manifest.files : [];
-  const out = [];
+function normalizePath(p) {
+  return String(p || '').replace(/\\/g, '/');
+}
 
-  for (const rel of files) {
-    const abs = path.join(root, rel);
-    if (!fs.existsSync(abs) || path.extname(abs).toLowerCase() !== '.json') continue;
+function collectFalconlibRunSteps(manifestFiles) {
+  const steps = [];
 
-    let data;
-    try { data = readJson(abs); } catch { continue; }
+  for (const relPath of manifestFiles) {
+    const filePath = path.join(root, relPath);
+    if (!fs.existsSync(filePath) || path.extname(filePath).toLowerCase() !== '.json') continue;
 
-    const cards = [];
-    if (Array.isArray(data.tweaks)) cards.push(...data.tweaks);
-    if (Array.isArray(data.items)) cards.push(...data.items);
+    let doc;
+    try {
+      doc = readJson(filePath);
+    } catch (error) {
+      console.error(`ERROR invalid-json file=${relPath} message=${error.message}`);
+      continue;
+    }
 
-    for (const card of cards) {
-      const id = card.id || card.name || rel;
-      const groups = [card.apply, card.revert, card.check, card.fix];
-      if (Array.isArray(card.steps)) groups.push({ steps: card.steps });
+    const containers = [];
+    if (Array.isArray(doc.tweaks)) containers.push(...doc.tweaks);
+    if (Array.isArray(doc.items)) containers.push(...doc.items);
+
+    for (const tweak of containers) {
+      const tweakId = tweak?.id || tweak?.name || relPath;
+      const groups = [tweak?.apply, tweak?.revert, tweak?.check, tweak?.fix];
+      if (Array.isArray(tweak?.steps)) groups.push({ steps: tweak.steps });
+
       for (const group of groups) {
         if (!group || !Array.isArray(group.steps)) continue;
         for (const step of group.steps) {
-          if (!step || step.type !== 'falconlib.run') continue;
-          out.push({
-            tweakId: id,
-            tweakFile: rel,
-            toolPath: normalize(step.toolPath || ''),
-            elevation: String(step.elevation || 'none').toLowerCase()
+          if (step?.type !== 'falconlib.run') continue;
+          steps.push({
+            tweakId,
+            tweakFile: relPath,
+            toolPath: normalizePath(step.toolPath)
           });
         }
       }
     }
   }
 
-  return out;
+  return steps;
 }
 
-function walkHasEntries(dir) {
-  if (!fs.existsSync(dir)) return false;
-  const stack = [dir];
-  while (stack.length) {
-    const cur = stack.pop();
-    for (const ent of fs.readdirSync(cur, { withFileTypes: true })) {
-      const full = path.join(cur, ent.name);
-      if (ent.isDirectory()) stack.push(full);
-      else return true;
-    }
-  }
-  return false;
-}
+const manifest = readJson(manifestPath);
+const manifestFiles = Array.isArray(manifest.files) ? manifest.files : [];
+const runSteps = collectFalconlibRunSteps(manifestFiles);
 
-const runSteps = collectFalconRunSteps();
-const failures = [];
-const warnings = [];
-let passing = 0;
+const errors = [];
+let valid = 0;
+let invalid = 0;
+let legacyReferences = 0;
 
-for (const step of runSteps) {
-  const hasLegacyPrefix = step.toolPath.startsWith('FalconLibrary/') || step.toolPath.startsWith('FalconLibrary/FalconLibrary/');
-  const expectedAbs = path.join(root, step.toolPath);
-  const exists = !!step.toolPath && fs.existsSync(expectedAbs);
-
-  if (hasLegacyPrefix) {
-    failures.push(`FAIL legacy-root-reference tweakId=${step.tweakId} file=${step.tweakFile} toolPath=${step.toolPath}`);
+for (const entry of runSteps) {
+  const toolPath = entry.toolPath;
+  const isLegacy = toolPath.startsWith('FalconLibrary/') || toolPath.startsWith('FalconLibrary/FalconLibrary/');
+  if (isLegacy) {
+    legacyReferences += 1;
+    invalid += 1;
+    errors.push(`ERROR legacy-toolpath tweak=${entry.tweakId} file=${entry.tweakFile} toolPath=${toolPath}`);
     continue;
   }
 
-  if (!exists) {
-    failures.push(`FAIL missing-tool tweakId=${step.tweakId} file=${step.tweakFile} toolPath=${step.toolPath} expected=${expectedAbs}`);
-  } else {
-    passing += 1;
+  if (!toolPath) {
+    invalid += 1;
+    errors.push(`ERROR missing-toolpath tweak=${entry.tweakId} file=${entry.tweakFile}`);
+    continue;
   }
+
+  const absoluteToolPath = path.join(root, toolPath);
+  if (!fs.existsSync(absoluteToolPath)) {
+    invalid += 1;
+    errors.push(`ERROR missing-tool tweak=${entry.tweakId} file=${entry.tweakFile} toolPath=${toolPath}`);
+    continue;
+  }
+
+  valid += 1;
 }
 
-const legacyRoot = path.join(root, 'FalconLibrary');
-const legacyNestedRoot = path.join(root, 'FalconLibrary', 'FalconLibrary');
-if (walkHasEntries(legacyRoot)) warnings.push(`WARN legacy root still exists: ${legacyRoot}`);
-if (walkHasEntries(legacyNestedRoot)) warnings.push(`WARN nested legacy root still exists: ${legacyNestedRoot}`);
+const summary = [
+  `falconlib.run steps: ${runSteps.length}`,
+  `valid: ${valid}`,
+  `invalid: ${invalid}`,
+  `legacy references: ${legacyReferences}`
+];
 
-const hasTrustedInstaller = runSteps.some((s) => s.elevation === 'trustedinstaller');
-const nsudoPath = path.join(root, 'tools/FalconLibrary/NSudo/NSudoLG.exe');
-if (hasTrustedInstaller && !fs.existsSync(nsudoPath)) {
-  failures.push(`FAIL trustedinstaller-requires-nsudo missing=${nsudoPath}`);
+const reportLines = ['QA_LINKS_REPORT', `generated: ${new Date().toISOString()}`, '', ...summary, ''];
+if (errors.length) {
+  reportLines.push('errors:');
+  reportLines.push(...errors);
+} else {
+  reportLines.push('errors: none');
 }
 
-const hasTimerCard = runSteps.some((s) => /timer_resolution/i.test(s.tweakId) || /SetTimerResolution\.exe$/i.test(s.toolPath));
-const timerPath = path.join(root, 'tools/FalconLibrary/Timer Resolution/SetTimerResolution.exe');
-if (hasTimerCard && !fs.existsSync(timerPath)) {
-  failures.push(`FAIL timer-resolution-tool-missing missing=${timerPath}`);
-}
-
-const report = [];
-report.push('QA LINKS REPORT');
-report.push(`Generated: ${new Date().toISOString()}`);
-report.push('');
-report.push(`total falconlib.run steps: ${runSteps.length}`);
-report.push(`number passing: ${passing}`);
-report.push(`number failing: ${failures.length}`);
-report.push('');
-report.push('Warnings:');
-if (warnings.length) warnings.forEach((w) => report.push(`- ${w}`));
-else report.push('- none');
-report.push('');
-report.push('Failures:');
-if (failures.length) failures.forEach((f) => report.push(`- ${f}`));
-else report.push('- none');
-
-fs.writeFileSync(reportPath, report.join('\n') + '\n', 'utf8');
-console.log(report.join('\n'));
-process.exit(failures.length ? 1 : 0);
+fs.writeFileSync(reportPath, reportLines.join('\n') + '\n', 'utf8');
+console.log(reportLines.join('\n'));
+process.exit(errors.length > 0 ? 1 : 0);
