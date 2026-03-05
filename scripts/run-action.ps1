@@ -218,7 +218,7 @@ function Invoke-WithElevation([string]$filePath, [string[]]$args, [string]$eleva
 
   if ($mode -eq "trustedinstaller") {
     $nsudo = Resolve-NSudoPath
-    if ([string]::IsNullOrWhiteSpace($nsudo) -or !(Test-Path -LiteralPath $nsudo)) { throw "NSudo missing at tools/FalconLibrary/NSudo/NSudoLG.exe" }
+    if ([string]::IsNullOrWhiteSpace($nsudo) -or !(Test-Path -LiteralPath $nsudo)) { throw "NSudo not found at tools/FalconLibrary/NSudo/NSudoLG.exe" }
     $quotedExe = '"' + $exe + '"'
     $argLine = if ($args) { ($args | ForEach-Object { '"' + [string]$_ + '"' }) -join ' ' } else { "" }
     $cmd = if ([string]::IsNullOrWhiteSpace($argLine)) { $quotedExe } else { "$quotedExe $argLine" }
@@ -799,7 +799,7 @@ for ($i = 0; $i -lt $steps.Count; $i++) {
         if ([string]::IsNullOrWhiteSpace($file)) { throw "nsudo.run missing file" }
         $nsudo = Resolve-NSudoPath
         $scriptPath = Resolve-FalconToolPath $file
-        if ([string]::IsNullOrWhiteSpace($nsudo) -or !(Test-Path -LiteralPath $nsudo)) { throw "NSudo not found in FalconLibrary paths" }
+        if ([string]::IsNullOrWhiteSpace($nsudo) -or !(Test-Path -LiteralPath $nsudo)) { throw "NSudo not found at tools/FalconLibrary/NSudo/NSudoLG.exe" }
         if (!(Test-Path -LiteralPath $scriptPath)) { throw "Script not found at $scriptPath" }
         Log "NSUDO RUN (SYSTEM): $scriptPath"
         Start-Process $nsudo -ArgumentList @("-U:T","-P:E","-Wait",$scriptPath) -WindowStyle Hidden -Wait
