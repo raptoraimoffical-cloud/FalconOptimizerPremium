@@ -1,38 +1,1553 @@
 {
   "games": [
-    {"id":"fortnite","name":"Fortnite","exes":["FortniteClient-Win64-Shipping.exe"]},
-    {"id":"valorant","name":"VALORANT","exes":["VALORANT-Win64-Shipping.exe","VALORANT.exe"]},
-    {"id":"cs2","name":"Counter-Strike 2","exes":["cs2.exe"]},
-    {"id":"overwatch2","name":"Overwatch 2","exes":["Overwatch.exe"]},
-    {"id":"apex_legends","name":"Apex Legends","exes":["r5apex.exe"]},
-    {"id":"rainbow_six_siege","name":"Rainbow Six Siege","exes":["RainbowSix.exe"]},
-    {"id":"rocket_league","name":"Rocket League","exes":["RocketLeague.exe"]},
-    {"id":"league_of_legends","name":"League of Legends","exes":["LeagueClient.exe","LeagueClientUx.exe"]},
-    {"id":"dota_2","name":"Dota 2","exes":["dota2.exe"]},
-    {"id":"pubg","name":"PUBG: Battlegrounds","exes":["TslGame.exe"]},
-    {"id":"warzone","name":"Call of Duty: Warzone","exes":["cod.exe","ModernWarfare.exe"]},
-    {"id":"gta_5","name":"Grand Theft Auto V","exes":["GTA5.exe","PlayGTAV.exe"]},
-    {"id":"fivem","name":"FiveM","exes":["FiveM_b2545_GTAProcess.exe"]},
-    {"id":"minecraft","name":"Minecraft","exes":["javaw.exe","Minecraft.Windows.exe"]},
-    {"id":"roblox","name":"Roblox","exes":["RobloxPlayerBeta.exe"]},
-    {"id":"the_finals","name":"THE FINALS","exes":["Discovery.exe"]},
-    {"id":"battlefield_2042","name":"Battlefield 2042","exes":["bf2042.exe"]},
-    {"id":"halo_infinite","name":"Halo Infinite","exes":["HaloInfinite.exe"]},
-    {"id":"destiny_2","name":"Destiny 2","exes":["destiny2.exe"]},
-    {"id":"warframe","name":"Warframe","exes":["Warframe.x64.exe"]},
-    {"id":"escape_from_tarkov","name":"Escape from Tarkov","exes":["EscapeFromTarkov.exe"]},
-    {"id":"osu","name":"osu!","exes":["osu!.exe"]},
-    {"id":"geforce_now","name":"GeForce NOW","exes":["GeForceNOW.exe"]},
-    {"id":"world_of_warcraft","name":"World of Warcraft","exes":["Wow.exe","Wow-64.exe"]},
-    {"id":"diablo_4","name":"Diablo IV","exes":["Diablo IV.exe"]},
-    {"id":"hearthstone","name":"Hearthstone","exes":["Hearthstone.exe"]},
-    {"id":"path_of_exile","name":"Path of Exile","exes":["PathOfExile_x64.exe"]},
-    {"id":"rust","name":"Rust","exes":["RustClient.exe"]},
-    {"id":"dayz","name":"DayZ","exes":["DayZ_x64.exe"]},
-    {"id":"arma_3","name":"Arma 3","exes":["arma3_x64.exe"]},
-    {"id":"elden_ring","name":"Elden Ring","exes":["eldenring.exe"]},
-    {"id":"forza_horizon_5","name":"Forza Horizon 5","exes":["ForzaHorizon5.exe"]},
-    {"id":"ea_fc_24","name":"EA SPORTS FC 24","exes":["EASFC24.exe"]},
-    {"id":"rocket_racing","name":"Rocket Racing","exes":["FortniteClient-Win64-Shipping.exe"]}
+    {
+      "id": "fortnite",
+      "name": "Fortnite",
+      "exes": [
+        "FortniteClient-Win64-Shipping.exe"
+      ],
+      "store": "Epic"
+    },
+    {
+      "id": "valorant",
+      "name": "VALORANT",
+      "exes": [
+        "VALORANT-Win64-Shipping.exe",
+        "VALORANT.exe"
+      ],
+      "store": "Riot"
+    },
+    {
+      "id": "cs2",
+      "name": "Counter-Strike 2",
+      "exes": [
+        "cs2.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "overwatch2",
+      "name": "Overwatch 2",
+      "exes": [
+        "Overwatch.exe"
+      ],
+      "store": "Battle.net"
+    },
+    {
+      "id": "apex_legends",
+      "name": "Apex Legends",
+      "exes": [
+        "r5apex.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "rainbow_six_siege",
+      "name": "Rainbow Six Siege",
+      "exes": [
+        "RainbowSix.exe"
+      ],
+      "store": "Ubisoft"
+    },
+    {
+      "id": "rocket_league",
+      "name": "Rocket League",
+      "exes": [
+        "RocketLeague.exe"
+      ],
+      "store": "Epic"
+    },
+    {
+      "id": "league_of_legends",
+      "name": "League of Legends",
+      "exes": [
+        "LeagueClient.exe",
+        "LeagueClientUx.exe"
+      ],
+      "store": "Riot"
+    },
+    {
+      "id": "dota_2",
+      "name": "Dota 2",
+      "exes": [
+        "dota2.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "pubg",
+      "name": "PUBG: Battlegrounds",
+      "exes": [
+        "TslGame.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "warzone",
+      "name": "Call of Duty: Warzone",
+      "exes": [
+        "cod.exe",
+        "ModernWarfare.exe"
+      ],
+      "store": "Battle.net"
+    },
+    {
+      "id": "gta_5",
+      "name": "Grand Theft Auto V",
+      "exes": [
+        "GTA5.exe",
+        "PlayGTAV.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "fivem",
+      "name": "FiveM",
+      "exes": [
+        "FiveM_b2545_GTAProcess.exe"
+      ],
+      "store": "Rockstar"
+    },
+    {
+      "id": "minecraft",
+      "name": "Minecraft",
+      "exes": [
+        "javaw.exe",
+        "Minecraft.Windows.exe"
+      ],
+      "store": "Microsoft Store"
+    },
+    {
+      "id": "roblox",
+      "name": "Roblox",
+      "exes": [
+        "RobloxPlayerBeta.exe"
+      ],
+      "store": "Microsoft Store"
+    },
+    {
+      "id": "the_finals",
+      "name": "THE FINALS",
+      "exes": [
+        "Discovery.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "battlefield_2042",
+      "name": "Battlefield 2042",
+      "exes": [
+        "bf2042.exe"
+      ],
+      "store": "EA"
+    },
+    {
+      "id": "halo_infinite",
+      "name": "Halo Infinite",
+      "exes": [
+        "HaloInfinite.exe"
+      ],
+      "store": "Microsoft Store"
+    },
+    {
+      "id": "destiny_2",
+      "name": "Destiny 2",
+      "exes": [
+        "destiny2.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "warframe",
+      "name": "Warframe",
+      "exes": [
+        "Warframe.x64.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "escape_from_tarkov",
+      "name": "Escape from Tarkov",
+      "exes": [
+        "EscapeFromTarkov.exe"
+      ],
+      "store": "Launcher"
+    },
+    {
+      "id": "osu",
+      "name": "osu!",
+      "exes": [
+        "osu!.exe"
+      ],
+      "store": "Standalone"
+    },
+    {
+      "id": "geforce_now",
+      "name": "GeForce NOW",
+      "exes": [
+        "GeForceNOW.exe"
+      ],
+      "store": "NVIDIA"
+    },
+    {
+      "id": "world_of_warcraft",
+      "name": "World of Warcraft",
+      "exes": [
+        "Wow.exe"
+      ],
+      "store": "Battle.net"
+    },
+    {
+      "id": "diablo_4",
+      "name": "Diablo IV",
+      "exes": [
+        "Diablo IV.exe"
+      ],
+      "store": "Battle.net"
+    },
+    {
+      "id": "hearthstone",
+      "name": "Hearthstone",
+      "exes": [
+        "Hearthstone.exe"
+      ],
+      "store": "Battle.net"
+    },
+    {
+      "id": "path_of_exile",
+      "name": "Path of Exile",
+      "exes": [
+        "PathOfExile_x64.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "rust",
+      "name": "Rust",
+      "exes": [
+        "RustClient.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "dayz",
+      "name": "DayZ",
+      "exes": [
+        "DayZ_x64.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "arma_3",
+      "name": "Arma 3",
+      "exes": [
+        "arma3_x64.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "elden_ring",
+      "name": "Elden Ring",
+      "exes": [
+        "eldenring.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "forza_horizon_5",
+      "name": "Forza Horizon 5",
+      "exes": [
+        "ForzaHorizon5.exe"
+      ],
+      "store": "Microsoft Store"
+    },
+    {
+      "id": "ea_fc_24",
+      "name": "EA SPORTS FC 24",
+      "exes": [
+        "EASFC24.exe"
+      ],
+      "store": "EA"
+    },
+    {
+      "id": "rocket_racing",
+      "name": "Rocket Racing",
+      "exes": [
+        "FortniteClient-Win64-Shipping.exe"
+      ],
+      "store": "Epic"
+    },
+    {
+      "id": "tom_clancys_the_division_2",
+      "name": "Tom Clancy's The Division 2",
+      "exes": [
+        "TheDivision2.exe"
+      ],
+      "store": "Ubisoft"
+    },
+    {
+      "id": "xdefiant",
+      "name": "XDefiant",
+      "exes": [
+        "XDefiant.exe"
+      ],
+      "store": "Ubisoft"
+    },
+    {
+      "id": "assassins_creed_valhalla",
+      "name": "Assassin's Creed Valhalla",
+      "exes": [
+        "ACValhalla.exe"
+      ],
+      "store": "Ubisoft"
+    },
+    {
+      "id": "assassins_creed_mirage",
+      "name": "Assassin's Creed Mirage",
+      "exes": [
+        "ACMirage.exe"
+      ],
+      "store": "Ubisoft"
+    },
+    {
+      "id": "far_cry_6",
+      "name": "Far Cry 6",
+      "exes": [
+        "FarCry6.exe"
+      ],
+      "store": "Ubisoft"
+    },
+    {
+      "id": "anno_1800",
+      "name": "Anno 1800",
+      "exes": [
+        "Anno1800.exe"
+      ],
+      "store": "Ubisoft"
+    },
+    {
+      "id": "trackmania",
+      "name": "Trackmania",
+      "exes": [
+        "Trackmania.exe"
+      ],
+      "store": "Ubisoft"
+    },
+    {
+      "id": "the_crew_motorfest",
+      "name": "The Crew Motorfest",
+      "exes": [
+        "TheCrewMotorfest.exe"
+      ],
+      "store": "Ubisoft"
+    },
+    {
+      "id": "siege_x",
+      "name": "Rainbow Six Siege X",
+      "exes": [
+        "RainbowSix.exe"
+      ],
+      "store": "Ubisoft"
+    },
+    {
+      "id": "starfield",
+      "name": "Starfield",
+      "exes": [
+        "Starfield.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "cyberpunk_2077",
+      "name": "Cyberpunk 2077",
+      "exes": [
+        "Cyberpunk2077.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "the_witcher_3",
+      "name": "The Witcher 3",
+      "exes": [
+        "witcher3.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "baldurs_gate_3",
+      "name": "Baldur's Gate 3",
+      "exes": [
+        "bg3.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "helldivers_2",
+      "name": "Helldivers 2",
+      "exes": [
+        "helldivers2.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "palworld",
+      "name": "Palworld",
+      "exes": [
+        "Palworld-Win64-Shipping.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "hogwarts_legacy",
+      "name": "Hogwarts Legacy",
+      "exes": [
+        "HogwartsLegacy.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "red_dead_redemption_2",
+      "name": "Red Dead Redemption 2",
+      "exes": [
+        "RDR2.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "sea_of_thieves",
+      "name": "Sea of Thieves",
+      "exes": [
+        "SoTGame.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "hunt_showdown",
+      "name": "Hunt: Showdown",
+      "exes": [
+        "HuntGame.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "dead_by_daylight",
+      "name": "Dead by Daylight",
+      "exes": [
+        "DeadByDaylight-Win64-Shipping.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "rainbow_six_extraction",
+      "name": "Rainbow Six Extraction",
+      "exes": [
+        "R6Extraction.exe"
+      ],
+      "store": "Ubisoft"
+    },
+    {
+      "id": "the_elder_scrolls_online",
+      "name": "The Elder Scrolls Online",
+      "exes": [
+        "eso64.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "fallout_76",
+      "name": "Fallout 76",
+      "exes": [
+        "Fallout76.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "new_world",
+      "name": "New World",
+      "exes": [
+        "NewWorld.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "lost_ark",
+      "name": "Lost Ark",
+      "exes": [
+        "LOSTARK.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "black_desert",
+      "name": "Black Desert",
+      "exes": [
+        "BlackDesert64.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "guild_wars_2",
+      "name": "Guild Wars 2",
+      "exes": [
+        "Gw2-64.exe"
+      ],
+      "store": "Standalone"
+    },
+    {
+      "id": "final_fantasy_xiv",
+      "name": "FINAL FANTASY XIV",
+      "exes": [
+        "ffxiv_dx11.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "world_of_tanks",
+      "name": "World of Tanks",
+      "exes": [
+        "WorldOfTanks.exe"
+      ],
+      "store": "Wargaming"
+    },
+    {
+      "id": "world_of_warships",
+      "name": "World of Warships",
+      "exes": [
+        "WorldOfWarships64.exe"
+      ],
+      "store": "Wargaming"
+    },
+    {
+      "id": "war_thunder",
+      "name": "War Thunder",
+      "exes": [
+        "aces.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "smite",
+      "name": "SMITE",
+      "exes": [
+        "Smite.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "smite_2",
+      "name": "SMITE 2",
+      "exes": [
+        "Smite2.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "naraka_bladepoint",
+      "name": "NARAKA: BLADEPOINT",
+      "exes": [
+        "Naraka.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "ready_or_not",
+      "name": "Ready or Not",
+      "exes": [
+        "ReadyOrNot-Win64-Shipping.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "squad",
+      "name": "Squad",
+      "exes": [
+        "SquadGame.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "insurgency_sandstorm",
+      "name": "Insurgency: Sandstorm",
+      "exes": [
+        "InsurgencyClient-Win64-Shipping.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "battlebit_remastered",
+      "name": "BattleBit Remastered",
+      "exes": [
+        "BattleBit.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "team_fortress_2",
+      "name": "Team Fortress 2",
+      "exes": [
+        "hl2.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "left_4_dead_2",
+      "name": "Left 4 Dead 2",
+      "exes": [
+        "left4dead2.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "portal_2",
+      "name": "Portal 2",
+      "exes": [
+        "portal2.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "grand_theft_auto_iv",
+      "name": "Grand Theft Auto IV",
+      "exes": [
+        "GTAIV.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "max_payne_3",
+      "name": "Max Payne 3",
+      "exes": [
+        "MaxPayne3.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "payday_2",
+      "name": "PAYDAY 2",
+      "exes": [
+        "payday2_win32_release.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "payday_3",
+      "name": "PAYDAY 3",
+      "exes": [
+        "PAYDAY3Client-Win64-Shipping.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "deep_rock_galactic",
+      "name": "Deep Rock Galactic",
+      "exes": [
+        "FSD-Win64-Shipping.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "risk_of_rain_2",
+      "name": "Risk of Rain 2",
+      "exes": [
+        "Risk of Rain 2.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "terraria",
+      "name": "Terraria",
+      "exes": [
+        "Terraria.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "stardew_valley",
+      "name": "Stardew Valley",
+      "exes": [
+        "Stardew Valley.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "hades",
+      "name": "Hades",
+      "exes": [
+        "Hades.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "hades_2",
+      "name": "Hades II",
+      "exes": [
+        "Hades2.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "borderlands_3",
+      "name": "Borderlands 3",
+      "exes": [
+        "Borderlands3.exe"
+      ],
+      "store": "Epic"
+    },
+    {
+      "id": "tiny_tinas_wonderlands",
+      "name": "Tiny Tina's Wonderlands",
+      "exes": [
+        "Wonderlands.exe"
+      ],
+      "store": "Epic"
+    },
+    {
+      "id": "no_mans_sky",
+      "name": "No Man's Sky",
+      "exes": [
+        "NMS.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "subnautica",
+      "name": "Subnautica",
+      "exes": [
+        "Subnautica.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "subnautica_below_zero",
+      "name": "Subnautica: Below Zero",
+      "exes": [
+        "SubnauticaZero.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "the_forest",
+      "name": "The Forest",
+      "exes": [
+        "TheForest.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "sons_of_the_forest",
+      "name": "Sons Of The Forest",
+      "exes": [
+        "SonsOfTheForest.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "dying_light_2",
+      "name": "Dying Light 2",
+      "exes": [
+        "DyingLightGame_x64_rwdi.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "state_of_decay_2",
+      "name": "State of Decay 2",
+      "exes": [
+        "StateOfDecay2-Win64-Shipping.exe"
+      ],
+      "store": "Microsoft Store"
+    },
+    {
+      "id": "remnant_2",
+      "name": "Remnant II",
+      "exes": [
+        "Remnant2-Win64-Shipping.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "outriders",
+      "name": "OUTRIDERS",
+      "exes": [
+        "Madness-Win64-Shipping.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "the_first_descendant",
+      "name": "The First Descendant",
+      "exes": [
+        "M1-Win64-Shipping.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "battlefield_v",
+      "name": "Battlefield V",
+      "exes": [
+        "bfv.exe"
+      ],
+      "store": "EA"
+    },
+    {
+      "id": "battlefield_1",
+      "name": "Battlefield 1",
+      "exes": [
+        "bf1.exe"
+      ],
+      "store": "EA"
+    },
+    {
+      "id": "battlefield_4",
+      "name": "Battlefield 4",
+      "exes": [
+        "bf4.exe"
+      ],
+      "store": "EA"
+    },
+    {
+      "id": "battlefield_3",
+      "name": "Battlefield 3",
+      "exes": [
+        "bf3.exe"
+      ],
+      "store": "EA"
+    },
+    {
+      "id": "battlefield_hardline",
+      "name": "Battlefield Hardline",
+      "exes": [
+        "bfh.exe"
+      ],
+      "store": "EA"
+    },
+    {
+      "id": "ea_wrc",
+      "name": "EA SPORTS WRC",
+      "exes": [
+        "WRC.exe"
+      ],
+      "store": "EA"
+    },
+    {
+      "id": "f1_24",
+      "name": "F1 24",
+      "exes": [
+        "F124.exe"
+      ],
+      "store": "EA"
+    },
+    {
+      "id": "f1_23",
+      "name": "F1 23",
+      "exes": [
+        "F123.exe"
+      ],
+      "store": "EA"
+    },
+    {
+      "id": "f1_22",
+      "name": "F1 22",
+      "exes": [
+        "F1_22.exe"
+      ],
+      "store": "EA"
+    },
+    {
+      "id": "need_for_speed_unbound",
+      "name": "Need for Speed Unbound",
+      "exes": [
+        "NFSUnbound.exe"
+      ],
+      "store": "EA"
+    },
+    {
+      "id": "need_for_speed_heat",
+      "name": "Need for Speed Heat",
+      "exes": [
+        "NFSHeat.exe"
+      ],
+      "store": "EA"
+    },
+    {
+      "id": "need_for_speed_payback",
+      "name": "Need for Speed Payback",
+      "exes": [
+        "NFS16.exe"
+      ],
+      "store": "EA"
+    },
+    {
+      "id": "it_takes_two",
+      "name": "It Takes Two",
+      "exes": [
+        "Nuts-Win64-Shipping.exe"
+      ],
+      "store": "EA"
+    },
+    {
+      "id": "a_way_out",
+      "name": "A Way Out",
+      "exes": [
+        "Haze1-Win64-Shipping.exe"
+      ],
+      "store": "EA"
+    },
+    {
+      "id": "mass_effect_legendary_edition",
+      "name": "Mass Effect Legendary Edition",
+      "exes": [
+        "MassEffectLauncher.exe"
+      ],
+      "store": "EA"
+    },
+    {
+      "id": "dragon_age_inquisition",
+      "name": "Dragon Age: Inquisition",
+      "exes": [
+        "DragonAgeInquisition.exe"
+      ],
+      "store": "EA"
+    },
+    {
+      "id": "the_sims_4",
+      "name": "The Sims 4",
+      "exes": [
+        "TS4_x64.exe"
+      ],
+      "store": "EA"
+    },
+    {
+      "id": "star_wars_jedi_survivor",
+      "name": "STAR WARS Jedi: Survivor",
+      "exes": [
+        "JediSurvivor.exe"
+      ],
+      "store": "EA"
+    },
+    {
+      "id": "star_wars_battlefront_2",
+      "name": "Star Wars Battlefront II",
+      "exes": [
+        "starwarsbattlefrontii.exe"
+      ],
+      "store": "EA"
+    },
+    {
+      "id": "madden_nfl_24",
+      "name": "Madden NFL 24",
+      "exes": [
+        "Madden24.exe"
+      ],
+      "store": "EA"
+    },
+    {
+      "id": "nhl_24",
+      "name": "NHL 24",
+      "exes": [
+        "NHL24.exe"
+      ],
+      "store": "EA"
+    },
+    {
+      "id": "overwatch_classic",
+      "name": "Overwatch Classic",
+      "exes": [
+        "Overwatch.exe"
+      ],
+      "store": "Battle.net"
+    },
+    {
+      "id": "diablo_iii",
+      "name": "Diablo III",
+      "exes": [
+        "Diablo III64.exe"
+      ],
+      "store": "Battle.net"
+    },
+    {
+      "id": "diablo_ii_resurrected",
+      "name": "Diablo II: Resurrected",
+      "exes": [
+        "D2R.exe"
+      ],
+      "store": "Battle.net"
+    },
+    {
+      "id": "starcraft_ii",
+      "name": "StarCraft II",
+      "exes": [
+        "SC2_x64.exe"
+      ],
+      "store": "Battle.net"
+    },
+    {
+      "id": "heroes_of_the_storm",
+      "name": "Heroes of the Storm",
+      "exes": [
+        "HeroesOfTheStorm_x64.exe"
+      ],
+      "store": "Battle.net"
+    },
+    {
+      "id": "warcraft_iii_reforged",
+      "name": "Warcraft III: Reforged",
+      "exes": [
+        "Warcraft III.exe"
+      ],
+      "store": "Battle.net"
+    },
+    {
+      "id": "call_of_duty_mw3",
+      "name": "Call of Duty: MWIII",
+      "exes": [
+        "cod.exe"
+      ],
+      "store": "Battle.net"
+    },
+    {
+      "id": "call_of_duty_black_ops_6",
+      "name": "Call of Duty: Black Ops 6",
+      "exes": [
+        "cod.exe"
+      ],
+      "store": "Battle.net"
+    },
+    {
+      "id": "call_of_duty_warzone_mobile_pc",
+      "name": "Warzone Mobile (PC)",
+      "exes": [
+        "cod.exe"
+      ],
+      "store": "Battle.net"
+    },
+    {
+      "id": "league_of_legends_pbe",
+      "name": "League of Legends PBE",
+      "exes": [
+        "LeagueClient.exe"
+      ],
+      "store": "Riot"
+    },
+    {
+      "id": "teamfight_tactics",
+      "name": "Teamfight Tactics",
+      "exes": [
+        "LeagueClient.exe"
+      ],
+      "store": "Riot"
+    },
+    {
+      "id": "legends_of_runeterra",
+      "name": "Legends of Runeterra",
+      "exes": [
+        "LoR.exe"
+      ],
+      "store": "Riot"
+    },
+    {
+      "id": "wild_rift_pc",
+      "name": "Wild Rift (PC)",
+      "exes": [
+        "WildRift.exe"
+      ],
+      "store": "Riot"
+    },
+    {
+      "id": "delta_force_hawk_ops",
+      "name": "Delta Force: Hawk Ops",
+      "exes": [
+        "DeltaForce.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "marvel_rivals",
+      "name": "Marvel Rivals",
+      "exes": [
+        "MarvelRivals.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "once_human",
+      "name": "Once Human",
+      "exes": [
+        "ONCE_HUMAN.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "fragpunk",
+      "name": "FragPunk",
+      "exes": [
+        "FragPunk.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "arena_breakout_infinite",
+      "name": "Arena Breakout: Infinite",
+      "exes": [
+        "ArenaBreakoutInfinite.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "multiversus",
+      "name": "MultiVersus",
+      "exes": [
+        "MultiVersus-Win64-Shipping.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "the_crew_2",
+      "name": "The Crew 2",
+      "exes": [
+        "TheCrew2.exe"
+      ],
+      "store": "Ubisoft"
+    },
+    {
+      "id": "watch_dogs_legion",
+      "name": "Watch Dogs: Legion",
+      "exes": [
+        "WatchDogsLegion.exe"
+      ],
+      "store": "Ubisoft"
+    },
+    {
+      "id": "watch_dogs_2",
+      "name": "Watch Dogs 2",
+      "exes": [
+        "WatchDogs2.exe"
+      ],
+      "store": "Ubisoft"
+    },
+    {
+      "id": "ghost_recon_breakpoint",
+      "name": "Ghost Recon Breakpoint",
+      "exes": [
+        "GRB.exe"
+      ],
+      "store": "Ubisoft"
+    },
+    {
+      "id": "ghost_recon_wildlands",
+      "name": "Ghost Recon Wildlands",
+      "exes": [
+        "GRW.exe"
+      ],
+      "store": "Ubisoft"
+    },
+    {
+      "id": "for_honor",
+      "name": "For Honor",
+      "exes": [
+        "forhonor.exe"
+      ],
+      "store": "Ubisoft"
+    },
+    {
+      "id": "skull_and_bones",
+      "name": "Skull and Bones",
+      "exes": [
+        "SkullAndBones.exe"
+      ],
+      "store": "Ubisoft"
+    },
+    {
+      "id": "prince_of_persia_the_lost_crown",
+      "name": "Prince of Persia: The Lost Crown",
+      "exes": [
+        "PrinceOfPersia.exe"
+      ],
+      "store": "Ubisoft"
+    },
+    {
+      "id": "immortals_fenyx_rising",
+      "name": "Immortals Fenyx Rising",
+      "exes": [
+        "ImmortalsFenyxRising.exe"
+      ],
+      "store": "Ubisoft"
+    },
+    {
+      "id": "avatar_frontiers_of_pandora",
+      "name": "Avatar: Frontiers of Pandora",
+      "exes": [
+        "AFOP.exe"
+      ],
+      "store": "Ubisoft"
+    },
+    {
+      "id": "hyper_scape",
+      "name": "Hyper Scape",
+      "exes": [
+        "HyperScape.exe"
+      ],
+      "store": "Ubisoft"
+    },
+    {
+      "id": "splitgate_2",
+      "name": "Splitgate 2",
+      "exes": [
+        "Splitgate2.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "xbox_cloud_gaming",
+      "name": "Xbox Cloud Gaming",
+      "exes": [
+        "XboxCloudGaming.exe"
+      ],
+      "store": "Microsoft Store"
+    },
+    {
+      "id": "gears_5",
+      "name": "Gears 5",
+      "exes": [
+        "Gears5.exe"
+      ],
+      "store": "Microsoft Store"
+    },
+    {
+      "id": "forza_motorsport",
+      "name": "Forza Motorsport",
+      "exes": [
+        "ForzaMotorsport.exe"
+      ],
+      "store": "Microsoft Store"
+    },
+    {
+      "id": "forza_horizon_4",
+      "name": "Forza Horizon 4",
+      "exes": [
+        "ForzaHorizon4.exe"
+      ],
+      "store": "Microsoft Store"
+    },
+    {
+      "id": "microsoft_flight_simulator",
+      "name": "Microsoft Flight Simulator",
+      "exes": [
+        "FlightSimulator.exe"
+      ],
+      "store": "Microsoft Store"
+    },
+    {
+      "id": "age_of_empires_iv",
+      "name": "Age of Empires IV",
+      "exes": [
+        "RelicCardinal.exe"
+      ],
+      "store": "Microsoft Store"
+    },
+    {
+      "id": "age_of_empires_ii_de",
+      "name": "Age of Empires II: DE",
+      "exes": [
+        "AoE2DE_s.exe"
+      ],
+      "store": "Microsoft Store"
+    },
+    {
+      "id": "grounded",
+      "name": "Grounded",
+      "exes": [
+        "Maine-WinGDK-Shipping.exe"
+      ],
+      "store": "Microsoft Store"
+    },
+    {
+      "id": "pentiment",
+      "name": "Pentiment",
+      "exes": [
+        "Pentiment.exe"
+      ],
+      "store": "Microsoft Store"
+    },
+    {
+      "id": "killer_instinct",
+      "name": "Killer Instinct",
+      "exes": [
+        "KillerInstinct.exe"
+      ],
+      "store": "Microsoft Store"
+    },
+    {
+      "id": "quake_champions",
+      "name": "Quake Champions",
+      "exes": [
+        "idTechLauncher.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "doom_eternal",
+      "name": "DOOM Eternal",
+      "exes": [
+        "DOOMEternalx64vk.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "quake_ii_remastered",
+      "name": "Quake II Remastered",
+      "exes": [
+        "quake2.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "counter_strike_source",
+      "name": "Counter-Strike: Source",
+      "exes": [
+        "hl2.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "counter_strike_1_6",
+      "name": "Counter-Strike 1.6",
+      "exes": [
+        "hl.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "half_life_alyx",
+      "name": "Half-Life: Alyx",
+      "exes": [
+        "hlvr.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "warhammer_40000_darktide",
+      "name": "Warhammer 40,000: Darktide",
+      "exes": [
+        "Darktide.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "vermintide_2",
+      "name": "Warhammer: Vermintide 2",
+      "exes": [
+        "vermintide2.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "monster_hunter_world",
+      "name": "Monster Hunter: World",
+      "exes": [
+        "MonsterHunterWorld.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "monster_hunter_rise",
+      "name": "Monster Hunter Rise",
+      "exes": [
+        "MonsterHunterRise.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "tekken_8",
+      "name": "TEKKEN 8",
+      "exes": [
+        "Polaris-Win64-Shipping.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "street_fighter_6",
+      "name": "Street Fighter 6",
+      "exes": [
+        "StreetFighter6.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "guilty_gear_strive",
+      "name": "GUILTY GEAR -STRIVE-",
+      "exes": [
+        "GGST-Win64-Shipping.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "mortal_kombat_1",
+      "name": "Mortal Kombat 1",
+      "exes": [
+        "MK12.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "nba_2k24",
+      "name": "NBA 2K24",
+      "exes": [
+        "NBA2K24.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "wwe_2k24",
+      "name": "WWE 2K24",
+      "exes": [
+        "WWE2K24_x64.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "efootball",
+      "name": "eFootball",
+      "exes": [
+        "eFootball.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "football_manager_2024",
+      "name": "Football Manager 2024",
+      "exes": [
+        "fm.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "civilization_vi",
+      "name": "Sid Meier's Civilization VI",
+      "exes": [
+        "CivilizationVI.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "total_war_warhammer_iii",
+      "name": "Total War: WARHAMMER III",
+      "exes": [
+        "Warhammer3.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "cities_skylines_2",
+      "name": "Cities: Skylines II",
+      "exes": [
+        "Cities2.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "rimworld",
+      "name": "RimWorld",
+      "exes": [
+        "RimWorldWin64.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "factorio",
+      "name": "Factorio",
+      "exes": [
+        "factorio.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "satisfactory",
+      "name": "Satisfactory",
+      "exes": [
+        "FactoryGameSteam.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "project_zomboid",
+      "name": "Project Zomboid",
+      "exes": [
+        "ProjectZomboid64.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "phasmophobia",
+      "name": "Phasmophobia",
+      "exes": [
+        "Phasmophobia.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "lethal_company",
+      "name": "Lethal Company",
+      "exes": [
+        "Lethal Company.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "among_us",
+      "name": "Among Us",
+      "exes": [
+        "Among Us.exe"
+      ],
+      "store": "Steam"
+    },
+    {
+      "id": "fall_guys",
+      "name": "Fall Guys",
+      "exes": [
+        "FallGuys_client.exe"
+      ],
+      "store": "Epic"
+    },
+    {
+      "id": "rocket_arena",
+      "name": "Rocket Arena",
+      "exes": [
+        "RocketArena.exe"
+      ],
+      "store": "EA"
+    },
+    {
+      "id": "anthem",
+      "name": "Anthem",
+      "exes": [
+        "Anthem.exe"
+      ],
+      "store": "EA"
+    },
+    {
+      "id": "crysis_3_remastered",
+      "name": "Crysis 3 Remastered",
+      "exes": [
+        "Crysis3Remastered.exe"
+      ],
+      "store": "EA"
+    },
+    {
+      "id": "dead_space_2023",
+      "name": "Dead Space (2023)",
+      "exes": [
+        "DeadSpace.exe"
+      ],
+      "store": "EA"
+    },
+    {
+      "id": "alan_wake_2",
+      "name": "Alan Wake 2",
+      "exes": [
+        "AlanWake2.exe"
+      ],
+      "store": "Epic"
+    }
   ]
 }

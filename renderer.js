@@ -8345,7 +8345,7 @@ async function buildNetworkPriorityPanel(){
           <div class="game-thumb"><img src="${imgSrc}" alt="" /><div class="game-thumb-fallback">${__eh(g.name||g.id)}</div></div>
           <label style="display:flex; gap:8px; align-items:center; margin-top:8px;"><input type="checkbox" data-sel="${__eh(g.id)}" ${g.selected ? 'checked' : ''}/> <strong>${__eh(g.name||g.id)}</strong></label>
           <div class="card-desc" style="margin-top:6px;word-break:break-all;">${__eh(g.exe||g.exePath||'')}</div><div class="muted" style="font-size:11px;">${g.detected ? 'Detected installed' : 'Not detected'} • ${g.applied ? 'Applied' : 'Not applied'}</div>
-          <div class="card-actions" style="margin-top:8px;"><label class="btn" style="cursor:pointer;">Upload icon<input type="file" data-upload="${__eh(g.id)}" accept="image/png,image/jpeg" style="display:none;" /></label></div>
+          <div class="card-actions" style="margin-top:8px;"><label class="btn" style="cursor:pointer;">Upload Icon<input type="file" data-upload="${__eh(g.id)}" accept="image/png,image/jpeg" style="display:none;" /></label></div>
         </div>
       `);
     }
