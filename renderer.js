@@ -574,9 +574,10 @@ const __jsonCache = new Map();
 async function loadJSON(path){
   if (__jsonCache.has(path)) return __jsonCache.get(path);
   const p = (async () => {
-    const res = await fetch(path, { cache: 'no-store' });
-    if(!res.ok) throw new Error(`Failed to load ${path}`);
-    return await res.json();
+    if (!window.falcon || typeof window.falcon.readJson !== 'function') {
+      throw new Error('falcon.readJson unavailable');
+    }
+    return await window.falcon.readJson(path);
   })();
   __jsonCache.set(path, p);
   return p;
@@ -757,7 +758,7 @@ function persistSkipConfirmRisk(risk, value){
   } catch (_) {}
 }
 
-function showConfirmModal({ title, body, risk, requireTyped }){
+function showConfirmModal({ title, body, risk, requireTyped, typedText }){
   const normalizedRisk = normalizeRiskLabel(risk);
   if (normalizedRisk === "Danger" && shouldSkipConfirmForRisk(normalizedRisk)) {
     return Promise.resolve(true);
@@ -788,7 +789,7 @@ function showConfirmModal({ title, body, risk, requireTyped }){
     if (skipRisk) skipRisk.checked = false;
     if (skipRiskText) skipRiskText.textContent = `Don't show again for ${normalizedRisk}-level actions.`;
 
-    const phrase = (requireTyped ? getConfirmPhrase(normalizedRisk) : "");
+    const phrase = (requireTyped ? String((typedText || getConfirmPhrase(normalizedRisk) || "")).trim().toUpperCase() : "");
     typeWrap.style.display = phrase ? "block" : "none";
     if(phrase){
       typeHint.textContent = `Required phrase: ${phrase}`;
@@ -1179,8 +1180,7 @@ async function loadThemeEngine(){
     }
   } catch (_) {}
   try{
-    const res = await fetch("themesystem/theme-engine.json");
-    themeEngine = await res.json();
+    themeEngine = await loadJSON("themesystem/theme-engine.json");
     themeList = Object.entries(themeEngine.themes || {}).map(([id, t]) => ({ id, ...(t||{}) }));
     const stored = window.localStorage ? window.localStorage.getItem("falcon.theme.id") : null;
     if (stored && themeEngine.themes[stored]) {
@@ -2525,7 +2525,9 @@ async function renderBiosHelper(){
   let sys = null;
   let bios = null;
   try { sys = await window.falcon.getSystemInfo(); } catch(_){}
+  if (currentRoute !== 'bios' || myToken !== navToken) return;
   try { bios = await window.falcon.getBiosInfo(); } catch(_){}
+  if (currentRoute !== 'bios' || myToken !== navToken) return;
   const info = (bios && bios.ok && bios.info) ? bios.info : null;
 
   const cpuName = (sys && sys.CPU) ? String(sys.CPU) : "Unknown CPU";
@@ -2607,9 +2609,9 @@ async function renderBiosHelper(){
   // Load large BIOS catalog (if present) for expanded settings list
   let biosCatalog = null;
   try{
-    const r = await fetch('data/bios/bios_catalog.json', { cache:'no-store' });
-    if (r && r.ok) biosCatalog = await r.json();
+    biosCatalog = await loadJSON('data/bios/bios_catalog.json');
   }catch(_){ biosCatalog = null; }
+  if (currentRoute !== 'bios' || myToken !== navToken) return;
 
   const normalizeRisk = (r) => {
     const t = String(r||'Safe').toLowerCase();
@@ -3610,12 +3612,16 @@ refreshSecurityHome();
       b.textContent = p.name;
       b.onclick = async () => {
         try {
-        if(p.requireTypedPhrase){
+        const typedRule = (p && p.confirm && p.confirm.type === 'typed' && p.confirm.text)
+          ? String(p.confirm.text)
+          : (p && p.requireTypedPhrase ? String(p.requireTypedPhrase) : '');
+        if(typedRule){
           const ok = await showConfirmModal({
             title: "All In (Risky)",
-            body: "This profile includes Critical and excluded actions. A restore point is strongly recommended.",
+            body: "This profile includes Critical and excluded actions. Type " + typedRule + " to continue.",
             risk: "Critical",
-            requireTyped: true
+            requireTyped: true,
+            typedText: typedRule
           });
           if(!ok) return;
         }
@@ -6745,13 +6751,13 @@ async function renderProcessLab(){
         <div class="card-desc">All presets prioritize input latency and frame-time stability over comfort features. Read the notes before applying.</div>
         <ul class="bios-note" style="margin-bottom:8px;">
           <li><strong>Safe:</strong> Uses Falcon's built-in safe services helper. Minimal risk; good starting point.</li>
-          <li><strong>Competitive:</strong> Adds your deeper telemetry/sensor/compatibility trimming on top of Safe.</li>
+          <li><strong>Hardcore:</strong> Adds your deeper telemetry/sensor/compatibility trimming on top of Safe.</li>
           <li><strong>Extreme (sub-40 target):</strong> Chains every supported helper to push process count as low as possible. May disable some Windows features and store apps.</li>
         </ul>
         <div class="card-actions" style="display:flex;flex-wrap:wrap;gap:8px;">
           <button class="btn" id="procPresetSafe">Apply Safe preset</button>
-          <button class="btn" id="procPresetComp">Apply Competitive preset</button>
-          <button class="btn primary" id="procPresetExtreme">Apply Extreme preset</button>
+          <button class="btn" id="procPresetComp">Apply Hardcore preset</button>
+          <button class="btn primary" id="procPresetExtreme">Apply Lethal preset</button>
           <button class="btn" id="procRestore">Restore Process Lab snapshot</button>
           <button class="btn" id="procOpenFixes">Open Fixes / compatibility</button>
         </div>
@@ -6894,9 +6900,7 @@ async function renderProcessLab(){
 
   async function loadProcessLabCatalog(){
     try {
-      const res = await fetch('tweaks/processlab.services.catalog.json');
-      if (!res.ok) throw new Error('HTTP ' + res.status);
-      const data = await res.json();
+      const data = await loadJSON('tweaks/processlab.services.catalog.json');
       return Array.isArray(data.services) ? data.services : [];
     } catch (e) {
       showToast('Failed to load Process Lab catalog: ' + (e && e.message ? e.message : String(e)), 'error');
@@ -6961,7 +6965,7 @@ async function renderProcessLab(){
           <div style="flex:0 0 140px;font-size:10px;">
             <div><strong>Safe:</strong> ${__eh(safeMode)}</div>
             <div><strong>Comp:</strong> ${__eh(compMode)}</div>
-            <div><strong>Extreme:</strong> ${__eh(extMode)}</div>
+            <div><strong>Lethal:</strong> ${__eh(extMode)}</div>
           </div>
           <div style="flex:0 0 120px;">
             <label class="field-label" style="font-size:11px;display:block;margin-bottom:2px;">Override</label>
@@ -7026,8 +7030,8 @@ async function renderProcessLab(){
     const okModal = await showConfirmModal({
       title: 'Run custom Process Lab preset?',
       body: 'Base mode: ' + baseMode + '. Overrides: ' + overrideKeys.length + ' services' + (dangerCount ? (' (' + dangerCount + ' marked as DANGER)') : '') + '.\\n\\nThis can disable telemetry, sensors, UX features, and some Windows components. Use Restore Process Lab snapshot if it feels too aggressive.',
-      risk: dangerCount ? 'High' : 'Medium',
-      requireTyped: dangerCount > 0
+      risk: (dangerCount > 0 || baseMode === 'extreme') ? 'Critical' : 'Medium',
+      requireTyped: (dangerCount > 0 || baseMode === 'extreme')
     });
     if (!okModal) return;
 
@@ -7068,7 +7072,7 @@ async function renderProcessLab(){
         prog = 100;
         progressBarInner.style.width = '100%';
       }
-      let msg = 'Custom Process Lab preset ' + (ok ? 'completed.' : 'finished with errors – check log or adjust overrides.');
+      let msg = 'Custom Process Lab preset ' + (ok ? 'completed.' : 'failed – check admin rights, log output, or adjust overrides.');
       if (stdout && stdout.indexOf('UserSessionProcessCount') >= 0) {
         msg += ' ' + stdout;
       }
@@ -7148,10 +7152,10 @@ async function renderProcessLab(){
       return;
     }
     const okModal = await showConfirmModal({
-      title: 'Apply ' + label + ' preset?',
+      title: 'Apply ' + label + ' Process Lab mode?',
       body: 'This will run the ' + label + ' Process Lab preset. It can disable background services, telemetry, and non-essential background apps. Continue only if you understand that Windows features and store apps may be affected.',
-      risk: 'High',
-      requireTyped: true
+      risk: label === 'Lethal' ? 'Critical' : 'High',
+      requireTyped: label === 'Lethal'
     });
     if (!okModal) return;
 
@@ -7196,7 +7200,7 @@ async function renderProcessLab(){
         prog = 100;
         progressBarInner.style.width = '100%';
       }
-      let msg = 'Process Lab ' + label + ' preset ' + (ok ? 'completed.' : 'finished with errors – check log or rerun specific fixes.');
+      let msg = 'Process Lab ' + label + ' mode ' + (ok ? 'completed.' : 'failed – check admin rights/log or rerun specific fixes.');
       if (stdout && stdout.indexOf('UserSessionProcessCount') >= 0) {
         msg += ' ' + stdout;
       }
@@ -7244,8 +7248,8 @@ async function renderProcessLab(){
   }
 
   if (btnSafe) btnSafe.onclick = () => runPreset('safe', 'Safe');
-  if (btnComp) btnComp.onclick = () => runPreset('competitive', 'Competitive');
-  if (btnExtreme) btnExtreme.onclick = () => runPreset('extreme', 'Extreme');
+  if (btnComp) btnComp.onclick = () => runPreset('hardcore', 'Hardcore');
+  if (btnExtreme) btnExtreme.onclick = () => runPreset('lethal', 'Lethal');
   if (btnCustom) btnCustom.onclick = () => {
     const panel = document.getElementById('procCustomPanel');
     if (panel && panel.scrollIntoView) {
@@ -8078,11 +8082,12 @@ function canonicalGameId(raw){
   const aliases = {
     'counter-strike 2':'cs2',
     'counter strike 2':'cs2',
-    'gta v':'gta5',
-    'call of duty':'cod'
+    'gta v':'gta_5',
+    'grand theft auto v':'gta_5',
+    'call of duty':'warzone'
   };
   if (aliases[t]) return aliases[t];
-  return t.replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
+  return t.replace(/[^a-z0-9]+/g,'_').replace(/^_+|_+$/g,'');
 }
 
 async function resolveGameImage(gameId){
@@ -8339,7 +8344,7 @@ async function buildNetworkPriorityPanel(){
         <div class="card game-tile">
           <div class="game-thumb"><img src="${imgSrc}" alt="" /><div class="game-thumb-fallback">${__eh(g.name||g.id)}</div></div>
           <label style="display:flex; gap:8px; align-items:center; margin-top:8px;"><input type="checkbox" data-sel="${__eh(g.id)}" ${g.selected ? 'checked' : ''}/> <strong>${__eh(g.name||g.id)}</strong></label>
-          <div class="card-desc" style="margin-top:6px;word-break:break-all;">${__eh(g.exe||g.exePath||'')}</div>
+          <div class="card-desc" style="margin-top:6px;word-break:break-all;">${__eh(g.exe||g.exePath||'')}</div><div class="muted" style="font-size:11px;">${g.detected ? 'Detected installed' : 'Not detected'} • ${g.applied ? 'Applied' : 'Not applied'}</div>
           <div class="card-actions" style="margin-top:8px;"><label class="btn" style="cursor:pointer;">Upload icon<input type="file" data-upload="${__eh(g.id)}" accept="image/png,image/jpeg" style="display:none;" /></label></div>
         </div>
       `);
@@ -8373,11 +8378,11 @@ async function buildNetworkPriorityPanel(){
     const all = catalog.map(g=>{
       const id = canonicalGameId(g.id || g.name);
       const d = detectedMap.get(id);
-      return { id, name:g.name, exe:(d&&d.exePath) || ((g.exes&&g.exes[0])||''), selected:!!d };
+      return { id, name:g.name, exe:(d&&d.exePath) || ((g.exes&&g.exes[0])||''), exes:Array.isArray(g.exes)?g.exes:[], selected:!!d, detected:!!d };
     });
     for (const d of detected||[]) {
       const id = canonicalGameId(d.id || d.name);
-      if (!all.some(x=>x.id===id)) all.push({ id, name:d.name||id, exe:d.exePath||'', selected:true });
+      if (!all.some(x=>x.id===id)) all.push({ id, name:d.name||id, exe:d.exePath||'', exes:[d.exePath||''].filter(Boolean), selected:true, detected:true });
     }
     return all;
   };
@@ -8391,17 +8396,27 @@ async function buildNetworkPriorityPanel(){
   if (refreshBtn) refreshBtn.onclick = async () => { statusEl.textContent='Scanning…'; games = await fromCatalog(); statusEl.textContent=`Loaded ${games.length} game(s).`; await render(games); };
 
   document.getElementById('npApplySelected').onclick = async () => {
-    const selected = getSelected(games);
+    const selected = getSelected(games).map((g)=>({ id:g.id, name:g.name, exe:g.exe, exes:g.exes }));
     const res = await window.falcon.applyGameQoS(selected);
     lastLog = ((res&&res.stdout)||'') + '\n' + ((res&&res.stderr)||'');
     document.getElementById('npLog').textContent = lastLog.trim();
+    if (res && res.ok) {
+      const idSet = new Set(selected.map((x) => String(x.id)));
+      games.forEach((g) => { if (idSet.has(String(g.id))) g.applied = true; });
+      await render(games);
+    }
     showToast(res && res.ok ? `Applied ${selected.length} policy item(s).` : 'Apply failed.', res && res.ok ? 'success' : 'error');
   };
   document.getElementById('npRemoveSelected').onclick = async () => {
-    const selected = getSelected(games);
+    const selected = getSelected(games).map((g)=>({ id:g.id, name:g.name }));
     const res = await window.falcon.removeGameQoS(selected);
     lastLog = ((res&&res.stdout)||'') + '\n' + ((res&&res.stderr)||'');
     document.getElementById('npLog').textContent = lastLog.trim();
+    if (res && res.ok) {
+      const idSet = new Set(selected.map((x) => String(x.id)));
+      games.forEach((g) => { if (idSet.has(String(g.id))) g.applied = false; });
+      await render(games);
+    }
     showToast(res && res.ok ? `Removed ${selected.length} policy item(s).` : 'Remove failed.', res && res.ok ? 'success' : 'error');
   };
   document.getElementById('npAddGames').onclick = async () => {

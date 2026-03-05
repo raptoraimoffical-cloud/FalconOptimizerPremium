@@ -30,8 +30,18 @@ for (const file of fs.readdirSync(tweaksDir)) {
   if (!Array.isArray(json.items)) continue;
   let changed = false;
   for (const item of json.items) {
-    if (!item.details) {
-      item.details = templateFor(item);
+    const tpl = templateFor(item);
+    const existing = (item && item.details && typeof item.details === 'object') ? item.details : {};
+    const next = { ...existing };
+    for (const key of ['recommendedFor','benefits','tradeoffs','riskNotes','reversible','requiresReboot']) {
+      const cur = existing[key];
+      const missing = (cur === undefined || cur === null || (typeof cur === 'string' && !cur.trim()) || (Array.isArray(cur) && cur.length === 0));
+      if (missing) next[key] = tpl[key];
+    }
+    const before = JSON.stringify(existing);
+    const after = JSON.stringify(next);
+    if (before !== after) {
+      item.details = next;
       changed = true;
     }
   }

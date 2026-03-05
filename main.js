@@ -19,11 +19,31 @@ function runCommand(command, args = [], options = {}) {
 }
 
 async function runPowerShell(script) {
+
   return await runCommand("powershell.exe", [
     "-NoProfile",
     "-ExecutionPolicy", "Bypass",
     "-Command", script
   ]);
+}
+
+
+function canonicalGameId(raw) {
+  const base = String(raw || '').toLowerCase().trim();
+  const aliases = {
+    'counter-strike 2': 'cs2',
+    'counter strike 2': 'cs2',
+    'cs:2': 'cs2',
+    'gta v': 'gta_5',
+    'grand theft auto v': 'gta_5',
+    'call of duty': 'warzone'
+  };
+  const normalized = aliases[base] || base;
+  return normalized.replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
+}
+
+function getGameQosPolicyName(gameId) {
+  return `Falcon_DSCP_${canonicalGameId(gameId)}`;
 }
 
 async function isProcessElevatedAsync() {
@@ -1115,10 +1135,15 @@ ipcMain.handle("falcon:runProcessPreset", async (_evt, payload) => {
   const mode = String(modeRaw || 'safe').toLowerCase();
 
   let effectiveMode = 'safe';
-  if (mode === 'competitive') {
+  if (mode === 'competitive' || mode === 'hardcore') {
     effectiveMode = 'competitive';
-  } else if (mode === 'extreme' || mode === 'full' || mode === 'fullgame') {
+  } else if (mode === 'extreme' || mode === 'lethal' || mode === 'full' || mode === 'fullgame') {
     effectiveMode = 'extreme';
+  }
+
+  const elevated = await isProcessElevatedAsync();
+  if (!elevated) {
+    return { ok: false, stdout: '', stderr: 'ProcessLabError=NotAdmin. Relaunch Falcon as Administrator.' };
   }
 
   const scriptRel = path.join('scripts', 'processlab-run.ps1');
@@ -1148,6 +1173,11 @@ ipcMain.handle("falcon:runProcessCustomPreset", async (_evt, payload) => {
       effectiveMode = 'extreme';
     } else if (baseMode === 'safe') {
       effectiveMode = 'safe';
+    }
+
+    const elevated = await isProcessElevatedAsync();
+    if (!elevated) {
+      return { ok: false, stdout: '', stderr: 'ProcessLabError=NotAdmin. Relaunch Falcon as Administrator.' };
     }
 
     const scriptRel = path.join('scripts', 'processlab-run.ps1');
@@ -1772,12 +1802,20 @@ ipcMain.handle("falcon:applyGameQoS", async (_evt, payload) => {
   try {
     const entries = Array.isArray(payload && payload.entries) ? payload.entries : [];
     if (!entries.length) return { ok: false, stdout: '', stderr: 'No games selected' };
-    const cmdParts = entries.map((e) => {
-      const exe = String(e.exe || '').replace(/'/g, "''");
-      const name = String(e.name || e.id || exe || 'Custom').replace(/'/g, "''");
-      const policy = `Falcon DSCP46 ${name}`;
-      return `try { New-NetQosPolicy -Name '${policy}' -AppPathNameMatchCondition '*${exe}' -DSCPAction 46 -IPProtocol Both -ErrorAction Stop | Out-Null; Write-Output 'Applied:${policy}' } catch { Write-Output 'Failed:${policy}'; Write-Output $_.Exception.Message }`;
-    });
+    const cmdParts = [];
+    for (const entry of entries) {
+      const gameId = canonicalGameId(entry && (entry.id || entry.name || 'custom_game'));
+      const policy = getGameQosPolicyName(gameId).replace(/'/g, "''");
+      const exes = Array.isArray(entry && entry.exes) ? entry.exes : [entry && entry.exe].filter(Boolean);
+      const safeExes = exes.map((x) => String(x || '').trim()).filter(Boolean);
+      if (!safeExes.length) continue;
+      cmdParts.push(`try { Remove-NetQosPolicy -Name '${policy}' -Confirm:$false -ErrorAction SilentlyContinue | Out-Null } catch {}`);
+      for (const exe of safeExes) {
+        const exeName = exe.replace(/'/g, "''");
+        cmdParts.push(`try { New-NetQosPolicy -Name '${policy}' -AppPathNameMatchCondition '*${exeName}' -DSCPAction 46 -IPProtocol Both -ErrorAction Stop | Out-Null; Write-Output 'Applied:${policy}:${exeName}' } catch { Write-Output 'Failed:${policy}:${exeName}'; Write-Output $_.Exception.Message }`);
+      }
+    }
+    if (!cmdParts.length) return { ok: false, stdout: '', stderr: 'No executable names provided' };
     return await runPsInline(cmdParts.join('; '));
   } catch (e) {
     return { ok: false, stdout: '', stderr: String(e && e.message ? e.message : e) };
@@ -1788,9 +1826,8 @@ ipcMain.handle("falcon:removeGameQoS", async (_evt, payload) => {
   try {
     const entries = Array.isArray(payload && payload.entries) ? payload.entries : [];
     if (!entries.length) return { ok: false, stdout: '', stderr: 'No games selected' };
-    const cmdParts = entries.map((e) => {
-      const name = String(e.name || e.id || '').replace(/'/g, "''");
-      const policy = `Falcon DSCP46 ${name}`;
+    const cmdParts = entries.map((entry) => {
+      const policy = getGameQosPolicyName(entry && (entry.id || entry.name || 'custom_game')).replace(/'/g, "''");
       return `try { Remove-NetQosPolicy -Name '${policy}' -Confirm:$false -ErrorAction Stop; Write-Output 'Removed:${policy}' } catch { Write-Output 'Failed:${policy}'; Write-Output $_.Exception.Message }`;
     });
     return await runPsInline(cmdParts.join('; '));
