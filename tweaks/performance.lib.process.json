@@ -3,17 +3,20 @@
     {
       "id": "processlab.preset_safe",
       "type": "button",
-      "name": "Safe Preset – Daily Use",
+      "name": "Safe Preset \u2013 Daily Use",
       "category": "Process Lab / Presets",
       "risk": "Safe",
-      "description": "Applies a low-risk baseline for cutting junk without breaking features. What this preset does:\n• Disables UWP background apps via AppPrivacy policy.\n• Keeps the shell, Store, updates, and anti-cheat completely intact.\n• Disables a small set of non-essential services: - DiagTrack (telemetry) - SysMain (old Superfetch) - WSearch (search indexing – search still works, just no indexer) - XblGameSave, XboxNetApiSvc (Xbox helpers) - MapsBroker (offline maps broker) - WerSvc (Windows Error Reporting service – Event Viewer still logs) Requirements:\n• Run Falcon Optimizer as Administrator.\n• Works on both Microsoft and local accounts.\n• Recommended as the first Process Lab pass before going Competitive/Extreme.",
+      "description": "Applies a low-risk baseline for cutting junk without breaking features. What this preset does:\n\u2022 Disables UWP background apps via AppPrivacy policy.\n\u2022 Keeps the shell, Store, updates, and anti-cheat completely intact.\n\u2022 Disables a small set of non-essential services: - DiagTrack (telemetry) - SysMain (old Superfetch) - WSearch (search indexing \u2013 search still works, just no indexer) - XblGameSave, XboxNetApiSvc (Xbox helpers) - MapsBroker (offline maps broker) - WerSvc (Windows Error Reporting service \u2013 Event Viewer still logs) Requirements:\n\u2022 Run Falcon Optimizer as Administrator.\n\u2022 Works on both Microsoft and local accounts.\n\u2022 Recommended as the first Process Lab pass before going Competitive/Extreme.",
       "requiresAdmin": true,
       "requiresReboot": false,
       "apply": {
         "steps": [
           {
-            "type": "ps.run",
-            "command": "$runner = Join-Path $PSScriptRoot \"processlab-run.ps1\"\nif (Test-Path $runner) {\n  & $runner -Mode 'safe'\n} else {\n  Write-Host \"ProcessLab runner not found.\"\n}"
+            "type": "ps.file",
+            "file": "scripts/processlab-run.ps1",
+            "args": {
+              "Mode": "safe"
+            }
           }
         ]
       },
@@ -25,17 +28,20 @@
     {
       "id": "processlab.preset_competitive",
       "type": "button",
-      "name": "Competitive Preset – ~40–45 Processes",
+      "name": "Competitive Preset \u2013 ~40\u201345 Processes",
       "category": "Process Lab / Presets",
       "risk": "Warning",
-      "description": "Pushes toward ~40–45 total processes on Windows 11 while keeping:\n• Epic / Steam / Store working\n• Anti-cheat, installers, and updates functional\n• Explorer, taskbar, notifications, and networking intact What this preset does, on top of Safe:\n• Re-applies Safe (UWP background apps + baseline services).\n• Forces svchost merging via SvcHostSplitThresholdInKB to reduce process count.\n• Disables extra non-critical services: - diagnosticshub.standardcollector.service, DSSVC, DusmSvc, DiagSvc (diagnostic helpers) - XboxGipSvc (Xbox game input service) - RetailDemo / RetailDemoService (demo features) - WbioSrvc (biometrics), PhoneSvc (phone integration), WalletService (wallet) - RemoteRegistry (remote registry access) - Fax, Spooler (if no printer used)\n• Trims harmless scheduled tasks: - ProgramDataUpdater, CEIP consolidator / USB CEIP - MapsUpdateTask, Feedback DMClient tasks Requirements:\n• Run Falcon Optimizer as Administrator.\n• Recommended: Local Windows account for the cleanest background footprint.\n• Do NOT use this on production work machines that need all Windows features.",
+      "description": "Pushes toward ~40\u201345 total processes on Windows 11 while keeping:\n\u2022 Epic / Steam / Store working\n\u2022 Anti-cheat, installers, and updates functional\n\u2022 Explorer, taskbar, notifications, and networking intact What this preset does, on top of Safe:\n\u2022 Re-applies Safe (UWP background apps + baseline services).\n\u2022 Forces svchost merging via SvcHostSplitThresholdInKB to reduce process count.\n\u2022 Disables extra non-critical services: - diagnosticshub.standardcollector.service, DSSVC, DusmSvc, DiagSvc (diagnostic helpers) - XboxGipSvc (Xbox game input service) - RetailDemo / RetailDemoService (demo features) - WbioSrvc (biometrics), PhoneSvc (phone integration), WalletService (wallet) - RemoteRegistry (remote registry access) - Fax, Spooler (if no printer used)\n\u2022 Trims harmless scheduled tasks: - ProgramDataUpdater, CEIP consolidator / USB CEIP - MapsUpdateTask, Feedback DMClient tasks Requirements:\n\u2022 Run Falcon Optimizer as Administrator.\n\u2022 Recommended: Local Windows account for the cleanest background footprint.\n\u2022 Do NOT use this on production work machines that need all Windows features.",
       "requiresAdmin": true,
       "requiresReboot": false,
       "apply": {
         "steps": [
           {
-            "type": "ps.run",
-            "command": "$runner = Join-Path $PSScriptRoot \"processlab-run.ps1\"\nif (Test-Path $runner) {\n  & $runner -Mode 'competitive'\n} else {\n  Write-Host \"ProcessLab runner not found.\"\n}"
+            "type": "ps.file",
+            "file": "scripts/processlab-run.ps1",
+            "args": {
+              "Mode": "competitive"
+            }
           }
         ]
       },
@@ -47,17 +53,21 @@
     {
       "id": "processlab.preset_extreme",
       "type": "button",
-      "name": "Extreme Preset – ~32–38 Processes (Local Account Recommended)",
+      "name": "Extreme Preset \u2013 ~32\u201338 Processes (Local Account Recommended)",
       "category": "Process Lab / Presets",
       "risk": "Danger",
-      "description": "This is the most aggressive built-in Process Lab preset.\nGoal: push toward ~32–38 total processes on Windows 11 for tournament / grind sessions. Keeps:\n• Networking, DNS/DHCP, shell, licensing, Store and installer core intact.\n• Anti-cheat and major launchers in most normal setups. Adds on top of Competitive:\n• Re-enforces svchost merging.\n• Disables Delivery Optimization (DoSvc) – cuts update-related background traffic.\n• Disables extra telemetry / compatibility helpers (PcaSvc, DiagTrack again, WerSvc again).\n• Disables additional background scheduled tasks: - DiskDiagnostic data collector / resolver - Maps toast / update tasks - Feedback DMClient tasks - WER queue reporting Hard requirements:\n• MUST run Falcon Optimizer as Administrator.\n• STRONGLY recommended: LOCAL Windows account, not Microsoft account.\n• Only use this on a known-good gaming rig where you accept trade-offs.\n• For daily browsing/school/work use, stay on Safe or Competitive.",
+      "description": "This is the most aggressive built-in Process Lab preset.\nGoal: push toward ~32\u201338 total processes on Windows 11 for tournament / grind sessions. Keeps:\n\u2022 Networking, DNS/DHCP, shell, licensing, Store and installer core intact.\n\u2022 Anti-cheat and major launchers in most normal setups. Adds on top of Competitive:\n\u2022 Re-enforces svchost merging.\n\u2022 Disables Delivery Optimization (DoSvc) \u2013 cuts update-related background traffic.\n\u2022 Disables extra telemetry / compatibility helpers (PcaSvc, DiagTrack again, WerSvc again).\n\u2022 Disables additional background scheduled tasks: - DiskDiagnostic data collector / resolver - Maps toast / update tasks - Feedback DMClient tasks - WER queue reporting Hard requirements:\n\u2022 MUST run Falcon Optimizer as Administrator.\n\u2022 STRONGLY recommended: LOCAL Windows account, not Microsoft account.\n\u2022 Only use this on a known-good gaming rig where you accept trade-offs.\n\u2022 For daily browsing/school/work use, stay on Safe or Competitive.",
       "requiresAdmin": true,
       "requiresReboot": false,
       "apply": {
         "steps": [
           {
-            "type": "ps.run",
-            "command": "$runner = Join-Path $PSScriptRoot \"processlab-run.ps1\"\nif (Test-Path $runner) {\n  & $runner -Mode 'extreme'\n} else {\n  Write-Host \"ProcessLab runner not found.\"\n}"
+            "type": "ps.file",
+            "file": "scripts/processlab-run.ps1",
+            "args": {
+              "Mode": "extreme",
+              "CreateRestorePoint": true
+            }
           }
         ]
       },
@@ -72,7 +82,7 @@
       "name": "Disable BITS + Delivery Optimization (Aggressive Background Killer)",
       "category": "Process Lab / Extra Aggressive",
       "risk": "Danger",
-      "description": "[Very aggressive] Kills almost all Windows background download logic. What this changes:\n• Sets BITS (Background Intelligent Transfer Service) startup to Disabled.\n• Sets DoSvc (Delivery Optimization) startup to Disabled (also in Extreme preset).\n• Stops both services immediately. Impact:\n• Reduces random update/download wakes and some background processes.\n• Can break or delay: - Windows Update downloads - Microsoft Store installs/updates - Some app updaters that rely on BITS Requirements:\n• Run as Administrator.\n• Only enable this if you are okay managing updates manually.\n• Recommended for offline/competitive sessions, not everyday use.",
+      "description": "[Very aggressive] Kills almost all Windows background download logic. What this changes:\n\u2022 Sets BITS (Background Intelligent Transfer Service) startup to Disabled.\n\u2022 Sets DoSvc (Delivery Optimization) startup to Disabled (also in Extreme preset).\n\u2022 Stops both services immediately. Impact:\n\u2022 Reduces random update/download wakes and some background processes.\n\u2022 Can break or delay: - Windows Update downloads - Microsoft Store installs/updates - Some app updaters that rely on BITS Requirements:\n\u2022 Run as Administrator.\n\u2022 Only enable this if you are okay managing updates manually.\n\u2022 Recommended for offline/competitive sessions, not everyday use.",
       "requiresAdmin": true,
       "requiresReboot": false,
       "apply": {
@@ -1290,7 +1300,7 @@
         "steps": [
           {
             "type": "ps.run",
-            "command": "Write-Output \"=== FALCON SERVICE IMPACT LAB: AFTER SNAPSHOT & COMPARE ===\"\nWrite-Output \"\"\nWrite-Output \"Capturing a new snapshot and comparing against the latest baseline.\"\nWrite-Output \"\"\n\n$logsDir = Join-Path $PSScriptRoot \"..\\logs\"\nif (-not (Test-Path $logsDir)) {\n  Write-Output \"No logs directory found. Run the baseline snapshot first.\"\n  return\n}\n\n# Find latest baseline file\n$baselineFiles = Get-ChildItem $logsDir -Filter \"service_baseline_*.json\" -ErrorAction SilentlyContinue | Sort-Object LastWriteTime -Descending\nif (-not $baselineFiles -or $baselineFiles.Count -eq 0) {\n  Write-Output \"No baseline snapshot found. Run the baseline snapshot before using this.\"\n  return\n}\n\n$baselineFile = $baselineFiles[0].FullName\nWrite-Output (\"Using baseline: {0}\" -f $baselineFile)\n\n# Load baseline JSON\ntry {\n  $baselineJson = Get-Content $baselineFile -Raw -ErrorAction SilentlyContinue\n  $baseline = $baselineJson | ConvertFrom-Json -ErrorAction SilentlyContinue\n} catch {\n  Write-Output \"Failed to parse baseline JSON.\"\n  return\n}\n\n# Capture current snapshot\n$timestamp = Get-Date -Format \"yyyyMMdd_HHmmss\"\n$afterFile = Join-Path $logsDir (\"service_after_{0}.json\" -f $timestamp)\n\n$data = [ordered]@{}\n$data.TimestampUtc = (Get-Date).ToUniversalTime().ToString(\"o\")\n\ntry {\n  $cpu = Get-Counter '\\Processor(_Total)\\% Processor Time' -ErrorAction SilentlyContinue\n  if ($cpu) { $data.CpuPercent = [math]::Round($cpu.CounterSamples[0].CookedValue, 2) }\n} catch {}\ntry {\n  $dpc = Get-Counter '\\Processor(_Total)\\% DPC Time' -ErrorAction SilentlyContinue\n  if ($dpc) { $data.DpcPercent = [math]::Round($dpc.CounterSamples[0].CookedValue, 3) }\n} catch {}\ntry {\n  $isr = Get-Counter '\\Processor(_Total)\\% Interrupt Time' -ErrorAction SilentlyContinue\n  if ($isr) { $data.IsrPercent = [math]::Round($isr.CounterSamples[0].CookedValue, 3) }\n} catch {}\n\ntry {\n  $os = Get-CimInstance Win32_OperatingSystem\n  if ($os) {\n    $total = [double]$os.TotalVisibleMemorySize\n    $free  = [double]$os.FreePhysicalMemory\n    $usedMB = ($total - $free) / 1024.0\n    $totalMB = $total / 1024.0\n    $data.RamUsedMB = [math]::Round($usedMB, 1)\n    $data.RamTotalMB = [math]::Round($totalMB, 1)\n    $data.RamUsedPercent = [math]::Round(($usedMB / $totalMB) * 100.0, 1)\n  }\n} catch {}\n\ntry {\n  $procs = Get-Process -ErrorAction SilentlyContinue\n  if ($procs) {\n    $data.ProcessCount = $procs.Count\n  }\n} catch {}\n\n$jsonAfter = $data | ConvertTo-Json -Depth 4\n$jsonAfter | Out-File -FilePath $afterFile -Encoding UTF8 -Force\n\nWrite-Output (\"After snapshot saved to: {0}\" -f $afterFile)\nWrite-Output \"\"\n\n# Compare key metrics\nfunction Print-Diff($label, $baseVal, $afterVal, $format = \"N2\") {\n  if ($null -eq $baseVal -or $null -eq $afterVal) {\n    return\n  }\n  $delta = $afterVal - $baseVal\n  $sign = if ($delta -gt 0) { \"+\" } elseif ($delta -lt 0) { \"-\" } else { \"±\" }\n  Write-Output (\"{0}: Baseline={1}, After={2}, Delta={3}{4}\" -f $label, [string]::Format(\"{0:\"+$format+\"}\",$baseVal), [string]::Format(\"{0:\"+$format+\"}\",$afterVal), $sign, [string]::Format(\"{0:\"+$format+\"}\",[math]::Abs($delta)))\n}\n\nWrite-Output \"=== Metric Comparison ===\"\nPrint-Diff \"CPU % (_Total)\"    $baseline.CpuPercent     $data.CpuPercent     \"N2\"\nPrint-Diff \"DPC % (_Total)\"    $baseline.DpcPercent     $data.DpcPercent     \"N3\"\nPrint-Diff \"ISR % (_Total)\"    $baseline.IsrPercent     $data.IsrPercent     \"N3\"\nPrint-Diff \"RAM Used MB\"       $baseline.RamUsedMB      $data.RamUsedMB      \"N1\"\nPrint-Diff \"RAM Used %\"        $baseline.RamUsedPercent $data.RamUsedPercent \"N1\"\nPrint-Diff \"Process Count\"     $baseline.ProcessCount   $data.ProcessCount   \"N0\"\n\nWrite-Output \"\"\nWrite-Output \"Heuristic notes:\"\nWrite-Output \"  - Lower CPU%, DPC%, ISR% and RAM usage after disabling services is good.\"\nWrite-Output \"  - If CPU or DPC/ISR got worse, the changes likely did not help or increased overhead.\"\nWrite-Output \"\"\nWrite-Output \"Use this as a data point while testing different service sets; it does not auto-disable services by itself.\"\nWrite-Output \"=== END OF AFTER SNAPSHOT & COMPARE ===\""
+            "command": "Write-Output \"=== FALCON SERVICE IMPACT LAB: AFTER SNAPSHOT & COMPARE ===\"\nWrite-Output \"\"\nWrite-Output \"Capturing a new snapshot and comparing against the latest baseline.\"\nWrite-Output \"\"\n\n$logsDir = Join-Path $PSScriptRoot \"..\\logs\"\nif (-not (Test-Path $logsDir)) {\n  Write-Output \"No logs directory found. Run the baseline snapshot first.\"\n  return\n}\n\n# Find latest baseline file\n$baselineFiles = Get-ChildItem $logsDir -Filter \"service_baseline_*.json\" -ErrorAction SilentlyContinue | Sort-Object LastWriteTime -Descending\nif (-not $baselineFiles -or $baselineFiles.Count -eq 0) {\n  Write-Output \"No baseline snapshot found. Run the baseline snapshot before using this.\"\n  return\n}\n\n$baselineFile = $baselineFiles[0].FullName\nWrite-Output (\"Using baseline: {0}\" -f $baselineFile)\n\n# Load baseline JSON\ntry {\n  $baselineJson = Get-Content $baselineFile -Raw -ErrorAction SilentlyContinue\n  $baseline = $baselineJson | ConvertFrom-Json -ErrorAction SilentlyContinue\n} catch {\n  Write-Output \"Failed to parse baseline JSON.\"\n  return\n}\n\n# Capture current snapshot\n$timestamp = Get-Date -Format \"yyyyMMdd_HHmmss\"\n$afterFile = Join-Path $logsDir (\"service_after_{0}.json\" -f $timestamp)\n\n$data = [ordered]@{}\n$data.TimestampUtc = (Get-Date).ToUniversalTime().ToString(\"o\")\n\ntry {\n  $cpu = Get-Counter '\\Processor(_Total)\\% Processor Time' -ErrorAction SilentlyContinue\n  if ($cpu) { $data.CpuPercent = [math]::Round($cpu.CounterSamples[0].CookedValue, 2) }\n} catch {}\ntry {\n  $dpc = Get-Counter '\\Processor(_Total)\\% DPC Time' -ErrorAction SilentlyContinue\n  if ($dpc) { $data.DpcPercent = [math]::Round($dpc.CounterSamples[0].CookedValue, 3) }\n} catch {}\ntry {\n  $isr = Get-Counter '\\Processor(_Total)\\% Interrupt Time' -ErrorAction SilentlyContinue\n  if ($isr) { $data.IsrPercent = [math]::Round($isr.CounterSamples[0].CookedValue, 3) }\n} catch {}\n\ntry {\n  $os = Get-CimInstance Win32_OperatingSystem\n  if ($os) {\n    $total = [double]$os.TotalVisibleMemorySize\n    $free  = [double]$os.FreePhysicalMemory\n    $usedMB = ($total - $free) / 1024.0\n    $totalMB = $total / 1024.0\n    $data.RamUsedMB = [math]::Round($usedMB, 1)\n    $data.RamTotalMB = [math]::Round($totalMB, 1)\n    $data.RamUsedPercent = [math]::Round(($usedMB / $totalMB) * 100.0, 1)\n  }\n} catch {}\n\ntry {\n  $procs = Get-Process -ErrorAction SilentlyContinue\n  if ($procs) {\n    $data.ProcessCount = $procs.Count\n  }\n} catch {}\n\n$jsonAfter = $data | ConvertTo-Json -Depth 4\n$jsonAfter | Out-File -FilePath $afterFile -Encoding UTF8 -Force\n\nWrite-Output (\"After snapshot saved to: {0}\" -f $afterFile)\nWrite-Output \"\"\n\n# Compare key metrics\nfunction Print-Diff($label, $baseVal, $afterVal, $format = \"N2\") {\n  if ($null -eq $baseVal -or $null -eq $afterVal) {\n    return\n  }\n  $delta = $afterVal - $baseVal\n  $sign = if ($delta -gt 0) { \"+\" } elseif ($delta -lt 0) { \"-\" } else { \"\u00b1\" }\n  Write-Output (\"{0}: Baseline={1}, After={2}, Delta={3}{4}\" -f $label, [string]::Format(\"{0:\"+$format+\"}\",$baseVal), [string]::Format(\"{0:\"+$format+\"}\",$afterVal), $sign, [string]::Format(\"{0:\"+$format+\"}\",[math]::Abs($delta)))\n}\n\nWrite-Output \"=== Metric Comparison ===\"\nPrint-Diff \"CPU % (_Total)\"    $baseline.CpuPercent     $data.CpuPercent     \"N2\"\nPrint-Diff \"DPC % (_Total)\"    $baseline.DpcPercent     $data.DpcPercent     \"N3\"\nPrint-Diff \"ISR % (_Total)\"    $baseline.IsrPercent     $data.IsrPercent     \"N3\"\nPrint-Diff \"RAM Used MB\"       $baseline.RamUsedMB      $data.RamUsedMB      \"N1\"\nPrint-Diff \"RAM Used %\"        $baseline.RamUsedPercent $data.RamUsedPercent \"N1\"\nPrint-Diff \"Process Count\"     $baseline.ProcessCount   $data.ProcessCount   \"N0\"\n\nWrite-Output \"\"\nWrite-Output \"Heuristic notes:\"\nWrite-Output \"  - Lower CPU%, DPC%, ISR% and RAM usage after disabling services is good.\"\nWrite-Output \"  - If CPU or DPC/ISR got worse, the changes likely did not help or increased overhead.\"\nWrite-Output \"\"\nWrite-Output \"Use this as a data point while testing different service sets; it does not auto-disable services by itself.\"\nWrite-Output \"=== END OF AFTER SNAPSHOT & COMPARE ===\""
           }
         ]
       },

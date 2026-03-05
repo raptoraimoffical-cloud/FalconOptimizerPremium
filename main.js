@@ -931,11 +931,47 @@ function runPsFile(scriptRelPath, args = []) {
     : __dirname;
 
   const ps1 = path.join(projectRoot, scriptRelPath);
+  const resolveNSudoExe = () => {
+    const candidates = [
+      path.join(projectRoot, "tools", "FalconLibrary", "NSudo", "NSudo.exe"),
+      path.join(projectRoot, "tools", "FalconLibrary", "NSudo", "NSudoLG.exe"),
+      path.join(projectRoot, "FalconLibrary", "NSudo", "NSudo.exe"),
+      path.join(projectRoot, "FalconLibrary", "NSudo", "NSudoLG.exe"),
+      path.join(projectRoot, "FalconLibrary", "FalconLibrary", "NSudo", "NSudo.exe"),
+      path.join(projectRoot, "FalconLibrary", "FalconLibrary", "NSudo", "NSudoLG.exe")
+    ];
+    for (const cand of candidates) {
+      if (fs.existsSync(cand)) return cand;
+    }
+    return "";
+  };
+
+  const opts = (args && !Array.isArray(args) && typeof args === "object") ? args : {};
+  const psArgs = Array.isArray(args) ? args : (Array.isArray(opts.args) ? opts.args : []);
+  const useTrustedInstaller = !!opts.trustedInstaller;
+  const nsudoExe = useTrustedInstaller ? resolveNSudoExe() : "";
+  const command = useTrustedInstaller
+    ? (nsudoExe
+      ? `${nsudoExe} -U:T -P:E -ShowWindowMode:Hide powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"${ps1}\" ${psArgs.join(" ")}`.trim()
+      : `NSudo.exe -U:T -P:E -ShowWindowMode:Hide powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"${ps1}\" ${psArgs.join(" ")}`.trim())
+    : `powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"${ps1}\" ${psArgs.join(" ")}`.trim();
+
+  if (useTrustedInstaller && !nsudoExe) {
+    return Promise.resolve({
+      ok: false,
+      code: -1,
+      command,
+      stdout: "",
+      stderr: "NSudo executable not found. Checked FalconLibrary NSudo folders."
+    });
+  }
+
   return new Promise((resolve) => {
-    const p = spawn("powershell.exe",
-      ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", ps1, ...args],
-      { cwd: projectRoot, windowsHide: true }
-    );
+    const spawnCommand = useTrustedInstaller ? nsudoExe : "powershell.exe";
+    const spawnArgs = useTrustedInstaller
+      ? ["-U:T", "-P:E", "-ShowWindowMode:Hide", "powershell.exe", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", ps1, ...psArgs]
+      : ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", ps1, ...psArgs];
+    const p = spawn(spawnCommand, spawnArgs, { cwd: projectRoot, windowsHide: true });
 
     let stdout = "";
     let stderr = "";
@@ -950,6 +986,7 @@ function runPsFile(scriptRelPath, args = []) {
       resolve({
         ok,
         code,
+        command,
         stdout: out,
         stderr: fromTimeout
           ? [err, "Timed out while running PowerShell helper."].filter(Boolean).join(" | ")
@@ -1205,7 +1242,10 @@ ipcMain.handle("falcon:runProcessPreset", async (_evt, payload) => {
 
   const scriptRel = path.join('scripts', 'processlab-run.ps1');
   const args = ['-Mode', effectiveMode];
-  return await runPsFile(scriptRel, args);
+  if (effectiveMode === 'extreme') {
+    args.push('-CreateRestorePoint');
+  }
+  return await runPsFile(scriptRel, { args, trustedInstaller: true });
 });
 
 
@@ -1239,7 +1279,10 @@ ipcMain.handle("falcon:runProcessCustomPreset", async (_evt, payload) => {
 
     const scriptRel = path.join('scripts', 'processlab-run.ps1');
     const args = ['-Mode', effectiveMode, '-OverridesPath', overridesPath];
-    return await runPsFile(scriptRel, args);
+    if (effectiveMode === 'extreme') {
+      args.push('-CreateRestorePoint');
+    }
+    return await runPsFile(scriptRel, { args, trustedInstaller: true });
   } catch (e) {
     return { ok: false, error: e && e.message ? e.message : String(e) };
   }

@@ -600,8 +600,11 @@ for ($i = 0; $i -lt $steps.Count; $i++) {
       }
 
       "ps.file" {
-        $rel = Expand-String $s.path
-        if ([string]::IsNullOrWhiteSpace($rel)) { throw "ps.file missing path" }
+        $relSource = $null
+        if ($s.PSObject.Properties.Name -contains "file" -and $s.file) { $relSource = $s.file }
+        elseif ($s.PSObject.Properties.Name -contains "path" -and $s.path) { $relSource = $s.path }
+        $rel = Expand-String $relSource
+        if ([string]::IsNullOrWhiteSpace($rel)) { throw "ps.file missing file/path" }
         $scriptPath = $rel
         if (-not (Test-Path -LiteralPath $scriptPath)) {
           # try relative to Falcon root
@@ -627,6 +630,10 @@ for ($i = 0; $i -lt $steps.Count; $i++) {
               $k = $kv.Name
               $v = $kv.Value
               if ([string]::IsNullOrWhiteSpace($k)) { continue }
+              if ($v -is [bool]) {
+                if ($v) { $argList += ("-{0}" -f $k) }
+                continue
+              }
               $argList += ("-{0}" -f $k)
               if ($null -ne $v -and [string]$v -ne "") { $argList += (Expand-String ([string]$v)) }
             }
