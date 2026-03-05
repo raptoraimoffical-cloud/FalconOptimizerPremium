@@ -1,0 +1,177 @@
+{
+  "templates": [
+    {
+      "id": "telemetry_privacy",
+      "match": {
+        "keywords": ["telemetry", "privacy", "diagnostic", "tracking", "ads id", "background apps"]
+      },
+      "details": {
+        "recommendedFor": "Users who want less telemetry and background data collection while keeping core Windows features.",
+        "benefits": [
+          "Reduces non-essential data collection and chatter.",
+          "Can lower background CPU, disk, and network activity."
+        ],
+        "tradeoffs": [
+          "Some personalization and Microsoft recommendations may be reduced.",
+          "Troubleshooting data available to support tools can be limited."
+        ],
+        "riskNotes": [
+          "Review enterprise or school compliance requirements before disabling diagnostics.",
+          "Avoid disabling settings required by anti-cheat or managed environments."
+        ],
+        "reversible": "Usually reversible by restoring privacy defaults or using the tweak revert action.",
+        "requiresReboot": false
+      }
+    },
+    {
+      "id": "power_cpu_scheduler",
+      "match": {
+        "keywords": ["power plan", "ultimate", "bitsum", "processor", "mmcss", "scheduler", "timer", "priority"]
+      },
+      "details": {
+        "recommendedFor": "Competitive players and latency-focused users who prioritize responsiveness over idle efficiency.",
+        "benefits": [
+          "Improves scheduling consistency for foreground workloads.",
+          "Can reduce frame-time spikes in CPU-bound scenarios."
+        ],
+        "tradeoffs": [
+          "Higher power draw and potentially more heat/noise.",
+          "Battery runtime and idle efficiency may decrease."
+        ],
+        "riskNotes": [
+          "Aggressive scheduling can impact workstation/background tasks.",
+          "Validate thermal headroom before long gaming sessions."
+        ],
+        "reversible": "Revert by restoring Balanced/default power and scheduler values.",
+        "requiresReboot": true
+      }
+    },
+    {
+      "id": "gpu_latency",
+      "match": {
+        "keywords": ["gpu", "nvidia", "amd", "low latency", "reflex", "adeon", "frame queue", "pre-rendered"]
+      },
+      "details": {
+        "recommendedFor": "GPU-bound or high-refresh players tuning render latency.",
+        "benefits": [
+          "Can lower input-to-photon latency in supported games.",
+          "May stabilize frame delivery by tightening queue behavior."
+        ],
+        "tradeoffs": [
+          "Aggressive queue limits can reduce peak FPS in some titles.",
+          "Driver-level overrides may conflict with in-game settings."
+        ],
+        "riskNotes": [
+          "Test per game engine; ideal settings vary by DX11/DX12/Vulkan.",
+          "Keep a known-good driver profile for quick rollback."
+        ],
+        "reversible": "Yes, by restoring driver defaults or applying tweak revert.",
+        "requiresReboot": false
+      }
+    },
+    {
+      "id": "network_qos_dscp",
+      "match": {
+        "keywords": ["network", "qos", "dscp", "mtu", "ecn", "nagle", "tcp", "adapter", "bufferbloat"]
+      },
+      "details": {
+        "recommendedFor": "Online gamers optimizing packet priority and latency consistency.",
+        "benefits": [
+          "Can reduce jitter and improve packet scheduling under load.",
+          "Improves per-game traffic prioritization with QoS/DSCP policies."
+        ],
+        "tradeoffs": [
+          "Benefit depends on router/ISP honoring QoS tags.",
+          "Incorrect adapter values can reduce throughput or compatibility."
+        ],
+        "riskNotes": [
+          "Document original NIC values before applying advanced changes.",
+          "Enterprise/VPN environments may override local QoS behavior."
+        ],
+        "reversible": "Yes, remove policies and restore adapter defaults.",
+        "requiresReboot": false
+      }
+    },
+    {
+      "id": "defender_security",
+      "match": {
+        "keywords": ["defender", "security", "exploit guard", "smartscreen", "antivirus", "tamper"]
+      },
+      "details": {
+        "recommendedFor": "Advanced users balancing low overhead with acceptable baseline security.",
+        "benefits": [
+          "Can reduce scanning overhead on trusted gaming workloads.",
+          "Allows tighter control of security modules during sessions."
+        ],
+        "tradeoffs": [
+          "May reduce malware/ransomware protection coverage.",
+          "Could increase exposure when downloading untrusted files."
+        ],
+        "riskNotes": [
+          "Use only on trusted systems with strong browsing hygiene.",
+          "Re-enable protections after testing or competitive sessions."
+        ],
+        "reversible": "Reversible by re-enabling Defender/security defaults.",
+        "requiresReboot": true
+      }
+    },
+    {
+      "id": "services_process_removal",
+      "match": {
+        "keywords": ["service", "services", "process", "disable task", "autorun", "startup", "background service"]
+      },
+      "details": {
+        "recommendedFor": "Users trimming persistent background load for lower latency.",
+        "benefits": [
+          "Frees RAM/CPU resources from non-essential services.",
+          "Reduces startup contention and background wakeups."
+        ],
+        "tradeoffs": [
+          "Certain Windows or vendor features may stop working.",
+          "OS updates may re-enable disabled services/tasks."
+        ],
+        "riskNotes": [
+          "Disable only services you can identify and restore.",
+          "Keep restore points for aggressive service profiles."
+        ],
+        "reversible": "Partially reversible if startup modes are preserved in revert steps.",
+        "requiresReboot": true
+      }
+    },
+    {
+      "id": "debloat",
+      "match": {
+        "keywords": ["debloat", "uninstall", "remove appx", "bloat", "cleanup"]
+      },
+      "details": {
+        "recommendedFor": "Clean installations or power users removing bundled software.",
+        "benefits": [
+          "Reduces clutter and background app activity.",
+          "Can improve boot/login responsiveness."
+        ],
+        "tradeoffs": [
+          "Removed apps may need manual reinstallation later.",
+          "Some OEM convenience features can be lost."
+        ],
+        "riskNotes": [
+          "Confirm dependencies before removing Microsoft Store components.",
+          "Prefer staged cleanup over one-shot aggressive removal."
+        ],
+        "reversible": "Some removals are reversible, but certain packages may require manual reinstall.",
+        "requiresReboot": false
+      }
+    }
+  ],
+  "overridesById": {
+    "net.qos.apply_game_policy": {
+      "details": {
+        "recommendedFor": "Players who want per-game DSCP 46 policy automation.",
+        "benefits": [
+          "Creates deterministic per-title QoS policies.",
+          "Simplifies policy cleanup with matching revert actions."
+        ],
+        "requiresReboot": false
+      }
+    }
+  }
+}

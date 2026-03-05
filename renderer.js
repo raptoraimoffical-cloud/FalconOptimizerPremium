@@ -1464,18 +1464,21 @@ function renderTweakDetails(item){
       detailsEl.textContent = 'No additional details available for this tweak.';
       return;
     }
+    const structured = buildStructuredDetails(item);
     const desc = item.description || '';
     const applySteps = adjustStepsForHwProfile(item, 'apply', getApplyStepsWithVerify(item)) || [];
     const revertSteps = getStepsFor(item,'revert') || [];
     const logRec = (item.id && tweakLogsById && tweakLogsById[item.id]) ? tweakLogsById[item.id] : null;
-    if(!desc && (!applySteps || !applySteps.length) && (!revertSteps || !revertSteps.length) && !logRec){
-      detailsEl.textContent = 'No additional details available for this tweak.';
-      return;
-    }
     let out = '';
     out += 'Name: ' + (item.name || item.id || '(unnamed)') + '\n';
     out += 'ID: ' + (item.id || '(none)') + '\n';
     out += 'Risk: ' + (item.riskLevel || item.risk || 'Safe') + '\n\n';
+    out += 'Recommended for:\n' + structured.recommendedFor + '\n\n';
+    out += 'Benefits:\n - ' + structured.benefits.join('\n - ') + '\n\n';
+    out += 'Tradeoffs:\n - ' + structured.tradeoffs.join('\n - ') + '\n\n';
+    out += 'Risks:\n - ' + structured.riskNotes.join('\n - ') + '\n\n';
+    out += 'Reversible: ' + structured.reversible + '\n';
+    out += 'Requires reboot: ' + (structured.requiresReboot ? 'Yes' : 'No') + '\n\n';
     if(desc){
       out += 'Description:\n' + desc + '\n\n';
     }
