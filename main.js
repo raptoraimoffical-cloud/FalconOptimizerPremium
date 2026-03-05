@@ -972,6 +972,63 @@ function runPsFile(scriptRelPath, args = []) {
     });
   });
 }
+
+
+function runPsInline(command) {
+  const projectRoot = app.isPackaged
+    ? path.join(process.resourcesPath, "app.asar.unpacked")
+    : __dirname;
+
+  return new Promise((resolve) => {
+    const p = spawn(
+      "powershell.exe",
+      ["-ExecutionPolicy", "Bypass", "-NoProfile", "-Command", String(command || "")],
+      { cwd: projectRoot, windowsHide: true }
+    );
+
+    let stdout = "";
+    let stderr = "";
+    let finished = false;
+
+    const finish = (code, fromTimeout) => {
+      if (finished) return;
+      finished = true;
+      const out = (stdout || "").trim();
+      const err = (stderr || "").trim();
+      const exitCode = typeof code === "number" ? code : -1;
+      const result = {
+        ok: exitCode === 0 && !fromTimeout,
+        code: exitCode,
+        stdout: out,
+        stderr: fromTimeout
+          ? [err, "Timed out while running PowerShell command."].filter(Boolean).join(" | ")
+          : err
+      };
+      console.log("[runPsInline] stdout:", out);
+      console.log("[runPsInline] stderr:", result.stderr || "");
+      console.log("[runPsInline] exit code:", exitCode);
+      resolve(result);
+    };
+
+    const timeoutMs = 300000;
+    const timer = setTimeout(() => {
+      try { p.kill(); } catch (_) {}
+      finish(-1, true);
+    }, timeoutMs);
+
+    p.stdout.on("data", (d) => (stdout += d.toString()));
+    p.stderr.on("data", (d) => (stderr += d.toString()));
+    p.on("error", (err) => {
+      clearTimeout(timer);
+      stderr += String(err && err.message ? err.message : err);
+      finish(-1, false);
+    });
+    p.on("close", (code) => {
+      clearTimeout(timer);
+      finish(code, false);
+    });
+  });
+}
 // --- IPC: Run raw steps (legacy) ---
 ipcMain.handle("falcon:runSteps", async (_evt, payload) => {
   const steps = (payload && Array.isArray(payload.steps)) ? payload.steps : [];
@@ -1812,7 +1869,7 @@ ipcMain.handle("falcon:applyGameQoS", async (_evt, payload) => {
       cmdParts.push(`try { Remove-NetQosPolicy -Name '${policy}' -Confirm:$false -ErrorAction SilentlyContinue | Out-Null } catch {}`);
       for (const exe of safeExes) {
         const exeName = exe.replace(/'/g, "''");
-        cmdParts.push(`try { New-NetQosPolicy -Name '${policy}' -AppPathNameMatchCondition '*${exeName}' -DSCPAction 46 -IPProtocol Both -ErrorAction Stop | Out-Null; Write-Output 'Applied:${policy}:${exeName}' } catch { Write-Output 'Failed:${policy}:${exeName}'; Write-Output $_.Exception.Message }`);
+        cmdParts.push(`try { New-NetQosPolicy -Name '${policy}' -AppPathNameMatchCondition '${exeName}' -DSCPAction 46 -IPProtocol Both -ErrorAction Stop | Out-Null; Write-Output 'Applied:${policy}:${exeName}' } catch { Write-Output 'Failed:${policy}:${exeName}'; Write-Output $_.Exception.Message }`);
       }
     }
     if (!cmdParts.length) return { ok: false, stdout: '', stderr: 'No executable names provided' };
