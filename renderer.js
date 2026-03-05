@@ -6763,6 +6763,11 @@ async function renderProcessLab(){
         </div>
         <p class="bios-note" style="margin-top:8px;">Tip: after running a preset, use the live process list above to close any remaining launchers (Opera GX, Steam, Discord, etc.) and verify your process count in Task Manager. Aim for &lt; 40 total background processes on a dedicated gaming account.</p>
       </div>
+      <div class="card" style="margin-top:10px;">
+        <div class="card-title">Process Lab execution log</div>
+        <div class="card-desc">Last run command, stdout, stderr, and exit code.</div>
+        <pre id="procExecutionLog" class="log" style="max-height:220px;overflow:auto;margin-top:8px;">No Process Lab run yet.</pre>
+      </div>
 
     <div class="panel" id="procCustomPanel">
       <div class="card-title">Custom service matrix (max debloat)</div>
@@ -6805,6 +6810,28 @@ async function renderProcessLab(){
   if (summaryEl) summaryEl.textContent = 'Click "Refresh list" to scan background processes.';
   const listEl = document.getElementById('procList');
   const chkRecommended = document.getElementById('procShowRecommended');
+  const procExecutionLog = document.getElementById('procExecutionLog');
+
+  function writeProcessLabLog(result){
+    if (!procExecutionLog) return;
+    const cmd = String((result && result.command) || 'n/a');
+    const out = String((result && result.stdout) || '');
+    const err = String((result && result.stderr) || '');
+    const code = (result && typeof result.code !== 'undefined') ? String(result.code) : 'n/a';
+    procExecutionLog.textContent = [
+      '[command]',
+      cmd,
+      '',
+      '[stdout]',
+      out || '(empty)',
+      '',
+      '[stderr]',
+      err || '(empty)',
+      '',
+      '[exit code]',
+      code
+    ].join('\n');
+  }
 
   let isLoadingProcs = false;
 
@@ -7066,6 +7093,7 @@ async function renderProcessLab(){
 
     try {
       const res = await window.falcon.runProcessCustomPreset(baseMode, customOverrides);
+      writeProcessLabLog(res || {});
       const ok = res && res.ok;
       const stdout = res && res.stdout ? res.stdout : '';
       if (progressBarInner) {
@@ -7155,7 +7183,8 @@ async function renderProcessLab(){
       title: 'Apply ' + label + ' Process Lab mode?',
       body: 'This will run the ' + label + ' Process Lab preset. It can disable background services, telemetry, and non-essential background apps. Continue only if you understand that Windows features and store apps may be affected.',
       risk: label === 'Lethal' ? 'Critical' : 'High',
-      requireTyped: label === 'Lethal'
+      requireTyped: label === 'Lethal',
+      typedText: label === 'Lethal' ? 'LETHAL' : ''
     });
     if (!okModal) return;
 
@@ -7193,6 +7222,7 @@ async function renderProcessLab(){
 
     try {
       const res = await window.falcon.runProcessPreset(mode);
+      writeProcessLabLog(res || {});
       const ok = res && res.ok;
       const stdout = res && res.stdout ? res.stdout : '';
       // Snap bar to 100% on completion
@@ -7232,6 +7262,7 @@ async function renderProcessLab(){
     if (!okModal) return;
     try {
       const res = await window.falcon.restoreProcessLab();
+      writeProcessLabLog(res || {});
       const ok = res && res.ok;
       const stdout = res && res.stdout ? res.stdout : '';
       if (ok && stdout.indexOf('ProcessLabRestore=OK') >= 0) {

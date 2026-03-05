@@ -2,7 +2,8 @@ param(
     [Parameter(Mandatory = $true)]
     [ValidateSet('safe','competitive','extreme')]
     [string]$Mode,
-    [string]$OverridesPath
+    [string]$OverridesPath,
+    [switch]$CreateRestorePoint
 )
 
 $ErrorActionPreference = 'SilentlyContinue'
@@ -72,6 +73,18 @@ $modeCfg = $modes.modes | Where-Object { $_.id -eq $Mode } | Select-Object -Firs
 if (-not $modeCfg) {
     Write-Output "ProcessLabError=ModeNotFound"
     exit 1
+}
+
+if ($CreateRestorePoint) {
+    try {
+        Enable-ComputerRestore -Drive 'C:\' -ErrorAction SilentlyContinue | Out-Null
+    } catch {}
+    try {
+        Checkpoint-Computer -Description ("Falcon ProcessLab {0}" -f $Mode) -RestorePointType 'MODIFY_SETTINGS' -ErrorAction SilentlyContinue | Out-Null
+        Write-Output "ProcessLabRestorePoint=Created"
+    } catch {
+        Write-Output "ProcessLabRestorePoint=Failed"
+    }
 }
 
 # Simple helpers
