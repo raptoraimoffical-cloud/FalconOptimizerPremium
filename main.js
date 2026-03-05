@@ -5,6 +5,7 @@ const path = require("path");
 const fs = require("fs");
 const https = require("https");
 const { spawn } = require("child_process");
+const { mergeDetails } = require("./core/detailsOverlay");
 
 function runCommand(command, args = [], options = {}) {
   return new Promise((resolve) => {
@@ -66,6 +67,7 @@ let jobManager = null;
 let actionRunner = null;
 let currentSessionId = null;
 let _fileReaderIpcRegistered = false;
+let _detailsOverlayCache = null;
 let autoUpdateInterval = null;
 let updaterDiagnostics = {
   enabled: false,
@@ -750,6 +752,30 @@ function resolveRelPath(rel){
   throw new Error(`File not found for "${p}". Attempted: ${detail}`);
 }
 
+function getDetailsOverlayDoc() {
+  if (_detailsOverlayCache) return _detailsOverlayCache;
+  try {
+    const abs = resolveRelPath("data/tweak_details_overrides.json");
+    const raw = fs.readFileSync(abs, "utf8");
+    _detailsOverlayCache = JSON.parse(raw);
+  } catch (_) {
+    _detailsOverlayCache = { templates: [], overridesById: {} };
+  }
+  return _detailsOverlayCache;
+}
+
+function withMergedDetails(relPath, obj) {
+  const p = String(relPath || "").replace(/\\/g, "/").toLowerCase();
+  if (!p.startsWith("tweaks/") || !obj || typeof obj !== "object") return obj;
+  const key = Array.isArray(obj.items) ? "items" : (Array.isArray(obj.tweaks) ? "tweaks" : null);
+  if (!key) return obj;
+  const overlay = getDetailsOverlayDoc();
+  return {
+    ...obj,
+    [key]: obj[key].map((item) => mergeDetails(item, overlay))
+  };
+}
+
 if (!_fileReaderIpcRegistered) {
 ipcMain.handle("falcon:readText", async (_evt, payload) => {
   try {
@@ -763,10 +789,11 @@ ipcMain.handle("falcon:readText", async (_evt, payload) => {
 
 ipcMain.handle("falcon:readJson", async (_evt, payload) => {
   try {
-    const abs = resolveRelPath(payload && payload.path);
+    const relPath = payload && payload.path;
+    const abs = resolveRelPath(relPath);
     const raw = fs.readFileSync(abs, "utf8");
     const obj = JSON.parse(raw);
-    return { ok: true, json: obj };
+    return { ok: true, json: withMergedDetails(relPath, obj) };
   } catch (e) {
     return { ok: false, error: String(e && e.message ? e.message : e) };
   }
