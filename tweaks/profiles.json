@@ -5,52 +5,107 @@
       "id": "balanced",
       "name": "Balanced",
       "description": "Daily stable profile: safe + warning optimizations with reversible defaults.",
-      "includeRiskLevels": ["Safe", "Warning"],
+      "includeRiskLevels": [
+        "Safe",
+        "Warning"
+      ],
       "includeExcluded": false,
       "applyStretchDefault": true,
       "actions": [
-        { "type": "boostpack", "id": "boostpack.v8_3_safe" },
-        { "type": "tool", "id": "falconlib.timer_resolution" }
+        {
+          "type": "boostpack",
+          "id": "boostpack.v8_3_safe"
+        },
+        {
+          "type": "tool",
+          "id": "falconlib.timer_resolution"
+        }
       ]
     },
     {
       "id": "performance",
       "name": "Performance",
       "description": "Higher performance profile with selected high-risk tweaks and BoostPack 8.3.",
-      "includeRiskLevels": ["Safe", "Warning", "High"],
+      "includeRiskLevels": [
+        "Safe",
+        "Warning",
+        "High"
+      ],
       "includeExcluded": false,
       "applyStretchDefault": true,
       "actions": [
-        { "type": "boostpack", "id": "boostpack.v8_3" },
-        { "type": "tool", "id": "falconlib.network_tweaks" }
+        {
+          "type": "boostpack",
+          "id": "boostpack.v8_3"
+        },
+        {
+          "type": "tool",
+          "id": "falconlib.network_tweaks"
+        }
       ]
     },
     {
       "id": "hardcore_extreme",
       "name": "Hardcore Extreme",
       "description": "Aggressive tuning with explicit warnings; avoids irreversible removals by default.",
-      "includeRiskLevels": ["Safe", "Warning", "High", "Critical"],
+      "includeRiskLevels": [
+        "Safe",
+        "Warning",
+        "High",
+        "Critical"
+      ],
       "includeExcluded": false,
       "requireTypedPhrase": "HARDCORE",
       "applyStretchDefault": true,
       "actions": [
-        { "type": "boostpack", "id": "boostpack.v8_3" },
-        { "type": "tool", "id": "falconlib.process_cleanup" }
-      ]
+        {
+          "type": "boostpack",
+          "id": "boostpack.v8_3"
+        },
+        {
+          "type": "tool",
+          "id": "falconlib.process_cleanup"
+        }
+      ],
+      "warnings": [
+        "Aggressive profile: may disable comfort features and background services."
+      ],
+      "confirm": {
+        "type": "typed",
+        "text": "HARDCORE"
+      }
     },
     {
       "id": "lethal_mode",
       "name": "Lethal Mode",
       "description": "Extreme process/service stripping mode. Requires typed confirmation and backup snapshot first.",
-      "includeRiskLevels": ["Safe", "Warning", "High", "Critical"],
+      "includeRiskLevels": [
+        "Safe",
+        "Warning",
+        "High",
+        "Critical"
+      ],
       "includeExcluded": true,
       "requireTypedPhrase": "LETHAL",
       "requireSnapshot": true,
       "applyStretchDefault": false,
       "actions": [
-        { "type": "boostpack", "id": "process-destroyer-extreme.v2_5" },
-        { "type": "tool", "id": "falconlib.process_destroyer" }
-      ]
+        {
+          "type": "boostpack",
+          "id": "process-destroyer-extreme.v2_5"
+        },
+        {
+          "type": "tool",
+          "id": "falconlib.process_destroyer"
+        }
+      ],
+      "warnings": [
+        "Extreme profile: can break apps/services and should be used on dedicated gaming setups."
+      ],
+      "confirm": {
+        "type": "typed",
+        "text": "LETHAL"
+      }
     }
   ]
 }
