@@ -13,12 +13,8 @@
       "applyStretchDefault": true,
       "actions": [
         {
-          "type": "boostpack",
-          "id": "boostpack.v8_3_safe"
-        },
-        {
           "type": "tool",
-          "id": "falconlib.timer_resolution"
+          "id": "fancontrol"
         }
       ]
     },
@@ -35,12 +31,8 @@
       "applyStretchDefault": true,
       "actions": [
         {
-          "type": "boostpack",
-          "id": "boostpack.v8_3"
-        },
-        {
           "type": "tool",
-          "id": "falconlib.network_tweaks"
+          "id": "npi"
         }
       ]
     },
@@ -59,12 +51,8 @@
       "applyStretchDefault": true,
       "actions": [
         {
-          "type": "boostpack",
-          "id": "boostpack.v8_3"
-        },
-        {
           "type": "tool",
-          "id": "falconlib.process_cleanup"
+          "id": "process_destroyer"
         }
       ],
       "warnings": [
@@ -91,12 +79,8 @@
       "applyStretchDefault": false,
       "actions": [
         {
-          "type": "boostpack",
-          "id": "process-destroyer-extreme.v2_5"
-        },
-        {
           "type": "tool",
-          "id": "falconlib.process_destroyer"
+          "id": "process_destroyer_extreme"
         }
       ],
       "warnings": [

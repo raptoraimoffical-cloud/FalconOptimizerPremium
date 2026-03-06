@@ -8431,8 +8431,13 @@ async function buildNetworkPriorityPanel(){
 
   document.getElementById('npApplySelected').onclick = async () => {
     const selected = getSelected(games).map((g)=>({ id:g.id, name:g.name, exe:g.exe, exes:g.exes }));
+    if (!selected.length) {
+      showToast('Select at least one game first.', 'warning');
+      return;
+    }
     const res = await window.falcon.applyGameQoS(selected);
-    lastLog = ((res&&res.stdout)||'') + '\n' + ((res&&res.stderr)||'');
+    const details = (res && res.details) ? `\n[details] ${JSON.stringify(res.details)}` : '';
+    lastLog = ((res&&res.stdout)||'') + '\n' + ((res&&res.stderr)||'') + `\n[exitCode] ${String((res && typeof res.exitCode !== 'undefined') ? res.exitCode : (res && res.code))}` + `\n[command] ${(res&&res.command)||'n/a'}` + details;
     document.getElementById('npLog').textContent = lastLog.trim();
     if (res && res.ok) {
       const idSet = new Set(selected.map((x) => String(x.id)));
@@ -8443,8 +8448,20 @@ async function buildNetworkPriorityPanel(){
   };
   document.getElementById('npRemoveSelected').onclick = async () => {
     const selected = getSelected(games).map((g)=>({ id:g.id, name:g.name }));
+    if (!selected.length) {
+      showToast('Select at least one game first.', 'warning');
+      return;
+    }
+    const ok = await showConfirmModal({
+      title: 'Remove Network Priority?',
+      body: 'This will remove per-game QoS policies for the selected entries.',
+      risk: 'Medium',
+      requireTyped: false
+    });
+    if (!ok) return;
     const res = await window.falcon.removeGameQoS(selected);
-    lastLog = ((res&&res.stdout)||'') + '\n' + ((res&&res.stderr)||'');
+    const details = (res && res.details) ? `\n[details] ${JSON.stringify(res.details)}` : '';
+    lastLog = ((res&&res.stdout)||'') + '\n' + ((res&&res.stderr)||'') + `\n[exitCode] ${String((res && typeof res.exitCode !== 'undefined') ? res.exitCode : (res && res.code))}` + `\n[command] ${(res&&res.command)||'n/a'}` + details;
     document.getElementById('npLog').textContent = lastLog.trim();
     if (res && res.ok) {
       const idSet = new Set(selected.map((x) => String(x.id)));

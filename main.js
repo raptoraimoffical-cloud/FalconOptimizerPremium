@@ -986,7 +986,9 @@ function runPsFile(scriptRelPath, args = []) {
   if (useTrustedInstaller && !nsudoExe) {
     return Promise.resolve({
       ok: false,
+      success: false,
       code: -1,
+      exitCode: -1,
       command,
       stdout: "",
       stderr: "NSudo executable not found. Checked FalconLibrary NSudo folders."
@@ -1012,7 +1014,9 @@ function runPsFile(scriptRelPath, args = []) {
       const ok = (code === 0) && !fromTimeout;
       resolve({
         ok,
+        success: ok,
         code,
+        exitCode: code,
         command,
         stdout: out,
         stderr: fromTimeout
@@ -1062,7 +1066,10 @@ function runPsInline(command) {
       const exitCode = typeof code === "number" ? code : -1;
       const result = {
         ok: exitCode === 0 && !fromTimeout,
+        success: exitCode === 0 && !fromTimeout,
         code: exitCode,
+        exitCode,
+        command: String(command || ""),
         stdout: out,
         stderr: fromTimeout
           ? [err, "Timed out while running PowerShell command."].filter(Boolean).join(" | ")
@@ -1928,38 +1935,66 @@ ipcMain.handle("falcon:getGamesCatalog", async () => {
 ipcMain.handle("falcon:applyGameQoS", async (_evt, payload) => {
   try {
     const entries = Array.isArray(payload && payload.entries) ? payload.entries : [];
-    if (!entries.length) return { ok: false, stdout: '', stderr: 'No games selected' };
+    if (!entries.length) return { ok: false, success: false, stdout: '', stderr: 'No games selected', exitCode: -1, command: 'New-NetQosPolicy' };
     const cmdParts = [];
     for (const entry of entries) {
       const gameId = canonicalGameId(entry && (entry.id || entry.name || 'custom_game'));
       const policy = getGameQosPolicyName(gameId).replace(/'/g, "''");
-      const exes = Array.isArray(entry && entry.exes) ? entry.exes : [entry && entry.exe].filter(Boolean);
-      const safeExes = exes.map((x) => String(x || '').trim()).filter(Boolean);
-      if (!safeExes.length) continue;
+      const preferredExe = String((entry && entry.exe) || '').trim();
+      const exes = Array.isArray(entry && entry.exes) ? entry.exes : [];
+      const firstExe = exes.map((x) => String(x || '').trim()).find(Boolean) || '';
+      const exeNameRaw = preferredExe || firstExe;
+      if (!exeNameRaw) continue;
+      const exeName = exeNameRaw.replace(/'/g, "''");
       cmdParts.push(`try { Remove-NetQosPolicy -Name '${policy}' -Confirm:$false -ErrorAction SilentlyContinue | Out-Null } catch {}`);
-      for (const exe of safeExes) {
-        const exeName = exe.replace(/'/g, "''");
-        cmdParts.push(`try { New-NetQosPolicy -Name '${policy}' -AppPathNameMatchCondition '${exeName}' -DSCPAction 46 -IPProtocol Both -ErrorAction Stop | Out-Null; Write-Output 'Applied:${policy}:${exeName}' } catch { Write-Output 'Failed:${policy}:${exeName}'; Write-Output $_.Exception.Message }`);
-      }
+      cmdParts.push(`try { New-NetQosPolicy -Name '${policy}' -AppPathNameMatchCondition '${exeName}' -DSCPAction 46 -IPProtocol Both -ErrorAction Stop | Out-Null; Write-Output 'Applied:${policy}:${exeName}' } catch { Write-Output 'Failed:${policy}:${exeName}'; Write-Output $_.Exception.Message }`);
     }
-    if (!cmdParts.length) return { ok: false, stdout: '', stderr: 'No executable names provided' };
-    return await runPsInline(cmdParts.join('; '));
+    if (!cmdParts.length) return { ok: false, success: false, stdout: '', stderr: 'No executable names provided', exitCode: -1, command: 'New-NetQosPolicy' };
+    const res = await runPsInline(cmdParts.join('; '));
+    const outLines = String(res && res.stdout ? res.stdout : '').split(/\r?\n/).map((l) => l.trim()).filter(Boolean);
+    const failedLines = outLines.filter((l) => l.startsWith('Failed:'));
+    const success = !!(res && res.success) && failedLines.length === 0;
+    return {
+      ...res,
+      ok: success,
+      success,
+      command: (res && res.command) || 'New-NetQosPolicy',
+      details: {
+        attempted: outLines.filter((l) => l.startsWith('Applied:') || l.startsWith('Failed:')).length,
+        applied: outLines.filter((l) => l.startsWith('Applied:')).length,
+        failed: failedLines.length
+      }
+    };
   } catch (e) {
-    return { ok: false, stdout: '', stderr: String(e && e.message ? e.message : e) };
+    return { ok: false, success: false, stdout: '', stderr: String(e && e.message ? e.message : e), exitCode: -1, command: 'New-NetQosPolicy' };
   }
 });
 
 ipcMain.handle("falcon:removeGameQoS", async (_evt, payload) => {
   try {
     const entries = Array.isArray(payload && payload.entries) ? payload.entries : [];
-    if (!entries.length) return { ok: false, stdout: '', stderr: 'No games selected' };
+    if (!entries.length) return { ok: false, success: false, stdout: '', stderr: 'No games selected', exitCode: -1, command: 'Remove-NetQosPolicy' };
     const cmdParts = entries.map((entry) => {
       const policy = getGameQosPolicyName(entry && (entry.id || entry.name || 'custom_game')).replace(/'/g, "''");
       return `try { Remove-NetQosPolicy -Name '${policy}' -Confirm:$false -ErrorAction Stop; Write-Output 'Removed:${policy}' } catch { Write-Output 'Failed:${policy}'; Write-Output $_.Exception.Message }`;
     });
-    return await runPsInline(cmdParts.join('; '));
+    const res = await runPsInline(cmdParts.join('; '));
+    const outLines = String(res && res.stdout ? res.stdout : '').split(/\r?\n/).map((l) => l.trim()).filter(Boolean);
+    const failedLines = outLines.filter((l) => l.startsWith('Failed:'));
+    const success = !!(res && res.success) && failedLines.length === 0;
+    return {
+      ...res,
+      ok: success,
+      success,
+      command: (res && res.command) || 'Remove-NetQosPolicy',
+      details: {
+        attempted: outLines.filter((l) => l.startsWith('Removed:') || l.startsWith('Failed:')).length,
+        removed: outLines.filter((l) => l.startsWith('Removed:')).length,
+        failed: failedLines.length
+      }
+    };
   } catch (e) {
-    return { ok: false, stdout: '', stderr: String(e && e.message ? e.message : e) };
+    return { ok: false, success: false, stdout: '', stderr: String(e && e.message ? e.message : e), exitCode: -1, command: 'Remove-NetQosPolicy' };
   }
 });
 
@@ -2251,6 +2286,54 @@ ipcMain.handle("falcon:setAutoSwitchPowerPlan", async (_evt, payload)=> {
 
 
 
+
+function validateProfilesConfig(projectRoot) {
+  const profilePath = path.join(projectRoot, 'tweaks', 'profiles.json');
+  const manifestPath = path.join(projectRoot, 'tools.manifest.json');
+  const result = { ok: true, errors: [], warnings: [] };
+
+  const profiles = safeJsonRead(profilePath, null);
+  if (!profiles || !Array.isArray(profiles.profiles)) {
+    result.ok = false;
+    result.errors.push('tweaks/profiles.json is missing or has no profiles array.');
+    return result;
+  }
+
+  const manifest = safeJsonRead(manifestPath, { tools: [] });
+  const validToolIds = new Set(((manifest && manifest.tools) || []).map((t) => String(t && t.id || '').trim()).filter(Boolean));
+
+  profiles.profiles.forEach((profile) => {
+    const pid = String((profile && profile.id) || '(missing-id)');
+    const actions = Array.isArray(profile && profile.actions) ? profile.actions : [];
+    actions.forEach((action, idx) => {
+      const actionType = String((action && action.type) || '').trim().toLowerCase();
+      const actionId = String((action && action.id) || '').trim();
+      if (!actionType || !actionId) {
+        result.ok = false;
+        result.errors.push(`Profile ${pid} action[${idx}] is missing type/id.`);
+        return;
+      }
+      if (actionType === 'tool' && !validToolIds.has(actionId)) {
+        result.ok = false;
+        result.errors.push(`Profile ${pid} action[${idx}] references unknown tool id: ${actionId}`);
+      }
+      if (actionType !== 'tool') {
+        result.warnings.push(`Profile ${pid} action[${idx}] type ${actionType} is not currently runtime-validated by tools.manifest.json.`);
+      }
+    });
+
+    if (pid === 'lethal_mode') {
+      const typed = String((profile && profile.requireTypedPhrase) || '').trim();
+      if (typed !== 'LETHAL') {
+        result.ok = false;
+        result.errors.push('lethal_mode must require typed phrase LETHAL.');
+      }
+    }
+  });
+
+  return result;
+}
+
 // --- IPC: Validate tweaks (runs schema-validator.js) ---
 ipcMain.handle("falcon:validateTweaks", async () => {
   const projectRoot = app.isPackaged
@@ -2259,9 +2342,11 @@ ipcMain.handle("falcon:validateTweaks", async () => {
 
   try {
     const report = validateCatalogs(projectRoot);
+    const profileValidation = validateProfilesConfig(projectRoot);
+    report.profileValidation = profileValidation;
     const outPath = path.join(app.getPath("userData"), "tweak-validation-report.json");
     try { fs.writeFileSync(outPath, JSON.stringify(report, null, 2), "utf8"); } catch (_) {}
-    return { ok: report.problems.length === 0, report, reportFile: outPath };
+    return { ok: report.problems.length === 0 && !!profileValidation.ok, report, reportFile: outPath };
   } catch (e) {
     return { ok: false, error: String(e && e.message ? e.message : e) };
   }
