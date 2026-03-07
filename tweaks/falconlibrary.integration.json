@@ -138,6 +138,146 @@
       "revert": { "steps": [] }
     },
     {
+      "id": "input.force_1to1_mouse_movement",
+      "name": "Input: Force 1:1 Mouse Movement",
+      "category": "Input",
+      "description": "Disables Windows pointer acceleration by setting MouseSpeed/MouseThreshold1/MouseThreshold2 to 0 for clean linear desktop movement.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "type": "action",
+      "apply": {
+        "steps": [
+          { "type": "registry.set", "path": "HKCU\\Control Panel\\Mouse", "name": "MouseSpeed", "value": "0", "valueType": "String" },
+          { "type": "registry.set", "path": "HKCU\\Control Panel\\Mouse", "name": "MouseThreshold1", "value": "0", "valueType": "String" },
+          { "type": "registry.set", "path": "HKCU\\Control Panel\\Mouse", "name": "MouseThreshold2", "value": "0", "valueType": "String" }
+        ]
+      },
+      "check": {
+        "steps": [
+          { "type": "registry.check", "path": "HKCU\\Control Panel\\Mouse", "name": "MouseSpeed", "equals": "0", "valueType": "String" },
+          { "type": "registry.check", "path": "HKCU\\Control Panel\\Mouse", "name": "MouseThreshold1", "equals": "0", "valueType": "String" },
+          { "type": "registry.check", "path": "HKCU\\Control Panel\\Mouse", "name": "MouseThreshold2", "equals": "0", "valueType": "String" }
+        ]
+      },
+      "revert": {
+        "steps": [
+          { "type": "registry.set", "path": "HKCU\\Control Panel\\Mouse", "name": "MouseSpeed", "value": "1", "valueType": "String" },
+          { "type": "registry.set", "path": "HKCU\\Control Panel\\Mouse", "name": "MouseThreshold1", "value": "6", "valueType": "String" },
+          { "type": "registry.set", "path": "HKCU\\Control Panel\\Mouse", "name": "MouseThreshold2", "value": "10", "valueType": "String" }
+        ]
+      }
+    },
+    {
+      "id": "input.force_1to1_mouse_movement.verify",
+      "name": "Input: Verify 1:1 Mouse Movement",
+      "category": "Input",
+      "description": "Reads back MouseSpeed/MouseThreshold1/MouseThreshold2 and reports whether 1:1 settings are active.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "type": "action",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$k='HKCU:\\Control Panel\\Mouse'; $ms=(Get-ItemPropertyValue -Path $k -Name MouseSpeed -ErrorAction Stop); $t1=(Get-ItemPropertyValue -Path $k -Name MouseThreshold1 -ErrorAction Stop); $t2=(Get-ItemPropertyValue -Path $k -Name MouseThreshold2 -ErrorAction Stop); Write-Output (\"MouseSpeed={0}; MouseThreshold1={1}; MouseThreshold2={2}\" -f $ms,$t1,$t2); if(($ms -ne '0') -or ($t1 -ne '0') -or ($t2 -ne '0')){ throw '1:1 mouse movement is not fully active.' }"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$k='HKCU:\\Control Panel\\Mouse'; $ms=(Get-ItemPropertyValue -Path $k -Name MouseSpeed -ErrorAction Stop); $t1=(Get-ItemPropertyValue -Path $k -Name MouseThreshold1 -ErrorAction Stop); $t2=(Get-ItemPropertyValue -Path $k -Name MouseThreshold2 -ErrorAction Stop); if(($ms -eq '0') -and ($t1 -eq '0') -and ($t2 -eq '0')){ Write-Output '1:1 mouse movement active.' } else { throw (\"1:1 mouse movement not active. MouseSpeed={0}; MouseThreshold1={1}; MouseThreshold2={2}\" -f $ms,$t1,$t2) }"
+          }
+        ]
+      },
+      "revert": { "steps": [] }
+    },
+    {
+      "id": "timer.custom_resolution_runner",
+      "name": "Timer: Custom Resolution Runner",
+      "category": "Timer",
+      "description": "Starts a measured timer stack by verifying tools, launching dpclat.exe first, then launching SetTimerResolution.exe with FalconTimerResolutionUs. Lower values are not always more stable.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "type": "action",
+      "apply": {
+        "steps": [
+          { "type": "registry.set", "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Kernel", "name": "GlobalTimerResolutionRequests", "value": 1, "valueType": "DWORD", "continueOnError": true },
+          {
+            "type": "ps.run",
+            "command": "$base = Join-Path (Get-Location) 'tools\\FalconLibrary'; $timerExe = Join-Path $base 'Timer Resolution\\SetTimerResolution.exe'; $dpcExe = Join-Path $base 'DPC Checker\\dpclat.exe'; if(-not (Test-Path -LiteralPath $timerExe)){ throw \"Missing SetTimerResolution.exe at $timerExe\" }; if(-not (Test-Path -LiteralPath $dpcExe)){ throw \"Missing dpclat.exe at $dpcExe\" }; if(-not (Get-Process -Name dpclat -ErrorAction SilentlyContinue)){ Start-Process -FilePath $dpcExe -WindowStyle Minimized }; $resolution = $env:FalconTimerResolutionUs; if([string]::IsNullOrWhiteSpace($resolution)){ $resolution = '5000' }; if(-not (Get-Process -Name SetTimerResolution -ErrorAction SilentlyContinue)){ Start-Process -FilePath $timerExe -ArgumentList @('--resolution', $resolution, '--no-console') -WindowStyle Hidden }; Start-Sleep -Milliseconds 350; $dp = Get-Process -Name dpclat -ErrorAction SilentlyContinue; $tm = Get-Process -Name SetTimerResolution -ErrorAction SilentlyContinue; if(-not $dp){ throw 'dpclat.exe did not stay running.' }; if(-not $tm){ throw 'SetTimerResolution.exe did not stay running.' }; Write-Output (\"Timer stack running. dpclat PID={0}; SetTimerResolution PID={1}; resolution(us)={2}\" -f $dp.Id, $tm.Id, $resolution)"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$base = Join-Path (Get-Location) 'tools\\FalconLibrary'; $timerExe = Join-Path $base 'Timer Resolution\\SetTimerResolution.exe'; $dpcExe = Join-Path $base 'DPC Checker\\dpclat.exe'; if(-not (Test-Path -LiteralPath $timerExe)){ throw \"Missing SetTimerResolution.exe at $timerExe\" }; if(-not (Test-Path -LiteralPath $dpcExe)){ throw \"Missing dpclat.exe at $dpcExe\" }; $dp = Get-Process -Name dpclat -ErrorAction SilentlyContinue; $tm = Get-Process -Name SetTimerResolution -ErrorAction SilentlyContinue; if(-not $dp){ throw 'dpclat.exe is not running.' }; if(-not $tm){ throw 'SetTimerResolution.exe is not running.' }; Write-Output (\"Timer stack healthy. dpclat PID={0}; SetTimerResolution PID={1}\" -f $dp.Id, $tm.Id)"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          { "type": "process.kill", "name": "SetTimerResolution" },
+          { "type": "process.kill", "name": "dpclat" },
+          { "type": "registry.remove", "path": "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", "name": "TimerResolution", "continueOnError": true }
+        ]
+      }
+    },
+    {
+      "id": "timer.custom_resolution_stack.verify",
+      "name": "Timer: Verify Custom Resolution Stack",
+      "category": "Timer",
+      "description": "Verifies SetTimerResolution.exe and dpclat.exe exist and are both currently running.",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "type": "action",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$base = Join-Path (Get-Location) 'tools\\FalconLibrary'; $timerExe = Join-Path $base 'Timer Resolution\\SetTimerResolution.exe'; $dpcExe = Join-Path $base 'DPC Checker\\dpclat.exe'; if(-not (Test-Path -LiteralPath $timerExe)){ throw \"Missing SetTimerResolution.exe at $timerExe\" }; if(-not (Test-Path -LiteralPath $dpcExe)){ throw \"Missing dpclat.exe at $dpcExe\" }; $dp = Get-Process -Name dpclat -ErrorAction SilentlyContinue; $tm = Get-Process -Name SetTimerResolution -ErrorAction SilentlyContinue; if(-not $dp){ throw 'dpclat.exe is not running.' }; if(-not $tm){ throw 'SetTimerResolution.exe is not running.' }; Write-Output (\"Custom timer stack verified. dpclat PID={0}; SetTimerResolution PID={1}\" -f $dp.Id, $tm.Id)"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$dp = Get-Process -Name dpclat -ErrorAction SilentlyContinue; $tm = Get-Process -Name SetTimerResolution -ErrorAction SilentlyContinue; if($dp -and $tm){ Write-Output 'Custom timer stack running.' } else { throw 'Custom timer stack not fully running.' }"
+          }
+        ]
+      },
+      "revert": { "steps": [] }
+    },
+    {
+      "id": "timer.custom_resolution_stack.stop",
+      "name": "Timer: Stop Custom Resolution Stack",
+      "category": "Timer",
+      "description": "Stops SetTimerResolution and dpclat helper processes and removes persistent TimerResolution Run key entries.",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "type": "action",
+      "apply": {
+        "steps": [
+          { "type": "process.kill", "name": "SetTimerResolution", "continueOnError": true },
+          { "type": "process.kill", "name": "dpclat", "continueOnError": true },
+          { "type": "registry.remove", "path": "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", "name": "TimerResolution", "continueOnError": true }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$tm = Get-Process -Name SetTimerResolution -ErrorAction SilentlyContinue; $dp = Get-Process -Name dpclat -ErrorAction SilentlyContinue; if($tm -or $dp){ throw 'Custom timer stack is still running.' } else { Write-Output 'Custom timer stack stopped.' }"
+          }
+        ]
+      },
+      "revert": { "steps": [] }
+    },
+    {
       "id": "privacy.oosu10.apply",
       "name": "O&O ShutUp10++",
       "category": "Privacy / Telemetry",
