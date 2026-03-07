@@ -114,6 +114,7 @@
     "tweaks/expansion.imported.debloat_cleanup.json",
     "tweaks/expansion.imported.security.json",
     "tweaks/expansion.imported.misc.json",
+    "tweaks/expansion.falcon_new_tweaks.json",
     "tweaks/falconlibrary.integration.json"
   ]
 }
