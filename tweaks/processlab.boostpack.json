@@ -28,6 +28,307 @@
       "revert": {
         "steps": []
       }
+    },
+    {
+      "id": "process.kill.launchers_updaters_pack",
+      "name": "Process Lab: Launcher/Updater Killer Pack",
+      "category": "Process Lab / Kill List",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Closes common launchers, updaters, sync clients, browsers, and chat apps before gaming sessions.",
+      "type": "action",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "process.kill",
+            "name": "Battle.net.exe"
+          },
+          {
+            "type": "process.kill",
+            "name": "Agent.exe"
+          },
+          {
+            "type": "process.kill",
+            "name": "EADesktop.exe"
+          },
+          {
+            "type": "process.kill",
+            "name": "EABackgroundService.exe"
+          },
+          {
+            "type": "process.kill",
+            "name": "UbisoftConnect.exe"
+          },
+          {
+            "type": "process.kill",
+            "name": "upc.exe"
+          },
+          {
+            "type": "process.kill",
+            "name": "GalaxyClient.exe"
+          },
+          {
+            "type": "process.kill",
+            "name": "Spotify.exe"
+          },
+          {
+            "type": "process.kill",
+            "name": "msedge.exe"
+          },
+          {
+            "type": "process.kill",
+            "name": "chrome.exe"
+          },
+          {
+            "type": "process.kill",
+            "name": "firefox.exe"
+          },
+          {
+            "type": "process.kill",
+            "name": "Discord.exe"
+          },
+          {
+            "type": "process.kill",
+            "name": "Telegram.exe"
+          },
+          {
+            "type": "process.kill",
+            "name": "WhatsApp.exe"
+          },
+          {
+            "type": "process.kill",
+            "name": "Dropbox.exe"
+          },
+          {
+            "type": "process.kill",
+            "name": "GoogleDriveFS.exe"
+          },
+          {
+            "type": "process.kill",
+            "name": "OneDrive.exe"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "process.kill.rgb_peripheral_pack",
+      "name": "Process Lab: RGB/Peripheral Bloat Pack",
+      "category": "Process Lab / Kill List",
+      "risk": "Extreme",
+      "riskLevel": "Extreme",
+      "description": "Closes common RGB/peripheral suites and helpers that add background overhead.",
+      "type": "action",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "process.kill",
+            "name": "iCUE.exe"
+          },
+          {
+            "type": "process.kill",
+            "name": "Corsair.Service.exe"
+          },
+          {
+            "type": "process.kill",
+            "name": "LGHUB.exe"
+          },
+          {
+            "type": "process.kill",
+            "name": "lghub_agent.exe"
+          },
+          {
+            "type": "process.kill",
+            "name": "Razer Synapse 3.exe"
+          },
+          {
+            "type": "process.kill",
+            "name": "RzSynapse.exe"
+          },
+          {
+            "type": "process.kill",
+            "name": "SteelSeriesGG.exe"
+          },
+          {
+            "type": "process.kill",
+            "name": "ArmouryCrate.UserSessionHelper.exe"
+          },
+          {
+            "type": "process.kill",
+            "name": "LightingService.exe"
+          },
+          {
+            "type": "process.kill",
+            "name": "MSI.CentralServer.exe"
+          },
+          {
+            "type": "process.kill",
+            "name": "NZXT CAM.exe"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "process.kill.overlay_capture_pack",
+      "name": "Process Lab: Overlay/Capture Killer Pack",
+      "category": "Process Lab / Kill List",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Closes overlay/capture/recording helpers for competition-focused sessions.",
+      "type": "action",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "process.kill",
+            "name": "NVIDIA Share.exe"
+          },
+          {
+            "type": "process.kill",
+            "name": "NVIDIA Web Helper.exe"
+          },
+          {
+            "type": "process.kill",
+            "name": "AMDSoftware.exe"
+          },
+          {
+            "type": "process.kill",
+            "name": "RadeonSoftware.exe"
+          },
+          {
+            "type": "process.kill",
+            "name": "GameBarFTServer.exe"
+          },
+          {
+            "type": "process.kill",
+            "name": "OverwolfBrowser.exe"
+          },
+          {
+            "type": "process.kill",
+            "name": "CurseForge.exe"
+          },
+          {
+            "type": "process.kill",
+            "name": "RTSS.exe"
+          },
+          {
+            "type": "process.kill",
+            "name": "MSIAfterburner.exe"
+          },
+          {
+            "type": "process.kill",
+            "name": "obs64.exe"
+          },
+          {
+            "type": "process.kill",
+            "name": "ShareX.exe"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "process.kill.audio_vendor_pack",
+      "name": "Process Lab: Audio Vendor Bloat Pack",
+      "category": "Process Lab / Kill List",
+      "risk": "Extreme",
+      "riskLevel": "Extreme",
+      "description": "Closes common audio enhancement vendor processes for a cleaner audio path.",
+      "type": "action",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "process.kill",
+            "name": "NahimicService.exe"
+          },
+          {
+            "type": "process.kill",
+            "name": "NahimicCompanion.exe"
+          },
+          {
+            "type": "process.kill",
+            "name": "AVoluteSS3Svc.exe"
+          },
+          {
+            "type": "process.kill",
+            "name": "DTSAPO4Service.exe"
+          },
+          {
+            "type": "process.kill",
+            "name": "DTSXUltra.exe"
+          },
+          {
+            "type": "process.kill",
+            "name": "DolbyDAX2API.exe"
+          },
+          {
+            "type": "process.kill",
+            "name": "SS2Svc32.exe"
+          },
+          {
+            "type": "process.kill",
+            "name": "SS2Svc64.exe"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "process.kill.gaming_session_shell_trim",
+      "name": "Process Lab: Gaming Session Shell Trim",
+      "category": "Process Lab / Kill List",
+      "risk": "Extreme",
+      "riskLevel": "Extreme",
+      "description": "Temporarily closes non-critical shell/session processes. Use only during active gaming sessions.",
+      "type": "action",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "process.kill",
+            "name": "SearchHost.exe"
+          },
+          {
+            "type": "process.kill",
+            "name": "SearchApp.exe"
+          },
+          {
+            "type": "process.kill",
+            "name": "LockApp.exe"
+          },
+          {
+            "type": "process.kill",
+            "name": "StartMenuExperienceHost.exe"
+          },
+          {
+            "type": "process.kill",
+            "name": "RuntimeBroker.exe"
+          },
+          {
+            "type": "process.kill",
+            "name": "TextInputHost.exe"
+          },
+          {
+            "type": "process.kill",
+            "name": "backgroundTaskHost.exe"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
     }
   ]
 }

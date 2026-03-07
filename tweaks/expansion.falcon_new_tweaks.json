@@ -8,9 +8,37 @@
       "category": "Storage",
       "riskLevel": "Warning",
       "requiresAdmin": true,
-      "apply": { "steps": [ { "type": "registry.set", "path": "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ReserveManager", "name": "ShippedWithReserves", "value": 0, "valueType": "DWord" } ] },
-      "revert": { "steps": [ { "type": "registry.remove", "path": "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ReserveManager", "name": "ShippedWithReserves" } ] },
-      "check": { "steps": [ { "type": "registry.check", "path": "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ReserveManager", "name": "ShippedWithReserves", "valueType": "DWord", "equals": 0 } ] }
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ReserveManager",
+            "name": "ShippedWithReserves",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ReserveManager",
+            "name": "ShippedWithReserves"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ReserveManager",
+            "name": "ShippedWithReserves",
+            "valueType": "DWord",
+            "equals": 0
+          }
+        ]
+      }
     },
     {
       "id": "falcon_new_disable_ntfs_8dot3",
@@ -20,9 +48,39 @@
       "category": "Storage",
       "riskLevel": "Warning",
       "requiresAdmin": true,
-      "apply": { "steps": [ { "type": "registry.set", "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\FileSystem", "name": "NtfsDisable8dot3NameCreation", "value": 1, "valueType": "DWord" } ] },
-      "revert": { "steps": [ { "type": "registry.set", "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\FileSystem", "name": "NtfsDisable8dot3NameCreation", "value": 2, "valueType": "DWord" } ] },
-      "check": { "steps": [ { "type": "registry.check", "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\FileSystem", "name": "NtfsDisable8dot3NameCreation", "valueType": "DWord", "equals": 1 } ] }
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\FileSystem",
+            "name": "NtfsDisable8dot3NameCreation",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\FileSystem",
+            "name": "NtfsDisable8dot3NameCreation",
+            "value": 2,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\FileSystem",
+            "name": "NtfsDisable8dot3NameCreation",
+            "valueType": "DWord",
+            "equals": 1
+          }
+        ]
+      }
     },
     {
       "id": "falcon_new_disable_sensor_data_service",
@@ -32,9 +90,33 @@
       "category": "Services",
       "riskLevel": "Warning",
       "requiresAdmin": true,
-      "apply": { "steps": [ { "type": "service.startup", "name": "SensrSvc", "startType": "Disabled" } ] },
-      "revert": { "steps": [ { "type": "service.startup", "name": "SensrSvc", "startType": "Manual" } ] },
-      "check": { "steps": [ { "type": "service.check", "name": "SensrSvc", "startupType": null } ] }
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "SensrSvc",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "SensrSvc",
+            "startType": "Manual"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "SensrSvc",
+            "startupType": null
+          }
+        ]
+      }
     },
     {
       "id": "falcon_new_disable_ssdp_discovery",
@@ -44,9 +126,33 @@
       "category": "Network Debloat",
       "riskLevel": "Warning",
       "requiresAdmin": true,
-      "apply": { "steps": [ { "type": "service.startup", "name": "SSDPSRV", "startType": "Disabled" } ] },
-      "revert": { "steps": [ { "type": "service.startup", "name": "SSDPSRV", "startType": "Manual" } ] },
-      "check": { "steps": [ { "type": "service.check", "name": "SSDPSRV", "startupType": null } ] }
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "SSDPSRV",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "SSDPSRV",
+            "startType": "Manual"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "SSDPSRV",
+            "startupType": null
+          }
+        ]
+      }
     },
     {
       "id": "falcon_new_disable_state_repository_service",
@@ -56,9 +162,33 @@
       "category": "Hardcore",
       "riskLevel": "Extreme",
       "requiresAdmin": true,
-      "apply": { "steps": [ { "type": "service.startup", "name": "StateRepository", "startType": "Disabled" } ] },
-      "revert": { "steps": [ { "type": "service.startup", "name": "StateRepository", "startType": "Automatic" } ] },
-      "check": { "steps": [ { "type": "service.check", "name": "StateRepository", "startupType": null } ] }
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "StateRepository",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "StateRepository",
+            "startType": "Automatic"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "StateRepository",
+            "startupType": null
+          }
+        ]
+      }
     },
     {
       "id": "falcon_new_disable_advertising_id_tailored",
@@ -68,14 +198,38 @@
       "category": "Privacy",
       "riskLevel": "Safe",
       "requiresAdmin": true,
-      "apply": { "steps": [
-        { "type": "registry.set", "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\AdvertisingInfo", "name": "DisabledByGroupPolicy", "value": 1, "valueType": "DWord" },
-        { "type": "registry.set", "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Privacy", "name": "TailoredExperiencesWithDiagnosticDataEnabled", "value": 0, "valueType": "DWord" }
-      ] },
-      "revert": { "steps": [
-        { "type": "registry.remove", "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\AdvertisingInfo", "name": "DisabledByGroupPolicy" },
-        { "type": "registry.remove", "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Privacy", "name": "TailoredExperiencesWithDiagnosticDataEnabled" }
-      ] }
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\AdvertisingInfo",
+            "name": "DisabledByGroupPolicy",
+            "value": 1,
+            "valueType": "DWord"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Privacy",
+            "name": "TailoredExperiencesWithDiagnosticDataEnabled",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\AdvertisingInfo",
+            "name": "DisabledByGroupPolicy"
+          },
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Privacy",
+            "name": "TailoredExperiencesWithDiagnosticDataEnabled"
+          }
+        ]
+      }
     },
     {
       "id": "falcon_new_disable_text_ink_collection",
@@ -85,14 +239,38 @@
       "category": "Privacy",
       "riskLevel": "Warning",
       "requiresAdmin": true,
-      "apply": { "steps": [
-        { "type": "registry.set", "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\InputPersonalization", "name": "RestrictImplicitTextCollection", "value": 1, "valueType": "DWord" },
-        { "type": "registry.set", "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\InputPersonalization", "name": "RestrictImplicitInkCollection", "value": 1, "valueType": "DWord" }
-      ] },
-      "revert": { "steps": [
-        { "type": "registry.remove", "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\InputPersonalization", "name": "RestrictImplicitTextCollection" },
-        { "type": "registry.remove", "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\InputPersonalization", "name": "RestrictImplicitInkCollection" }
-      ] }
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\InputPersonalization",
+            "name": "RestrictImplicitTextCollection",
+            "value": 1,
+            "valueType": "DWord"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\InputPersonalization",
+            "name": "RestrictImplicitInkCollection",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\InputPersonalization",
+            "name": "RestrictImplicitTextCollection"
+          },
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\InputPersonalization",
+            "name": "RestrictImplicitInkCollection"
+          }
+        ]
+      }
     },
     {
       "id": "falcon_new_disable_consumer_features",
@@ -102,8 +280,26 @@
       "category": "UI Debloat",
       "riskLevel": "Safe",
       "requiresAdmin": true,
-      "apply": { "steps": [ { "type": "registry.set", "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\CloudContent", "name": "DisableWindowsConsumerFeatures", "value": 1, "valueType": "DWord" } ] },
-      "revert": { "steps": [ { "type": "registry.remove", "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\CloudContent", "name": "DisableWindowsConsumerFeatures" } ] }
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\CloudContent",
+            "name": "DisableWindowsConsumerFeatures",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\CloudContent",
+            "name": "DisableWindowsConsumerFeatures"
+          }
+        ]
+      }
     },
     {
       "id": "falcon_new_force_disable_background_apps",
@@ -113,8 +309,26 @@
       "category": "Background Apps",
       "riskLevel": "Warning",
       "requiresAdmin": true,
-      "apply": { "steps": [ { "type": "registry.set", "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\AppPrivacy", "name": "LetAppsRunInBackground", "value": 2, "valueType": "DWord" } ] },
-      "revert": { "steps": [ { "type": "registry.remove", "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\AppPrivacy", "name": "LetAppsRunInBackground" } ] }
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\AppPrivacy",
+            "name": "LetAppsRunInBackground",
+            "value": 2,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\AppPrivacy",
+            "name": "LetAppsRunInBackground"
+          }
+        ]
+      }
     },
     {
       "id": "falcon_new_disable_fth",
@@ -124,8 +338,26 @@
       "category": "Compatibility",
       "riskLevel": "Danger",
       "requiresAdmin": true,
-      "apply": { "steps": [ { "type": "registry.set", "path": "HKLM\\SOFTWARE\\Microsoft\\FTH", "name": "Enabled", "value": 0, "valueType": "DWord" } ] },
-      "revert": { "steps": [ { "type": "registry.remove", "path": "HKLM\\SOFTWARE\\Microsoft\\FTH", "name": "Enabled" } ] }
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Microsoft\\FTH",
+            "name": "Enabled",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Microsoft\\FTH",
+            "name": "Enabled"
+          }
+        ]
+      }
     },
     {
       "id": "falcon_new_lowlevel_hooks_timeout_best_latency",
@@ -135,8 +367,26 @@
       "category": "Input",
       "riskLevel": "Danger",
       "requiresAdmin": false,
-      "apply": { "steps": [ { "type": "registry.set", "path": "HKCU\\Control Panel\\Desktop", "name": "LowLevelHooksTimeout", "value": "300", "valueType": "String" } ] },
-      "revert": { "steps": [ { "type": "registry.remove", "path": "HKCU\\Control Panel\\Desktop", "name": "LowLevelHooksTimeout" } ] }
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Control Panel\\Desktop",
+            "name": "LowLevelHooksTimeout",
+            "value": "300",
+            "valueType": "String"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Control Panel\\Desktop",
+            "name": "LowLevelHooksTimeout"
+          }
+        ]
+      }
     },
     {
       "id": "falcon_new_mouse_queue_size_best_latency",
@@ -146,8 +396,26 @@
       "category": "Input Experimental",
       "riskLevel": "Extreme",
       "requiresAdmin": true,
-      "apply": { "steps": [ { "type": "registry.set", "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Mouclass\\Parameters", "name": "MouseDataQueueSize", "value": 16, "valueType": "DWord" } ] },
-      "revert": { "steps": [ { "type": "registry.remove", "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Mouclass\\Parameters", "name": "MouseDataQueueSize" } ] }
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Mouclass\\Parameters",
+            "name": "MouseDataQueueSize",
+            "value": 16,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Mouclass\\Parameters",
+            "name": "MouseDataQueueSize"
+          }
+        ]
+      }
     },
     {
       "id": "falcon_new_mouse_queue_size_custom",
@@ -157,8 +425,22 @@
       "category": "Input Experimental",
       "riskLevel": "Extreme",
       "requiresAdmin": true,
-      "ui": { "prompt": "Enter MouseDataQueueSize (recommended latency-first range: 8-32, default often 100):", "uiKey": "mouseQueueCustom" },
-      "apply": { "steps": [ { "type": "registry.set", "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Mouclass\\Parameters", "name": "MouseDataQueueSize", "value": "__UI_NUMBER__", "uiKey": "mouseQueueCustom", "valueType": "DWord" } ] }
+      "ui": {
+        "prompt": "Enter MouseDataQueueSize (recommended latency-first range: 8-32, default often 100):",
+        "uiKey": "mouseQueueCustom"
+      },
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Mouclass\\Parameters",
+            "name": "MouseDataQueueSize",
+            "value": "__UI_NUMBER__",
+            "uiKey": "mouseQueueCustom",
+            "valueType": "DWord"
+          }
+        ]
+      }
     },
     {
       "id": "falcon_new_keyboard_queue_size_best_latency",
@@ -168,8 +450,26 @@
       "category": "Input Experimental",
       "riskLevel": "Extreme",
       "requiresAdmin": true,
-      "apply": { "steps": [ { "type": "registry.set", "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\kbdclass\\Parameters", "name": "KeyboardDataQueueSize", "value": 16, "valueType": "DWord" } ] },
-      "revert": { "steps": [ { "type": "registry.remove", "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\kbdclass\\Parameters", "name": "KeyboardDataQueueSize" } ] }
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\kbdclass\\Parameters",
+            "name": "KeyboardDataQueueSize",
+            "value": 16,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\kbdclass\\Parameters",
+            "name": "KeyboardDataQueueSize"
+          }
+        ]
+      }
     },
     {
       "id": "falcon_new_keyboard_queue_size_custom",
@@ -179,8 +479,22 @@
       "category": "Input Experimental",
       "riskLevel": "Extreme",
       "requiresAdmin": true,
-      "ui": { "prompt": "Enter KeyboardDataQueueSize (recommended latency-first range: 8-32, default often 100):", "uiKey": "keyboardQueueCustom" },
-      "apply": { "steps": [ { "type": "registry.set", "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\kbdclass\\Parameters", "name": "KeyboardDataQueueSize", "value": "__UI_NUMBER__", "uiKey": "keyboardQueueCustom", "valueType": "DWord" } ] }
+      "ui": {
+        "prompt": "Enter KeyboardDataQueueSize (recommended latency-first range: 8-32, default often 100):",
+        "uiKey": "keyboardQueueCustom"
+      },
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\kbdclass\\Parameters",
+            "name": "KeyboardDataQueueSize",
+            "value": "__UI_NUMBER__",
+            "uiKey": "keyboardQueueCustom",
+            "valueType": "DWord"
+          }
+        ]
+      }
     },
     {
       "id": "falcon_new_disable_crash_on_ctrl_scroll",
@@ -190,14 +504,38 @@
       "category": "Kernel",
       "riskLevel": "Safe",
       "requiresAdmin": true,
-      "apply": { "steps": [
-        { "type": "registry.set", "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\kbdhid\\Parameters", "name": "CrashOnCtrlScroll", "value": 0, "valueType": "DWord" },
-        { "type": "registry.set", "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\i8042prt\\Parameters", "name": "CrashOnCtrlScroll", "value": 0, "valueType": "DWord" }
-      ] },
-      "revert": { "steps": [
-        { "type": "registry.remove", "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\kbdhid\\Parameters", "name": "CrashOnCtrlScroll" },
-        { "type": "registry.remove", "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\i8042prt\\Parameters", "name": "CrashOnCtrlScroll" }
-      ] }
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\kbdhid\\Parameters",
+            "name": "CrashOnCtrlScroll",
+            "value": 0,
+            "valueType": "DWord"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\i8042prt\\Parameters",
+            "name": "CrashOnCtrlScroll",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\kbdhid\\Parameters",
+            "name": "CrashOnCtrlScroll"
+          },
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\i8042prt\\Parameters",
+            "name": "CrashOnCtrlScroll"
+          }
+        ]
+      }
     },
     {
       "id": "falcon_new_verbose_status_toggle",
@@ -207,8 +545,26 @@
       "category": "Diagnostics",
       "riskLevel": "Safe",
       "requiresAdmin": true,
-      "apply": { "steps": [ { "type": "registry.set", "path": "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System", "name": "VerboseStatus", "value": 1, "valueType": "DWord" } ] },
-      "revert": { "steps": [ { "type": "registry.remove", "path": "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System", "name": "VerboseStatus" } ] }
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
+            "name": "VerboseStatus",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
+            "name": "VerboseStatus"
+          }
+        ]
+      }
     },
     {
       "id": "falcon_new_disable_cd_burning",
@@ -218,8 +574,26 @@
       "category": "Explorer Debloat",
       "riskLevel": "Safe",
       "requiresAdmin": false,
-      "apply": { "steps": [ { "type": "registry.set", "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer", "name": "NoCDBurning", "value": 1, "valueType": "DWord" } ] },
-      "revert": { "steps": [ { "type": "registry.remove", "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer", "name": "NoCDBurning" } ] }
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer",
+            "name": "NoCDBurning",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer",
+            "name": "NoCDBurning"
+          }
+        ]
+      }
     },
     {
       "id": "falcon_new_disable_sata_link_power_mgmt",
@@ -229,8 +603,30 @@
       "category": "Storage Latency",
       "riskLevel": "Warning",
       "requiresAdmin": true,
-      "apply": { "steps": [ { "type": "cmd.run", "command": "powercfg /SETACVALUEINDEX SCHEME_CURRENT SUB_DISK DAB60367-53FE-4FBC-825E-521D069D2456 0" }, { "type": "cmd.run", "command": "powercfg /SETACTIVE SCHEME_CURRENT" } ] },
-      "revert": { "steps": [ { "type": "cmd.run", "command": "powercfg /SETACVALUEINDEX SCHEME_CURRENT SUB_DISK DAB60367-53FE-4FBC-825E-521D069D2456 1" }, { "type": "cmd.run", "command": "powercfg /SETACTIVE SCHEME_CURRENT" } ] }
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg /SETACVALUEINDEX SCHEME_CURRENT SUB_DISK DAB60367-53FE-4FBC-825E-521D069D2456 0"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /SETACTIVE SCHEME_CURRENT"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg /SETACVALUEINDEX SCHEME_CURRENT SUB_DISK DAB60367-53FE-4FBC-825E-521D069D2456 1"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /SETACTIVE SCHEME_CURRENT"
+          }
+        ]
+      }
     },
     {
       "id": "falcon_new_tcp1323_best_compat",
@@ -240,8 +636,26 @@
       "category": "Network Experimental",
       "riskLevel": "Extreme",
       "requiresAdmin": true,
-      "apply": { "steps": [ { "type": "registry.set", "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters", "name": "Tcp1323Opts", "value": 1, "valueType": "DWord" } ] },
-      "revert": { "steps": [ { "type": "registry.remove", "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters", "name": "Tcp1323Opts" } ] }
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters",
+            "name": "Tcp1323Opts",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters",
+            "name": "Tcp1323Opts"
+          }
+        ]
+      }
     },
     {
       "id": "falcon_new_tcp1323_custom",
@@ -251,8 +665,22 @@
       "category": "Network Experimental",
       "riskLevel": "Extreme",
       "requiresAdmin": true,
-      "ui": { "prompt": "Enter Tcp1323Opts value (0=off, 1=window scaling, 2=timestamps, 3=both):", "uiKey": "tcp1323Custom" },
-      "apply": { "steps": [ { "type": "registry.set", "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters", "name": "Tcp1323Opts", "value": "__UI_NUMBER__", "uiKey": "tcp1323Custom", "valueType": "DWord" } ] }
+      "ui": {
+        "prompt": "Enter Tcp1323Opts value (0=off, 1=window scaling, 2=timestamps, 3=both):",
+        "uiKey": "tcp1323Custom"
+      },
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters",
+            "name": "Tcp1323Opts",
+            "value": "__UI_NUMBER__",
+            "uiKey": "tcp1323Custom",
+            "valueType": "DWord"
+          }
+        ]
+      }
     },
     {
       "id": "falcon_new_default_ttl_best_general",
@@ -262,8 +690,26 @@
       "category": "Network Advanced",
       "riskLevel": "Warning",
       "requiresAdmin": true,
-      "apply": { "steps": [ { "type": "registry.set", "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters", "name": "DefaultTTL", "value": 64, "valueType": "DWord" } ] },
-      "revert": { "steps": [ { "type": "registry.remove", "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters", "name": "DefaultTTL" } ] }
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters",
+            "name": "DefaultTTL",
+            "value": 64,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters",
+            "name": "DefaultTTL"
+          }
+        ]
+      }
     },
     {
       "id": "falcon_new_default_ttl_custom",
@@ -273,8 +719,22 @@
       "category": "Network Advanced",
       "riskLevel": "Warning",
       "requiresAdmin": true,
-      "ui": { "prompt": "Enter DefaultTTL (common values: 32, 64, 128):", "uiKey": "defaultTtlCustom" },
-      "apply": { "steps": [ { "type": "registry.set", "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters", "name": "DefaultTTL", "value": "__UI_NUMBER__", "uiKey": "defaultTtlCustom", "valueType": "DWord" } ] }
+      "ui": {
+        "prompt": "Enter DefaultTTL (common values: 32, 64, 128):",
+        "uiKey": "defaultTtlCustom"
+      },
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters",
+            "name": "DefaultTTL",
+            "value": "__UI_NUMBER__",
+            "uiKey": "defaultTtlCustom",
+            "valueType": "DWord"
+          }
+        ]
+      }
     },
     {
       "id": "falcon_new_max_user_port_best_connection_burst",
@@ -284,8 +744,26 @@
       "category": "Network Advanced",
       "riskLevel": "Warning",
       "requiresAdmin": true,
-      "apply": { "steps": [ { "type": "registry.set", "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters", "name": "MaxUserPort", "value": 65534, "valueType": "DWord" } ] },
-      "revert": { "steps": [ { "type": "registry.remove", "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters", "name": "MaxUserPort" } ] }
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters",
+            "name": "MaxUserPort",
+            "value": 65534,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters",
+            "name": "MaxUserPort"
+          }
+        ]
+      }
     },
     {
       "id": "falcon_new_max_user_port_custom",
@@ -295,8 +773,22 @@
       "category": "Network Advanced",
       "riskLevel": "Warning",
       "requiresAdmin": true,
-      "ui": { "prompt": "Enter MaxUserPort (1024-65534):", "uiKey": "maxUserPortCustom" },
-      "apply": { "steps": [ { "type": "registry.set", "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters", "name": "MaxUserPort", "value": "__UI_NUMBER__", "uiKey": "maxUserPortCustom", "valueType": "DWord" } ] }
+      "ui": {
+        "prompt": "Enter MaxUserPort (1024-65534):",
+        "uiKey": "maxUserPortCustom"
+      },
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters",
+            "name": "MaxUserPort",
+            "value": "__UI_NUMBER__",
+            "uiKey": "maxUserPortCustom",
+            "valueType": "DWord"
+          }
+        ]
+      }
     },
     {
       "id": "falcon_new_sack_toggle_best_modern_networks",
@@ -306,8 +798,26 @@
       "category": "Network Experimental",
       "riskLevel": "Extreme",
       "requiresAdmin": true,
-      "apply": { "steps": [ { "type": "registry.set", "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters", "name": "SackOpts", "value": 1, "valueType": "DWord" } ] },
-      "revert": { "steps": [ { "type": "registry.remove", "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters", "name": "SackOpts" } ] }
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters",
+            "name": "SackOpts",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters",
+            "name": "SackOpts"
+          }
+        ]
+      }
     },
     {
       "id": "falcon_new_sack_toggle_custom",
@@ -317,8 +827,22 @@
       "category": "Network Experimental",
       "riskLevel": "Extreme",
       "requiresAdmin": true,
-      "ui": { "prompt": "Enter SackOpts (0=disable, 1=enable):", "uiKey": "sackCustom" },
-      "apply": { "steps": [ { "type": "registry.set", "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters", "name": "SackOpts", "value": "__UI_NUMBER__", "uiKey": "sackCustom", "valueType": "DWord" } ] }
+      "ui": {
+        "prompt": "Enter SackOpts (0=disable, 1=enable):",
+        "uiKey": "sackCustom"
+      },
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters",
+            "name": "SackOpts",
+            "value": "__UI_NUMBER__",
+            "uiKey": "sackCustom",
+            "valueType": "DWord"
+          }
+        ]
+      }
     },
     {
       "id": "falcon_new_disable_powershell_logging",
@@ -328,14 +852,38 @@
       "category": "Privacy Extreme",
       "riskLevel": "Extreme",
       "requiresAdmin": true,
-      "apply": { "steps": [
-        { "type": "registry.set", "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\PowerShell\\ScriptBlockLogging", "name": "EnableScriptBlockLogging", "value": 0, "valueType": "DWord" },
-        { "type": "registry.set", "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\PowerShell\\Transcription", "name": "EnableTranscripting", "value": 0, "valueType": "DWord" }
-      ] },
-      "revert": { "steps": [
-        { "type": "registry.remove", "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\PowerShell\\ScriptBlockLogging", "name": "EnableScriptBlockLogging" },
-        { "type": "registry.remove", "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\PowerShell\\Transcription", "name": "EnableTranscripting" }
-      ] }
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\PowerShell\\ScriptBlockLogging",
+            "name": "EnableScriptBlockLogging",
+            "value": 0,
+            "valueType": "DWord"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\PowerShell\\Transcription",
+            "name": "EnableTranscripting",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\PowerShell\\ScriptBlockLogging",
+            "name": "EnableScriptBlockLogging"
+          },
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\PowerShell\\Transcription",
+            "name": "EnableTranscripting"
+          }
+        ]
+      }
     },
     {
       "id": "falcon_new_event_channel_pruner",
@@ -345,16 +893,38 @@
       "category": "Telemetry Extreme",
       "riskLevel": "Extreme",
       "requiresAdmin": true,
-      "apply": { "steps": [
-        { "type": "cmd.run", "command": "wevtutil sl Microsoft-Windows-Diagnosis-Scripted/Operational /e:false" },
-        { "type": "cmd.run", "command": "wevtutil sl Microsoft-Windows-Application-Experience/Program-Inventory /e:false" },
-        { "type": "cmd.run", "command": "wevtutil sl Microsoft-Windows-PowerShell/Operational /e:false" }
-      ] },
-      "revert": { "steps": [
-        { "type": "cmd.run", "command": "wevtutil sl Microsoft-Windows-Diagnosis-Scripted/Operational /e:true" },
-        { "type": "cmd.run", "command": "wevtutil sl Microsoft-Windows-Application-Experience/Program-Inventory /e:true" },
-        { "type": "cmd.run", "command": "wevtutil sl Microsoft-Windows-PowerShell/Operational /e:true" }
-      ] }
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "wevtutil sl Microsoft-Windows-Diagnosis-Scripted/Operational /e:false"
+          },
+          {
+            "type": "cmd.run",
+            "command": "wevtutil sl Microsoft-Windows-Application-Experience/Program-Inventory /e:false"
+          },
+          {
+            "type": "cmd.run",
+            "command": "wevtutil sl Microsoft-Windows-PowerShell/Operational /e:false"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "wevtutil sl Microsoft-Windows-Diagnosis-Scripted/Operational /e:true"
+          },
+          {
+            "type": "cmd.run",
+            "command": "wevtutil sl Microsoft-Windows-Application-Experience/Program-Inventory /e:true"
+          },
+          {
+            "type": "cmd.run",
+            "command": "wevtutil sl Microsoft-Windows-PowerShell/Operational /e:true"
+          }
+        ]
+      }
     },
     {
       "id": "falcon_new_disable_w32time",
@@ -364,9 +934,33 @@
       "category": "Offline Extreme",
       "riskLevel": "Extreme",
       "requiresAdmin": true,
-      "apply": { "steps": [ { "type": "service.startup", "name": "W32Time", "startType": "Disabled" } ] },
-      "revert": { "steps": [ { "type": "service.startup", "name": "W32Time", "startType": "Manual" } ] },
-      "check": { "steps": [ { "type": "service.check", "name": "W32Time", "startupType": null } ] }
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "W32Time",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "W32Time",
+            "startType": "Manual"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "W32Time",
+            "startupType": null
+          }
+        ]
+      }
     },
     {
       "id": "falcon_new_disable_print_workflow",
@@ -376,9 +970,704 @@
       "category": "Print Debloat",
       "riskLevel": "Warning",
       "requiresAdmin": true,
-      "apply": { "steps": [ { "type": "service.startup", "name": "PrintWorkflowUserSvc", "startType": "Disabled" } ] },
-      "revert": { "steps": [ { "type": "service.startup", "name": "PrintWorkflowUserSvc", "startType": "Manual" } ] },
-      "check": { "steps": [ { "type": "service.check", "name": "PrintWorkflowUserSvc", "startupType": null } ] }
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "PrintWorkflowUserSvc",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "PrintWorkflowUserSvc",
+            "startType": "Manual"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "PrintWorkflowUserSvc",
+            "startupType": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "falcon_new_disable_cursor_suppression",
+      "type": "toggle",
+      "name": "Input: Disable Cursor Suppression",
+      "description": "Disables cursor suppression behavior for more consistent mouse visibility/handling in desktop and some game launch flows.",
+      "category": "Input",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Control Panel\\Desktop",
+            "name": "UserPreferencesMask",
+            "value": "9e3e078012000000",
+            "valueType": "Binary"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Control Panel\\Desktop",
+            "name": "UserPreferencesMask"
+          }
+        ]
+      }
+    },
+    {
+      "id": "falcon_new_clean_input_accessibility_profile",
+      "type": "toggle",
+      "name": "Input: Clean Accessibility Pointer Profile",
+      "description": "Turns off mouse trails, mouse sonar, StickyKeys, ToggleKeys, and FilterKeys leftovers that can impact input feel.",
+      "category": "Input",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Control Panel\\Mouse",
+            "name": "MouseTrails",
+            "value": "0",
+            "valueType": "String"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Control Panel\\Mouse",
+            "name": "Sonar",
+            "value": "0",
+            "valueType": "String"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Control Panel\\Accessibility\\StickyKeys",
+            "name": "Flags",
+            "value": "506",
+            "valueType": "String"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Control Panel\\Accessibility\\ToggleKeys",
+            "name": "Flags",
+            "value": "58",
+            "valueType": "String"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Control Panel\\Accessibility\\Keyboard Response",
+            "name": "Flags",
+            "value": "122",
+            "valueType": "String"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "falcon_new_remove_scancode_map",
+      "type": "action",
+      "name": "Input: Remove Scancode Map Overrides",
+      "description": "Detects and removes Scancode Map remap leftovers (backup-first behavior recommended before use).",
+      "category": "Input",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "primaryLabel": "Remove",
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Keyboard Layout",
+            "name": "Scancode Map"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "falcon_new_no_str_cmp_logical",
+      "type": "toggle",
+      "name": "Explorer: Disable Natural Sort",
+      "description": "Disables Explorer natural sort (NoStrCmpLogical). Niche shell behavior preference tweak.",
+      "category": "Explorer Debloat",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer",
+            "name": "NoStrCmpLogical",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer",
+            "name": "NoStrCmpLogical"
+          }
+        ]
+      }
+    },
+    {
+      "id": "falcon_new_foreground_flash_count_reducer",
+      "type": "toggle",
+      "name": "Explorer QoL: Reduce Foreground Flash Count",
+      "description": "Reduces taskbar flash spam from background apps requesting attention.",
+      "category": "Explorer Debloat",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Control Panel\\Desktop",
+            "name": "ForegroundFlashCount",
+            "value": "1",
+            "valueType": "String"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Control Panel\\Desktop",
+            "name": "ForegroundFlashCount"
+          }
+        ]
+      }
+    },
+    {
+      "id": "falcon_new_delayed_desktop_switch_timeout",
+      "type": "toggle",
+      "name": "Explorer QoL: Lower DelayedDesktopSwitchTimeout",
+      "description": "Lowers desktop switch timeout for snappier shell transitions.",
+      "category": "Explorer Debloat",
+      "riskLevel": "Warning",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Control Panel\\Desktop",
+            "name": "DelayedDesktopSwitchTimeout",
+            "value": "0",
+            "valueType": "String"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Control Panel\\Desktop",
+            "name": "DelayedDesktopSwitchTimeout"
+          }
+        ]
+      }
+    },
+    {
+      "id": "falcon_new_enable_periodic_registry_backup",
+      "type": "toggle",
+      "name": "Safety: Re-enable Periodic Registry Backup",
+      "description": "Re-enables periodic registry backups to improve rollback safety before extreme tuning.",
+      "category": "Safety",
+      "riskLevel": "Safe",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Configuration Manager",
+            "name": "EnablePeriodicBackup",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Configuration Manager",
+            "name": "EnablePeriodicBackup"
+          }
+        ]
+      }
+    },
+    {
+      "id": "falcon_new_disable_low_disk_space_checks",
+      "type": "toggle",
+      "name": "Storage: Disable Low Disk Space Checks",
+      "description": "Disables Explorer low disk space checks/popups.",
+      "category": "Storage",
+      "riskLevel": "Warning",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer",
+            "name": "NoLowDiskSpaceChecks",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer",
+            "name": "NoLowDiskSpaceChecks"
+          }
+        ]
+      }
+    },
+    {
+      "id": "falcon_new_hibernation_zero_profile",
+      "type": "toggle",
+      "name": "Storage: Hibernation Zero Profile",
+      "description": "Disables hibernation/fast startup residue via powercfg /h off with verify-friendly behavior.",
+      "category": "Storage",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg /h off"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg /h on"
+          }
+        ]
+      }
+    },
+    {
+      "id": "falcon_new_trim_verify_normalize",
+      "type": "action",
+      "name": "Storage: TRIM Verify + Normalize",
+      "description": "Checks DisableDeleteNotify for NTFS and forces normalized TRIM state if needed.",
+      "category": "Storage",
+      "riskLevel": "Safe",
+      "requiresAdmin": true,
+      "primaryLabel": "Verify/Fix",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "fsutil behavior set DisableDeleteNotify NTFS 0"
+          },
+          {
+            "type": "cmd.run",
+            "command": "fsutil behavior set DisableDeleteNotify ReFS 0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "falcon_new_disable_ssdp_upnp_stack",
+      "type": "toggle",
+      "name": "Network Debloat: Disable SSDP/UPnP Stack",
+      "description": "Disables SSDP Discovery and UPnP Device Host for Ethernet-focused gaming rigs.",
+      "category": "Network Debloat",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "SSDPSRV",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "upnphost",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "SSDPSRV",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "upnphost",
+            "startType": "Manual"
+          }
+        ]
+      }
+    },
+    {
+      "id": "falcon_new_disable_wallet_nfc_stack",
+      "type": "toggle",
+      "name": "Services: Disable Wallet/NFC Stack",
+      "description": "Disables wallet/payment related service stack for desktop gaming profiles.",
+      "category": "Services",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "WalletService",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "SEMgrSvc",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "WalletService",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "SEMgrSvc",
+            "startType": "Manual"
+          }
+        ]
+      }
+    },
+    {
+      "id": "falcon_new_disable_geo_maps_stack",
+      "type": "toggle",
+      "name": "Privacy: Geolocation/Maps Hard Off",
+      "description": "Disables geolocation service and map broker background services.",
+      "category": "Privacy",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "lfsvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "service.startup",
+            "name": "MapsBroker",
+            "startType": "Disabled"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "lfsvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "MapsBroker",
+            "startType": "Manual"
+          }
+        ]
+      }
+    },
+    {
+      "id": "falcon_new_disable_wer_hard_off",
+      "type": "toggle",
+      "name": "Telemetry: WER Hard Off",
+      "description": "Disables Windows Error Reporting service and policy upload path.",
+      "category": "Telemetry",
+      "riskLevel": "Extreme",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "WerSvc",
+            "startType": "Disabled"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Error Reporting",
+            "name": "Disabled",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "WerSvc",
+            "startType": "Manual"
+          },
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Error Reporting",
+            "name": "Disabled"
+          }
+        ]
+      }
+    },
+    {
+      "id": "falcon_new_wer_queue_cleaner",
+      "type": "action",
+      "name": "Telemetry: WER Queue Cleaner",
+      "description": "Deletes local WER report queue/cache files to reclaim disk and reduce stale crash junk.",
+      "category": "Telemetry",
+      "riskLevel": "Safe",
+      "requiresAdmin": true,
+      "primaryLabel": "Clean",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$paths=@(\"$env:ProgramData\\Microsoft\\Windows\\WER\\ReportQueue\",\"$env:ProgramData\\Microsoft\\Windows\\WER\\ReportArchive\",\"$env:LOCALAPPDATA\\Microsoft\\Windows\\WER\"); foreach($p in $paths){ if(Test-Path $p){ Remove-Item -Path $p -Recurse -Force -ErrorAction SilentlyContinue } }; Write-Output \"WER queues cleaned.\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "falcon_new_disable_no_recent_docs_history",
+      "type": "toggle",
+      "name": "Shell Privacy: Disable Recent Docs History",
+      "description": "Disables recent document tracking history in Explorer.",
+      "category": "Shell Privacy",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer",
+            "name": "NoRecentDocsHistory",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer",
+            "name": "NoRecentDocsHistory"
+          }
+        ]
+      }
+    },
+    {
+      "id": "falcon_new_disable_no_resolve_search",
+      "type": "toggle",
+      "name": "Shell Privacy: Disable Resolve Search",
+      "description": "Disables shell search resolve behavior for stripped gaming builds.",
+      "category": "Shell Privacy",
+      "riskLevel": "Warning",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer",
+            "name": "NoResolveSearch",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer",
+            "name": "NoResolveSearch"
+          }
+        ]
+      }
+    },
+    {
+      "id": "falcon_new_disable_no_resolve_track",
+      "type": "toggle",
+      "name": "Shell Privacy: Disable Resolve Track",
+      "description": "Disables shell resolve tracking behavior for stripped profiles.",
+      "category": "Shell Privacy",
+      "riskLevel": "Warning",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer",
+            "name": "NoResolveTrack",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer",
+            "name": "NoResolveTrack"
+          }
+        ]
+      }
+    },
+    {
+      "id": "falcon_new_disable_no_use_store_open_with",
+      "type": "toggle",
+      "name": "Shell Privacy: Disable Store Open-With Suggestions",
+      "description": "Removes Microsoft Store suggestions from Open With dialog.",
+      "category": "Shell Privacy",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Explorer",
+            "name": "NoUseStoreOpenWith",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Explorer",
+            "name": "NoUseStoreOpenWith"
+          }
+        ]
+      }
+    },
+    {
+      "id": "falcon_new_disable_no_internet_open_with",
+      "type": "toggle",
+      "name": "Shell Privacy: Disable Internet Open-With Suggestions",
+      "description": "Disables online suggestions from Open With behavior.",
+      "category": "Shell Privacy",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer",
+            "name": "NoInternetOpenWith",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer",
+            "name": "NoInternetOpenWith"
+          }
+        ]
+      }
+    },
+    {
+      "id": "falcon_new_hard_lock_screen_disable",
+      "type": "toggle",
+      "name": "Shell: Hard Lock Screen Disable",
+      "description": "Disables lock screen via policy path on supported editions/configurations.",
+      "category": "Shell Privacy",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Personalization",
+            "name": "NoLockScreen",
+            "value": 1,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Personalization",
+            "name": "NoLockScreen"
+          }
+        ]
+      }
+    },
+    {
+      "id": "falcon_new_disable_tailored_experiences",
+      "type": "toggle",
+      "name": "Privacy: Disable Tailored Experiences",
+      "description": "Disables tailored experiences tied to diagnostics/recommendation surfaces.",
+      "category": "Privacy",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Privacy",
+            "name": "TailoredExperiencesWithDiagnosticDataEnabled",
+            "value": 0,
+            "valueType": "DWord"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Privacy",
+            "name": "TailoredExperiencesWithDiagnosticDataEnabled"
+          }
+        ]
+      }
     }
   ]
 }
