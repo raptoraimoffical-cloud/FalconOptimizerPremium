@@ -115,6 +115,7 @@
     "tweaks/expansion.imported.security.json",
     "tweaks/expansion.imported.misc.json",
     "tweaks/expansion.falcon_new_tweaks.json",
+    "tweaks/expansion.falcon_megalist_additions.json",
     "tweaks/falconlibrary.integration.json"
   ]
 }
