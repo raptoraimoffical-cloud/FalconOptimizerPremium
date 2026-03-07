@@ -1146,7 +1146,8 @@ processLab: { title: 'Process Lab', sub: 'Audit and close non-essential backgrou
     { id:'impDebloat', label:'Imported Debloat + Cleanup', source:'tweaks/expansion.imported.debloat_cleanup.json' },
     { id:'impSec', label:'Imported Security', source:'tweaks/expansion.imported.security.json' },
     { id:'impMisc', label:'Imported Misc', source:'tweaks/expansion.imported.misc.json' },
-    { id:'falconNew', label:'Falcon New Tweaks', source:'tweaks/expansion.falcon_new_tweaks.json' }
+    { id:'falconNew', label:'Falcon New Tweaks', source:'tweaks/expansion.falcon_new_tweaks.json' },
+    { id:'falconMega', label:'Falcon Mega Additions', source:'tweaks/expansion.falcon_megalist_additions.json' }
   ]},
   
   hardcore: { title: 'Hardcore Tweaks', sub: 'EXTREME / DANGEROUS – max FPS, minimum delay.', tabs: [

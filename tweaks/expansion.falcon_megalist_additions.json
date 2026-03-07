@@ -1,0 +1,469 @@
+{
+  "items": [
+    {
+      "id": "falcon_mega_process_launcher_updater_pack_v2",
+      "type": "action",
+      "name": "Process Lab: Launcher / Updater Killer Pack (Extended)",
+      "description": "Closes an extended launcher/updater/browser/chat process set for gaming sessions.",
+      "category": "Process Lab / Packs",
+      "riskLevel": "Warning",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$names=@('Battle.net','Agent','Battle.net Helper','EADesktop','EABackgroundService','UbisoftConnect','upc','UplayWebCore','GalaxyClient','GalaxyCommunication','GalaxyClient Helper','OperaGXBrowserAssistant','browser_assistant','Spotify','WebHelper','Creative Cloud','CCXProcess','CoreSync','AdobeIPCBroker','Adobe Desktop Service','msedge','chrome','firefox','brave','opera','notion','Telegram','WhatsApp','Skype','Zoom','Webex','Dropbox','GoogleDriveFS','OneDriveStandaloneUpdater','AnyDesk','TeamViewer','parsecd','obs64','ShareX','Lightshot'); foreach($n in $names){ Get-Process -Name $n -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue }; Write-Output 'Extended launcher/updater pack completed.'"
+          }
+        ]
+      },
+      "revert": { "steps": [] }
+    },
+    {
+      "id": "falcon_mega_process_rgb_peripheral_pack_v2",
+      "type": "action",
+      "name": "Process Lab: RGB / Peripheral Bloat Pack (Extended)",
+      "description": "Closes extended RGB/peripheral vendor processes.",
+      "category": "Process Lab / Packs",
+      "riskLevel": "Extreme",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$names=@('iCUE','Corsair.Service','Corsair.Service.CpuIdRemote64','Corsair.Service.DisplayAdapter','LGHUB','lghub_agent','lghub_updater','Razer Synapse 3','RzSynapse','RazerCortex','Razer Axon','RzSDKServer','SteelSeriesGG','SteelSeriesSonar','SteelSeriesMoments','ArmouryCrate.UserSessionHelper','ArmourySocketServer','ASUSOptimization','LightingService','MSI.CentralServer','MSI.TerminalServer','Mystic_Light_Service','NZXT CAM','OMENCommandCenterBackground'); foreach($n in $names){ Get-Process -Name $n -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue }; Write-Output 'Extended RGB/peripheral pack completed.'"
+          }
+        ]
+      },
+      "revert": { "steps": [] }
+    },
+    {
+      "id": "falcon_mega_process_overlay_capture_pack_v2",
+      "type": "action",
+      "name": "Process Lab: Overlay / Capture Killer Pack (Extended)",
+      "description": "Closes extended overlay/capture and related gaming helper processes.",
+      "category": "Process Lab / Packs",
+      "riskLevel": "Warning",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$names=@('NVIDIA Share','NVIDIA Web Helper','nvsphelper64','AMDSoftware','AMDRSServ','RadeonSoftware','GameBarFTServer','DiscordHookHelper','OverwolfBrowser','CurseForge','MedalEncoder','Outplayed','Wallpaper32','Wallpaper64','RTSS','MSIAfterburner'); foreach($n in $names){ Get-Process -Name $n -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue }; Write-Output 'Extended overlay/capture pack completed.'"
+          }
+        ]
+      },
+      "revert": { "steps": [] }
+    },
+    {
+      "id": "falcon_mega_process_audio_vendor_pack_v2",
+      "type": "action",
+      "name": "Process Lab: Audio Vendor Bloat Pack (Extended)",
+      "description": "Closes extended audio-vendor process set (Nahimic/A-Volute/DTS/Dolby/Sonic Studio).",
+      "category": "Process Lab / Packs",
+      "riskLevel": "Extreme",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$names=@('NahimicService','NahimicCompanion','A-Volute.Nahimic','AVoluteSS3Svc','DTSAPO4Service','DTSXUltra','DolbyDAX2API','DolbyVision','SS2Svc32','SS2Svc64'); foreach($n in $names){ Get-Process -Name $n -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue }; Write-Output 'Extended audio vendor pack completed.'"
+          }
+        ]
+      },
+      "revert": { "steps": [] }
+    },
+    {
+      "id": "falcon_mega_audio_pure_windows_path",
+      "type": "toggle",
+      "name": "Audio: Pure Windows Audio Path",
+      "description": "Disables common vendor enhancement services while leaving core Windows audio services enabled.",
+      "category": "Audio",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          { "type": "service.startup", "name": "NahimicService", "startType": "Disabled", "stop": true, "continueOnError": true },
+          { "type": "service.startup", "name": "AVoluteSS3Svc", "startType": "Disabled", "stop": true, "continueOnError": true },
+          { "type": "service.startup", "name": "DTSAPO4Service", "startType": "Disabled", "stop": true, "continueOnError": true },
+          { "type": "service.startup", "name": "DolbyDAXAPI", "startType": "Disabled", "stop": true, "continueOnError": true },
+          { "type": "service.startup", "name": "Audiosrv", "startType": "Automatic", "stop": false, "continueOnError": true },
+          { "type": "service.startup", "name": "AudioEndpointBuilder", "startType": "Automatic", "stop": false, "continueOnError": true }
+        ]
+      },
+      "revert": {
+        "steps": [
+          { "type": "service.startup", "name": "NahimicService", "startType": "Automatic", "stop": false, "continueOnError": true },
+          { "type": "service.startup", "name": "AVoluteSS3Svc", "startType": "Automatic", "stop": false, "continueOnError": true },
+          { "type": "service.startup", "name": "DTSAPO4Service", "startType": "Automatic", "stop": false, "continueOnError": true },
+          { "type": "service.startup", "name": "DolbyDAXAPI", "startType": "Automatic", "stop": false, "continueOnError": true }
+        ]
+      }
+    },
+    {
+      "id": "falcon_mega_audio_restart_engine",
+      "type": "action",
+      "name": "Audio: Restart AudioDG / Audio Engine",
+      "description": "Restarts Windows audio engine stack after changing audio tweaks.",
+      "category": "Audio",
+      "riskLevel": "Safe",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          { "type": "ps.run", "command": "Get-Process -Name audiodg -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue; Restart-Service -Name Audiosrv -Force -ErrorAction SilentlyContinue; Restart-Service -Name AudioEndpointBuilder -Force -ErrorAction SilentlyContinue; Write-Output 'Audio engine restart requested.'" }
+        ]
+      },
+      "revert": { "steps": [] }
+    },
+    {
+      "id": "falcon_mega_audio_startup_junk_scanner",
+      "type": "action",
+      "name": "Audio: Startup Junk Scanner",
+      "description": "Scans startup/services for common Nahimic/A-Volute/DTS/Dolby/SS3 footprints.",
+      "category": "Audio",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          { "type": "ps.run", "command": "$patterns='Nahimic|A-Volute|AVolute|DTS|Dolby|SS2|SS3'; Write-Output '=== Services ==='; Get-Service | Where-Object { $_.Name -match $patterns -or $_.DisplayName -match $patterns } | Select-Object Name,Status,StartType | Format-Table -AutoSize; Write-Output '=== Startup Commands ==='; Get-CimInstance Win32_StartupCommand -ErrorAction SilentlyContinue | Where-Object { $_.Name -match $patterns -or $_.Command -match $patterns } | Select-Object Name,Command,Location | Format-Table -AutoSize" }
+        ]
+      },
+      "revert": { "steps": [] }
+    },
+    {
+      "id": "falcon_mega_storage_ntfs_memoryusage",
+      "type": "toggle",
+      "name": "Storage: Increase NtfsMemoryUsage",
+      "description": "Sets NTFS memory usage mode to 2 (RAM-rich systems recommended).",
+      "category": "Storage",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": { "steps": [ { "type": "cmd.run", "command": "fsutil behavior set memoryusage 2" } ] },
+      "revert": { "steps": [ { "type": "cmd.run", "command": "fsutil behavior set memoryusage 1" } ] },
+      "check": { "steps": [ { "type": "cmd.run", "command": "fsutil behavior query memoryusage" } ] }
+    },
+    {
+      "id": "falcon_mega_storage_contig_file_alloc",
+      "type": "toggle",
+      "name": "Storage: ContigFileAllocSize (Experimental)",
+      "description": "Sets ContigFileAllocSize to encourage larger contiguous allocation chunks.",
+      "category": "Storage",
+      "riskLevel": "Extreme",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          { "type": "registry.set", "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\FileSystem", "name": "ContigFileAllocSize", "value": 64, "valueType": "DWord" }
+        ]
+      },
+      "revert": { "steps": [ { "type": "registry.remove", "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\FileSystem", "name": "ContigFileAllocSize" } ] }
+    },
+    {
+      "id": "falcon_mega_storage_hard_storage_sense_kill",
+      "type": "toggle",
+      "name": "Storage: Hard Storage Sense Kill",
+      "description": "Disables Storage Sense policy and related scheduled tasks.",
+      "category": "Storage",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          { "type": "registry.set", "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\StorageSense", "name": "AllowStorageSenseGlobal", "value": 0, "valueType": "DWord" },
+          { "type": "cmd.run", "command": "schtasks /change /disable /tn \"\\Microsoft\\Windows\\DiskCleanup\\SilentCleanup\"" },
+          { "type": "cmd.run", "command": "schtasks /change /disable /tn \"\\Microsoft\\Windows\\StorageSense\\StorageSense\"", "continueOnError": true }
+        ]
+      },
+      "revert": {
+        "steps": [
+          { "type": "registry.remove", "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\StorageSense", "name": "AllowStorageSenseGlobal" },
+          { "type": "cmd.run", "command": "schtasks /change /enable /tn \"\\Microsoft\\Windows\\DiskCleanup\\SilentCleanup\"", "continueOnError": true },
+          { "type": "cmd.run", "command": "schtasks /change /enable /tn \"\\Microsoft\\Windows\\StorageSense\\StorageSense\"", "continueOnError": true }
+        ]
+      }
+    },
+    {
+      "id": "falcon_mega_services_mixed_reality_kill_pack",
+      "type": "action",
+      "name": "Services: Mixed Reality / Shared Reality Kill Pack",
+      "description": "Disables common Mixed Reality services and tasks for non-VR rigs.",
+      "category": "Services",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          { "type": "service.startup", "name": "MixedRealityOpenXRSvc", "startType": "Disabled", "stop": true, "continueOnError": true },
+          { "type": "service.startup", "name": "RmSvc", "startType": "Disabled", "stop": true, "continueOnError": true },
+          { "type": "cmd.run", "command": "schtasks /change /disable /tn \"\\Microsoft\\Windows\\Holographic\\FirstRun\"", "continueOnError": true }
+        ]
+      },
+      "revert": { "steps": [] }
+    },
+    {
+      "id": "falcon_mega_services_troubleshooting_stack_disable",
+      "type": "action",
+      "name": "Services: Full Troubleshooting Stack Disable",
+      "description": "Disables troubleshooting helpers and diagnostics policy service stack.",
+      "category": "Services",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          { "type": "service.startup", "name": "DPS", "startType": "Disabled", "stop": true, "continueOnError": true },
+          { "type": "service.startup", "name": "WdiServiceHost", "startType": "Disabled", "stop": true, "continueOnError": true },
+          { "type": "service.startup", "name": "WdiSystemHost", "startType": "Disabled", "stop": true, "continueOnError": true }
+        ]
+      },
+      "revert": { "steps": [] }
+    },
+    {
+      "id": "falcon_mega_services_maintenance_stack_hard_off",
+      "type": "action",
+      "name": "Services: Maintenance Stack Hard-Off",
+      "description": "Disables automatic maintenance policy + key maintenance tasks.",
+      "category": "Services",
+      "riskLevel": "Extreme",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          { "type": "registry.set", "path": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Schedule\\Maintenance", "name": "MaintenanceDisabled", "value": 1, "valueType": "DWord" },
+          { "type": "cmd.run", "command": "schtasks /change /disable /tn \"\\Microsoft\\Windows\\TaskScheduler\\Maintenance Configurator\"", "continueOnError": true },
+          { "type": "cmd.run", "command": "schtasks /change /disable /tn \"\\Microsoft\\Windows\\TaskScheduler\\Regular Maintenance\"", "continueOnError": true }
+        ]
+      },
+      "revert": { "steps": [ { "type": "registry.remove", "path": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Schedule\\Maintenance", "name": "MaintenanceDisabled" } ] }
+    },
+    {
+      "id": "falcon_mega_services_appx_split_shell_survival",
+      "type": "action",
+      "name": "Services: AppX / ClipSVC Split (Store Disabled, Shell Survival)",
+      "description": "Disables ClipSVC/WSService while leaving AppXSVC manual for shell safety.",
+      "category": "Services",
+      "riskLevel": "Extreme",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          { "type": "service.startup", "name": "ClipSVC", "startType": "Disabled", "stop": true, "continueOnError": true },
+          { "type": "service.startup", "name": "WSService", "startType": "Disabled", "stop": true, "continueOnError": true },
+          { "type": "service.startup", "name": "AppXSvc", "startType": "Manual", "stop": false, "continueOnError": true }
+        ]
+      },
+      "revert": { "steps": [] }
+    },
+    {
+      "id": "falcon_mega_services_appx_split_full_kill",
+      "type": "action",
+      "name": "Services: AppX / ClipSVC Split (Full AppX Kill)",
+      "description": "Hard profile disabling AppXSVC, ClipSVC, and WSService.",
+      "category": "Services",
+      "riskLevel": "Extreme",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          { "type": "service.startup", "name": "ClipSVC", "startType": "Disabled", "stop": true, "continueOnError": true },
+          { "type": "service.startup", "name": "WSService", "startType": "Disabled", "stop": true, "continueOnError": true },
+          { "type": "service.startup", "name": "AppXSvc", "startType": "Disabled", "stop": true, "continueOnError": true }
+        ]
+      },
+      "revert": { "steps": [] }
+    },
+    {
+      "id": "falcon_mega_services_contact_sync_stack_remover",
+      "type": "action",
+      "name": "Services: Contact / Messaging / Sync Stack Remover",
+      "description": "Disables common sync/contact user-services used by cloud account workflows.",
+      "category": "Services",
+      "riskLevel": "Extreme",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          { "type": "service.startup", "name": "OneSyncSvc", "startType": "Disabled", "stop": true, "continueOnError": true },
+          { "type": "service.startup", "name": "PimIndexMaintenanceSvc", "startType": "Disabled", "stop": true, "continueOnError": true },
+          { "type": "service.startup", "name": "UserDataSvc", "startType": "Disabled", "stop": true, "continueOnError": true }
+        ]
+      },
+      "revert": { "steps": [] }
+    },
+    {
+      "id": "falcon_mega_services_bluetooth_full_hardcore",
+      "type": "action",
+      "name": "Services: Bluetooth Full-Hardcore Pack",
+      "description": "Disables Bluetooth core and related user-service stack for wired-only builds.",
+      "category": "Services",
+      "riskLevel": "Extreme",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          { "type": "service.startup", "name": "bthserv", "startType": "Disabled", "stop": true, "continueOnError": true },
+          { "type": "service.startup", "name": "BthAvctpSvc", "startType": "Disabled", "stop": true, "continueOnError": true },
+          { "type": "service.startup", "name": "BTAGService", "startType": "Disabled", "stop": true, "continueOnError": true }
+        ]
+      },
+      "revert": { "steps": [] }
+    },
+    {
+      "id": "falcon_mega_services_wifi_soft_disable",
+      "type": "action",
+      "name": "Services: Wi-Fi Full-Hardcore Pack (Soft Disable)",
+      "description": "Stops WLAN service for Ethernet-only sessions without permanently stripping adapter state.",
+      "category": "Services",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": { "steps": [ { "type": "service.startup", "name": "WlanSvc", "startType": "Manual", "stop": true, "continueOnError": true } ] },
+      "revert": { "steps": [] }
+    },
+    {
+      "id": "falcon_mega_services_wifi_hard_disable",
+      "type": "action",
+      "name": "Services: Wi-Fi Full-Hardcore Pack (Hard Disable)",
+      "description": "Disables WLAN AutoConfig for pure wired-only rigs.",
+      "category": "Services",
+      "riskLevel": "Extreme",
+      "requiresAdmin": true,
+      "apply": { "steps": [ { "type": "service.startup", "name": "WlanSvc", "startType": "Disabled", "stop": true, "continueOnError": true } ] },
+      "revert": { "steps": [] }
+    },
+    {
+      "id": "falcon_mega_services_wifi_restore_profile",
+      "type": "action",
+      "name": "Services: Restore Wi-Fi Profile",
+      "description": "Restores WLAN AutoConfig startup mode after hardcore network stripping.",
+      "category": "Services",
+      "riskLevel": "Safe",
+      "requiresAdmin": true,
+      "apply": { "steps": [ { "type": "service.startup", "name": "WlanSvc", "startType": "Automatic", "stop": false, "continueOnError": true } ] },
+      "revert": { "steps": [] }
+    },
+    {
+      "id": "falcon_mega_network_lan_only_stripped",
+      "type": "action",
+      "name": "Network: LAN-Only Stripped Preset",
+      "description": "Disables SSDP/UPnP and legacy discovery helpers for pure Ethernet rigs.",
+      "category": "Network",
+      "riskLevel": "Extreme",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          { "type": "service.startup", "name": "SSDPSRV", "startType": "Disabled", "stop": true, "continueOnError": true },
+          { "type": "service.startup", "name": "upnphost", "startType": "Disabled", "stop": true, "continueOnError": true },
+          { "type": "registry.set", "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\DNSClient", "name": "EnableMulticast", "value": 0, "valueType": "DWord", "continueOnError": true }
+        ]
+      },
+      "revert": { "steps": [] }
+    },
+    {
+      "id": "falcon_mega_network_active_probe_minimizer",
+      "type": "toggle",
+      "name": "Network: Active Probe Minimizer",
+      "description": "Reduces active network probing/NCSI chatter.",
+      "category": "Network",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          { "type": "registry.set", "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\NlaSvc\\Parameters\\Internet", "name": "EnableActiveProbing", "value": 0, "valueType": "DWord" }
+        ]
+      },
+      "revert": {
+        "steps": [
+          { "type": "registry.set", "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\NlaSvc\\Parameters\\Internet", "name": "EnableActiveProbing", "value": 1, "valueType": "DWord" }
+        ]
+      }
+    },
+    {
+      "id": "falcon_mega_network_mode_download",
+      "type": "action",
+      "name": "Network Profile: Game-Download Mode",
+      "description": "Throughput-oriented profile that keeps update/download related networking services available.",
+      "category": "Network Profiles",
+      "riskLevel": "Safe",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          { "type": "service.startup", "name": "DoSvc", "startType": "Automatic", "stop": false, "continueOnError": true },
+          { "type": "service.startup", "name": "BITS", "startType": "Automatic", "stop": false, "continueOnError": true }
+        ]
+      },
+      "revert": { "steps": [] }
+    },
+    {
+      "id": "falcon_mega_network_mode_comp_latency",
+      "type": "action",
+      "name": "Network Profile: Comp-Latency Mode",
+      "description": "Low-background-chatter profile for tournament sessions.",
+      "category": "Network Profiles",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          { "type": "service.startup", "name": "DoSvc", "startType": "Disabled", "stop": true, "continueOnError": true },
+          { "type": "service.startup", "name": "BITS", "startType": "Manual", "stop": true, "continueOnError": true }
+        ]
+      },
+      "revert": { "steps": [] }
+    },
+    {
+      "id": "falcon_mega_shell_disable_cloud_content_surfaces",
+      "type": "toggle",
+      "name": "Shell: Disable Cloud-Optimized Content Surfaces",
+      "description": "Disables cloud content and suggestion surfaces in Windows shell.",
+      "category": "Shell Privacy",
+      "riskLevel": "Safe",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          { "type": "registry.set", "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\CloudContent", "name": "DisableCloudOptimizedContent", "value": 1, "valueType": "DWord" },
+          { "type": "registry.set", "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\CloudContent", "name": "DisableWindowsConsumerFeatures", "value": 1, "valueType": "DWord" }
+        ]
+      },
+      "revert": {
+        "steps": [
+          { "type": "registry.remove", "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\CloudContent", "name": "DisableCloudOptimizedContent" },
+          { "type": "registry.remove", "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\CloudContent", "name": "DisableWindowsConsumerFeatures" }
+        ]
+      }
+    },
+    {
+      "id": "falcon_mega_safety_snapshot_before_extreme",
+      "type": "action",
+      "name": "Safety: Snapshot Before Extreme Preset",
+      "description": "Creates export snapshots for services, task list, and selected registry branches before extreme tweaks.",
+      "category": "Safety",
+      "riskLevel": "Safe",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          { "type": "ps.run", "command": "$dir=Join-Path (Get-Location) 'FalconSnapshots'; New-Item -ItemType Directory -Path $dir -Force | Out-Null; $ts=Get-Date -Format 'yyyyMMdd_HHmmss'; Get-Service | Sort-Object Name | Select-Object Name,Status,StartType | Export-Csv -NoTypeInformation -Path (Join-Path $dir (\"services_$ts.csv\")); schtasks /query /fo LIST /v > (Join-Path $dir (\"tasks_$ts.txt\")); reg export 'HKLM\\SYSTEM\\CurrentControlSet\\Services' (Join-Path $dir (\"services_reg_$ts.reg\")) /y | Out-Null; reg export 'HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Schedule\\TaskCache' (Join-Path $dir (\"taskcache_$ts.reg\")) /y | Out-Null; bcdedit /enum all > (Join-Path $dir (\"bcd_$ts.txt\")); Write-Output (\"Snapshot saved to: {0}\" -f $dir)" }
+        ]
+      },
+      "revert": { "steps": [] }
+    },
+    {
+      "id": "falcon_mega_safety_protected_verify",
+      "type": "action",
+      "name": "Safety: Protected Verify Card",
+      "description": "Reads back protected service/task state to verify hardcore cards actually applied.",
+      "category": "Safety",
+      "riskLevel": "Safe",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          { "type": "ps.run", "command": "$svc='StateRepository','ClipSVC','SSDPSRV','WlanSvc','bthserv'; foreach($s in $svc){ $o=Get-Service -Name $s -ErrorAction SilentlyContinue; if($o){ Write-Output (\"Service {0}: Status={1}; StartType={2}\" -f $o.Name,$o.Status,$o.StartType) } else { Write-Output (\"Service {0}: not found\" -f $s) } }; $tasks='\\Microsoft\\Windows\\TaskScheduler\\Regular Maintenance','\\Microsoft\\Windows\\DiskCleanup\\SilentCleanup','\\Microsoft\\Windows\\StorageSense\\StorageSense'; foreach($t in $tasks){ schtasks /query /tn $t /fo LIST /v 2>$null | Select-String 'TaskName:|Scheduled Task State:' | ForEach-Object { $_.ToString() } }" }
+        ]
+      },
+      "revert": { "steps": [] }
+    },
+    {
+      "id": "falcon_mega_conflict_scanner",
+      "type": "action",
+      "name": "Analyzer: Conflict Scanner",
+      "description": "Detects common tuning conflicts (Armoury Crate, Nahimic, iCUE, Logitech/Razer overlays, VBS/Memory Integrity, virtualization).",
+      "category": "Analyzer",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          { "type": "ps.run", "command": "$proc='ArmouryCrate.UserSessionHelper','NahimicService','iCUE','LGHUB','RzSynapse','Discord','RTSS','MSIAfterburner'; Write-Output '=== Running process conflicts ==='; foreach($p in $proc){ if(Get-Process -Name $p -ErrorAction SilentlyContinue){ Write-Output (\"FOUND process: {0}\" -f $p) } }; Write-Output '=== VBS / HVCI ==='; Get-CimInstance -ClassName Win32_DeviceGuard -ErrorAction SilentlyContinue | Select-Object SecurityServicesConfigured,SecurityServicesRunning,VirtualizationBasedSecurityStatus | Format-List; Write-Output '=== Hyper-V/Virtualization Features ==='; Get-WindowsOptionalFeature -Online -ErrorAction SilentlyContinue | Where-Object { $_.FeatureName -match 'Hyper|VirtualMachinePlatform|Containers|WindowsHypervisorPlatform' } | Select-Object FeatureName,State | Format-Table -AutoSize" }
+        ]
+      },
+      "revert": { "steps": [] }
+    }
+  ]
+}
