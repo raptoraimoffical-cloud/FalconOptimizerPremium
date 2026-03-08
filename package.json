@@ -1,6 +1,6 @@
 {
   "name": "falcon-optimizer",
-  "version": "1.5.6",
+  "version": "1.5.7",
   "description": "Windows gaming optimization application",
   "main": "main.js",
   "author": "Eli",
@@ -50,7 +50,8 @@
     },
     "asarUnpack": [
       "scripts/**",
-      "tools/**"
+      "tools/**",
+      "FalconLibrary/**"
     ]
   },
   "productName": "Falcon Optimizer"
