@@ -1,0 +1,197 @@
+{
+  "items": [
+    {
+      "id": "input.advanced.reset_smooth_mouse_curves",
+      "type": "toggle",
+      "name": "Input Advanced: Reset Smooth Mouse Curves",
+      "category": "Input / Advanced",
+      "description": "Resets SmoothMouseXCurve and SmoothMouseYCurve to Windows default curve values. Experimental: mainly useful when old accel packs left non-standard curve data.",
+      "riskLevel": "Experimental",
+      "categoryTier": "Experimental",
+      "requiresAdmin": false,
+      "recommendedFor": ["Competitive", "Users migrating from old accel tweaks"],
+      "notRecommendedFor": ["Users who intentionally tuned custom mouse curves"],
+      "useCase": "Input consistency",
+      "elevationLevel": "normal",
+      "apply": {
+        "steps": [
+          { "type": "registry.set", "path": "HKCU\\Control Panel\\Mouse", "name": "SmoothMouseXCurve", "value": "00,00,00,00,00,00,00,00,00,00,38,00,00,00,00,00,00,00,70,00,00,00,00,00,00,00,A8,00,00,00,00,00", "valueType": "Binary" },
+          { "type": "registry.set", "path": "HKCU\\Control Panel\\Mouse", "name": "SmoothMouseYCurve", "value": "00,00,00,00,00,00,00,00,00,00,38,00,00,00,00,00,00,00,70,00,00,00,00,00,00,00,A8,00,00,00,00,00", "valueType": "Binary" }
+        ]
+      },
+      "revert": {
+        "steps": [
+          { "type": "registry.remove", "path": "HKCU\\Control Panel\\Mouse", "name": "SmoothMouseXCurve" },
+          { "type": "registry.remove", "path": "HKCU\\Control Panel\\Mouse", "name": "SmoothMouseYCurve" }
+        ]
+      },
+      "check": {
+        "steps": [
+          { "type": "registry.check", "path": "HKCU\\Control Panel\\Mouse", "name": "SmoothMouseXCurve", "valueType": "Binary", "equals": "00,00,00,00,00,00,00,00,00,00,38,00,00,00,00,00,00,00,70,00,00,00,00,00,00,00,A8,00,00,00,00,00" },
+          { "type": "registry.check", "path": "HKCU\\Control Panel\\Mouse", "name": "SmoothMouseYCurve", "valueType": "Binary", "equals": "00,00,00,00,00,00,00,00,00,00,38,00,00,00,00,00,00,00,70,00,00,00,00,00,00,00,A8,00,00,00,00,00" }
+        ]
+      }
+    },
+    {
+      "id": "input.preset.competitive_cleanup",
+      "type": "toggle",
+      "name": "Input Preset: Competitive Input Cleanup",
+      "category": "Input / Competitive",
+      "description": "Competitive cleanup preset: 1:1 mouse, disable EPP, disable Sticky/Filter/Toggle keys, disable USB selective suspend policy.",
+      "riskLevel": "Warning",
+      "categoryTier": "Competitive",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          { "type": "registry.set", "path": "HKCU\\Control Panel\\Mouse", "name": "MouseSpeed", "value": "0", "valueType": "String" },
+          { "type": "registry.set", "path": "HKCU\\Control Panel\\Mouse", "name": "MouseThreshold1", "value": "0", "valueType": "String" },
+          { "type": "registry.set", "path": "HKCU\\Control Panel\\Mouse", "name": "MouseThreshold2", "value": "0", "valueType": "String" },
+          { "type": "registry.set", "path": "HKCU\\Control Panel\\Accessibility\\StickyKeys", "name": "Flags", "value": "506", "valueType": "String" },
+          { "type": "registry.set", "path": "HKCU\\Control Panel\\Accessibility\\Keyboard Response", "name": "Flags", "value": "122", "valueType": "String" },
+          { "type": "registry.set", "path": "HKCU\\Control Panel\\Accessibility\\ToggleKeys", "name": "Flags", "value": "58", "valueType": "String" },
+          { "type": "powercfg", "args": ["/SETACVALUEINDEX", "SCHEME_CURRENT", "SUB_USB", "2a737441-1930-4402-8d77-b2bebba308a3", "0"] },
+          { "type": "powercfg", "args": ["/SETACTIVE", "SCHEME_CURRENT"] }
+        ]
+      },
+      "revert": {
+        "steps": [
+          { "type": "registry.set", "path": "HKCU\\Control Panel\\Mouse", "name": "MouseSpeed", "value": "1", "valueType": "String" },
+          { "type": "registry.set", "path": "HKCU\\Control Panel\\Mouse", "name": "MouseThreshold1", "value": "6", "valueType": "String" },
+          { "type": "registry.set", "path": "HKCU\\Control Panel\\Mouse", "name": "MouseThreshold2", "value": "10", "valueType": "String" },
+          { "type": "powercfg", "args": ["/SETACVALUEINDEX", "SCHEME_CURRENT", "SUB_USB", "2a737441-1930-4402-8d77-b2bebba308a3", "1"] },
+          { "type": "powercfg", "args": ["/SETACTIVE", "SCHEME_CURRENT"] }
+        ]
+      },
+      "check": {
+        "steps": [
+          { "type": "registry.check", "path": "HKCU\\Control Panel\\Mouse", "name": "MouseSpeed", "equals": "0", "valueType": "String" },
+          { "type": "registry.check", "path": "HKCU\\Control Panel\\Mouse", "name": "MouseThreshold1", "equals": "0", "valueType": "String" },
+          { "type": "registry.check", "path": "HKCU\\Control Panel\\Mouse", "name": "MouseThreshold2", "equals": "0", "valueType": "String" }
+        ]
+      }
+    },
+    {
+      "id": "timer.stack.launch_dpc_checker_with_stack",
+      "type": "action",
+      "name": "Timer: Launch DPC Checker With Timer Stack",
+      "category": "Timer",
+      "description": "Starts the Falcon timer stack (dpclat + SetTimerResolution) and verifies both processes are alive.",
+      "riskLevel": "Warning",
+      "categoryTier": "Competitive",
+      "requiresAdmin": true,
+      "requiredTools": ["dpclat.exe", "SetTimerResolution.exe"],
+      "elevationLevel": "admin",
+      "apply": {
+        "steps": [
+          { "type": "registry.set", "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Kernel", "name": "GlobalTimerResolutionRequests", "value": 1, "valueType": "DWORD", "continueOnError": true },
+          { "type": "ps.run", "command": "$base = Join-Path (Get-Location) 'tools\\FalconLibrary'; $timerExe = Join-Path $base 'Timer Resolution\\SetTimerResolution.exe'; $dpcExe = Join-Path $base 'DPC Checker\\dpclat.exe'; if(-not (Test-Path -LiteralPath $timerExe)){ throw \"Missing SetTimerResolution.exe at $timerExe\" }; if(-not (Test-Path -LiteralPath $dpcExe)){ throw \"Missing dpclat.exe at $dpcExe\" }; if(-not (Get-Process -Name dpclat -ErrorAction SilentlyContinue)){ Start-Process -FilePath $dpcExe -WindowStyle Minimized }; $resolution = $env:FalconTimerResolutionUs; if([string]::IsNullOrWhiteSpace($resolution)){ $resolution = '5000' }; if(-not (Get-Process -Name SetTimerResolution -ErrorAction SilentlyContinue)){ Start-Process -FilePath $timerExe -ArgumentList @('--resolution', $resolution, '--no-console') -WindowStyle Hidden }; Start-Sleep -Milliseconds 400; if(-not (Get-Process -Name dpclat -ErrorAction SilentlyContinue)){ throw 'dpclat is not running after launch.' }; if(-not (Get-Process -Name SetTimerResolution -ErrorAction SilentlyContinue)){ throw 'SetTimerResolution is not running after launch.' }; Write-Output 'Timer stack launched and verified.'" }
+        ]
+      },
+      "revert": { "steps": [ { "type": "process.kill", "name": "SetTimerResolution", "continueOnError": true }, { "type": "process.kill", "name": "dpclat", "continueOnError": true } ] },
+      "check": { "steps": [ { "type": "ps.run", "command": "$dp = Get-Process -Name dpclat -ErrorAction SilentlyContinue; $tm = Get-Process -Name SetTimerResolution -ErrorAction SilentlyContinue; if(-not $dp){ throw 'dpclat.exe is not running.' }; if(-not $tm){ throw 'SetTimerResolution.exe is not running.' }; Write-Output 'Timer stack healthy.'" } ] }
+    },
+    {
+      "id": "audio.restart_engine",
+      "type": "action",
+      "name": "Audio: Restart Audio Engine",
+      "category": "Audio / Competitive",
+      "description": "Restarts Windows Audio services (Audiosrv, AudioEndpointBuilder) without disabling core audio stack.",
+      "riskLevel": "Warning",
+      "categoryTier": "Competitive",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          { "type": "ps.run", "command": "Restart-Service -Name AudioEndpointBuilder -Force -ErrorAction SilentlyContinue; Restart-Service -Name Audiosrv -Force -ErrorAction SilentlyContinue; $a=Get-Service Audiosrv -ErrorAction SilentlyContinue; $b=Get-Service AudioEndpointBuilder -ErrorAction SilentlyContinue; if($a.Status -ne 'Running' -or $b.Status -ne 'Running'){ throw 'Audio services did not return to Running state.' }; Write-Output 'Audio engine restarted successfully.'" }
+        ]
+      },
+      "revert": { "steps": [] },
+      "check": { "steps": [ { "type": "service.check", "name": "Audiosrv", "status": "Running", "startMode": "Automatic" }, { "type": "service.check", "name": "AudioEndpointBuilder", "status": "Running", "startMode": "Automatic" } ] }
+    },
+    {
+      "id": "network.preset.lan_only_competitive_mode",
+      "type": "toggle",
+      "name": "Network Preset: LAN-Only Competitive Mode",
+      "category": "Network / Competitive",
+      "description": "Disables discovery-heavy services for LAN tournament setups (SSDP + UPnP host).",
+      "riskLevel": "Warning",
+      "categoryTier": "Competitive",
+      "requiresAdmin": true,
+      "apply": {
+        "steps": [
+          { "type": "service.startup", "name": "SSDPSRV", "startType": "Disabled", "stop": true },
+          { "type": "service.startup", "name": "upnphost", "startType": "Disabled", "stop": true }
+        ]
+      },
+      "revert": {
+        "steps": [
+          { "type": "service.startup", "name": "SSDPSRV", "startType": "Manual" },
+          { "type": "service.startup", "name": "upnphost", "startType": "Manual" }
+        ]
+      },
+      "check": {
+        "steps": [
+          { "type": "service.check", "name": "SSDPSRV", "startMode": "Disabled" },
+          { "type": "service.check", "name": "upnphost", "startMode": "Disabled" }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.parsec",
+      "name": "Process Lab: Parsec (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "useCase": "Competitive",
+      "elevationLevel": "admin-verify",
+      "apply": { "steps": [ { "type": "ps.file", "file": "scripts/processlab/process-entry.ps1", "args": { "EntryId": "process.entry.parsec", "Mode": "apply", "Processes": "Parsec" } } ] },
+      "revert": { "steps": [ { "type": "ps.file", "file": "scripts/processlab/process-entry.ps1", "args": { "EntryId": "process.entry.parsec", "Mode": "revert", "Processes": "Parsec" } } ] },
+      "check": { "steps": [ { "type": "ps.file", "file": "scripts/processlab/process-entry.ps1", "args": { "EntryId": "process.entry.parsec", "Mode": "check", "Processes": "Parsec" } } ] }
+    },
+    {
+      "id": "process.entry.wallpaper_engine_32",
+      "name": "Process Lab: Wallpaper32 (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "apply": { "steps": [ { "type": "ps.file", "file": "scripts/processlab/process-entry.ps1", "args": { "EntryId": "process.entry.wallpaper_engine_32", "Mode": "apply", "Processes": "Wallpaper32" } } ] },
+      "revert": { "steps": [ { "type": "ps.file", "file": "scripts/processlab/process-entry.ps1", "args": { "EntryId": "process.entry.wallpaper_engine_32", "Mode": "revert", "Processes": "Wallpaper32" } } ] },
+      "check": { "steps": [ { "type": "ps.file", "file": "scripts/processlab/process-entry.ps1", "args": { "EntryId": "process.entry.wallpaper_engine_32", "Mode": "check", "Processes": "Wallpaper32" } } ] }
+    },
+    {
+      "id": "process.entry.wallpaper_engine_64",
+      "name": "Process Lab: Wallpaper64 (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "apply": { "steps": [ { "type": "ps.file", "file": "scripts/processlab/process-entry.ps1", "args": { "EntryId": "process.entry.wallpaper_engine_64", "Mode": "apply", "Processes": "Wallpaper64" } } ] },
+      "revert": { "steps": [ { "type": "ps.file", "file": "scripts/processlab/process-entry.ps1", "args": { "EntryId": "process.entry.wallpaper_engine_64", "Mode": "revert", "Processes": "Wallpaper64" } } ] },
+      "check": { "steps": [ { "type": "ps.file", "file": "scripts/processlab/process-entry.ps1", "args": { "EntryId": "process.entry.wallpaper_engine_64", "Mode": "check", "Processes": "Wallpaper64" } } ] }
+    },
+    {
+      "id": "process.entry.lightshot",
+      "name": "Process Lab: Lightshot (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "apply": { "steps": [ { "type": "ps.file", "file": "scripts/processlab/process-entry.ps1", "args": { "EntryId": "process.entry.lightshot", "Mode": "apply", "Processes": "Lightshot" } } ] },
+      "revert": { "steps": [ { "type": "ps.file", "file": "scripts/processlab/process-entry.ps1", "args": { "EntryId": "process.entry.lightshot", "Mode": "revert", "Processes": "Lightshot" } } ] },
+      "check": { "steps": [ { "type": "ps.file", "file": "scripts/processlab/process-entry.ps1", "args": { "EntryId": "process.entry.lightshot", "Mode": "check", "Processes": "Lightshot" } } ] }
+    },
+    {
+      "id": "process.entry.widget_service",
+      "name": "Process Lab: WidgetService (Session Background Remover)",
+      "category": "Process Lab / Session-only",
+      "riskLevel": "Experimental",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "description": "Session-only helper for gaming mode cleanup. Do not use on daily productivity sessions.",
+      "apply": { "steps": [ { "type": "ps.file", "file": "scripts/processlab/process-entry.ps1", "args": { "EntryId": "process.entry.widget_service", "Mode": "apply", "Processes": "WidgetService" } } ] },
+      "revert": { "steps": [ { "type": "ps.file", "file": "scripts/processlab/process-entry.ps1", "args": { "EntryId": "process.entry.widget_service", "Mode": "revert", "Processes": "WidgetService" } } ] },
+      "check": { "steps": [ { "type": "ps.file", "file": "scripts/processlab/process-entry.ps1", "args": { "EntryId": "process.entry.widget_service", "Mode": "check", "Processes": "WidgetService" } } ] }
+    }
+  ]
+}

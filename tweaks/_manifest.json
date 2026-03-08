@@ -116,6 +116,7 @@
     "tweaks/expansion.imported.misc.json",
     "tweaks/expansion.falcon_new_tweaks.json",
     "tweaks/expansion.falcon_megalist_additions.json",
-    "tweaks/falconlibrary.integration.json"
+    "tweaks/falconlibrary.integration.json",
+    "tweaks/expansion.competitive_processlab_audit.json"
   ]
 }
