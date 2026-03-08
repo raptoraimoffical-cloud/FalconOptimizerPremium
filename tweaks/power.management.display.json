@@ -1,0 +1,30 @@
+{
+  "items": [
+    {
+      "id": "power_display_idle_tuning",
+      "type": "button",
+      "name": "Display Timeout: 20 min (AC) / 5 min (DC)",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "category": "Power Management",
+      "requiresAdmin": true,
+      "description": "Separates display idle policy by power source for practical gaming + battery behavior.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_VIDEO VIDEOIDLE 20"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_VIDEO VIDEOIDLE 5"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
+        ]
+      }
+    }
+  ]
+}

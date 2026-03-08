@@ -1,0 +1,51 @@
+{
+  "items": [
+    {
+      "id": "power_device_wake_list",
+      "type": "button",
+      "name": "List Wake-Capable Devices + Armed Devices",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "category": "Power Management",
+      "description": "Shows devices that can wake the system and devices currently armed for wake.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg /devicequery wake_programmable"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /devicequery wake_armed"
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_device_wake_disable_mouse",
+      "type": "button",
+      "name": "Disable Wake: HID-compliant mouse (if present)",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "category": "Power Management",
+      "requiresAdmin": true,
+      "description": "Example wake-control card using powercfg /devicedisablewake for common accidental wake source.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg /devicedisablewake \"HID-compliant mouse\""
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg /deviceenablewake \"HID-compliant mouse\""
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "items": [
+    {
+      "id": "power_sleep_after_split",
+      "type": "button",
+      "name": "Sleep After: Never (AC) / 30 min (DC)",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "category": "Power Management",
+      "requiresAdmin": true,
+      "description": "Keeps gaming rigs awake on AC while retaining a laptop-safe DC timeout.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_SLEEP STANDBYIDLE 0"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_SLEEP STANDBYIDLE 30"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_wake_timers_split",
+      "type": "button",
+      "name": "Wake Timers: Enable (AC) / Disable (DC)",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "category": "Power Management",
+      "requiresAdmin": true,
+      "description": "Allows scheduled wakes on AC while preventing surprise battery drain on DC.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_SLEEP RTCWAKE 1"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_SLEEP RTCWAKE 0"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_modern_standby_report",
+      "type": "button",
+      "name": "Modern Standby Diagnostic Report",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "category": "Power Management",
+      "description": "Runs available sleep diagnostics (sleep states + sleepstudy when supported).",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg /a"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /sleepstudy"
+          }
+        ]
+      }
+    }
+  ]
+}

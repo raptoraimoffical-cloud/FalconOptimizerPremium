@@ -1,0 +1,21 @@
+{
+  "items": [
+    {
+      "id": "power_energy_saver_report",
+      "type": "button",
+      "name": "Energy Saver Settings Report",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "category": "Power Management",
+      "description": "Extracts Energy Saver subgroup values from current scheme for review and tuning.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$ts=Get-Date -Format \"yyyyMMdd-HHmmss\"; $f=Join-Path (Join-Path $PWD \"logs\") (\"energy-saver-\"+$ts+\".txt\"); powercfg /qh SCHEME_CURRENT SUB_ENERGYSAVER | Out-File -Encoding utf8 $f; Write-Output \"Saved: $f\""
+          }
+        ]
+      }
+    }
+  ]
+}
