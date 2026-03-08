@@ -101,38 +101,6 @@
       "manualOnly": true
     },
     {
-      "id": "integrity.reset_network_stack__speed.integrity",
-      "name": "Reset Network Stack",
-      "category": "Falcon Speed & Integrity Core / Integrity & Repair",
-      "risk": "Safe",
-      "description": "Resets Winsock, IP stack, and DNS cache to fix weird ping and connectivity issues.",
-      "requiresAdmin": true,
-      "requiresReboot": false,
-      "apply": {
-        "steps": [
-          {
-            "type": "shell.start",
-            "file": "powershell.exe",
-            "args": [
-              "-NoProfile",
-              "-ExecutionPolicy",
-              "Bypass",
-              "-Command",
-              "netsh winsock reset; netsh int ip reset; ipconfig /flushdns"
-            ],
-            "wait": true
-          }
-        ]
-      },
-      "revert": {
-        "steps": []
-      },
-      "type": "action",
-      "riskLevel": "Safe",
-      "kind": "tool",
-      "manualOnly": true
-    },
-    {
       "id": "integrity.rebuild_icon_cache__speed.integrity",
       "name": "Rebuild Icon Cache",
       "category": "Falcon Speed & Integrity Core / Integrity & Repair",

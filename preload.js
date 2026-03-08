@@ -69,7 +69,8 @@ selfTest: () => ipcRenderer.invoke("falcon:selfTest"),
 
   // process / system helpers
   listProcesses: () => ipcRenderer.invoke("falcon:listProcesses"),
-  terminateProcesses: (processes) => ipcRenderer.invoke("falcon:terminateProcesses", { processes: processes || [] }),
+  terminateProcesses: (processes, includeTree = false) => ipcRenderer.invoke("falcon:terminateProcesses", { processes: processes || [], includeTree: !!includeTree }),
+  serviceActionByProcessNames: (processNames, action) => ipcRenderer.invoke("falcon:serviceActionByProcessNames", { processNames: processNames || [], action: String(action || '') }),
   runProcessPreset: (mode) => ipcRenderer.invoke("falcon:runProcessPreset", { mode }),
   restoreProcessLab: () => ipcRenderer.invoke("falcon:restoreProcessLab"),
   runProcessCustomPreset: (baseMode, overrides) => ipcRenderer.invoke("falcon:runProcessCustomPreset", { baseMode, overrides }),

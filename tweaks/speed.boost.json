@@ -1,6 +1,93 @@
 {
   "items": [
     {
+      "id": "boost.full_cleanup_non_app",
+      "name": "Speed Boost \u2013 Full Cleanup (non app-specific)",
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "description": "Runs all major system cleanup operations (non app-specific): temp, shader caches, update cache, DNS, event logs, thumbnail cache, and prefetch.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "$ErrorActionPreference='SilentlyContinue';\n$paths=@(\n  \"$env:TEMP\\*\",\n  \"$env:WINDIR\\Temp\\*\",\n  \"$env:LOCALAPPDATA\\Temp\\*\",\n  \"$env:LOCALAPPDATA\\D3DSCache\\*\",\n  \"$env:LOCALAPPDATA\\NVIDIA\\DXCache\\*\",\n  \"$env:LOCALAPPDATA\\NVIDIA\\GLCache\\*\",\n  \"$env:LOCALAPPDATA\\AMD\\DxCache\\*\",\n  \"$env:LOCALAPPDATA\\AMD\\GLCache\\*\",\n  \"$env:ProgramData\\NVIDIA Corporation\\NV_Cache\\*\",\n  \"$env:WINDIR\\SoftwareDistribution\\Download\\*\",\n  \"$env:LOCALAPPDATA\\Microsoft\\Windows\\Explorer\\thumbcache*\",\n  \"$env:WINDIR\\Prefetch\\*\"\n);\nforeach($p in $paths){ try { Remove-Item -LiteralPath $p -Recurse -Force -ErrorAction SilentlyContinue } catch {} }\ntry { ipconfig /flushdns | Out-Null } catch {}\ntry { wevtutil el | ForEach-Object { wevtutil cl $_ } } catch {}\ntry { Get-ChildItem \"$env:SystemDrive\\ProgramData\\Microsoft\\Windows\\DeliveryOptimization\\Cache\" -ErrorAction SilentlyContinue | Remove-Item -Recurse -Force -ErrorAction SilentlyContinue } catch {}\nexit 0"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "boost.clean_network_stack",
+      "name": "Clean Network Stack (Winsock/IP/DNS)",
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Safe",
+      "description": "Resets Winsock, IP stack, and DNS cache as part of speed cleanup maintenance.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "netsh winsock reset; netsh int ip reset; ipconfig /flushdns; netsh advfirewall reset; exit 0"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Safe",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
+      "id": "boost.latency_registry_baseline",
+      "name": "Apply Latency Registry Baseline",
+      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "risk": "Warning",
+      "description": "Applies known low-latency baseline values: Win32PrioritySeparation=38, NetworkThrottlingIndex=FFFFFFFF, SystemResponsiveness=0, TCPNoDelay=1, TcpAckFrequency=1.",
+      "requiresAdmin": true,
+      "requiresReboot": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "shell.start",
+            "file": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-Command",
+              "$ErrorActionPreference='SilentlyContinue';\nreg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\PriorityControl\" /v Win32PrioritySeparation /t REG_DWORD /d 38 /f | Out-Null\nreg add \"HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\" /v NetworkThrottlingIndex /t REG_DWORD /d 4294967295 /f | Out-Null\nreg add \"HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\" /v SystemResponsiveness /t REG_DWORD /d 0 /f | Out-Null\n$ifBase='HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces'\nGet-ChildItem -Path Registry::$ifBase -ErrorAction SilentlyContinue | ForEach-Object {\n  reg add ($_.Name -replace 'HKEY_LOCAL_MACHINE','HKLM') /v TCPNoDelay /t REG_DWORD /d 1 /f | Out-Null\n  reg add ($_.Name -replace 'HKEY_LOCAL_MACHINE','HKLM') /v TcpAckFrequency /t REG_DWORD /d 1 /f | Out-Null\n}\nexit 0"
+            ],
+            "wait": true
+          }
+        ]
+      },
+      "type": "button",
+      "riskLevel": "Warning",
+      "kind": "tool",
+      "manualOnly": true
+    },
+    {
       "id": "boost.clear_cache__speed.boost",
       "name": "Clear Cache",
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
@@ -1396,33 +1483,6 @@
             "args": [
               "/c",
               "defrag.exe /C /O /U /V"
-            ],
-            "wait": true
-          }
-        ]
-      },
-      "type": "button",
-      "riskLevel": "Safe",
-      "note": "Converted from toggle (missing revert).",
-      "kind": "tool",
-      "manualOnly": true
-    },
-    {
-      "id": "boost.install_hone_nvidia_driver",
-      "name": "Install Hone NVIDIA Driver",
-      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
-      "risk": "Safe",
-      "description": "[Focus: FPS, Stability] Opens the NVIDIA driver download page so you can install the correct driver (clean install recommended).",
-      "requiresAdmin": false,
-      "requiresReboot": false,
-      "apply": {
-        "steps": [
-          {
-            "type": "shell.start",
-            "file": "cmd.exe",
-            "args": [
-              "/c",
-              "start \"\" \"https://www.nvidia.com/Download/index.aspx\""
             ],
             "wait": true
           }
