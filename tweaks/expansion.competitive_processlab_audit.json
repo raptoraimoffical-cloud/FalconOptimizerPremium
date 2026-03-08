@@ -9,26 +9,63 @@
       "riskLevel": "Experimental",
       "categoryTier": "Experimental",
       "requiresAdmin": false,
-      "recommendedFor": ["Competitive", "Users migrating from old accel tweaks"],
-      "notRecommendedFor": ["Users who intentionally tuned custom mouse curves"],
+      "recommendedFor": [
+        "Competitive",
+        "Users migrating from old accel tweaks"
+      ],
+      "notRecommendedFor": [
+        "Users who intentionally tuned custom mouse curves"
+      ],
       "useCase": "Input consistency",
       "elevationLevel": "normal",
       "apply": {
         "steps": [
-          { "type": "registry.set", "path": "HKCU\\Control Panel\\Mouse", "name": "SmoothMouseXCurve", "value": "00,00,00,00,00,00,00,00,00,00,38,00,00,00,00,00,00,00,70,00,00,00,00,00,00,00,A8,00,00,00,00,00", "valueType": "Binary" },
-          { "type": "registry.set", "path": "HKCU\\Control Panel\\Mouse", "name": "SmoothMouseYCurve", "value": "00,00,00,00,00,00,00,00,00,00,38,00,00,00,00,00,00,00,70,00,00,00,00,00,00,00,A8,00,00,00,00,00", "valueType": "Binary" }
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Control Panel\\Mouse",
+            "name": "SmoothMouseXCurve",
+            "value": "00,00,00,00,00,00,00,00,00,00,38,00,00,00,00,00,00,00,70,00,00,00,00,00,00,00,A8,00,00,00,00,00",
+            "valueType": "Binary"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Control Panel\\Mouse",
+            "name": "SmoothMouseYCurve",
+            "value": "00,00,00,00,00,00,00,00,00,00,38,00,00,00,00,00,00,00,70,00,00,00,00,00,00,00,A8,00,00,00,00,00",
+            "valueType": "Binary"
+          }
         ]
       },
       "revert": {
         "steps": [
-          { "type": "registry.remove", "path": "HKCU\\Control Panel\\Mouse", "name": "SmoothMouseXCurve" },
-          { "type": "registry.remove", "path": "HKCU\\Control Panel\\Mouse", "name": "SmoothMouseYCurve" }
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Control Panel\\Mouse",
+            "name": "SmoothMouseXCurve"
+          },
+          {
+            "type": "registry.remove",
+            "path": "HKCU\\Control Panel\\Mouse",
+            "name": "SmoothMouseYCurve"
+          }
         ]
       },
       "check": {
         "steps": [
-          { "type": "registry.check", "path": "HKCU\\Control Panel\\Mouse", "name": "SmoothMouseXCurve", "valueType": "Binary", "equals": "00,00,00,00,00,00,00,00,00,00,38,00,00,00,00,00,00,00,70,00,00,00,00,00,00,00,A8,00,00,00,00,00" },
-          { "type": "registry.check", "path": "HKCU\\Control Panel\\Mouse", "name": "SmoothMouseYCurve", "valueType": "Binary", "equals": "00,00,00,00,00,00,00,00,00,00,38,00,00,00,00,00,00,00,70,00,00,00,00,00,00,00,A8,00,00,00,00,00" }
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Control Panel\\Mouse",
+            "name": "SmoothMouseXCurve",
+            "valueType": "Binary",
+            "equals": "00,00,00,00,00,00,00,00,00,00,38,00,00,00,00,00,00,00,70,00,00,00,00,00,00,00,A8,00,00,00,00,00"
+          },
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Control Panel\\Mouse",
+            "name": "SmoothMouseYCurve",
+            "valueType": "Binary",
+            "equals": "00,00,00,00,00,00,00,00,00,00,38,00,00,00,00,00,00,00,70,00,00,00,00,00,00,00,A8,00,00,00,00,00"
+          }
         ]
       }
     },
@@ -43,30 +80,132 @@
       "requiresAdmin": true,
       "apply": {
         "steps": [
-          { "type": "registry.set", "path": "HKCU\\Control Panel\\Mouse", "name": "MouseSpeed", "value": "0", "valueType": "String" },
-          { "type": "registry.set", "path": "HKCU\\Control Panel\\Mouse", "name": "MouseThreshold1", "value": "0", "valueType": "String" },
-          { "type": "registry.set", "path": "HKCU\\Control Panel\\Mouse", "name": "MouseThreshold2", "value": "0", "valueType": "String" },
-          { "type": "registry.set", "path": "HKCU\\Control Panel\\Accessibility\\StickyKeys", "name": "Flags", "value": "506", "valueType": "String" },
-          { "type": "registry.set", "path": "HKCU\\Control Panel\\Accessibility\\Keyboard Response", "name": "Flags", "value": "122", "valueType": "String" },
-          { "type": "registry.set", "path": "HKCU\\Control Panel\\Accessibility\\ToggleKeys", "name": "Flags", "value": "58", "valueType": "String" },
-          { "type": "powercfg", "args": ["/SETACVALUEINDEX", "SCHEME_CURRENT", "SUB_USB", "2a737441-1930-4402-8d77-b2bebba308a3", "0"] },
-          { "type": "powercfg", "args": ["/SETACTIVE", "SCHEME_CURRENT"] }
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Control Panel\\Mouse",
+            "name": "MouseSpeed",
+            "value": "0",
+            "valueType": "String"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Control Panel\\Mouse",
+            "name": "MouseThreshold1",
+            "value": "0",
+            "valueType": "String"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Control Panel\\Mouse",
+            "name": "MouseThreshold2",
+            "value": "0",
+            "valueType": "String"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Control Panel\\Accessibility\\StickyKeys",
+            "name": "Flags",
+            "value": "506",
+            "valueType": "String"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Control Panel\\Accessibility\\Keyboard Response",
+            "name": "Flags",
+            "value": "122",
+            "valueType": "String"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Control Panel\\Accessibility\\ToggleKeys",
+            "name": "Flags",
+            "value": "58",
+            "valueType": "String"
+          },
+          {
+            "type": "powercfg",
+            "args": [
+              "/SETACVALUEINDEX",
+              "SCHEME_CURRENT",
+              "SUB_USB",
+              "2a737441-1930-4402-8d77-b2bebba308a3",
+              "0"
+            ]
+          },
+          {
+            "type": "powercfg",
+            "args": [
+              "/SETACTIVE",
+              "SCHEME_CURRENT"
+            ]
+          }
         ]
       },
       "revert": {
         "steps": [
-          { "type": "registry.set", "path": "HKCU\\Control Panel\\Mouse", "name": "MouseSpeed", "value": "1", "valueType": "String" },
-          { "type": "registry.set", "path": "HKCU\\Control Panel\\Mouse", "name": "MouseThreshold1", "value": "6", "valueType": "String" },
-          { "type": "registry.set", "path": "HKCU\\Control Panel\\Mouse", "name": "MouseThreshold2", "value": "10", "valueType": "String" },
-          { "type": "powercfg", "args": ["/SETACVALUEINDEX", "SCHEME_CURRENT", "SUB_USB", "2a737441-1930-4402-8d77-b2bebba308a3", "1"] },
-          { "type": "powercfg", "args": ["/SETACTIVE", "SCHEME_CURRENT"] }
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Control Panel\\Mouse",
+            "name": "MouseSpeed",
+            "value": "1",
+            "valueType": "String"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Control Panel\\Mouse",
+            "name": "MouseThreshold1",
+            "value": "6",
+            "valueType": "String"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Control Panel\\Mouse",
+            "name": "MouseThreshold2",
+            "value": "10",
+            "valueType": "String"
+          },
+          {
+            "type": "powercfg",
+            "args": [
+              "/SETACVALUEINDEX",
+              "SCHEME_CURRENT",
+              "SUB_USB",
+              "2a737441-1930-4402-8d77-b2bebba308a3",
+              "1"
+            ]
+          },
+          {
+            "type": "powercfg",
+            "args": [
+              "/SETACTIVE",
+              "SCHEME_CURRENT"
+            ]
+          }
         ]
       },
       "check": {
         "steps": [
-          { "type": "registry.check", "path": "HKCU\\Control Panel\\Mouse", "name": "MouseSpeed", "equals": "0", "valueType": "String" },
-          { "type": "registry.check", "path": "HKCU\\Control Panel\\Mouse", "name": "MouseThreshold1", "equals": "0", "valueType": "String" },
-          { "type": "registry.check", "path": "HKCU\\Control Panel\\Mouse", "name": "MouseThreshold2", "equals": "0", "valueType": "String" }
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Control Panel\\Mouse",
+            "name": "MouseSpeed",
+            "equals": "0",
+            "valueType": "String"
+          },
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Control Panel\\Mouse",
+            "name": "MouseThreshold1",
+            "equals": "0",
+            "valueType": "String"
+          },
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Control Panel\\Mouse",
+            "name": "MouseThreshold2",
+            "equals": "0",
+            "valueType": "String"
+          }
         ]
       }
     },
@@ -79,16 +218,49 @@
       "riskLevel": "Warning",
       "categoryTier": "Competitive",
       "requiresAdmin": true,
-      "requiredTools": ["dpclat.exe", "SetTimerResolution.exe"],
+      "requiredTools": [
+        "dpclat.exe",
+        "SetTimerResolution.exe"
+      ],
       "elevationLevel": "admin",
       "apply": {
         "steps": [
-          { "type": "registry.set", "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Kernel", "name": "GlobalTimerResolutionRequests", "value": 1, "valueType": "DWORD", "continueOnError": true },
-          { "type": "ps.run", "command": "$base = Join-Path (Get-Location) 'tools\\FalconLibrary'; $timerExe = Join-Path $base 'Timer Resolution\\SetTimerResolution.exe'; $dpcExe = Join-Path $base 'DPC Checker\\dpclat.exe'; if(-not (Test-Path -LiteralPath $timerExe)){ throw \"Missing SetTimerResolution.exe at $timerExe\" }; if(-not (Test-Path -LiteralPath $dpcExe)){ throw \"Missing dpclat.exe at $dpcExe\" }; if(-not (Get-Process -Name dpclat -ErrorAction SilentlyContinue)){ Start-Process -FilePath $dpcExe -WindowStyle Minimized }; $resolution = $env:FalconTimerResolutionUs; if([string]::IsNullOrWhiteSpace($resolution)){ $resolution = '5000' }; if(-not (Get-Process -Name SetTimerResolution -ErrorAction SilentlyContinue)){ Start-Process -FilePath $timerExe -ArgumentList @('--resolution', $resolution, '--no-console') -WindowStyle Hidden }; Start-Sleep -Milliseconds 400; if(-not (Get-Process -Name dpclat -ErrorAction SilentlyContinue)){ throw 'dpclat is not running after launch.' }; if(-not (Get-Process -Name SetTimerResolution -ErrorAction SilentlyContinue)){ throw 'SetTimerResolution is not running after launch.' }; Write-Output 'Timer stack launched and verified.'" }
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Kernel",
+            "name": "GlobalTimerResolutionRequests",
+            "value": 1,
+            "valueType": "DWORD",
+            "continueOnError": true
+          },
+          {
+            "type": "ps.run",
+            "command": "$base = Join-Path (Get-Location) 'tools\\FalconLibrary'; $timerExe = Join-Path $base 'Timer Resolution\\SetTimerResolution.exe'; $dpcExe = Join-Path $base 'DPC Checker\\dpclat.exe'; if(-not (Test-Path -LiteralPath $timerExe)){ throw \"Missing SetTimerResolution.exe at $timerExe\" }; if(-not (Test-Path -LiteralPath $dpcExe)){ throw \"Missing dpclat.exe at $dpcExe\" }; if(-not (Get-Process -Name dpclat -ErrorAction SilentlyContinue)){ Start-Process -FilePath $dpcExe -WindowStyle Minimized }; $resolution = $env:FalconTimerResolutionUs; if([string]::IsNullOrWhiteSpace($resolution)){ $resolution = '5000' }; if(-not (Get-Process -Name SetTimerResolution -ErrorAction SilentlyContinue)){ Start-Process -FilePath $timerExe -ArgumentList @('--resolution', $resolution, '--no-console') -WindowStyle Hidden }; Start-Sleep -Milliseconds 400; if(-not (Get-Process -Name dpclat -ErrorAction SilentlyContinue)){ throw 'dpclat is not running after launch.' }; if(-not (Get-Process -Name SetTimerResolution -ErrorAction SilentlyContinue)){ throw 'SetTimerResolution is not running after launch.' }; Write-Output 'Timer stack launched and verified.'"
+          }
         ]
       },
-      "revert": { "steps": [ { "type": "process.kill", "name": "SetTimerResolution", "continueOnError": true }, { "type": "process.kill", "name": "dpclat", "continueOnError": true } ] },
-      "check": { "steps": [ { "type": "ps.run", "command": "$dp = Get-Process -Name dpclat -ErrorAction SilentlyContinue; $tm = Get-Process -Name SetTimerResolution -ErrorAction SilentlyContinue; if(-not $dp){ throw 'dpclat.exe is not running.' }; if(-not $tm){ throw 'SetTimerResolution.exe is not running.' }; Write-Output 'Timer stack healthy.'" } ] }
+      "revert": {
+        "steps": [
+          {
+            "type": "process.kill",
+            "name": "SetTimerResolution",
+            "continueOnError": true
+          },
+          {
+            "type": "process.kill",
+            "name": "dpclat",
+            "continueOnError": true
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$dp = Get-Process -Name dpclat -ErrorAction SilentlyContinue; $tm = Get-Process -Name SetTimerResolution -ErrorAction SilentlyContinue; if(-not $dp){ throw 'dpclat.exe is not running.' }; if(-not $tm){ throw 'SetTimerResolution.exe is not running.' }; Write-Output 'Timer stack healthy.'"
+          }
+        ]
+      }
     },
     {
       "id": "audio.restart_engine",
@@ -101,11 +273,31 @@
       "requiresAdmin": true,
       "apply": {
         "steps": [
-          { "type": "ps.run", "command": "Restart-Service -Name AudioEndpointBuilder -Force -ErrorAction SilentlyContinue; Restart-Service -Name Audiosrv -Force -ErrorAction SilentlyContinue; $a=Get-Service Audiosrv -ErrorAction SilentlyContinue; $b=Get-Service AudioEndpointBuilder -ErrorAction SilentlyContinue; if($a.Status -ne 'Running' -or $b.Status -ne 'Running'){ throw 'Audio services did not return to Running state.' }; Write-Output 'Audio engine restarted successfully.'" }
+          {
+            "type": "ps.run",
+            "command": "Restart-Service -Name AudioEndpointBuilder -Force -ErrorAction SilentlyContinue; Restart-Service -Name Audiosrv -Force -ErrorAction SilentlyContinue; $a=Get-Service Audiosrv -ErrorAction SilentlyContinue; $b=Get-Service AudioEndpointBuilder -ErrorAction SilentlyContinue; if($a.Status -ne 'Running' -or $b.Status -ne 'Running'){ throw 'Audio services did not return to Running state.' }; Write-Output 'Audio engine restarted successfully.'"
+          }
         ]
       },
-      "revert": { "steps": [] },
-      "check": { "steps": [ { "type": "service.check", "name": "Audiosrv", "status": "Running", "startMode": "Automatic" }, { "type": "service.check", "name": "AudioEndpointBuilder", "status": "Running", "startMode": "Automatic" } ] }
+      "revert": {
+        "steps": []
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.check",
+            "name": "Audiosrv",
+            "status": "Running",
+            "startMode": "Automatic"
+          },
+          {
+            "type": "service.check",
+            "name": "AudioEndpointBuilder",
+            "status": "Running",
+            "startMode": "Automatic"
+          }
+        ]
+      }
     },
     {
       "id": "network.preset.lan_only_competitive_mode",
@@ -118,20 +310,46 @@
       "requiresAdmin": true,
       "apply": {
         "steps": [
-          { "type": "service.startup", "name": "SSDPSRV", "startType": "Disabled", "stop": true },
-          { "type": "service.startup", "name": "upnphost", "startType": "Disabled", "stop": true }
+          {
+            "type": "service.startup",
+            "name": "SSDPSRV",
+            "startType": "Disabled",
+            "stop": true
+          },
+          {
+            "type": "service.startup",
+            "name": "upnphost",
+            "startType": "Disabled",
+            "stop": true
+          }
         ]
       },
       "revert": {
         "steps": [
-          { "type": "service.startup", "name": "SSDPSRV", "startType": "Manual" },
-          { "type": "service.startup", "name": "upnphost", "startType": "Manual" }
+          {
+            "type": "service.startup",
+            "name": "SSDPSRV",
+            "startType": "Manual"
+          },
+          {
+            "type": "service.startup",
+            "name": "upnphost",
+            "startType": "Manual"
+          }
         ]
       },
       "check": {
         "steps": [
-          { "type": "service.check", "name": "SSDPSRV", "startMode": "Disabled" },
-          { "type": "service.check", "name": "upnphost", "startMode": "Disabled" }
+          {
+            "type": "service.check",
+            "name": "SSDPSRV",
+            "startMode": "Disabled"
+          },
+          {
+            "type": "service.check",
+            "name": "upnphost",
+            "startMode": "Disabled"
+          }
         ]
       }
     },
@@ -144,9 +362,45 @@
       "requiresAdmin": true,
       "useCase": "Competitive",
       "elevationLevel": "admin-verify",
-      "apply": { "steps": [ { "type": "ps.file", "file": "scripts/processlab/process-entry.ps1", "args": { "EntryId": "process.entry.parsec", "Mode": "apply", "Processes": "Parsec" } } ] },
-      "revert": { "steps": [ { "type": "ps.file", "file": "scripts/processlab/process-entry.ps1", "args": { "EntryId": "process.entry.parsec", "Mode": "revert", "Processes": "Parsec" } } ] },
-      "check": { "steps": [ { "type": "ps.file", "file": "scripts/processlab/process-entry.ps1", "args": { "EntryId": "process.entry.parsec", "Mode": "check", "Processes": "Parsec" } } ] }
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.parsec",
+              "Mode": "apply",
+              "Processes": "Parsec"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.parsec",
+              "Mode": "revert",
+              "Processes": "Parsec"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.parsec",
+              "Mode": "check",
+              "Processes": "Parsec"
+            }
+          }
+        ]
+      }
     },
     {
       "id": "process.entry.wallpaper_engine_32",
@@ -155,9 +409,45 @@
       "riskLevel": "Warning",
       "type": "toggle",
       "requiresAdmin": true,
-      "apply": { "steps": [ { "type": "ps.file", "file": "scripts/processlab/process-entry.ps1", "args": { "EntryId": "process.entry.wallpaper_engine_32", "Mode": "apply", "Processes": "Wallpaper32" } } ] },
-      "revert": { "steps": [ { "type": "ps.file", "file": "scripts/processlab/process-entry.ps1", "args": { "EntryId": "process.entry.wallpaper_engine_32", "Mode": "revert", "Processes": "Wallpaper32" } } ] },
-      "check": { "steps": [ { "type": "ps.file", "file": "scripts/processlab/process-entry.ps1", "args": { "EntryId": "process.entry.wallpaper_engine_32", "Mode": "check", "Processes": "Wallpaper32" } } ] }
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.wallpaper_engine_32",
+              "Mode": "apply",
+              "Processes": "Wallpaper32"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.wallpaper_engine_32",
+              "Mode": "revert",
+              "Processes": "Wallpaper32"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.wallpaper_engine_32",
+              "Mode": "check",
+              "Processes": "Wallpaper32"
+            }
+          }
+        ]
+      }
     },
     {
       "id": "process.entry.wallpaper_engine_64",
@@ -166,9 +456,45 @@
       "riskLevel": "Warning",
       "type": "toggle",
       "requiresAdmin": true,
-      "apply": { "steps": [ { "type": "ps.file", "file": "scripts/processlab/process-entry.ps1", "args": { "EntryId": "process.entry.wallpaper_engine_64", "Mode": "apply", "Processes": "Wallpaper64" } } ] },
-      "revert": { "steps": [ { "type": "ps.file", "file": "scripts/processlab/process-entry.ps1", "args": { "EntryId": "process.entry.wallpaper_engine_64", "Mode": "revert", "Processes": "Wallpaper64" } } ] },
-      "check": { "steps": [ { "type": "ps.file", "file": "scripts/processlab/process-entry.ps1", "args": { "EntryId": "process.entry.wallpaper_engine_64", "Mode": "check", "Processes": "Wallpaper64" } } ] }
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.wallpaper_engine_64",
+              "Mode": "apply",
+              "Processes": "Wallpaper64"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.wallpaper_engine_64",
+              "Mode": "revert",
+              "Processes": "Wallpaper64"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.wallpaper_engine_64",
+              "Mode": "check",
+              "Processes": "Wallpaper64"
+            }
+          }
+        ]
+      }
     },
     {
       "id": "process.entry.lightshot",
@@ -177,9 +503,45 @@
       "riskLevel": "Warning",
       "type": "toggle",
       "requiresAdmin": true,
-      "apply": { "steps": [ { "type": "ps.file", "file": "scripts/processlab/process-entry.ps1", "args": { "EntryId": "process.entry.lightshot", "Mode": "apply", "Processes": "Lightshot" } } ] },
-      "revert": { "steps": [ { "type": "ps.file", "file": "scripts/processlab/process-entry.ps1", "args": { "EntryId": "process.entry.lightshot", "Mode": "revert", "Processes": "Lightshot" } } ] },
-      "check": { "steps": [ { "type": "ps.file", "file": "scripts/processlab/process-entry.ps1", "args": { "EntryId": "process.entry.lightshot", "Mode": "check", "Processes": "Lightshot" } } ] }
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.lightshot",
+              "Mode": "apply",
+              "Processes": "Lightshot"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.lightshot",
+              "Mode": "revert",
+              "Processes": "Lightshot"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.lightshot",
+              "Mode": "check",
+              "Processes": "Lightshot"
+            }
+          }
+        ]
+      }
     },
     {
       "id": "process.entry.widget_service",
@@ -189,9 +551,703 @@
       "type": "toggle",
       "requiresAdmin": true,
       "description": "Session-only helper for gaming mode cleanup. Do not use on daily productivity sessions.",
-      "apply": { "steps": [ { "type": "ps.file", "file": "scripts/processlab/process-entry.ps1", "args": { "EntryId": "process.entry.widget_service", "Mode": "apply", "Processes": "WidgetService" } } ] },
-      "revert": { "steps": [ { "type": "ps.file", "file": "scripts/processlab/process-entry.ps1", "args": { "EntryId": "process.entry.widget_service", "Mode": "revert", "Processes": "WidgetService" } } ] },
-      "check": { "steps": [ { "type": "ps.file", "file": "scripts/processlab/process-entry.ps1", "args": { "EntryId": "process.entry.widget_service", "Mode": "check", "Processes": "WidgetService" } } ] }
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.widget_service",
+              "Mode": "apply",
+              "Processes": "WidgetService"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.widget_service",
+              "Mode": "revert",
+              "Processes": "WidgetService"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.widget_service",
+              "Mode": "check",
+              "Processes": "WidgetService"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "timer.stack.verify",
+      "type": "action",
+      "name": "Timer: Verify Timer Stack",
+      "category": "Timer",
+      "description": "Verifies SetTimerResolution/dpclat tool paths, running processes, and timer stack startup persistence state.",
+      "riskLevel": "Low",
+      "categoryTier": "Competitive",
+      "requiresAdmin": true,
+      "requiredTools": [
+        "dpclat.exe",
+        "SetTimerResolution.exe"
+      ],
+      "elevationLevel": "admin-verify",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/timer/custom-resolution-stack.ps1",
+            "args": {
+              "Action": "verify",
+              "ResolutionMicros": 5000
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/timer/custom-resolution-stack.ps1",
+            "args": {
+              "Action": "verify",
+              "ResolutionMicros": 5000
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "timer.stack.stop",
+      "type": "action",
+      "name": "Timer: Stop Timer Stack",
+      "category": "Timer",
+      "description": "Stops SetTimerResolution and dpclat, removes startup persistence, and verifies stack is no longer running.",
+      "riskLevel": "Low",
+      "categoryTier": "Competitive",
+      "requiresAdmin": true,
+      "requiredTools": [
+        "dpclat.exe",
+        "SetTimerResolution.exe"
+      ],
+      "elevationLevel": "admin",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/timer/custom-resolution-stack.ps1",
+            "args": {
+              "Action": "stop",
+              "ResolutionMicros": 5000
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/timer/custom-resolution-stack.ps1",
+            "args": {
+              "Action": "verify",
+              "ResolutionMicros": 5000
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "storage.preset.competitive_latency",
+      "type": "toggle",
+      "name": "Storage Preset: Competitive Storage Latency",
+      "category": "Storage / Competitive",
+      "description": "Bundles competitive storage latency choices: disables SATA link power saving, disables Fast Startup, and normalizes TRIM state.",
+      "riskLevel": "Warning",
+      "categoryTier": "Competitive",
+      "requiresAdmin": true,
+      "recommendedFor": [
+        "Competitive",
+        "Desktop systems"
+      ],
+      "notRecommendedFor": [
+        "Battery-focused laptops"
+      ],
+      "useCase": "Reduce I/O wake latency",
+      "elevationLevel": "admin-verify",
+      "apply": {
+        "steps": [
+          {
+            "type": "powercfg",
+            "args": [
+              "/SETACVALUEINDEX",
+              "SCHEME_CURRENT",
+              "SUB_DISK",
+              "dab60367-53fe-4fbc-825e-521d069d2456",
+              "0"
+            ]
+          },
+          {
+            "type": "powercfg",
+            "args": [
+              "/SETACTIVE",
+              "SCHEME_CURRENT"
+            ]
+          },
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Power",
+            "name": "HiberbootEnabled",
+            "value": 0,
+            "valueType": "DWORD"
+          },
+          {
+            "type": "ps.run",
+            "command": "$ntfs = (fsutil behavior query DisableDeleteNotify 2>$null | Select-String 'NTFS').ToString(); if($ntfs -match '=\\s*1'){ fsutil behavior set DisableDeleteNotify NTFS 0 | Out-Null }; Write-Output 'TRIM normalized check complete.'"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "powercfg",
+            "args": [
+              "/SETACVALUEINDEX",
+              "SCHEME_CURRENT",
+              "SUB_DISK",
+              "dab60367-53fe-4fbc-825e-521d069d2456",
+              "1"
+            ]
+          },
+          {
+            "type": "powercfg",
+            "args": [
+              "/SETACTIVE",
+              "SCHEME_CURRENT"
+            ]
+          },
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Power",
+            "name": "HiberbootEnabled",
+            "value": 1,
+            "valueType": "DWORD"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Power",
+            "name": "HiberbootEnabled",
+            "equals": 0,
+            "valueType": "DWORD"
+          },
+          {
+            "type": "ps.run",
+            "command": "$ntfs = (fsutil behavior query DisableDeleteNotify 2>$null | Select-String 'NTFS').ToString(); if($ntfs -match '=\\s*0'){ Write-Output 'Enabled' } else { Write-Output 'Not Enabled'; exit 2 }"
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.sharex",
+      "name": "Process Lab: ShareX (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "description": "Session-only helper for gaming mode cleanup. Revert restores captured startup/service/task state for this entry.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.sharex",
+              "Mode": "apply",
+              "Processes": "ShareX"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.sharex",
+              "Mode": "revert",
+              "Processes": "ShareX"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.sharex",
+              "Mode": "check",
+              "Processes": "ShareX"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.search_host",
+      "name": "Process Lab: SearchHost (Session Background Remover)",
+      "category": "Process Lab / Session-only",
+      "riskLevel": "Experimental",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "description": "Session-only helper for gaming mode cleanup. Revert restores captured startup/service/task state for this entry.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.search_host",
+              "Mode": "apply",
+              "Processes": "SearchHost"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.search_host",
+              "Mode": "revert",
+              "Processes": "SearchHost"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.search_host",
+              "Mode": "check",
+              "Processes": "SearchHost"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.search_app",
+      "name": "Process Lab: SearchApp (Session Background Remover)",
+      "category": "Process Lab / Session-only",
+      "riskLevel": "Experimental",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "description": "Session-only helper for gaming mode cleanup. Revert restores captured startup/service/task state for this entry.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.search_app",
+              "Mode": "apply",
+              "Processes": "SearchApp"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.search_app",
+              "Mode": "revert",
+              "Processes": "SearchApp"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.search_app",
+              "Mode": "check",
+              "Processes": "SearchApp"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.lock_app",
+      "name": "Process Lab: LockApp (Session Background Remover)",
+      "category": "Process Lab / Session-only",
+      "riskLevel": "Experimental",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "description": "Session-only helper for gaming mode cleanup. Revert restores captured startup/service/task state for this entry.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.lock_app",
+              "Mode": "apply",
+              "Processes": "LockApp"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.lock_app",
+              "Mode": "revert",
+              "Processes": "LockApp"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.lock_app",
+              "Mode": "check",
+              "Processes": "LockApp"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.runtime_broker",
+      "name": "Process Lab: RuntimeBroker (Session Background Remover)",
+      "category": "Process Lab / Session-only",
+      "riskLevel": "Experimental",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "description": "Session-only helper for gaming mode cleanup. Revert restores captured startup/service/task state for this entry.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.runtime_broker",
+              "Mode": "apply",
+              "Processes": "RuntimeBroker"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.runtime_broker",
+              "Mode": "revert",
+              "Processes": "RuntimeBroker"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.runtime_broker",
+              "Mode": "check",
+              "Processes": "RuntimeBroker"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.text_input_host",
+      "name": "Process Lab: TextInputHost (Session Background Remover)",
+      "category": "Process Lab / Session-only",
+      "riskLevel": "Experimental",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "description": "Session-only helper for gaming mode cleanup. Revert restores captured startup/service/task state for this entry.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.text_input_host",
+              "Mode": "apply",
+              "Processes": "TextInputHost"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.text_input_host",
+              "Mode": "revert",
+              "Processes": "TextInputHost"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.text_input_host",
+              "Mode": "check",
+              "Processes": "TextInputHost"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.background_task_host",
+      "name": "Process Lab: backgroundTaskHost (Session Background Remover)",
+      "category": "Process Lab / Session-only",
+      "riskLevel": "Experimental",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "description": "Session-only helper for gaming mode cleanup. Revert restores captured startup/service/task state for this entry.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.background_task_host",
+              "Mode": "apply",
+              "Processes": "backgroundTaskHost"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.background_task_host",
+              "Mode": "revert",
+              "Processes": "backgroundTaskHost"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.background_task_host",
+              "Mode": "check",
+              "Processes": "backgroundTaskHost"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.phone_experience_host",
+      "name": "Process Lab: PhoneExperienceHost (Session Background Remover)",
+      "category": "Process Lab / Session-only",
+      "riskLevel": "Experimental",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "description": "Session-only helper for gaming mode cleanup. Revert restores captured startup/service/task state for this entry.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.phone_experience_host",
+              "Mode": "apply",
+              "Processes": "PhoneExperienceHost"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.phone_experience_host",
+              "Mode": "revert",
+              "Processes": "PhoneExperienceHost"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.phone_experience_host",
+              "Mode": "check",
+              "Processes": "PhoneExperienceHost"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.widgets",
+      "name": "Process Lab: Widgets (Session Background Remover)",
+      "category": "Process Lab / Session-only",
+      "riskLevel": "Experimental",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "description": "Session-only helper for gaming mode cleanup. Revert restores captured startup/service/task state for this entry.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.widgets",
+              "Mode": "apply",
+              "Processes": "Widgets"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.widgets",
+              "Mode": "revert",
+              "Processes": "Widgets"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.widgets",
+              "Mode": "check",
+              "Processes": "Widgets"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.your_phone",
+      "name": "Process Lab: YourPhone (Session Background Remover)",
+      "category": "Process Lab / Session-only",
+      "riskLevel": "Experimental",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "description": "Session-only helper for gaming mode cleanup. Revert restores captured startup/service/task state for this entry.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.your_phone",
+              "Mode": "apply",
+              "Processes": "YourPhone"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.your_phone",
+              "Mode": "revert",
+              "Processes": "YourPhone"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.your_phone",
+              "Mode": "check",
+              "Processes": "YourPhone"
+            }
+          }
+        ]
+      }
     }
   ]
 }
