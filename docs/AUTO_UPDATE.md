@@ -10,11 +10,19 @@ Falcon Optimizer uses `electron-updater` + `electron-builder` to update packaged
 
 - `build.publish[0].owner`
 - `build.publish[0].repo`
+- `build.publish[0].releaseType` (set to `release` to match an already-published GitHub release tag)
 
 Runtime overrides are also supported for testing/build pipelines:
 
 - `FALCON_UPDATER_OWNER` (or `UPDATER_OWNER`)
 - `FALCON_UPDATER_REPO` (or `UPDATER_REPO`)
+
+Electron Builder publish behavior can also be influenced by:
+
+- `EP_DRAFT=true` (forces draft)
+- `EP_PRE_RELEASE=true` (forces prerelease)
+
+If a tag already exists as a published release, keep `releaseType` as `release` (and avoid `EP_DRAFT=true`) or bump to a new version/tag.
 
 The app validates owner/repo on startup and reports clear diagnostics in the **Updater** page.
 

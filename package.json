@@ -40,7 +40,8 @@
       {
         "provider": "github",
         "owner": "raptoraimoffical-cloud",
-        "repo": "FalconOptimizerPremium"
+        "repo": "FalconOptimizerPremium",
+        "releaseType": "release"
       }
     ],
     "nsis": {
