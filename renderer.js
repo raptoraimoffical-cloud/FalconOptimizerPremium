@@ -1056,7 +1056,9 @@ const routes = {
   ]},
   powerManagement: { title: 'Power Management', sub: 'Centralized plan control, AC/DC tuning, wake tools, and diagnostics.', tabs: [
     { id:'overview', label:'Overview', source:'tweaks/power.management.overview.json' },
+    { id:'profiles', label:'Profiles', source:'tweaks/power.management.profiles.json' },
     { id:'plans', label:'Plans', source:'tweaks/power.management.plans.json' },
+    { id:'allSettings', label:'All Settings Explorer', source:'tweaks/power.management.all_settings_explorer.json' },
     { id:'processor', label:'Processor', source:'tweaks/power.management.processor.json' },
     { id:'graphics', label:'Graphics', source:'tweaks/power.management.graphics.json' },
     { id:'pcie', label:'PCIe', source:'tweaks/power.management.pcie.json' },
@@ -1067,6 +1069,7 @@ const routes = {
     { id:'buttons', label:'Buttons / Lid', source:'tweaks/power.management.buttons_lid.json' },
     { id:'energySaver', label:'Energy Saver', source:'tweaks/power.management.energy_saver.json' },
     { id:'wirelessEthernet', label:'Wireless / Ethernet', source:'tweaks/power.management.wireless_ethernet.json' },
+    { id:'bluetooth', label:'Bluetooth', source:'tweaks/power.management.bluetooth.json' },
     { id:'deviceWake', label:'Device Wake', source:'tweaks/power.management.device_wake.json' },
     { id:'diagnostics', label:'Diagnostics', source:'tweaks/power.management.diagnostics.json' },
     { id:'hidden', label:'Hidden / Experimental', source:'tweaks/power.management.hidden_experimental.json' }

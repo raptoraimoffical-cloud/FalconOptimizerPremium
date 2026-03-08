@@ -10,48 +10,8 @@
       "description": "Enumerates all schemes with GUIDs for management and diff workflows.",
       "apply": {
         "steps": [
-          {
-            "type": "cmd.run",
-            "command": "powercfg /list"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg /getactivescheme"
-          }
-        ]
-      }
-    },
-    {
-      "id": "power_plan_set_ultimate",
-      "type": "button",
-      "name": "Set Active Plan: Ultimate Performance",
-      "risk": "Warning",
-      "riskLevel": "Warning",
-      "category": "Power Management",
-      "requiresAdmin": true,
-      "description": "Creates Ultimate Performance if needed and activates it.",
-      "apply": {
-        "steps": [
-          {
-            "type": "cmd.run",
-            "command": "powercfg -duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61 >nul 2>&1"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg /setactive e9a42b02-d5df-448d-aa00-03f14749eb61"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg /getactivescheme"
-          }
-        ]
-      },
-      "revert": {
-        "steps": [
-          {
-            "type": "cmd.run",
-            "command": "powercfg /setactive SCHEME_BALANCED"
-          }
+          { "type": "cmd.run", "command": "powercfg /list" },
+          { "type": "cmd.run", "command": "powercfg /getactivescheme" }
         ]
       }
     },
@@ -66,10 +26,56 @@
       "description": "Duplicates the active scheme so aggressive edits can be isolated to a clone.",
       "apply": {
         "steps": [
-          {
-            "type": "ps.run",
-            "command": "$active=(powercfg /getactivescheme | Out-String); if($active -match \"([0-9a-fA-F-]{36})\"){ $guid=$Matches[1]; powercfg /duplicatescheme $guid | Write-Output } else { throw \"Could not parse active scheme GUID.\" }"
-          }
+          { "type": "ps.run", "command": "$active=(powercfg /getactivescheme | Out-String); if($active -match \"([0-9a-fA-F-]{36})\"){ $guid=$Matches[1]; powercfg /duplicatescheme $guid | Write-Output } else { throw \"Could not parse active scheme GUID.\" }" }
+        ]
+      }
+    },
+    {
+      "id": "power_plan_export_snapshot",
+      "type": "button",
+      "name": "Export Active Plan Snapshot (.pow)",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "category": "Power Management",
+      "requiresAdmin": true,
+      "description": "Exports the current active plan to logs/power-exports so you can rollback after experimental changes.",
+      "apply": {
+        "steps": [
+          { "type": "ps.run", "command": "$active=(powercfg /getactivescheme | Out-String); if($active -match \"([0-9a-fA-F-]{36})\"){ $guid=$Matches[1] } else { throw \"Could not parse active scheme GUID.\" }; $ts=Get-Date -Format \"yyyyMMdd-HHmmss\"; $dir=Join-Path (Join-Path $PWD \"logs\") \"power-exports\"; if(!(Test-Path $dir)){ New-Item -ItemType Directory -Path $dir | Out-Null }; $file=Join-Path $dir (\"active-scheme-\"+$ts+\".pow\"); powercfg /export $file $guid; Write-Output \"Saved: $file\"" }
+        ]
+      }
+    },
+    {
+      "id": "power_plan_set_ultimate",
+      "type": "button",
+      "name": "Set Active Plan: Ultimate Performance",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "category": "Power Management",
+      "requiresAdmin": true,
+      "description": "Creates Ultimate Performance if needed and activates it.",
+      "apply": {
+        "steps": [
+          { "type": "cmd.run", "command": "powercfg -duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61 >nul 2>&1" },
+          { "type": "cmd.run", "command": "powercfg /setactive e9a42b02-d5df-448d-aa00-03f14749eb61" },
+          { "type": "cmd.run", "command": "powercfg /getactivescheme" }
+        ]
+      },
+      "revert": { "steps": [ { "type": "cmd.run", "command": "powercfg /setactive SCHEME_BALANCED" } ] }
+    },
+    {
+      "id": "power_plan_restore_defaults",
+      "type": "button",
+      "name": "Reset Power Plans to Windows Defaults",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "requiresAdmin": true,
+      "description": "Emergency reset for broken plan state. Exports should be created first because this removes custom plans.",
+      "apply": {
+        "steps": [
+          { "type": "cmd.run", "command": "powercfg -restoredefaultschemes" },
+          { "type": "cmd.run", "command": "powercfg /list" }
         ]
       }
     }
