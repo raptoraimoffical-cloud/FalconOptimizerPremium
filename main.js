@@ -1335,7 +1335,11 @@ ipcMain.handle("falcon:terminateProcesses", async (_evt, payload) => {
       const name = it && it.name ? String(it.name) : '';
       if (!pid || pid <= 0) continue;
       try {
-        const r = await runCommand("taskkill", ["/PID", String(pid), "/T", "/F"]);
+        const includeTree = !!(payload && payload.includeTree);
+        const killArgs = includeTree
+          ? ["/PID", String(pid), "/T", "/F"]
+          : ["/PID", String(pid), "/F"];
+        const r = await runCommand("taskkill", killArgs);
 
 
 
@@ -1349,6 +1353,60 @@ ipcMain.handle("falcon:terminateProcesses", async (_evt, payload) => {
       }
     }
     return { ok: true, results };
+  } catch (e) {
+    return { ok: false, results: [], error: String(e && e.message ? e.message : e) };
+  }
+});
+
+
+
+ipcMain.handle("falcon:serviceActionByProcessNames", async (_evt, payload) => {
+  try {
+    const processNames = (payload && Array.isArray(payload.processNames)) ? payload.processNames.map(x => String(x || '').trim()).filter(Boolean) : [];
+    const action = (payload && payload.action) ? String(payload.action).toLowerCase() : '';
+    if (!processNames.length) return { ok: false, results: [], error: 'No process names provided.' };
+    if (!['manual', 'disabled', 'delete'].includes(action)) return { ok: false, results: [], error: 'Invalid action.' };
+
+    const critical = new Set(['eventlog','rpcss','dcomlaunch','winmgmt','trustedinstaller','samss','lsm','nlasvc','lanmanworkstation','lanmanserver','wuauserv']);
+    const script = `
+$names = @(${processNames.map(n=>"'"+n.replace(/'/g,"''")+"'").join(',')})
+$action = '${'${ACTION}'}'
+$critical = @('EventLog','RpcSs','DcomLaunch','Winmgmt','TrustedInstaller','SamSs','LSM','NlaSvc','LanmanWorkstation','LanmanServer','wuauserv')
+$rows = @()
+foreach($n in $names){
+  $base = [System.IO.Path]::GetFileNameWithoutExtension($n)
+  if([string]::IsNullOrWhiteSpace($base)){ continue }
+  $matches = Get-CimInstance Win32_Service -ErrorAction SilentlyContinue | Where-Object { $_.PathName -and $_.PathName.ToLower().Contains(($base + '.exe').ToLower()) }
+  foreach($svc in ($matches | Select-Object -Unique Name,DisplayName,State,StartMode)){
+    $sn = [string]$svc.Name
+    if([string]::IsNullOrWhiteSpace($sn)){ continue }
+    if($critical -contains $sn){
+      $rows += [pscustomobject]@{ processName=$n; serviceName=$sn; action=$action; ok=$false; blocked=$true; message='critical_service_blocked' }
+      continue
+    }
+    try {
+      if($action -eq 'manual'){ Set-Service -Name $sn -StartupType Manual -ErrorAction Stop }
+      elseif($action -eq 'disabled'){ Set-Service -Name $sn -StartupType Disabled -ErrorAction Stop }
+      elseif($action -eq 'delete'){
+        try { Stop-Service -Name $sn -Force -ErrorAction SilentlyContinue } catch {}
+        sc.exe delete $sn | Out-Null
+      }
+      $rows += [pscustomobject]@{ processName=$n; serviceName=$sn; action=$action; ok=$true; blocked=$false; message='updated' }
+    } catch {
+      $rows += [pscustomobject]@{ processName=$n; serviceName=$sn; action=$action; ok=$false; blocked=$false; message=$_.Exception.Message }
+    }
+  }
+}
+$rows | ConvertTo-Json -Depth 5
+`.replace('${ACTION}', action.replace(/'/g,"''"));
+
+    const res = await runPsInline(script);
+    let rows = [];
+    try {
+      rows = res && res.stdout ? JSON.parse(res.stdout) : [];
+      if (!Array.isArray(rows) && rows) rows = [rows];
+    } catch(_e) { rows = []; }
+    return { ok: !!(res && res.ok), results: rows, stdout: (res && res.stdout) || '', stderr: (res && res.stderr) || '' };
   } catch (e) {
     return { ok: false, results: [], error: String(e && e.message ? e.message : e) };
   }

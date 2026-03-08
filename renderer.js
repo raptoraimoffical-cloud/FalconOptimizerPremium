@@ -1056,9 +1056,7 @@ const routes = {
   ]},
   speedCore: { title: 'Falcon Speed & Integrity Core', sub: 'Quick cleanup and deep integrity repair.', tabs: [
     { id:'boost', label:'Speed Boost Cleanup', source:'tweaks/speed.boost.json' },
-    { id:'integrity', label:'Integrity & Repair', source:'tweaks/speed.integrity.json' },
-    { id:'boostLib', label:'Cleanup Library', source:'tweaks/performance.lib.speed.cleanup.json' },
-    { id:'integrityLib', label:'Integrity Library', source:'tweaks/performance.lib.speed.integrity.json' }
+    { id:'integrity', label:'Integrity & Repair', source:'tweaks/speed.integrity.json' }
   ]},
     performanceLibrary: { title: 'Performance Library', sub: 'Integrated performance and latency library (organized by category).', tabs: [
     { id:'latency', label:'Scheduler + Timer', source:'tweaks/performance.lib.latency.scheduler_timer.json' },
@@ -5170,12 +5168,14 @@ const items = dedupeNumberedClones(filteredItems).filter(it => !hiddenIds.has(it
 
   let toolbarHtml = '';
   if (isSpeedCoreSource) {
+    const isSpeedBoostCleanup = source === 'tweaks/speed.boost.json';
     toolbarHtml = `
       <div class="panel boost-toolbar">
         <div class="card-title">Speed Core – batch optimizations</div>
         <div class="card-desc">Select multiple deep latency / scheduler optimizations and run them together. These tweaks are advanced and focus purely on performance.</div>
         <div class="boost-toolbar-actions">
           <button class="btn secondary" id="boostSelectAll">Select all Speed Core optimizations</button>
+          ${isSpeedBoostCleanup ? '<button class="btn" id="boostSelectNonApp">Select non-app cleanup preset</button>' : ''}
           <button class="btn primary" id="boostRunBtn">Run selected Speed Core optimizations</button>
         </div>
       </div>
@@ -6432,6 +6432,7 @@ try {
 
   if(isSpeedCoreSource){
     const selectAllBtn = document.getElementById('boostSelectAll');
+    const selectNonAppBtn = document.getElementById('boostSelectNonApp');
     const runBtn = document.getElementById('boostRunBtn');
     const getCheckboxes = () => Array.from(document.querySelectorAll('.boost-select'));
 
@@ -6440,6 +6441,22 @@ try {
         const boxes = getCheckboxes();
         const anyUnchecked = boxes.some(b => !b.checked);
         boxes.forEach(b => { b.checked = anyUnchecked; });
+      };
+    }
+    if (selectNonAppBtn) {
+      selectNonAppBtn.onclick = () => {
+        const appSpecificHints = ['chrome','firefox','edge','opera','discord','steam','epic','battle.net','battlenet','riot','launcher','spotify'];
+        const boxes = getCheckboxes();
+        let selected = 0;
+        boxes.forEach(cb => {
+          const id = String(cb.getAttribute('data-id') || '').toLowerCase();
+          const card = cb.closest('.card');
+          const text = String((card && card.textContent) || '').toLowerCase();
+          const isAppSpecific = appSpecificHints.some(h => id.includes(h) || text.includes(h));
+          cb.checked = !isAppSpecific;
+          if (!isAppSpecific) selected++;
+        });
+        showToast('Selected ' + selected + ' cleanup actions (non app-specific preset).', 'success');
       };
     }
     if(runBtn){
@@ -6690,6 +6707,8 @@ if (stopBtn) {
 
 
 
+let processLabAutoRefreshTimer = null;
+
 const PROCESS_LAB_CORE_PROCESSES = [
   'system', 'registry', 'smss.exe', 'csrss.exe', 'wininit.exe', 'services.exe',
   'lsass.exe', 'winlogon.exe', 'fontdrvhost.exe', 'dwm.exe', 'sihost.exe',
@@ -6756,12 +6775,31 @@ async function renderProcessLab(){
       </div>
     </div>
     <div class="panel" id="procListPanel">
-      <div class="card-title">Background process list</div>
+      <div class="card-title">Current processes & System Terminator</div>
       <div class="card-desc">These are non-core processes. Recommended items are common launchers, overlays, sync tools, and apps that can usually be closed during gaming. Unknown items should only be closed if you recognize them.</div>
-      <div id="procList" class="grid"></div>
+      <div class="card-actions" style="margin:8px 0 10px;display:flex;flex-wrap:wrap;gap:8px;">
+        <button class="btn" id="procTabCurrent">Current processes</button>
+        <button class="btn" id="procTabTerminator">System Terminator</button>
+      </div>
+      <div id="procCurrentView">
+        <div id="procList" class="grid"></div>
+      </div>
+      <div id="procTerminatorView" style="display:none;">
+        <div class="card">
+          <div class="card-title">System Terminator</div>
+          <div class="card-desc">Run action(s) on selected processes. Service actions try to find matching services by process executable path and block critical Windows services.</div>
+          <div class="card-actions" style="margin-top:10px;display:flex;flex-wrap:wrap;gap:8px;">
+            <button class="btn" id="procTerminateSelected">Terminate selected</button>
+            <button class="btn" id="procTerminateTree">Terminate selected + tree</button>
+            <button class="btn" id="procSvcManual">Set matching service(s) Manual</button>
+            <button class="btn" id="procSvcDisable">Disable matching service(s)</button>
+            <button class="btn danger" id="procSvcDelete">Uninstall matching service(s)</button>
+          </div>
+          <p class="bios-note" style="margin-top:8px;">Critical services are protected. Dangerous actions require confirmation and return per-service results.</p>
+        </div>
+      </div>
       <div class="card-actions" style="margin-top:12px;display:flex;flex-wrap:wrap;gap:8px;">
-        <button class="btn primary" id="procTerminateSelected">Terminate selected processes</button>
-        <button class="btn" id="procRefresh">Refresh list</button>
+        <button class="btn" id="procRefresh">Refresh now</button>
       </div>
     </div>
     <div class="panel" id="procPresetsPanel">
@@ -6828,7 +6866,7 @@ async function renderProcessLab(){
   `;
 
   const summaryEl = document.getElementById('procSummaryText');
-  if (summaryEl) summaryEl.textContent = 'Click "Refresh list" to scan background processes.';
+  if (summaryEl) summaryEl.textContent = 'Auto-refreshing background process list every 2 seconds…';
   const listEl = document.getElementById('procList');
   const chkRecommended = document.getElementById('procShowRecommended');
   const procExecutionLog = document.getElementById('procExecutionLog');
@@ -6934,7 +6972,16 @@ async function renderProcessLab(){
     }
   }
 
-  // Initial load is manual now; use the Refresh button to populate the process list.
+  // Auto-refresh process list every 2 seconds so manual refresh is optional.
+  if (processLabAutoRefreshTimer) {
+    try { window.clearInterval(processLabAutoRefreshTimer); } catch(_e) {}
+    processLabAutoRefreshTimer = null;
+  }
+  await loadAndRender();
+  processLabAutoRefreshTimer = window.setInterval(() => {
+    if (currentRoute !== "processLab") return;
+    loadAndRender();
+  }, 2000);
 
   // --- Custom Process Matrix logic (catalog-driven) ---
 
@@ -7146,6 +7193,21 @@ async function renderProcessLab(){
   const btnRefresh = document.getElementById('procRefresh');
   if (btnRefresh) btnRefresh.onclick = () => loadAndRender();
 
+  const btnTabCurrent = document.getElementById('procTabCurrent');
+  const btnTabTerminator = document.getElementById('procTabTerminator');
+  const currentView = document.getElementById('procCurrentView');
+  const terminatorView = document.getElementById('procTerminatorView');
+  const setProcTab = (which) => {
+    const isCurrent = which !== 'terminator';
+    if (currentView) currentView.style.display = isCurrent ? '' : 'none';
+    if (terminatorView) terminatorView.style.display = isCurrent ? 'none' : '';
+    if (btnTabCurrent) btnTabCurrent.classList.toggle('primary', isCurrent);
+    if (btnTabTerminator) btnTabTerminator.classList.toggle('primary', !isCurrent);
+  };
+  if (btnTabCurrent) btnTabCurrent.onclick = () => setProcTab('current');
+  if (btnTabTerminator) btnTabTerminator.onclick = () => setProcTab('terminator');
+  setProcTab('current');
+
   const btnKill = document.getElementById('procTerminateSelected');
   if (btnKill) {
     btnKill.onclick = async () => {
@@ -7187,6 +7249,65 @@ async function renderProcessLab(){
       }
     };
   }
+
+
+  const btnKillTree = document.getElementById('procTerminateTree');
+  const btnSvcManual = document.getElementById('procSvcManual');
+  const btnSvcDisable = document.getElementById('procSvcDisable');
+  const btnSvcDelete = document.getElementById('procSvcDelete');
+
+  async function collectSelectedProcessRows(){
+    const rows = Array.from(document.querySelectorAll('.process-row'));
+    return rows.map(row => {
+      const cb = row.querySelector('.proc-checkbox');
+      if (!cb || !cb.checked) return null;
+      const pid = parseInt(row.getAttribute('data-pid') || '0', 10) || 0;
+      const name = row.getAttribute('data-name') || '';
+      return pid > 0 ? { pid, name } : null;
+    }).filter(Boolean);
+  }
+
+  if (btnKillTree) {
+    btnKillTree.onclick = async () => {
+      const selected = await collectSelectedProcessRows();
+      if (!selected.length) return showToast('No processes selected.', 'error');
+      const res = await window.falcon.terminateProcesses(selected, true);
+      const results = (res && res.results) || [];
+      const okCount = results.filter(r => r.ok).length;
+      showToast('Terminate tree complete: ' + okCount + '/' + results.length + ' closed.', okCount === results.length ? 'success' : 'warning');
+      await loadAndRender();
+    };
+  }
+
+  async function runProcessServiceAction(action, needsTyped){
+    const selected = await collectSelectedProcessRows();
+    if (!selected.length) return showToast('No processes selected.', 'error');
+    const okModal = await showConfirmModal({
+      title: 'Apply service action?',
+      body: 'Action: ' + action + '. Falcon will look up services whose executable path matches selected process names. Critical services are blocked.',
+      risk: action === 'delete' ? 'Critical' : 'High',
+      requireTyped: !!needsTyped,
+      typedText: needsTyped ? 'DELETE' : ''
+    });
+    if (!okModal) return;
+    const names = selected.map(x => x.name).filter(Boolean);
+    const res = await window.falcon.serviceActionByProcessNames(names, action);
+    const items = (res && res.results) || [];
+    const okCount = items.filter(x => x.ok).length;
+    const blocked = items.filter(x => x.blocked).length;
+    showToast('Service action ' + action + ': ' + okCount + ' changed, ' + blocked + ' blocked, ' + (items.length - okCount - blocked) + ' unchanged/failed.', (action === 'delete' && blocked > 0) ? 'warning' : 'success');
+    writeProcessLabLog({
+      command: 'serviceActionByProcessNames ' + action,
+      stdout: JSON.stringify(items, null, 2),
+      stderr: res && res.error ? String(res.error) : '',
+      code: (res && res.ok) ? 0 : -1
+    });
+    await loadAndRender();
+  }
+
+  if (btnSvcManual) btnSvcManual.onclick = () => runProcessServiceAction('manual', false);
+  if (btnSvcDisable) btnSvcDisable.onclick = () => runProcessServiceAction('disabled', false);
+  if (btnSvcDelete) btnSvcDelete.onclick = () => runProcessServiceAction('delete', true);
 
   const btnSafe = document.getElementById('procPresetSafe');
   const btnComp = document.getElementById('procPresetComp');
@@ -7320,6 +7441,10 @@ async function renderProcessLab(){
 
 async function refresh(resetTabs=true){
   try {
+    if (currentRoute !== 'processLab' && processLabAutoRefreshTimer) {
+      try { window.clearInterval(processLabAutoRefreshTimer); } catch(_e) {}
+      processLabAutoRefreshTimer = null;
+    }
     let cfg = routes[currentRoute];
     if (!cfg) {
       // Fallback – if route is unknown, drop back to home instead of throwing.
