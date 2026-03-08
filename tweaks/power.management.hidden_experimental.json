@@ -1,0 +1,52 @@
+{
+  "items": [
+    {
+      "id": "power_hidden_unattended_sleep_timeout",
+      "type": "button",
+      "name": "Hidden: System Unattended Sleep Timeout (AC 0 / DC 15)",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "requiresAdmin": true,
+      "description": "Applies hidden unattended sleep timeout values (conditional support by platform/build).",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_SLEEP UNATTENDIDLE 0"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_SLEEP UNATTENDIDLE 15"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_hidden_restore_defaults_warning",
+      "type": "button",
+      "name": "Emergency: Restore Default Schemes",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "requiresAdmin": true,
+      "description": "Resets all Windows power schemes to defaults. Use only as last resort after exports/snapshots.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -restoredefaultschemes"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /list"
+          }
+        ]
+      }
+    }
+  ]
+}

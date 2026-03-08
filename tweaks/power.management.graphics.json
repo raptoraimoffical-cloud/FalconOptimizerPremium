@@ -1,0 +1,38 @@
+{
+  "items": [
+    {
+      "id": "power_graphics_helper_open",
+      "type": "button",
+      "name": "Open Graphics Power Preferences (Windows Settings)",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "category": "Power Management",
+      "description": "Launches per-app GPU preference panel from the Power Management section.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "start \"\" ms-settings:display-advancedgraphics"
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_graphics_overlay_report",
+      "type": "button",
+      "name": "Overlay/Graphics Power Report (/qh excerpt)",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "category": "Power Management",
+      "description": "Exports graphics/display related settings from SCHEME_CURRENT for manual review.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$ts=Get-Date -Format \"yyyyMMdd-HHmmss\"; $f=Join-Path (Join-Path $PWD \"logs\") (\"graphics-power-\"+$ts+\".txt\"); powercfg /qh SCHEME_CURRENT SUB_VIDEO | Out-File -Encoding utf8 $f; Write-Output \"Saved: $f\""
+          }
+        ]
+      }
+    }
+  ]
+}

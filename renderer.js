@@ -1054,6 +1054,23 @@ const routes = {
     { id:'lab', label:'Latency Lab', source:'tweaks/network.lab.json' },
     { id:'lib', label:'Library', source:'tweaks/performance.lib.network.json' }
   ]},
+  powerManagement: { title: 'Power Management', sub: 'Centralized plan control, AC/DC tuning, wake tools, and diagnostics.', tabs: [
+    { id:'overview', label:'Overview', source:'tweaks/power.management.overview.json' },
+    { id:'plans', label:'Plans', source:'tweaks/power.management.plans.json' },
+    { id:'processor', label:'Processor', source:'tweaks/power.management.processor.json' },
+    { id:'graphics', label:'Graphics', source:'tweaks/power.management.graphics.json' },
+    { id:'pcie', label:'PCIe', source:'tweaks/power.management.pcie.json' },
+    { id:'usb', label:'USB', source:'tweaks/power.management.usb.json' },
+    { id:'storage', label:'Storage / Disk', source:'tweaks/power.management.storage_disk.json' },
+    { id:'display', label:'Display', source:'tweaks/power.management.display.json' },
+    { id:'sleep', label:'Sleep / Hibernate / Modern Standby', source:'tweaks/power.management.sleep_hibernate_modern_standby.json' },
+    { id:'buttons', label:'Buttons / Lid', source:'tweaks/power.management.buttons_lid.json' },
+    { id:'energySaver', label:'Energy Saver', source:'tweaks/power.management.energy_saver.json' },
+    { id:'wirelessEthernet', label:'Wireless / Ethernet', source:'tweaks/power.management.wireless_ethernet.json' },
+    { id:'deviceWake', label:'Device Wake', source:'tweaks/power.management.device_wake.json' },
+    { id:'diagnostics', label:'Diagnostics', source:'tweaks/power.management.diagnostics.json' },
+    { id:'hidden', label:'Hidden / Experimental', source:'tweaks/power.management.hidden_experimental.json' }
+  ]},
   speedCore: { title: 'Falcon Speed & Integrity Core', sub: 'Quick cleanup and deep integrity repair.', tabs: [
     { id:'boost', label:'Speed Boost Cleanup', source:'tweaks/speed.boost.json' },
     { id:'integrity', label:'Integrity & Repair', source:'tweaks/speed.integrity.json' }

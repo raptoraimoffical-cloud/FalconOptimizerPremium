@@ -1,0 +1,40 @@
+{
+  "items": [
+    {
+      "id": "power_nic_disable_pm_all_adapters",
+      "type": "button",
+      "name": "NIC: Disable Adapter Power Management (all physical adapters)",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "category": "Power Management",
+      "requiresAdmin": true,
+      "description": "Uses NetAdapter cmdlets to disable adapter-level power management on physical NICs.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$nics=Get-NetAdapter -Physical -ErrorAction SilentlyContinue; foreach($n in $nics){ Disable-NetAdapterPowerManagement -Name $n.Name -NoRestart -ErrorAction SilentlyContinue }; Get-NetAdapterPowerManagement -Name * | Format-Table -AutoSize | Out-String | Write-Output"
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_nic_eee_disable_when_present",
+      "type": "button",
+      "name": "NIC: Disable Energy Efficient Ethernet (EEE) where present",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "category": "Power Management",
+      "requiresAdmin": true,
+      "description": "Enumerates advanced properties and disables EEE only on adapters that expose the property.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$nics=Get-NetAdapter -Physical -ErrorAction SilentlyContinue; foreach($n in $nics){ $props=Get-NetAdapterAdvancedProperty -Name $n.Name -AllProperties -ErrorAction SilentlyContinue; $eee=$props | Where-Object { $_.DisplayName -match \"Energy Efficient Ethernet|EEE\" -or $_.RegistryKeyword -match \"EEE\" }; foreach($p in $eee){ Set-NetAdapterAdvancedProperty -Name $n.Name -RegistryKeyword $p.RegistryKeyword -RegistryValue 0 -NoRestart -ErrorAction SilentlyContinue } }; Write-Output \"EEE property pass complete.\""
+          }
+        ]
+      }
+    }
+  ]
+}

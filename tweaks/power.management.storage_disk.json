@@ -1,0 +1,76 @@
+{
+  "items": [
+    {
+      "id": "power_disk_timeout_gaming",
+      "type": "button",
+      "name": "Disk Idle Timeout: Never (AC) / 20 min (DC)",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "category": "Power Management",
+      "requiresAdmin": true,
+      "description": "Prevents AC disk spin-down stutter while keeping a battery-safe DC timeout.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_DISK DISKIDLE 0"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_DISK DISKIDLE 20"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_DISK DISKIDLE 20"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_DISK DISKIDLE 10"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_hibernate_type_control",
+      "type": "button",
+      "name": "Hibernate File Type: Reduced",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "category": "Power Management",
+      "requiresAdmin": true,
+      "description": "Sets reduced hiberfile mode for fast startup scenarios where supported.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg /hibernate on"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /hibernate /type reduced"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg /hibernate /type full"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "items": [
+    {
+      "id": "power_diag_requests_and_overrides",
+      "type": "button",
+      "name": "Diagnostics: Requests + Overrides",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "category": "Power Management",
+      "description": "Displays active power requests and any configured request overrides.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg /requests"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /requestsoverride"
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_diag_energy_report",
+      "type": "button",
+      "name": "Diagnostics: Energy Report",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "category": "Power Management",
+      "description": "Runs powercfg /energy and writes report for idle-drain troubleshooting.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg /energy"
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_diag_lastwake_timers",
+      "type": "button",
+      "name": "Diagnostics: Last Wake + Wake Timers",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "category": "Power Management",
+      "description": "Shows last wake source and pending wake timers.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg /lastwake"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /waketimers"
+          }
+        ]
+      }
+    }
+  ]
+}

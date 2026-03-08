@@ -1,0 +1,60 @@
+{
+  "items": [
+    {
+      "id": "power_mgmt_overview_intro",
+      "type": "button",
+      "name": "Power Management Overview & Guardrails",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "category": "Power Management",
+      "description": "Shows the core principles for safe power tuning: AC/DC split, snapshot-first workflow, and readback verification.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output \"Power Management flow: 1) Snapshot plan 2) Apply scoped change 3) Verify with powercfg /query or /qh.\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_mgmt_export_all_settings_snapshot",
+      "type": "button",
+      "name": "Export: All Settings Explorer Snapshot (/qh + aliases)",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "category": "Power Management",
+      "description": "Dumps powercfg aliases and SCHEME_CURRENT details into logs for full real-world setting discovery.",
+      "requiresAdmin": false,
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$ts=Get-Date -Format \"yyyyMMdd-HHmmss\"; $dir=Join-Path $PWD \"logs\"; if(!(Test-Path $dir)){New-Item -ItemType Directory -Path $dir | Out-Null}; powercfg /aliases | Out-File -Encoding utf8 (Join-Path $dir (\"power-aliases-\"+$ts+\".txt\")); powercfg /qh SCHEME_CURRENT | Out-File -Encoding utf8 (Join-Path $dir (\"power-qh-\"+$ts+\".txt\")); Write-Output \"Saved power snapshots to logs/.\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_mgmt_refresh_scheme_cache",
+      "type": "button",
+      "name": "Refresh Active Scheme (readback helper)",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "category": "Power Management",
+      "description": "Re-applies current scheme after edits to ensure settings are committed and reflected by readback commands.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /getactivescheme"
+          }
+        ]
+      }
+    }
+  ]
+}
