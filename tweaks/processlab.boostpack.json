@@ -329,6 +329,4351 @@
       "revert": {
         "steps": []
       }
+    },
+    {
+      "id": "process.entry.battle_net",
+      "name": "Process Lab: Battle.net (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.battle_net",
+              "Mode": "apply",
+              "Processes": "Battle.net"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.battle_net",
+              "Mode": "revert",
+              "Processes": "Battle.net"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.battle_net",
+              "Mode": "check",
+              "Processes": "Battle.net"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.battle_net_helper",
+      "name": "Process Lab: Battle.net Helper (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.battle_net_helper",
+              "Mode": "apply",
+              "Processes": "Battle.net Helper"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.battle_net_helper",
+              "Mode": "revert",
+              "Processes": "Battle.net Helper"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.battle_net_helper",
+              "Mode": "check",
+              "Processes": "Battle.net Helper"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.agent",
+      "name": "Process Lab: Agent (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.agent",
+              "Mode": "apply",
+              "Processes": "Agent"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.agent",
+              "Mode": "revert",
+              "Processes": "Agent"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.agent",
+              "Mode": "check",
+              "Processes": "Agent"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.ea_desktop",
+      "name": "Process Lab: EA Desktop (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.ea_desktop",
+              "Mode": "apply",
+              "Processes": "EA Desktop"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.ea_desktop",
+              "Mode": "revert",
+              "Processes": "EA Desktop"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.ea_desktop",
+              "Mode": "check",
+              "Processes": "EA Desktop"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.eabackgroundservice",
+      "name": "Process Lab: EABackgroundService (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.eabackgroundservice",
+              "Mode": "apply",
+              "Processes": "EABackgroundService"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.eabackgroundservice",
+              "Mode": "revert",
+              "Processes": "EABackgroundService"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.eabackgroundservice",
+              "Mode": "check",
+              "Processes": "EABackgroundService"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.ubisoft_connect",
+      "name": "Process Lab: Ubisoft Connect (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.ubisoft_connect",
+              "Mode": "apply",
+              "Processes": "Ubisoft Connect"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.ubisoft_connect",
+              "Mode": "revert",
+              "Processes": "Ubisoft Connect"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.ubisoft_connect",
+              "Mode": "check",
+              "Processes": "Ubisoft Connect"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.upc",
+      "name": "Process Lab: upc (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.upc",
+              "Mode": "apply",
+              "Processes": "upc"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.upc",
+              "Mode": "revert",
+              "Processes": "upc"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.upc",
+              "Mode": "check",
+              "Processes": "upc"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.uplaywebcore",
+      "name": "Process Lab: UplayWebCore (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.uplaywebcore",
+              "Mode": "apply",
+              "Processes": "UplayWebCore"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.uplaywebcore",
+              "Mode": "revert",
+              "Processes": "UplayWebCore"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.uplaywebcore",
+              "Mode": "check",
+              "Processes": "UplayWebCore"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.galaxyclient",
+      "name": "Process Lab: GalaxyClient (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.galaxyclient",
+              "Mode": "apply",
+              "Processes": "GalaxyClient"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.galaxyclient",
+              "Mode": "revert",
+              "Processes": "GalaxyClient"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.galaxyclient",
+              "Mode": "check",
+              "Processes": "GalaxyClient"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.galaxycommunication",
+      "name": "Process Lab: GalaxyCommunication (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.galaxycommunication",
+              "Mode": "apply",
+              "Processes": "GalaxyCommunication"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.galaxycommunication",
+              "Mode": "revert",
+              "Processes": "GalaxyCommunication"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.galaxycommunication",
+              "Mode": "check",
+              "Processes": "GalaxyCommunication"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.galaxyclient_helper",
+      "name": "Process Lab: GalaxyClient Helper (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.galaxyclient_helper",
+              "Mode": "apply",
+              "Processes": "GalaxyClient Helper"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.galaxyclient_helper",
+              "Mode": "revert",
+              "Processes": "GalaxyClient Helper"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.galaxyclient_helper",
+              "Mode": "check",
+              "Processes": "GalaxyClient Helper"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.steamwebhelper",
+      "name": "Process Lab: SteamWebHelper (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.steamwebhelper",
+              "Mode": "apply",
+              "Processes": "SteamWebHelper"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.steamwebhelper",
+              "Mode": "revert",
+              "Processes": "SteamWebHelper"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.steamwebhelper",
+              "Mode": "check",
+              "Processes": "SteamWebHelper"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.epicwebhelper",
+      "name": "Process Lab: EpicWebHelper (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.epicwebhelper",
+              "Mode": "apply",
+              "Processes": "EpicWebHelper"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.epicwebhelper",
+              "Mode": "revert",
+              "Processes": "EpicWebHelper"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.epicwebhelper",
+              "Mode": "check",
+              "Processes": "EpicWebHelper"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.onedrive",
+      "name": "Process Lab: OneDrive (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.onedrive",
+              "Mode": "apply",
+              "Processes": "OneDrive"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.onedrive",
+              "Mode": "revert",
+              "Processes": "OneDrive"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.onedrive",
+              "Mode": "check",
+              "Processes": "OneDrive"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.dropbox",
+      "name": "Process Lab: Dropbox (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.dropbox",
+              "Mode": "apply",
+              "Processes": "Dropbox"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.dropbox",
+              "Mode": "revert",
+              "Processes": "Dropbox"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.dropbox",
+              "Mode": "check",
+              "Processes": "Dropbox"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.googledrivefs",
+      "name": "Process Lab: GoogleDriveFS (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.googledrivefs",
+              "Mode": "apply",
+              "Processes": "GoogleDriveFS"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.googledrivefs",
+              "Mode": "revert",
+              "Processes": "GoogleDriveFS"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.googledrivefs",
+              "Mode": "check",
+              "Processes": "GoogleDriveFS"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.creative_cloud",
+      "name": "Process Lab: Creative Cloud (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.creative_cloud",
+              "Mode": "apply",
+              "Processes": "Creative Cloud"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.creative_cloud",
+              "Mode": "revert",
+              "Processes": "Creative Cloud"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.creative_cloud",
+              "Mode": "check",
+              "Processes": "Creative Cloud"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.ccxprocess",
+      "name": "Process Lab: CCXProcess (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.ccxprocess",
+              "Mode": "apply",
+              "Processes": "CCXProcess"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.ccxprocess",
+              "Mode": "revert",
+              "Processes": "CCXProcess"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.ccxprocess",
+              "Mode": "check",
+              "Processes": "CCXProcess"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.coresync",
+      "name": "Process Lab: CoreSync (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.coresync",
+              "Mode": "apply",
+              "Processes": "CoreSync"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.coresync",
+              "Mode": "revert",
+              "Processes": "CoreSync"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.coresync",
+              "Mode": "check",
+              "Processes": "CoreSync"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.adobeipcbroker",
+      "name": "Process Lab: AdobeIPCBroker (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.adobeipcbroker",
+              "Mode": "apply",
+              "Processes": "AdobeIPCBroker"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.adobeipcbroker",
+              "Mode": "revert",
+              "Processes": "AdobeIPCBroker"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.adobeipcbroker",
+              "Mode": "check",
+              "Processes": "AdobeIPCBroker"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.adobe_desktop_service",
+      "name": "Process Lab: Adobe Desktop Service (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.adobe_desktop_service",
+              "Mode": "apply",
+              "Processes": "Adobe Desktop Service"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.adobe_desktop_service",
+              "Mode": "revert",
+              "Processes": "Adobe Desktop Service"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.adobe_desktop_service",
+              "Mode": "check",
+              "Processes": "Adobe Desktop Service"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.spotify",
+      "name": "Process Lab: Spotify (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.spotify",
+              "Mode": "apply",
+              "Processes": "Spotify"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.spotify",
+              "Mode": "revert",
+              "Processes": "Spotify"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.spotify",
+              "Mode": "check",
+              "Processes": "Spotify"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.operagxbrowserassistant",
+      "name": "Process Lab: OperaGXBrowserAssistant (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.operagxbrowserassistant",
+              "Mode": "apply",
+              "Processes": "OperaGXBrowserAssistant"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.operagxbrowserassistant",
+              "Mode": "revert",
+              "Processes": "OperaGXBrowserAssistant"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.operagxbrowserassistant",
+              "Mode": "check",
+              "Processes": "OperaGXBrowserAssistant"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.browser_assistant",
+      "name": "Process Lab: browser_assistant (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.browser_assistant",
+              "Mode": "apply",
+              "Processes": "browser_assistant"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.browser_assistant",
+              "Mode": "revert",
+              "Processes": "browser_assistant"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.browser_assistant",
+              "Mode": "check",
+              "Processes": "browser_assistant"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.telegram",
+      "name": "Process Lab: Telegram (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.telegram",
+              "Mode": "apply",
+              "Processes": "Telegram"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.telegram",
+              "Mode": "revert",
+              "Processes": "Telegram"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.telegram",
+              "Mode": "check",
+              "Processes": "Telegram"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.whatsapp",
+      "name": "Process Lab: WhatsApp (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.whatsapp",
+              "Mode": "apply",
+              "Processes": "WhatsApp"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.whatsapp",
+              "Mode": "revert",
+              "Processes": "WhatsApp"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.whatsapp",
+              "Mode": "check",
+              "Processes": "WhatsApp"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.skype",
+      "name": "Process Lab: Skype (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.skype",
+              "Mode": "apply",
+              "Processes": "Skype"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.skype",
+              "Mode": "revert",
+              "Processes": "Skype"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.skype",
+              "Mode": "check",
+              "Processes": "Skype"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.zoom",
+      "name": "Process Lab: Zoom (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.zoom",
+              "Mode": "apply",
+              "Processes": "Zoom"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.zoom",
+              "Mode": "revert",
+              "Processes": "Zoom"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.zoom",
+              "Mode": "check",
+              "Processes": "Zoom"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.webex",
+      "name": "Process Lab: Webex (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.webex",
+              "Mode": "apply",
+              "Processes": "Webex"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.webex",
+              "Mode": "revert",
+              "Processes": "Webex"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.webex",
+              "Mode": "check",
+              "Processes": "Webex"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.teamviewer",
+      "name": "Process Lab: TeamViewer (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.teamviewer",
+              "Mode": "apply",
+              "Processes": "TeamViewer"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.teamviewer",
+              "Mode": "revert",
+              "Processes": "TeamViewer"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.teamviewer",
+              "Mode": "check",
+              "Processes": "TeamViewer"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.anydesk",
+      "name": "Process Lab: AnyDesk (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.anydesk",
+              "Mode": "apply",
+              "Processes": "AnyDesk"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.anydesk",
+              "Mode": "revert",
+              "Processes": "AnyDesk"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.anydesk",
+              "Mode": "check",
+              "Processes": "AnyDesk"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.notion",
+      "name": "Process Lab: Notion (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.notion",
+              "Mode": "apply",
+              "Processes": "Notion"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.notion",
+              "Mode": "revert",
+              "Processes": "Notion"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.notion",
+              "Mode": "check",
+              "Processes": "Notion"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.icue",
+      "name": "Process Lab: iCUE (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.icue",
+              "Mode": "apply",
+              "Processes": "iCUE"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.icue",
+              "Mode": "revert",
+              "Processes": "iCUE"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.icue",
+              "Mode": "check",
+              "Processes": "iCUE"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.corsair_service",
+      "name": "Process Lab: Corsair.Service (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.corsair_service",
+              "Mode": "apply",
+              "Processes": "Corsair.Service"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.corsair_service",
+              "Mode": "revert",
+              "Processes": "Corsair.Service"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.corsair_service",
+              "Mode": "check",
+              "Processes": "Corsair.Service"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.corsair_service_cpuidremote64",
+      "name": "Process Lab: Corsair.Service.CpuIdRemote64 (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.corsair_service_cpuidremote64",
+              "Mode": "apply",
+              "Processes": "Corsair.Service.CpuIdRemote64"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.corsair_service_cpuidremote64",
+              "Mode": "revert",
+              "Processes": "Corsair.Service.CpuIdRemote64"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.corsair_service_cpuidremote64",
+              "Mode": "check",
+              "Processes": "Corsair.Service.CpuIdRemote64"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.corsair_service_displayadapter",
+      "name": "Process Lab: Corsair.Service.DisplayAdapter (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.corsair_service_displayadapter",
+              "Mode": "apply",
+              "Processes": "Corsair.Service.DisplayAdapter"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.corsair_service_displayadapter",
+              "Mode": "revert",
+              "Processes": "Corsair.Service.DisplayAdapter"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.corsair_service_displayadapter",
+              "Mode": "check",
+              "Processes": "Corsair.Service.DisplayAdapter"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.lghub",
+      "name": "Process Lab: LGHUB (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.lghub",
+              "Mode": "apply",
+              "Processes": "LGHUB"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.lghub",
+              "Mode": "revert",
+              "Processes": "LGHUB"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.lghub",
+              "Mode": "check",
+              "Processes": "LGHUB"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.lghub_agent",
+      "name": "Process Lab: lghub_agent (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.lghub_agent",
+              "Mode": "apply",
+              "Processes": "lghub_agent"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.lghub_agent",
+              "Mode": "revert",
+              "Processes": "lghub_agent"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.lghub_agent",
+              "Mode": "check",
+              "Processes": "lghub_agent"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.lghub_updater",
+      "name": "Process Lab: lghub_updater (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.lghub_updater",
+              "Mode": "apply",
+              "Processes": "lghub_updater"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.lghub_updater",
+              "Mode": "revert",
+              "Processes": "lghub_updater"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.lghub_updater",
+              "Mode": "check",
+              "Processes": "lghub_updater"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.razer_synapse",
+      "name": "Process Lab: Razer Synapse (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.razer_synapse",
+              "Mode": "apply",
+              "Processes": "Razer Synapse"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.razer_synapse",
+              "Mode": "revert",
+              "Processes": "Razer Synapse"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.razer_synapse",
+              "Mode": "check",
+              "Processes": "Razer Synapse"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.rzsynapse",
+      "name": "Process Lab: RzSynapse (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.rzsynapse",
+              "Mode": "apply",
+              "Processes": "RzSynapse"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.rzsynapse",
+              "Mode": "revert",
+              "Processes": "RzSynapse"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.rzsynapse",
+              "Mode": "check",
+              "Processes": "RzSynapse"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.razercortex",
+      "name": "Process Lab: RazerCortex (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.razercortex",
+              "Mode": "apply",
+              "Processes": "RazerCortex"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.razercortex",
+              "Mode": "revert",
+              "Processes": "RazerCortex"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.razercortex",
+              "Mode": "check",
+              "Processes": "RazerCortex"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.razer_axon",
+      "name": "Process Lab: Razer Axon (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.razer_axon",
+              "Mode": "apply",
+              "Processes": "Razer Axon"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.razer_axon",
+              "Mode": "revert",
+              "Processes": "Razer Axon"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.razer_axon",
+              "Mode": "check",
+              "Processes": "Razer Axon"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.rzsdkserver",
+      "name": "Process Lab: RzSDKServer (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.rzsdkserver",
+              "Mode": "apply",
+              "Processes": "RzSDKServer"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.rzsdkserver",
+              "Mode": "revert",
+              "Processes": "RzSDKServer"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.rzsdkserver",
+              "Mode": "check",
+              "Processes": "RzSDKServer"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.steelseriesgg",
+      "name": "Process Lab: SteelSeriesGG (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.steelseriesgg",
+              "Mode": "apply",
+              "Processes": "SteelSeriesGG"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.steelseriesgg",
+              "Mode": "revert",
+              "Processes": "SteelSeriesGG"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.steelseriesgg",
+              "Mode": "check",
+              "Processes": "SteelSeriesGG"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.steelseriessonar",
+      "name": "Process Lab: SteelSeriesSonar (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.steelseriessonar",
+              "Mode": "apply",
+              "Processes": "SteelSeriesSonar"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.steelseriessonar",
+              "Mode": "revert",
+              "Processes": "SteelSeriesSonar"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.steelseriessonar",
+              "Mode": "check",
+              "Processes": "SteelSeriesSonar"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.steelseriesmoments",
+      "name": "Process Lab: SteelSeriesMoments (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.steelseriesmoments",
+              "Mode": "apply",
+              "Processes": "SteelSeriesMoments"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.steelseriesmoments",
+              "Mode": "revert",
+              "Processes": "SteelSeriesMoments"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.steelseriesmoments",
+              "Mode": "check",
+              "Processes": "SteelSeriesMoments"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.armourycrate_usersessionhelper",
+      "name": "Process Lab: ArmouryCrate.UserSessionHelper (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.armourycrate_usersessionhelper",
+              "Mode": "apply",
+              "Processes": "ArmouryCrate.UserSessionHelper"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.armourycrate_usersessionhelper",
+              "Mode": "revert",
+              "Processes": "ArmouryCrate.UserSessionHelper"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.armourycrate_usersessionhelper",
+              "Mode": "check",
+              "Processes": "ArmouryCrate.UserSessionHelper"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.armourysocketserver",
+      "name": "Process Lab: ArmourySocketServer (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.armourysocketserver",
+              "Mode": "apply",
+              "Processes": "ArmourySocketServer"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.armourysocketserver",
+              "Mode": "revert",
+              "Processes": "ArmourySocketServer"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.armourysocketserver",
+              "Mode": "check",
+              "Processes": "ArmourySocketServer"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.asusoptimization",
+      "name": "Process Lab: ASUSOptimization (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.asusoptimization",
+              "Mode": "apply",
+              "Processes": "ASUSOptimization"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.asusoptimization",
+              "Mode": "revert",
+              "Processes": "ASUSOptimization"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.asusoptimization",
+              "Mode": "check",
+              "Processes": "ASUSOptimization"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.lightingservice",
+      "name": "Process Lab: LightingService (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.lightingservice",
+              "Mode": "apply",
+              "Processes": "LightingService"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.lightingservice",
+              "Mode": "revert",
+              "Processes": "LightingService"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.lightingservice",
+              "Mode": "check",
+              "Processes": "LightingService"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.msi_centralserver",
+      "name": "Process Lab: MSI.CentralServer (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.msi_centralserver",
+              "Mode": "apply",
+              "Processes": "MSI.CentralServer"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.msi_centralserver",
+              "Mode": "revert",
+              "Processes": "MSI.CentralServer"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.msi_centralserver",
+              "Mode": "check",
+              "Processes": "MSI.CentralServer"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.msi_terminalserver",
+      "name": "Process Lab: MSI.TerminalServer (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.msi_terminalserver",
+              "Mode": "apply",
+              "Processes": "MSI.TerminalServer"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.msi_terminalserver",
+              "Mode": "revert",
+              "Processes": "MSI.TerminalServer"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.msi_terminalserver",
+              "Mode": "check",
+              "Processes": "MSI.TerminalServer"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.mystic_light_service",
+      "name": "Process Lab: Mystic_Light_Service (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.mystic_light_service",
+              "Mode": "apply",
+              "Processes": "Mystic_Light_Service"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.mystic_light_service",
+              "Mode": "revert",
+              "Processes": "Mystic_Light_Service"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.mystic_light_service",
+              "Mode": "check",
+              "Processes": "Mystic_Light_Service"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.nzxt_cam",
+      "name": "Process Lab: NZXT CAM (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.nzxt_cam",
+              "Mode": "apply",
+              "Processes": "NZXT CAM"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.nzxt_cam",
+              "Mode": "revert",
+              "Processes": "NZXT CAM"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.nzxt_cam",
+              "Mode": "check",
+              "Processes": "NZXT CAM"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.nahimicservice",
+      "name": "Process Lab: NahimicService (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.nahimicservice",
+              "Mode": "apply",
+              "Processes": "NahimicService"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.nahimicservice",
+              "Mode": "revert",
+              "Processes": "NahimicService"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.nahimicservice",
+              "Mode": "check",
+              "Processes": "NahimicService"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.nahimiccompanion",
+      "name": "Process Lab: NahimicCompanion (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.nahimiccompanion",
+              "Mode": "apply",
+              "Processes": "NahimicCompanion"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.nahimiccompanion",
+              "Mode": "revert",
+              "Processes": "NahimicCompanion"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.nahimiccompanion",
+              "Mode": "check",
+              "Processes": "NahimicCompanion"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.a_volute_nahimic",
+      "name": "Process Lab: A-Volute.Nahimic (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.a_volute_nahimic",
+              "Mode": "apply",
+              "Processes": "A-Volute.Nahimic"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.a_volute_nahimic",
+              "Mode": "revert",
+              "Processes": "A-Volute.Nahimic"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.a_volute_nahimic",
+              "Mode": "check",
+              "Processes": "A-Volute.Nahimic"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.avolutess3svc",
+      "name": "Process Lab: AVoluteSS3Svc (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.avolutess3svc",
+              "Mode": "apply",
+              "Processes": "AVoluteSS3Svc"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.avolutess3svc",
+              "Mode": "revert",
+              "Processes": "AVoluteSS3Svc"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.avolutess3svc",
+              "Mode": "check",
+              "Processes": "AVoluteSS3Svc"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.dtsapo4service",
+      "name": "Process Lab: DTSAPO4Service (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.dtsapo4service",
+              "Mode": "apply",
+              "Processes": "DTSAPO4Service"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.dtsapo4service",
+              "Mode": "revert",
+              "Processes": "DTSAPO4Service"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.dtsapo4service",
+              "Mode": "check",
+              "Processes": "DTSAPO4Service"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.dtsxultra",
+      "name": "Process Lab: DTSXUltra (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.dtsxultra",
+              "Mode": "apply",
+              "Processes": "DTSXUltra"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.dtsxultra",
+              "Mode": "revert",
+              "Processes": "DTSXUltra"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.dtsxultra",
+              "Mode": "check",
+              "Processes": "DTSXUltra"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.dolbydax2api",
+      "name": "Process Lab: DolbyDAX2API (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.dolbydax2api",
+              "Mode": "apply",
+              "Processes": "DolbyDAX2API"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.dolbydax2api",
+              "Mode": "revert",
+              "Processes": "DolbyDAX2API"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.dolbydax2api",
+              "Mode": "check",
+              "Processes": "DolbyDAX2API"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.dolbyvision",
+      "name": "Process Lab: DolbyVision (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.dolbyvision",
+              "Mode": "apply",
+              "Processes": "DolbyVision"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.dolbyvision",
+              "Mode": "revert",
+              "Processes": "DolbyVision"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.dolbyvision",
+              "Mode": "check",
+              "Processes": "DolbyVision"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.ss2svc32",
+      "name": "Process Lab: SS2Svc32 (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.ss2svc32",
+              "Mode": "apply",
+              "Processes": "SS2Svc32"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.ss2svc32",
+              "Mode": "revert",
+              "Processes": "SS2Svc32"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.ss2svc32",
+              "Mode": "check",
+              "Processes": "SS2Svc32"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.ss2svc64",
+      "name": "Process Lab: SS2Svc64 (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.ss2svc64",
+              "Mode": "apply",
+              "Processes": "SS2Svc64"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.ss2svc64",
+              "Mode": "revert",
+              "Processes": "SS2Svc64"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.ss2svc64",
+              "Mode": "check",
+              "Processes": "SS2Svc64"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.nvidia_share",
+      "name": "Process Lab: NVIDIA Share (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.nvidia_share",
+              "Mode": "apply",
+              "Processes": "NVIDIA Share"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.nvidia_share",
+              "Mode": "revert",
+              "Processes": "NVIDIA Share"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.nvidia_share",
+              "Mode": "check",
+              "Processes": "NVIDIA Share"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.nvidia_web_helper",
+      "name": "Process Lab: NVIDIA Web Helper (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.nvidia_web_helper",
+              "Mode": "apply",
+              "Processes": "NVIDIA Web Helper"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.nvidia_web_helper",
+              "Mode": "revert",
+              "Processes": "NVIDIA Web Helper"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.nvidia_web_helper",
+              "Mode": "check",
+              "Processes": "NVIDIA Web Helper"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.nvsphelper64",
+      "name": "Process Lab: nvsphelper64 (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.nvsphelper64",
+              "Mode": "apply",
+              "Processes": "nvsphelper64"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.nvsphelper64",
+              "Mode": "revert",
+              "Processes": "nvsphelper64"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.nvsphelper64",
+              "Mode": "check",
+              "Processes": "nvsphelper64"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.radeonsoftware",
+      "name": "Process Lab: RadeonSoftware (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.radeonsoftware",
+              "Mode": "apply",
+              "Processes": "RadeonSoftware"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.radeonsoftware",
+              "Mode": "revert",
+              "Processes": "RadeonSoftware"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.radeonsoftware",
+              "Mode": "check",
+              "Processes": "RadeonSoftware"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.amdsoftware",
+      "name": "Process Lab: AMDSoftware (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.amdsoftware",
+              "Mode": "apply",
+              "Processes": "AMDSoftware"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.amdsoftware",
+              "Mode": "revert",
+              "Processes": "AMDSoftware"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.amdsoftware",
+              "Mode": "check",
+              "Processes": "AMDSoftware"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.amdrsserv",
+      "name": "Process Lab: AMDRSServ (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.amdrsserv",
+              "Mode": "apply",
+              "Processes": "AMDRSServ"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.amdrsserv",
+              "Mode": "revert",
+              "Processes": "AMDRSServ"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.amdrsserv",
+              "Mode": "check",
+              "Processes": "AMDRSServ"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.gamebarftserver",
+      "name": "Process Lab: GameBarFTServer (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.gamebarftserver",
+              "Mode": "apply",
+              "Processes": "GameBarFTServer"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.gamebarftserver",
+              "Mode": "revert",
+              "Processes": "GameBarFTServer"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.gamebarftserver",
+              "Mode": "check",
+              "Processes": "GameBarFTServer"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.overwolfbrowser",
+      "name": "Process Lab: OverwolfBrowser (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.overwolfbrowser",
+              "Mode": "apply",
+              "Processes": "OverwolfBrowser"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.overwolfbrowser",
+              "Mode": "revert",
+              "Processes": "OverwolfBrowser"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.overwolfbrowser",
+              "Mode": "check",
+              "Processes": "OverwolfBrowser"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.curseforge",
+      "name": "Process Lab: CurseForge (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.curseforge",
+              "Mode": "apply",
+              "Processes": "CurseForge"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.curseforge",
+              "Mode": "revert",
+              "Processes": "CurseForge"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.curseforge",
+              "Mode": "check",
+              "Processes": "CurseForge"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.medalencoder",
+      "name": "Process Lab: MedalEncoder (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.medalencoder",
+              "Mode": "apply",
+              "Processes": "MedalEncoder"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.medalencoder",
+              "Mode": "revert",
+              "Processes": "MedalEncoder"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.medalencoder",
+              "Mode": "check",
+              "Processes": "MedalEncoder"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.outplayed",
+      "name": "Process Lab: Outplayed (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.outplayed",
+              "Mode": "apply",
+              "Processes": "Outplayed"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.outplayed",
+              "Mode": "revert",
+              "Processes": "Outplayed"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.outplayed",
+              "Mode": "check",
+              "Processes": "Outplayed"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.rtss",
+      "name": "Process Lab: RTSS (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.rtss",
+              "Mode": "apply",
+              "Processes": "RTSS"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.rtss",
+              "Mode": "revert",
+              "Processes": "RTSS"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.rtss",
+              "Mode": "check",
+              "Processes": "RTSS"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.msi_afterburner",
+      "name": "Process Lab: MSI Afterburner (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.msi_afterburner",
+              "Mode": "apply",
+              "Processes": "MSI Afterburner"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.msi_afterburner",
+              "Mode": "revert",
+              "Processes": "MSI Afterburner"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.msi_afterburner",
+              "Mode": "check",
+              "Processes": "MSI Afterburner"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "process.entry.obs",
+      "name": "Process Lab: OBS (Individual Remover)",
+      "category": "Process Lab / Individual Entries",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "toggle",
+      "requiresAdmin": true,
+      "recommendedFor": "Low-end and competitive rigs that want a clean session baseline.",
+      "notRecommendedFor": "Users who need this app/service always-on.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "description": "Individual Process Lab workflow: kill process now, disable startup entries, disable related services/tasks if present, and restore from Falcon snapshot.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.obs",
+              "Mode": "apply",
+              "Processes": "OBS"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.obs",
+              "Mode": "revert",
+              "Processes": "OBS"
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/processlab/process-entry.ps1",
+            "args": {
+              "EntryId": "process.entry.obs",
+              "Mode": "check",
+              "Processes": "OBS"
+            }
+          }
+        ]
+      }
     }
   ]
 }

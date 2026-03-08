@@ -1668,6 +1668,297 @@
           }
         ]
       }
+    },
+    {
+      "id": "input_force_1to1_mouse_movement",
+      "type": "toggle",
+      "name": "Input: Force 1:1 Mouse Movement",
+      "description": "Forces raw linear desktop mouse movement by disabling mouse acceleration thresholds. Verify reports Enabled / Not Enabled and may show Needs sign-out if shell has not reloaded values.",
+      "category": "Input",
+      "riskLevel": "Safe",
+      "requiresAdmin": false,
+      "recommendedFor": "Everyone who wants raw linear desktop mouse movement, especially competitive users.",
+      "notRecommendedFor": "Users who prefer Windows enhanced pointer precision behavior.",
+      "useCase": "Competitive",
+      "requiredTools": [],
+      "optionalTools": [
+        "SmoothMouse curve normalizer"
+      ],
+      "elevationLevel": "normal",
+      "apply": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Control Panel\\Mouse",
+            "name": "MouseSpeed",
+            "value": "0",
+            "valueType": "String"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Control Panel\\Mouse",
+            "name": "MouseThreshold1",
+            "value": "0",
+            "valueType": "String"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Control Panel\\Mouse",
+            "name": "MouseThreshold2",
+            "value": "0",
+            "valueType": "String"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Control Panel\\Mouse",
+            "name": "MouseSpeed",
+            "value": "1",
+            "valueType": "String"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Control Panel\\Mouse",
+            "name": "MouseThreshold1",
+            "value": "6",
+            "valueType": "String"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Control Panel\\Mouse",
+            "name": "MouseThreshold2",
+            "value": "10",
+            "valueType": "String"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Control Panel\\Mouse",
+            "name": "MouseSpeed",
+            "equals": "0"
+          },
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Control Panel\\Mouse",
+            "name": "MouseThreshold1",
+            "equals": "0"
+          },
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Control Panel\\Mouse",
+            "name": "MouseThreshold2",
+            "equals": "0"
+          }
+        ]
+      }
+    },
+    {
+      "id": "timer_custom_resolution_runner",
+      "type": "action",
+      "name": "Timer: Custom Resolution Runner",
+      "description": "Real process-based timer workflow using SetTimerResolution.exe + dpclat.exe with startup persistence and stack verification.",
+      "category": "Scheduler + Timer",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "recommendedFor": "Competitive players and latency-focused users.",
+      "notRecommendedFor": "Battery-sensitive laptops and general office systems.",
+      "useCase": "Competitive",
+      "requiredTools": [
+        "SetTimerResolution.exe",
+        "dpclat.exe"
+      ],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/timer/custom-resolution-stack.ps1",
+            "args": {
+              "Action": "start",
+              "ResolutionMicros": "5000",
+              "Persistent": true,
+              "EnableGlobalTimer": true
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/timer/custom-resolution-stack.ps1",
+            "args": {
+              "Action": "stop",
+              "RevertGlobalTimer": true
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/timer/custom-resolution-stack.ps1",
+            "args": {
+              "Action": "verify"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "timer_verify_custom_resolution_stack",
+      "type": "action",
+      "name": "Timer: Verify Custom Resolution Stack",
+      "description": "Real process-based timer workflow using SetTimerResolution.exe + dpclat.exe with startup persistence and stack verification.",
+      "category": "Scheduler + Timer",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "recommendedFor": "Competitive players and latency-focused users.",
+      "notRecommendedFor": "Battery-sensitive laptops and general office systems.",
+      "useCase": "Competitive",
+      "requiredTools": [
+        "SetTimerResolution.exe",
+        "dpclat.exe"
+      ],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/timer/custom-resolution-stack.ps1",
+            "args": {
+              "Action": "verify",
+              "ResolutionMicros": "5000",
+              "Persistent": true,
+              "EnableGlobalTimer": true
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/timer/custom-resolution-stack.ps1",
+            "args": {
+              "Action": "stop",
+              "RevertGlobalTimer": true
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/timer/custom-resolution-stack.ps1",
+            "args": {
+              "Action": "verify"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "timer_stop_custom_resolution_stack",
+      "type": "action",
+      "name": "Timer: Stop Custom Resolution Stack",
+      "description": "Real process-based timer workflow using SetTimerResolution.exe + dpclat.exe with startup persistence and stack verification.",
+      "category": "Scheduler + Timer",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "recommendedFor": "Competitive players and latency-focused users.",
+      "notRecommendedFor": "Battery-sensitive laptops and general office systems.",
+      "useCase": "Competitive",
+      "requiredTools": [
+        "SetTimerResolution.exe",
+        "dpclat.exe"
+      ],
+      "optionalTools": [],
+      "elevationLevel": "admin-verify",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/timer/custom-resolution-stack.ps1",
+            "args": {
+              "Action": "stop",
+              "ResolutionMicros": "5000",
+              "Persistent": true,
+              "EnableGlobalTimer": true
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/timer/custom-resolution-stack.ps1",
+            "args": {
+              "Action": "stop",
+              "RevertGlobalTimer": true
+            }
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/timer/custom-resolution-stack.ps1",
+            "args": {
+              "Action": "verify"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "extreme_create_safety_snapshot",
+      "type": "action",
+      "name": "Extreme Tweaks: Create Safety Snapshot",
+      "description": "Creates pre-extreme rollback snapshot: service start types, scheduled task states, key registry branch export, BCD export, and current power plan export.",
+      "category": "Extreme Tweaks",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "recommendedFor": "Anyone before running aggressive/extreme tweak packs.",
+      "notRecommendedFor": "N/A",
+      "useCase": "Daily driver",
+      "requiredTools": [],
+      "optionalTools": [],
+      "elevationLevel": "admin",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/snapshots/extreme-safety.ps1",
+            "args": {
+              "Action": "create"
+            }
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.file",
+            "file": "scripts/snapshots/extreme-safety.ps1",
+            "args": {
+              "Action": "restore"
+            }
+          }
+        ]
+      }
     }
   ]
 }

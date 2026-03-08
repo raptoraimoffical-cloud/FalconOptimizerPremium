@@ -1634,6 +1634,21 @@ function renderTabs(route){
   });
 }
 
+
+function metadataBadges(item){
+  if(!item || typeof item!=='object') return '';
+  const badges = [];
+  const useCase = item.useCase ? String(item.useCase) : '';
+  const rec = item.recommendedFor ? 'Recommended: ' + String(item.recommendedFor) : '';
+  const nrec = item.notRecommendedFor ? 'Avoid: ' + String(item.notRecommendedFor) : '';
+  const elev = item.elevationLevel ? 'Elevation: ' + String(item.elevationLevel) : '';
+  const tools = Array.isArray(item.requiredTools) && item.requiredTools.length ? ('Tools: ' + item.requiredTools.join(', ')) : '';
+  for (const b of [useCase, rec, nrec, elev, tools]) {
+    if (b) badges.push('<span class="badge">'+__eh(b)+'</span>');
+  }
+  return badges.join('');
+}
+
 function riskBadge(risk){
   const r = String(risk||"Safe");
   const cls = r==="Extreme" ? "risk-critical" : (r==="Danger" ? "risk-high" : (r==="Warning" ? "risk-warning" : ""));
@@ -5849,6 +5864,7 @@ card.innerHTML = `
       <div class="badges">
         ${riskBadge(item.riskLevel || item.risk || 'Safe')}
         ${item.requiresReboot ? `<span class="badge">Reboot</span>` : ``}
+        ${metadataBadges(item)}
       </div>
       ${showToggle ? `
         <label class="fo-switch" title="Toggle">
