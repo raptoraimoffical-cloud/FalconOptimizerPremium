@@ -1,0 +1,55 @@
+{
+  "items": [
+    {
+      "id": "power_all_settings_export_qh",
+      "type": "button",
+      "name": "All Settings Explorer: Export Full SCHEME_CURRENT (/qh)",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "category": "Power Management",
+      "description": "Exports raw powercfg /qh output so Falcon can expose every discovered subgroup/setting on this machine.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$ts=Get-Date -Format \"yyyyMMdd-HHmmss\"; $dir=Join-Path $PWD \"logs\"; if(!(Test-Path $dir)){ New-Item -ItemType Directory -Path $dir | Out-Null }; $out=Join-Path $dir (\"power-all-settings-qh-\"+$ts+\".txt\"); powercfg /qh SCHEME_CURRENT | Out-File -Encoding utf8 $out; Write-Output \"Saved: $out\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_all_settings_export_aliases",
+      "type": "button",
+      "name": "All Settings Explorer: Export Aliases + Query",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "category": "Power Management",
+      "description": "Collects aliases and current effective values to map GUIDs to friendly aliases and verify current values.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$ts=Get-Date -Format \"yyyyMMdd-HHmmss\"; $dir=Join-Path $PWD \"logs\"; if(!(Test-Path $dir)){ New-Item -ItemType Directory -Path $dir | Out-Null }; $a=Join-Path $dir (\"power-aliases-\"+$ts+\".txt\"); $q=Join-Path $dir (\"power-query-\"+$ts+\".txt\"); powercfg /aliases | Out-File -Encoding utf8 $a; powercfg /query | Out-File -Encoding utf8 $q; Write-Output \"Saved: $a\"; Write-Output \"Saved: $q\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_all_settings_schema_json",
+      "type": "button",
+      "name": "All Settings Explorer: Build Parsed JSON Catalog",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "category": "Power Management",
+      "description": "Parses powercfg /qh output into JSON with subgroup GUID/alias, setting GUID/alias, AC/DC values, units and enum candidates.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$raw = powercfg /qh SCHEME_CURRENT | Out-String; $lines=$raw -split \"`r?`n\"; $rows=@(); $sub=''; $set=''; foreach($line in $lines){ if($line -match '^\\s*Subgroup GUID:\\s*([0-9a-fA-F-]{36})\\s*\\((.+)\\)'){ $sub=$Matches[1]+'|'+$Matches[2] }; if($line -match '^\\s*Power Setting GUID:\\s*([0-9a-fA-F-]{36})\\s*\\((.+)\\)'){ $set=$Matches[1]+'|'+$Matches[2] }; if($line -match '^\\s*Current AC Power Setting Index:\\s*(0x[0-9a-fA-F]+)'){ $ac=$Matches[1] }; if($line -match '^\\s*Current DC Power Setting Index:\\s*(0x[0-9a-fA-F]+)'){ $dc=$Matches[1]; if($sub -and $set){ $rows += [pscustomobject]@{ subgroup=$sub; setting=$set; ac=$ac; dc=$dc }; $ac=$null; $dc=$null } } }; $ts=Get-Date -Format \"yyyyMMdd-HHmmss\"; $dir=Join-Path $PWD \"logs\"; if(!(Test-Path $dir)){ New-Item -ItemType Directory -Path $dir | Out-Null }; $out=Join-Path $dir (\"power-settings-catalog-\"+$ts+\".json\"); $rows | ConvertTo-Json -Depth 5 | Out-File -Encoding utf8 $out; Write-Output \"Saved: $out\""
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "items": [
+    {
+      "id": "power_bt_enumerate_radios",
+      "type": "button",
+      "name": "Bluetooth: Enumerate Radio Power-Management State",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "category": "Power Management",
+      "description": "Lists Bluetooth radios and device power-management capabilities for manual tuning and diagnostics.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Get-PnpDevice -Class Bluetooth -ErrorAction SilentlyContinue | Select-Object Status,FriendlyName,InstanceId | Format-Table -AutoSize | Out-String | Write-Output"
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_bt_disable_selective_suspend_hint",
+      "type": "button",
+      "name": "Bluetooth: Disable Selective Suspend (registry policy helper)",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "requiresAdmin": true,
+      "description": "Applies a conservative USB-level selective suspend policy commonly affecting Bluetooth adapters; verify adapter behavior after apply.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_USB USBSELECTSUSPEND 0"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_USB USBSELECTSUSPEND 1"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
+        ]
+      }
+    }
+  ]
+}
