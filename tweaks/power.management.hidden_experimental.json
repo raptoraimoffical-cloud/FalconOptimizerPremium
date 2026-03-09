@@ -47,6 +47,61 @@
           }
         ]
       }
+    },
+    {
+      "id": "power_hidden_processor_response_pack",
+      "type": "button",
+      "name": "Hidden: Processor Responsiveness Pack (Thresholds + Time Checks)",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "requiresAdmin": true,
+      "description": "Writes advanced hidden PPM responsiveness knobs intended for competitive AC testing.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PERFINCTHRESHOLD 20"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PERFDECTHRESHOLD 65"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PERFTIMECHECK 15"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_hidden_sleepstudy_systempowerreport",
+      "type": "button",
+      "name": "Hidden: Generate SleepStudy + SystemPowerReport Bundle",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "category": "Power Management",
+      "description": "Creates deep diagnostics reports for Modern Standby and wake behavior.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "if not exist C:\\FalconPower mkdir C:\\FalconPower"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /sleepstudy /output C:\\FalconPower\\sleepstudy.html"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /systempowerreport /output C:\\FalconPower\\systempowerreport.html"
+          }
+        ]
+      }
     }
   ]
 }
