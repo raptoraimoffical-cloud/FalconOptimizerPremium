@@ -120,6 +120,21 @@
     "tweaks/windows.graphics.json",
     "tweaks/windows.power.json",
     "tweaks/windows.privacy.json",
-    "tweaks/windows.qol.json"
+    "tweaks/windows.qol.json",
+    "tweaks/power.management.buttons_lid.json",
+    "tweaks/power.management.device_wake.json",
+    "tweaks/power.management.diagnostics.json",
+    "tweaks/power.management.display.json",
+    "tweaks/power.management.energy_saver.json",
+    "tweaks/power.management.graphics.json",
+    "tweaks/power.management.hidden_experimental.json",
+    "tweaks/power.management.overview.json",
+    "tweaks/power.management.pcie.json",
+    "tweaks/power.management.plans.json",
+    "tweaks/power.management.processor.json",
+    "tweaks/power.management.sleep_hibernate_modern_standby.json",
+    "tweaks/power.management.storage_disk.json",
+    "tweaks/power.management.usb.json",
+    "tweaks/power.management.wireless_ethernet.json"
   ]
 }

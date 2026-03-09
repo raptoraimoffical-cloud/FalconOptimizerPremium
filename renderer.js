@@ -600,7 +600,7 @@ function deriveTagsFromSource(src){
   if (s.includes('priority')) add('qos');
 
   if (s.includes('performance.lib.latency') || s.includes('scheduler') || s.includes('timer')) add('scheduler','latency');
-  if (s.includes('windows.power')) add('power');
+  if (s.includes('windows.power') || s.includes('power.management')) add('power');
   if (s.includes('windows.privacy')) add('privacy');
   if (s.includes('windows.qol')) add('qol');
   if (s.includes('windows.core')) add('core');
@@ -1028,7 +1028,6 @@ const routes = {
     { id:'core', label:'Core', source:'tweaks/windows.core.json' },
     { id:'privacy', label:'Privacy', source:'tweaks/windows.privacy.json' },
     { id:'qol', label:'QOL', source:'tweaks/windows.qol.json' },
-    { id:'power', label:'Powerplan', source:'tweaks/windows.power.json' },
     { id:'latencyLib', label:'Scheduler + Timer', source:'tweaks/performance.lib.latency.scheduler_timer.json' }
   ]},
   hardware: { title: 'Hardware', sub: 'Optimize your hardware performance.', tabs: [
