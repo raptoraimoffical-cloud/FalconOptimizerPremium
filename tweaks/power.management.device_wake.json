@@ -3,11 +3,11 @@
     {
       "id": "power_device_wake_list",
       "type": "button",
-      "name": "List Wake-Capable Devices + Armed Devices",
+      "name": "Wake Devices: List Programmable + Armed",
       "risk": "Safe",
       "riskLevel": "Safe",
       "category": "Power Management",
-      "description": "Shows devices that can wake the system and devices currently armed for wake.",
+      "description": "Shows devices that can wake and devices currently armed for wake events.",
       "apply": {
         "steps": [
           {
@@ -24,12 +24,12 @@
     {
       "id": "power_device_wake_disable_mouse",
       "type": "button",
-      "name": "Disable Wake: HID-compliant mouse (if present)",
+      "name": "Wake Devices: Disable Wake for HID-compliant mouse",
       "risk": "Safe",
       "riskLevel": "Safe",
       "category": "Power Management",
       "requiresAdmin": true,
-      "description": "Example wake-control card using powercfg /devicedisablewake for common accidental wake source.",
+      "description": "Disables mouse wake source to reduce accidental desk wake events.",
       "apply": {
         "steps": [
           {
@@ -37,12 +37,30 @@
             "command": "powercfg /devicedisablewake \"HID-compliant mouse\""
           }
         ]
+      }
+    },
+    {
+      "id": "power_device_wake_disable_keyboard",
+      "type": "button",
+      "name": "Wake Devices: Disable Wake for HID Keyboard Device",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "category": "Power Management",
+      "requiresAdmin": true,
+      "description": "Disables keyboard wake source; re-enable manually if needed.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg /devicedisablewake \"HID Keyboard Device\""
+          }
+        ]
       },
       "revert": {
         "steps": [
           {
             "type": "cmd.run",
-            "command": "powercfg /deviceenablewake \"HID-compliant mouse\""
+            "command": "powercfg /deviceenablewake \"HID Keyboard Device\""
           }
         ]
       }

@@ -3,92 +3,241 @@
     {
       "id": "power_cpu_boost_mode_aggressive",
       "type": "button",
-      "name": "Processor Boost Mode: Aggressive (AC) / Efficient (DC)",
+      "name": "Processor: Boost Mode Aggressive (AC) / Efficient (DC)",
       "risk": "Warning",
       "riskLevel": "Warning",
       "category": "Power Management",
       "requiresAdmin": true,
-      "description": "Sets boost behavior with separate AC/DC values, then re-activates and reads active plan.",
+      "description": "Sets boost policy for fast ramp on AC and milder behavior on battery.",
       "apply": {
         "steps": [
-          { "type": "cmd.run", "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PERFBOOSTMODE 2" },
-          { "type": "cmd.run", "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR PERFBOOSTMODE 4" },
-          { "type": "cmd.run", "command": "powercfg /setactive SCHEME_CURRENT" }
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PERFBOOSTMODE 2"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR PERFBOOSTMODE 1"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
         ]
       }
     },
     {
-      "id": "power_cpu_epp_gaming",
+      "id": "power_cpu_epp_split",
       "type": "button",
-      "name": "EPP: Gaming Bias (AC 0 / DC 35)",
+      "name": "Processor: EPP 0 (AC) / 60 (DC)",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "category": "Power Management",
+      "requiresAdmin": true,
+      "description": "Exposes separate Energy Performance Preference indexes for AC/DC.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PERFEPP 0"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR PERFEPP 60"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_cpu_min_max_split",
+      "type": "button",
+      "name": "Processor: Min/Max State 100/100 AC and 10/90 DC",
       "risk": "Warning",
       "riskLevel": "Warning",
       "category": "Power Management",
       "requiresAdmin": true,
-      "description": "Applies a responsiveness-focused EPP for AC with a more battery-safe DC fallback.",
+      "description": "Sets explicit processor floor/ceiling values separately for AC and DC.",
       "apply": {
         "steps": [
-          { "type": "cmd.run", "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PERFEPP 0" },
-          { "type": "cmd.run", "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR PERFEPP 35" },
-          { "type": "cmd.run", "command": "powercfg /setactive SCHEME_CURRENT" }
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMIN 100"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMAX 100"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMIN 10"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMAX 90"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
         ]
       }
     },
     {
-      "id": "power_cpu_perf_thresholds",
+      "id": "power_cpu_core_parking_bounds",
       "type": "button",
-      "name": "Processor Increase/Decrease Thresholds (AC tuned)",
-      "risk": "Experimental",
-      "riskLevel": "Experimental",
+      "name": "Processor: Core Parking Min/Max Cores (AC aggressive)",
+      "risk": "Warning",
+      "riskLevel": "Warning",
       "category": "Power Management",
       "requiresAdmin": true,
-      "description": "Tunes hidden threshold controls to ramp up sooner and back off later under load transitions.",
+      "description": "Pins parking boundaries high on AC to reduce delayed unparking.",
       "apply": {
         "steps": [
-          { "type": "cmd.run", "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PERFINCTHRESHOLD 25" },
-          { "type": "cmd.run", "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PERFDECTHRESHOLD 60" },
-          { "type": "cmd.run", "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PERFINCPOL 2" },
-          { "type": "cmd.run", "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PERFDECPOL 1" },
-          { "type": "cmd.run", "command": "powercfg /setactive SCHEME_CURRENT" },
-          { "type": "cmd.run", "command": "powercfg /qh SCHEME_CURRENT SUB_PROCESSOR | findstr /I \"PERFINCTHRESHOLD PERFDECTHRESHOLD PERFINCPOL PERFDECPOL\"" }
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR CPMINCORES 100"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR CPMAXCORES 100"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
         ]
       }
     },
     {
-      "id": "power_cpu_core_parking_minmax",
+      "id": "power_cpu_perf_increase_decrease_thresholds",
       "type": "button",
-      "name": "Core Parking Min/Max Cores (AC 100/100, DC 30/100)",
+      "name": "Processor: Increase/Decrease Threshold Tuning",
       "risk": "Experimental",
       "riskLevel": "Experimental",
       "category": "Power Management",
       "requiresAdmin": true,
-      "description": "Uses hidden core parking controls where available for latency-sensitive loads.",
+      "description": "Applies hidden threshold values for faster ramp and slower downclock when aliases exist.",
       "apply": {
         "steps": [
-          { "type": "cmd.run", "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR CPMINCORES 100" },
-          { "type": "cmd.run", "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR CPMAXCORES 100" },
-          { "type": "cmd.run", "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR CPMINCORES 30" },
-          { "type": "cmd.run", "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR CPMAXCORES 100" },
-          { "type": "cmd.run", "command": "powercfg /setactive SCHEME_CURRENT" }
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PERFINCTHRESHOLD 25"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PERFDECTHRESHOLD 60"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
         ]
       }
     },
     {
-      "id": "power_cpu_parking_timing",
+      "id": "power_cpu_perf_increase_decrease_policy",
       "type": "button",
-      "name": "Core Parking Timing (AC faster unpark)",
+      "name": "Processor: Increase/Decrease Policy (AC)",
       "risk": "Experimental",
       "riskLevel": "Experimental",
       "category": "Power Management",
       "requiresAdmin": true,
-      "description": "Adjusts hidden parking increase/decrease timing to reduce delayed core unparking during bursts.",
+      "description": "Uses hidden policy controls for frequency transition behavior when supported.",
       "apply": {
         "steps": [
-          { "type": "cmd.run", "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR CPINCREASETIME 1" },
-          { "type": "cmd.run", "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR CPDECREASETIME 15" },
-          { "type": "cmd.run", "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR CPINCREASETHRESHOLD 10" },
-          { "type": "cmd.run", "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR CPDECREASETHRESHOLD 80" },
-          { "type": "cmd.run", "command": "powercfg /setactive SCHEME_CURRENT" }
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PERFINCPOL 2"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PERFDECPOL 1"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_cpu_core_parking_time_controls",
+      "type": "button",
+      "name": "Processor: Core Parking Increase/Decrease Time",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "requiresAdmin": true,
+      "description": "Tunes hidden parking timers on systems exposing CPINCREASETIME/CPDECREASETIME aliases.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR CPINCREASETIME 1"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR CPDECREASETIME 10"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_cpu_idle_disable_ac",
+      "type": "button",
+      "name": "Processor: Disable Processor Idle (AC)",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "requiresAdmin": true,
+      "description": "Disables deep idle states on AC for latency testing on supported systems.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR IDLEDISABLE 1"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR IDLEDISABLE 0"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_cpu_hidden_dump",
+      "type": "button",
+      "name": "Processor: Dump Hidden PPM Settings (/qh)",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "category": "Power Management",
+      "description": "Shows all processor subgroup settings and aliases for manual advanced tuning.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg /qh SCHEME_CURRENT SUB_PROCESSOR"
+          }
         ]
       }
     }
