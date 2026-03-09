@@ -300,6 +300,69 @@
           }
         ]
       }
+    },
+    {
+      "id": "power_sleep_password_on_wake_enable",
+      "type": "button",
+      "name": "Sleep: Require Password on Wake",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "category": "Power Management",
+      "requiresAdmin": true,
+      "description": "Enforces sign-in after wake on AC/DC.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg /SETACVALUEINDEX SCHEME_CURRENT SUB_NONE CONSOLELOCK 1"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /SETDCVALUEINDEX SCHEME_CURRENT SUB_NONE CONSOLELOCK 1"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg /SETACVALUEINDEX SCHEME_CURRENT SUB_NONE CONSOLELOCK 0"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /SETDCVALUEINDEX SCHEME_CURRENT SUB_NONE CONSOLELOCK 0"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_sleep_waketimers_view_only",
+      "type": "button",
+      "name": "Sleep: View Wake Timers + Last Wake",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "category": "Power Management",
+      "description": "Shows pending wake timers and last wake source for troubleshooting.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg /waketimers"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /lastwake"
+          }
+        ]
+      }
     }
   ]
 }

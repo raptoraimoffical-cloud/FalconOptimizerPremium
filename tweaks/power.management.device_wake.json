@@ -64,6 +64,50 @@
           }
         ]
       }
+    },
+    {
+      "id": "power_device_wake_enable_keyboard",
+      "type": "button",
+      "name": "Wake Devices: Enable Wake for HID Keyboard Device",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "category": "Power Management",
+      "requiresAdmin": true,
+      "description": "Re-enables keyboard wake if you disabled it previously.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg /deviceenablewake \"HID Keyboard Device\""
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /devicequery wake_armed"
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_device_wake_enable_mouse",
+      "type": "button",
+      "name": "Wake Devices: Enable Wake for HID-compliant mouse",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "category": "Power Management",
+      "requiresAdmin": true,
+      "description": "Re-enables mouse wake if you disabled it previously.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg /deviceenablewake \"HID-compliant mouse\""
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /devicequery wake_armed"
+          }
+        ]
+      }
     }
   ]
 }

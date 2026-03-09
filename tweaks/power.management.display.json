@@ -129,6 +129,54 @@
           }
         ]
       }
+    },
+    {
+      "id": "power_display_media_sharing_prevent_sleep",
+      "type": "button",
+      "name": "Display/Media: Prevent Idle to Sleep During Media Share",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "category": "Power Management",
+      "requiresAdmin": true,
+      "description": "Keeps system awake while sharing media; can increase idle power usage.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_VIDEO VIDEOCONLOCK 1"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_display_normal_brightness_80",
+      "type": "button",
+      "name": "Display: Set Normal Brightness 80% (AC/DC)",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "category": "Power Management",
+      "requiresAdmin": true,
+      "description": "Sets explicit normal brightness level when setting exists on device.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_VIDEO VIDEONORMALLEVEL 80"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_VIDEO VIDEONORMALLEVEL 80"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
+        ]
+      }
     }
   ]
 }

@@ -178,6 +178,83 @@
           }
         ]
       }
+    },
+    {
+      "id": "power_plan_import_snapshot",
+      "type": "button",
+      "name": "Plans: Import .pow Snapshot (C:/FalconPower/restore.pow)",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "category": "Power Management",
+      "requiresAdmin": true,
+      "description": "Imports a previously exported scheme file to restore known-good power behavior.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "if not exist C:\\FalconPower mkdir C:\\FalconPower"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /import C:\\FalconPower\\restore.pow"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /list"
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_plan_aliases_dump",
+      "type": "button",
+      "name": "Plans: Dump Aliases + Full Query (verification)",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "category": "Power Management",
+      "description": "Collects aliases and active scheme values for readback verification.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "if not exist C:\\FalconPower mkdir C:\\FalconPower"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /aliases > C:\\FalconPower\\aliases.txt"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /query SCHEME_CURRENT > C:\\FalconPower\\query_scheme_current.txt"
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_plan_duplicate_and_name_gaming",
+      "type": "button",
+      "name": "Plans: Duplicate Active Scheme and Name 'Falcon Gaming AC'",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "category": "Power Management",
+      "requiresAdmin": true,
+      "description": "Creates a dedicated editable clone before experimental writes.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "for /f \"tokens=3\" %i in ('powercfg /getactivescheme') do powercfg /duplicatescheme %i"
+          },
+          {
+            "type": "cmd.run",
+            "command": "for /f \"tokens=3\" %i in ('powercfg /list ^| findstr /i \"*\"') do powercfg /changename %i \"Falcon Gaming AC\""
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /list"
+          }
+        ]
+      }
     }
   ]
 }
