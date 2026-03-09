@@ -240,6 +240,142 @@
           }
         ]
       }
+    },
+    {
+      "id": "power_cpu_min_100_split",
+      "type": "button",
+      "name": "Processor State: Minimum 100% (AC/DC)",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "category": "Power Management",
+      "requiresAdmin": true,
+      "description": "Forces minimum processor state to 100% on AC and DC.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMIN 100"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMIN 100"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMIN 5"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMIN 5"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_cpu_max_100_split",
+      "type": "button",
+      "name": "Processor State: Maximum 100% (AC/DC)",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "category": "Power Management",
+      "requiresAdmin": true,
+      "description": "Keeps max processor state uncapped.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMAX 100"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMAX 100"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_cpu_idle_disable",
+      "type": "button",
+      "name": "Processor Idle Disable (AC/DC)",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "requiresAdmin": true,
+      "description": "Disables processor idle states for lowest wake latency at higher idle power.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR IDLEDISABLE 1"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR IDLEDISABLE 1"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR IDLEDISABLE 0"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR IDLEDISABLE 0"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_cpu_throttling_disable",
+      "type": "button",
+      "name": "Power Throttling: Disable (Registry)",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "category": "Power Management",
+      "requiresAdmin": true,
+      "description": "Disables Windows power throttling policy for foreground consistency.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Power\\PowerThrottling\" /v PowerThrottlingOff /t REG_DWORD /d 1 /f"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Power\\PowerThrottling\" /v PowerThrottlingOff /t REG_DWORD /d 0 /f"
+          }
+        ]
+      }
     }
   ]
 }

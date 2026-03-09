@@ -206,6 +206,100 @@
           }
         ]
       }
+    },
+    {
+      "id": "power_sleep_disable_split",
+      "type": "button",
+      "name": "Sleep: Disable (AC/DC)",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "category": "Power Management",
+      "requiresAdmin": true,
+      "description": "Disables automatic sleep on both AC and battery.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_SLEEP STANDBYIDLE 0"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_SLEEP STANDBYIDLE 0"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_SLEEP STANDBYIDLE 30"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_SLEEP STANDBYIDLE 15"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_hibernate_timeout_disable_split",
+      "type": "button",
+      "name": "Hibernate Timeout: Never (AC/DC)",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "category": "Power Management",
+      "requiresAdmin": true,
+      "description": "Turns hibernate timeout off for both sources.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_SLEEP HIBERNATEIDLE 0"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_SLEEP HIBERNATEIDLE 0"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_hibernate_disable",
+      "type": "button",
+      "name": "Hibernate: Disable Globally",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "category": "Power Management",
+      "requiresAdmin": true,
+      "description": "Disables hibernation and removes hiberfile.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg /hibernate off"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg /hibernate on"
+          }
+        ]
+      }
     }
   ]
 }

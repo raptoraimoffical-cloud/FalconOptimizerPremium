@@ -88,6 +88,60 @@
           }
         ]
       }
+    },
+    {
+      "id": "nic_disable_allow_turn_off_device",
+      "type": "button",
+      "name": "NIC Power Management: Disable Device Sleep Allowance",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "category": "Power Management",
+      "requiresAdmin": true,
+      "description": "Disables 'Allow computer to turn off this device' where supported.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Get-NetAdapter | Where-Object Status -eq 'Up' | ForEach-Object { Disable-NetAdapterPowerManagement -Name $_.Name -NoRestart -ErrorAction SilentlyContinue }"
+          }
+        ]
+      }
+    },
+    {
+      "id": "nic_toggle_gigabit_auto_disable",
+      "type": "button",
+      "name": "NIC Advanced: Disable Gigabit Auto Disable / Auto Power Save",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "requiresAdmin": true,
+      "description": "Attempts to disable common vendor properties that downshift link speed for power savings.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$keys='*EEE','*GreenEthernet','*AutoDisableGigabit','*AutoPowerSaveModeEnabled','*IdlePowerSaving','*UltraLowPowerMode'; Get-NetAdapter | ForEach-Object { $n=$_.Name; foreach($k in $keys){ try { Set-NetAdapterAdvancedProperty -Name $n -RegistryKeyword $k -RegistryValue 0 -NoRestart -ErrorAction Stop } catch {} } }"
+          }
+        ]
+      }
+    },
+    {
+      "id": "nic_wol_cleanup",
+      "type": "button",
+      "name": "NIC Wake Cleanup: Disable Wake-On-Pattern Offloads",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "category": "Power Management",
+      "requiresAdmin": true,
+      "description": "Disables wake-on-pattern features while leaving manual wake management explicit.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Get-NetAdapter | ForEach-Object { $n=$_.Name; try { Set-NetAdapterPowerManagement -Name $n -WakeOnMagicPacket Disabled -WakeOnPattern Disabled -ErrorAction Stop } catch {} }"
+          }
+        ]
+      }
     }
   ]
 }

@@ -71,6 +71,58 @@
           }
         ]
       }
+    },
+    {
+      "id": "power_disk_idle_never_split",
+      "type": "button",
+      "name": "Disk Idle Timeout: Never (AC/DC)",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "category": "Power Management",
+      "requiresAdmin": true,
+      "description": "Prevents disk spindown/idle transitions.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_DISK DISKIDLE 0"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_DISK DISKIDLE 0"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_fast_startup_disable",
+      "type": "button",
+      "name": "Fast Startup: Disable",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "category": "Power Management",
+      "requiresAdmin": true,
+      "description": "Turns off Fast Startup for cleaner shutdown cycles.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Power\" /v HiberbootEnabled /t REG_DWORD /d 0 /f"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Power\" /v HiberbootEnabled /t REG_DWORD /d 1 /f"
+          }
+        ]
+      }
     }
   ]
 }

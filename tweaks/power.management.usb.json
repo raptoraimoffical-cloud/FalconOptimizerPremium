@@ -42,6 +42,50 @@
           }
         ]
       }
+    },
+    {
+      "id": "power_usb_selective_suspend_off_split",
+      "type": "button",
+      "name": "USB Selective Suspend: Off (AC/DC)",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "category": "Power Management",
+      "requiresAdmin": true,
+      "description": "Disables USB selective suspend for latency-sensitive peripherals.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_USB USBSELECTIVE 0"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_USB USBSELECTIVE 0"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_usb_root_hub_pm_disable",
+      "type": "button",
+      "name": "USB Root Hub Power Management: Disable Sleep Toggle",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "requiresAdmin": true,
+      "description": "Disables allow-turn-off flags on USB hubs where exposed by PnP power settings.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Get-PnpDevice -Class USB | Where-Object { $_.FriendlyName -match 'Root Hub|Generic USB Hub' } | ForEach-Object { try { powercfg /devicedisablewake \"$($_.FriendlyName)\" } catch {} }"
+          }
+        ]
+      }
     }
   ]
 }

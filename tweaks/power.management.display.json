@@ -77,6 +77,58 @@
           }
         ]
       }
+    },
+    {
+      "id": "power_display_off_never_split",
+      "type": "button",
+      "name": "Display Off Timeout: Never (AC/DC)",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "category": "Power Management",
+      "requiresAdmin": true,
+      "description": "Keeps displays active indefinitely on both power sources.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_VIDEO VIDEOIDLE 0"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_VIDEO VIDEOIDLE 0"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_console_lock_display_timeout",
+      "type": "button",
+      "name": "Console Lock Display Timeout: 60s",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "category": "Power Management",
+      "requiresAdmin": true,
+      "description": "Sets hidden console-lock display off timeout.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_VIDEO VIDEOCONLOCK 60"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_VIDEO VIDEOCONLOCK 60"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
+        ]
+      }
     }
   ]
 }
