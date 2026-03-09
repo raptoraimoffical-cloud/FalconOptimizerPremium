@@ -79,6 +79,65 @@
           }
         ]
       }
+    },
+    {
+      "id": "power_diag_systempowerreport_only",
+      "type": "button",
+      "name": "Diagnostics: Generate System Power Report",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "category": "Power Management",
+      "description": "Generates standalone system power report HTML.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg /systempowerreport"
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_diag_sleepstudy_only",
+      "type": "button",
+      "name": "Diagnostics: Generate Sleep Study Report",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "category": "Power Management",
+      "description": "Generates standalone sleep study report when platform supports it.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg /sleepstudy"
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_diag_wakeup_audit_bundle",
+      "type": "button",
+      "name": "Diagnostics: Wake Audit Bundle (lastwake + waketimers + wake_armed)",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "category": "Power Management",
+      "description": "Runs key wake-analysis commands in one pass for troubleshooting.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg /lastwake"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /waketimers"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /devicequery wake_armed"
+          }
+        ]
+      }
     }
   ]
 }

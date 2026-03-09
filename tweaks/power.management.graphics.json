@@ -33,6 +33,44 @@
           }
         ]
       }
+    },
+    {
+      "id": "power_graphics_open_app_gpu_preferences",
+      "type": "button",
+      "name": "Graphics: Open per-app GPU Preferences",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "category": "Power Management",
+      "description": "Launches Windows graphics preference page for per-app high-performance GPU assignment.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "start ms-settings:display-advancedgraphics"
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_graphics_open_hdr_vrr_pages",
+      "type": "button",
+      "name": "Graphics: Open HDR and Variable Refresh Rate pages",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "category": "Power Management",
+      "description": "Quick-opens advanced display pages relevant to graphics power behavior.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "start ms-settings:display"
+          },
+          {
+            "type": "cmd.run",
+            "command": "start ms-settings:gaming-gamedvr"
+          }
+        ]
+      }
     }
   ]
 }

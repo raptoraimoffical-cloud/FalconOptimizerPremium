@@ -50,6 +50,48 @@
           }
         ]
       }
+    },
+    {
+      "id": "power_all_settings_export_query_raw",
+      "type": "button",
+      "name": "All Settings Explorer: Export raw powercfg /query",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "category": "Power Management",
+      "description": "Captures full /query output for active and all schemes to support parser debugging.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"$ts=Get-Date -Format yyyyMMdd-HHmmss; $dir=Join-Path $PWD \"logs\"; if(!(Test-Path $dir)){New-Item -ItemType Directory -Path $dir|Out-Null}; powercfg /query > (Join-Path $dir (\"powercfg-query-\"+$ts+\".txt\")); powercfg /query SCHEME_CURRENT > (Join-Path $dir (\"powercfg-query-current-\"+$ts+\".txt\")); Write-Output \"Saved query exports in logs\\\"\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_all_settings_verify_setting_readback",
+      "type": "button",
+      "name": "All Settings Explorer: Verify AC/DC Readback for a Known Setting",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "category": "Power Management",
+      "description": "Runs /query for common aliases to verify post-write readback behavior.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg /query SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMAX"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /query SCHEME_CURRENT SUB_SLEEP STANDBYIDLE"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /query SCHEME_CURRENT SUB_VIDEO VIDEOIDLE"
+          }
+        ]
+      }
     }
   ]
 }

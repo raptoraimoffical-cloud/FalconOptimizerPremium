@@ -42,6 +42,58 @@
           }
         ]
       }
+    },
+    {
+      "id": "power_bt_disable_adapter_pm_when_present",
+      "type": "button",
+      "name": "Bluetooth: Disable Adapter Power Management where available",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "category": "Power Management",
+      "requiresAdmin": true,
+      "description": "Attempts to disable PnP-level power saving on Bluetooth radios that expose power management capabilities.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$radios=Get-PnpDevice -Class Bluetooth -Status OK -ErrorAction SilentlyContinue; foreach($r in $radios){ try{ $id=$r.InstanceId.Replace(\"\\\",\"\\\\\"); powercfg /devicedisablewake \"$($r.FriendlyName)\" | Out-Null }catch{} }; Get-PnpDevice -Class Bluetooth -ErrorAction SilentlyContinue | Select-Object FriendlyName,Status | Format-Table -AutoSize | Out-String | Write-Output"
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_bt_wake_armed_list",
+      "type": "button",
+      "name": "Bluetooth: List Wake-Armed Bluetooth Devices",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "category": "Power Management",
+      "description": "Lists Bluetooth devices currently armed for wake.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg /devicequery wake_armed | findstr /I \"Bluetooth\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_bt_export_device_inventory",
+      "type": "button",
+      "name": "Bluetooth: Export Device and Power Inventory",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "category": "Power Management",
+      "description": "Exports Bluetooth PnP inventory for machine-specific tuning in Experimental pages.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$ts=Get-Date -Format yyyyMMdd-HHmmss; $dir=Join-Path $PWD \"logs\"; if(!(Test-Path $dir)){New-Item -ItemType Directory -Path $dir|Out-Null}; $out=Join-Path $dir (\"bluetooth-inventory-\"+$ts+\".json\"); Get-PnpDevice -Class Bluetooth -ErrorAction SilentlyContinue | Select-Object FriendlyName,InstanceId,Status,Class | ConvertTo-Json -Depth 3 | Out-File -Encoding utf8 $out; Write-Output \"Saved: $out\""
+          }
+        ]
+      }
     }
   ]
 }

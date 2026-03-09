@@ -108,6 +108,41 @@
           }
         ]
       }
+    },
+    {
+      "id": "power_device_wake_list_armed_only",
+      "type": "button",
+      "name": "Wake Devices: List wake_armed devices",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "category": "Power Management",
+      "description": "Shows only currently armed wake devices for cleanup workflows.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg /devicequery wake_armed"
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_device_wake_disable_network",
+      "type": "button",
+      "name": "Wake Devices: Disable Wake for Network Adapters",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "category": "Power Management",
+      "requiresAdmin": true,
+      "description": "Disables wake capability for network adapters found in wake-programmable list.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$devs=powercfg /devicequery wake_programmable; foreach($d in $devs){ if($d -match \"Ethernet|Wi-Fi|Wireless|Network\") { powercfg /devicedisablewake \"$d\" | Out-Null } }; powercfg /devicequery wake_armed"
+          }
+        ]
+      }
     }
   ]
 }
