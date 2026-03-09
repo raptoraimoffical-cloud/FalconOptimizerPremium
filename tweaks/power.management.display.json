@@ -1,23 +1,75 @@
 {
   "items": [
     {
-      "id": "power_display_idle_tuning",
+      "id": "power_display_idle_acdc",
       "type": "button",
-      "name": "Display Timeout: 20 min (AC) / 5 min (DC)",
+      "name": "Display: Idle Timeout 15m (AC) / 5m (DC)",
       "risk": "Safe",
       "riskLevel": "Safe",
       "category": "Power Management",
       "requiresAdmin": true,
-      "description": "Separates display idle policy by power source for practical gaming + battery behavior.",
+      "description": "Controls display-off timeout separately by power source.",
       "apply": {
         "steps": [
           {
             "type": "cmd.run",
-            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_VIDEO VIDEOIDLE 20"
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_VIDEO VIDEOIDLE 15"
           },
           {
             "type": "cmd.run",
             "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_VIDEO VIDEOIDLE 5"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_display_dim_timeout",
+      "type": "button",
+      "name": "Display: Dim Timeout 10m (AC) / 3m (DC)",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "category": "Power Management",
+      "requiresAdmin": true,
+      "description": "Sets dim timeout separately from display-off timeout.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_VIDEO VIDEODIM 10"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_VIDEO VIDEODIM 3"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_display_adaptive_brightness",
+      "type": "button",
+      "name": "Display: Adaptive Brightness Off (AC/DC)",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "category": "Power Management",
+      "requiresAdmin": true,
+      "description": "Disables adaptive brightness on systems that expose the setting.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_VIDEO ADAPTBRIGHT 0"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_VIDEO ADAPTBRIGHT 0"
           },
           {
             "type": "cmd.run",

@@ -27,6 +27,58 @@
       }
     },
     {
+      "id": "power_hibernate_after_split",
+      "type": "button",
+      "name": "Hibernate After: Never (AC) / 60 min (DC)",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "category": "Power Management",
+      "requiresAdmin": true,
+      "description": "Disables AC hibernate while preserving a DC fallback.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_SLEEP HIBERNATEIDLE 0"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_SLEEP HIBERNATEIDLE 60"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_hybrid_sleep_split",
+      "type": "button",
+      "name": "Hybrid Sleep: Off (AC) / On (DC)",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "category": "Power Management",
+      "requiresAdmin": true,
+      "description": "Toggles hybrid sleep aggressively for AC and conservatively for battery.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_SLEEP HYBRIDSLEEP 0"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_SLEEP HYBRIDSLEEP 1"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
+        ]
+      }
+    },
+    {
       "id": "power_wake_timers_split",
       "type": "button",
       "name": "Wake Timers: Enable (AC) / Disable (DC)",
@@ -53,13 +105,95 @@
       }
     },
     {
-      "id": "power_modern_standby_report",
+      "id": "power_sleep_unattended_timeout",
       "type": "button",
-      "name": "Modern Standby Diagnostic Report",
+      "name": "Sleep: Set Unattended Sleep Timeout to 10 min",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "requiresAdmin": true,
+      "description": "Exposes hidden unattended timeout used by maintenance transitions.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_SLEEP UNATTENDIDLE 10"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_SLEEP UNATTENDIDLE 10"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_sleep_away_mode_disable",
+      "type": "button",
+      "name": "Sleep: Disable Away Mode",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "category": "Power Management",
+      "requiresAdmin": true,
+      "description": "Turns off away mode to avoid pseudo-sleep behavior on gaming rigs.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_SLEEP AWAYMODE 0"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_SLEEP AWAYMODE 0"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_hibernate_type_reduced",
+      "type": "button",
+      "name": "Hibernate: Set Reduced Type (Fast Startup-oriented)",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "category": "Power Management",
+      "requiresAdmin": true,
+      "description": "Switches hiberfile to reduced mode where supported.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg /hibernate on"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /hibernate /type reduced"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg /hibernate /type full"
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_sleep_modern_standby_diagnostics",
+      "type": "button",
+      "name": "Modern Standby: Capability + SleepStudy Diagnostics",
       "risk": "Safe",
       "riskLevel": "Safe",
       "category": "Power Management",
-      "description": "Runs available sleep diagnostics (sleep states + sleepstudy when supported).",
+      "description": "Runs supported sleep-state listing and SleepStudy report generation.",
       "apply": {
         "steps": [
           {

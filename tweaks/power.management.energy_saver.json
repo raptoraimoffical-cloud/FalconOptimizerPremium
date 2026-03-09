@@ -1,18 +1,45 @@
 {
   "items": [
     {
-      "id": "power_energy_saver_report",
+      "id": "power_energy_saver_threshold",
       "type": "button",
-      "name": "Energy Saver Settings Report",
+      "name": "Energy Saver: Start at 20% Battery",
       "risk": "Safe",
       "riskLevel": "Safe",
       "category": "Power Management",
-      "description": "Extracts Energy Saver subgroup values from current scheme for review and tuning.",
+      "requiresAdmin": true,
+      "description": "Configures Battery Saver trigger threshold where supported.",
       "apply": {
         "steps": [
           {
-            "type": "ps.run",
-            "command": "$ts=Get-Date -Format \"yyyyMMdd-HHmmss\"; $f=Join-Path (Join-Path $PWD \"logs\") (\"energy-saver-\"+$ts+\".txt\"); powercfg /qh SCHEME_CURRENT SUB_ENERGYSAVER | Out-File -Encoding utf8 $f; Write-Output \"Saved: $f\""
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_ENERGYSAVER ESBATTTHRESHOLD 20"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_energy_saver_brightness",
+      "type": "button",
+      "name": "Energy Saver: Brightness Reduction 30%",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "category": "Power Management",
+      "requiresAdmin": true,
+      "description": "Sets Energy Saver display brightness reduction level.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_ENERGYSAVER ESBRIGHTNESS 30"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
           }
         ]
       }

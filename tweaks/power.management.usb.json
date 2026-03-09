@@ -24,20 +24,21 @@
             "command": "powercfg /setactive SCHEME_CURRENT"
           }
         ]
-      },
-      "revert": {
+      }
+    },
+    {
+      "id": "power_usb_root_hub_pm_audit",
+      "type": "button",
+      "name": "USB: Audit Root Hub Power-Management Flags",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "category": "Power Management",
+      "description": "Enumerates USB hubs/controllers to assist manual selective power tuning.",
+      "apply": {
         "steps": [
           {
-            "type": "cmd.run",
-            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_USB USBSELECTSUSPEND 1"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_USB USBSELECTSUSPEND 1"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg /setactive SCHEME_CURRENT"
+            "type": "ps.run",
+            "command": "Get-PnpDevice -Class USB -ErrorAction SilentlyContinue | Select-Object Status,FriendlyName,InstanceId | Format-Table -AutoSize | Out-String | Write-Output"
           }
         ]
       }

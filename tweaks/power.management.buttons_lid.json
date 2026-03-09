@@ -1,14 +1,14 @@
 {
   "items": [
     {
-      "id": "power_button_action_acdc",
+      "id": "power_button_action_shutdown",
       "type": "button",
-      "name": "Power Button Action: Shutdown (AC/DC)",
+      "name": "Buttons: Power Button = Shutdown (AC/DC)",
       "risk": "Warning",
       "riskLevel": "Warning",
       "category": "Power Management",
       "requiresAdmin": true,
-      "description": "Explicitly maps power button to shutdown for both AC and DC contexts.",
+      "description": "Maps physical power button action to shutdown for both AC and DC.",
       "apply": {
         "steps": [
           {
@@ -24,16 +24,52 @@
             "command": "powercfg /setactive SCHEME_CURRENT"
           }
         ]
-      },
-      "revert": {
+      }
+    },
+    {
+      "id": "power_sleep_button_sleep",
+      "type": "button",
+      "name": "Buttons: Sleep Button = Sleep (AC/DC)",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "category": "Power Management",
+      "requiresAdmin": true,
+      "description": "Sets dedicated sleep button action explicitly.",
+      "apply": {
         "steps": [
           {
             "type": "cmd.run",
-            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_BUTTONS PBUTTONACTION 1"
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_BUTTONS SBUTTONACTION 1"
           },
           {
             "type": "cmd.run",
-            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_BUTTONS PBUTTONACTION 1"
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_BUTTONS SBUTTONACTION 1"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_lid_action_noop_ac",
+      "type": "button",
+      "name": "Lid: Do Nothing (AC) / Sleep (DC)",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "category": "Power Management",
+      "requiresAdmin": true,
+      "description": "Laptop-focused split behavior for lid close actions.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_BUTTONS LIDACTION 0"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_BUTTONS LIDACTION 1"
           },
           {
             "type": "cmd.run",

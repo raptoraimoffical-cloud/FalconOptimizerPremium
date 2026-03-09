@@ -31,7 +31,7 @@
         "steps": [
           {
             "type": "ps.run",
-            "command": "$nics=Get-NetAdapter -Physical -ErrorAction SilentlyContinue; foreach($n in $nics){ $props=Get-NetAdapterAdvancedProperty -Name $n.Name -AllProperties -ErrorAction SilentlyContinue; $eee=$props | Where-Object { $_.DisplayName -match \"Energy Efficient Ethernet|EEE\" -or $_.RegistryKeyword -match \"EEE\" }; foreach($p in $eee){ Set-NetAdapterAdvancedProperty -Name $n.Name -RegistryKeyword $p.RegistryKeyword -RegistryValue 0 -NoRestart -ErrorAction SilentlyContinue } }; Write-Output \"EEE property pass complete.\""
+            "command": "$nics=Get-NetAdapter -Physical -ErrorAction SilentlyContinue; foreach($n in $nics){ $props=Get-NetAdapterAdvancedProperty -Name $n.Name -AllProperties -ErrorAction SilentlyContinue; $targets=$props|?{ $_.DisplayName -match 'Energy Efficient Ethernet|EEE' -or $_.RegistryKeyword -match 'EEE' }; foreach($p in $targets){ Set-NetAdapterAdvancedProperty -Name $n.Name -RegistryKeyword $p.RegistryKeyword -RegistryValue 0 -NoRestart -ErrorAction SilentlyContinue } }; Write-Output 'EEE pass complete.'"
           }
         ]
       }
@@ -39,34 +39,52 @@
     {
       "id": "power_nic_green_ethernet_disable_when_present",
       "type": "button",
-      "name": "NIC: Disable Green Ethernet / Power Saving labels (if present)",
+      "name": "NIC: Disable Green Ethernet where present",
       "risk": "Warning",
       "riskLevel": "Warning",
       "category": "Power Management",
       "requiresAdmin": true,
-      "description": "Disables common vendor power-saving labels dynamically: Green Ethernet, Ultra Low Power, Reduce Speed On Power Down, Idle Power Saving.",
+      "description": "Disables Green Ethernet or similarly named power-saving properties per adapter when exposed.",
       "apply": {
         "steps": [
           {
             "type": "ps.run",
-            "command": "$patterns='Green Ethernet','Ultra Low Power','Reduce Speed On Power Down','Idle Power Saving','Auto Disable Gigabit'; $nics=Get-NetAdapter -Physical -ErrorAction SilentlyContinue; foreach($n in $nics){ $props=Get-NetAdapterAdvancedProperty -Name $n.Name -AllProperties -ErrorAction SilentlyContinue; foreach($p in $props){ if($patterns | Where-Object { $p.DisplayName -like ('*'+$_+'*') -or $p.RegistryKeyword -like ('*'+$_.Replace(' ','')+'*') }){ try{ Set-NetAdapterAdvancedProperty -Name $n.Name -RegistryKeyword $p.RegistryKeyword -RegistryValue 0 -NoRestart -ErrorAction SilentlyContinue } catch {} } } }; Write-Output 'Green/power-saving pass complete.'"
+            "command": "$patterns='Green Ethernet','Green','Power Saving'; $nics=Get-NetAdapter -Physical -ErrorAction SilentlyContinue; foreach($n in $nics){ $props=Get-NetAdapterAdvancedProperty -Name $n.Name -AllProperties -ErrorAction SilentlyContinue; $targets=$props|?{ $dn=$_.DisplayName; ($patterns|%{ $dn -like \"*$_*\" }) -contains $true }; foreach($p in $targets){ if($p.RegistryKeyword){ Set-NetAdapterAdvancedProperty -Name $n.Name -RegistryKeyword $p.RegistryKeyword -RegistryValue 0 -NoRestart -ErrorAction SilentlyContinue } } }; Write-Output 'Green Ethernet pass complete.'"
           }
         ]
       }
     },
     {
-      "id": "power_nic_inventory_all_power_properties",
+      "id": "power_nic_idle_power_modes_disable_when_present",
       "type": "button",
-      "name": "NIC: Inventory all advanced power-related properties",
-      "risk": "Safe",
-      "riskLevel": "Safe",
+      "name": "NIC: Disable Idle/Ultra-Low-Power Modes where present",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
       "category": "Power Management",
-      "description": "Exports all adapter advanced properties to logs so only real, adapter-supported controls are shown/tuned.",
+      "requiresAdmin": true,
+      "description": "Targets common vendor labels (idle power saving, reduce speed on power down, ultra low power) only when properties exist.",
       "apply": {
         "steps": [
           {
             "type": "ps.run",
-            "command": "$ts=Get-Date -Format 'yyyyMMdd-HHmmss'; $dir=Join-Path $PWD 'logs'; if(!(Test-Path $dir)){ New-Item -ItemType Directory -Path $dir | Out-Null }; $out=Join-Path $dir ('nic-advanced-properties-'+$ts+'.txt'); Get-NetAdapter -Physical -ErrorAction SilentlyContinue | ForEach-Object { '=== ' + $_.Name + ' ===' | Out-File -Encoding utf8 -Append $out; Get-NetAdapterAdvancedProperty -Name $_.Name -AllProperties -ErrorAction SilentlyContinue | Sort-Object DisplayName | Format-Table DisplayName,DisplayValue,RegistryKeyword,RegistryValue -AutoSize | Out-String | Out-File -Encoding utf8 -Append $out }; Write-Output ('Saved: ' + $out)"
+            "command": "$re='Idle Power|Reduce Speed|Power Down|Ultra Low|Auto Disable Gigabit|Gigabit Auto'; $nics=Get-NetAdapter -Physical -ErrorAction SilentlyContinue; foreach($n in $nics){ $props=Get-NetAdapterAdvancedProperty -Name $n.Name -AllProperties -ErrorAction SilentlyContinue | ? { $_.DisplayName -match $re -or $_.RegistryKeyword -match 'Idle|PowerDown|Ultra|Gigabit' }; foreach($p in $props){ if($p.RegistryKeyword){ Set-NetAdapterAdvancedProperty -Name $n.Name -RegistryKeyword $p.RegistryKeyword -RegistryValue 0 -NoRestart -ErrorAction SilentlyContinue } } }; Write-Output 'Idle power mode pass complete.'"
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_nic_export_all_advanced_properties",
+      "type": "button",
+      "name": "NIC: Export Full Advanced Property Inventory",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "category": "Power Management",
+      "description": "Exports all adapter advanced properties for dynamic OEM/vendor discovery.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$ts=Get-Date -Format 'yyyyMMdd-HHmmss'; $dir=Join-Path $PWD 'logs'; if(!(Test-Path $dir)){New-Item -ItemType Directory -Path $dir|Out-Null}; $out=Join-Path $dir (\"nic-advanced-properties-\"+$ts+\".json\"); $data=Get-NetAdapter -Physical -ErrorAction SilentlyContinue | ForEach-Object { $name=$_.Name; [pscustomobject]@{ Adapter=$name; Properties=(Get-NetAdapterAdvancedProperty -Name $name -AllProperties -ErrorAction SilentlyContinue) } }; $data|ConvertTo-Json -Depth 6 | Out-File -Encoding utf8 $out; Write-Output \"Saved: $out\""
           }
         ]
       }

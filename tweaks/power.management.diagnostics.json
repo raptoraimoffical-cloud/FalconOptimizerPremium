@@ -1,60 +1,81 @@
 {
   "items": [
     {
-      "id": "power_diag_requests_and_overrides",
+      "id": "power_diag_supported_sleep_states",
       "type": "button",
-      "name": "Diagnostics: Requests + Overrides",
+      "name": "Diagnostics: List Supported Sleep States",
       "risk": "Safe",
       "riskLevel": "Safe",
       "category": "Power Management",
-      "description": "Displays active power requests and any configured request overrides.",
+      "description": "Shows S-states and Modern Standby capabilities.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg /a"
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_diag_wake_timers_lastwake",
+      "type": "button",
+      "name": "Diagnostics: Wake Timers + Last Wake",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "category": "Power Management",
+      "description": "Reports currently scheduled wake timers and the last wake source.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg /waketimers"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /lastwake"
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_diag_requests",
+      "type": "button",
+      "name": "Diagnostics: Power Requests",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "category": "Power Management",
+      "description": "Lists active process, driver, and display power requests.",
       "apply": {
         "steps": [
           {
             "type": "cmd.run",
             "command": "powercfg /requests"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg /requestsoverride"
           }
         ]
       }
     },
     {
-      "id": "power_diag_energy_report",
+      "id": "power_diag_reports_energy_sleepstudy",
       "type": "button",
-      "name": "Diagnostics: Energy Report",
+      "name": "Diagnostics: Generate Energy + SleepStudy + SystemPowerReport",
       "risk": "Safe",
       "riskLevel": "Safe",
       "category": "Power Management",
-      "description": "Runs powercfg /energy and writes report for idle-drain troubleshooting.",
+      "description": "Generates official power diagnostic reports in the working directory.",
       "apply": {
         "steps": [
           {
             "type": "cmd.run",
             "command": "powercfg /energy"
-          }
-        ]
-      }
-    },
-    {
-      "id": "power_diag_lastwake_timers",
-      "type": "button",
-      "name": "Diagnostics: Last Wake + Wake Timers",
-      "risk": "Safe",
-      "riskLevel": "Safe",
-      "category": "Power Management",
-      "description": "Shows last wake source and pending wake timers.",
-      "apply": {
-        "steps": [
-          {
-            "type": "cmd.run",
-            "command": "powercfg /lastwake"
           },
           {
             "type": "cmd.run",
-            "command": "powercfg /waketimers"
+            "command": "powercfg /sleepstudy"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /systempowerreport"
           }
         ]
       }
