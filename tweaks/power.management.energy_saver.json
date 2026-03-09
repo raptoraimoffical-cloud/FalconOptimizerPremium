@@ -69,6 +69,32 @@
           }
         ]
       }
+    },
+    {
+      "id": "power_battery_low_action_split",
+      "type": "button",
+      "name": "Energy Saver: Low Battery Action AC=Nothing / DC=Hibernate",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "category": "Power Management",
+      "requiresAdmin": true,
+      "description": "Applies explicit low battery action split where BATTERY subsettings are available.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_BATTERY BATACTIONLOW 0"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_BATTERY BATACTIONLOW 2"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
+        ]
+      }
     }
   ]
 }

@@ -86,6 +86,23 @@
           }
         ]
       }
+    },
+    {
+      "id": "power_usb3_link_power_info",
+      "type": "button",
+      "name": "USB: Enumerate USB 3 Link-Power-Capable Controllers",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "category": "Power Management",
+      "description": "Lists USB controllers/hubs for advanced U1/U2/U3 policy troubleshooting.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Get-PnpDevice -Class USB -ErrorAction SilentlyContinue | Select-Object FriendlyName,InstanceId,Status | Format-Table -AutoSize | Out-String | Write-Output"
+          }
+        ]
+      }
     }
   ]
 }

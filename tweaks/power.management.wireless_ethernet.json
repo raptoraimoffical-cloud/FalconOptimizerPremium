@@ -142,6 +142,41 @@
           }
         ]
       }
+    },
+    {
+      "id": "power_nic_pm_inventory",
+      "type": "button",
+      "name": "NIC: Export Adapter Power-Management State",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "category": "Power Management",
+      "description": "Dumps NetAdapter power-management state for all adapters.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$ts=Get-Date -Format yyyyMMdd-HHmmss; $dir=Join-Path $PWD \"logs\"; if(!(Test-Path $dir)){New-Item -ItemType Directory -Path $dir|Out-Null}; $out=Join-Path $dir (\"nic-power-management-\"+$ts+\".txt\"); Get-NetAdapterPowerManagement -Name * -ErrorAction SilentlyContinue | Format-List * | Out-File -Encoding utf8 $out; Write-Output \"Saved: $out\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_nic_enable_pm_balanced",
+      "type": "button",
+      "name": "NIC: Re-enable Adapter Power Management (Balanced fallback)",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "category": "Power Management",
+      "requiresAdmin": true,
+      "description": "Re-enables adapter PM for users leaving max-performance profile.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$nics=Get-NetAdapter -Physical -ErrorAction SilentlyContinue; foreach($n in $nics){ try{ Set-NetAdapterPowerManagement -Name $n.Name -AllowComputerToTurnOffDevice Enabled -ErrorAction Stop } catch{} }; Get-NetAdapterPowerManagement -Name * | Format-Table -AutoSize | Out-String | Write-Output"
+          }
+        ]
+      }
     }
   ]
 }

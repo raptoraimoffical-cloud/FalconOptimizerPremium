@@ -255,6 +255,58 @@
           }
         ]
       }
+    },
+    {
+      "id": "power_plan_activate_balanced",
+      "type": "button",
+      "name": "Plans: Activate Balanced Plan",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "category": "Power Management",
+      "requiresAdmin": true,
+      "description": "Switches to Balanced if available.",
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_BALANCED"
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_plan_export_before_extreme",
+      "type": "button",
+      "name": "Plans: Export Active Plan Before Extreme Tweaks",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "category": "Power Management",
+      "description": "Creates rollback .pow snapshot with timestamp.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$ts=Get-Date -Format yyyyMMdd-HHmmss; $dir=Join-Path $PWD \"backups\"; if(!(Test-Path $dir)){New-Item -ItemType Directory -Path $dir|Out-Null}; $guid=(powercfg /getactivescheme).ToString().Split()[3]; $out=Join-Path $dir (\"active-plan-pre-extreme-\"+$ts+\".pow\"); powercfg /export $out $guid; Write-Output \"Saved: $out\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "power_plan_diff_current_vs_last_snapshot",
+      "type": "button",
+      "name": "Plans: Diff Current /QH vs Most Recent Snapshot",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "category": "Power Management",
+      "description": "Exports current /qh output and compares with the newest snapshot text if present.",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$dir=Join-Path $PWD \"logs\"; if(!(Test-Path $dir)){New-Item -ItemType Directory -Path $dir|Out-Null}; $ts=Get-Date -Format yyyyMMdd-HHmmss; $cur=Join-Path $dir (\"powercfg-qh-current-\"+$ts+\".txt\"); powercfg /qh SCHEME_CURRENT > $cur; $prev=Get-ChildItem $dir -Filter \"powercfg-qh-current-*.txt\" | Sort-Object LastWriteTime -Descending | Select-Object -Skip 1 -First 1; if($prev){ Compare-Object (Get-Content $prev.FullName) (Get-Content $cur) -SyncWindow 2 | Out-String | Write-Output } else { Write-Output \"No previous snapshot found for diff.\" }"
+          }
+        ]
+      }
     }
   ]
 }
