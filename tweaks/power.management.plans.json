@@ -6,7 +6,7 @@
       "name": "Plans: List All + Active",
       "risk": "Safe",
       "riskLevel": "Safe",
-      "category": "Power Management",
+      "category": "Utilities & Diagnostics",
       "description": "Enumerates all schemes and shows the currently active plan.",
       "apply": {
         "steps": [
@@ -27,7 +27,7 @@
       "name": "Plans: Export Active Plan Snapshot (.pow)",
       "risk": "Safe",
       "riskLevel": "Safe",
-      "category": "Power Management",
+      "category": "Utilities & Diagnostics",
       "requiresAdmin": true,
       "description": "Creates a timestamped rollback snapshot before batch tuning.",
       "apply": {
@@ -185,7 +185,7 @@
       "name": "Plans: Import .pow Snapshot (C:/FalconPower/restore.pow)",
       "risk": "Warning",
       "riskLevel": "Warning",
-      "category": "Power Management",
+      "category": "Utilities & Diagnostics",
       "requiresAdmin": true,
       "description": "Imports a previously exported scheme file to restore known-good power behavior.",
       "apply": {
@@ -211,7 +211,7 @@
       "name": "Plans: Dump Aliases + Full Query (verification)",
       "risk": "Safe",
       "riskLevel": "Safe",
-      "category": "Power Management",
+      "category": "Utilities & Diagnostics",
       "description": "Collects aliases and active scheme values for readback verification.",
       "apply": {
         "steps": [
@@ -280,7 +280,7 @@
       "name": "Plans: Export Active Plan Before Extreme Tweaks",
       "risk": "Safe",
       "riskLevel": "Safe",
-      "category": "Power Management",
+      "category": "Utilities & Diagnostics",
       "description": "Creates rollback .pow snapshot with timestamp.",
       "apply": {
         "steps": [

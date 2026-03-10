@@ -3,11 +3,11 @@
     {
       "id": "power_mgmt_overview_intro",
       "type": "button",
-      "name": "Power Management Overview & Guardrails",
+      "name": "Power Management Workflow Overview",
       "risk": "Safe",
       "riskLevel": "Safe",
-      "category": "Power Management",
-      "description": "Shows the core principles for safe power tuning: AC/DC split, snapshot-first workflow, and readback verification.",
+      "category": "Utilities & Diagnostics",
+      "description": "Readback-only helper that explains the safe workflow: snapshot first, apply one change, then verify with powercfg query commands.",
       "apply": {
         "steps": [
           {
@@ -23,8 +23,8 @@
       "name": "Export: All Settings Explorer Snapshot (/qh + aliases)",
       "risk": "Safe",
       "riskLevel": "Safe",
-      "category": "Power Management",
-      "description": "Dumps powercfg aliases and SCHEME_CURRENT details into logs for full real-world setting discovery.",
+      "category": "Utilities & Diagnostics",
+      "description": "Exports aliases and /qh output so you can inspect real power setting values (diagnostic export, not an optimization).",
       "requiresAdmin": false,
       "apply": {
         "steps": [
@@ -41,8 +41,8 @@
       "name": "Refresh Active Scheme (readback helper)",
       "risk": "Safe",
       "riskLevel": "Safe",
-      "category": "Power Management",
-      "description": "Re-applies current scheme after edits to ensure settings are committed and reflected by readback commands.",
+      "category": "Utilities & Diagnostics",
+      "description": "Re-applies the active scheme and prints it for verification (readback helper, not an optimization).",
       "apply": {
         "steps": [
           {

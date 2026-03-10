@@ -3,70 +3,154 @@
     {
       "id": "power_profile_max_performance_apply",
       "type": "button",
-      "name": "Profile: Max Performance (AC-first)",
+      "name": "Max Performance",
       "risk": "Warning",
       "riskLevel": "Warning",
       "category": "Power Management",
       "requiresAdmin": true,
-      "description": "Applies an AC-focused competitive profile: high CPU floor, aggressive boost, low parking, ASPM off, USB suspend off, disk idle off on AC, and wake timers enabled on AC.",
+      "description": "Best for desktops and plugged-in laptops chasing max FPS and lowest delay. Disables several AC power-saving behaviors (USB suspend, PCIe ASPM, disk idle) and increases heat/power draw.",
       "apply": {
         "steps": [
-          { "type": "cmd.run", "command": "powercfg -setactive SCHEME_MIN" },
-          { "type": "cmd.run", "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMIN 100" },
-          { "type": "cmd.run", "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMAX 100" },
-          { "type": "cmd.run", "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PERFBOOSTMODE 2" },
-          { "type": "cmd.run", "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR CPMINCORES 100" },
-          { "type": "cmd.run", "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR CPMAXCORES 100" },
-          { "type": "cmd.run", "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PCIEXPRESS ASPM 0" },
-          { "type": "cmd.run", "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_USB USBSELECTSUSPEND 0" },
-          { "type": "cmd.run", "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_DISK DISKIDLE 0" },
-          { "type": "cmd.run", "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_SLEEP RTCWAKE 1" },
-          { "type": "cmd.run", "command": "powercfg /setactive SCHEME_CURRENT" }
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setactive SCHEME_MIN"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMIN 100"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMAX 100"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PERFBOOSTMODE 2"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR CPMINCORES 100"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR CPMAXCORES 100"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PCIEXPRESS ASPM 0"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_USB USBSELECTSUSPEND 0"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_DISK DISKIDLE 0"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_SLEEP RTCWAKE 1"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
         ]
       }
     },
     {
       "id": "power_profile_balanced_perf_apply",
       "type": "button",
-      "name": "Profile: Balanced Performance",
+      "name": "Balanced",
       "risk": "Safe",
       "riskLevel": "Safe",
       "category": "Power Management",
       "requiresAdmin": true,
-      "description": "Keeps a snappy desktop while avoiding extreme thermals: Balanced plan, moderate EPP and parking, moderate storage/USB policy.",
+      "description": "Good default for most PCs: keeps strong performance while allowing saner idle behavior than Max Performance. Better thermals and power use than max mode.",
       "apply": {
         "steps": [
-          { "type": "cmd.run", "command": "powercfg -setactive SCHEME_BALANCED" },
-          { "type": "cmd.run", "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMIN 20" },
-          { "type": "cmd.run", "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMAX 100" },
-          { "type": "cmd.run", "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PERFEPP 20" },
-          { "type": "cmd.run", "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR CPMINCORES 40" },
-          { "type": "cmd.run", "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR CPMAXCORES 100" },
-          { "type": "cmd.run", "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_USB USBSELECTSUSPEND 0" },
-          { "type": "cmd.run", "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_DISK DISKIDLE 20" },
-          { "type": "cmd.run", "command": "powercfg /setactive SCHEME_CURRENT" }
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setactive SCHEME_BALANCED"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMIN 20"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMAX 100"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PERFEPP 20"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR CPMINCORES 40"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR CPMAXCORES 100"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_USB USBSELECTSUSPEND 0"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_DISK DISKIDLE 20"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
         ]
       }
     },
     {
       "id": "power_profile_saver_perf_bias_apply",
       "type": "button",
-      "name": "Profile: Power Saver with Performance Bias",
+      "name": "Power Saver",
       "risk": "Safe",
       "riskLevel": "Safe",
       "category": "Power Management",
       "requiresAdmin": true,
-      "description": "A battery-aware profile that keeps responsiveness decent: moderate CPU cap, EPP bias, preserved selective suspend, and shorter display timeout on DC.",
+      "description": "Best for battery/runtime and lower heat on laptops. Uses DC-friendly CPU and device power-saving behavior and is not recommended for competitive FPS sessions.",
       "apply": {
         "steps": [
-          { "type": "cmd.run", "command": "powercfg -setactive SCHEME_BALANCED" },
-          { "type": "cmd.run", "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMIN 10" },
-          { "type": "cmd.run", "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMAX 85" },
-          { "type": "cmd.run", "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR PERFEPP 65" },
-          { "type": "cmd.run", "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_USB USBSELECTSUSPEND 1" },
-          { "type": "cmd.run", "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_VIDEO VIDEOIDLE 5" },
-          { "type": "cmd.run", "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_SLEEP STANDBYIDLE 15" },
-          { "type": "cmd.run", "command": "powercfg /setactive SCHEME_CURRENT" }
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setactive SCHEME_BALANCED"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMIN 10"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMAX 85"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR PERFEPP 65"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_USB USBSELECTSUSPEND 1"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_VIDEO VIDEOIDLE 5"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_SLEEP STANDBYIDLE 15"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_CURRENT"
+          }
         ]
       }
     }
