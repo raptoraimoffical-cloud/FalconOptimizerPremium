@@ -1,0 +1,104 @@
+{
+  "items": [
+    {
+      "id": "falcon_system_diagnostics_device_manager_summary",
+      "type": "action",
+      "name": "Diagnostics: Export Device Inventory Snapshot",
+      "description": "Exports current Plug-and-Play device class/name/status data to ProgramData for troubleshooting driver or hardware state. Diagnostic only; no tuning is applied.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Utilities & Diagnostics",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\falcon_system_diagnostics\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"device_inventory_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Falcon System Diagnostics Device inventory snapshot ===\" | Out-File $fn -Encoding utf8\nGet-PnpDevice | Select-Object -First 200 Class,FriendlyName,Status | Format-Table -Wrap | Out-String | Out-File $fn -Append\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "falcon_system_diagnostics_powercfg_qh_subset",
+      "type": "action",
+      "name": "Readback: Export Advanced Power Settings Snapshot",
+      "description": "Exports advanced power policy values using powercfg /qh so you can audit every active AC/DC value. Readback only; no optimization changes are made.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Utilities & Diagnostics",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\falcon_system_diagnostics\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"power_settings_qh_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Falcon System Diagnostics Advanced power settings snapshot ===\" | Out-File $fn -Encoding utf8\npowercfg /qh | Select-Object -First 220 | Out-String | Out-File $fn -Append\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "falcon_system_diagnostics_registry_multimedia_systemprofile",
+      "type": "action",
+      "name": "Readback: Export Multimedia Scheduler Registry Snapshot",
+      "description": "Exports Multimedia SystemProfile registry values used by scheduler/audio policies. Diagnostic snapshot only; no system changes are applied.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Utilities & Diagnostics",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\falcon_system_diagnostics\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"multimedia_registry_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Falcon System Diagnostics Multimedia scheduler registry snapshot ===\" | Out-File $fn -Encoding utf8\nreg query \"HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\" /s 2>$null | Out-File $fn -Append\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "falcon_system_diagnostics_bcdedit_current",
+      "type": "action",
+      "name": "Readback: Export Active Boot Configuration (BCD)",
+      "description": "Exports current BCDEdit {current} entries for boot policy review and rollback planning. Readback only; does not modify boot configuration.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Utilities & Diagnostics",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\falcon_system_diagnostics\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"bcd_current_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Falcon System Diagnostics Boot configuration snapshot ===\" | Out-File $fn -Encoding utf8\nbcdedit /enum {current} | Out-File $fn -Append\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    },
+    {
+      "id": "falcon_system_diagnostics_netsh_tcp_global",
+      "type": "action",
+      "name": "Readback: Export TCP Global Network State",
+      "description": "Exports netsh TCP global values to verify offload/autotuning state before or after network tweaks. Readback only; no network values are changed.",
+      "requiresAdmin": true,
+      "riskLevel": "Safe",
+      "category": "Utilities & Diagnostics",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\falcon_system_diagnostics\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"tcp_global_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Falcon System Diagnostics TCP global settings snapshot ===\" | Out-File $fn -Encoding utf8\nnetsh int tcp show global | Out-File $fn -Append\nWrite-Output (\"Saved: \" + $fn)\n"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
+    }
+  ]
+}

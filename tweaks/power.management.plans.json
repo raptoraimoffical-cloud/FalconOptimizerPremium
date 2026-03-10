@@ -3,7 +3,7 @@
     {
       "id": "power_plans_list_all",
       "type": "button",
-      "name": "Plans: List All + Active",
+      "name": "Power Plan Tool: List All + Active",
       "risk": "Safe",
       "riskLevel": "Safe",
       "category": "Utilities & Diagnostics",
@@ -24,7 +24,7 @@
     {
       "id": "power_plan_snapshot_export",
       "type": "button",
-      "name": "Plans: Export Active Plan Snapshot (.pow)",
+      "name": "Power Plan Tool: Export Active Plan Snapshot (.pow)",
       "risk": "Safe",
       "riskLevel": "Safe",
       "category": "Utilities & Diagnostics",
@@ -42,10 +42,10 @@
     {
       "id": "power_plan_clone_active",
       "type": "button",
-      "name": "Plans: Clone Current Plan (Safety Copy)",
+      "name": "Power Plan Tool: Clone Current Plan (Safety Copy)",
       "risk": "Safe",
       "riskLevel": "Safe",
-      "category": "Power Management",
+      "category": "Utilities & Diagnostics",
       "requiresAdmin": true,
       "description": "Duplicates the active scheme before manual or profile-based edits.",
       "apply": {
@@ -60,10 +60,10 @@
     {
       "id": "power_plan_activate_high_perf",
       "type": "button",
-      "name": "Plans: Activate High Performance",
+      "name": "Power Plan Tool: Activate High Performance",
       "risk": "Safe",
       "riskLevel": "Safe",
-      "category": "Power Management",
+      "category": "Utilities & Diagnostics",
       "requiresAdmin": true,
       "description": "Switches to the stock High Performance plan.",
       "apply": {
@@ -78,10 +78,10 @@
     {
       "id": "power_plan_activate_ultimate",
       "type": "button",
-      "name": "Plans: Activate Ultimate Performance (or create)",
+      "name": "Power Plan Tool: Activate Ultimate Performance (or create)",
       "risk": "Warning",
       "riskLevel": "Warning",
-      "category": "Power Management",
+      "category": "Utilities & Diagnostics",
       "requiresAdmin": true,
       "description": "Activates Ultimate Performance and attempts to create it when missing.",
       "apply": {
@@ -96,10 +96,10 @@
     {
       "id": "power_plan_gaming_ac_only",
       "type": "button",
-      "name": "Plans: Apply Gaming AC-Only Baseline",
+      "name": "Power Plan Tool: Apply Gaming AC-Only Baseline",
       "risk": "Warning",
       "riskLevel": "Warning",
-      "category": "Power Management",
+      "category": "Utilities & Diagnostics",
       "requiresAdmin": true,
       "description": "Writes only AC values for a competitive baseline while leaving DC safety intact.",
       "apply": {
@@ -130,10 +130,10 @@
     {
       "id": "power_plan_battery_safe_dc",
       "type": "button",
-      "name": "Plans: Apply Battery-Safe DC Baseline",
+      "name": "Power Plan Tool: Apply Battery-Safe DC Baseline",
       "risk": "Safe",
       "riskLevel": "Safe",
-      "category": "Power Management",
+      "category": "Utilities & Diagnostics",
       "requiresAdmin": true,
       "description": "Writes only DC values for safer laptop battery behavior.",
       "apply": {
@@ -164,10 +164,10 @@
     {
       "id": "power_plan_restore_defaults",
       "type": "button",
-      "name": "Plans: Restore Windows Default Schemes",
+      "name": "Power Plan Tool: Restore Windows Default Schemes",
       "risk": "Experimental",
       "riskLevel": "Experimental",
-      "category": "Power Management",
+      "category": "Utilities & Diagnostics",
       "requiresAdmin": true,
       "description": "Emergency reset for all power schemes; custom plans are removed.",
       "apply": {
@@ -182,7 +182,7 @@
     {
       "id": "power_plan_import_snapshot",
       "type": "button",
-      "name": "Plans: Import .pow Snapshot (C:/FalconPower/restore.pow)",
+      "name": "Power Plan Tool: Import .pow Snapshot (C:/FalconPower/restore.pow)",
       "risk": "Warning",
       "riskLevel": "Warning",
       "category": "Utilities & Diagnostics",
@@ -208,7 +208,7 @@
     {
       "id": "power_plan_aliases_dump",
       "type": "button",
-      "name": "Plans: Dump Aliases + Full Query (verification)",
+      "name": "Power Plan Tool: Dump Aliases + Full Query (verification)",
       "risk": "Safe",
       "riskLevel": "Safe",
       "category": "Utilities & Diagnostics",
@@ -233,10 +233,10 @@
     {
       "id": "power_plan_duplicate_and_name_gaming",
       "type": "button",
-      "name": "Plans: Duplicate Active Scheme and Name 'Falcon Gaming AC'",
+      "name": "Power Plan Tool: Duplicate Active Scheme and Name 'Falcon Gaming AC'",
       "risk": "Safe",
       "riskLevel": "Safe",
-      "category": "Power Management",
+      "category": "Utilities & Diagnostics",
       "requiresAdmin": true,
       "description": "Creates a dedicated editable clone before experimental writes.",
       "apply": {
@@ -259,10 +259,10 @@
     {
       "id": "power_plan_activate_balanced",
       "type": "button",
-      "name": "Plans: Activate Balanced Plan",
+      "name": "Power Plan Tool: Activate Balanced Plan",
       "risk": "Safe",
       "riskLevel": "Safe",
-      "category": "Power Management",
+      "category": "Utilities & Diagnostics",
       "requiresAdmin": true,
       "description": "Switches to Balanced if available.",
       "apply": {
@@ -277,7 +277,7 @@
     {
       "id": "power_plan_export_before_extreme",
       "type": "button",
-      "name": "Plans: Export Active Plan Before Extreme Tweaks",
+      "name": "Power Plan Tool: Export Active Plan Before Extreme Tweaks",
       "risk": "Safe",
       "riskLevel": "Safe",
       "category": "Utilities & Diagnostics",
@@ -294,10 +294,10 @@
     {
       "id": "power_plan_diff_current_vs_last_snapshot",
       "type": "button",
-      "name": "Plans: Diff Current /QH vs Most Recent Snapshot",
+      "name": "Power Plan Tool: Diff Current /QH vs Most Recent Snapshot",
       "risk": "Safe",
       "riskLevel": "Safe",
-      "category": "Power Management",
+      "category": "Utilities & Diagnostics",
       "description": "Exports current /qh output and compares with the newest snapshot text if present.",
       "apply": {
         "steps": [

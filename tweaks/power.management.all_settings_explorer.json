@@ -3,10 +3,10 @@
     {
       "id": "power_all_settings_export_qh",
       "type": "button",
-      "name": "All Settings Explorer: Export Full SCHEME_CURRENT (/qh)",
+      "name": "Power Readback: Export Full SCHEME_CURRENT (/qh)",
       "risk": "Safe",
       "riskLevel": "Safe",
-      "category": "Power Management",
+      "category": "Utilities & Diagnostics",
       "description": "Exports raw powercfg /qh output so Falcon can expose every discovered subgroup/setting on this machine.",
       "apply": {
         "steps": [
@@ -20,10 +20,10 @@
     {
       "id": "power_all_settings_export_aliases",
       "type": "button",
-      "name": "All Settings Explorer: Export Aliases + Query",
+      "name": "Power Readback: Export Aliases + Query",
       "risk": "Safe",
       "riskLevel": "Safe",
-      "category": "Power Management",
+      "category": "Utilities & Diagnostics",
       "description": "Collects aliases and current effective values to map GUIDs to friendly aliases and verify current values.",
       "apply": {
         "steps": [
@@ -37,10 +37,10 @@
     {
       "id": "power_all_settings_schema_json",
       "type": "button",
-      "name": "All Settings Explorer: Build Parsed JSON Catalog",
+      "name": "Power Readback: Build Parsed JSON Catalog",
       "risk": "Safe",
       "riskLevel": "Safe",
-      "category": "Power Management",
+      "category": "Utilities & Diagnostics",
       "description": "Parses powercfg /qh output into JSON with subgroup GUID/alias, setting GUID/alias, AC/DC values, units and enum candidates.",
       "apply": {
         "steps": [
@@ -54,10 +54,10 @@
     {
       "id": "power_all_settings_export_query_raw",
       "type": "button",
-      "name": "All Settings Explorer: Export raw powercfg /query",
+      "name": "Power Readback: Export raw powercfg /query",
       "risk": "Safe",
       "riskLevel": "Safe",
-      "category": "Power Management",
+      "category": "Utilities & Diagnostics",
       "description": "Captures full /query output for active and all schemes to support parser debugging.",
       "apply": {
         "steps": [
@@ -71,10 +71,10 @@
     {
       "id": "power_all_settings_verify_setting_readback",
       "type": "button",
-      "name": "All Settings Explorer: Verify AC/DC Readback for a Known Setting",
+      "name": "Power Readback: Verify AC/DC Readback for a Known Setting",
       "risk": "Safe",
       "riskLevel": "Safe",
-      "category": "Power Management",
+      "category": "Utilities & Diagnostics",
       "description": "Runs /query for common aliases to verify post-write readback behavior.",
       "apply": {
         "steps": [
