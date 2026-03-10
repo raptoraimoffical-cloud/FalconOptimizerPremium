@@ -2271,7 +2271,7 @@ ipcMain.handle("falcon:runLatencyBenchmark", async (_evt, payload) => {
 // --- Auto-switch power plan when gaming ---
 const autoSwitchPath = path.join(app.getPath("userData"), "auto_switch_powerplan.json");
 let autoSwitchTimer = null;
-let autoSwitchState = { enabled:false, plan:"competitive", fallback:"balanced", exes:["FortniteClient-Win64-Shipping.exe","Valorant.exe","Overwatch.exe","r5apex.exe","cs2.exe","RocketLeague.exe"] };
+let autoSwitchState = { enabled:false, plan:"extreme", fallback:"balanced", exes:["FortniteClient-Win64-Shipping.exe","Valorant.exe","Overwatch.exe","r5apex.exe","cs2.exe","RocketLeague.exe"] };
 try {
   if (fs.existsSync(autoSwitchPath)) autoSwitchState = { ...autoSwitchState, ...JSON.parse(fs.readFileSync(autoSwitchPath,"utf8")) };
 } catch {}
@@ -2298,7 +2298,7 @@ async function checkAutoSwitchTick(){
       autoSwitchState._applied = true;
       await runPsFile(path.join("scripts","powerplans","falcon-powerplans.ps1"), ["-Action","install_all"]);
       const map = { extreme:"apply_extreme", sustain:"apply_sustain", competitive:"apply_competitive", balanced:"apply_balanced", laptop:"apply_laptop" };
-      const act = map[String(autoSwitchState.plan||"competitive").toLowerCase()] || "apply_competitive";
+      const act = map[String(autoSwitchState.plan||"extreme").toLowerCase()] || "apply_extreme";
       await runPsFile(path.join("scripts","powerplans","falcon-powerplans.ps1"), ["-Action", act]);
     }
     if (!anyGame && autoSwitchState._applied) {

@@ -1053,10 +1053,8 @@ const routes = {
     { id:'lab', label:'Latency Lab', source:'tweaks/network.lab.json' },
     { id:'lib', label:'Library', source:'tweaks/performance.lib.network.json' }
   ]},
-  powerManagement: { title: 'Power Management', sub: 'Centralized plan control, AC/DC tuning, wake tools, and diagnostics.', tabs: [
-    { id:'overview', label:'Overview', source:'tweaks/power.management.overview.json' },
+  powerManagement: { title: 'Power Management', sub: 'Performance-focused profiles and direct power behavior tuning.', tabs: [
     { id:'profiles', label:'Profiles', source:'tweaks/power.management.profiles.json' },
-    { id:'plans', label:'Plans', source:'tweaks/power.management.plans.json' },
     { id:'allSettings', label:'All Settings Explorer', source:'tweaks/power.management.all_settings_explorer.json' },
     { id:'processor', label:'Processor', source:'tweaks/power.management.processor.json' },
     { id:'graphics', label:'Graphics', source:'tweaks/power.management.graphics.json' },
@@ -1070,7 +1068,6 @@ const routes = {
     { id:'wirelessEthernet', label:'Wireless / Ethernet', source:'tweaks/power.management.wireless_ethernet.json' },
     { id:'bluetooth', label:'Bluetooth', source:'tweaks/power.management.bluetooth.json' },
     { id:'deviceWake', label:'Device Wake', source:'tweaks/power.management.device_wake.json' },
-    { id:'diagnostics', label:'Diagnostics', source:'tweaks/power.management.diagnostics.json' },
     { id:'hidden', label:'Hidden / Experimental', source:'tweaks/power.management.hidden_experimental.json' }
   ]},
   speedCore: { title: 'Falcon Speed & Integrity Core', sub: 'Quick cleanup and deep integrity repair.', tabs: [
@@ -1175,8 +1172,12 @@ bios: { title: 'BIOS / UEFI Helper', sub: 'Motherboard detection and firmware sh
   themes: { title: 'Themes', sub: 'Switch visual presets for Falcon Optimizer.', tabs: [] },
   language: { title: 'Language', sub: 'Choose language preferences for Falcon Optimizer.', tabs: [] },
   updates: { title: 'Updates', sub: 'Update feed diagnostics and last updater checks.', tabs: [] },
-  utilities: { title: 'Apps / Utilities', sub: 'Installers and utilities.', tabs: [
+  utilities: { title: 'Utilities & Diagnostics', sub: 'Openers, exporters, readback checks, and helper tools (non-optimizations).', tabs: [
     { id:'tools', label:'Tools', source:'tweaks/utilities.json' },
+    { id:'powerReadback', label:'Power Readback / Exports', source:'tweaks/power.management.overview.json' },
+    { id:'powerPlansUtils', label:'Power Plan Utilities', source:'tweaks/power.management.plans.json' },
+    { id:'powerDiag', label:'Power Diagnostics', source:'tweaks/power.management.diagnostics.json' },
+    { id:'falconDiag', label:'Falcon System Diagnostics', source:'tweaks/expansion.ctt_paradime_system.json' },
     { id:'audit', label:'Pro Gamer Audit', source:'tweaks/audit.progamer.json' }
   ]}
 };
@@ -8646,7 +8647,7 @@ async function buildNetworkPriorityPanel(){
 
 // --- Custom panel: Power Plans (Desktop/Laptop) ---
 async function buildPowerPlansPanel(){
-  const desc = 'Installs real Falcon power plans into Windows (Control Panel → Power Options), lets you apply Windows defaults (Balanced/High/Ultimate), and can auto-switch to a competitive plan when games are running.';
+  const desc = 'Installs real Falcon power plans into Windows (Control Panel → Power Options), lets you apply Windows defaults (Balanced/High/Ultimate), and can auto-switch to your selected profile when games are running.';
 
   els.panel.innerHTML = `
     <div class="panel">
@@ -8663,15 +8664,15 @@ async function buildPowerPlansPanel(){
           </div>
 
           <div class="row" style="gap:8px; flex-wrap:wrap; margin-top:12px;">
-            <button class="btn primary" id="ppExtreme">Apply Max FPS (Extreme)</button>
+            <button class="btn primary" id="ppExtreme">Apply Max Performance (default)</button>
             <button class="btn primary" id="ppSustain">Apply Sustained Boost</button>
             <button class="btn primary" id="ppCompetitive">Apply Competitive (Low Latency)</button>
-            <button class="btn" id="ppBalanced">Apply Balanced Performance</button>
-            <button class="btn" id="ppLaptop">Apply Laptop Gaming</button>
+            <button class="btn" id="ppBalanced">Apply Balanced</button>
+            <button class="btn" id="ppLaptop">Apply Power Saver (Laptop-friendly)</button>
           </div>
 
           <div class="muted" style="margin-top:10px; font-size:12px;">
-            Warning: Extreme can increase temperatures and power draw.
+            Max Performance disables several power-saving behaviors on AC for lowest latency and highest FPS. This can increase temperature and power draw.
           </div>
         </div>
 
@@ -8706,11 +8707,11 @@ async function buildPowerPlansPanel(){
         <label class="field" style="min-width:220px;">
           <span class="field-label">On game launch</span>
           <select id="ppAutoPlan" class="select">
+            <option value="extreme">Max Performance (default)</option>
             <option value="competitive">Competitive (Low Latency)</option>
-            <option value="extreme">Max FPS (Extreme)</option>
             <option value="sustain">Sustained Boost</option>
-            <option value="balanced">Balanced Performance</option>
-            <option value="laptop">Laptop Gaming</option>
+            <option value="balanced">Balanced</option>
+            <option value="laptop">Power Saver (Laptop-friendly)</option>
           </select>
         </label>
 
@@ -8819,7 +8820,7 @@ async function buildPowerPlansPanel(){
       const res = await window.falcon.getAutoSwitchPowerPlan();
       const st = res && res.state ? res.state : {};
       if (autoEnable) autoEnable.checked = !!st.enabled;
-      if (autoPlan) autoPlan.value = (st.plan || 'competitive');
+      if (autoPlan) autoPlan.value = (st.plan || 'extreme');
       if (autoFallback) autoFallback.value = (st.fallback || 'balanced');
       if (autoExes) autoExes.value = Array.isArray(st.exes) ? st.exes.join("\n") : '';
       if (autoStatus) autoStatus.textContent = st.enabled ? 'Enabled' : 'Disabled';
@@ -8829,7 +8830,7 @@ async function buildPowerPlansPanel(){
   btn('ppAutoSave', async ()=>{
     const state = {
       enabled: !!(autoEnable && autoEnable.checked),
-      plan: autoPlan ? autoPlan.value : 'competitive',
+      plan: autoPlan ? autoPlan.value : 'extreme',
       fallback: autoFallback ? autoFallback.value : 'balanced',
       exes: (autoExes && autoExes.value ? autoExes.value.split(/\r?\n/).map(s=>s.trim()).filter(Boolean) : [])
     };

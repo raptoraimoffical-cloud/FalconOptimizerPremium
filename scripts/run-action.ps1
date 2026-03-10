@@ -596,7 +596,22 @@ for ($i = 0; $i -lt $steps.Count; $i++) {
           } | ForEach-Object { $_ } -join "`n"
         } catch {}
         Log "PS.RUN: $cmd"
-        powershell.exe -NoProfile -ExecutionPolicy Bypass -Command $cmd | Out-Null
+        $tmpPs = Join-Path $env:TEMP ("falcon-psrun-" + [guid]::NewGuid().ToString() + ".ps1")
+        try {
+          Set-Content -LiteralPath $tmpPs -Value $cmd -Encoding UTF8
+          $outLines = & powershell.exe -NoProfile -ExecutionPolicy Bypass -File $tmpPs 2>&1
+          $exit = $LASTEXITCODE
+          if ($outLines) {
+            $joined = ($outLines -join "`n")
+            $stepStdout = $joined
+            if ($joined.Length -gt 4000) { $joined = $joined.Substring(0,4000) + "`n...(truncated)" }
+            Log $joined
+          }
+          $stepExitCode = $exit
+          if ($exit -ne 0) { throw ("ps.run failed ({0})" -f $exit) }
+        } finally {
+          try { if (Test-Path -LiteralPath $tmpPs) { Remove-Item -LiteralPath $tmpPs -Force -ErrorAction SilentlyContinue } } catch {}
+        }
       }
 
       "ps.file" {
