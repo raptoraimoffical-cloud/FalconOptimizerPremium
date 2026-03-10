@@ -923,7 +923,7 @@ Laptop – Balanced performance while respecting mobile thermals and power. Reco
 const PERFORMANCE_ALLOWLIST_KEYWORDS = [
   "latency", "dpc", "timer", "scheduler", "interrupt", "msi", "gpu", "nvidia", "amd", "cpu",
   "power plan", "bcdedit", "network", "tcp", "ping", "input", "usb", "mouse", "keyboard", "controller",
-  "audio latency", "debloat", "game mode", "fullscreen optimizations", "fullscreen optimization"
+  "audio latency", "game mode", "fullscreen optimizations", "fullscreen optimization"
 ];
 
 const LAPTOP_SAFETY_EXCLUSION_KEYWORDS = [
@@ -1128,7 +1128,6 @@ processLab: { title: 'Process Lab', sub: 'Audit and close non-essential backgrou
   ]},
   stretchLab: { title: 'StretchLab', sub: 'Copy real pro stretch res and apply clean presets.', tabs: [] },
   advanced: { title: 'Advanced', sub: 'Device, MSI, and security controls.', tabs: [
-    { id:'importReg', label:'Imported Registry', source:'tweaks/imported.registry.oneclick.json' },
     { id:'devices', label:'Devices', source:'tweaks/advanced.devices.json' },
     { id:'msi', label:'MSI Mode', source:'tweaks/advanced.msi_mode.json' },
     { id:'security', label:'Security', source:'tweaks/advanced.security.json' }
@@ -1154,12 +1153,6 @@ processLab: { title: 'Process Lab', sub: 'Audit and close non-essential backgrou
     { id:'services', label:'Services', source:'tweaks/expansion.services.json' },
     { id:'registry', label:'Registry', source:'tweaks/expansion.registry.json' },
     { id:'nvidia', label:'NVIDIA Tools', source:'tweaks/expansion.nvidia.tools.json' },
-    { id:'impReg', label:'Imported Registry', source:'tweaks/expansion.imported.registry.json' },
-    { id:'impSvc', label:'Imported Services', source:'tweaks/expansion.imported.services.json' },
-    { id:'impPower', label:'Imported Power + BCD', source:'tweaks/expansion.imported.power_bcd.json' },
-    { id:'impDebloat', label:'Imported Debloat + Cleanup', source:'tweaks/expansion.imported.debloat_cleanup.json' },
-    { id:'impSec', label:'Imported Security', source:'tweaks/expansion.imported.security.json' },
-    { id:'impMisc', label:'Imported Misc', source:'tweaks/expansion.imported.misc.json' },
     { id:'falconNew', label:'Falcon New Tweaks', source:'tweaks/expansion.falcon_new_tweaks.json' },
     { id:'falconMega', label:'Falcon Mega Additions', source:'tweaks/expansion.falcon_megalist_additions.json' }
   ]},
@@ -1177,7 +1170,7 @@ bios: { title: 'BIOS / UEFI Helper', sub: 'Motherboard detection and firmware sh
     { id:'powerReadback', label:'Power Readback / Exports', source:'tweaks/power.management.overview.json' },
     { id:'powerPlansUtils', label:'Power Plan Utilities', source:'tweaks/power.management.plans.json' },
     { id:'powerDiag', label:'Power Diagnostics', source:'tweaks/power.management.diagnostics.json' },
-    { id:'falconDiag', label:'Falcon System Diagnostics', source:'tweaks/expansion.ctt_paradime_system.json' },
+    { id:'falconDiag', label:'System Diagnostics Readback', source:'tweaks/utilities.system_diagnostics.json' },
     { id:'audit', label:'Pro Gamer Audit', source:'tweaks/audit.progamer.json' }
   ]}
 };
@@ -9278,7 +9271,7 @@ async function renderUpdates(){
   await loadDiagnostics();
 }
 
-// ---------- Game Profiles (Paragon-like) ----------
+// ---------- Game Profiles ----------
 let gpSelected = null;
 async function renderGameProfiles(){
   // Hide standard tabs for this route
