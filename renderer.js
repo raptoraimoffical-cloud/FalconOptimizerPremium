@@ -6377,7 +6377,8 @@ async function renderPowerAllSettingsExplorer(){
 
 
 async function refresh(resetTabs=true){
-  const renderCtx = captureRenderContext(beginRenderGeneration());
+  const generation = beginRenderGeneration();
+  let renderCtx = null;
   try {
     if (currentRoute !== 'processLab' && processLabAutoRefreshTimer) {
       try { window.clearInterval(processLabAutoRefreshTimer); } catch(_e) {}
@@ -6396,15 +6397,17 @@ async function refresh(resetTabs=true){
       }
     }
 
+    if (resetTabs) {
+      if (cfg.tabs && cfg.tabs.length > 0) currentTab = cfg.tabs[0];
+      else currentTab = null;
+    }
+
+    renderCtx = captureRenderContext(generation);
     if (!isRenderContextCurrent(renderCtx)) return;
 
     els.pageTitle.textContent = cfg.title || 'Falcon Optimizer';
     els.pageSub.textContent = cfg.sub || '';
 
-    if (resetTabs) {
-      if (cfg.tabs && cfg.tabs.length > 0) currentTab = cfg.tabs[0];
-      else currentTab = null;
-    }
     renderTabs(currentRoute);
     if (!isRenderContextCurrent(renderCtx)) return;
 
@@ -6433,6 +6436,7 @@ async function refresh(resetTabs=true){
 
     els.panel.innerHTML = `<div class="notice"><strong>Missing data:</strong> No items configured for this section yet.</div>`;
   } catch (e) {
+    if (!renderCtx) return;
     if (!isRenderContextCurrent(renderCtx)) return;
     console.error('Refresh/navigation error', e);
     const msg = escapeHtml(String(e && e.message ? e.message : e));
@@ -6442,7 +6446,6 @@ async function refresh(resetTabs=true){
 }
 function setRoute(route){
   navToken++;
-  beginRenderGeneration();
   currentRoute = route;
   setActiveNav(route);
   setPanelLoading('Switching section…');
