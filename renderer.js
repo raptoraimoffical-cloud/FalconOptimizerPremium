@@ -104,6 +104,19 @@ function setPanelLoading(message='Loading…'){
   `;
 }
 
+function withTimeout(promise, timeoutMs, timeoutMessage){
+  const ms = Math.max(250, Number(timeoutMs) || 0);
+  let timer = null;
+  const timeoutPromise = new Promise((_, reject) => {
+    timer = setTimeout(() => {
+      reject(new Error(timeoutMessage || `Operation timed out after ${ms}ms`));
+    }, ms);
+  });
+  return Promise.race([Promise.resolve(promise), timeoutPromise]).finally(() => {
+    if (timer) clearTimeout(timer);
+  });
+}
+
 
 function getStepsFor(item, mode) {
   // mode: "apply" or "revert"
@@ -5090,7 +5103,11 @@ async function renderTweaksFromSource(source, renderCtx){
   // Always re-sync toggle state from the main process so UI reflects the last successful apply/revert.
   // This prevents cases where a tweak applied successfully but the visual switch didn't update.
   try {
-    toggles = await window.falcon.getState();
+    toggles = await withTimeout(
+      window.falcon.getState(),
+      7000,
+      'State sync timed out'
+    );
     if (!isCurrent()) return;
     if (!toggles || typeof toggles !== 'object') toggles = {};
   } catch(_e) {
@@ -5105,7 +5122,11 @@ async function renderTweaksFromSource(source, renderCtx){
     buildNetworkPriorityPanel();
     return;
   }
-  const data = await loadJSON(source);
+  const data = await withTimeout(
+    loadJSON(source),
+    10000,
+    `Loading ${source} timed out`
+  );
   if (!isCurrent()) return;
 
   let extraTopHtml = '';
