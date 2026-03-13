@@ -5108,7 +5108,6 @@ async function renderCoolingDashboard(){
 async function renderTweaksFromSource(source, renderCtx){
   const isCurrent = () => !renderCtx || isRenderContextCurrent(renderCtx);
   if (!isCurrent()) return;
-
   // Always re-sync toggle state from the main process so UI reflects the last successful apply/revert.
   // This prevents cases where a tweak applied successfully but the visual switch didn't update.
   try {
@@ -5131,6 +5130,11 @@ async function renderTweaksFromSource(source, renderCtx){
     buildNetworkPriorityPanel();
     return;
   }
+  if (source === 'tweaks/windows.power.json') {
+    buildPowerPlansPanel();
+    return;
+  }
+
   const data = await withTimeout(
     loadJSON(source),
     10000,
@@ -5221,6 +5225,7 @@ const items = dedupeNumberedClones(filteredItems).filter(it => !hiddenIds.has(it
   const isSpeedCoreSource = (source === 'tweaks/speed.boost.json' || source === 'tweaks/speed.integrity.json');
   const isGameModeSource = (source === 'tweaks/gamemode.runtime.json' || source === 'tweaks/game.mode.json');
   const isBulkSource = isSpeedCoreSource || isGameModeSource;
+  const isDebloatSource = (source === 'tweaks/debloat.cleaner.json' || source === 'tweaks/debloat.services.json' || source === 'tweaks/debloat.tasks.json' || source === 'tweaks/debloat.autoruns.json' || source === 'tweaks/debloat.uninstall.json');
 
   let gmSelectedIds = new Set();
   if (isGameModeSource) {
@@ -5250,14 +5255,12 @@ const items = dedupeNumberedClones(filteredItems).filter(it => !hiddenIds.has(it
 
   let toolbarHtml = '';
   if (isSpeedCoreSource) {
-    const isSpeedBoostCleanup = source === 'tweaks/speed.boost.json';
     toolbarHtml = `
       <div class="panel boost-toolbar">
         <div class="card-title">Speed Core – batch optimizations</div>
         <div class="card-desc">Select multiple deep latency / scheduler optimizations and run them together. These tweaks are advanced and focus purely on performance.</div>
         <div class="boost-toolbar-actions">
           <button class="btn secondary" id="boostSelectAll">Select all Speed Core optimizations</button>
-          ${isSpeedBoostCleanup ? '<button class="btn" id="boostSelectNonApp">Select non-app cleanup preset</button>' : ''}
           <button class="btn primary" id="boostRunBtn">Run selected Speed Core optimizations</button>
         </div>
       </div>
@@ -5286,11 +5289,1222 @@ const items = dedupeNumberedClones(filteredItems).filter(it => !hiddenIds.has(it
   }
 
 
+  else if (isDebloatSource) {
+    // Debloat packs: choose which packs to run, then run every item in the selected packs.
+    toolbarHtml = `
+      <div class="panel boost-toolbar">
+        <div class="card-title">Debloat – batch packs</div>
+        <div class="card-desc">Select the packs you want to run. Falcon will execute every optimization in the selected packs (apply only), in a safe order.</div>
+        <div class="debloat-pack-list" style="display:flex; gap:12px; flex-wrap:wrap; margin-top:10px;">
+          <label class="muted" style="display:flex; align-items:center; gap:6px; font-size:12px;">
+            <input type="checkbox" class="db-pack" data-pack="cleaner" /> System Cleaner
+          </label>
+          <label class="muted" style="display:flex; align-items:center; gap:6px; font-size:12px;">
+            <input type="checkbox" class="db-pack" data-pack="services" /> Services
+          </label>
+          <label class="muted" style="display:flex; align-items:center; gap:6px; font-size:12px;">
+            <input type="checkbox" class="db-pack" data-pack="tasks" /> Tasks
+          </label>
+          <label class="muted" style="display:flex; align-items:center; gap:6px; font-size:12px;">
+            <input type="checkbox" class="db-pack" data-pack="autoruns" /> Autoruns
+          </label>
+          <label class="muted" style="display:flex; align-items:center; gap:6px; font-size:12px;">
+            <input type="checkbox" class="db-pack" data-pack="uninstall" /> Uninstall (aggressive)
+          </label>
+        </div>
+        <div class="boost-toolbar-actions" style="margin-top:10px;">
+          <button class="btn secondary" id="dbSelectAllPacks">Select all packs</button>
+          <button class="btn primary" id="dbRunPacks">Run selected debloat packs</button>
+        </div>
+        <div class="muted" style="margin-top:8px; font-size:12px;">Tip: Start with Cleaner/Tasks/Autoruns. Only add Uninstall if you understand what it removes.</div>
+      </div>
+    `;
+  }
+
+  els.panel.innerHTML = `
+    ${toolbarHtml}
+    ${extraTopHtml}
+    <div class="grid" id="grid"></div>
+    ${detailsPanelHtml}
+  `;
+
+  const grid = document.getElementById('grid');
+  // Performance Library presets
+  if (source === 'tweaks/performance.library.json') {
+    const byId = new Map(items.map(it => [it.id, it]));
+    async function runPreset(ids){
+      let okCount=0;
+      for (const id of ids){
+        const it = byId.get(id);
+        if (!it) continue;
+        try{
+          const applySteps = getApplyStepsWithVerify(it);
+          const revertSteps = getStepsFor(it, 'revert');
+          const res = await runTweakWithTimeout({ id: it.id, mode:'apply', steps: applySteps, revertSteps, meta:{ riskLevel: normRisk(it), from:'Preset' } }, 120000);
+          if(res && res.ok) okCount++;
+          lastLog = (res.stdout||'') + (res.stderr||'');
+          const logEl = document.getElementById('lastLogBody');
+          if (logEl) logEl.textContent = lastLog;
+        }catch(e){
+          showToast('Preset step failed: ' + id, 'error');
+        }
+      }
+      showToast('Preset finished ('+okCount+'/'+ids.length+').', 'success');
+      refresh(false);
+    }
+    const btnB = document.getElementById('plPresetBalanced');
+    const btnL = document.getElementById('plPresetLatency');
+    const btnF = document.getElementById('plPresetFps');
+    if (btnB) btnB.onclick = ()=> runPreset([
+      'lib.prioritysep.balanced',
+      'core_bcd_disable_dynamic_tick',
+      'exp.boot.reset_timer_flags'
+    ]);
+    if (btnL) btnL.onclick = ()=> runPreset([
+      'lib.prioritysep.latency',
+      'core_bcd_disable_dynamic_tick',
+      'exp.boot.useplatformclock_off',
+      'exp.boot.reset_timer_flags'
+    ]);
+    if (btnF) btnF.onclick = ()=> runPreset([
+      'lib.prioritysep.fps',
+      'core_bcd_disable_dynamic_tick',
+      'exp.boot.reset_timer_flags'
+    ]);
+  }
+
+  const bulkHandlers = isBulkSource ? {} : null;
+
+  if (source === "tweaks/game.specific.json") {
+    // Lightweight per-title helper banner.
+    buildGameDetectionBanner(grid);
+  }
+
+  if (isGameModeSource) {
+    // Build Game Mode photo optimizations panel and helper.
+    const photoPanel = document.getElementById('gmPhotoPanel');
+    const photoHost = document.getElementById('gmPhotoList');
+    if (source === 'tweaks/gamemode.runtime.json' && photoPanel && photoHost && Array.isArray(gameModePhotoOptimizations) && gameModePhotoOptimizations.length) {
+      const selectedIds = new Set(loadGameModePhotoSelection());
+      photoHost.innerHTML = '';
+      gameModePhotoOptimizations.forEach((opt) => {
+        const row = document.createElement('label');
+        row.className = 'gm-photo-item';
+        const checked = selectedIds.has(opt.id);
+        row.innerHTML = `
+          <input type="checkbox" class="gm-photo-select" data-id="${__eh(opt.id)}" ${checked ? 'checked' : ''} />
+          <div>
+            <div class="gm-photo-item-title">${__eh(opt.name)}</div>
+            <div class="gm-photo-item-desc">${__eh(opt.description || '')}</div>
+          </div>
+        `;
+        photoHost.appendChild(row);
+      });
+
+      const persistSelection = () => {
+        const boxes = Array.from(document.querySelectorAll('.gm-photo-select'));
+        const enabled = new Set();
+        boxes.forEach((b) => {
+          if (b.checked) {
+            const id = b.getAttribute('data-id');
+            if (id) enabled.add(id);
+          }
+        });
+        saveGameModePhotoSelection(enabled);
+      };
+
+      photoHost.addEventListener('change', persistSelection);
+
+      window.__falconRunSelectedGameModePhotos = async function() {
+        const boxes = Array.from(document.querySelectorAll('.gm-photo-select')).filter((b) => b.checked);
+        if (!boxes.length) return 0;
+        let applied = 0;
+        for (const box of boxes) {
+          const id = box.getAttribute('data-id');
+          const opt = gameModePhotoOptimizations.find((o) => o.id === id);
+          if (!opt || !Array.isArray(opt.steps) || !opt.steps.length) continue;
+          try {
+            const res = await runTweakWithTimeout({
+              id: opt.id,
+              mode: 'apply',
+              steps: opt.steps,
+              revertSteps: [],
+              meta: { riskLevel: opt.riskLevel || 'Safe', from: 'GameModePhoto' }
+            }, 90000);
+            if (res && res.ok) applied++;
+            lastLog = ((res && (res.stdout || res.stderr)) || '') || lastLog;
+            const logEl = document.getElementById('lastLogBody');
+            if (logEl && res) logEl.textContent = (res.stdout || '') + (res.stderr || '');
+          } catch (e) {
+            // keep going on errors
+          }
+        }
+        return applied;
+      };
+    } else {
+      // No photo panel on this view; provide a no-op helper so callers can safely await it.
+      window.__falconRunSelectedGameModePhotos = async function() { return 0; };
+    }
+  }
+
+  // Rendering many cards at once can cause jank. Render in small batches.
+  
+  // Inline controllers for cards that have expanded panels (custom value creators, helpers, etc.)
+  function attachInlineControllers(card, item, isOn){
+    try{
+      if(!card || !item) return;
+
+      // Timer resolution helper (core.timer_set)
+      if(item.id === 'core.timer_set'){
+        const pill = card.querySelector('[data-timer-status]');
+        const sel  = card.querySelector('[data-timer-preset]');
+        const inp  = card.querySelector('[data-timer-custom]');
+        const btnStart = card.querySelector('[data-timer-start]');
+        const btnStop  = card.querySelector('[data-timer-stop]');
+        const btnInstall = card.querySelector('[data-timer-install]');
+        const btnRemove  = card.querySelector('[data-timer-remove]');
+
+        const getUs = () => {
+          const v = sel ? String(sel.value || '') : '';
+          if (v.toLowerCase() === 'custom') {
+            const raw = inp ? String(inp.value || inp.placeholder || '').trim() : '';
+            const n = parseInt(raw, 10);
+            return (Number.isFinite(n) && n > 0) ? n : 5000;
+          }
+          const n = parseInt(v, 10);
+          return (Number.isFinite(n) && n > 0) ? n : 5000;
+        };
+
+        const setPill = (s) => { if(pill) pill.textContent = s; };
+
+        const refreshStatus = async () => {
+          try{
+            const res = await window.falcon.runSteps([{ type:'ps.file', path:'scripts/timer-control.ps1', args:{ Action:'status' } }]);
+            const out = (res && (res.stdout || res.rawStdout || '')) ? String(res.stdout || res.rawStdout).trim() : '';
+            if(out.startsWith('RUNNING')) setPill('Status: RUNNING');
+            else if(out.startsWith('STOPPED')) setPill('Status: STOPPED');
+            else setPill('Status: …');
+          }catch(_e){ setPill('Status: …'); }
+        };
+
+        if(sel){
+          sel.addEventListener('change', ()=>{
+            // keep input editable; when preset chosen, hint with that value
+            try{
+              if(String(sel.value).toLowerCase() !== 'custom' && inp){
+                inp.value = '';
+                inp.placeholder = String(sel.value);
+              }
+            }catch(_e){}
+          });
+        }
+
+        if(btnStart){
+          btnStart.onclick = async () => {
+            const us = getUs();
+            setPill('Status: starting…');
+            await window.falcon.runSteps([{ type:'ps.file', path:'scripts/timer-control.ps1', args:{ Action:'start', Resolution: us } }]);
+            await refreshStatus();
+          };
+        }
+        if(btnStop){
+          btnStop.onclick = async () => {
+            setPill('Status: stopping…');
+            await window.falcon.runSteps([{ type:'ps.file', path:'scripts/timer-control.ps1', args:{ Action:'stop' } }]);
+            await refreshStatus();
+          };
+        }
+        if(btnInstall){
+          btnInstall.onclick = async () => {
+            const us = getUs();
+            await window.falcon.runSteps([{ type:'ps.file', path:'scripts/timer-control.ps1', args:{ Action:'installTask', Resolution: us } }]);
+            showToast('Startup timer task installed');
+          };
+        }
+        if(btnRemove){
+          btnRemove.onclick = async () => {
+            await window.falcon.runSteps([{ type:'ps.file', path:'scripts/timer-control.ps1', args:{ Action:'removeTask' } }]);
+            showToast('Startup timer task removed');
+          };
+        }
+
+        // initial status (only when panel is visible)
+        if(isOn) setTimeout(()=>refreshStatus(), 0);
+      }
+
+      // Guided Controller Overclock (Polling Rate)
+      if(item.id === 'exp.usb.controller_overclock'){
+        const pill = card.querySelector('[data-co-status]');
+        const selDev = card.querySelector('[data-co-dev]');
+        const selRate = card.querySelector('[data-co-rate]');
+        const chkWin11 = card.querySelector('[data-co-win11]');
+        const btnRefresh = card.querySelector('[data-co-refresh]');
+        const btnApply = card.querySelector('[data-co-apply]');
+        const btnRevert = card.querySelector('[data-co-revert]');
+
+        const setPill = (s)=>{ if(pill) pill.textContent = s; };
+
+        const loadDevices = async ()=>{
+          try{
+            setPill('Status: scanning…');
+            const res = await window.falcon.runSteps([{ type:'ps.file', path:'scripts/controller-overclock.ps1', args:{ Action:'list' } }]);
+            const raw = (res && (res.stdout || res.rawStdout || '')) ? String(res.stdout || res.rawStdout).trim() : '';
+            const obj = raw ? JSON.parse(raw) : null;
+            const devs = (obj && obj.ok && Array.isArray(obj.devices)) ? obj.devices : [];
+            if(selDev){
+              selDev.innerHTML = '';
+              devs.forEach(d=>{
+                const opt = document.createElement('option');
+                opt.value = d.instanceId;
+                opt.textContent = `${d.name} (${d.type || 'Other'})`;
+                selDev.appendChild(opt);
+              });
+            }
+            setPill(devs.length ? `Status: ready (${devs.length} found)` : 'Status: no controllers found');
+          }catch(e){
+            setPill('Status: error');
+          }
+        };
+
+        if(btnRefresh){ btnRefresh.onclick = loadDevices; }
+
+        if(btnApply){
+          btnApply.onclick = async ()=>{
+            try{
+              const id = selDev ? String(selDev.value||'') : '';
+              const hz = selRate ? parseInt(String(selRate.value||'1000'), 10) : 1000;
+              const win11 = !!(chkWin11 && chkWin11.checked);
+              if(!id){ showToast('Select a controller first'); return; }
+              setPill('Status: applying…');
+              const res = await window.falcon.runSteps([{ type:'ps.file', path:'scripts/controller-overclock.ps1', args:{ Action:'apply', InstanceId:id, RateHz: hz, Win11Fix: win11 } }]);
+              const raw = (res && (res.stdout || res.rawStdout || '')) ? String(res.stdout || res.rawStdout).trim() : '';
+              const obj = raw ? JSON.parse(raw) : null;
+              if(obj && obj.ok){
+                setPill(obj.deviceRestarted ? 'Status: applied (device restarted)' : 'Status: applied (replug/reboot if needed)');
+                showToast('Applied controller polling rate');
+              } else {
+                setPill('Status: failed');
+                showToast((obj && obj.error) ? obj.error : 'Apply failed');
+              }
+            }catch(_e){
+              setPill('Status: failed');
+            }
+          };
+        }
+
+        if(btnRevert){
+          btnRevert.onclick = async ()=>{
+            try{
+              const id = selDev ? String(selDev.value||'') : '';
+              if(!id){ showToast('Select a controller first'); return; }
+              setPill('Status: reverting…');
+              const res = await window.falcon.runSteps([{ type:'ps.file', path:'scripts/controller-overclock.ps1', args:{ Action:'revert', InstanceId:id } }]);
+              const raw = (res && (res.stdout || res.rawStdout || '')) ? String(res.stdout || res.rawStdout).trim() : '';
+              const obj = raw ? JSON.parse(raw) : null;
+              if(obj && obj.ok){
+                setPill(obj.deviceRestarted ? 'Status: reverted (device restarted)' : 'Status: reverted');
+                showToast('Reverted controller overclock');
+              } else {
+                setPill('Status: failed');
+                showToast((obj && obj.error) ? obj.error : 'Revert failed');
+              }
+            }catch(_e){
+              setPill('Status: failed');
+            }
+          };
+        }
+
+        if(isOn) setTimeout(()=>loadDevices(), 0);
+      }
+
+      // Guided MSI Mode (GPU + Audio)
+      if(item.id === 'adv.msi.auto_gpu_audio'){
+        const pill = card.querySelector('[data-msi-status]');
+        const list = card.querySelector('[data-msi-list]');
+        const btnRefresh = card.querySelector('[data-msi-refresh]');
+        const btnApply = card.querySelector('[data-msi-apply]');
+        const btnRevert = card.querySelector('[data-msi-revert]');
+
+        const setPill = (s)=>{ if(pill) pill.textContent = s; };
+
+        const renderList = (devs)=>{
+          if(!list) return;
+          list.innerHTML = '';
+          devs.forEach(d=>{
+            const row = document.createElement('label');
+            row.className = 'row';
+            row.style.gap = '10px';
+            row.style.alignItems = 'center';
+            row.style.margin = '6px 0';
+            const cb = document.createElement('input');
+            cb.type = 'checkbox';
+            cb.checked = true;
+            cb.dataset.instanceId = d.instanceId;
+            const sp = document.createElement('span');
+            sp.textContent = `${d.name || d.instanceId} (${d.pnpClass || ''})`;
+            row.appendChild(cb); row.appendChild(sp);
+            list.appendChild(row);
+          });
+        };
+
+        const load = async ()=>{
+          try{
+            setPill('Status: scanning…');
+            const res = await window.falcon.runSteps([{ type:'ps.file', path:'scripts/msi-mode.ps1', args:{ Action:'list', Class:'Display', IncludeAudio:true } }]);
+            const raw = (res && (res.stdout || res.rawStdout || '')) ? String(res.stdout || res.rawStdout).trim() : '';
+            const obj = raw ? JSON.parse(raw) : null;
+            const devs = (obj && obj.ok && Array.isArray(obj.devices)) ? obj.devices : [];
+            renderList(devs);
+            setPill(devs.length ? `Status: ready (${devs.length} supported)` : 'Status: no MSI-capable devices found');
+          }catch(_e){ setPill('Status: error'); }
+        };
+
+        const getSelected = ()=>{
+          if(!list) return [];
+          const ids = [];
+          list.querySelectorAll('input[type="checkbox"]').forEach(cb=>{
+            if(cb.checked && cb.dataset.instanceId) ids.push(cb.dataset.instanceId);
+          });
+          return ids;
+        };
+
+        if(btnRefresh) btnRefresh.onclick = load;
+        if(btnApply){
+          btnApply.onclick = async ()=>{
+            const ids = getSelected();
+            if(!ids.length){ showToast('Select at least one device'); return; }
+            setPill('Status: applying…');
+            const res = await window.falcon.runSteps([{ type:'ps.file', path:'scripts/msi-mode.ps1', args:{ Action:'apply', Class:'Display', IncludeAudio:true, InstanceIds: ids } }]);
+            const raw = (res && (res.stdout || res.rawStdout || '')) ? String(res.stdout || res.rawStdout).trim() : '';
+            const obj = raw ? JSON.parse(raw) : null;
+            if(obj && obj.ok){
+              setPill('Status: applied (reboot required)');
+              showToast('MSI Mode applied (reboot required)');
+            } else {
+              setPill('Status: failed');
+              showToast((obj && obj.error) ? obj.error : 'Apply failed');
+            }
+          };
+        }
+        if(btnRevert){
+          btnRevert.onclick = async ()=>{
+            const ids = getSelected();
+            if(!ids.length){ showToast('Select at least one device'); return; }
+            setPill('Status: reverting…');
+            const res = await window.falcon.runSteps([{ type:'ps.file', path:'scripts/msi-mode.ps1', args:{ Action:'revert', Class:'Display', IncludeAudio:true, InstanceIds: ids } }]);
+            const raw = (res && (res.stdout || res.rawStdout || '')) ? String(res.stdout || res.rawStdout).trim() : '';
+            const obj = raw ? JSON.parse(raw) : null;
+            if(obj && obj.ok){
+              setPill('Status: reverted (reboot required)');
+              showToast('MSI Mode reverted (reboot required)');
+            } else {
+              setPill('Status: failed');
+              showToast((obj && obj.error) ? obj.error : 'Revert failed');
+            }
+          };
+        }
+
+        if(isOn) setTimeout(()=>load(), 0);
+      }
+
+      // Priority Separation custom value helper (core.set_win32_priority_sep)
+      if(item.id === 'core.set_win32_priority_sep'){
+        const sel = card.querySelector('[data-ps-mode]');
+        const inp = card.querySelector('[data-ps-custom]');
+        if(sel && inp){
+          const presetToHex = (m)=>{
+            const mode = String(m||'balanced').toLowerCase();
+            if(mode === 'latency') return '0x24';
+            if(mode === 'fps') return '0x2A';
+            return '0x26';
+          };
+          const sync = ()=>{
+            try{
+              const mode = String(sel.value||'balanced').toLowerCase();
+              if(mode !== 'custom'){
+                inp.value = presetToHex(mode);
+              } else {
+                if(!String(inp.value||'').trim()) inp.value = '0x26';
+              }
+            }catch(_e){}
+          };
+          sel.addEventListener('change', sync);
+          // initialize
+          setTimeout(sync, 0);
+        }
+      }
+    }catch(_e){}
+  }
+
+const buildCard = (item) => {
+    const isToggle = item.type === 'toggle';
+    const isOn = !!toggles[item.id];
+    const hasApply = !!(item && item.apply && Array.isArray(item.apply.steps) && item.apply.steps.length);
+    const primaryLabel = isToggle
+      ? (isOn ? 'Revert' : 'Apply')
+      : (item.primaryLabel || 'Run');
+    const isViewPrimary = (primaryLabel || '').toLowerCase() === 'view';
+    const isViewSecondary = item.secondaryAction && (item.secondaryAction.label || '').toLowerCase() === 'view';
+
+    const card = document.createElement('div');
+    card.className = isBulkSource ? 'card speedboost-card' : 'card';
+    const preChecked = (isGameModeSource && item.id && gmSelectedIds.has(item.id));
+    const selectHtml = (isBulkSource ? `<label class="boost-check"><input type="checkbox" class="boost-select" data-id="${__eh(item.id || '')}" ${preChecked ? 'checked' : ''} /></label>` : '');
+    const showToggle = isToggle && !isBulkSource;
+    const safeName = item.name || item.id || '(unnamed tweak)';
+    
+const safeDesc = item.description || '';
+let inlineHtml = '';
+if (item && item.id === 'core.timer_set') {
+  inlineHtml = `
+    <div class="inline-panel" data-inline="timer" style="margin-top:10px; display:${isOn?'block':'none'};">
+      <div class="row" style="gap:10px; align-items:center; flex-wrap:wrap;">
+        <span class="pill" data-timer-status>Status: …</span>
+        <label class="field" style="min-width:200px;">
+          <span class="field-label">Preset</span>
+          <select class="select" data-timer-preset>
+            <option value="5000">0.5 ms (5000 µs)</option>
+            <option value="5040">0.504 ms (5040 µs)</option>
+            <option value="5070">0.507 ms (5070 µs)</option>
+            <option value="custom">Custom</option>
+          </select>
+        </label>
+        <label class="field" style="min-width:160px;">
+          <span class="field-label">Custom (µs)</span>
+          <input class="input" data-timer-custom type="number" min="1000" step="10" placeholder="5000" />
+        </label>
+
+        <button class="btn" data-timer-start>Start</button>
+        <button class="btn" data-timer-stop>Stop</button>
+        <button class="btn" data-timer-install>Enable startup</button>
+        <button class="btn" data-timer-remove>Disable startup</button>
+      </div>
+      <div class="muted" style="margin-top:8px; font-size:12px; line-height:1.3;">
+        Tip: Pick a preset (or custom µs), then press <b>Start</b>. Turning this optimization on/off uses the chosen value.
+      </div>
+    </div>
+  `;
+} else if (item && item.id === 'exp.usb.controller_overclock') {
+  inlineHtml = `
+    <div class="inline-panel" data-inline="controlleroc" style="margin-top:10px; display:${isOn?'block':'none'};">
+      <div class="row" style="gap:10px; align-items:center; flex-wrap:wrap;">
+        <span class="pill" data-co-status>Status: …</span>
+        <label class="field" style="min-width:320px;">
+          <span class="field-label">Controller</span>
+          <select class="select" data-co-dev></select>
+        </label>
+        <label class="field" style="min-width:200px;">
+          <span class="field-label">Polling rate</span>
+          <select class="select" data-co-rate>
+            <option value="125">125 Hz (default-ish)</option>
+            <option value="250">250 Hz</option>
+            <option value="500">500 Hz</option>
+            <option value="1000" selected>1000 Hz (recommended PS4/PS5)</option>
+            <option value="2000">2000 Hz (DualSense only, experimental)</option>
+            <option value="4000">4000 Hz (DualSense only, experimental)</option>
+            <option value="8000">8000 Hz (DualSense only, experimental)</option>
+          </select>
+        </label>
+        <label class="row" style="gap:8px; align-items:center;">
+          <input type="checkbox" data-co-win11 />
+          <span class="muted" style="font-size:12px;">Windows 11 driver-load fix (Error 577/secure boot situations)</span>
+        </label>
+        <button class="btn" data-co-refresh>Refresh</button>
+        <button class="btn" data-co-apply>Apply</button>
+        <button class="btn" data-co-revert>Revert</button>
+      </div>
+      <div class="muted" style="margin-top:8px; font-size:12px; line-height:1.3;">
+        Notes: Xbox controllers often cannot truly overclock due to firmware locks. After apply/revert, unplug/replug the controller or reboot if it doesn’t reconnect.
+      </div>
+    </div>
+  `;
+} else if (item && item.id === 'adv.msi.auto_gpu_audio') {
+  inlineHtml = `
+    <div class="inline-panel" data-inline="msiguide" style="margin-top:10px; display:${isOn?'block':'none'};">
+      <div class="row" style="gap:10px; align-items:center; flex-wrap:wrap;">
+        <span class="pill" data-msi-status>Status: …</span>
+        <button class="btn" data-msi-refresh>Refresh</button>
+        <button class="btn" data-msi-apply>Apply selected</button>
+        <button class="btn" data-msi-revert>Revert selected</button>
+      </div>
+      <div data-msi-list style="margin-top:10px;"></div>
+      <div class="muted" style="margin-top:8px; font-size:12px; line-height:1.3;">
+        This only lists devices that already expose MSI support in the registry (avoids line-based devices). Reboot required after apply/revert.
+      </div>
+    </div>
+  `;
+} else if (item && item.id === 'core.set_win32_priority_sep') {
+  inlineHtml = `
+    <div class="inline-panel" data-inline="prioritysep" style="margin-top:10px; display:${isOn?'block':'none'};">
+      <div class="row" style="gap:10px; align-items:flex-end; flex-wrap:wrap;">
+        <label class="field" style="min-width:220px;">
+          <span class="field-label">Preset</span>
+          <select class="select" data-ps-mode>
+            <option value="balanced">Balanced</option>
+            <option value="latency">Latency</option>
+            <option value="fps">FPS</option>
+            <option value="custom">Custom</option>
+          </select>
+        </label>
+        <label class="field" style="min-width:180px;">
+          <span class="field-label">Custom (decimal or hex)</span>
+          <input class="input" data-ps-custom placeholder="e.g. 38 or 0x26" />
+        </label>
+        <div class="muted" style="font-size:12px; margin-bottom:2px; line-height:1.25;">Values: Balanced <b>0x26</b> (default-like), Latency <b>0x24</b> (more foreground/input bias), FPS <b>0x2A</b> (more throughput/longer slices). Custom accepts decimal or hex.</div>
+      </div>
+    </div>
+  `;
+}
+
+
+if (item && item.id === 'pass2_bcd_apply_custom') {
+  inlineHtml = `
+    <div class="inline-panel" data-inline="bcd" style="margin-top:10px; display:${isOn?'block':'none'};">
+      <div class="row" style="gap:10px; align-items:center; flex-wrap:wrap;">
+        <label class="small-muted">BCDEdit preset</label>
+        <select class="select" data-bcd-mode>
+          <option value="latency">Latency</option>
+          <option value="balanced">Balanced</option>
+          <option value="fps">FPS</option>
+          <option value="custom">Custom</option>
+        </select>
+        <button class="btn secondary" data-bcd-open type="button">Open Overrides</button>
+      </div>
+
+      <div class="row" data-bcd-custom style="margin-top:10px; gap:16px; align-items:center; flex-wrap:wrap; display:none;">
+        <label class="chk"><input type="checkbox" data-bcd-ddt /> DisableDynamicTick</label>
+        <label class="chk"><input type="checkbox" data-bcd-upt /> UsePlatformTick</label>
+        <label class="chk"><input type="checkbox" data-bcd-upc /> UsePlatformClock</label>
+        <span class="small-muted">Unchecked = "no" (removes the key)</span>
+      </div>
+    </div>
+  `;
+}
+
+if (item && item.id === 'pl.net.custom.apply') {
+  inlineHtml = `
+    <div class="inline-panel" data-inline="netcustom" style="margin-top:10px;">
+      <div class="row" style="gap:10px; align-items:center; flex-wrap:wrap;">
+        <label class="small-muted">TCP autotuning</label>
+        <select class="select" data-net-aut>
+          <option value="disabled">disabled</option>
+          <option value="highlyrestricted">highlyrestricted</option>
+          <option value="restricted">restricted</option>
+          <option value="normal" selected>normal</option>
+          <option value="experimental">experimental</option>
+        </select>
+
+        <label class="small-muted">ECN</label>
+        <select class="select" data-net-ecn>
+          <option value="disabled" selected>disabled</option>
+          <option value="enabled">enabled</option>
+        </select>
+
+        <label class="small-muted">Timestamps</label>
+        <select class="select" data-net-ts>
+          <option value="disabled" selected>disabled</option>
+          <option value="enabled">enabled</option>
+        </select>
+
+        <label class="small-muted">RSS</label>
+        <select class="select" data-net-rss>
+          <option value="enabled" selected>enabled</option>
+          <option value="disabled">disabled</option>
+        </select>
+
+        <button class="btn secondary" data-net-open type="button">Open Overrides</button>
+      </div>
+      <div class="small-muted" style="margin-top:6px;">These values apply when you press Apply on this card.</div>
+    </div>
+  `;
+}
+
+if (item && item.id === 'mem_pagefile_custom_4096_16384') {
+  inlineHtml = `
+    <div class="inline-panel" data-inline="pagefile" style="margin-top:10px; display:${isOn?'block':'none'};">
+      <div class="row" style="gap:10px; align-items:center; flex-wrap:wrap;">
+        <label class="small-muted">Preset</label>
+        <select class="select" data-pf-preset>
+          <option value="4096,16384" selected>Custom: 4096 / 16384 MB</option>
+          <option value="8192,16384">Custom: 8192 / 16384 MB</option>
+          <option value="16384,16384">Custom: 16384 / 16384 MB</option>
+          <option value="custom">Custom values…</option>
+        </select>
+
+        <label class="small-muted">Min (MB)</label>
+        <input class="input" type="number" min="256" step="256" value="4096" data-pf-min style="width:120px;" />
+        <label class="small-muted">Max (MB)</label>
+        <input class="input" type="number" min="256" step="256" value="16384" data-pf-max style="width:120px;" />
+      </div>
+      <div class="small-muted" style="margin-top:6px;">Turning this ON applies the selected Min/Max. Reboot required.</div>
+    </div>
+  `;
+}
+
+card.innerHTML = `
+
+      ${selectHtml}
+      <div class="card-title">${__eh(safeName)}</div>
+      <div class="card-desc">${__eh(formatDescription(safeDesc||''))}</div>
+      <div class="badges">
+        ${riskBadge(item.riskLevel || item.risk || 'Safe')}
+        ${item.requiresReboot ? `<span class="badge">Reboot</span>` : ``}
+      </div>
+      ${showToggle ? `
+        <label class="fo-switch" title="Toggle">
+          <input class="fo-switch-input" type="checkbox" ${isOn ? 'checked' : ''} />
+          <span class="fo-switch-track"><span class="fo-switch-thumb"></span></span>
+        </label>
+      ` : ``}
+      ${inlineHtml}
+      <div class="card-actions">
+        <button class="btn primary">${__eh(primaryLabel)}</button>
+        ${item.secondaryAction ? `<button class="btn">${__eh(item.secondaryAction.label)}</button>` : ``}
+      </div>
+    `;
+
+    // For Speed Core / Game Mode bulk sources, allow clicking the whole card to toggle the checkbox
+    if (isBulkSource) {
+      const checkbox = card.querySelector('.boost-select');
+      if (checkbox) {
+        card.addEventListener('click', (ev) => {
+          // Ignore clicks on actual buttons inside the card
+          const target = ev.target;
+          if (target.closest && target.closest('.card-actions')) return;
+          checkbox.checked = !checkbox.checked;
+        });
+      }
+    }
+
+    try{ attachInlineControllers(card, item, isOn); }catch(_e){}
+
+    async function run(action, opts){
+      const skipRefresh = !!(opts && opts.skipRefresh);
+      // Fast-path for UI actions that just open a URL or a folder/file.
+      if(item.type !== 'toggle'){
+        const steps = (item.apply && item.apply.steps) ? item.apply.steps : [];
+        if(steps.length === 1 && steps[0].type === 'open.url' && steps[0].url){
+          await window.falcon.openExternal(steps[0].url);
+          lastLog = 'Opened: ' + steps[0].url;
+          const logEl = document.getElementById('lastLogBody');
+          if (logEl) logEl.textContent = lastLog;
+          if(!skipRefresh) return refresh(false);
+          return;
+        }
+        if(steps.length === 1 && steps[0].type === 'open.path' && steps[0].path){
+          await window.falcon.openPath(steps[0].path);
+          lastLog = 'Opened: ' + steps[0].path;
+          const logEl = document.getElementById('lastLogBody');
+          if (logEl) logEl.textContent = lastLog;
+          if(!skipRefresh) return refresh(false);
+          return;
+        }
+      }
+      // Safety gating
+      const risk = normRisk(item);
+      if (itemRequiresAggressiveConsent(item)) {
+        const accepted = await ensureAggressiveConsent("tweak");
+        if (!accepted) return;
+      }
+      const needsConfirm = isHighOrCritical(risk) || item.requiresSnapshot || item.requireExplicitConfirm || item.excludeFromApplyAll;
+      if(needsConfirm){
+        const ok = await showConfirmModal({
+          title: item.warningTitle || (risk === "Critical" ? "CRITICAL ACTION" : "Warning"),
+          body: item.warningBody || item.description || item.name,
+          risk,
+          requireTyped: !!item.requireExplicitConfirm || risk==="Critical"
+        });
+        if(!ok) return;
+      }
+
+      if(item.requiresSnapshot){
+        const snap = await window.falcon.createBackup({});
+        if(!snap.ok){
+          lastLog = "Snapshot failed; action blocked.\n" + (snap.stdout||'') + "\n" + (snap.stderr||'');
+          const logEl = document.getElementById('lastLogBody');
+          if (logEl) logEl.textContent = lastLog;
+          return refresh(false);
+        }
+      }
+
+
+const applySteps = getStepsFor(item, action === "revert" ? "revert" : "apply");
+
+// Inline custom controllers (timer + priority separation)
+if (action === "apply" && item && item.id === "core.timer_set") {
+  try {
+    const preset = card.querySelector('[data-timer-preset]');
+    const custom = card.querySelector('[data-timer-custom]');
+    let us = 5000;
+    if (preset) {
+      if (String(preset.value||'').toLowerCase() === 'custom') {
+        const raw = String((custom && (custom.value || custom.placeholder)) ? (custom.value || custom.placeholder) : '5000').trim();
+        const n = parseInt(raw, 10);
+        us = (Number.isFinite(n) && n > 0) ? n : 5000;
+      } else {
+        const n = parseInt(String(preset.value||'5000'), 10);
+        us = (Number.isFinite(n) && n > 0) ? n : 5000;
+      }
+    }
+    // Ensure the apply payload carries the selected microseconds to the backend runner.
+    applySteps.length = 0;
+    applySteps.push({ type: 'timer.set', microseconds: us });
+  } catch(_e) {}
+}
+
+
+if (action === "apply" && item && item.id === "core.set_win32_priority_sep") {
+  try {
+    const modeSel = card.querySelector('[data-ps-mode]');
+    const custom = card.querySelector('[data-ps-custom]');
+    let val = 38; // Balanced (0x26)
+    const mode = modeSel ? String(modeSel.value || 'balanced').toLowerCase() : 'balanced';
+    if (mode === 'latency') val = 36;       // 0x24
+    else if (mode === 'fps') val = 42;      // 0x2A
+    else if (mode === 'custom') {
+      const raw = String((custom && custom.value) ? custom.value : '').trim();
+      if (raw) {
+        if (/^0x[0-9a-f]+$/i.test(raw)) val = parseInt(raw, 16);
+        else val = parseInt(raw, 10);
+      }
+    }
+    if (!isFinite(val) || val < 0) val = 38;
+    // Replace apply steps with selected value (keeps the same target key).
+    applySteps.length = 0;
+    applySteps.push({
+      type: 'registry.set',
+      path: 'HKLM\\SYSTEM\\CurrentControlSet\\Control\\PriorityControl',
+      name: 'Win32PrioritySeparation',
+      value: val,
+      valueType: 'DWord'
+    });
+  } catch(_e) {}
+}
+
+// More inline custom controllers (BCDEdit + Network custom + Pagefile)
+if (action === "apply" && item && item.id === "pass2_bcd_apply_custom") {
+  try {
+    const modeSel = card.querySelector('[data-bcd-mode]');
+    const chkDDT = card.querySelector('[data-bcd-ddt]');
+    const chkUPT = card.querySelector('[data-bcd-upt]');
+    const chkUPC = card.querySelector('[data-bcd-upc]');
+    const mode = modeSel ? String(modeSel.value || 'latency').toLowerCase() : 'latency';
+
+    let ddt = "yes", upt = "yes", upc = "no"; // latency defaults
+    if (mode === 'fps') { ddt="no"; upt="no"; upc="no"; }
+    else if (mode === 'balanced') { ddt="yes"; upt="no"; upc="no"; }
+    else if (mode === 'custom') {
+      ddt = (chkDDT && chkDDT.checked) ? "yes" : "no";
+      upt = (chkUPT && chkUPT.checked) ? "yes" : "no";
+      upc = (chkUPC && chkUPC.checked) ? "yes" : "no";
+    }
+
+    if (window.falcon && window.falcon.setLatencyOverrides) {
+      await window.falcon.setLatencyOverrides({ bcdedit: { disabledynamictick: ddt, useplatformtick: upt, useplatformclock: upc } });
+    }
+    // Keep the existing apply steps (script reads overrides and applies). No step replacement needed.
+  } catch(_e) {}
+}
+
+if (action === "apply" && item && item.id === "pl.net.custom.apply") {
+  try {
+    const aut = card.querySelector('[data-net-aut]');
+    const ecn = card.querySelector('[data-net-ecn]');
+    const ts  = card.querySelector('[data-net-ts]');
+    const rss = card.querySelector('[data-net-rss]');
+    const vAut = aut ? String(aut.value || 'normal') : 'normal';
+    const vEcn = ecn ? String(ecn.value || 'disabled') : 'disabled';
+    const vTs  = ts  ? String(ts.value  || 'disabled') : 'disabled';
+    const vRss = rss ? String(rss.value || 'enabled') : 'enabled';
+
+    const ps = `
+$dir = Join-Path $env:ProgramData "FalconOptimizer"
+New-Item -ItemType Directory -Force -Path $dir | Out-Null
+$fn = Join-Path $dir "network_overrides.json"
+$cfg = @{
+  profile = "custom"
+  tcp = @{ autotuning = "${vAut}"; ecn = "${vEcn}"; timestamps = "${vTs}"; rss = "${vRss}" }
+  notes = "Generated by Falcon Optimizer UI."
+}
+$cfg | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $fn -Encoding UTF8
+`;
+    applySteps.length = 0;
+    applySteps.push({ type:'ps.run', command: ps });
+    applySteps.push({ type:'ps.file', path:'scripts/network/falcon-network-profiles.ps1', args:{ Action:'apply', Profile:'custom' } });
+  } catch(_e) {}
+}
+
+if (action === "apply" && item && item.id === "mem_pagefile_custom_4096_16384") {
+  try {
+    const preset = card.querySelector('[data-pf-preset]');
+    const minEl = card.querySelector('[data-pf-min]');
+    const maxEl = card.querySelector('[data-pf-max]');
+    let minMb = 4096, maxMb = 16384;
+    if (preset && preset.value && preset.value !== 'custom') {
+      const parts = String(preset.value).split(',');
+      const a = parseInt(parts[0]||'4096',10);
+      const b = parseInt(parts[1]||'16384',10);
+      if (isFinite(a)) minMb = a;
+      if (isFinite(b)) maxMb = b;
+    } else {
+      const a = parseInt((minEl && minEl.value) ? minEl.value : '4096', 10);
+      const b = parseInt((maxEl && maxEl.value) ? maxEl.value : '16384', 10);
+      if (isFinite(a)) minMb = a;
+      if (isFinite(b)) maxMb = b;
+    }
+    if (maxMb < minMb) { const tmp = minMb; minMb = maxMb; maxMb = tmp; }
+
+    const ps = `
+Write-Output "Setting custom pagefile on C: (${minMb}-${maxMb} MB)..."
+try {
+  wmic computersystem where name="%computername%" set AutomaticManagedPagefile=False | Out-Null
+  wmic pagefileset where name="C:\\pagefile.sys" set InitialSize=${minMb},MaximumSize=${maxMb} | Out-Null
+  Write-Output "Custom pagefile set. Reboot required."
+} catch {
+  try {
+    wmic pagefileset create name="C:\\pagefile.sys" InitialSize=${minMb},MaximumSize=${maxMb} | Out-Null
+    Write-Output "Custom pagefile created. Reboot required."
+  } catch {
+    Write-Output ("Failed: {0}" -f $_.Exception.Message)
+  }
+}
+`;
+    applySteps.length = 0;
+    applySteps.push({ type:'ps.run', command: ps });
+  } catch(_e) {}
+}
+
+
+
+
+      // UI-driven custom values (prompt + step injection)
+      if (item && item.ui && item.ui.prompt && item.ui.uiKey) {
+        try {
+          const raw = window.prompt(item.ui.prompt, '');
+          if (raw === null) return; // cancelled
+          let v = String(raw).trim();
+          if (!v) return;
+          let n = 0;
+          if (/^0x[0-9a-f]+$/i.test(v)) n = parseInt(v, 16);
+          else n = parseInt(v, 10);
+          if (!Number.isFinite(n) || Number.isNaN(n)) throw new Error('Invalid number');
+          for (const s of applySteps) {
+            if (s && (s.uiKey === item.ui.uiKey) && (s.value === '__UI_NUMBER__' || typeof s.value === 'string')) {
+              s.value = n;
+            }
+          }
+        } catch (e) {
+          showToast('Custom value cancelled/invalid.', 'error');
+          return;
+        }
+      }
+
+      const revertSteps = getStepsFor(item, "revert");
+
+      if(simulationMode){
+        const plan = await window.falcon.dryRunSteps(applySteps);
+        lastLog = JSON.stringify(plan.plan, null, 2);
+        const logEl = document.getElementById('lastLogBody');
+        if (logEl) logEl.textContent = lastLog;
+        return refresh(false);
+      }
+
+      const res = await runTweakWithTimeout({
+        id: item.id,
+        mode: action,
+        steps: applySteps,
+        revertSteps,
+        meta: { riskLevel: risk, requiresSnapshot: !!item.requiresSnapshot }
+      }, 90000);
+
+      try {
+        const ok = !!(res && res.ok);
+        const nm = item && item.name ? item.name : item.id;
+        showToast((nm || "Optimization") + (ok ? " applied successfully." : " failed or partially applied. Check log."), ok ? "success" : "error");
+      } catch (toastErr) {
+        console && console.warn && console.warn("single tweak toast error", toastErr);
+      }
+
+      lastLog = (res.stdout||'') + (res.stderr||'');
+      if (item.id) {
+        tweakLogsById[item.id] = { mode: action, text: lastLog };
+      }
+      const logEl = document.getElementById('lastLogBody');
+      if (logEl) logEl.textContent = lastLog;
+      if (isToggle) {
+        const okApply = !!(res && res.ok);
+        if (okApply) {
+          // Update local state immediately, then persist via IPC.
+          try {
+            if (!toggles || typeof toggles !== 'object') toggles = {};
+            if (item && item.id) toggles[item.id] = (action === 'apply');
+          } catch(_e) {}
+          try {
+            toggles = await window.falcon.setState(item.id, action === 'apply');
+            if (!toggles || typeof toggles !== 'object') toggles = {};
+          } catch(_e) {}
+
+          // Immediately reflect state in UI (without waiting for a re-render).
+          try {
+            const input = card.querySelector('.fo-switch-input');
+            if (input) input.checked = (action === 'apply');
+            const b = card.querySelector('.card-actions .btn.primary');
+            if (b) b.textContent = (action === 'apply') ? 'Revert' : 'Apply';
+          } catch(_e) {}
+        }
+      }
+      if(!skipRefresh) refresh(false);
+      return res;
+    }
+
+    const btns = card.querySelectorAll('.card-actions .btn');
+    const mainBtn = btns[0];
+    const secBtn = btns.length > 1 ? btns[1] : null;
+    const toggleInputEl = showToggle ? card.querySelector('.fo-switch-input') : null;
+
+    if (isViewPrimary) {
+      if (mainBtn) mainBtn.onclick = () => renderTweakDetails(item);
+      if (item.secondaryAction && secBtn && !isViewSecondary) {
+        secBtn.onclick = () => run(item.secondaryAction.action || 'apply');
+      }
+    } else if (isViewSecondary) {
+      if (mainBtn) {
+        if (isSpeedCoreSource) {
+          mainBtn.onclick = () => run('apply', { skipRefresh: true });
+        } else if (isToggle) {
+          // Primary button toggles based on current state (do NOT capture stale isOn).
+          mainBtn.onclick = () => {
+            const nowOn = !!(toggles && item && item.id && toggles[item.id]);
+            return run(nowOn ? 'revert' : 'apply');
+          };
+          if (toggleInputEl) {
+            toggleInputEl.onchange = async () => {
+              const desiredOn = !!toggleInputEl.checked;
+              const nowOn = !!(toggles && item && item.id && toggles[item.id]);
+              if (desiredOn === nowOn) return;
+              const res = await run(desiredOn ? 'apply' : 'revert', { skipRefresh: true });
+              // If it failed, roll the switch back.
+              if (!(res && res.ok)) {
+                toggleInputEl.checked = nowOn;
+              } else {
+                // Ensure label updates without waiting for a full refresh.
+                try {
+                  if (mainBtn) mainBtn.textContent = desiredOn ? 'Revert' : 'Apply';
+                } catch(_e) {}
+              }
+              // Full re-render to keep everything consistent.
+              refresh(false);
+            };
+          }
+        } else {
+          mainBtn.onclick = () => run('apply');
+        }
+      }
+      if (secBtn) {
+        secBtn.onclick = () => renderTweakDetails(item);
+      }
+      if (bulkHandlers) {
+        bulkHandlers[item.id] = () => run('apply', { skipRefresh: true });
+      }
+    } else if (isBulkSource) {
+      if (mainBtn) mainBtn.onclick = () => run('apply', { skipRefresh: true });
+      if (item.secondaryAction && secBtn) {
+        secBtn.onclick = () => run(item.secondaryAction.action || 'apply');
+      }
+      if (bulkHandlers) {
+        bulkHandlers[item.id] = () => run('apply', { skipRefresh: true });
+      }
+    } else if(isToggle){
+      // Fallback toggle wiring (non-secondary views)
+      const doToggle = () => {
+        const nowOn = !!(toggles && item && item.id && toggles[item.id]);
+        return run(nowOn ? 'revert' : 'apply');
+      };
+      if(mainBtn) mainBtn.onclick = doToggle;
+      if (toggleInputEl) {
+        toggleInputEl.onchange = async () => {
+          const desiredOn = !!toggleInputEl.checked;
+          const nowOn = !!(toggles && item && item.id && toggles[item.id]);
+          if (desiredOn === nowOn) return;
+          const res = await run(desiredOn ? 'apply' : 'revert', { skipRefresh: true });
+          if (!(res && res.ok)) toggleInputEl.checked = nowOn;
+          else {
+            try { if (mainBtn) mainBtn.textContent = desiredOn ? 'Revert' : 'Apply'; } catch(_e) {}
+          }
+          refresh(false);
+        };
+      }
+      if(item.secondaryAction && secBtn){
+        secBtn.onclick = () => run(item.secondaryAction.action || 'apply');
+      }
+    } else {
+      if(mainBtn) mainBtn.onclick = () => run('apply');
+      if(item.secondaryAction && secBtn){
+        secBtn.onclick = () => run(item.secondaryAction.action || 'apply');
+      }
+    }
+
+    if(isSpeedCoreSource && bulkHandlers){
+      // handled above, but keep for safety
+      if (!bulkHandlers[item.id]) {
+        bulkHandlers[item.id] = () => run('apply', { skipRefresh: true });
+      }
+    }
+
+    grid.appendChild(card);
+  };
+
+  const BATCH = 12;
+  let idx = 0;
+  const renderBatch = () => {
+    for (let c = 0; c < BATCH && idx < filtered.length; c++, idx++) {
+      buildCard(filtered[idx]);
+    }
+    if (idx < filtered.length) {
+      requestAnimationFrame(renderBatch);
+    }
+  };
+  renderBatch();
+
+
+  if(isDebloatSource){
+    const packSources = {
+      cleaner: 'tweaks/debloat.cleaner.json',
+      services: 'tweaks/debloat.services.json',
+      tasks: 'tweaks/debloat.tasks.json',
+      autoruns: 'tweaks/debloat.autoruns.json',
+      uninstall: 'tweaks/debloat.uninstall.json'
+    };
+
+    // Default selection: safe-ish packs (no uninstall)
+    let selected = new Set(['cleaner','services','tasks','autoruns']);
+    try{
+      if(window.localStorage){
+        const raw = window.localStorage.getItem('falcon.debloat.packs');
+        if(raw){
+          const arr = JSON.parse(raw);
+          if(Array.isArray(arr) && arr.length) selected = new Set(arr);
+        }
+      }
+    }catch(_e){}
+
+    const packBoxes = Array.from(document.querySelectorAll('input.db-pack'));
+    packBoxes.forEach(b=>{
+      const p = b.getAttribute('data-pack');
+      b.checked = selected.has(p);
+      b.onchange = () => {
+        const id = b.getAttribute('data-pack');
+        if(b.checked) selected.add(id); else selected.delete(id);
+        try{
+          if(window.localStorage) window.localStorage.setItem('falcon.debloat.packs', JSON.stringify(Array.from(selected)));
+        }catch(_e){}
+      };
+    });
+
+    const selectAllBtn = document.getElementById('dbSelectAllPacks');
+    if(selectAllBtn){
+      selectAllBtn.onclick = () => {
+        const anyUnchecked = packBoxes.some(b => !b.checked);
+        packBoxes.forEach(b => {
+          b.checked = anyUnchecked;
+          const id = b.getAttribute('data-pack');
+          if(anyUnchecked) selected.add(id); else selected.delete(id);
+        });
+        try{ if(window.localStorage) window.localStorage.setItem('falcon.debloat.packs', JSON.stringify(Array.from(selected))); }catch(_e){}
+      };
+    }
+
+    const runBtn = document.getElementById('dbRunPacks');
+    if(runBtn){
+      runBtn.onclick = async () => {
+        const picks = packBoxes.filter(b=>b.checked).map(b=>b.getAttribute('data-pack'));
+        if(!picks.length){
+          showToast('Select at least one Debloat pack to run.', 'error');
+          return;
+        }
+        try{ if(window.localStorage) window.localStorage.setItem('falcon.debloat.packs', JSON.stringify(picks)); }catch(_e){}
+
+        const order = ['cleaner','uninstall','tasks','services','autoruns'];
+        const runPacks = order.filter(p=>picks.includes(p));
+
+        try {
+          showRunPanel('Debloat – running selected packs');
+          setProgress(0, 'Preparing Debloat batch…');
+          setBatchProgress(true, 0, 1, 'Preparing…');
+        } catch(_e) {}
+
+        let runnable = [];
+        for(const p of runPacks){
+          try{
+            const data = await loadJSON(packSources[p]);
+            const its = (data.items || data.tweaks || []).map(it=>{
+              if(!it.type){
+                if(it.apply && it.revert) it.type='toggle'; else it.type='action';
+              }
+              return it;
+            });
+            for(const it of its){
+              const st = (it.apply && Array.isArray(it.apply.steps)) ? it.apply.steps : [];
+              if(st.length) runnable.push({ pack:p, it });
+            }
+          }catch(e){
+            showToast('Failed to load pack: ' + p, 'error');
+          }
+        }
+
+        const total = runnable.length;
+        if(!total){
+          showToast('No runnable items found in selected packs.', 'error');
+          try{ setBatchProgress(false); }catch(_e){}
+          return;
+        }
+
+        let attempted = 0, okCount = 0, failCount = 0;
+        const update = (label) => {
+          try{
+            setBatchProgress(true, attempted, total, label || `Running ${attempted}/${total}`);
+            const pct = Math.round((attempted/total)*100);
+            setProgress(pct, `Debloat: ${attempted}/${total}`);
+          }catch(_e){}
+        };
+
+        for(const r of runnable){
+          const it = r.it;
+          const pack = r.pack;
+          update(`${pack}: ${it.name || it.id}`);
+
+          const timeout = (pack === 'uninstall' ? 240000 : 180000);
+          try{
+            const applySteps = getApplyStepsWithVerify(it);
+            const revertSteps = getStepsFor(it, 'revert');
+            const res = await runTweakWithTimeout(
+              { id: it.id, mode:'apply', steps: applySteps, revertSteps, meta:{ riskLevel: normRisk(it), from:`Debloat:${pack}` } },
+              timeout
+            );
+            if(res && res.ok) okCount++; else failCount++;
+            lastLog = (res && (res.stdout || res.stderr)) ? ((res.stdout||'') + (res.stderr||'')) : lastLog;
+            const logEl = document.getElementById('lastLogBody');
+            if (logEl) logEl.textContent = lastLog || '';
+          } catch(e){
+            failCount++;
+          }
+          attempted++;
+        }
+
+        try{
+          setBatchProgress(false);
+          setProgress(100, 'Debloat batch complete.');
+        }catch(_e){}
+
+        showToast(`Debloat complete: ${okCount} ok, ${failCount} failed.`, failCount ? 'error' : 'success');
+        refresh(false);
+      };
+    }
+  }
 
 
   if(isSpeedCoreSource){
     const selectAllBtn = document.getElementById('boostSelectAll');
-    const selectNonAppBtn = document.getElementById('boostSelectNonApp');
     const runBtn = document.getElementById('boostRunBtn');
     const getCheckboxes = () => Array.from(document.querySelectorAll('.boost-select'));
 
@@ -5299,22 +6513,6 @@ const items = dedupeNumberedClones(filteredItems).filter(it => !hiddenIds.has(it
         const boxes = getCheckboxes();
         const anyUnchecked = boxes.some(b => !b.checked);
         boxes.forEach(b => { b.checked = anyUnchecked; });
-      };
-    }
-    if (selectNonAppBtn) {
-      selectNonAppBtn.onclick = () => {
-        const appSpecificHints = ['chrome','firefox','edge','opera','discord','steam','epic','battle.net','battlenet','riot','launcher','spotify'];
-        const boxes = getCheckboxes();
-        let selected = 0;
-        boxes.forEach(cb => {
-          const id = String(cb.getAttribute('data-id') || '').toLowerCase();
-          const card = cb.closest('.card');
-          const text = String((card && card.textContent) || '').toLowerCase();
-          const isAppSpecific = appSpecificHints.some(h => id.includes(h) || text.includes(h));
-          cb.checked = !isAppSpecific;
-          if (!isAppSpecific) selected++;
-        });
-        showToast('Selected ' + selected + ' cleanup actions (non app-specific preset).', 'success');
       };
     }
     if(runBtn){
@@ -5512,25 +6710,14 @@ if (stopBtn) {
     } catch(_e) {}
 
     try {
-      const data = await loadJSON(source);
-  if (!isCurrent()) return;
+      const data = await withTimeout(
+        loadJSON(source),
+        10000,
+        `Loading ${source} timed out`
+      );
+      if (!isCurrent()) return;
 
-  let extraTopHtml = '';
-  if (source === 'tweaks/performance.library.json') {
-    extraTopHtml = `
-      <div class="panel boost-toolbar">
-        <div class="card-title">Presets</div>
-        <div class="card-desc">Apply a fast preset baseline, then use the Library below to fine-tune. Presets run multiple actions in sequence.</div>
-        <div class="boost-toolbar-actions">
-          <button class="btn secondary" id="plPresetBalanced">Apply Balanced preset</button>
-          <button class="btn primary" id="plPresetLatency">Apply Latency preset</button>
-          <button class="btn secondary" id="plPresetFps">Apply FPS preset</button>
-        </div>
-        <div class="muted" style="margin-top:8px; font-size:12px;">Tip: You can still run any single optimization card below, including custom-value cards.</div>
-      </div>
-    `;
-  }
-      const rawItems = (data.items || data.tweaks || []);
+        const rawItems = (data.items || data.tweaks || []);
       const byId = new Map(rawItems.map(it => [String(it.id||''), it]));
       const activeItems = activeIds.map(id => byId.get(String(id))).filter(Boolean);
 
