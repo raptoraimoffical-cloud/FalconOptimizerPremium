@@ -6,7 +6,7 @@
       "name": "Open Graphics Power Preferences (Windows Settings)",
       "risk": "Safe",
       "riskLevel": "Safe",
-      "category": "Power Management",
+      "category": "Utilities & Diagnostics",
       "description": "Launches per-app GPU preference panel from the Power Management section.",
       "apply": {
         "steps": [
@@ -23,7 +23,7 @@
       "name": "Overlay/Graphics Power Report (/qh excerpt)",
       "risk": "Safe",
       "riskLevel": "Safe",
-      "category": "Power Management",
+      "category": "Utilities & Diagnostics",
       "description": "Exports graphics/display related settings from SCHEME_CURRENT for manual review.",
       "apply": {
         "steps": [
@@ -40,7 +40,7 @@
       "name": "Graphics: Open per-app GPU Preferences",
       "risk": "Safe",
       "riskLevel": "Safe",
-      "category": "Power Management",
+      "category": "Utilities & Diagnostics",
       "description": "Launches Windows graphics preference page for per-app high-performance GPU assignment.",
       "apply": {
         "steps": [
@@ -57,7 +57,7 @@
       "name": "Graphics: Open HDR and Variable Refresh Rate pages",
       "risk": "Safe",
       "riskLevel": "Safe",
-      "category": "Power Management",
+      "category": "Utilities & Diagnostics",
       "description": "Quick-opens advanced display pages relevant to graphics power behavior.",
       "apply": {
         "steps": [

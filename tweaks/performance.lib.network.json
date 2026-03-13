@@ -789,7 +789,7 @@
       "type": "button",
       "name": "Optimize Network Priority",
       "risk": "Warning",
-      "description": "[Focus: Latency / Input Delay, Ping / Network] Optimizes network provider order (Local → Hosts → DNS → NetBT).",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Optimizes network provider order (Local \u2192 Hosts \u2192 DNS \u2192 NetBT).",
       "requiresAdmin": true,
       "apply": {
         "steps": [
@@ -1553,7 +1553,7 @@
     },
     {
       "id": "adv.devices.disable_communication_ports_com1-com2__performance.lib.network",
-      "name": "Apply: Disable Communication Ports (COM1–COM2)",
+      "name": "Apply: Disable Communication Ports (COM1\u2013COM2)",
       "category": "Advanced / Devices",
       "risk": "Warning",
       "description": "[Focus: FPS, Latency / Input Delay] Disables the matching device via PnP (requires reboot for some devices).",
@@ -1607,7 +1607,7 @@
       "manualOnly": true,
       "id": "adv.devices.disable_communication_ports_com1-com2__performance.lib.network__revert",
       "type": "button",
-      "name": "Revert: Disable Communication Ports (COM1–COM2)",
+      "name": "Revert: Disable Communication Ports (COM1\u2013COM2)",
       "apply": {
         "steps": [
           {
@@ -2140,7 +2140,7 @@
     },
     {
       "id": "exp_svc_wmpnetworksvc__performance.lib.network",
-      "name": "Set service startup: WMPNetworkSvc → Disabled",
+      "name": "Set service startup: WMPNetworkSvc \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay, Ping / Network] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -2176,7 +2176,7 @@
     },
     {
       "id": "exp_svc_nettcpportsharing__performance.lib.network",
-      "name": "Set service startup: NetTcpPortSharing → Disabled",
+      "name": "Set service startup: NetTcpPortSharing \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -2326,7 +2326,7 @@
       "name": "Run Wi-Fi troubleshooting guide",
       "category": "Expansion / Network Advanced",
       "risk": "Safe",
-      "description": "[Focus: Latency / Input Delay, Ping / Network] Reference for Wi‑Fi issues.",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Reference for Wi\u2011Fi issues.",
       "requiresAdmin": false,
       "requiresReboot": false,
       "apply": {
@@ -3407,7 +3407,7 @@
       "riskLevel": "Warning",
       "requiresAdmin": true,
       "requiresReboot": false,
-      "description": "[Focus: Ping / network stability, jitter, packet loss]\nCreates a Windows QoS policy that tags **Overwatch** packets with DSCP 46 (Expedited Forwarding). If your network gets congested (someone streaming/updates), routers that honor DSCP can schedule game packets first. What to expect:\n- Best case: smoother ping under load, fewer spikes.\n- Worst case: no change (ISP/router strips DSCP). How to test:\n- Turn this on.\n- Start a download/stream on the same network.\n- Compare in-game ping/jitter with and without. Notes:\n- Ethernet usually beats Wi‑Fi for jitter.\n- Fully reversible: toggle off removes the policy.",
+      "description": "[Focus: Ping / network stability, jitter, packet loss]\nCreates a Windows QoS policy that tags **Overwatch** packets with DSCP 46 (Expedited Forwarding). If your network gets congested (someone streaming/updates), routers that honor DSCP can schedule game packets first. What to expect:\n- Best case: smoother ping under load, fewer spikes.\n- Worst case: no change (ISP/router strips DSCP). How to test:\n- Turn this on.\n- Start a download/stream on the same network.\n- Compare in-game ping/jitter with and without. Notes:\n- Ethernet usually beats Wi\u2011Fi for jitter.\n- Fully reversible: toggle off removes the policy.",
       "apply": {
         "steps": [
           {
@@ -3433,7 +3433,7 @@
       "riskLevel": "Warning",
       "requiresAdmin": true,
       "requiresReboot": false,
-      "description": "[Focus: Ping / network stability, jitter, packet loss]\nCreates a Windows QoS policy that tags **Overwatch** packets with DSCP 46 (Expedited Forwarding). If your network gets congested (someone streaming/updates), routers that honor DSCP can schedule game packets first. What to expect:\n- Best case: smoother ping under load, fewer spikes.\n- Worst case: no change (ISP/router strips DSCP). How to test:\n- Turn this on.\n- Start a download/stream on the same network.\n- Compare in-game ping/jitter with and without. Notes:\n- Ethernet usually beats Wi‑Fi for jitter.\n- Fully reversible: toggle off removes the policy.",
+      "description": "[Focus: Ping / network stability, jitter, packet loss]\nCreates a Windows QoS policy that tags **Overwatch** packets with DSCP 46 (Expedited Forwarding). If your network gets congested (someone streaming/updates), routers that honor DSCP can schedule game packets first. What to expect:\n- Best case: smoother ping under load, fewer spikes.\n- Worst case: no change (ISP/router strips DSCP). How to test:\n- Turn this on.\n- Start a download/stream on the same network.\n- Compare in-game ping/jitter with and without. Notes:\n- Ethernet usually beats Wi\u2011Fi for jitter.\n- Fully reversible: toggle off removes the policy.",
       "id": "game.overwatch.qos_dscp46_main__performance.lib.network__revert",
       "type": "button",
       "name": "Revert: QoS: Prioritize Game Traffic (DSCP 46)",
@@ -3450,13 +3450,13 @@
     {
       "id": "game.overwatch.qos_dscp46_launcher__performance.lib.network",
       "type": "button",
-      "name": "Apply: QoS: Prioritize Launcher / Anti‑Cheat Traffic (DSCP 46)",
+      "name": "Apply: QoS: Prioritize Launcher / Anti\u2011Cheat Traffic (DSCP 46)",
       "category": "Game Specific / Overwatch",
       "risk": "Warning",
       "riskLevel": "Warning",
       "requiresAdmin": true,
       "requiresReboot": false,
-      "description": "[Focus: matchmaking stability]\nAdds a second QoS policy for the launcher/anti‑cheat process commonly used with **Overwatch**. When it helps:\n- Party/matchmaking traffic shares a busy connection. If unsure:\n- Leave this off and only use the main game policy.",
+      "description": "[Focus: matchmaking stability]\nAdds a second QoS policy for the launcher/anti\u2011cheat process commonly used with **Overwatch**. When it helps:\n- Party/matchmaking traffic shares a busy connection. If unsure:\n- Leave this off and only use the main game policy.",
       "apply": {
         "steps": [
           {
@@ -3482,10 +3482,10 @@
       "riskLevel": "Warning",
       "requiresAdmin": true,
       "requiresReboot": false,
-      "description": "[Focus: matchmaking stability]\nAdds a second QoS policy for the launcher/anti‑cheat process commonly used with **Overwatch**. When it helps:\n- Party/matchmaking traffic shares a busy connection. If unsure:\n- Leave this off and only use the main game policy.",
+      "description": "[Focus: matchmaking stability]\nAdds a second QoS policy for the launcher/anti\u2011cheat process commonly used with **Overwatch**. When it helps:\n- Party/matchmaking traffic shares a busy connection. If unsure:\n- Leave this off and only use the main game policy.",
       "id": "game.overwatch.qos_dscp46_launcher__performance.lib.network__revert",
       "type": "button",
-      "name": "Revert: QoS: Prioritize Launcher / Anti‑Cheat Traffic (DSCP 46)",
+      "name": "Revert: QoS: Prioritize Launcher / Anti\u2011Cheat Traffic (DSCP 46)",
       "apply": {
         "steps": [
           {
@@ -3614,7 +3614,7 @@
       "riskLevel": "Warning",
       "requiresAdmin": true,
       "requiresReboot": false,
-      "description": "[Focus: Ping / network stability, jitter, packet loss]\nCreates a Windows QoS policy that tags **Apex Legends** packets with DSCP 46 (Expedited Forwarding). If your network gets congested (someone streaming/updates), routers that honor DSCP can schedule game packets first. What to expect:\n- Best case: smoother ping under load, fewer spikes.\n- Worst case: no change (ISP/router strips DSCP). How to test:\n- Turn this on.\n- Start a download/stream on the same network.\n- Compare in-game ping/jitter with and without. Notes:\n- Ethernet usually beats Wi‑Fi for jitter.\n- Fully reversible: toggle off removes the policy.",
+      "description": "[Focus: Ping / network stability, jitter, packet loss]\nCreates a Windows QoS policy that tags **Apex Legends** packets with DSCP 46 (Expedited Forwarding). If your network gets congested (someone streaming/updates), routers that honor DSCP can schedule game packets first. What to expect:\n- Best case: smoother ping under load, fewer spikes.\n- Worst case: no change (ISP/router strips DSCP). How to test:\n- Turn this on.\n- Start a download/stream on the same network.\n- Compare in-game ping/jitter with and without. Notes:\n- Ethernet usually beats Wi\u2011Fi for jitter.\n- Fully reversible: toggle off removes the policy.",
       "apply": {
         "steps": [
           {
@@ -3640,7 +3640,7 @@
       "riskLevel": "Warning",
       "requiresAdmin": true,
       "requiresReboot": false,
-      "description": "[Focus: Ping / network stability, jitter, packet loss]\nCreates a Windows QoS policy that tags **Apex Legends** packets with DSCP 46 (Expedited Forwarding). If your network gets congested (someone streaming/updates), routers that honor DSCP can schedule game packets first. What to expect:\n- Best case: smoother ping under load, fewer spikes.\n- Worst case: no change (ISP/router strips DSCP). How to test:\n- Turn this on.\n- Start a download/stream on the same network.\n- Compare in-game ping/jitter with and without. Notes:\n- Ethernet usually beats Wi‑Fi for jitter.\n- Fully reversible: toggle off removes the policy.",
+      "description": "[Focus: Ping / network stability, jitter, packet loss]\nCreates a Windows QoS policy that tags **Apex Legends** packets with DSCP 46 (Expedited Forwarding). If your network gets congested (someone streaming/updates), routers that honor DSCP can schedule game packets first. What to expect:\n- Best case: smoother ping under load, fewer spikes.\n- Worst case: no change (ISP/router strips DSCP). How to test:\n- Turn this on.\n- Start a download/stream on the same network.\n- Compare in-game ping/jitter with and without. Notes:\n- Ethernet usually beats Wi\u2011Fi for jitter.\n- Fully reversible: toggle off removes the policy.",
       "id": "game.apex.qos_dscp46_main__performance.lib.network__revert",
       "type": "button",
       "name": "Revert: QoS: Prioritize Game Traffic (DSCP 46)",
@@ -3657,13 +3657,13 @@
     {
       "id": "game.apex.qos_dscp46_launcher__performance.lib.network",
       "type": "button",
-      "name": "Apply: QoS: Prioritize Launcher / Anti‑Cheat Traffic (DSCP 46)",
+      "name": "Apply: QoS: Prioritize Launcher / Anti\u2011Cheat Traffic (DSCP 46)",
       "category": "Game Specific / Apex Legends",
       "risk": "Warning",
       "riskLevel": "Warning",
       "requiresAdmin": true,
       "requiresReboot": false,
-      "description": "[Focus: matchmaking stability]\nAdds a second QoS policy for the launcher/anti‑cheat process commonly used with **Apex Legends**. When it helps:\n- Party/matchmaking traffic shares a busy connection. If unsure:\n- Leave this off and only use the main game policy.",
+      "description": "[Focus: matchmaking stability]\nAdds a second QoS policy for the launcher/anti\u2011cheat process commonly used with **Apex Legends**. When it helps:\n- Party/matchmaking traffic shares a busy connection. If unsure:\n- Leave this off and only use the main game policy.",
       "apply": {
         "steps": [
           {
@@ -3689,10 +3689,10 @@
       "riskLevel": "Warning",
       "requiresAdmin": true,
       "requiresReboot": false,
-      "description": "[Focus: matchmaking stability]\nAdds a second QoS policy for the launcher/anti‑cheat process commonly used with **Apex Legends**. When it helps:\n- Party/matchmaking traffic shares a busy connection. If unsure:\n- Leave this off and only use the main game policy.",
+      "description": "[Focus: matchmaking stability]\nAdds a second QoS policy for the launcher/anti\u2011cheat process commonly used with **Apex Legends**. When it helps:\n- Party/matchmaking traffic shares a busy connection. If unsure:\n- Leave this off and only use the main game policy.",
       "id": "game.apex.qos_dscp46_launcher__performance.lib.network__revert",
       "type": "button",
-      "name": "Revert: QoS: Prioritize Launcher / Anti‑Cheat Traffic (DSCP 46)",
+      "name": "Revert: QoS: Prioritize Launcher / Anti\u2011Cheat Traffic (DSCP 46)",
       "apply": {
         "steps": [
           {
@@ -3821,7 +3821,7 @@
       "riskLevel": "Warning",
       "requiresAdmin": true,
       "requiresReboot": false,
-      "description": "[Focus: Ping / network stability, jitter, packet loss]\nCreates a Windows QoS policy that tags **GeForce NOW** packets with DSCP 46 (Expedited Forwarding). If your network gets congested (someone streaming/updates), routers that honor DSCP can schedule game packets first. What to expect:\n- Best case: smoother ping under load, fewer spikes.\n- Worst case: no change (ISP/router strips DSCP). How to test:\n- Turn this on.\n- Start a download/stream on the same network.\n- Compare in-game ping/jitter with and without. Notes:\n- Ethernet usually beats Wi‑Fi for jitter.\n- Fully reversible: toggle off removes the policy.",
+      "description": "[Focus: Ping / network stability, jitter, packet loss]\nCreates a Windows QoS policy that tags **GeForce NOW** packets with DSCP 46 (Expedited Forwarding). If your network gets congested (someone streaming/updates), routers that honor DSCP can schedule game packets first. What to expect:\n- Best case: smoother ping under load, fewer spikes.\n- Worst case: no change (ISP/router strips DSCP). How to test:\n- Turn this on.\n- Start a download/stream on the same network.\n- Compare in-game ping/jitter with and without. Notes:\n- Ethernet usually beats Wi\u2011Fi for jitter.\n- Fully reversible: toggle off removes the policy.",
       "apply": {
         "steps": [
           {
@@ -3847,7 +3847,7 @@
       "riskLevel": "Warning",
       "requiresAdmin": true,
       "requiresReboot": false,
-      "description": "[Focus: Ping / network stability, jitter, packet loss]\nCreates a Windows QoS policy that tags **GeForce NOW** packets with DSCP 46 (Expedited Forwarding). If your network gets congested (someone streaming/updates), routers that honor DSCP can schedule game packets first. What to expect:\n- Best case: smoother ping under load, fewer spikes.\n- Worst case: no change (ISP/router strips DSCP). How to test:\n- Turn this on.\n- Start a download/stream on the same network.\n- Compare in-game ping/jitter with and without. Notes:\n- Ethernet usually beats Wi‑Fi for jitter.\n- Fully reversible: toggle off removes the policy.",
+      "description": "[Focus: Ping / network stability, jitter, packet loss]\nCreates a Windows QoS policy that tags **GeForce NOW** packets with DSCP 46 (Expedited Forwarding). If your network gets congested (someone streaming/updates), routers that honor DSCP can schedule game packets first. What to expect:\n- Best case: smoother ping under load, fewer spikes.\n- Worst case: no change (ISP/router strips DSCP). How to test:\n- Turn this on.\n- Start a download/stream on the same network.\n- Compare in-game ping/jitter with and without. Notes:\n- Ethernet usually beats Wi\u2011Fi for jitter.\n- Fully reversible: toggle off removes the policy.",
       "id": "game.geforcenow.qos_dscp46_main__performance.lib.network__revert",
       "type": "button",
       "name": "Revert: QoS: Prioritize Game Traffic (DSCP 46)",
@@ -3979,7 +3979,7 @@
       "riskLevel": "Warning",
       "requiresAdmin": true,
       "requiresReboot": false,
-      "description": "[Focus: Ping / network stability, jitter, packet loss]\nCreates a Windows QoS policy that tags **Valorant** packets with DSCP 46 (Expedited Forwarding). If your network gets congested (someone streaming/updates), routers that honor DSCP can schedule game packets first. What to expect:\n- Best case: smoother ping under load, fewer spikes.\n- Worst case: no change (ISP/router strips DSCP). How to test:\n- Turn this on.\n- Start a download/stream on the same network.\n- Compare in-game ping/jitter with and without. Notes:\n- Ethernet usually beats Wi‑Fi for jitter.\n- Fully reversible: toggle off removes the policy.",
+      "description": "[Focus: Ping / network stability, jitter, packet loss]\nCreates a Windows QoS policy that tags **Valorant** packets with DSCP 46 (Expedited Forwarding). If your network gets congested (someone streaming/updates), routers that honor DSCP can schedule game packets first. What to expect:\n- Best case: smoother ping under load, fewer spikes.\n- Worst case: no change (ISP/router strips DSCP). How to test:\n- Turn this on.\n- Start a download/stream on the same network.\n- Compare in-game ping/jitter with and without. Notes:\n- Ethernet usually beats Wi\u2011Fi for jitter.\n- Fully reversible: toggle off removes the policy.",
       "apply": {
         "steps": [
           {
@@ -4005,7 +4005,7 @@
       "riskLevel": "Warning",
       "requiresAdmin": true,
       "requiresReboot": false,
-      "description": "[Focus: Ping / network stability, jitter, packet loss]\nCreates a Windows QoS policy that tags **Valorant** packets with DSCP 46 (Expedited Forwarding). If your network gets congested (someone streaming/updates), routers that honor DSCP can schedule game packets first. What to expect:\n- Best case: smoother ping under load, fewer spikes.\n- Worst case: no change (ISP/router strips DSCP). How to test:\n- Turn this on.\n- Start a download/stream on the same network.\n- Compare in-game ping/jitter with and without. Notes:\n- Ethernet usually beats Wi‑Fi for jitter.\n- Fully reversible: toggle off removes the policy.",
+      "description": "[Focus: Ping / network stability, jitter, packet loss]\nCreates a Windows QoS policy that tags **Valorant** packets with DSCP 46 (Expedited Forwarding). If your network gets congested (someone streaming/updates), routers that honor DSCP can schedule game packets first. What to expect:\n- Best case: smoother ping under load, fewer spikes.\n- Worst case: no change (ISP/router strips DSCP). How to test:\n- Turn this on.\n- Start a download/stream on the same network.\n- Compare in-game ping/jitter with and without. Notes:\n- Ethernet usually beats Wi\u2011Fi for jitter.\n- Fully reversible: toggle off removes the policy.",
       "id": "game.valorant.qos_dscp46_main__performance.lib.network__revert",
       "type": "button",
       "name": "Revert: QoS: Prioritize Game Traffic (DSCP 46)",
@@ -4022,13 +4022,13 @@
     {
       "id": "game.valorant.qos_dscp46_launcher__performance.lib.network",
       "type": "button",
-      "name": "Apply: QoS: Prioritize Launcher / Anti‑Cheat Traffic (DSCP 46)",
+      "name": "Apply: QoS: Prioritize Launcher / Anti\u2011Cheat Traffic (DSCP 46)",
       "category": "Game Specific / Valorant",
       "risk": "Warning",
       "riskLevel": "Warning",
       "requiresAdmin": true,
       "requiresReboot": false,
-      "description": "[Focus: matchmaking stability]\nAdds a second QoS policy for the launcher/anti‑cheat process commonly used with **Valorant**. When it helps:\n- Party/matchmaking traffic shares a busy connection. If unsure:\n- Leave this off and only use the main game policy.",
+      "description": "[Focus: matchmaking stability]\nAdds a second QoS policy for the launcher/anti\u2011cheat process commonly used with **Valorant**. When it helps:\n- Party/matchmaking traffic shares a busy connection. If unsure:\n- Leave this off and only use the main game policy.",
       "apply": {
         "steps": [
           {
@@ -4054,10 +4054,10 @@
       "riskLevel": "Warning",
       "requiresAdmin": true,
       "requiresReboot": false,
-      "description": "[Focus: matchmaking stability]\nAdds a second QoS policy for the launcher/anti‑cheat process commonly used with **Valorant**. When it helps:\n- Party/matchmaking traffic shares a busy connection. If unsure:\n- Leave this off and only use the main game policy.",
+      "description": "[Focus: matchmaking stability]\nAdds a second QoS policy for the launcher/anti\u2011cheat process commonly used with **Valorant**. When it helps:\n- Party/matchmaking traffic shares a busy connection. If unsure:\n- Leave this off and only use the main game policy.",
       "id": "game.valorant.qos_dscp46_launcher__performance.lib.network__revert",
       "type": "button",
-      "name": "Revert: QoS: Prioritize Launcher / Anti‑Cheat Traffic (DSCP 46)",
+      "name": "Revert: QoS: Prioritize Launcher / Anti\u2011Cheat Traffic (DSCP 46)",
       "apply": {
         "steps": [
           {
@@ -4186,7 +4186,7 @@
       "riskLevel": "Warning",
       "requiresAdmin": true,
       "requiresReboot": false,
-      "description": "[Focus: Ping / network stability, jitter, packet loss]\nCreates a Windows QoS policy that tags **CS2** packets with DSCP 46 (Expedited Forwarding). If your network gets congested (someone streaming/updates), routers that honor DSCP can schedule game packets first. What to expect:\n- Best case: smoother ping under load, fewer spikes.\n- Worst case: no change (ISP/router strips DSCP). How to test:\n- Turn this on.\n- Start a download/stream on the same network.\n- Compare in-game ping/jitter with and without. Notes:\n- Ethernet usually beats Wi‑Fi for jitter.\n- Fully reversible: toggle off removes the policy.",
+      "description": "[Focus: Ping / network stability, jitter, packet loss]\nCreates a Windows QoS policy that tags **CS2** packets with DSCP 46 (Expedited Forwarding). If your network gets congested (someone streaming/updates), routers that honor DSCP can schedule game packets first. What to expect:\n- Best case: smoother ping under load, fewer spikes.\n- Worst case: no change (ISP/router strips DSCP). How to test:\n- Turn this on.\n- Start a download/stream on the same network.\n- Compare in-game ping/jitter with and without. Notes:\n- Ethernet usually beats Wi\u2011Fi for jitter.\n- Fully reversible: toggle off removes the policy.",
       "apply": {
         "steps": [
           {
@@ -4212,7 +4212,7 @@
       "riskLevel": "Warning",
       "requiresAdmin": true,
       "requiresReboot": false,
-      "description": "[Focus: Ping / network stability, jitter, packet loss]\nCreates a Windows QoS policy that tags **CS2** packets with DSCP 46 (Expedited Forwarding). If your network gets congested (someone streaming/updates), routers that honor DSCP can schedule game packets first. What to expect:\n- Best case: smoother ping under load, fewer spikes.\n- Worst case: no change (ISP/router strips DSCP). How to test:\n- Turn this on.\n- Start a download/stream on the same network.\n- Compare in-game ping/jitter with and without. Notes:\n- Ethernet usually beats Wi‑Fi for jitter.\n- Fully reversible: toggle off removes the policy.",
+      "description": "[Focus: Ping / network stability, jitter, packet loss]\nCreates a Windows QoS policy that tags **CS2** packets with DSCP 46 (Expedited Forwarding). If your network gets congested (someone streaming/updates), routers that honor DSCP can schedule game packets first. What to expect:\n- Best case: smoother ping under load, fewer spikes.\n- Worst case: no change (ISP/router strips DSCP). How to test:\n- Turn this on.\n- Start a download/stream on the same network.\n- Compare in-game ping/jitter with and without. Notes:\n- Ethernet usually beats Wi\u2011Fi for jitter.\n- Fully reversible: toggle off removes the policy.",
       "id": "game.cs2.qos_dscp46_main__performance.lib.network__revert",
       "type": "button",
       "name": "Revert: QoS: Prioritize Game Traffic (DSCP 46)",
@@ -4229,13 +4229,13 @@
     {
       "id": "game.cs2.qos_dscp46_launcher__performance.lib.network",
       "type": "button",
-      "name": "Apply: QoS: Prioritize Launcher / Anti‑Cheat Traffic (DSCP 46)",
+      "name": "Apply: QoS: Prioritize Launcher / Anti\u2011Cheat Traffic (DSCP 46)",
       "category": "Game Specific / CS2",
       "risk": "Warning",
       "riskLevel": "Warning",
       "requiresAdmin": true,
       "requiresReboot": false,
-      "description": "[Focus: matchmaking stability]\nAdds a second QoS policy for the launcher/anti‑cheat process commonly used with **CS2**. When it helps:\n- Party/matchmaking traffic shares a busy connection. If unsure:\n- Leave this off and only use the main game policy.",
+      "description": "[Focus: matchmaking stability]\nAdds a second QoS policy for the launcher/anti\u2011cheat process commonly used with **CS2**. When it helps:\n- Party/matchmaking traffic shares a busy connection. If unsure:\n- Leave this off and only use the main game policy.",
       "apply": {
         "steps": [
           {
@@ -4261,10 +4261,10 @@
       "riskLevel": "Warning",
       "requiresAdmin": true,
       "requiresReboot": false,
-      "description": "[Focus: matchmaking stability]\nAdds a second QoS policy for the launcher/anti‑cheat process commonly used with **CS2**. When it helps:\n- Party/matchmaking traffic shares a busy connection. If unsure:\n- Leave this off and only use the main game policy.",
+      "description": "[Focus: matchmaking stability]\nAdds a second QoS policy for the launcher/anti\u2011cheat process commonly used with **CS2**. When it helps:\n- Party/matchmaking traffic shares a busy connection. If unsure:\n- Leave this off and only use the main game policy.",
       "id": "game.cs2.qos_dscp46_launcher__performance.lib.network__revert",
       "type": "button",
-      "name": "Revert: QoS: Prioritize Launcher / Anti‑Cheat Traffic (DSCP 46)",
+      "name": "Revert: QoS: Prioritize Launcher / Anti\u2011Cheat Traffic (DSCP 46)",
       "apply": {
         "steps": [
           {
@@ -4393,7 +4393,7 @@
       "riskLevel": "Warning",
       "requiresAdmin": true,
       "requiresReboot": false,
-      "description": "[Focus: Ping / network stability, jitter, packet loss]\nCreates a Windows QoS policy that tags **Rocket League** packets with DSCP 46 (Expedited Forwarding). If your network gets congested (someone streaming/updates), routers that honor DSCP can schedule game packets first. What to expect:\n- Best case: smoother ping under load, fewer spikes.\n- Worst case: no change (ISP/router strips DSCP). How to test:\n- Turn this on.\n- Start a download/stream on the same network.\n- Compare in-game ping/jitter with and without. Notes:\n- Ethernet usually beats Wi‑Fi for jitter.\n- Fully reversible: toggle off removes the policy.",
+      "description": "[Focus: Ping / network stability, jitter, packet loss]\nCreates a Windows QoS policy that tags **Rocket League** packets with DSCP 46 (Expedited Forwarding). If your network gets congested (someone streaming/updates), routers that honor DSCP can schedule game packets first. What to expect:\n- Best case: smoother ping under load, fewer spikes.\n- Worst case: no change (ISP/router strips DSCP). How to test:\n- Turn this on.\n- Start a download/stream on the same network.\n- Compare in-game ping/jitter with and without. Notes:\n- Ethernet usually beats Wi\u2011Fi for jitter.\n- Fully reversible: toggle off removes the policy.",
       "apply": {
         "steps": [
           {
@@ -4419,7 +4419,7 @@
       "riskLevel": "Warning",
       "requiresAdmin": true,
       "requiresReboot": false,
-      "description": "[Focus: Ping / network stability, jitter, packet loss]\nCreates a Windows QoS policy that tags **Rocket League** packets with DSCP 46 (Expedited Forwarding). If your network gets congested (someone streaming/updates), routers that honor DSCP can schedule game packets first. What to expect:\n- Best case: smoother ping under load, fewer spikes.\n- Worst case: no change (ISP/router strips DSCP). How to test:\n- Turn this on.\n- Start a download/stream on the same network.\n- Compare in-game ping/jitter with and without. Notes:\n- Ethernet usually beats Wi‑Fi for jitter.\n- Fully reversible: toggle off removes the policy.",
+      "description": "[Focus: Ping / network stability, jitter, packet loss]\nCreates a Windows QoS policy that tags **Rocket League** packets with DSCP 46 (Expedited Forwarding). If your network gets congested (someone streaming/updates), routers that honor DSCP can schedule game packets first. What to expect:\n- Best case: smoother ping under load, fewer spikes.\n- Worst case: no change (ISP/router strips DSCP). How to test:\n- Turn this on.\n- Start a download/stream on the same network.\n- Compare in-game ping/jitter with and without. Notes:\n- Ethernet usually beats Wi\u2011Fi for jitter.\n- Fully reversible: toggle off removes the policy.",
       "id": "game.rocketleague.qos_dscp46_main__performance.lib.network__revert",
       "type": "button",
       "name": "Revert: QoS: Prioritize Game Traffic (DSCP 46)",
@@ -4436,13 +4436,13 @@
     {
       "id": "game.rocketleague.qos_dscp46_launcher__performance.lib.network",
       "type": "button",
-      "name": "Apply: QoS: Prioritize Launcher / Anti‑Cheat Traffic (DSCP 46)",
+      "name": "Apply: QoS: Prioritize Launcher / Anti\u2011Cheat Traffic (DSCP 46)",
       "category": "Game Specific / Rocket League",
       "risk": "Warning",
       "riskLevel": "Warning",
       "requiresAdmin": true,
       "requiresReboot": false,
-      "description": "[Focus: matchmaking stability]\nAdds a second QoS policy for the launcher/anti‑cheat process commonly used with **Rocket League**. When it helps:\n- Party/matchmaking traffic shares a busy connection. If unsure:\n- Leave this off and only use the main game policy.",
+      "description": "[Focus: matchmaking stability]\nAdds a second QoS policy for the launcher/anti\u2011cheat process commonly used with **Rocket League**. When it helps:\n- Party/matchmaking traffic shares a busy connection. If unsure:\n- Leave this off and only use the main game policy.",
       "apply": {
         "steps": [
           {
@@ -4468,10 +4468,10 @@
       "riskLevel": "Warning",
       "requiresAdmin": true,
       "requiresReboot": false,
-      "description": "[Focus: matchmaking stability]\nAdds a second QoS policy for the launcher/anti‑cheat process commonly used with **Rocket League**. When it helps:\n- Party/matchmaking traffic shares a busy connection. If unsure:\n- Leave this off and only use the main game policy.",
+      "description": "[Focus: matchmaking stability]\nAdds a second QoS policy for the launcher/anti\u2011cheat process commonly used with **Rocket League**. When it helps:\n- Party/matchmaking traffic shares a busy connection. If unsure:\n- Leave this off and only use the main game policy.",
       "id": "game.rocketleague.qos_dscp46_launcher__performance.lib.network__revert",
       "type": "button",
-      "name": "Revert: QoS: Prioritize Launcher / Anti‑Cheat Traffic (DSCP 46)",
+      "name": "Revert: QoS: Prioritize Launcher / Anti\u2011Cheat Traffic (DSCP 46)",
       "apply": {
         "steps": [
           {
@@ -4600,7 +4600,7 @@
       "riskLevel": "Warning",
       "requiresAdmin": true,
       "requiresReboot": false,
-      "description": "[Focus: Ping / network stability, jitter, packet loss]\nCreates a Windows QoS policy that tags **GTA** packets with DSCP 46 (Expedited Forwarding). If your network gets congested (someone streaming/updates), routers that honor DSCP can schedule game packets first. What to expect:\n- Best case: smoother ping under load, fewer spikes.\n- Worst case: no change (ISP/router strips DSCP). How to test:\n- Turn this on.\n- Start a download/stream on the same network.\n- Compare in-game ping/jitter with and without. Notes:\n- Ethernet usually beats Wi‑Fi for jitter.\n- Fully reversible: toggle off removes the policy.",
+      "description": "[Focus: Ping / network stability, jitter, packet loss]\nCreates a Windows QoS policy that tags **GTA** packets with DSCP 46 (Expedited Forwarding). If your network gets congested (someone streaming/updates), routers that honor DSCP can schedule game packets first. What to expect:\n- Best case: smoother ping under load, fewer spikes.\n- Worst case: no change (ISP/router strips DSCP). How to test:\n- Turn this on.\n- Start a download/stream on the same network.\n- Compare in-game ping/jitter with and without. Notes:\n- Ethernet usually beats Wi\u2011Fi for jitter.\n- Fully reversible: toggle off removes the policy.",
       "apply": {
         "steps": [
           {
@@ -4626,7 +4626,7 @@
       "riskLevel": "Warning",
       "requiresAdmin": true,
       "requiresReboot": false,
-      "description": "[Focus: Ping / network stability, jitter, packet loss]\nCreates a Windows QoS policy that tags **GTA** packets with DSCP 46 (Expedited Forwarding). If your network gets congested (someone streaming/updates), routers that honor DSCP can schedule game packets first. What to expect:\n- Best case: smoother ping under load, fewer spikes.\n- Worst case: no change (ISP/router strips DSCP). How to test:\n- Turn this on.\n- Start a download/stream on the same network.\n- Compare in-game ping/jitter with and without. Notes:\n- Ethernet usually beats Wi‑Fi for jitter.\n- Fully reversible: toggle off removes the policy.",
+      "description": "[Focus: Ping / network stability, jitter, packet loss]\nCreates a Windows QoS policy that tags **GTA** packets with DSCP 46 (Expedited Forwarding). If your network gets congested (someone streaming/updates), routers that honor DSCP can schedule game packets first. What to expect:\n- Best case: smoother ping under load, fewer spikes.\n- Worst case: no change (ISP/router strips DSCP). How to test:\n- Turn this on.\n- Start a download/stream on the same network.\n- Compare in-game ping/jitter with and without. Notes:\n- Ethernet usually beats Wi\u2011Fi for jitter.\n- Fully reversible: toggle off removes the policy.",
       "id": "game.gta5.qos_dscp46_main__performance.lib.network__revert",
       "type": "button",
       "name": "Revert: QoS: Prioritize Game Traffic (DSCP 46)",
@@ -4643,13 +4643,13 @@
     {
       "id": "game.gta5.qos_dscp46_launcher__performance.lib.network",
       "type": "button",
-      "name": "Apply: QoS: Prioritize Launcher / Anti‑Cheat Traffic (DSCP 46)",
+      "name": "Apply: QoS: Prioritize Launcher / Anti\u2011Cheat Traffic (DSCP 46)",
       "category": "Game Specific / GTA",
       "risk": "Warning",
       "riskLevel": "Warning",
       "requiresAdmin": true,
       "requiresReboot": false,
-      "description": "[Focus: matchmaking stability]\nAdds a second QoS policy for the launcher/anti‑cheat process commonly used with **GTA**. When it helps:\n- Party/matchmaking traffic shares a busy connection. If unsure:\n- Leave this off and only use the main game policy.",
+      "description": "[Focus: matchmaking stability]\nAdds a second QoS policy for the launcher/anti\u2011cheat process commonly used with **GTA**. When it helps:\n- Party/matchmaking traffic shares a busy connection. If unsure:\n- Leave this off and only use the main game policy.",
       "apply": {
         "steps": [
           {
@@ -4675,10 +4675,10 @@
       "riskLevel": "Warning",
       "requiresAdmin": true,
       "requiresReboot": false,
-      "description": "[Focus: matchmaking stability]\nAdds a second QoS policy for the launcher/anti‑cheat process commonly used with **GTA**. When it helps:\n- Party/matchmaking traffic shares a busy connection. If unsure:\n- Leave this off and only use the main game policy.",
+      "description": "[Focus: matchmaking stability]\nAdds a second QoS policy for the launcher/anti\u2011cheat process commonly used with **GTA**. When it helps:\n- Party/matchmaking traffic shares a busy connection. If unsure:\n- Leave this off and only use the main game policy.",
       "id": "game.gta5.qos_dscp46_launcher__performance.lib.network__revert",
       "type": "button",
-      "name": "Revert: QoS: Prioritize Launcher / Anti‑Cheat Traffic (DSCP 46)",
+      "name": "Revert: QoS: Prioritize Launcher / Anti\u2011Cheat Traffic (DSCP 46)",
       "apply": {
         "steps": [
           {
@@ -4807,7 +4807,7 @@
       "riskLevel": "Warning",
       "requiresAdmin": true,
       "requiresReboot": false,
-      "description": "[Focus: Ping / network stability, jitter, packet loss]\nCreates a Windows QoS policy that tags **League of Legends** packets with DSCP 46 (Expedited Forwarding). If your network gets congested (someone streaming/updates), routers that honor DSCP can schedule game packets first. What to expect:\n- Best case: smoother ping under load, fewer spikes.\n- Worst case: no change (ISP/router strips DSCP). How to test:\n- Turn this on.\n- Start a download/stream on the same network.\n- Compare in-game ping/jitter with and without. Notes:\n- Ethernet usually beats Wi‑Fi for jitter.\n- Fully reversible: toggle off removes the policy.",
+      "description": "[Focus: Ping / network stability, jitter, packet loss]\nCreates a Windows QoS policy that tags **League of Legends** packets with DSCP 46 (Expedited Forwarding). If your network gets congested (someone streaming/updates), routers that honor DSCP can schedule game packets first. What to expect:\n- Best case: smoother ping under load, fewer spikes.\n- Worst case: no change (ISP/router strips DSCP). How to test:\n- Turn this on.\n- Start a download/stream on the same network.\n- Compare in-game ping/jitter with and without. Notes:\n- Ethernet usually beats Wi\u2011Fi for jitter.\n- Fully reversible: toggle off removes the policy.",
       "apply": {
         "steps": [
           {
@@ -4833,7 +4833,7 @@
       "riskLevel": "Warning",
       "requiresAdmin": true,
       "requiresReboot": false,
-      "description": "[Focus: Ping / network stability, jitter, packet loss]\nCreates a Windows QoS policy that tags **League of Legends** packets with DSCP 46 (Expedited Forwarding). If your network gets congested (someone streaming/updates), routers that honor DSCP can schedule game packets first. What to expect:\n- Best case: smoother ping under load, fewer spikes.\n- Worst case: no change (ISP/router strips DSCP). How to test:\n- Turn this on.\n- Start a download/stream on the same network.\n- Compare in-game ping/jitter with and without. Notes:\n- Ethernet usually beats Wi‑Fi for jitter.\n- Fully reversible: toggle off removes the policy.",
+      "description": "[Focus: Ping / network stability, jitter, packet loss]\nCreates a Windows QoS policy that tags **League of Legends** packets with DSCP 46 (Expedited Forwarding). If your network gets congested (someone streaming/updates), routers that honor DSCP can schedule game packets first. What to expect:\n- Best case: smoother ping under load, fewer spikes.\n- Worst case: no change (ISP/router strips DSCP). How to test:\n- Turn this on.\n- Start a download/stream on the same network.\n- Compare in-game ping/jitter with and without. Notes:\n- Ethernet usually beats Wi\u2011Fi for jitter.\n- Fully reversible: toggle off removes the policy.",
       "id": "game.league.qos_dscp46_main__performance.lib.network__revert",
       "type": "button",
       "name": "Revert: QoS: Prioritize Game Traffic (DSCP 46)",
@@ -4850,13 +4850,13 @@
     {
       "id": "game.league.qos_dscp46_launcher__performance.lib.network",
       "type": "button",
-      "name": "Apply: QoS: Prioritize Launcher / Anti‑Cheat Traffic (DSCP 46)",
+      "name": "Apply: QoS: Prioritize Launcher / Anti\u2011Cheat Traffic (DSCP 46)",
       "category": "Game Specific / League of Legends",
       "risk": "Warning",
       "riskLevel": "Warning",
       "requiresAdmin": true,
       "requiresReboot": false,
-      "description": "[Focus: matchmaking stability]\nAdds a second QoS policy for the launcher/anti‑cheat process commonly used with **League of Legends**. When it helps:\n- Party/matchmaking traffic shares a busy connection. If unsure:\n- Leave this off and only use the main game policy.",
+      "description": "[Focus: matchmaking stability]\nAdds a second QoS policy for the launcher/anti\u2011cheat process commonly used with **League of Legends**. When it helps:\n- Party/matchmaking traffic shares a busy connection. If unsure:\n- Leave this off and only use the main game policy.",
       "apply": {
         "steps": [
           {
@@ -4882,10 +4882,10 @@
       "riskLevel": "Warning",
       "requiresAdmin": true,
       "requiresReboot": false,
-      "description": "[Focus: matchmaking stability]\nAdds a second QoS policy for the launcher/anti‑cheat process commonly used with **League of Legends**. When it helps:\n- Party/matchmaking traffic shares a busy connection. If unsure:\n- Leave this off and only use the main game policy.",
+      "description": "[Focus: matchmaking stability]\nAdds a second QoS policy for the launcher/anti\u2011cheat process commonly used with **League of Legends**. When it helps:\n- Party/matchmaking traffic shares a busy connection. If unsure:\n- Leave this off and only use the main game policy.",
       "id": "game.league.qos_dscp46_launcher__performance.lib.network__revert",
       "type": "button",
-      "name": "Revert: QoS: Prioritize Launcher / Anti‑Cheat Traffic (DSCP 46)",
+      "name": "Revert: QoS: Prioritize Launcher / Anti\u2011Cheat Traffic (DSCP 46)",
       "apply": {
         "steps": [
           {
@@ -5014,7 +5014,7 @@
       "riskLevel": "Warning",
       "requiresAdmin": true,
       "requiresReboot": false,
-      "description": "[Focus: Ping / network stability, jitter, packet loss]\nCreates a Windows QoS policy that tags **Call of Duty** packets with DSCP 46 (Expedited Forwarding). If your network gets congested (someone streaming/updates), routers that honor DSCP can schedule game packets first. What to expect:\n- Best case: smoother ping under load, fewer spikes.\n- Worst case: no change (ISP/router strips DSCP). How to test:\n- Turn this on.\n- Start a download/stream on the same network.\n- Compare in-game ping/jitter with and without. Notes:\n- Ethernet usually beats Wi‑Fi for jitter.\n- Fully reversible: toggle off removes the policy.",
+      "description": "[Focus: Ping / network stability, jitter, packet loss]\nCreates a Windows QoS policy that tags **Call of Duty** packets with DSCP 46 (Expedited Forwarding). If your network gets congested (someone streaming/updates), routers that honor DSCP can schedule game packets first. What to expect:\n- Best case: smoother ping under load, fewer spikes.\n- Worst case: no change (ISP/router strips DSCP). How to test:\n- Turn this on.\n- Start a download/stream on the same network.\n- Compare in-game ping/jitter with and without. Notes:\n- Ethernet usually beats Wi\u2011Fi for jitter.\n- Fully reversible: toggle off removes the policy.",
       "apply": {
         "steps": [
           {
@@ -5040,7 +5040,7 @@
       "riskLevel": "Warning",
       "requiresAdmin": true,
       "requiresReboot": false,
-      "description": "[Focus: Ping / network stability, jitter, packet loss]\nCreates a Windows QoS policy that tags **Call of Duty** packets with DSCP 46 (Expedited Forwarding). If your network gets congested (someone streaming/updates), routers that honor DSCP can schedule game packets first. What to expect:\n- Best case: smoother ping under load, fewer spikes.\n- Worst case: no change (ISP/router strips DSCP). How to test:\n- Turn this on.\n- Start a download/stream on the same network.\n- Compare in-game ping/jitter with and without. Notes:\n- Ethernet usually beats Wi‑Fi for jitter.\n- Fully reversible: toggle off removes the policy.",
+      "description": "[Focus: Ping / network stability, jitter, packet loss]\nCreates a Windows QoS policy that tags **Call of Duty** packets with DSCP 46 (Expedited Forwarding). If your network gets congested (someone streaming/updates), routers that honor DSCP can schedule game packets first. What to expect:\n- Best case: smoother ping under load, fewer spikes.\n- Worst case: no change (ISP/router strips DSCP). How to test:\n- Turn this on.\n- Start a download/stream on the same network.\n- Compare in-game ping/jitter with and without. Notes:\n- Ethernet usually beats Wi\u2011Fi for jitter.\n- Fully reversible: toggle off removes the policy.",
       "id": "game.cod.qos_dscp46_main__performance.lib.network__revert",
       "type": "button",
       "name": "Revert: QoS: Prioritize Game Traffic (DSCP 46)",
@@ -5057,13 +5057,13 @@
     {
       "id": "game.cod.qos_dscp46_launcher__performance.lib.network",
       "type": "button",
-      "name": "Apply: QoS: Prioritize Launcher / Anti‑Cheat Traffic (DSCP 46)",
+      "name": "Apply: QoS: Prioritize Launcher / Anti\u2011Cheat Traffic (DSCP 46)",
       "category": "Game Specific / Call of Duty",
       "risk": "Warning",
       "riskLevel": "Warning",
       "requiresAdmin": true,
       "requiresReboot": false,
-      "description": "[Focus: matchmaking stability]\nAdds a second QoS policy for the launcher/anti‑cheat process commonly used with **Call of Duty**. When it helps:\n- Party/matchmaking traffic shares a busy connection. If unsure:\n- Leave this off and only use the main game policy.",
+      "description": "[Focus: matchmaking stability]\nAdds a second QoS policy for the launcher/anti\u2011cheat process commonly used with **Call of Duty**. When it helps:\n- Party/matchmaking traffic shares a busy connection. If unsure:\n- Leave this off and only use the main game policy.",
       "apply": {
         "steps": [
           {
@@ -5089,10 +5089,10 @@
       "riskLevel": "Warning",
       "requiresAdmin": true,
       "requiresReboot": false,
-      "description": "[Focus: matchmaking stability]\nAdds a second QoS policy for the launcher/anti‑cheat process commonly used with **Call of Duty**. When it helps:\n- Party/matchmaking traffic shares a busy connection. If unsure:\n- Leave this off and only use the main game policy.",
+      "description": "[Focus: matchmaking stability]\nAdds a second QoS policy for the launcher/anti\u2011cheat process commonly used with **Call of Duty**. When it helps:\n- Party/matchmaking traffic shares a busy connection. If unsure:\n- Leave this off and only use the main game policy.",
       "id": "game.cod.qos_dscp46_launcher__performance.lib.network__revert",
       "type": "button",
-      "name": "Revert: QoS: Prioritize Launcher / Anti‑Cheat Traffic (DSCP 46)",
+      "name": "Revert: QoS: Prioritize Launcher / Anti\u2011Cheat Traffic (DSCP 46)",
       "apply": {
         "steps": [
           {
@@ -5663,7 +5663,7 @@
       "type": "button",
       "name": "Optimize Network Priority",
       "risk": "Warning",
-      "description": "[Focus: Latency / Input Delay, Ping / Network] Optimizes network provider order (Local → Hosts → DNS → NetBT).",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Optimizes network provider order (Local \u2192 Hosts \u2192 DNS \u2192 NetBT).",
       "requiresAdmin": true,
       "apply": {
         "steps": [
@@ -6547,18 +6547,18 @@
       }
     },
     {
-      "id": "hc_services_extra_disable_phonesvc__performance.lib.network",
-      "name": "Kill extra service: PhoneSvc",
+      "id": "hc_services_extra_disable_pfalconsvc__performance.lib.network",
+      "name": "Kill extra service: PfalconSvc",
       "category": "Hardcore / Services Extra Strip",
       "type": "action",
-      "description": "[Hardcore] Disables Phone Service integration to reduce background or network-related overhead. May break RDP, notifications, or sharing.",
+      "description": "[Hardcore] Disables Pfalcon Service integration to reduce background or network-related overhead. May break RDP, notifications, or sharing.",
       "riskLevel": "Danger",
       "requiresAdmin": true,
       "apply": {
         "steps": [
           {
             "type": "ps.run",
-            "command": "$name = 'PhoneSvc'\nWrite-Output (\"[Hardcore] Disabling additional service: PhoneSvc\")\ntry {\n  $svc = Get-Service -Name $name -ErrorAction SilentlyContinue\n  if ($svc) {\n    if ($svc.Status -eq 'Running') {\n      Stop-Service -Name $name -Force -ErrorAction SilentlyContinue\n    }\n    Set-Service -Name $name -StartupType Disabled -ErrorAction SilentlyContinue\n  } else {\n    Write-Output (\"Service not found: PhoneSvc\")\n  }\n} catch {\n  Write-Output (\"Failed to disable service PhoneSvc: \" + $_.Exception.Message)\n}"
+            "command": "$name = 'PfalconSvc'\nWrite-Output (\"[Hardcore] Disabling additional service: PfalconSvc\")\ntry {\n  $svc = Get-Service -Name $name -ErrorAction SilentlyContinue\n  if ($svc) {\n    if ($svc.Status -eq 'Running') {\n      Stop-Service -Name $name -Force -ErrorAction SilentlyContinue\n    }\n    Set-Service -Name $name -StartupType Disabled -ErrorAction SilentlyContinue\n  } else {\n    Write-Output (\"Service not found: PfalconSvc\")\n  }\n} catch {\n  Write-Output (\"Failed to disable service PfalconSvc: \" + $_.Exception.Message)\n}"
           }
         ]
       },

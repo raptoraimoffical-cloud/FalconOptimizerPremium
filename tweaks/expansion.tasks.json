@@ -4405,7 +4405,7 @@
         "steps": [
           {
             "type": "cmd.run",
-            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_ucpd_disable.bat\""
+            "command": "\"%~dp0\\scripts\\imported\\legacy imported\\legacy imported_ucpd_disable.bat\""
           }
         ]
       },

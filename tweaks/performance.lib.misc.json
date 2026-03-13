@@ -304,7 +304,7 @@
           },
           {
             "type": "cmd.run",
-            "command": "reg add \"HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\GameDVR\" /v \"MicrophoneCaptureEnabled\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+            "command": "reg add \"HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\GameDVR\" /v \"MicropfalconCaptureEnabled\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
           },
           {
             "type": "cmd.run",
@@ -920,7 +920,7 @@
           },
           {
             "type": "cmd.run",
-            "command": "sc config PhoneSvc start=disabled"
+            "command": "sc config PfalconSvc start=disabled"
           },
           {
             "type": "cmd.run",
@@ -2809,7 +2809,7 @@
           },
           {
             "type": "cmd.run",
-            "command": "reg add \"HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\GameDVR\" /v \"MicrophoneCaptureEnabled\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+            "command": "reg add \"HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\GameDVR\" /v \"MicropfalconCaptureEnabled\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
           },
           {
             "type": "cmd.run",
@@ -4303,7 +4303,7 @@
           },
           {
             "type": "cmd.run",
-            "command": "sc config PhoneSvc start=disabled"
+            "command": "sc config PfalconSvc start=disabled"
           },
           {
             "type": "cmd.run",
@@ -9570,9 +9570,9 @@
       }
     },
     {
-      "id": "debloat.services.basic__performance.lib.misc",
+      "id": "cleanup.services.basic__performance.lib.misc",
       "name": "Basic Service Preset",
-      "category": "Debloat / Services",
+      "category": "Cleanup / Services",
       "risk": "Warning",
       "description": "[Focus: FPS, Latency / Input Delay] Disables common telemetry/location services while keeping Windows Update/Defender/Store enabled.",
       "requiresAdmin": true,
@@ -9639,9 +9639,9 @@
       }
     },
     {
-      "id": "debloat.services.advanced__performance.lib.misc",
+      "id": "cleanup.services.advanced__performance.lib.misc",
       "name": "Advanced Service Preset",
-      "category": "Debloat / Services",
+      "category": "Cleanup / Services",
       "risk": "Extreme",
       "description": "[Focus: FPS, Latency / Input Delay] Aggressive latency profile. Disables Windows Update/Store/Bluetooth/Xbox-related services. May break features.",
       "requiresAdmin": true,
@@ -9778,9 +9778,9 @@
       }
     },
     {
-      "id": "debloat.services.custom__performance.lib.misc",
+      "id": "cleanup.services.custom__performance.lib.misc",
       "name": "Custom Service Configuration",
-      "category": "Debloat / Services",
+      "category": "Cleanup / Services",
       "risk": "Safe",
       "description": "[Focus: FPS, Latency / Input Delay] Opens Services management console so you can manually tune services.",
       "requiresAdmin": true,
@@ -9803,9 +9803,9 @@
       "manualOnly": true
     },
     {
-      "id": "debloat.autoruns.edge_autolaunch__performance.lib.misc",
+      "id": "cleanup.autoruns.edge_autolaunch__performance.lib.misc",
       "name": "Microsoft Edge AutoLaunch",
-      "category": "Debloat / Autoruns",
+      "category": "Cleanup / Autoruns",
       "risk": "Warning",
       "description": "[Focus: FPS, Latency / Input Delay] Disables Microsoft Edge auto-launch/background startup.",
       "requiresAdmin": true,
@@ -10029,7 +10029,7 @@
     },
     {
       "id": "util.autoruns.page",
-      "name": "Autoruns (Sysinternals) — download page",
+      "name": "Autoruns (Sysinternals) \u2014 download page",
       "category": "Apps / Utilities",
       "risk": "Safe",
       "description": "Official Autoruns page.",
@@ -10077,7 +10077,7 @@
     },
     {
       "id": "util.bcu.page",
-      "name": "Bulk Crap Uninstaller — download page",
+      "name": "Bulk Crap Uninstaller \u2014 download page",
       "category": "Apps / Utilities",
       "risk": "Safe",
       "description": "Official BCU site.",
@@ -10125,7 +10125,7 @@
     },
     {
       "id": "util.openshell.page",
-      "name": "Open-Shell — releases",
+      "name": "Open-Shell \u2014 releases",
       "category": "Apps / Utilities",
       "risk": "Safe",
       "description": "Open-Shell releases page.",
@@ -10173,7 +10173,7 @@
     },
     {
       "id": "util.ddu.page",
-      "name": "DDU — download page",
+      "name": "DDU \u2014 download page",
       "category": "Apps / Utilities",
       "risk": "Safe",
       "description": "Official DDU page.",
@@ -10243,7 +10243,7 @@
     {
       "id": "fix.audio_mic__performance.lib.misc",
       "type": "button",
-      "name": "Audio & Microphone",
+      "name": "Audio & Micropfalcon",
       "risk": "Safe",
       "description": "Restarts audio services.",
       "requiresAdmin": true,
@@ -11472,7 +11472,7 @@
         "steps": [
           {
             "type": "ps.run",
-            "command": "$names = @(\n \"discord\",\"chrome\",\"msedge\",\"spotify\",\"steam\",\"EpicGamesLauncher\",\"EpicWebHelper\",\n \"OneDrive\",\"Teams\",\"YourPhone\",\"PhoneExperienceHost\",\"GameBar\",\"GameBarFTServer\"\n)\nforeach($n in $names){\n  try {\n    $p = Get-Process -Name $n -ErrorAction SilentlyContinue\n    if($p){ Stop-Process -Id $p.Id -Force -ErrorAction SilentlyContinue }\n  } catch {}\n}"
+            "command": "$names = @(\n \"discord\",\"chrome\",\"msedge\",\"spotify\",\"steam\",\"EpicGamesLauncher\",\"EpicWebHelper\",\n \"OneDrive\",\"Teams\",\"YourPfalcon\",\"PfalconExperienceHost\",\"GameBar\",\"GameBarFTServer\"\n)\nforeach($n in $names){\n  try {\n    $p = Get-Process -Name $n -ErrorAction SilentlyContinue\n    if($p){ Stop-Process -Id $p.Id -Force -ErrorAction SilentlyContinue }\n  } catch {}\n}"
           }
         ]
       },
@@ -11695,9 +11695,9 @@
       }
     },
     {
-      "id": "debloat.uninstall.open_apps__performance.lib.misc",
+      "id": "cleanup.uninstall.open_apps__performance.lib.misc",
       "name": "Run Installed Apps",
-      "category": "Debloat / Uninstall",
+      "category": "Cleanup / Uninstall",
       "risk": "Safe",
       "description": "[Focus: FPS, Latency / Input Delay] Opens Windows 'Installed apps' so you can uninstall programs.",
       "requiresAdmin": true,
@@ -11737,7 +11737,7 @@
           },
           {
             "type": "process.kill",
-            "name": "YourPhone"
+            "name": "YourPfalcon"
           },
           {
             "type": "process.kill",
@@ -12505,8 +12505,8 @@
       }
     },
     {
-      "id": "exp_bg_microsoft_yourphone_8wekyb3d8bbwe_app__performance.lib.misc",
-      "name": "Disable background activity: Microsoft.YourPhone_8wekyb3d8bbwe",
+      "id": "exp_bg_microsoft_yourpfalcon_8wekyb3d8bbwe_app__performance.lib.misc",
+      "name": "Disable background activity: Microsoft.YourPfalcon_8wekyb3d8bbwe",
       "category": "Expansion / Background Apps",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Disables background access for this Store/UWP app by setting BackgroundAccessApplications flags.",
@@ -12516,14 +12516,14 @@
         "steps": [
           {
             "type": "registry.set",
-            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\BackgroundAccessApplications\\Microsoft.YourPhone_8wekyb3d8bbwe!App",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\BackgroundAccessApplications\\Microsoft.YourPfalcon_8wekyb3d8bbwe!App",
             "name": "Disabled",
             "value": 1,
             "valueType": "DWORD"
           },
           {
             "type": "registry.set",
-            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\BackgroundAccessApplications\\Microsoft.YourPhone_8wekyb3d8bbwe!App",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\BackgroundAccessApplications\\Microsoft.YourPfalcon_8wekyb3d8bbwe!App",
             "name": "DisabledByUser",
             "value": 1,
             "valueType": "DWORD"
@@ -12534,12 +12534,12 @@
         "steps": [
           {
             "type": "registry.remove",
-            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\BackgroundAccessApplications\\Microsoft.YourPhone_8wekyb3d8bbwe!App",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\BackgroundAccessApplications\\Microsoft.YourPfalcon_8wekyb3d8bbwe!App",
             "name": "Disabled"
           },
           {
             "type": "registry.remove",
-            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\BackgroundAccessApplications\\Microsoft.YourPhone_8wekyb3d8bbwe!App",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\BackgroundAccessApplications\\Microsoft.YourPfalcon_8wekyb3d8bbwe!App",
             "name": "DisabledByUser"
           }
         ]
@@ -20622,7 +20622,7 @@
     },
     {
       "id": "exp_svc_wercplsupport__performance.lib.misc",
-      "name": "Set service startup: wercplsupport → Disabled",
+      "name": "Set service startup: wercplsupport \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -20658,7 +20658,7 @@
     },
     {
       "id": "exp_svc_bcastdvruserservice__performance.lib.misc",
-      "name": "Set service startup: BcastDVRUserService → Disabled",
+      "name": "Set service startup: BcastDVRUserService \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -20694,7 +20694,7 @@
     },
     {
       "id": "exp_svc_gamingservices__performance.lib.misc",
-      "name": "Set service startup: GamingServices → Disabled",
+      "name": "Set service startup: GamingServices \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -20730,7 +20730,7 @@
     },
     {
       "id": "exp_svc_gamingservicesnet__performance.lib.misc",
-      "name": "Set service startup: GamingServicesNet → Disabled",
+      "name": "Set service startup: GamingServicesNet \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -20766,7 +20766,7 @@
     },
     {
       "id": "exp_svc_onesyncsvc__performance.lib.misc",
-      "name": "Set service startup: OneSyncSvc → Disabled",
+      "name": "Set service startup: OneSyncSvc \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -20802,7 +20802,7 @@
     },
     {
       "id": "exp_svc_unistoresvc__performance.lib.misc",
-      "name": "Set service startup: UnistoreSvc → Disabled",
+      "name": "Set service startup: UnistoreSvc \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -20838,7 +20838,7 @@
     },
     {
       "id": "exp_svc_userdatasvc__performance.lib.misc",
-      "name": "Set service startup: UserDataSvc → Disabled",
+      "name": "Set service startup: UserDataSvc \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -20874,7 +20874,7 @@
     },
     {
       "id": "exp_svc_messagingservice__performance.lib.misc",
-      "name": "Set service startup: MessagingService → Disabled",
+      "name": "Set service startup: MessagingService \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -20910,7 +20910,7 @@
     },
     {
       "id": "exp_svc_pimindexmaintenancesvc__performance.lib.misc",
-      "name": "Set service startup: PimIndexMaintenanceSvc → Disabled",
+      "name": "Set service startup: PimIndexMaintenanceSvc \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -20946,7 +20946,7 @@
     },
     {
       "id": "exp_svc_printnotify__performance.lib.misc",
-      "name": "Set service startup: PrintNotify → Disabled",
+      "name": "Set service startup: PrintNotify \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -20982,7 +20982,7 @@
     },
     {
       "id": "exp_svc_fax__performance.lib.misc",
-      "name": "Set service startup: Fax → Manual",
+      "name": "Set service startup: Fax \u2192 Manual",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -21017,8 +21017,8 @@
       }
     },
     {
-      "id": "exp_svc_phonesvc__performance.lib.misc",
-      "name": "Set service startup: PhoneSvc → Disabled",
+      "id": "exp_svc_pfalconsvc__performance.lib.misc",
+      "name": "Set service startup: PfalconSvc \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -21028,7 +21028,7 @@
         "steps": [
           {
             "type": "service.startup",
-            "name": "PhoneSvc",
+            "name": "PfalconSvc",
             "startType": "Disabled"
           }
         ]
@@ -21037,7 +21037,7 @@
         "steps": [
           {
             "type": "service.startup",
-            "name": "PhoneSvc",
+            "name": "PfalconSvc",
             "startType": "Automatic"
           }
         ]
@@ -21054,7 +21054,7 @@
     },
     {
       "id": "exp_svc_remoteregistry__performance.lib.misc",
-      "name": "Set service startup: RemoteRegistry → Disabled",
+      "name": "Set service startup: RemoteRegistry \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -21090,7 +21090,7 @@
     },
     {
       "id": "exp_svc_remoteaccess__performance.lib.misc",
-      "name": "Set service startup: RemoteAccess → Disabled",
+      "name": "Set service startup: RemoteAccess \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -21126,7 +21126,7 @@
     },
     {
       "id": "exp_svc_seclogon__performance.lib.misc",
-      "name": "Set service startup: seclogon → Disabled",
+      "name": "Set service startup: seclogon \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -21162,7 +21162,7 @@
     },
     {
       "id": "exp_svc_iphlpsvc__performance.lib.misc",
-      "name": "Set service startup: iphlpsvc → Manual",
+      "name": "Set service startup: iphlpsvc \u2192 Manual",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -21198,7 +21198,7 @@
     },
     {
       "id": "exp_svc_btagservice__performance.lib.misc",
-      "name": "Set service startup: BTAGService → Manual",
+      "name": "Set service startup: BTAGService \u2192 Manual",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -21234,7 +21234,7 @@
     },
     {
       "id": "exp_svc_bthavctpsvc__performance.lib.misc",
-      "name": "Set service startup: BthAvctpSvc → Disabled",
+      "name": "Set service startup: BthAvctpSvc \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -21270,7 +21270,7 @@
     },
     {
       "id": "exp_svc_wbiosrvc__performance.lib.misc",
-      "name": "Set service startup: WbioSrvc → Disabled",
+      "name": "Set service startup: WbioSrvc \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -21306,7 +21306,7 @@
     },
     {
       "id": "exp_svc_walletservice__performance.lib.misc",
-      "name": "Set service startup: WalletService → Disabled",
+      "name": "Set service startup: WalletService \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -21342,7 +21342,7 @@
     },
     {
       "id": "exp_svc_wisvc__performance.lib.misc",
-      "name": "Set service startup: wisvc → Disabled",
+      "name": "Set service startup: wisvc \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -21378,7 +21378,7 @@
     },
     {
       "id": "exp_svc_wpnservice__performance.lib.misc",
-      "name": "Set service startup: WpnService → Disabled",
+      "name": "Set service startup: WpnService \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -21414,7 +21414,7 @@
     },
     {
       "id": "exp_svc_wpnuserservice__performance.lib.misc",
-      "name": "Set service startup: WpnUserService → Disabled",
+      "name": "Set service startup: WpnUserService \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -21450,7 +21450,7 @@
     },
     {
       "id": "exp_svc_pushtoinstall__performance.lib.misc",
-      "name": "Set service startup: PushToInstall → Disabled",
+      "name": "Set service startup: PushToInstall \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -21486,7 +21486,7 @@
     },
     {
       "id": "exp_svc_waasmedicsvc__performance.lib.misc",
-      "name": "Set service startup: WaaSMedicSvc → Disabled",
+      "name": "Set service startup: WaaSMedicSvc \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -21522,7 +21522,7 @@
     },
     {
       "id": "exp_svc_bits__performance.lib.misc",
-      "name": "Set service startup: BITS → Disabled",
+      "name": "Set service startup: BITS \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -21558,7 +21558,7 @@
     },
     {
       "id": "exp_svc_cryptsvc__performance.lib.misc",
-      "name": "Set service startup: CryptSvc → Disabled",
+      "name": "Set service startup: CryptSvc \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -21594,7 +21594,7 @@
     },
     {
       "id": "exp_svc_appxsvc__performance.lib.misc",
-      "name": "Set service startup: AppXSvc → Disabled",
+      "name": "Set service startup: AppXSvc \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -21630,7 +21630,7 @@
     },
     {
       "id": "exp_svc_cdpsvc__performance.lib.misc",
-      "name": "Set service startup: CDPSvc → Disabled",
+      "name": "Set service startup: CDPSvc \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -21666,7 +21666,7 @@
     },
     {
       "id": "exp_svc_cdpusersvc__performance.lib.misc",
-      "name": "Set service startup: CDPUserSvc → Disabled",
+      "name": "Set service startup: CDPUserSvc \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -21702,7 +21702,7 @@
     },
     {
       "id": "exp_svc_dusmsvc__performance.lib.misc",
-      "name": "Set service startup: DusmSvc → Disabled",
+      "name": "Set service startup: DusmSvc \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -21738,7 +21738,7 @@
     },
     {
       "id": "exp_svc_nlasvc__performance.lib.misc",
-      "name": "Set service startup: NlaSvc → Manual",
+      "name": "Set service startup: NlaSvc \u2192 Manual",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -21774,7 +21774,7 @@
     },
     {
       "id": "exp_svc_trkwks__performance.lib.misc",
-      "name": "Set service startup: TrkWks → Disabled",
+      "name": "Set service startup: TrkWks \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -21810,7 +21810,7 @@
     },
     {
       "id": "exp_svc_ssdpsrv__performance.lib.misc",
-      "name": "Set service startup: SSDPSRV → Disabled",
+      "name": "Set service startup: SSDPSRV \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -21846,7 +21846,7 @@
     },
     {
       "id": "exp_svc_upnphost__performance.lib.misc",
-      "name": "Set service startup: upnphost → Disabled",
+      "name": "Set service startup: upnphost \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -21882,7 +21882,7 @@
     },
     {
       "id": "exp_svc_rmsvc__performance.lib.misc",
-      "name": "Set service startup: RmSvc → Disabled",
+      "name": "Set service startup: RmSvc \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -21918,7 +21918,7 @@
     },
     {
       "id": "exp_svc_lmhosts__performance.lib.misc",
-      "name": "Set service startup: lmhosts → Disabled",
+      "name": "Set service startup: lmhosts \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -21954,7 +21954,7 @@
     },
     {
       "id": "exp_svc_lanmanworkstation__performance.lib.misc",
-      "name": "Set service startup: LanmanWorkstation → Manual",
+      "name": "Set service startup: LanmanWorkstation \u2192 Manual",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -21990,7 +21990,7 @@
     },
     {
       "id": "exp_svc_lanmanserver__performance.lib.misc",
-      "name": "Set service startup: LanmanServer → Manual",
+      "name": "Set service startup: LanmanServer \u2192 Manual",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -22026,7 +22026,7 @@
     },
     {
       "id": "exp_svc_sharedaccess__performance.lib.misc",
-      "name": "Set service startup: SharedAccess → Disabled",
+      "name": "Set service startup: SharedAccess \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -22062,7 +22062,7 @@
     },
     {
       "id": "exp_svc_ikeext__performance.lib.misc",
-      "name": "Set service startup: IKEEXT → Disabled",
+      "name": "Set service startup: IKEEXT \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -22098,7 +22098,7 @@
     },
     {
       "id": "exp_svc_policyagent__performance.lib.misc",
-      "name": "Set service startup: PolicyAgent → Disabled",
+      "name": "Set service startup: PolicyAgent \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -22134,7 +22134,7 @@
     },
     {
       "id": "exp_svc_w32time__performance.lib.misc",
-      "name": "Set service startup: W32Time → Manual",
+      "name": "Set service startup: W32Time \u2192 Manual",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -22170,7 +22170,7 @@
     },
     {
       "id": "exp_svc_stisvc__performance.lib.misc",
-      "name": "Set service startup: stisvc → Disabled",
+      "name": "Set service startup: stisvc \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -22206,7 +22206,7 @@
     },
     {
       "id": "exp_svc_frameserver__performance.lib.misc",
-      "name": "Set service startup: FrameServer → Disabled",
+      "name": "Set service startup: FrameServer \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -22242,7 +22242,7 @@
     },
     {
       "id": "exp_svc_scdeviceenum__performance.lib.misc",
-      "name": "Set service startup: ScDeviceEnum → Disabled",
+      "name": "Set service startup: ScDeviceEnum \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -22278,7 +22278,7 @@
     },
     {
       "id": "exp_svc_scardsvr__performance.lib.misc",
-      "name": "Set service startup: SCardSvr → Disabled",
+      "name": "Set service startup: SCardSvr \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -22314,7 +22314,7 @@
     },
     {
       "id": "exp_svc_wiarpc__performance.lib.misc",
-      "name": "Set service startup: WiaRpc → Disabled",
+      "name": "Set service startup: WiaRpc \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -22350,7 +22350,7 @@
     },
     {
       "id": "exp_svc_diagsvc__performance.lib.misc",
-      "name": "Set service startup: DiagSvc → Disabled",
+      "name": "Set service startup: DiagSvc \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -22386,7 +22386,7 @@
     },
     {
       "id": "exp_svc_dps__performance.lib.misc",
-      "name": "Set service startup: DPS → Disabled",
+      "name": "Set service startup: DPS \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -22422,7 +22422,7 @@
     },
     {
       "id": "exp_svc_wdiservicehost__performance.lib.misc",
-      "name": "Set service startup: WdiServiceHost → Disabled",
+      "name": "Set service startup: WdiServiceHost \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -22458,7 +22458,7 @@
     },
     {
       "id": "exp_svc_wdisystemhost__performance.lib.misc",
-      "name": "Set service startup: WdiSystemHost → Disabled",
+      "name": "Set service startup: WdiSystemHost \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -22494,7 +22494,7 @@
     },
     {
       "id": "exp_svc_pcasvc__performance.lib.misc",
-      "name": "Set service startup: PcaSvc → Disabled",
+      "name": "Set service startup: PcaSvc \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -22530,7 +22530,7 @@
     },
     {
       "id": "exp_svc_pcasvc2__performance.lib.misc",
-      "name": "Set service startup: PcaSvc2 → Disabled",
+      "name": "Set service startup: PcaSvc2 \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -22566,7 +22566,7 @@
     },
     {
       "id": "exp_svc_gupdate__performance.lib.misc",
-      "name": "Set service startup: gupdate → Disabled",
+      "name": "Set service startup: gupdate \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -22602,7 +22602,7 @@
     },
     {
       "id": "exp_svc_gupdatem__performance.lib.misc",
-      "name": "Set service startup: gupdatem → Disabled",
+      "name": "Set service startup: gupdatem \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -22638,7 +22638,7 @@
     },
     {
       "id": "exp_svc_googlechromeelevationservice__performance.lib.misc",
-      "name": "Set service startup: GoogleChromeElevationService → Disabled",
+      "name": "Set service startup: GoogleChromeElevationService \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -22674,7 +22674,7 @@
     },
     {
       "id": "exp_svc_steamclientservice__performance.lib.misc",
-      "name": "Set service startup: SteamClientService → Disabled",
+      "name": "Set service startup: SteamClientService \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -22710,7 +22710,7 @@
     },
     {
       "id": "exp_svc_epiconlineservices__performance.lib.misc",
-      "name": "Set service startup: EpicOnlineServices → Disabled",
+      "name": "Set service startup: EpicOnlineServices \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -22746,7 +22746,7 @@
     },
     {
       "id": "exp_svc_eosservice__performance.lib.misc",
-      "name": "Set service startup: EosService → Disabled",
+      "name": "Set service startup: EosService \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -22782,7 +22782,7 @@
     },
     {
       "id": "exp_svc_nvtelemetrycontainer__performance.lib.misc",
-      "name": "Set service startup: NvTelemetryContainer → Disabled",
+      "name": "Set service startup: NvTelemetryContainer \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -22818,7 +22818,7 @@
     },
     {
       "id": "exp_svc_nvcontainerlocalsystem__performance.lib.misc",
-      "name": "Set service startup: NvContainerLocalSystem → Disabled",
+      "name": "Set service startup: NvContainerLocalSystem \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -22854,7 +22854,7 @@
     },
     {
       "id": "exp_svc_ajrouter__performance.lib.misc",
-      "name": "Set service startup: AJRouter → Disabled",
+      "name": "Set service startup: AJRouter \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -22890,7 +22890,7 @@
     },
     {
       "id": "exp_svc_assignedaccessmanagersvc__performance.lib.misc",
-      "name": "Set service startup: AssignedAccessManagerSvc → Disabled",
+      "name": "Set service startup: AssignedAccessManagerSvc \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -22926,7 +22926,7 @@
     },
     {
       "id": "exp_svc_bthhfsrv__performance.lib.misc",
-      "name": "Set service startup: BthHFSrv → Disabled",
+      "name": "Set service startup: BthHFSrv \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -22962,7 +22962,7 @@
     },
     {
       "id": "exp_svc_captureservice__performance.lib.misc",
-      "name": "Set service startup: CaptureService → Disabled",
+      "name": "Set service startup: CaptureService \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -22998,7 +22998,7 @@
     },
     {
       "id": "exp_svc_cbdhsvc__performance.lib.misc",
-      "name": "Set service startup: cbdhsvc → Disabled",
+      "name": "Set service startup: cbdhsvc \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -23034,7 +23034,7 @@
     },
     {
       "id": "exp_svc_cscservice__performance.lib.misc",
-      "name": "Set service startup: CscService → Disabled",
+      "name": "Set service startup: CscService \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -23070,7 +23070,7 @@
     },
     {
       "id": "exp_svc_entappsvc__performance.lib.misc",
-      "name": "Set service startup: EntAppSvc → Disabled",
+      "name": "Set service startup: EntAppSvc \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -23106,7 +23106,7 @@
     },
     {
       "id": "exp_svc_homegrouplistener__performance.lib.misc",
-      "name": "Set service startup: HomeGroupListener → Disabled",
+      "name": "Set service startup: HomeGroupListener \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -23142,7 +23142,7 @@
     },
     {
       "id": "exp_svc_homegroupprovider__performance.lib.misc",
-      "name": "Set service startup: HomeGroupProvider → Disabled",
+      "name": "Set service startup: HomeGroupProvider \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -23178,7 +23178,7 @@
     },
     {
       "id": "exp_svc_hvhost__performance.lib.misc",
-      "name": "Set service startup: HvHost → Disabled",
+      "name": "Set service startup: HvHost \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -23214,7 +23214,7 @@
     },
     {
       "id": "exp_svc_icssvc__performance.lib.misc",
-      "name": "Set service startup: icssvc → Disabled",
+      "name": "Set service startup: icssvc \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -23250,7 +23250,7 @@
     },
     {
       "id": "exp_svc_lltdsvc__performance.lib.misc",
-      "name": "Set service startup: lltdsvc → Disabled",
+      "name": "Set service startup: lltdsvc \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -23286,7 +23286,7 @@
     },
     {
       "id": "exp_svc_p9rdrservice__performance.lib.misc",
-      "name": "Set service startup: P9RdrService → Disabled",
+      "name": "Set service startup: P9RdrService \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -23322,7 +23322,7 @@
     },
     {
       "id": "exp_svc_peerdistsvc__performance.lib.misc",
-      "name": "Set service startup: PeerDistSvc → Disabled",
+      "name": "Set service startup: PeerDistSvc \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -23358,7 +23358,7 @@
     },
     {
       "id": "exp_svc_perfhost__performance.lib.misc",
-      "name": "Set service startup: PerfHost → Disabled",
+      "name": "Set service startup: PerfHost \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -23394,7 +23394,7 @@
     },
     {
       "id": "exp_svc_qwave__performance.lib.misc",
-      "name": "Set service startup: QWAVE → Disabled",
+      "name": "Set service startup: QWAVE \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -23430,7 +23430,7 @@
     },
     {
       "id": "exp_svc_rasauto__performance.lib.misc",
-      "name": "Set service startup: RasAuto → Disabled",
+      "name": "Set service startup: RasAuto \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -23466,7 +23466,7 @@
     },
     {
       "id": "exp_svc_rasman__performance.lib.misc",
-      "name": "Set service startup: RasMan → Disabled",
+      "name": "Set service startup: RasMan \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -23502,7 +23502,7 @@
     },
     {
       "id": "exp_svc_retaildemo__performance.lib.misc",
-      "name": "Set service startup: RetailDemo → Disabled",
+      "name": "Set service startup: RetailDemo \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -23538,7 +23538,7 @@
     },
     {
       "id": "exp_svc_sens__performance.lib.misc",
-      "name": "Set service startup: SENS → Disabled",
+      "name": "Set service startup: SENS \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -23574,7 +23574,7 @@
     },
     {
       "id": "exp_svc_sensordataservice__performance.lib.misc",
-      "name": "Set service startup: SensorDataService → Disabled",
+      "name": "Set service startup: SensorDataService \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -23610,7 +23610,7 @@
     },
     {
       "id": "exp_svc_sensorservice__performance.lib.misc",
-      "name": "Set service startup: SensorService → Disabled",
+      "name": "Set service startup: SensorService \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -23646,7 +23646,7 @@
     },
     {
       "id": "exp_svc_sensrsvc__performance.lib.misc",
-      "name": "Set service startup: SensrSvc → Disabled",
+      "name": "Set service startup: SensrSvc \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -23682,7 +23682,7 @@
     },
     {
       "id": "exp_svc_sharedrealitysvc__performance.lib.misc",
-      "name": "Set service startup: SharedRealitySvc → Disabled",
+      "name": "Set service startup: SharedRealitySvc \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -23718,7 +23718,7 @@
     },
     {
       "id": "exp_svc_shellhwdetection__performance.lib.misc",
-      "name": "Set service startup: ShellHWDetection → Manual",
+      "name": "Set service startup: ShellHWDetection \u2192 Manual",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -23754,7 +23754,7 @@
     },
     {
       "id": "exp_svc_smsrouter__performance.lib.misc",
-      "name": "Set service startup: SmsRouter → Disabled",
+      "name": "Set service startup: SmsRouter \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -23790,7 +23790,7 @@
     },
     {
       "id": "exp_svc_snmptrap__performance.lib.misc",
-      "name": "Set service startup: SNMPTRAP → Disabled",
+      "name": "Set service startup: SNMPTRAP \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -23826,7 +23826,7 @@
     },
     {
       "id": "exp_svc_tzautoupdate__performance.lib.misc",
-      "name": "Set service startup: tzautoupdate → Disabled",
+      "name": "Set service startup: tzautoupdate \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -28136,7 +28136,7 @@
     {
       "id": "exp.scheduler.hybrid_hetero_policy__performance.lib.misc",
       "type": "toggle",
-      "name": "Hybrid CPU Scheduler – Heterogeneous Policy",
+      "name": "Hybrid CPU Scheduler \u2013 Heterogeneous Policy",
       "category": "Expansion / MMCSS & Scheduling",
       "risk": "High",
       "description": "[Focus: Latency / Input Delay] Applies DynamicHeteroCpuPolicy* kernel keys to bias scheduling in favor of important threads on performance cores for hybrid CPUs. Advanced; only recommended for stable systems.",
@@ -32336,7 +32336,7 @@
       "requiresAdmin": false,
       "requiresReboot": false,
       "primaryLabel": "View",
-      "description": "[Focus: input delay, consistency]\nMouse\n- Turn off Windows mouse acceleration (Enhance Pointer Precision).\n- Use a stable DPI + in‑game sens. Avoid constant sens changes.\n- Polling rate: 1000Hz is standard. Higher rates can help, but may increase CPU overhead on some rigs—test for micro‑stutter. Controller\n- Wired is usually lowest-latency.\n- Reduce deadzones as low as stable.\n- Disable extra smoothing/filters if the game offers it. Check\n- If input feels “floaty” only when FPS drops, it’s a performance issue, not a mouse setting.",
+      "description": "[Focus: input delay, consistency]\nMouse\n- Turn off Windows mouse acceleration (Enhance Pointer Precision).\n- Use a stable DPI + in\u2011game sens. Avoid constant sens changes.\n- Polling rate: 1000Hz is standard. Higher rates can help, but may increase CPU overhead on some rigs\u2014test for micro\u2011stutter. Controller\n- Wired is usually lowest-latency.\n- Reduce deadzones as low as stable.\n- Disable extra smoothing/filters if the game offers it. Check\n- If input feels \u201cfloaty\u201d only when FPS drops, it\u2019s a performance issue, not a mouse setting.",
       "apply": {
         "steps": [
           {
@@ -32352,14 +32352,14 @@
     {
       "id": "game.overwatch.overlay_background_killlist__performance.lib.misc",
       "type": "action",
-      "name": "Overlay + Background App Kill‑List (Real FPS Gains)",
+      "name": "Overlay + Background App Kill\u2011List (Real FPS Gains)",
       "category": "Game Specific / Overwatch",
       "risk": "Safe",
       "riskLevel": "Safe",
       "requiresAdmin": false,
       "requiresReboot": false,
       "primaryLabel": "View",
-      "description": "[Focus: real FPS gains]\nHigh-impact background offenders:\n- RGB suites (iCUE, Armoury Crate, Mystic Light)\n- Browsers with video tabs\n- Clip recorders you don’t need\n- Cloud sync during play (OneDrive/Dropbox active sync)\n- Updaters running in the background Competitive habit\n- Before ranked: close everything unnecessary, then launch the game fresh. Why this matters\n- CPU spikes and disk spikes cause hitching more than most registry tweaks.",
+      "description": "[Focus: real FPS gains]\nHigh-impact background offenders:\n- RGB suites (iCUE, Armoury Crate, Mystic Light)\n- Browsers with video tabs\n- Clip recorders you don\u2019t need\n- Cloud sync during play (OneDrive/Dropbox active sync)\n- Updaters running in the background Competitive habit\n- Before ranked: close everything unnecessary, then launch the game fresh. Why this matters\n- CPU spikes and disk spikes cause hitching more than most registry tweaks.",
       "apply": {
         "steps": [
           {
@@ -32621,7 +32621,7 @@
       "requiresAdmin": false,
       "requiresReboot": false,
       "primaryLabel": "View",
-      "description": "[Focus: input delay, consistency]\nMouse\n- Turn off Windows mouse acceleration (Enhance Pointer Precision).\n- Use a stable DPI + in‑game sens. Avoid constant sens changes.\n- Polling rate: 1000Hz is standard. Higher rates can help, but may increase CPU overhead on some rigs—test for micro‑stutter. Controller\n- Wired is usually lowest-latency.\n- Reduce deadzones as low as stable.\n- Disable extra smoothing/filters if the game offers it. Check\n- If input feels “floaty” only when FPS drops, it’s a performance issue, not a mouse setting.",
+      "description": "[Focus: input delay, consistency]\nMouse\n- Turn off Windows mouse acceleration (Enhance Pointer Precision).\n- Use a stable DPI + in\u2011game sens. Avoid constant sens changes.\n- Polling rate: 1000Hz is standard. Higher rates can help, but may increase CPU overhead on some rigs\u2014test for micro\u2011stutter. Controller\n- Wired is usually lowest-latency.\n- Reduce deadzones as low as stable.\n- Disable extra smoothing/filters if the game offers it. Check\n- If input feels \u201cfloaty\u201d only when FPS drops, it\u2019s a performance issue, not a mouse setting.",
       "apply": {
         "steps": [
           {
@@ -32637,14 +32637,14 @@
     {
       "id": "game.apex.overlay_background_killlist__performance.lib.misc",
       "type": "action",
-      "name": "Overlay + Background App Kill‑List (Real FPS Gains)",
+      "name": "Overlay + Background App Kill\u2011List (Real FPS Gains)",
       "category": "Game Specific / Apex Legends",
       "risk": "Safe",
       "riskLevel": "Safe",
       "requiresAdmin": false,
       "requiresReboot": false,
       "primaryLabel": "View",
-      "description": "[Focus: real FPS gains]\nHigh-impact background offenders:\n- RGB suites (iCUE, Armoury Crate, Mystic Light)\n- Browsers with video tabs\n- Clip recorders you don’t need\n- Cloud sync during play (OneDrive/Dropbox active sync)\n- Updaters running in the background Competitive habit\n- Before ranked: close everything unnecessary, then launch the game fresh. Why this matters\n- CPU spikes and disk spikes cause hitching more than most registry tweaks.",
+      "description": "[Focus: real FPS gains]\nHigh-impact background offenders:\n- RGB suites (iCUE, Armoury Crate, Mystic Light)\n- Browsers with video tabs\n- Clip recorders you don\u2019t need\n- Cloud sync during play (OneDrive/Dropbox active sync)\n- Updaters running in the background Competitive habit\n- Before ranked: close everything unnecessary, then launch the game fresh. Why this matters\n- CPU spikes and disk spikes cause hitching more than most registry tweaks.",
       "apply": {
         "steps": [
           {
@@ -32906,7 +32906,7 @@
       "requiresAdmin": false,
       "requiresReboot": false,
       "primaryLabel": "View",
-      "description": "[Focus: input delay, consistency]\nMouse\n- Turn off Windows mouse acceleration (Enhance Pointer Precision).\n- Use a stable DPI + in‑game sens. Avoid constant sens changes.\n- Polling rate: 1000Hz is standard. Higher rates can help, but may increase CPU overhead on some rigs—test for micro‑stutter. Controller\n- Wired is usually lowest-latency.\n- Reduce deadzones as low as stable.\n- Disable extra smoothing/filters if the game offers it. Check\n- If input feels “floaty” only when FPS drops, it’s a performance issue, not a mouse setting.",
+      "description": "[Focus: input delay, consistency]\nMouse\n- Turn off Windows mouse acceleration (Enhance Pointer Precision).\n- Use a stable DPI + in\u2011game sens. Avoid constant sens changes.\n- Polling rate: 1000Hz is standard. Higher rates can help, but may increase CPU overhead on some rigs\u2014test for micro\u2011stutter. Controller\n- Wired is usually lowest-latency.\n- Reduce deadzones as low as stable.\n- Disable extra smoothing/filters if the game offers it. Check\n- If input feels \u201cfloaty\u201d only when FPS drops, it\u2019s a performance issue, not a mouse setting.",
       "apply": {
         "steps": [
           {
@@ -32922,14 +32922,14 @@
     {
       "id": "game.geforcenow.overlay_background_killlist__performance.lib.misc",
       "type": "action",
-      "name": "Overlay + Background App Kill‑List (Real FPS Gains)",
+      "name": "Overlay + Background App Kill\u2011List (Real FPS Gains)",
       "category": "Game Specific / GeForce NOW",
       "risk": "Safe",
       "riskLevel": "Safe",
       "requiresAdmin": false,
       "requiresReboot": false,
       "primaryLabel": "View",
-      "description": "[Focus: real FPS gains]\nHigh-impact background offenders:\n- RGB suites (iCUE, Armoury Crate, Mystic Light)\n- Browsers with video tabs\n- Clip recorders you don’t need\n- Cloud sync during play (OneDrive/Dropbox active sync)\n- Updaters running in the background Competitive habit\n- Before ranked: close everything unnecessary, then launch the game fresh. Why this matters\n- CPU spikes and disk spikes cause hitching more than most registry tweaks.",
+      "description": "[Focus: real FPS gains]\nHigh-impact background offenders:\n- RGB suites (iCUE, Armoury Crate, Mystic Light)\n- Browsers with video tabs\n- Clip recorders you don\u2019t need\n- Cloud sync during play (OneDrive/Dropbox active sync)\n- Updaters running in the background Competitive habit\n- Before ranked: close everything unnecessary, then launch the game fresh. Why this matters\n- CPU spikes and disk spikes cause hitching more than most registry tweaks.",
       "apply": {
         "steps": [
           {
@@ -33191,7 +33191,7 @@
       "requiresAdmin": false,
       "requiresReboot": false,
       "primaryLabel": "View",
-      "description": "[Focus: input delay, consistency]\nMouse\n- Turn off Windows mouse acceleration (Enhance Pointer Precision).\n- Use a stable DPI + in‑game sens. Avoid constant sens changes.\n- Polling rate: 1000Hz is standard. Higher rates can help, but may increase CPU overhead on some rigs—test for micro‑stutter. Controller\n- Wired is usually lowest-latency.\n- Reduce deadzones as low as stable.\n- Disable extra smoothing/filters if the game offers it. Check\n- If input feels “floaty” only when FPS drops, it’s a performance issue, not a mouse setting.",
+      "description": "[Focus: input delay, consistency]\nMouse\n- Turn off Windows mouse acceleration (Enhance Pointer Precision).\n- Use a stable DPI + in\u2011game sens. Avoid constant sens changes.\n- Polling rate: 1000Hz is standard. Higher rates can help, but may increase CPU overhead on some rigs\u2014test for micro\u2011stutter. Controller\n- Wired is usually lowest-latency.\n- Reduce deadzones as low as stable.\n- Disable extra smoothing/filters if the game offers it. Check\n- If input feels \u201cfloaty\u201d only when FPS drops, it\u2019s a performance issue, not a mouse setting.",
       "apply": {
         "steps": [
           {
@@ -33207,14 +33207,14 @@
     {
       "id": "game.valorant.overlay_background_killlist__performance.lib.misc",
       "type": "action",
-      "name": "Overlay + Background App Kill‑List (Real FPS Gains)",
+      "name": "Overlay + Background App Kill\u2011List (Real FPS Gains)",
       "category": "Game Specific / Valorant",
       "risk": "Safe",
       "riskLevel": "Safe",
       "requiresAdmin": false,
       "requiresReboot": false,
       "primaryLabel": "View",
-      "description": "[Focus: real FPS gains]\nHigh-impact background offenders:\n- RGB suites (iCUE, Armoury Crate, Mystic Light)\n- Browsers with video tabs\n- Clip recorders you don’t need\n- Cloud sync during play (OneDrive/Dropbox active sync)\n- Updaters running in the background Competitive habit\n- Before ranked: close everything unnecessary, then launch the game fresh. Why this matters\n- CPU spikes and disk spikes cause hitching more than most registry tweaks.",
+      "description": "[Focus: real FPS gains]\nHigh-impact background offenders:\n- RGB suites (iCUE, Armoury Crate, Mystic Light)\n- Browsers with video tabs\n- Clip recorders you don\u2019t need\n- Cloud sync during play (OneDrive/Dropbox active sync)\n- Updaters running in the background Competitive habit\n- Before ranked: close everything unnecessary, then launch the game fresh. Why this matters\n- CPU spikes and disk spikes cause hitching more than most registry tweaks.",
       "apply": {
         "steps": [
           {
@@ -33476,7 +33476,7 @@
       "requiresAdmin": false,
       "requiresReboot": false,
       "primaryLabel": "View",
-      "description": "[Focus: input delay, consistency]\nMouse\n- Turn off Windows mouse acceleration (Enhance Pointer Precision).\n- Use a stable DPI + in‑game sens. Avoid constant sens changes.\n- Polling rate: 1000Hz is standard. Higher rates can help, but may increase CPU overhead on some rigs—test for micro‑stutter. Controller\n- Wired is usually lowest-latency.\n- Reduce deadzones as low as stable.\n- Disable extra smoothing/filters if the game offers it. Check\n- If input feels “floaty” only when FPS drops, it’s a performance issue, not a mouse setting.",
+      "description": "[Focus: input delay, consistency]\nMouse\n- Turn off Windows mouse acceleration (Enhance Pointer Precision).\n- Use a stable DPI + in\u2011game sens. Avoid constant sens changes.\n- Polling rate: 1000Hz is standard. Higher rates can help, but may increase CPU overhead on some rigs\u2014test for micro\u2011stutter. Controller\n- Wired is usually lowest-latency.\n- Reduce deadzones as low as stable.\n- Disable extra smoothing/filters if the game offers it. Check\n- If input feels \u201cfloaty\u201d only when FPS drops, it\u2019s a performance issue, not a mouse setting.",
       "apply": {
         "steps": [
           {
@@ -33492,14 +33492,14 @@
     {
       "id": "game.cs2.overlay_background_killlist__performance.lib.misc",
       "type": "action",
-      "name": "Overlay + Background App Kill‑List (Real FPS Gains)",
+      "name": "Overlay + Background App Kill\u2011List (Real FPS Gains)",
       "category": "Game Specific / CS2",
       "risk": "Safe",
       "riskLevel": "Safe",
       "requiresAdmin": false,
       "requiresReboot": false,
       "primaryLabel": "View",
-      "description": "[Focus: real FPS gains]\nHigh-impact background offenders:\n- RGB suites (iCUE, Armoury Crate, Mystic Light)\n- Browsers with video tabs\n- Clip recorders you don’t need\n- Cloud sync during play (OneDrive/Dropbox active sync)\n- Updaters running in the background Competitive habit\n- Before ranked: close everything unnecessary, then launch the game fresh. Why this matters\n- CPU spikes and disk spikes cause hitching more than most registry tweaks.",
+      "description": "[Focus: real FPS gains]\nHigh-impact background offenders:\n- RGB suites (iCUE, Armoury Crate, Mystic Light)\n- Browsers with video tabs\n- Clip recorders you don\u2019t need\n- Cloud sync during play (OneDrive/Dropbox active sync)\n- Updaters running in the background Competitive habit\n- Before ranked: close everything unnecessary, then launch the game fresh. Why this matters\n- CPU spikes and disk spikes cause hitching more than most registry tweaks.",
       "apply": {
         "steps": [
           {
@@ -33761,7 +33761,7 @@
       "requiresAdmin": false,
       "requiresReboot": false,
       "primaryLabel": "View",
-      "description": "[Focus: input delay, consistency]\nMouse\n- Turn off Windows mouse acceleration (Enhance Pointer Precision).\n- Use a stable DPI + in‑game sens. Avoid constant sens changes.\n- Polling rate: 1000Hz is standard. Higher rates can help, but may increase CPU overhead on some rigs—test for micro‑stutter. Controller\n- Wired is usually lowest-latency.\n- Reduce deadzones as low as stable.\n- Disable extra smoothing/filters if the game offers it. Check\n- If input feels “floaty” only when FPS drops, it’s a performance issue, not a mouse setting.",
+      "description": "[Focus: input delay, consistency]\nMouse\n- Turn off Windows mouse acceleration (Enhance Pointer Precision).\n- Use a stable DPI + in\u2011game sens. Avoid constant sens changes.\n- Polling rate: 1000Hz is standard. Higher rates can help, but may increase CPU overhead on some rigs\u2014test for micro\u2011stutter. Controller\n- Wired is usually lowest-latency.\n- Reduce deadzones as low as stable.\n- Disable extra smoothing/filters if the game offers it. Check\n- If input feels \u201cfloaty\u201d only when FPS drops, it\u2019s a performance issue, not a mouse setting.",
       "apply": {
         "steps": [
           {
@@ -33777,14 +33777,14 @@
     {
       "id": "game.rocketleague.overlay_background_killlist__performance.lib.misc",
       "type": "action",
-      "name": "Overlay + Background App Kill‑List (Real FPS Gains)",
+      "name": "Overlay + Background App Kill\u2011List (Real FPS Gains)",
       "category": "Game Specific / Rocket League",
       "risk": "Safe",
       "riskLevel": "Safe",
       "requiresAdmin": false,
       "requiresReboot": false,
       "primaryLabel": "View",
-      "description": "[Focus: real FPS gains]\nHigh-impact background offenders:\n- RGB suites (iCUE, Armoury Crate, Mystic Light)\n- Browsers with video tabs\n- Clip recorders you don’t need\n- Cloud sync during play (OneDrive/Dropbox active sync)\n- Updaters running in the background Competitive habit\n- Before ranked: close everything unnecessary, then launch the game fresh. Why this matters\n- CPU spikes and disk spikes cause hitching more than most registry tweaks.",
+      "description": "[Focus: real FPS gains]\nHigh-impact background offenders:\n- RGB suites (iCUE, Armoury Crate, Mystic Light)\n- Browsers with video tabs\n- Clip recorders you don\u2019t need\n- Cloud sync during play (OneDrive/Dropbox active sync)\n- Updaters running in the background Competitive habit\n- Before ranked: close everything unnecessary, then launch the game fresh. Why this matters\n- CPU spikes and disk spikes cause hitching more than most registry tweaks.",
       "apply": {
         "steps": [
           {
@@ -34046,7 +34046,7 @@
       "requiresAdmin": false,
       "requiresReboot": false,
       "primaryLabel": "View",
-      "description": "[Focus: input delay, consistency]\nMouse\n- Turn off Windows mouse acceleration (Enhance Pointer Precision).\n- Use a stable DPI + in‑game sens. Avoid constant sens changes.\n- Polling rate: 1000Hz is standard. Higher rates can help, but may increase CPU overhead on some rigs—test for micro‑stutter. Controller\n- Wired is usually lowest-latency.\n- Reduce deadzones as low as stable.\n- Disable extra smoothing/filters if the game offers it. Check\n- If input feels “floaty” only when FPS drops, it’s a performance issue, not a mouse setting.",
+      "description": "[Focus: input delay, consistency]\nMouse\n- Turn off Windows mouse acceleration (Enhance Pointer Precision).\n- Use a stable DPI + in\u2011game sens. Avoid constant sens changes.\n- Polling rate: 1000Hz is standard. Higher rates can help, but may increase CPU overhead on some rigs\u2014test for micro\u2011stutter. Controller\n- Wired is usually lowest-latency.\n- Reduce deadzones as low as stable.\n- Disable extra smoothing/filters if the game offers it. Check\n- If input feels \u201cfloaty\u201d only when FPS drops, it\u2019s a performance issue, not a mouse setting.",
       "apply": {
         "steps": [
           {
@@ -34062,14 +34062,14 @@
     {
       "id": "game.gta5.overlay_background_killlist__performance.lib.misc",
       "type": "action",
-      "name": "Overlay + Background App Kill‑List (Real FPS Gains)",
+      "name": "Overlay + Background App Kill\u2011List (Real FPS Gains)",
       "category": "Game Specific / GTA",
       "risk": "Safe",
       "riskLevel": "Safe",
       "requiresAdmin": false,
       "requiresReboot": false,
       "primaryLabel": "View",
-      "description": "[Focus: real FPS gains]\nHigh-impact background offenders:\n- RGB suites (iCUE, Armoury Crate, Mystic Light)\n- Browsers with video tabs\n- Clip recorders you don’t need\n- Cloud sync during play (OneDrive/Dropbox active sync)\n- Updaters running in the background Competitive habit\n- Before ranked: close everything unnecessary, then launch the game fresh. Why this matters\n- CPU spikes and disk spikes cause hitching more than most registry tweaks.",
+      "description": "[Focus: real FPS gains]\nHigh-impact background offenders:\n- RGB suites (iCUE, Armoury Crate, Mystic Light)\n- Browsers with video tabs\n- Clip recorders you don\u2019t need\n- Cloud sync during play (OneDrive/Dropbox active sync)\n- Updaters running in the background Competitive habit\n- Before ranked: close everything unnecessary, then launch the game fresh. Why this matters\n- CPU spikes and disk spikes cause hitching more than most registry tweaks.",
       "apply": {
         "steps": [
           {
@@ -34331,7 +34331,7 @@
       "requiresAdmin": false,
       "requiresReboot": false,
       "primaryLabel": "View",
-      "description": "[Focus: input delay, consistency]\nMouse\n- Turn off Windows mouse acceleration (Enhance Pointer Precision).\n- Use a stable DPI + in‑game sens. Avoid constant sens changes.\n- Polling rate: 1000Hz is standard. Higher rates can help, but may increase CPU overhead on some rigs—test for micro‑stutter. Controller\n- Wired is usually lowest-latency.\n- Reduce deadzones as low as stable.\n- Disable extra smoothing/filters if the game offers it. Check\n- If input feels “floaty” only when FPS drops, it’s a performance issue, not a mouse setting.",
+      "description": "[Focus: input delay, consistency]\nMouse\n- Turn off Windows mouse acceleration (Enhance Pointer Precision).\n- Use a stable DPI + in\u2011game sens. Avoid constant sens changes.\n- Polling rate: 1000Hz is standard. Higher rates can help, but may increase CPU overhead on some rigs\u2014test for micro\u2011stutter. Controller\n- Wired is usually lowest-latency.\n- Reduce deadzones as low as stable.\n- Disable extra smoothing/filters if the game offers it. Check\n- If input feels \u201cfloaty\u201d only when FPS drops, it\u2019s a performance issue, not a mouse setting.",
       "apply": {
         "steps": [
           {
@@ -34347,14 +34347,14 @@
     {
       "id": "game.league.overlay_background_killlist__performance.lib.misc",
       "type": "action",
-      "name": "Overlay + Background App Kill‑List (Real FPS Gains)",
+      "name": "Overlay + Background App Kill\u2011List (Real FPS Gains)",
       "category": "Game Specific / League of Legends",
       "risk": "Safe",
       "riskLevel": "Safe",
       "requiresAdmin": false,
       "requiresReboot": false,
       "primaryLabel": "View",
-      "description": "[Focus: real FPS gains]\nHigh-impact background offenders:\n- RGB suites (iCUE, Armoury Crate, Mystic Light)\n- Browsers with video tabs\n- Clip recorders you don’t need\n- Cloud sync during play (OneDrive/Dropbox active sync)\n- Updaters running in the background Competitive habit\n- Before ranked: close everything unnecessary, then launch the game fresh. Why this matters\n- CPU spikes and disk spikes cause hitching more than most registry tweaks.",
+      "description": "[Focus: real FPS gains]\nHigh-impact background offenders:\n- RGB suites (iCUE, Armoury Crate, Mystic Light)\n- Browsers with video tabs\n- Clip recorders you don\u2019t need\n- Cloud sync during play (OneDrive/Dropbox active sync)\n- Updaters running in the background Competitive habit\n- Before ranked: close everything unnecessary, then launch the game fresh. Why this matters\n- CPU spikes and disk spikes cause hitching more than most registry tweaks.",
       "apply": {
         "steps": [
           {
@@ -34616,7 +34616,7 @@
       "requiresAdmin": false,
       "requiresReboot": false,
       "primaryLabel": "View",
-      "description": "[Focus: input delay, consistency]\nMouse\n- Turn off Windows mouse acceleration (Enhance Pointer Precision).\n- Use a stable DPI + in‑game sens. Avoid constant sens changes.\n- Polling rate: 1000Hz is standard. Higher rates can help, but may increase CPU overhead on some rigs—test for micro‑stutter. Controller\n- Wired is usually lowest-latency.\n- Reduce deadzones as low as stable.\n- Disable extra smoothing/filters if the game offers it. Check\n- If input feels “floaty” only when FPS drops, it’s a performance issue, not a mouse setting.",
+      "description": "[Focus: input delay, consistency]\nMouse\n- Turn off Windows mouse acceleration (Enhance Pointer Precision).\n- Use a stable DPI + in\u2011game sens. Avoid constant sens changes.\n- Polling rate: 1000Hz is standard. Higher rates can help, but may increase CPU overhead on some rigs\u2014test for micro\u2011stutter. Controller\n- Wired is usually lowest-latency.\n- Reduce deadzones as low as stable.\n- Disable extra smoothing/filters if the game offers it. Check\n- If input feels \u201cfloaty\u201d only when FPS drops, it\u2019s a performance issue, not a mouse setting.",
       "apply": {
         "steps": [
           {
@@ -34632,14 +34632,14 @@
     {
       "id": "game.cod.overlay_background_killlist__performance.lib.misc",
       "type": "action",
-      "name": "Overlay + Background App Kill‑List (Real FPS Gains)",
+      "name": "Overlay + Background App Kill\u2011List (Real FPS Gains)",
       "category": "Game Specific / Call of Duty",
       "risk": "Safe",
       "riskLevel": "Safe",
       "requiresAdmin": false,
       "requiresReboot": false,
       "primaryLabel": "View",
-      "description": "[Focus: real FPS gains]\nHigh-impact background offenders:\n- RGB suites (iCUE, Armoury Crate, Mystic Light)\n- Browsers with video tabs\n- Clip recorders you don’t need\n- Cloud sync during play (OneDrive/Dropbox active sync)\n- Updaters running in the background Competitive habit\n- Before ranked: close everything unnecessary, then launch the game fresh. Why this matters\n- CPU spikes and disk spikes cause hitching more than most registry tweaks.",
+      "description": "[Focus: real FPS gains]\nHigh-impact background offenders:\n- RGB suites (iCUE, Armoury Crate, Mystic Light)\n- Browsers with video tabs\n- Clip recorders you don\u2019t need\n- Cloud sync during play (OneDrive/Dropbox active sync)\n- Updaters running in the background Competitive habit\n- Before ranked: close everything unnecessary, then launch the game fresh. Why this matters\n- CPU spikes and disk spikes cause hitching more than most registry tweaks.",
       "apply": {
         "steps": [
           {
@@ -34894,7 +34894,7 @@
     {
       "id": "stretch_fortnite_1920x1080__performance.lib.misc",
       "name": "Reset to default (Fortnite 1920x1080)",
-      "category": "Stretch Resolution Lab / Fortnite – Presets",
+      "category": "Stretch Resolution Lab / Fortnite \u2013 Presets",
       "type": "action",
       "description": "[Default] Writes 1920x1080 native resolution to GameUserSettings.ini.",
       "riskLevel": "Safe",
@@ -34915,7 +34915,7 @@
     {
       "id": "stretch_fortnite_1750x1080__performance.lib.misc",
       "name": "Enable competitive stretch (Fortnite 1750x1080)",
-      "category": "Stretch Resolution Lab / Fortnite – Presets",
+      "category": "Stretch Resolution Lab / Fortnite \u2013 Presets",
       "type": "action",
       "description": "[Focus: FPS] Writes 1750x1080 stretched resolution to GameUserSettings.ini.",
       "riskLevel": "Warning",
@@ -34938,7 +34938,7 @@
     {
       "id": "stretch_fortnite_1600x900__performance.lib.misc",
       "name": "Enable stretch (Fortnite 1600x900)",
-      "category": "Stretch Resolution Lab / Fortnite – Presets",
+      "category": "Stretch Resolution Lab / Fortnite \u2013 Presets",
       "type": "action",
       "description": "[Focus: FPS] Writes 1600x900 stretched resolution to GameUserSettings.ini.",
       "riskLevel": "Warning",
@@ -34958,7 +34958,7 @@
     {
       "id": "stretch_fortnite_1440x900__performance.lib.misc",
       "name": "Enable stretch (Fortnite 1440x900)",
-      "category": "Stretch Resolution Lab / Fortnite – Presets",
+      "category": "Stretch Resolution Lab / Fortnite \u2013 Presets",
       "type": "action",
       "description": "[Focus: FPS] Writes 1440x900 stretched resolution to GameUserSettings.ini.",
       "riskLevel": "Warning",
@@ -34978,7 +34978,7 @@
     {
       "id": "stretch_fortnite_1720x1080__performance.lib.misc",
       "name": "Enable stretch (Fortnite 1720x1080)",
-      "category": "Stretch Resolution Lab / Fortnite – Presets",
+      "category": "Stretch Resolution Lab / Fortnite \u2013 Presets",
       "type": "action",
       "description": "[Focus: FPS] Writes 1720x1080 stretched resolution to GameUserSettings.ini.",
       "riskLevel": "Warning",
@@ -34999,7 +34999,7 @@
     {
       "id": "stretch_fortnite_1680x1050__performance.lib.misc",
       "name": "Enable stretch (Fortnite 1680x1050)",
-      "category": "Stretch Resolution Lab / Fortnite – Presets",
+      "category": "Stretch Resolution Lab / Fortnite \u2013 Presets",
       "type": "action",
       "description": "[Focus: FPS] Writes 1680x1050 stretched resolution to GameUserSettings.ini.",
       "riskLevel": "Warning",
@@ -35023,7 +35023,7 @@
     {
       "id": "stretch_fortnite_1440x1080__performance.lib.misc",
       "name": "Enable stretch (Fortnite 1440x1080)",
-      "category": "Stretch Resolution Lab / Fortnite – Presets",
+      "category": "Stretch Resolution Lab / Fortnite \u2013 Presets",
       "type": "action",
       "description": "[Focus: FPS] Writes 1440x1080 stretched resolution to GameUserSettings.ini.",
       "riskLevel": "Warning",
@@ -35044,7 +35044,7 @@
     {
       "id": "stretch_fortnite_1280x960__performance.lib.misc",
       "name": "Enable stretch (Fortnite 1280x960)",
-      "category": "Stretch Resolution Lab / Fortnite – Presets",
+      "category": "Stretch Resolution Lab / Fortnite \u2013 Presets",
       "type": "action",
       "description": "[Focus: FPS] Writes 1280x960 stretched resolution to GameUserSettings.ini.",
       "riskLevel": "Warning",
@@ -35064,7 +35064,7 @@
     {
       "id": "stretch_fortnite_1280x1024__performance.lib.misc",
       "name": "Enable stretch (Fortnite 1280x1024)",
-      "category": "Stretch Resolution Lab / Fortnite – Presets",
+      "category": "Stretch Resolution Lab / Fortnite \u2013 Presets",
       "type": "action",
       "description": "[Focus: FPS] Writes 1280x1024 stretched resolution to GameUserSettings.ini.",
       "riskLevel": "Warning",
@@ -35084,7 +35084,7 @@
     {
       "id": "stretch_fortnite_1280x720__performance.lib.misc",
       "name": "Enable stretch (Fortnite 1280x720)",
-      "category": "Stretch Resolution Lab / Fortnite – Presets",
+      "category": "Stretch Resolution Lab / Fortnite \u2013 Presets",
       "type": "action",
       "description": "[Focus: FPS] Writes 1280x720 stretched resolution to GameUserSettings.ini.",
       "riskLevel": "Warning",
@@ -35103,8 +35103,8 @@
     },
     {
       "id": "stretch_fortnite_pro_martoz_1520x1080__performance.lib.misc",
-      "name": "Martoz – 1520x1080 (Fortnite)",
-      "category": "Stretch Resolution Lab / Fortnite – Presets",
+      "name": "Martoz \u2013 1520x1080 (Fortnite)",
+      "category": "Stretch Resolution Lab / Fortnite \u2013 Presets",
       "type": "action",
       "description": "[Focus: FPS] Applies a Martoz-inspired 1520x1080 stretched resolution in GameUserSettings.ini. Slightly less extreme than 1750x1080 while keeping wide models.",
       "riskLevel": "Warning",
@@ -35124,7 +35124,7 @@
     {
       "id": "stretch_fortnite_1550x1080__performance.lib.misc",
       "name": "Comp stretch (balanced) (1550x1080)",
-      "category": "Stretch Resolution Lab / Fortnite – Presets",
+      "category": "Stretch Resolution Lab / Fortnite \u2013 Presets",
       "type": "action",
       "description": "[Focus: FPS] Balanced wide stretch between 1440 and 1750 for cleaner models. Writes 1550x1080 stretched resolution to GameUserSettings.ini.",
       "riskLevel": "Warning",
@@ -35144,7 +35144,7 @@
     {
       "id": "stretch_fortnite_1350x1080__performance.lib.misc",
       "name": "Extra chunky stretch (1350x1080)",
-      "category": "Stretch Resolution Lab / Fortnite – Presets",
+      "category": "Stretch Resolution Lab / Fortnite \u2013 Presets",
       "type": "action",
       "description": "[Focus: FPS] High-width 4:3 style stretch for extremely wide player models. Writes 1350x1080 stretched resolution to GameUserSettings.ini.",
       "riskLevel": "Warning",
@@ -35163,7 +35163,7 @@
     },
     {
       "id": "stretch_lab_method_2_config_only__performance.lib.misc",
-      "name": "Method 2 – Config-only Fortnite stretch",
+      "name": "Method 2 \u2013 Config-only Fortnite stretch",
       "category": "Stretch Resolution Lab / Methods",
       "type": "action",
       "description": "[Focus: Automation] Explains that the Fortnite presets here directly edit GameUserSettings.ini to force resolution, which is safer than random config packs.",
@@ -35184,7 +35184,7 @@
     {
       "id": "stretch_valorant_open_config__performance.lib.misc",
       "name": "Open Valorant config folder",
-      "category": "Stretch Resolution Lab / Valorant – Tools",
+      "category": "Stretch Resolution Lab / Valorant \u2013 Tools",
       "type": "action",
       "description": "[Focus: Control] Opens the Valorant configuration folder so you can inspect or adjust video/resolution settings directly.",
       "riskLevel": "Safe",
@@ -35244,7 +35244,7 @@
     {
       "id": "stretch_cs2_open_config__performance.lib.misc",
       "name": "Open CS2 config folder",
-      "category": "Stretch Resolution Lab / CS2 – Tools",
+      "category": "Stretch Resolution Lab / CS2 \u2013 Tools",
       "type": "action",
       "description": "[Focus: Control] Tries to open the most common Counter-Strike 2 config folder so you can adjust video / resolution settings or autoexec files yourself.",
       "riskLevel": "Safe",
@@ -35263,8 +35263,8 @@
     },
     {
       "id": "stretch_cs2_method_overview__performance.lib.misc",
-      "name": "CS2 stretch – methods overview",
-      "category": "Stretch Resolution Lab / CS2 – Methods",
+      "name": "CS2 stretch \u2013 methods overview",
+      "category": "Stretch Resolution Lab / CS2 \u2013 Methods",
       "type": "action",
       "description": "[Focus: Info] Explains common Counter-Strike 2 stretching methods and what they do for model width and visibility.",
       "riskLevel": "Safe",
@@ -35284,7 +35284,7 @@
     {
       "id": "stretch_cs2_copy_1920x1080__performance.lib.misc",
       "name": "1920x1080 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / CS2 – Copy",
+      "category": "Stretch Resolution Lab / CS2 \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for CS2 to clipboard.",
       "riskLevel": "Safe",
@@ -35304,7 +35304,7 @@
     {
       "id": "stretch_cs2_copy_1798x1080__performance.lib.misc",
       "name": "1798x1080 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / CS2 – Copy",
+      "category": "Stretch Resolution Lab / CS2 \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for CS2 to clipboard.",
       "riskLevel": "Safe",
@@ -35324,7 +35324,7 @@
     {
       "id": "stretch_cs2_copy_1750x1080__performance.lib.misc",
       "name": "1750x1080 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / CS2 – Copy",
+      "category": "Stretch Resolution Lab / CS2 \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for CS2 to clipboard.",
       "riskLevel": "Safe",
@@ -35344,7 +35344,7 @@
     {
       "id": "stretch_cs2_copy_1720x1080__performance.lib.misc",
       "name": "1720x1080 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / CS2 – Copy",
+      "category": "Stretch Resolution Lab / CS2 \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for CS2 to clipboard.",
       "riskLevel": "Safe",
@@ -35364,7 +35364,7 @@
     {
       "id": "stretch_cs2_copy_1680x1050__performance.lib.misc",
       "name": "1680x1050 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / CS2 – Copy",
+      "category": "Stretch Resolution Lab / CS2 \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for CS2 to clipboard.",
       "riskLevel": "Safe",
@@ -35384,7 +35384,7 @@
     {
       "id": "stretch_cs2_copy_1656x1080__performance.lib.misc",
       "name": "1656x1080 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / CS2 – Copy",
+      "category": "Stretch Resolution Lab / CS2 \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for CS2 to clipboard.",
       "riskLevel": "Safe",
@@ -35404,7 +35404,7 @@
     {
       "id": "stretch_cs2_copy_1600x900__performance.lib.misc",
       "name": "1600x900 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / CS2 – Copy",
+      "category": "Stretch Resolution Lab / CS2 \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for CS2 to clipboard.",
       "riskLevel": "Safe",
@@ -35424,7 +35424,7 @@
     {
       "id": "stretch_cs2_copy_1568x1080__performance.lib.misc",
       "name": "1568x1080 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / CS2 – Copy",
+      "category": "Stretch Resolution Lab / CS2 \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for CS2 to clipboard.",
       "riskLevel": "Safe",
@@ -35444,7 +35444,7 @@
     {
       "id": "stretch_cs2_copy_1440x1080__performance.lib.misc",
       "name": "1440x1080 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / CS2 – Copy",
+      "category": "Stretch Resolution Lab / CS2 \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for CS2 to clipboard.",
       "riskLevel": "Safe",
@@ -35464,7 +35464,7 @@
     {
       "id": "stretch_cs2_copy_1280x960__performance.lib.misc",
       "name": "1280x960 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / CS2 – Copy",
+      "category": "Stretch Resolution Lab / CS2 \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for CS2 to clipboard.",
       "riskLevel": "Safe",
@@ -35484,7 +35484,7 @@
     {
       "id": "stretch_cs2_copy_1280x1024__performance.lib.misc",
       "name": "1280x1024 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / CS2 – Copy",
+      "category": "Stretch Resolution Lab / CS2 \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for CS2 to clipboard.",
       "riskLevel": "Safe",
@@ -35504,7 +35504,7 @@
     {
       "id": "stretch_cs2_copy_1152x864__performance.lib.misc",
       "name": "1152x864 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / CS2 – Copy",
+      "category": "Stretch Resolution Lab / CS2 \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for CS2 to clipboard.",
       "riskLevel": "Safe",
@@ -35524,7 +35524,7 @@
     {
       "id": "stretch_cs2_copy_1024x768__performance.lib.misc",
       "name": "1024x768 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / CS2 – Copy",
+      "category": "Stretch Resolution Lab / CS2 \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for CS2 to clipboard.",
       "riskLevel": "Safe",
@@ -35544,7 +35544,7 @@
     {
       "id": "stretch_cs2_copy_1920x1200__performance.lib.misc",
       "name": "1920x1200 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / CS2 – Copy",
+      "category": "Stretch Resolution Lab / CS2 \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for CS2 to clipboard.",
       "riskLevel": "Safe",
@@ -35564,7 +35564,7 @@
     {
       "id": "stretch_cs2_copy_1440x900__performance.lib.misc",
       "name": "1440x900 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / CS2 – Copy",
+      "category": "Stretch Resolution Lab / CS2 \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for CS2 to clipboard.",
       "riskLevel": "Safe",
@@ -35584,7 +35584,7 @@
     {
       "id": "stretch_apex_copy_1920x1080__performance.lib.misc",
       "name": "1920x1080 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / Apex Legends – Copy",
+      "category": "Stretch Resolution Lab / Apex Legends \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for Apex Legends to clipboard.",
       "riskLevel": "Safe",
@@ -35604,7 +35604,7 @@
     {
       "id": "stretch_apex_copy_1798x1080__performance.lib.misc",
       "name": "1798x1080 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / Apex Legends – Copy",
+      "category": "Stretch Resolution Lab / Apex Legends \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for Apex Legends to clipboard.",
       "riskLevel": "Safe",
@@ -35624,7 +35624,7 @@
     {
       "id": "stretch_apex_copy_1750x1080__performance.lib.misc",
       "name": "1750x1080 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / Apex Legends – Copy",
+      "category": "Stretch Resolution Lab / Apex Legends \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for Apex Legends to clipboard.",
       "riskLevel": "Safe",
@@ -35644,7 +35644,7 @@
     {
       "id": "stretch_apex_copy_1720x1080__performance.lib.misc",
       "name": "1720x1080 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / Apex Legends – Copy",
+      "category": "Stretch Resolution Lab / Apex Legends \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for Apex Legends to clipboard.",
       "riskLevel": "Safe",
@@ -35664,7 +35664,7 @@
     {
       "id": "stretch_apex_copy_1680x1050__performance.lib.misc",
       "name": "1680x1050 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / Apex Legends – Copy",
+      "category": "Stretch Resolution Lab / Apex Legends \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for Apex Legends to clipboard.",
       "riskLevel": "Safe",
@@ -35684,7 +35684,7 @@
     {
       "id": "stretch_apex_copy_1656x1080__performance.lib.misc",
       "name": "1656x1080 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / Apex Legends – Copy",
+      "category": "Stretch Resolution Lab / Apex Legends \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for Apex Legends to clipboard.",
       "riskLevel": "Safe",
@@ -35704,7 +35704,7 @@
     {
       "id": "stretch_apex_copy_1600x900__performance.lib.misc",
       "name": "1600x900 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / Apex Legends – Copy",
+      "category": "Stretch Resolution Lab / Apex Legends \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for Apex Legends to clipboard.",
       "riskLevel": "Safe",
@@ -35724,7 +35724,7 @@
     {
       "id": "stretch_apex_copy_1568x1080__performance.lib.misc",
       "name": "1568x1080 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / Apex Legends – Copy",
+      "category": "Stretch Resolution Lab / Apex Legends \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for Apex Legends to clipboard.",
       "riskLevel": "Safe",
@@ -35744,7 +35744,7 @@
     {
       "id": "stretch_apex_copy_1440x1080__performance.lib.misc",
       "name": "1440x1080 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / Apex Legends – Copy",
+      "category": "Stretch Resolution Lab / Apex Legends \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for Apex Legends to clipboard.",
       "riskLevel": "Safe",
@@ -35764,7 +35764,7 @@
     {
       "id": "stretch_apex_copy_1280x960__performance.lib.misc",
       "name": "1280x960 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / Apex Legends – Copy",
+      "category": "Stretch Resolution Lab / Apex Legends \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for Apex Legends to clipboard.",
       "riskLevel": "Safe",
@@ -35784,7 +35784,7 @@
     {
       "id": "stretch_apex_copy_1280x1024__performance.lib.misc",
       "name": "1280x1024 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / Apex Legends – Copy",
+      "category": "Stretch Resolution Lab / Apex Legends \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for Apex Legends to clipboard.",
       "riskLevel": "Safe",
@@ -35804,7 +35804,7 @@
     {
       "id": "stretch_apex_copy_1152x864__performance.lib.misc",
       "name": "1152x864 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / Apex Legends – Copy",
+      "category": "Stretch Resolution Lab / Apex Legends \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for Apex Legends to clipboard.",
       "riskLevel": "Safe",
@@ -35824,7 +35824,7 @@
     {
       "id": "stretch_apex_copy_1024x768__performance.lib.misc",
       "name": "1024x768 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / Apex Legends – Copy",
+      "category": "Stretch Resolution Lab / Apex Legends \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for Apex Legends to clipboard.",
       "riskLevel": "Safe",
@@ -35844,7 +35844,7 @@
     {
       "id": "stretch_apex_copy_1920x1200__performance.lib.misc",
       "name": "1920x1200 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / Apex Legends – Copy",
+      "category": "Stretch Resolution Lab / Apex Legends \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for Apex Legends to clipboard.",
       "riskLevel": "Safe",
@@ -35864,7 +35864,7 @@
     {
       "id": "stretch_apex_copy_1440x900__performance.lib.misc",
       "name": "1440x900 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / Apex Legends – Copy",
+      "category": "Stretch Resolution Lab / Apex Legends \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for Apex Legends to clipboard.",
       "riskLevel": "Safe",
@@ -35884,7 +35884,7 @@
     {
       "id": "stretch_cod_copy_1920x1080__performance.lib.misc",
       "name": "1920x1080 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / COD / Warzone – Copy",
+      "category": "Stretch Resolution Lab / COD / Warzone \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for COD / Warzone to clipboard.",
       "riskLevel": "Safe",
@@ -35904,7 +35904,7 @@
     {
       "id": "stretch_cod_copy_1798x1080__performance.lib.misc",
       "name": "1798x1080 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / COD / Warzone – Copy",
+      "category": "Stretch Resolution Lab / COD / Warzone \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for COD / Warzone to clipboard.",
       "riskLevel": "Safe",
@@ -35924,7 +35924,7 @@
     {
       "id": "stretch_cod_copy_1750x1080__performance.lib.misc",
       "name": "1750x1080 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / COD / Warzone – Copy",
+      "category": "Stretch Resolution Lab / COD / Warzone \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for COD / Warzone to clipboard.",
       "riskLevel": "Safe",
@@ -35944,7 +35944,7 @@
     {
       "id": "stretch_cod_copy_1720x1080__performance.lib.misc",
       "name": "1720x1080 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / COD / Warzone – Copy",
+      "category": "Stretch Resolution Lab / COD / Warzone \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for COD / Warzone to clipboard.",
       "riskLevel": "Safe",
@@ -35964,7 +35964,7 @@
     {
       "id": "stretch_cod_copy_1680x1050__performance.lib.misc",
       "name": "1680x1050 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / COD / Warzone – Copy",
+      "category": "Stretch Resolution Lab / COD / Warzone \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for COD / Warzone to clipboard.",
       "riskLevel": "Safe",
@@ -35984,7 +35984,7 @@
     {
       "id": "stretch_cod_copy_1656x1080__performance.lib.misc",
       "name": "1656x1080 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / COD / Warzone – Copy",
+      "category": "Stretch Resolution Lab / COD / Warzone \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for COD / Warzone to clipboard.",
       "riskLevel": "Safe",
@@ -36004,7 +36004,7 @@
     {
       "id": "stretch_cod_copy_1600x900__performance.lib.misc",
       "name": "1600x900 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / COD / Warzone – Copy",
+      "category": "Stretch Resolution Lab / COD / Warzone \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for COD / Warzone to clipboard.",
       "riskLevel": "Safe",
@@ -36024,7 +36024,7 @@
     {
       "id": "stretch_cod_copy_1568x1080__performance.lib.misc",
       "name": "1568x1080 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / COD / Warzone – Copy",
+      "category": "Stretch Resolution Lab / COD / Warzone \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for COD / Warzone to clipboard.",
       "riskLevel": "Safe",
@@ -36044,7 +36044,7 @@
     {
       "id": "stretch_cod_copy_1440x1080__performance.lib.misc",
       "name": "1440x1080 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / COD / Warzone – Copy",
+      "category": "Stretch Resolution Lab / COD / Warzone \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for COD / Warzone to clipboard.",
       "riskLevel": "Safe",
@@ -36064,7 +36064,7 @@
     {
       "id": "stretch_cod_copy_1280x960__performance.lib.misc",
       "name": "1280x960 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / COD / Warzone – Copy",
+      "category": "Stretch Resolution Lab / COD / Warzone \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for COD / Warzone to clipboard.",
       "riskLevel": "Safe",
@@ -36084,7 +36084,7 @@
     {
       "id": "stretch_cod_copy_1280x1024__performance.lib.misc",
       "name": "1280x1024 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / COD / Warzone – Copy",
+      "category": "Stretch Resolution Lab / COD / Warzone \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for COD / Warzone to clipboard.",
       "riskLevel": "Safe",
@@ -36104,7 +36104,7 @@
     {
       "id": "stretch_cod_copy_1152x864__performance.lib.misc",
       "name": "1152x864 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / COD / Warzone – Copy",
+      "category": "Stretch Resolution Lab / COD / Warzone \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for COD / Warzone to clipboard.",
       "riskLevel": "Safe",
@@ -36124,7 +36124,7 @@
     {
       "id": "stretch_cod_copy_1024x768__performance.lib.misc",
       "name": "1024x768 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / COD / Warzone – Copy",
+      "category": "Stretch Resolution Lab / COD / Warzone \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for COD / Warzone to clipboard.",
       "riskLevel": "Safe",
@@ -36144,7 +36144,7 @@
     {
       "id": "stretch_cod_copy_1920x1200__performance.lib.misc",
       "name": "1920x1200 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / COD / Warzone – Copy",
+      "category": "Stretch Resolution Lab / COD / Warzone \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for COD / Warzone to clipboard.",
       "riskLevel": "Safe",
@@ -36164,7 +36164,7 @@
     {
       "id": "stretch_cod_copy_1440x900__performance.lib.misc",
       "name": "1440x900 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / COD / Warzone – Copy",
+      "category": "Stretch Resolution Lab / COD / Warzone \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for COD / Warzone to clipboard.",
       "riskLevel": "Safe",
@@ -36184,7 +36184,7 @@
     {
       "id": "stretch_overwatch_copy_1920x1080__performance.lib.misc",
       "name": "1920x1080 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / Overwatch 2 – Copy",
+      "category": "Stretch Resolution Lab / Overwatch 2 \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for Overwatch 2 to clipboard.",
       "riskLevel": "Safe",
@@ -36204,7 +36204,7 @@
     {
       "id": "stretch_overwatch_copy_1798x1080__performance.lib.misc",
       "name": "1798x1080 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / Overwatch 2 – Copy",
+      "category": "Stretch Resolution Lab / Overwatch 2 \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for Overwatch 2 to clipboard.",
       "riskLevel": "Safe",
@@ -36224,7 +36224,7 @@
     {
       "id": "stretch_overwatch_copy_1750x1080__performance.lib.misc",
       "name": "1750x1080 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / Overwatch 2 – Copy",
+      "category": "Stretch Resolution Lab / Overwatch 2 \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for Overwatch 2 to clipboard.",
       "riskLevel": "Safe",
@@ -36244,7 +36244,7 @@
     {
       "id": "stretch_overwatch_copy_1720x1080__performance.lib.misc",
       "name": "1720x1080 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / Overwatch 2 – Copy",
+      "category": "Stretch Resolution Lab / Overwatch 2 \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for Overwatch 2 to clipboard.",
       "riskLevel": "Safe",
@@ -36264,7 +36264,7 @@
     {
       "id": "stretch_overwatch_copy_1680x1050__performance.lib.misc",
       "name": "1680x1050 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / Overwatch 2 – Copy",
+      "category": "Stretch Resolution Lab / Overwatch 2 \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for Overwatch 2 to clipboard.",
       "riskLevel": "Safe",
@@ -36284,7 +36284,7 @@
     {
       "id": "stretch_overwatch_copy_1656x1080__performance.lib.misc",
       "name": "1656x1080 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / Overwatch 2 – Copy",
+      "category": "Stretch Resolution Lab / Overwatch 2 \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for Overwatch 2 to clipboard.",
       "riskLevel": "Safe",
@@ -36304,7 +36304,7 @@
     {
       "id": "stretch_overwatch_copy_1600x900__performance.lib.misc",
       "name": "1600x900 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / Overwatch 2 – Copy",
+      "category": "Stretch Resolution Lab / Overwatch 2 \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for Overwatch 2 to clipboard.",
       "riskLevel": "Safe",
@@ -36324,7 +36324,7 @@
     {
       "id": "stretch_overwatch_copy_1568x1080__performance.lib.misc",
       "name": "1568x1080 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / Overwatch 2 – Copy",
+      "category": "Stretch Resolution Lab / Overwatch 2 \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for Overwatch 2 to clipboard.",
       "riskLevel": "Safe",
@@ -36344,7 +36344,7 @@
     {
       "id": "stretch_overwatch_copy_1440x1080__performance.lib.misc",
       "name": "1440x1080 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / Overwatch 2 – Copy",
+      "category": "Stretch Resolution Lab / Overwatch 2 \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for Overwatch 2 to clipboard.",
       "riskLevel": "Safe",
@@ -36364,7 +36364,7 @@
     {
       "id": "stretch_overwatch_copy_1280x960__performance.lib.misc",
       "name": "1280x960 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / Overwatch 2 – Copy",
+      "category": "Stretch Resolution Lab / Overwatch 2 \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for Overwatch 2 to clipboard.",
       "riskLevel": "Safe",
@@ -36384,7 +36384,7 @@
     {
       "id": "stretch_overwatch_copy_1280x1024__performance.lib.misc",
       "name": "1280x1024 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / Overwatch 2 – Copy",
+      "category": "Stretch Resolution Lab / Overwatch 2 \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for Overwatch 2 to clipboard.",
       "riskLevel": "Safe",
@@ -36404,7 +36404,7 @@
     {
       "id": "stretch_overwatch_copy_1152x864__performance.lib.misc",
       "name": "1152x864 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / Overwatch 2 – Copy",
+      "category": "Stretch Resolution Lab / Overwatch 2 \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for Overwatch 2 to clipboard.",
       "riskLevel": "Safe",
@@ -36424,7 +36424,7 @@
     {
       "id": "stretch_overwatch_copy_1024x768__performance.lib.misc",
       "name": "1024x768 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / Overwatch 2 – Copy",
+      "category": "Stretch Resolution Lab / Overwatch 2 \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for Overwatch 2 to clipboard.",
       "riskLevel": "Safe",
@@ -36444,7 +36444,7 @@
     {
       "id": "stretch_overwatch_copy_1920x1200__performance.lib.misc",
       "name": "1920x1200 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / Overwatch 2 – Copy",
+      "category": "Stretch Resolution Lab / Overwatch 2 \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for Overwatch 2 to clipboard.",
       "riskLevel": "Safe",
@@ -36464,7 +36464,7 @@
     {
       "id": "stretch_overwatch_copy_1440x900__performance.lib.misc",
       "name": "1440x900 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / Overwatch 2 – Copy",
+      "category": "Stretch Resolution Lab / Overwatch 2 \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for Overwatch 2 to clipboard.",
       "riskLevel": "Safe",
@@ -36484,7 +36484,7 @@
     {
       "id": "stretch_rocket_copy_1920x1080__performance.lib.misc",
       "name": "1920x1080 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / Rocket League – Copy",
+      "category": "Stretch Resolution Lab / Rocket League \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for Rocket League to clipboard.",
       "riskLevel": "Safe",
@@ -36504,7 +36504,7 @@
     {
       "id": "stretch_rocket_copy_1798x1080__performance.lib.misc",
       "name": "1798x1080 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / Rocket League – Copy",
+      "category": "Stretch Resolution Lab / Rocket League \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for Rocket League to clipboard.",
       "riskLevel": "Safe",
@@ -36524,7 +36524,7 @@
     {
       "id": "stretch_rocket_copy_1750x1080__performance.lib.misc",
       "name": "1750x1080 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / Rocket League – Copy",
+      "category": "Stretch Resolution Lab / Rocket League \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for Rocket League to clipboard.",
       "riskLevel": "Safe",
@@ -36544,7 +36544,7 @@
     {
       "id": "stretch_rocket_copy_1720x1080__performance.lib.misc",
       "name": "1720x1080 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / Rocket League – Copy",
+      "category": "Stretch Resolution Lab / Rocket League \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for Rocket League to clipboard.",
       "riskLevel": "Safe",
@@ -36564,7 +36564,7 @@
     {
       "id": "stretch_rocket_copy_1680x1050__performance.lib.misc",
       "name": "1680x1050 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / Rocket League – Copy",
+      "category": "Stretch Resolution Lab / Rocket League \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for Rocket League to clipboard.",
       "riskLevel": "Safe",
@@ -36584,7 +36584,7 @@
     {
       "id": "stretch_rocket_copy_1656x1080__performance.lib.misc",
       "name": "1656x1080 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / Rocket League – Copy",
+      "category": "Stretch Resolution Lab / Rocket League \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for Rocket League to clipboard.",
       "riskLevel": "Safe",
@@ -36604,7 +36604,7 @@
     {
       "id": "stretch_rocket_copy_1600x900__performance.lib.misc",
       "name": "1600x900 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / Rocket League – Copy",
+      "category": "Stretch Resolution Lab / Rocket League \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for Rocket League to clipboard.",
       "riskLevel": "Safe",
@@ -36624,7 +36624,7 @@
     {
       "id": "stretch_rocket_copy_1568x1080__performance.lib.misc",
       "name": "1568x1080 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / Rocket League – Copy",
+      "category": "Stretch Resolution Lab / Rocket League \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for Rocket League to clipboard.",
       "riskLevel": "Safe",
@@ -36644,7 +36644,7 @@
     {
       "id": "stretch_rocket_copy_1440x1080__performance.lib.misc",
       "name": "1440x1080 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / Rocket League – Copy",
+      "category": "Stretch Resolution Lab / Rocket League \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for Rocket League to clipboard.",
       "riskLevel": "Safe",
@@ -36664,7 +36664,7 @@
     {
       "id": "stretch_rocket_copy_1280x960__performance.lib.misc",
       "name": "1280x960 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / Rocket League – Copy",
+      "category": "Stretch Resolution Lab / Rocket League \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for Rocket League to clipboard.",
       "riskLevel": "Safe",
@@ -36684,7 +36684,7 @@
     {
       "id": "stretch_rocket_copy_1280x1024__performance.lib.misc",
       "name": "1280x1024 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / Rocket League – Copy",
+      "category": "Stretch Resolution Lab / Rocket League \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for Rocket League to clipboard.",
       "riskLevel": "Safe",
@@ -36704,7 +36704,7 @@
     {
       "id": "stretch_rocket_copy_1152x864__performance.lib.misc",
       "name": "1152x864 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / Rocket League – Copy",
+      "category": "Stretch Resolution Lab / Rocket League \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for Rocket League to clipboard.",
       "riskLevel": "Safe",
@@ -36724,7 +36724,7 @@
     {
       "id": "stretch_rocket_copy_1024x768__performance.lib.misc",
       "name": "1024x768 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / Rocket League – Copy",
+      "category": "Stretch Resolution Lab / Rocket League \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for Rocket League to clipboard.",
       "riskLevel": "Safe",
@@ -36744,7 +36744,7 @@
     {
       "id": "stretch_rocket_copy_1920x1200__performance.lib.misc",
       "name": "1920x1200 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / Rocket League – Copy",
+      "category": "Stretch Resolution Lab / Rocket League \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for Rocket League to clipboard.",
       "riskLevel": "Safe",
@@ -36764,7 +36764,7 @@
     {
       "id": "stretch_rocket_copy_1440x900__performance.lib.misc",
       "name": "1440x900 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / Rocket League – Copy",
+      "category": "Stretch Resolution Lab / Rocket League \u2013 Copy",
       "type": "action",
       "description": "Copies Steam launch options for Rocket League to clipboard.",
       "riskLevel": "Safe",
@@ -36784,7 +36784,7 @@
     {
       "id": "stretch_valorant_copy_1920x1080__performance.lib.misc",
       "name": "1920x1080 (Copy VALORANT res instructions)",
-      "category": "Stretch Resolution Lab / Valorant – Copy",
+      "category": "Stretch Resolution Lab / Valorant \u2013 Copy",
       "type": "action",
       "description": "Copies VALORANT resolution + scaling instructions to clipboard (VALORANT does not use Steam launch opts).",
       "riskLevel": "Safe",
@@ -36804,7 +36804,7 @@
     {
       "id": "stretch_valorant_copy_1600x900__performance.lib.misc",
       "name": "1600x900 (Copy VALORANT res instructions)",
-      "category": "Stretch Resolution Lab / Valorant – Copy",
+      "category": "Stretch Resolution Lab / Valorant \u2013 Copy",
       "type": "action",
       "description": "Copies VALORANT resolution + scaling instructions to clipboard (VALORANT does not use Steam launch opts).",
       "riskLevel": "Safe",
@@ -36824,7 +36824,7 @@
     {
       "id": "stretch_valorant_copy_1280x960__performance.lib.misc",
       "name": "1280x960 (Copy VALORANT res instructions)",
-      "category": "Stretch Resolution Lab / Valorant – Copy",
+      "category": "Stretch Resolution Lab / Valorant \u2013 Copy",
       "type": "action",
       "description": "Copies VALORANT resolution + scaling instructions to clipboard (VALORANT does not use Steam launch opts).",
       "riskLevel": "Safe",
@@ -36844,7 +36844,7 @@
     {
       "id": "stretch_valorant_copy_1280x1024__performance.lib.misc",
       "name": "1280x1024 (Copy VALORANT res instructions)",
-      "category": "Stretch Resolution Lab / Valorant – Copy",
+      "category": "Stretch Resolution Lab / Valorant \u2013 Copy",
       "type": "action",
       "description": "Copies VALORANT resolution + scaling instructions to clipboard (VALORANT does not use Steam launch opts).",
       "riskLevel": "Safe",
@@ -36864,7 +36864,7 @@
     {
       "id": "stretch_valorant_copy_1024x768__performance.lib.misc",
       "name": "1024x768 (Copy VALORANT res instructions)",
-      "category": "Stretch Resolution Lab / Valorant – Copy",
+      "category": "Stretch Resolution Lab / Valorant \u2013 Copy",
       "type": "action",
       "description": "Copies VALORANT resolution + scaling instructions to clipboard (VALORANT does not use Steam launch opts).",
       "riskLevel": "Safe",
@@ -36884,7 +36884,7 @@
     {
       "id": "stretch_valorant_copy_1440x1080__performance.lib.misc",
       "name": "1440x1080 (Copy VALORANT res instructions)",
-      "category": "Stretch Resolution Lab / Valorant – Copy",
+      "category": "Stretch Resolution Lab / Valorant \u2013 Copy",
       "type": "action",
       "description": "Copies VALORANT resolution + scaling instructions to clipboard (VALORANT does not use Steam launch opts).",
       "riskLevel": "Safe",
@@ -36904,7 +36904,7 @@
     {
       "id": "stretch_valorant_copy_1680x1050__performance.lib.misc",
       "name": "1680x1050 (Copy VALORANT res instructions)",
-      "category": "Stretch Resolution Lab / Valorant – Copy",
+      "category": "Stretch Resolution Lab / Valorant \u2013 Copy",
       "type": "action",
       "description": "Copies VALORANT resolution + scaling instructions to clipboard (VALORANT does not use Steam launch opts).",
       "riskLevel": "Safe",
@@ -36924,7 +36924,7 @@
     {
       "id": "stretch_any_copy_1920x1080__performance.lib.misc",
       "name": "1920x1080 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / Any Game – Copy",
+      "category": "Stretch Resolution Lab / Any Game \u2013 Copy",
       "type": "action",
       "description": "Copies generic Steam-style launch options to clipboard (works for many PC games).",
       "riskLevel": "Safe",
@@ -36944,7 +36944,7 @@
     {
       "id": "stretch_any_copy_1798x1080__performance.lib.misc",
       "name": "1798x1080 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / Any Game – Copy",
+      "category": "Stretch Resolution Lab / Any Game \u2013 Copy",
       "type": "action",
       "description": "Copies generic Steam-style launch options to clipboard (works for many PC games).",
       "riskLevel": "Safe",
@@ -36964,7 +36964,7 @@
     {
       "id": "stretch_any_copy_1750x1080__performance.lib.misc",
       "name": "1750x1080 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / Any Game – Copy",
+      "category": "Stretch Resolution Lab / Any Game \u2013 Copy",
       "type": "action",
       "description": "Copies generic Steam-style launch options to clipboard (works for many PC games).",
       "riskLevel": "Safe",
@@ -36984,7 +36984,7 @@
     {
       "id": "stretch_any_copy_1720x1080__performance.lib.misc",
       "name": "1720x1080 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / Any Game – Copy",
+      "category": "Stretch Resolution Lab / Any Game \u2013 Copy",
       "type": "action",
       "description": "Copies generic Steam-style launch options to clipboard (works for many PC games).",
       "riskLevel": "Safe",
@@ -37004,7 +37004,7 @@
     {
       "id": "stretch_any_copy_1680x1050__performance.lib.misc",
       "name": "1680x1050 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / Any Game – Copy",
+      "category": "Stretch Resolution Lab / Any Game \u2013 Copy",
       "type": "action",
       "description": "Copies generic Steam-style launch options to clipboard (works for many PC games).",
       "riskLevel": "Safe",
@@ -37024,7 +37024,7 @@
     {
       "id": "stretch_any_copy_1656x1080__performance.lib.misc",
       "name": "1656x1080 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / Any Game – Copy",
+      "category": "Stretch Resolution Lab / Any Game \u2013 Copy",
       "type": "action",
       "description": "Copies generic Steam-style launch options to clipboard (works for many PC games).",
       "riskLevel": "Safe",
@@ -37044,7 +37044,7 @@
     {
       "id": "stretch_any_copy_1600x900__performance.lib.misc",
       "name": "1600x900 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / Any Game – Copy",
+      "category": "Stretch Resolution Lab / Any Game \u2013 Copy",
       "type": "action",
       "description": "Copies generic Steam-style launch options to clipboard (works for many PC games).",
       "riskLevel": "Safe",
@@ -37064,7 +37064,7 @@
     {
       "id": "stretch_any_copy_1568x1080__performance.lib.misc",
       "name": "1568x1080 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / Any Game – Copy",
+      "category": "Stretch Resolution Lab / Any Game \u2013 Copy",
       "type": "action",
       "description": "Copies generic Steam-style launch options to clipboard (works for many PC games).",
       "riskLevel": "Safe",
@@ -37084,7 +37084,7 @@
     {
       "id": "stretch_any_copy_1440x1080__performance.lib.misc",
       "name": "1440x1080 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / Any Game – Copy",
+      "category": "Stretch Resolution Lab / Any Game \u2013 Copy",
       "type": "action",
       "description": "Copies generic Steam-style launch options to clipboard (works for many PC games).",
       "riskLevel": "Safe",
@@ -37104,7 +37104,7 @@
     {
       "id": "stretch_any_copy_1280x960__performance.lib.misc",
       "name": "1280x960 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / Any Game – Copy",
+      "category": "Stretch Resolution Lab / Any Game \u2013 Copy",
       "type": "action",
       "description": "Copies generic Steam-style launch options to clipboard (works for many PC games).",
       "riskLevel": "Safe",
@@ -37124,7 +37124,7 @@
     {
       "id": "stretch_any_copy_1280x1024__performance.lib.misc",
       "name": "1280x1024 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / Any Game – Copy",
+      "category": "Stretch Resolution Lab / Any Game \u2013 Copy",
       "type": "action",
       "description": "Copies generic Steam-style launch options to clipboard (works for many PC games).",
       "riskLevel": "Safe",
@@ -37144,7 +37144,7 @@
     {
       "id": "stretch_any_copy_1152x864__performance.lib.misc",
       "name": "1152x864 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / Any Game – Copy",
+      "category": "Stretch Resolution Lab / Any Game \u2013 Copy",
       "type": "action",
       "description": "Copies generic Steam-style launch options to clipboard (works for many PC games).",
       "riskLevel": "Safe",
@@ -37164,7 +37164,7 @@
     {
       "id": "stretch_any_copy_1024x768__performance.lib.misc",
       "name": "1024x768 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / Any Game – Copy",
+      "category": "Stretch Resolution Lab / Any Game \u2013 Copy",
       "type": "action",
       "description": "Copies generic Steam-style launch options to clipboard (works for many PC games).",
       "riskLevel": "Safe",
@@ -37184,7 +37184,7 @@
     {
       "id": "stretch_any_copy_1920x1200__performance.lib.misc",
       "name": "1920x1200 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / Any Game – Copy",
+      "category": "Stretch Resolution Lab / Any Game \u2013 Copy",
       "type": "action",
       "description": "Copies generic Steam-style launch options to clipboard (works for many PC games).",
       "riskLevel": "Safe",
@@ -37204,7 +37204,7 @@
     {
       "id": "stretch_any_copy_1440x900__performance.lib.misc",
       "name": "1440x900 (Copy Steam launch opts)",
-      "category": "Stretch Resolution Lab / Any Game – Copy",
+      "category": "Stretch Resolution Lab / Any Game \u2013 Copy",
       "type": "action",
       "description": "Copies generic Steam-style launch options to clipboard (works for many PC games).",
       "riskLevel": "Safe",
@@ -37224,7 +37224,7 @@
     {
       "id": "stretch_fortnite_1656x1080__performance.lib.misc",
       "name": "1656x1080 (Fortnite)",
-      "category": "Stretch Resolution Lab / Fortnite – Presets",
+      "category": "Stretch Resolution Lab / Fortnite \u2013 Presets",
       "type": "action",
       "description": "[Focus: FPS/Visibility] Writes 1656x1080 to GameUserSettings.ini (backup saved). Popular/pro-style: Popular comp 16:10-ish.",
       "riskLevel": "Warning",
@@ -37244,7 +37244,7 @@
     {
       "id": "stretch_fortnite_1568x1080__performance.lib.misc",
       "name": "1568x1080 (Fortnite)",
-      "category": "Stretch Resolution Lab / Fortnite – Presets",
+      "category": "Stretch Resolution Lab / Fortnite \u2013 Presets",
       "type": "action",
       "description": "[Focus: FPS/Visibility] Writes 1568x1080 to GameUserSettings.ini (backup saved). Popular/pro-style: Stretch FN classic.",
       "riskLevel": "Warning",
@@ -37264,7 +37264,7 @@
     {
       "id": "stretch_fortnite_1152x864__performance.lib.misc",
       "name": "1152x864 (Fortnite)",
-      "category": "Stretch Resolution Lab / Fortnite – Presets",
+      "category": "Stretch Resolution Lab / Fortnite \u2013 Presets",
       "type": "action",
       "description": "[Focus: FPS/Visibility] Writes 1152x864 to GameUserSettings.ini (backup saved). Popular/pro-style: Low-end 4:3.",
       "riskLevel": "Warning",
@@ -37284,7 +37284,7 @@
     {
       "id": "stretch_gtav_1280x960__performance.lib.misc",
       "name": "GTA V 1280x960 (apply settings.xml)",
-      "category": "Stretch Resolution Lab / GTA V – Presets",
+      "category": "Stretch Resolution Lab / GTA V \u2013 Presets",
       "type": "action",
       "description": "[Focus: FPS] Writes 1280x960 to GTA V settings.xml (backup saved).",
       "riskLevel": "Warning",
@@ -37304,7 +37304,7 @@
     {
       "id": "stretch_gtav_1440x1080__performance.lib.misc",
       "name": "GTA V 1440x1080 (apply settings.xml)",
-      "category": "Stretch Resolution Lab / GTA V – Presets",
+      "category": "Stretch Resolution Lab / GTA V \u2013 Presets",
       "type": "action",
       "description": "[Focus: FPS] Writes 1440x1080 to GTA V settings.xml (backup saved).",
       "riskLevel": "Warning",
@@ -37324,7 +37324,7 @@
     {
       "id": "stretch_gtav_1600x900__performance.lib.misc",
       "name": "GTA V 1600x900 (apply settings.xml)",
-      "category": "Stretch Resolution Lab / GTA V – Presets",
+      "category": "Stretch Resolution Lab / GTA V \u2013 Presets",
       "type": "action",
       "description": "[Focus: FPS] Writes 1600x900 to GTA V settings.xml (backup saved).",
       "riskLevel": "Warning",
@@ -37344,7 +37344,7 @@
     {
       "id": "stretch_gtav_1720x1080__performance.lib.misc",
       "name": "GTA V 1720x1080 (apply settings.xml)",
-      "category": "Stretch Resolution Lab / GTA V – Presets",
+      "category": "Stretch Resolution Lab / GTA V \u2013 Presets",
       "type": "action",
       "description": "[Focus: FPS] Writes 1720x1080 to GTA V settings.xml (backup saved).",
       "riskLevel": "Warning",
@@ -37364,7 +37364,7 @@
     {
       "id": "stretch_gtav_1750x1080__performance.lib.misc",
       "name": "GTA V 1750x1080 (apply settings.xml)",
-      "category": "Stretch Resolution Lab / GTA V – Presets",
+      "category": "Stretch Resolution Lab / GTA V \u2013 Presets",
       "type": "action",
       "description": "[Focus: FPS] Writes 1750x1080 to GTA V settings.xml (backup saved).",
       "riskLevel": "Warning",
@@ -37384,7 +37384,7 @@
     {
       "id": "stretch_gtav_1798x1080__performance.lib.misc",
       "name": "GTA V 1798x1080 (apply settings.xml)",
-      "category": "Stretch Resolution Lab / GTA V – Presets",
+      "category": "Stretch Resolution Lab / GTA V \u2013 Presets",
       "type": "action",
       "description": "[Focus: FPS] Writes 1798x1080 to GTA V settings.xml (backup saved).",
       "riskLevel": "Warning",
@@ -37404,7 +37404,7 @@
     {
       "id": "stretch_gtav_1920x1080__performance.lib.misc",
       "name": "GTA V 1920x1080 (apply settings.xml)",
-      "category": "Stretch Resolution Lab / GTA V – Presets",
+      "category": "Stretch Resolution Lab / GTA V \u2013 Presets",
       "type": "action",
       "description": "[Focus: FPS] Writes 1920x1080 to GTA V settings.xml (backup saved).",
       "riskLevel": "Warning",
@@ -37424,7 +37424,7 @@
     {
       "id": "stretch_gtav_1280x720__performance.lib.misc",
       "name": "GTA V 1280x720 (apply settings.xml)",
-      "category": "Stretch Resolution Lab / GTA V – Presets",
+      "category": "Stretch Resolution Lab / GTA V \u2013 Presets",
       "type": "action",
       "description": "[Focus: FPS] Writes 1280x720 to GTA V settings.xml (backup saved).",
       "riskLevel": "Warning",
@@ -37444,7 +37444,7 @@
     {
       "id": "stretch_gtav_1366x768__performance.lib.misc",
       "name": "GTA V 1366x768 (apply settings.xml)",
-      "category": "Stretch Resolution Lab / GTA V – Presets",
+      "category": "Stretch Resolution Lab / GTA V \u2013 Presets",
       "type": "action",
       "description": "[Focus: FPS] Writes 1366x768 to GTA V settings.xml (backup saved).",
       "riskLevel": "Warning",
@@ -37464,7 +37464,7 @@
     {
       "id": "stretch_gtav_1536x864__performance.lib.misc",
       "name": "GTA V 1536x864 (apply settings.xml)",
-      "category": "Stretch Resolution Lab / GTA V – Presets",
+      "category": "Stretch Resolution Lab / GTA V \u2013 Presets",
       "type": "action",
       "description": "[Focus: FPS] Writes 1536x864 to GTA V settings.xml (backup saved).",
       "riskLevel": "Warning",
@@ -37877,7 +37877,7 @@
         "steps": [
           {
             "type": "ps.run",
-            "command": "Write-Output \"=== FALCON GAMEPACK 2.0: GAME AUTO-DETECT & RECOMMEND ===\"\nWrite-Output \"\"\nWrite-Output \"Scanning for installed competitive titles and mapping them to Falcon modules...\"\nWrite-Output \"\"\n\n$results = @()\n\nfunction Test-GamePath {\n  param(\n    [string]$Name,\n    [string[]]$Paths\n  )\n  foreach ($p in $Paths) {\n    if ([string]::IsNullOrWhiteSpace($p)) { continue }\n    try {\n      if (Test-Path $p) {\n        return @{ Name = $Name; Installed = $true; Path = $p }\n      }\n    } catch {}\n  }\n  return @{ Name = $Name; Installed = $false; Path = $null }\n}\n\n# Build candidate paths per game\n\n$programFiles      = ${env:ProgramFiles}\n$programFilesX86   = ${env:ProgramFiles(x86)}\n$localAppData      = ${env:LOCALAPPDATA}\n$commonProgramData = ${env:ProgramData}\n\n$games = @()\n\n# Fortnite (Epic)\n$fnPaths = @()\n$fnPaths += (Join-Path $programFiles \"Epic Games\\Fortnite\")\n$fnPaths += (Join-Path $programFilesX86 \"Epic Games\\Fortnite\")\n$games += Test-GamePath -Name \"Fortnite\" -Paths $fnPaths\n\n# Valorant (Riot)\n$valPaths = @()\n$valPaths += (Join-Path $programFiles \"Riot Games\\VALORANT\")\n$valPaths += (Join-Path $programFilesX86 \"Riot Games\\VALORANT\")\n$valPaths += (Join-Path $localAppData \"VALORANT\")\n$games += Test-GamePath -Name \"Valorant\" -Paths $valPaths\n\n# CS2 (Steam)\n$steamCommon = @()\n$steamCommon += (Join-Path $programFilesX86 \"Steam\\steamapps\\common\")\n$steamCommon += (Join-Path $programFiles \"Steam\\steamapps\\common\")\n$cs2Paths = @()\nforeach ($s in $steamCommon) {\n  if (-not [string]::IsNullOrWhiteSpace($s)) {\n    $cs2Paths += (Join-Path $s \"Counter-Strike Global Offensive\")\n    $cs2Paths += (Join-Path $s \"Counter-Strike 2\")\n  }\n}\n$games += Test-GamePath -Name \"CS2\" -Paths $cs2Paths\n\n# Apex Legends (Steam / Origin)\n$apexPaths = @()\nforeach ($s in $steamCommon) {\n  if (-not [string]::IsNullOrWhiteSpace($s)) {\n    $apexPaths += (Join-Path $s \"Apex Legends\")\n  }\n}\n$apexPaths += (Join-Path $programFiles \"Origin Games\\Apex\")\n$apexPaths += (Join-Path $programFilesX86 \"Origin Games\\Apex\")\n$games += Test-GamePath -Name \"Apex Legends\" -Paths $apexPaths\n\n# Rocket League (Steam / Epic)\n$rlPaths = @()\nforeach ($s in $steamCommon) {\n  if (-not [string]::IsNullOrWhiteSpace($s)) {\n    $rlPaths += (Join-Path $s \"rocketleague\")\n  }\n}\n$rlPaths += (Join-Path $programFiles \"Epic Games\\rocketleague\")\n$games += Test-GamePath -Name \"Rocket League\" -Paths $rlPaths\n\n# GTA V\n$gtaPaths = @()\nforeach ($s in $steamCommon) {\n  if (-not [string]::IsNullOrWhiteSpace($s)) {\n    $gtaPaths += (Join-Path $s \"Grand Theft Auto V\")\n  }\n}\n$gtaPaths += (Join-Path $programFiles \"Rockstar Games\\Grand Theft Auto V\")\n$gtaPaths += (Join-Path $programFilesX86 \"Rockstar Games\\Grand Theft Auto V\")\n$games += Test-GamePath -Name \"GTA V\" -Paths $gtaPaths\n\n# League of Legends\n$lolPaths = @()\n$lolPaths += (Join-Path $programFiles \"Riot Games\\League of Legends\")\n$lolPaths += (Join-Path $programFilesX86 \"Riot Games\\League of Legends\")\n$games += Test-GamePath -Name \"League of Legends\" -Paths $lolPaths\n\n# GeForce NOW (cloud)\n$gfnPaths = @()\n$gfnPaths += (Join-Path $programFiles \"NVIDIA Corporation\\NVIDIA GeForce NOW\")\n$gfnPaths += (Join-Path $programFilesX86 \"NVIDIA Corporation\\NVIDIA GeForce NOW\")\n$games += Test-GamePath -Name \"GeForce NOW\" -Paths $gfnPaths\n\nWrite-Output \"Detected games:\"\nforeach ($g in $games) {\n  if ($g.Installed) {\n    Write-Output (\"  - {0}: Installed at {1}\" -f $g.Name, $g.Path)\n  } else {\n    Write-Output (\"  - {0}: Not detected (using heuristics only)\" -f $g.Name)\n  }\n}\n\nWrite-Output \"\"\nWrite-Output \"=== Falcon GamePack 2.0 Recommendations ===\"\nWrite-Output \"\"\n\nforeach ($g in $games) {\n  if (-not $g.Installed) { continue }\n\n  switch ($g.Name) {\n    \"Fortnite\" {\n      Write-Output \">> Fortnite:\"\n      Write-Output \"   - Use: Game Specific → Fortnite\"\n      Write-Output \"   - Combine with: StretchLab, Input Latency Lab, Network Latency Lab, and Driver Lab cache cleanup.\"\n      Write-Output \"   - Suggested Falcon mode: Competitive / Extreme (if your hardware and stability are good).\"\n      Write-Output \"\"\n    }\n    \"Valorant\" {\n      Write-Output \">> Valorant:\"\n      Write-Output \"   - Use: Game Specific → Valorant\"\n      Write-Output \"   - Combine with: Input Latency Lab, Network Latency Lab (NIC tuning), DPC Latency Lab.\"\n      Write-Output \"   - Suggested Falcon mode: Competitive (avoid fully nuking services Riot might require).\"\n      Write-Output \"\"\n    }\n    \"CS2\" {\n      Write-Output \">> CS2:\"\n      Write-Output \"   - Use: Game Specific → CS2\"\n      Write-Output \"   - Combine with: Driver Lab (cache cleanup), Audio Lab (for clean positional audio), DPC Latency Lab.\"\n      Write-Output \"   - Suggested Falcon mode: Competitive or Extreme depending on stability.\"\n      Write-Output \"\"\n    }\n    \"Apex Legends\" {\n      Write-Output \">> Apex Legends:\"\n      Write-Output \"   - Use: Game Specific → Apex Legends\"\n      Write-Output \"   - Combine with: Network Latency Lab, Driver Lab cache cleanup, Thermal Engine (if CPU/GPU run hot).\"\n      Write-Output \"\"\n    }\n    \"Rocket League\" {\n      Write-Output \">> Rocket League:\"\n      Write-Output \"   - Use: Game Specific → Rocket League\"\n      Write-Output \"   - Combine with: Input Latency Lab (controller/HID tuning), Network Latency Lab jitter tests.\"\n      Write-Output \"\"\n    }\n    \"GTA V\" {\n      Write-Output \">> GTA V:\"\n      Write-Output \"   - Use: Game Specific → GTA V\"\n      Write-Output \"   - Combine with: Thermal Engine (extended sessions), Audio Lab, and moderate debloat.\"\n      Write-Output \"\"\n    }\n    \"League of Legends\" {\n      Write-Output \">> League of Legends:\"\n      Write-Output \"   - Use: Game Specific → League of Legends\"\n      Write-Output \"   - Combine with: Network Latency Lab, DPC Latency Lab to keep input + camera panning smooth.\"\n      Write-Output \"\"\n    }\n    \"GeForce NOW\" {\n      Write-Output \">> GeForce NOW:\"\n      Write-Output \"   - Use: Game Specific → GeForce NOW\"\n      Write-Output \"   - Combine with: Network Latency Lab, Driver Lab (for GPU encoding stability), and Audio Lab.\"\n      Write-Output \"\"\n    }\n  }\n}\n\nWrite-Output \"If a game is not detected but installed in a non-standard path, you can still use its Falcon tab manually.\"\nWrite-Output \"GamePack 2.0 does not auto-change configs; it gives you a per-game Falcon roadmap based on what it finds.\"\nWrite-Output \"\"\nWrite-Output \"=== END OF GAMEPACK 2.0 AUTO-DETECT ===\""
+            "command": "Write-Output \"=== FALCON GAMEPACK 2.0: GAME AUTO-DETECT & RECOMMEND ===\"\nWrite-Output \"\"\nWrite-Output \"Scanning for installed competitive titles and mapping them to Falcon modules...\"\nWrite-Output \"\"\n\n$results = @()\n\nfunction Test-GamePath {\n  param(\n    [string]$Name,\n    [string[]]$Paths\n  )\n  foreach ($p in $Paths) {\n    if ([string]::IsNullOrWhiteSpace($p)) { continue }\n    try {\n      if (Test-Path $p) {\n        return @{ Name = $Name; Installed = $true; Path = $p }\n      }\n    } catch {}\n  }\n  return @{ Name = $Name; Installed = $false; Path = $null }\n}\n\n# Build candidate paths per game\n\n$programFiles      = ${env:ProgramFiles}\n$programFilesX86   = ${env:ProgramFiles(x86)}\n$localAppData      = ${env:LOCALAPPDATA}\n$commonProgramData = ${env:ProgramData}\n\n$games = @()\n\n# Fortnite (Epic)\n$fnPaths = @()\n$fnPaths += (Join-Path $programFiles \"Epic Games\\Fortnite\")\n$fnPaths += (Join-Path $programFilesX86 \"Epic Games\\Fortnite\")\n$games += Test-GamePath -Name \"Fortnite\" -Paths $fnPaths\n\n# Valorant (Riot)\n$valPaths = @()\n$valPaths += (Join-Path $programFiles \"Riot Games\\VALORANT\")\n$valPaths += (Join-Path $programFilesX86 \"Riot Games\\VALORANT\")\n$valPaths += (Join-Path $localAppData \"VALORANT\")\n$games += Test-GamePath -Name \"Valorant\" -Paths $valPaths\n\n# CS2 (Steam)\n$steamCommon = @()\n$steamCommon += (Join-Path $programFilesX86 \"Steam\\steamapps\\common\")\n$steamCommon += (Join-Path $programFiles \"Steam\\steamapps\\common\")\n$cs2Paths = @()\nforeach ($s in $steamCommon) {\n  if (-not [string]::IsNullOrWhiteSpace($s)) {\n    $cs2Paths += (Join-Path $s \"Counter-Strike Global Offensive\")\n    $cs2Paths += (Join-Path $s \"Counter-Strike 2\")\n  }\n}\n$games += Test-GamePath -Name \"CS2\" -Paths $cs2Paths\n\n# Apex Legends (Steam / Origin)\n$apexPaths = @()\nforeach ($s in $steamCommon) {\n  if (-not [string]::IsNullOrWhiteSpace($s)) {\n    $apexPaths += (Join-Path $s \"Apex Legends\")\n  }\n}\n$apexPaths += (Join-Path $programFiles \"Origin Games\\Apex\")\n$apexPaths += (Join-Path $programFilesX86 \"Origin Games\\Apex\")\n$games += Test-GamePath -Name \"Apex Legends\" -Paths $apexPaths\n\n# Rocket League (Steam / Epic)\n$rlPaths = @()\nforeach ($s in $steamCommon) {\n  if (-not [string]::IsNullOrWhiteSpace($s)) {\n    $rlPaths += (Join-Path $s \"rocketleague\")\n  }\n}\n$rlPaths += (Join-Path $programFiles \"Epic Games\\rocketleague\")\n$games += Test-GamePath -Name \"Rocket League\" -Paths $rlPaths\n\n# GTA V\n$gtaPaths = @()\nforeach ($s in $steamCommon) {\n  if (-not [string]::IsNullOrWhiteSpace($s)) {\n    $gtaPaths += (Join-Path $s \"Grand Theft Auto V\")\n  }\n}\n$gtaPaths += (Join-Path $programFiles \"Rockstar Games\\Grand Theft Auto V\")\n$gtaPaths += (Join-Path $programFilesX86 \"Rockstar Games\\Grand Theft Auto V\")\n$games += Test-GamePath -Name \"GTA V\" -Paths $gtaPaths\n\n# League of Legends\n$lolPaths = @()\n$lolPaths += (Join-Path $programFiles \"Riot Games\\League of Legends\")\n$lolPaths += (Join-Path $programFilesX86 \"Riot Games\\League of Legends\")\n$games += Test-GamePath -Name \"League of Legends\" -Paths $lolPaths\n\n# GeForce NOW (cloud)\n$gfnPaths = @()\n$gfnPaths += (Join-Path $programFiles \"NVIDIA Corporation\\NVIDIA GeForce NOW\")\n$gfnPaths += (Join-Path $programFilesX86 \"NVIDIA Corporation\\NVIDIA GeForce NOW\")\n$games += Test-GamePath -Name \"GeForce NOW\" -Paths $gfnPaths\n\nWrite-Output \"Detected games:\"\nforeach ($g in $games) {\n  if ($g.Installed) {\n    Write-Output (\"  - {0}: Installed at {1}\" -f $g.Name, $g.Path)\n  } else {\n    Write-Output (\"  - {0}: Not detected (using heuristics only)\" -f $g.Name)\n  }\n}\n\nWrite-Output \"\"\nWrite-Output \"=== Falcon GamePack 2.0 Recommendations ===\"\nWrite-Output \"\"\n\nforeach ($g in $games) {\n  if (-not $g.Installed) { continue }\n\n  switch ($g.Name) {\n    \"Fortnite\" {\n      Write-Output \">> Fortnite:\"\n      Write-Output \"   - Use: Game Specific \u2192 Fortnite\"\n      Write-Output \"   - Combine with: StretchLab, Input Latency Lab, Network Latency Lab, and Driver Lab cache cleanup.\"\n      Write-Output \"   - Suggested Falcon mode: Competitive / Extreme (if your hardware and stability are good).\"\n      Write-Output \"\"\n    }\n    \"Valorant\" {\n      Write-Output \">> Valorant:\"\n      Write-Output \"   - Use: Game Specific \u2192 Valorant\"\n      Write-Output \"   - Combine with: Input Latency Lab, Network Latency Lab (NIC tuning), DPC Latency Lab.\"\n      Write-Output \"   - Suggested Falcon mode: Competitive (avoid fully nuking services Riot might require).\"\n      Write-Output \"\"\n    }\n    \"CS2\" {\n      Write-Output \">> CS2:\"\n      Write-Output \"   - Use: Game Specific \u2192 CS2\"\n      Write-Output \"   - Combine with: Driver Lab (cache cleanup), Audio Lab (for clean positional audio), DPC Latency Lab.\"\n      Write-Output \"   - Suggested Falcon mode: Competitive or Extreme depending on stability.\"\n      Write-Output \"\"\n    }\n    \"Apex Legends\" {\n      Write-Output \">> Apex Legends:\"\n      Write-Output \"   - Use: Game Specific \u2192 Apex Legends\"\n      Write-Output \"   - Combine with: Network Latency Lab, Driver Lab cache cleanup, Thermal Engine (if CPU/GPU run hot).\"\n      Write-Output \"\"\n    }\n    \"Rocket League\" {\n      Write-Output \">> Rocket League:\"\n      Write-Output \"   - Use: Game Specific \u2192 Rocket League\"\n      Write-Output \"   - Combine with: Input Latency Lab (controller/HID tuning), Network Latency Lab jitter tests.\"\n      Write-Output \"\"\n    }\n    \"GTA V\" {\n      Write-Output \">> GTA V:\"\n      Write-Output \"   - Use: Game Specific \u2192 GTA V\"\n      Write-Output \"   - Combine with: Thermal Engine (extended sessions), Audio Lab, and moderate cleanup.\"\n      Write-Output \"\"\n    }\n    \"League of Legends\" {\n      Write-Output \">> League of Legends:\"\n      Write-Output \"   - Use: Game Specific \u2192 League of Legends\"\n      Write-Output \"   - Combine with: Network Latency Lab, DPC Latency Lab to keep input + camera panning smooth.\"\n      Write-Output \"\"\n    }\n    \"GeForce NOW\" {\n      Write-Output \">> GeForce NOW:\"\n      Write-Output \"   - Use: Game Specific \u2192 GeForce NOW\"\n      Write-Output \"   - Combine with: Network Latency Lab, Driver Lab (for GPU encoding stability), and Audio Lab.\"\n      Write-Output \"\"\n    }\n  }\n}\n\nWrite-Output \"If a game is not detected but installed in a non-standard path, you can still use its Falcon tab manually.\"\nWrite-Output \"GamePack 2.0 does not auto-change configs; it gives you a per-game Falcon roadmap based on what it finds.\"\nWrite-Output \"\"\nWrite-Output \"=== END OF GAMEPACK 2.0 AUTO-DETECT ===\""
           }
         ]
       },
@@ -41426,9 +41426,9 @@
       "category": "Hardcore / Hardware / Storage"
     },
     {
-      "id": "hc_debloat.services_debloat.services.basic__performance.lib.misc",
+      "id": "hc_cleanup.services_cleanup.services.basic__performance.lib.misc",
       "name": "Basic Service Preset",
-      "category": "Hardcore / Debloat / Services",
+      "category": "Hardcore / Cleanup / Services",
       "risk": "Warning",
       "description": "[Focus: FPS, Latency / Input Delay] Disables common telemetry/location services while keeping Windows Update/Defender/Store enabled.",
       "requiresAdmin": true,
@@ -41495,9 +41495,9 @@
       }
     },
     {
-      "id": "hc_debloat.autoruns_debloat.autoruns.edge_autolaunch__performance.lib.misc",
+      "id": "hc_cleanup.autoruns_cleanup.autoruns.edge_autolaunch__performance.lib.misc",
       "name": "Microsoft Edge AutoLaunch",
-      "category": "Hardcore / Debloat / Autoruns",
+      "category": "Hardcore / Cleanup / Autoruns",
       "risk": "Warning",
       "description": "[Focus: FPS, Latency / Input Delay] Disables Microsoft Edge auto-launch/background startup.",
       "requiresAdmin": true,
@@ -44568,10 +44568,10 @@
       }
     },
     {
-      "id": "mem_kill_phoneexperiencehost__performance.lib.misc",
+      "id": "mem_kill_pfalconexperiencehost__performance.lib.misc",
       "type": "button",
-      "name": "Apply: Close PhoneExperienceHost (if running)",
-      "description": "Closes PhoneExperienceHost if running to free RAM before gaming.",
+      "name": "Apply: Close PfalconExperienceHost (if running)",
+      "description": "Closes PfalconExperienceHost if running to free RAM before gaming.",
       "requiresAdmin": true,
       "riskLevel": "Warning",
       "category": "Memory Lab / Background Kill",
@@ -44579,7 +44579,7 @@
         "steps": [
           {
             "type": "process.kill",
-            "name": "PhoneExperienceHost"
+            "name": "PfalconExperienceHost"
           }
         ]
       },
@@ -44587,33 +44587,33 @@
         "steps": [
           {
             "type": "ps.run",
-            "command": "Write-Output \"PhoneExperienceHost was closed. Re-open manually if needed.\""
+            "command": "Write-Output \"PfalconExperienceHost was closed. Re-open manually if needed.\""
           }
         ]
       }
     },
     {
-      "description": "Closes PhoneExperienceHost if running to free RAM before gaming.",
+      "description": "Closes PfalconExperienceHost if running to free RAM before gaming.",
       "requiresAdmin": true,
       "riskLevel": "Warning",
       "category": "Memory Lab / Background Kill",
-      "id": "mem_kill_phoneexperiencehost__performance.lib.misc__revert",
+      "id": "mem_kill_pfalconexperiencehost__performance.lib.misc__revert",
       "type": "button",
-      "name": "Revert: Close PhoneExperienceHost (if running)",
+      "name": "Revert: Close PfalconExperienceHost (if running)",
       "apply": {
         "steps": [
           {
             "type": "ps.run",
-            "command": "Write-Output \"PhoneExperienceHost was closed. Re-open manually if needed.\""
+            "command": "Write-Output \"PfalconExperienceHost was closed. Re-open manually if needed.\""
           }
         ]
       }
     },
     {
-      "id": "mem_kill_yourphone__performance.lib.misc",
+      "id": "mem_kill_yourpfalcon__performance.lib.misc",
       "type": "button",
-      "name": "Apply: Close YourPhone (if running)",
-      "description": "Closes YourPhone if running to free RAM before gaming.",
+      "name": "Apply: Close YourPfalcon (if running)",
+      "description": "Closes YourPfalcon if running to free RAM before gaming.",
       "requiresAdmin": true,
       "riskLevel": "Warning",
       "category": "Memory Lab / Background Kill",
@@ -44621,7 +44621,7 @@
         "steps": [
           {
             "type": "process.kill",
-            "name": "YourPhone"
+            "name": "YourPfalcon"
           }
         ]
       },
@@ -44629,24 +44629,24 @@
         "steps": [
           {
             "type": "ps.run",
-            "command": "Write-Output \"YourPhone was closed. Re-open manually if needed.\""
+            "command": "Write-Output \"YourPfalcon was closed. Re-open manually if needed.\""
           }
         ]
       }
     },
     {
-      "description": "Closes YourPhone if running to free RAM before gaming.",
+      "description": "Closes YourPfalcon if running to free RAM before gaming.",
       "requiresAdmin": true,
       "riskLevel": "Warning",
       "category": "Memory Lab / Background Kill",
-      "id": "mem_kill_yourphone__performance.lib.misc__revert",
+      "id": "mem_kill_yourpfalcon__performance.lib.misc__revert",
       "type": "button",
-      "name": "Revert: Close YourPhone (if running)",
+      "name": "Revert: Close YourPfalcon (if running)",
       "apply": {
         "steps": [
           {
             "type": "ps.run",
-            "command": "Write-Output \"YourPhone was closed. Re-open manually if needed.\""
+            "command": "Write-Output \"YourPfalcon was closed. Re-open manually if needed.\""
           }
         ]
       }
@@ -45119,7 +45119,7 @@
         "steps": [
           {
             "type": "ps.run",
-            "command": "Write-Output \"=== FALCON SAFEGUARD: CREATE SNAPSHOT ===\"\nWrite-Output \"\"\nWrite-Output \"This will snapshot core service startup types and selected low-level settings so you can restore them later.\"\nWrite-Output \"Run this when your system is in a known-good state before applying extreme tweaks.\"\nWrite-Output \"\"\n\n$logsDir = Join-Path $PSScriptRoot \"..\\logs\"\ntry {\n  if (-not (Test-Path $logsDir)) {\n    New-Item -ItemType Directory -Path $logsDir -Force | Out-Null\n  }\n} catch {\n  Write-Output \"Failed to create logs directory.\"\n}\n\n$timestamp = Get-Date -Format \"yyyyMMdd_HHmmss\"\n$snapFile = Join-Path $logsDir (\"falcon_safeguard_snapshot_{0}.json\" -f $timestamp)\n\n$snapshot = [ordered]@{}\n$snapshot.TimestampUtc = (Get-Date).ToUniversalTime().ToString(\"o\")\n\n# --- Services snapshot ---\nWrite-Output \"Snapshotting service startup types...\"\n$svcList = @()\ntry {\n  $wmiServices = Get-WmiObject Win32_Service -ErrorAction SilentlyContinue\n  foreach ($s in $wmiServices) {\n    # StartMode values like 'Auto', 'Manual', 'Disabled'\n    $svcList += [ordered]@{\n      Name      = $s.Name\n      StartMode = $s.StartMode\n    }\n  }\n  $snapshot.Services = $svcList\n  Write-Output (\"Captured {0} services.\" -f $svcList.Count)\n} catch {\n  Write-Output (\"Failed to snapshot services: {0}\" -f $_.Exception.Message)\n  $snapshot.Services = @()\n}\n\n# --- Memory Management key (selected values) ---\n$mmKey = \"HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management\"\n$mmSnap = @{}\n$mmNames = @(\"DisablePagingExecutive\",\"LargeSystemCache\",\"ClearPageFileAtShutdown\")\ntry {\n  if (Test-Path $mmKey) {\n    $mmProps = Get-ItemProperty -Path $mmKey -ErrorAction SilentlyContinue\n    foreach ($n in $mmNames) {\n      if ($mmProps.PSObject.Properties.Name -contains $n) {\n        $mmSnap[$n] = $mmProps.$n\n      }\n    }\n  }\n} catch {}\n$snapshot.MemoryManagement = $mmSnap\n\n# --- PowerThrottling key (PowerThrottlingOff) ---\n$ptKey = \"HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Power\\PowerThrottling\"\n$ptSnap = @{}\ntry {\n  if (Test-Path $ptKey) {\n    $ptProps = Get-ItemProperty -Path $ptKey -ErrorAction SilentlyContinue\n    if ($ptProps.PSObject.Properties.Name -contains \"PowerThrottlingOff\") {\n      $ptSnap[\"PowerThrottlingOff\"] = $ptProps.PowerThrottlingOff\n    }\n  }\n} catch {}\n$snapshot.PowerThrottling = $ptSnap\n\n# --- MMAgent state (memory compression / page combining) ---\n$mmAgentSnap = @{}\ntry {\n  if (Get-Command -Name Get-MMAgent -ErrorAction SilentlyContinue) {\n    $mma = Get-MMAgent\n    $mmAgentSnap[\"MemoryCompressionEnabled\"] = $mma.MemoryCompression\n    $mmAgentSnap[\"PageCombiningEnabled\"]     = $mma.PageCombining\n  }\n} catch {}\n$snapshot.MMAgent = $mmAgentSnap\n\n# Write snapshot json\ntry {\n  $json = $snapshot | ConvertTo-Json -Depth 6\n  $json | Out-File -FilePath $snapFile -Encoding UTF8 -Force\n  Write-Output (\"Safeguard snapshot saved to: {0}\" -f $snapFile)\n} catch {\n  Write-Output (\"Failed to write snapshot file: {0}\" -f $_.Exception.Message)\n}\n\nWrite-Output \"\"\nWrite-Output \"Keep this snapshot if you plan to go very extreme with Process Lab / Debloat / Memory tweaks.\"\nWrite-Output \"=== END OF SAFEGUARD SNAPSHOT ===\""
+            "command": "Write-Output \"=== FALCON SAFEGUARD: CREATE SNAPSHOT ===\"\nWrite-Output \"\"\nWrite-Output \"This will snapshot core service startup types and selected low-level settings so you can restore them later.\"\nWrite-Output \"Run this when your system is in a known-good state before applying extreme tweaks.\"\nWrite-Output \"\"\n\n$logsDir = Join-Path $PSScriptRoot \"..\\logs\"\ntry {\n  if (-not (Test-Path $logsDir)) {\n    New-Item -ItemType Directory -Path $logsDir -Force | Out-Null\n  }\n} catch {\n  Write-Output \"Failed to create logs directory.\"\n}\n\n$timestamp = Get-Date -Format \"yyyyMMdd_HHmmss\"\n$snapFile = Join-Path $logsDir (\"falcon_safeguard_snapshot_{0}.json\" -f $timestamp)\n\n$snapshot = [ordered]@{}\n$snapshot.TimestampUtc = (Get-Date).ToUniversalTime().ToString(\"o\")\n\n# --- Services snapshot ---\nWrite-Output \"Snapshotting service startup types...\"\n$svcList = @()\ntry {\n  $wmiServices = Get-WmiObject Win32_Service -ErrorAction SilentlyContinue\n  foreach ($s in $wmiServices) {\n    # StartMode values like 'Auto', 'Manual', 'Disabled'\n    $svcList += [ordered]@{\n      Name      = $s.Name\n      StartMode = $s.StartMode\n    }\n  }\n  $snapshot.Services = $svcList\n  Write-Output (\"Captured {0} services.\" -f $svcList.Count)\n} catch {\n  Write-Output (\"Failed to snapshot services: {0}\" -f $_.Exception.Message)\n  $snapshot.Services = @()\n}\n\n# --- Memory Management key (selected values) ---\n$mmKey = \"HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management\"\n$mmSnap = @{}\n$mmNames = @(\"DisablePagingExecutive\",\"LargeSystemCache\",\"ClearPageFileAtShutdown\")\ntry {\n  if (Test-Path $mmKey) {\n    $mmProps = Get-ItemProperty -Path $mmKey -ErrorAction SilentlyContinue\n    foreach ($n in $mmNames) {\n      if ($mmProps.PSObject.Properties.Name -contains $n) {\n        $mmSnap[$n] = $mmProps.$n\n      }\n    }\n  }\n} catch {}\n$snapshot.MemoryManagement = $mmSnap\n\n# --- PowerThrottling key (PowerThrottlingOff) ---\n$ptKey = \"HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Power\\PowerThrottling\"\n$ptSnap = @{}\ntry {\n  if (Test-Path $ptKey) {\n    $ptProps = Get-ItemProperty -Path $ptKey -ErrorAction SilentlyContinue\n    if ($ptProps.PSObject.Properties.Name -contains \"PowerThrottlingOff\") {\n      $ptSnap[\"PowerThrottlingOff\"] = $ptProps.PowerThrottlingOff\n    }\n  }\n} catch {}\n$snapshot.PowerThrottling = $ptSnap\n\n# --- MMAgent state (memory compression / page combining) ---\n$mmAgentSnap = @{}\ntry {\n  if (Get-Command -Name Get-MMAgent -ErrorAction SilentlyContinue) {\n    $mma = Get-MMAgent\n    $mmAgentSnap[\"MemoryCompressionEnabled\"] = $mma.MemoryCompression\n    $mmAgentSnap[\"PageCombiningEnabled\"]     = $mma.PageCombining\n  }\n} catch {}\n$snapshot.MMAgent = $mmAgentSnap\n\n# Write snapshot json\ntry {\n  $json = $snapshot | ConvertTo-Json -Depth 6\n  $json | Out-File -FilePath $snapFile -Encoding UTF8 -Force\n  Write-Output (\"Safeguard snapshot saved to: {0}\" -f $snapFile)\n} catch {\n  Write-Output (\"Failed to write snapshot file: {0}\" -f $_.Exception.Message)\n}\n\nWrite-Output \"\"\nWrite-Output \"Keep this snapshot if you plan to go very extreme with Process Lab / Cleanup / Memory tweaks.\"\nWrite-Output \"=== END OF SAFEGUARD SNAPSHOT ===\""
           }
         ]
       },
@@ -45211,7 +45211,7 @@
         "steps": [
           {
             "type": "ps.run",
-            "command": "Write-Output \"=== FALCON AUTO-RECOMMEND ENGINE ===\"\nWrite-Output \"\"\n\n# Helper: safe int parse\nfunction To-Int($val, $default=0) {\n  try {\n    return [int]$val\n  } catch {\n    return $default\n  }\n}\n\n# OS\n$osCaption = \"\"\n$osVer = \"\"\ntry {\n  $os = Get-CimInstance Win32_OperatingSystem\n  $osCaption = $os.Caption\n  $osVer = $os.Version\n  Write-Output (\"OS: {0} (Version {1})\" -f $osCaption, $osVer)\n} catch {\n  Write-Output \"OS: <failed to query>\"\n}\n\n# CPU\n$cpuName = \"\"\n$cpuMan = \"\"\n$cpuCores = 0\n$cpuThreads = 0\ntry {\n  $cpu = Get-CimInstance Win32_Processor\n  $cpuName = $cpu.Name\n  $cpuMan = $cpu.Manufacturer\n  $cpuCores = To-Int $cpu.NumberOfCores\n  $cpuThreads = To-Int $cpu.NumberOfLogicalProcessors\n  Write-Output \"\"\n  Write-Output \"CPU:\"\n  Write-Output (\"  {0} | Cores: {1} | Threads: {2}\" -f $cpuName, $cpuCores, $cpuThreads)\n} catch {\n  Write-Output \"CPU: <failed to query>\"\n}\n\n# GPU (primary)\n$gpuName = \"\"\n$gpuVendor = \"\"\n$gpuVramGB = 0\ntry {\n  $gpus = Get-CimInstance Win32_VideoController | Where-Object { $_.AdapterRAM -gt 0 }\n  if ($gpus) {\n    # pick the one with max VRAM\n    $primary = $gpus | Sort-Object AdapterRAM -Descending | Select-Object -First 1\n    $gpuName = $primary.Name\n    $gpuVramGB = [math]::Round($primary.AdapterRAM / 1GB, 2)\n    if ($gpuName -match \"NVIDIA\") { $gpuVendor = \"NVIDIA\" }\n    elseif ($gpuName -match \"AMD\" -or $gpuName -match \"Radeon\") { $gpuVendor = \"AMD\" }\n    elseif ($gpuName -match \"Intel\") { $gpuVendor = \"Intel\" }\n    else { $gpuVendor = \"Unknown\" }\n    Write-Output \"\"\n    Write-Output (\"GPU: {0} ({1} GB, Vendor: {2})\" -f $gpuName, $gpuVramGB, $gpuVendor)\n  } else {\n    Write-Output \"GPU: <no VRAM GPUs found>\"\n  }\n} catch {\n  Write-Output \"GPU: <failed to query>\"\n}\n\n# RAM total\n$totalRamGB = 0\ntry {\n  $mem = Get-CimInstance Win32_PhysicalMemory\n  $totalBytes = ($mem | Measure-Object -Property Capacity -Sum).Sum\n  if ($totalBytes -gt 0) {\n    $totalRamGB = [math]::Round($totalBytes / 1GB, 2)\n  }\n  Write-Output \"\"\n  Write-Output (\"RAM: {0} GB total\" -f $totalRamGB)\n} catch {\n  Write-Output \"RAM: <failed to query>\"\n}\n\n# Form-factor (desktop vs laptop)\n$form = \"Unknown\"\ntry {\n  $cs = Get-CimInstance Win32_ComputerSystem\n  $ptype = To-Int $cs.PCSystemType\n  switch ($ptype) {\n    1 { $form = \"Desktop\" }\n    2 { $form = \"Laptop\" }\n    3 { $form = \"Workstation\" }\n    default { $form = \"Unknown\" }\n  }\n  Write-Output \"\"\n  Write-Output (\"Form Factor: {0}\" -f $form)\n} catch {\n  Write-Output \"Form Factor: <failed to query>\"\n}\n\n# Power plan\n$activePlanRaw = \"\"\ntry {\n  $activePlanRaw = (powercfg /getactivescheme 2>$null)\n  Write-Output \"\"\n  Write-Output (\"Power Plan: {0}\" -f $activePlanRaw.Trim())\n} catch {\n  Write-Output \"Power Plan: <failed to query>\"\n}\n\n# HAGS\n$hags = \"Unknown\"\ntry {\n  $gd = Get-ItemProperty -Path 'HKLM:\\SYSTEM\\CurrentControlSet\\Control\\GraphicsDrivers' -ErrorAction SilentlyContinue\n  if ($gd -and $gd.PSObject.Properties.Name -contains \"HwSchMode\") {\n    switch ([int]$gd.HwSchMode) {\n      1 { $hags = \"Off\" }\n      2 { $hags = \"On\" }\n      default { $hags = \"Default (driver controlled)\" }\n    }\n  }\n  Write-Output \"\"\n  Write-Output (\"HAGS (HwSchMode): {0}\" -f $hags)\n} catch {\n  Write-Output \"HAGS: <failed to query>\"\n}\n\n# Device Guard / VBS\n$vbs = \"Unknown\"\ntry {\n  $dg = Get-CimInstance Win32_DeviceGuard -ErrorAction SilentlyContinue\n  if ($dg) {\n    $running = $dg.SecurityServicesRunning\n    if ($running -contains 1 -or $running -contains 2) {\n      $vbs = \"On\"\n    } else {\n      $vbs = \"Off\"\n    }\n  }\n  Write-Output \"\"\n  Write-Output (\"VBS/HVCI: {0}\" -f $vbs)\n} catch {\n  Write-Output \"VBS/HVCI: <failed to query>\"\n}\n\n# Defender realtime\n$defState = \"Unknown\"\ntry {\n  $mp = Get-MpComputerStatus -ErrorAction SilentlyContinue\n  if ($mp) {\n    $defState = ($mp.RealTimeProtectionEnabled) ? \"On\" : \"Off\"\n  }\n  Write-Output \"\"\n  Write-Output (\"Defender realtime: {0}\" -f $defState)\n} catch {\n  Write-Output \"Defender: <failed to query>\"\n}\n\n# Basic Falcon profile classification\nWrite-Output \"\"\nWrite-Output \"=== Falcon Classification ===\"\n\n$profile = \"GENERIC\"\nif ($form -eq \"Desktop\") {\n  if ($totalRamGB -ge 32 -and $gpuVramGB -ge 8 -and $cpuThreads -ge 16) {\n    $profile = \"DESKTOP-HIGH-END\"\n  } elseif ($totalRamGB -ge 16 -and $gpuVramGB -ge 6) {\n    $profile = \"DESKTOP-MID\"\n  } else {\n    $profile = \"DESKTOP-LOW\"\n  }\n} elseif ($form -eq \"Laptop\") {\n  if ($totalRamGB -ge 16 -and $gpuVramGB -ge 6) {\n    $profile = \"LAPTOP-MID\"\n  } else {\n    $profile = \"LAPTOP-LOW\"\n  }\n}\n\nWrite-Output (\"Profile: {0}\" -f $profile)\nWrite-Output \"\"\n\n# Recommend Falcon preset text\nWrite-Output \"=== Recommended Falcon Mode ===\"\n\nswitch ($profile) {\n  \"DESKTOP-HIGH-END\" {\n    Write-Output \"Recommended: Falcon Extreme Desktop preset + Hardcore Tweaks (with caution).\"\n    Write-Output \" - Enable Game Mode, Speed Core, full Process Lab modes.\"\n    Write-Output \" - Hardcore allowed, but keep Windows Update/Defender restore preset available.\"\n  }\n  \"DESKTOP-MID\" {\n    Write-Output \"Recommended: Falcon Competitive preset.\"\n    Write-Output \" - Game Mode + Speed Core + main debloat, but only partial Hardcore.\"\n    Write-Output \" - Avoid killing ALL update/telemetry services; keep Defender mostly on.\"\n  }\n  \"DESKTOP-LOW\" {\n    Write-Output \"Recommended: Falcon Stability + FPS preset.\"\n    Write-Output \" - Focus on debloat, core scheduler, and Process Lab; avoid most Hardcore until stable.\"\n  }\n  \"LAPTOP-MID\" {\n    Write-Output \"Recommended: Falcon Laptop Competitive preset.\"\n    Write-Output \" - Favor power plan tuning + debloat + network tweaks, but keep thermal and battery safety.\"\n  }\n  \"LAPTOP-LOW\" {\n    Write-Output \"Recommended: Falcon Laptop Safe preset.\"\n    Write-Output \" - Use light debloat and network tweaks, skip aggressive kernel/mitigation changes.\"\n  }\n  default {\n    Write-Output \"Recommended: Start with Balanced Falcon preset, then selectively add Hardcore tweaks.\"\n  }\n}\n\n# Extra targeted hints\nWrite-Output \"\"\nWrite-Output \"=== Extra Hints ===\"\n\nif ($totalRamGB -lt 16) {\n  Write-Output \"- RAM is under 16 GB: prioritize debloat and Process Lab over heavy Hardcore tweaks.\"\n}\n\nif ($gpuVramGB -lt 6 -and $gpuVramGB -gt 0) {\n  Write-Output \"- GPU VRAM < 6 GB: use conservative texture settings and skip extreme resolution scales.\"\n}\n\nif ($form -eq \"Laptop\") {\n  Write-Output \"- Laptop detected: be careful with disabling power management and battery/thermal controls.\"\n}\n\nif ($hags -eq \"On\" -and $gpuVendor -eq \"NVIDIA\") {\n  Write-Output \"- HAGS is ON: good for some modern titles, but if you see stutter, test Falcon's HAGS-OFF tweak.\"\n} elseif ($hags -eq \"Off\" -and $gpuVendor -eq \"NVIDIA\") {\n  Write-Output \"- HAGS is OFF: you can test enabling it for DX12 titles using Falcon's HAGS-ON tweak.\"\n}\n\nif ($vbs -eq \"On\") {\n  Write-Output \"- VBS/HVCI is ON: better security but some latency overhead. Only disable if you understand the risk.\"\n}\n\nif ($defState -eq \"Off\") {\n  Write-Output \"- Defender realtime appears OFF: security is reduced. Make sure this is intentional before going full Hardcore.\"\n}\n\nWrite-Output \"\"\nWrite-Output \"=== End of Recommendation ===\""
+            "command": "Write-Output \"=== FALCON AUTO-RECOMMEND ENGINE ===\"\nWrite-Output \"\"\n\n# Helper: safe int parse\nfunction To-Int($val, $default=0) {\n  try {\n    return [int]$val\n  } catch {\n    return $default\n  }\n}\n\n# OS\n$osCaption = \"\"\n$osVer = \"\"\ntry {\n  $os = Get-CimInstance Win32_OperatingSystem\n  $osCaption = $os.Caption\n  $osVer = $os.Version\n  Write-Output (\"OS: {0} (Version {1})\" -f $osCaption, $osVer)\n} catch {\n  Write-Output \"OS: <failed to query>\"\n}\n\n# CPU\n$cpuName = \"\"\n$cpuMan = \"\"\n$cpuCores = 0\n$cpuThreads = 0\ntry {\n  $cpu = Get-CimInstance Win32_Processor\n  $cpuName = $cpu.Name\n  $cpuMan = $cpu.Manufacturer\n  $cpuCores = To-Int $cpu.NumberOfCores\n  $cpuThreads = To-Int $cpu.NumberOfLogicalProcessors\n  Write-Output \"\"\n  Write-Output \"CPU:\"\n  Write-Output (\"  {0} | Cores: {1} | Threads: {2}\" -f $cpuName, $cpuCores, $cpuThreads)\n} catch {\n  Write-Output \"CPU: <failed to query>\"\n}\n\n# GPU (primary)\n$gpuName = \"\"\n$gpuVendor = \"\"\n$gpuVramGB = 0\ntry {\n  $gpus = Get-CimInstance Win32_VideoController | Where-Object { $_.AdapterRAM -gt 0 }\n  if ($gpus) {\n    # pick the one with max VRAM\n    $primary = $gpus | Sort-Object AdapterRAM -Descending | Select-Object -First 1\n    $gpuName = $primary.Name\n    $gpuVramGB = [math]::Round($primary.AdapterRAM / 1GB, 2)\n    if ($gpuName -match \"NVIDIA\") { $gpuVendor = \"NVIDIA\" }\n    elseif ($gpuName -match \"AMD\" -or $gpuName -match \"Radeon\") { $gpuVendor = \"AMD\" }\n    elseif ($gpuName -match \"Intel\") { $gpuVendor = \"Intel\" }\n    else { $gpuVendor = \"Unknown\" }\n    Write-Output \"\"\n    Write-Output (\"GPU: {0} ({1} GB, Vendor: {2})\" -f $gpuName, $gpuVramGB, $gpuVendor)\n  } else {\n    Write-Output \"GPU: <no VRAM GPUs found>\"\n  }\n} catch {\n  Write-Output \"GPU: <failed to query>\"\n}\n\n# RAM total\n$totalRamGB = 0\ntry {\n  $mem = Get-CimInstance Win32_PhysicalMemory\n  $totalBytes = ($mem | Measure-Object -Property Capacity -Sum).Sum\n  if ($totalBytes -gt 0) {\n    $totalRamGB = [math]::Round($totalBytes / 1GB, 2)\n  }\n  Write-Output \"\"\n  Write-Output (\"RAM: {0} GB total\" -f $totalRamGB)\n} catch {\n  Write-Output \"RAM: <failed to query>\"\n}\n\n# Form-factor (desktop vs laptop)\n$form = \"Unknown\"\ntry {\n  $cs = Get-CimInstance Win32_ComputerSystem\n  $ptype = To-Int $cs.PCSystemType\n  switch ($ptype) {\n    1 { $form = \"Desktop\" }\n    2 { $form = \"Laptop\" }\n    3 { $form = \"Workstation\" }\n    default { $form = \"Unknown\" }\n  }\n  Write-Output \"\"\n  Write-Output (\"Form Factor: {0}\" -f $form)\n} catch {\n  Write-Output \"Form Factor: <failed to query>\"\n}\n\n# Power plan\n$activePlanRaw = \"\"\ntry {\n  $activePlanRaw = (powercfg /getactivescheme 2>$null)\n  Write-Output \"\"\n  Write-Output (\"Power Plan: {0}\" -f $activePlanRaw.Trim())\n} catch {\n  Write-Output \"Power Plan: <failed to query>\"\n}\n\n# HAGS\n$hags = \"Unknown\"\ntry {\n  $gd = Get-ItemProperty -Path 'HKLM:\\SYSTEM\\CurrentControlSet\\Control\\GraphicsDrivers' -ErrorAction SilentlyContinue\n  if ($gd -and $gd.PSObject.Properties.Name -contains \"HwSchMode\") {\n    switch ([int]$gd.HwSchMode) {\n      1 { $hags = \"Off\" }\n      2 { $hags = \"On\" }\n      default { $hags = \"Default (driver controlled)\" }\n    }\n  }\n  Write-Output \"\"\n  Write-Output (\"HAGS (HwSchMode): {0}\" -f $hags)\n} catch {\n  Write-Output \"HAGS: <failed to query>\"\n}\n\n# Device Guard / VBS\n$vbs = \"Unknown\"\ntry {\n  $dg = Get-CimInstance Win32_DeviceGuard -ErrorAction SilentlyContinue\n  if ($dg) {\n    $running = $dg.SecurityServicesRunning\n    if ($running -contains 1 -or $running -contains 2) {\n      $vbs = \"On\"\n    } else {\n      $vbs = \"Off\"\n    }\n  }\n  Write-Output \"\"\n  Write-Output (\"VBS/HVCI: {0}\" -f $vbs)\n} catch {\n  Write-Output \"VBS/HVCI: <failed to query>\"\n}\n\n# Defender realtime\n$defState = \"Unknown\"\ntry {\n  $mp = Get-MpComputerStatus -ErrorAction SilentlyContinue\n  if ($mp) {\n    $defState = ($mp.RealTimeProtectionEnabled) ? \"On\" : \"Off\"\n  }\n  Write-Output \"\"\n  Write-Output (\"Defender realtime: {0}\" -f $defState)\n} catch {\n  Write-Output \"Defender: <failed to query>\"\n}\n\n# Basic Falcon profile classification\nWrite-Output \"\"\nWrite-Output \"=== Falcon Classification ===\"\n\n$profile = \"GENERIC\"\nif ($form -eq \"Desktop\") {\n  if ($totalRamGB -ge 32 -and $gpuVramGB -ge 8 -and $cpuThreads -ge 16) {\n    $profile = \"DESKTOP-HIGH-END\"\n  } elseif ($totalRamGB -ge 16 -and $gpuVramGB -ge 6) {\n    $profile = \"DESKTOP-MID\"\n  } else {\n    $profile = \"DESKTOP-LOW\"\n  }\n} elseif ($form -eq \"Laptop\") {\n  if ($totalRamGB -ge 16 -and $gpuVramGB -ge 6) {\n    $profile = \"LAPTOP-MID\"\n  } else {\n    $profile = \"LAPTOP-LOW\"\n  }\n}\n\nWrite-Output (\"Profile: {0}\" -f $profile)\nWrite-Output \"\"\n\n# Recommend Falcon preset text\nWrite-Output \"=== Recommended Falcon Mode ===\"\n\nswitch ($profile) {\n  \"DESKTOP-HIGH-END\" {\n    Write-Output \"Recommended: Falcon Extreme Desktop preset + Hardcore Tweaks (with caution).\"\n    Write-Output \" - Enable Game Mode, Speed Core, full Process Lab modes.\"\n    Write-Output \" - Hardcore allowed, but keep Windows Update/Defender restore preset available.\"\n  }\n  \"DESKTOP-MID\" {\n    Write-Output \"Recommended: Falcon Competitive preset.\"\n    Write-Output \" - Game Mode + Speed Core + main cleanup, but only partial Hardcore.\"\n    Write-Output \" - Avoid killing ALL update/telemetry services; keep Defender mostly on.\"\n  }\n  \"DESKTOP-LOW\" {\n    Write-Output \"Recommended: Falcon Stability + FPS preset.\"\n    Write-Output \" - Focus on cleanup, core scheduler, and Process Lab; avoid most Hardcore until stable.\"\n  }\n  \"LAPTOP-MID\" {\n    Write-Output \"Recommended: Falcon Laptop Competitive preset.\"\n    Write-Output \" - Favor power plan tuning + cleanup + network tweaks, but keep thermal and battery safety.\"\n  }\n  \"LAPTOP-LOW\" {\n    Write-Output \"Recommended: Falcon Laptop Safe preset.\"\n    Write-Output \" - Use light cleanup and network tweaks, skip aggressive kernel/mitigation changes.\"\n  }\n  default {\n    Write-Output \"Recommended: Start with Balanced Falcon preset, then selectively add Hardcore tweaks.\"\n  }\n}\n\n# Extra targeted hints\nWrite-Output \"\"\nWrite-Output \"=== Extra Hints ===\"\n\nif ($totalRamGB -lt 16) {\n  Write-Output \"- RAM is under 16 GB: prioritize cleanup and Process Lab over heavy Hardcore tweaks.\"\n}\n\nif ($gpuVramGB -lt 6 -and $gpuVramGB -gt 0) {\n  Write-Output \"- GPU VRAM < 6 GB: use conservative texture settings and skip extreme resolution scales.\"\n}\n\nif ($form -eq \"Laptop\") {\n  Write-Output \"- Laptop detected: be careful with disabling power management and battery/thermal controls.\"\n}\n\nif ($hags -eq \"On\" -and $gpuVendor -eq \"NVIDIA\") {\n  Write-Output \"- HAGS is ON: good for some modern titles, but if you see stutter, test Falcon's HAGS-OFF tweak.\"\n} elseif ($hags -eq \"Off\" -and $gpuVendor -eq \"NVIDIA\") {\n  Write-Output \"- HAGS is OFF: you can test enabling it for DX12 titles using Falcon's HAGS-ON tweak.\"\n}\n\nif ($vbs -eq \"On\") {\n  Write-Output \"- VBS/HVCI is ON: better security but some latency overhead. Only disable if you understand the risk.\"\n}\n\nif ($defState -eq \"Off\") {\n  Write-Output \"- Defender realtime appears OFF: security is reduced. Make sure this is intentional before going full Hardcore.\"\n}\n\nWrite-Output \"\"\nWrite-Output \"=== End of Recommendation ===\""
           }
         ]
       },

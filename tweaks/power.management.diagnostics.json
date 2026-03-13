@@ -6,7 +6,7 @@
       "name": "Diagnostics: List Supported Sleep States",
       "risk": "Safe",
       "riskLevel": "Safe",
-      "category": "Power Management",
+      "category": "Utilities & Diagnostics",
       "description": "Shows S-states and Modern Standby capabilities.",
       "apply": {
         "steps": [
@@ -23,7 +23,7 @@
       "name": "Diagnostics: Wake Timers + Last Wake",
       "risk": "Safe",
       "riskLevel": "Safe",
-      "category": "Power Management",
+      "category": "Utilities & Diagnostics",
       "description": "Reports currently scheduled wake timers and the last wake source.",
       "apply": {
         "steps": [
@@ -44,7 +44,7 @@
       "name": "Diagnostics: Power Requests",
       "risk": "Safe",
       "riskLevel": "Safe",
-      "category": "Power Management",
+      "category": "Utilities & Diagnostics",
       "description": "Lists active process, driver, and display power requests.",
       "apply": {
         "steps": [
@@ -61,7 +61,7 @@
       "name": "Diagnostics: Generate Energy + SleepStudy + SystemPowerReport",
       "risk": "Safe",
       "riskLevel": "Safe",
-      "category": "Power Management",
+      "category": "Utilities & Diagnostics",
       "description": "Generates official power diagnostic reports in the working directory.",
       "apply": {
         "steps": [
@@ -86,7 +86,7 @@
       "name": "Diagnostics: Generate System Power Report",
       "risk": "Safe",
       "riskLevel": "Safe",
-      "category": "Power Management",
+      "category": "Utilities & Diagnostics",
       "description": "Generates standalone system power report HTML.",
       "apply": {
         "steps": [
@@ -103,7 +103,7 @@
       "name": "Diagnostics: Generate Sleep Study Report",
       "risk": "Safe",
       "riskLevel": "Safe",
-      "category": "Power Management",
+      "category": "Utilities & Diagnostics",
       "description": "Generates standalone sleep study report when platform supports it.",
       "apply": {
         "steps": [
@@ -120,7 +120,7 @@
       "name": "Diagnostics: Wake Audit Bundle (lastwake + waketimers + wake_armed)",
       "risk": "Safe",
       "riskLevel": "Safe",
-      "category": "Power Management",
+      "category": "Utilities & Diagnostics",
       "description": "Runs key wake-analysis commands in one pass for troubleshooting.",
       "apply": {
         "steps": [

@@ -47,7 +47,7 @@ function defaultCategoryForFile(file){
   if(f.startsWith("hardware.peripherals")) return "Hardware / Peripherals";
   if(f.startsWith("hardware.storage")) return "Hardware / Storage";
   if(f.startsWith("network.")) return "Network";
-  if(f.startsWith("debloat.")) return "Debloat";
+  if(f.startsWith("debloat.")) return "Cleanup";
   if(f.startsWith("advanced.")) return "Advanced";
   if(f.startsWith("fortnite.")) return "Fortnite";
   if(f.startsWith("gamemode.")) return "Game Mode";

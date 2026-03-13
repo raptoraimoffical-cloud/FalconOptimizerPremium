@@ -14,7 +14,7 @@
         "steps": [
           {
             "type": "ps.run",
-            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\oneclick_all\\import_oneclick_restart_8d523157f7.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
+            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\legacy imported_all\\import_legacy imported_restart_8d523157f7.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
           }
         ]
       },
@@ -36,7 +36,7 @@
         "steps": [
           {
             "type": "ps.run",
-            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\oneclick_all\\import_oneclick_trustedinstaller_check_44b344aa0a.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
+            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\legacy imported_all\\import_legacy imported_trustedinstaller_check_44b344aa0a.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
           }
         ]
       },
@@ -58,7 +58,7 @@
         "steps": [
           {
             "type": "ps.run",
-            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\oneclick_all\\import_oneclick_ucpd_disable_1347343a6d.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
+            "command": "$cmd = Join-Path $Global:FalconRoot \"scripts\\imported\\legacy imported_all\\import_legacy imported_ucpd_disable_1347343a6d.cmd\"\nif (Test-Path $cmd) {\n  cmd.exe /c \"`\"$cmd`\"\"\n} else {\n  Write-Host \"Missing script: $cmd\"\n}"
           }
         ]
       },

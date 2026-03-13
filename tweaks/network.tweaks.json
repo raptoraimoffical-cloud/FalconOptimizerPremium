@@ -5,7 +5,7 @@
       "type": "button",
       "name": "Optimize Network Priority",
       "risk": "Warning",
-      "description": "[Focus: Latency / Input Delay, Ping / Network] Optimizes network provider order (Local → Hosts → DNS → NetBT).",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Optimizes network provider order (Local \u2192 Hosts \u2192 DNS \u2192 NetBT).",
       "requiresAdmin": true,
       "apply": {
         "steps": [
@@ -755,7 +755,7 @@
         "steps": [
           {
             "type": "cmd.run",
-            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_amd_gpu_tweaks.bat\""
+            "command": "\"%~dp0\\scripts\\imported\\legacy imported\\legacy imported_amd_gpu_tweaks.bat\""
           }
         ]
       },
@@ -776,7 +776,7 @@
         "steps": [
           {
             "type": "cmd.run",
-            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_network_tweaks.bat\""
+            "command": "\"%~dp0\\scripts\\imported\\legacy imported\\legacy imported_network_tweaks.bat\""
           }
         ]
       },

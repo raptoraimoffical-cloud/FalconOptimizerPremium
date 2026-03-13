@@ -147,8 +147,7 @@ for label, path in (( 'processlab-main', os.path.join(root, 'scripts', 'processl
             d['sources'].append({ 'source': label, 'startType': None })
 
 # JSON tweak files
-for fname, source in ((os.path.join(root, 'tweaks', 'debloat.services.json'), 'debloat'),
-                      (os.path.join(root, 'tweaks', 'expansion.services.json'), 'expansion')):
+for fname, source in ((os.path.join(root, 'tweaks', 'expansion.services.json'), 'expansion'),):
     if not os.path.exists(fname):
         continue
     with open(fname, 'r', encoding='utf-8') as f:

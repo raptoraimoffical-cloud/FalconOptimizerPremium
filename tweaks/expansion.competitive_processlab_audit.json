@@ -1106,8 +1106,8 @@
       }
     },
     {
-      "id": "process.entry.phone_experience_host",
-      "name": "Process Lab: PhoneExperienceHost (Session Background Remover)",
+      "id": "process.entry.pfalcon_experience_host",
+      "name": "Process Lab: PfalconExperienceHost (Session Background Remover)",
       "category": "Process Lab / Session-only",
       "riskLevel": "Experimental",
       "type": "toggle",
@@ -1202,8 +1202,8 @@
       }
     },
     {
-      "id": "process.entry.your_phone",
-      "name": "Process Lab: YourPhone (Session Background Remover)",
+      "id": "process.entry.your_pfalcon",
+      "name": "Process Lab: YourPfalcon (Session Background Remover)",
       "category": "Process Lab / Session-only",
       "riskLevel": "Experimental",
       "type": "toggle",

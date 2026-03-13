@@ -31,7 +31,7 @@
       "name": "Competitive Preset \u2013 ~40\u201345 Processes",
       "category": "Process Lab / Presets",
       "risk": "Warning",
-      "description": "Pushes toward ~40\u201345 total processes on Windows 11 while keeping:\n\u2022 Epic / Steam / Store working\n\u2022 Anti-cheat, installers, and updates functional\n\u2022 Explorer, taskbar, notifications, and networking intact What this preset does, on top of Safe:\n\u2022 Re-applies Safe (UWP background apps + baseline services).\n\u2022 Forces svchost merging via SvcHostSplitThresholdInKB to reduce process count.\n\u2022 Disables extra non-critical services: - diagnosticshub.standardcollector.service, DSSVC, DusmSvc, DiagSvc (diagnostic helpers) - XboxGipSvc (Xbox game input service) - RetailDemo / RetailDemoService (demo features) - WbioSrvc (biometrics), PhoneSvc (phone integration), WalletService (wallet) - RemoteRegistry (remote registry access) - Fax, Spooler (if no printer used)\n\u2022 Trims harmless scheduled tasks: - ProgramDataUpdater, CEIP consolidator / USB CEIP - MapsUpdateTask, Feedback DMClient tasks Requirements:\n\u2022 Run Falcon Optimizer as Administrator.\n\u2022 Recommended: Local Windows account for the cleanest background footprint.\n\u2022 Do NOT use this on production work machines that need all Windows features.",
+      "description": "Pushes toward ~40\u201345 total processes on Windows 11 while keeping:\n\u2022 Epic / Steam / Store working\n\u2022 Anti-cheat, installers, and updates functional\n\u2022 Explorer, taskbar, notifications, and networking intact What this preset does, on top of Safe:\n\u2022 Re-applies Safe (UWP background apps + baseline services).\n\u2022 Forces svchost merging via SvcHostSplitThresholdInKB to reduce process count.\n\u2022 Disables extra non-critical services: - diagnosticshub.standardcollector.service, DSSVC, DusmSvc, DiagSvc (diagnostic helpers) - XboxGipSvc (Xbox game input service) - RetailDemo / RetailDemoService (demo features) - WbioSrvc (biometrics), PfalconSvc (pfalcon integration), WalletService (wallet) - RemoteRegistry (remote registry access) - Fax, Spooler (if no printer used)\n\u2022 Trims harmless scheduled tasks: - ProgramDataUpdater, CEIP consolidator / USB CEIP - MapsUpdateTask, Feedback DMClient tasks Requirements:\n\u2022 Run Falcon Optimizer as Administrator.\n\u2022 Recommended: Local Windows account for the cleanest background footprint.\n\u2022 Do NOT use this on production work machines that need all Windows features.",
       "requiresAdmin": true,
       "requiresReboot": false,
       "apply": {
@@ -549,9 +549,9 @@
       }
     },
     {
-      "id": "proc_kill_phoneexperiencehost__process.lab",
+      "id": "proc_kill_pfalconexperiencehost__process.lab",
       "type": "button",
-      "name": "Apply: Close PhoneExperienceHost",
+      "name": "Apply: Close PfalconExperienceHost",
       "description": "Kills the process if running.",
       "requiresAdmin": true,
       "riskLevel": "Warning",
@@ -560,7 +560,7 @@
         "steps": [
           {
             "type": "process.kill",
-            "name": "PhoneExperienceHost"
+            "name": "PfalconExperienceHost"
           }
         ]
       },
@@ -568,7 +568,7 @@
         "steps": [
           {
             "type": "ps.run",
-            "command": "Write-Output \"PhoneExperienceHost closed; reopen manually.\""
+            "command": "Write-Output \"PfalconExperienceHost closed; reopen manually.\""
           }
         ]
       }
@@ -578,22 +578,22 @@
       "requiresAdmin": true,
       "riskLevel": "Warning",
       "category": "Process Lab / Kill List",
-      "id": "proc_kill_phoneexperiencehost__process.lab__revert",
+      "id": "proc_kill_pfalconexperiencehost__process.lab__revert",
       "type": "button",
-      "name": "Revert: Close PhoneExperienceHost",
+      "name": "Revert: Close PfalconExperienceHost",
       "apply": {
         "steps": [
           {
             "type": "ps.run",
-            "command": "Write-Output \"PhoneExperienceHost closed; reopen manually.\""
+            "command": "Write-Output \"PfalconExperienceHost closed; reopen manually.\""
           }
         ]
       }
     },
     {
-      "id": "proc_kill_yourphone__process.lab",
+      "id": "proc_kill_yourpfalcon__process.lab",
       "type": "button",
-      "name": "Apply: Close YourPhone",
+      "name": "Apply: Close YourPfalcon",
       "description": "Kills the process if running.",
       "requiresAdmin": true,
       "riskLevel": "Warning",
@@ -602,7 +602,7 @@
         "steps": [
           {
             "type": "process.kill",
-            "name": "YourPhone"
+            "name": "YourPfalcon"
           }
         ]
       },
@@ -610,7 +610,7 @@
         "steps": [
           {
             "type": "ps.run",
-            "command": "Write-Output \"YourPhone closed; reopen manually.\""
+            "command": "Write-Output \"YourPfalcon closed; reopen manually.\""
           }
         ]
       }
@@ -620,14 +620,14 @@
       "requiresAdmin": true,
       "riskLevel": "Warning",
       "category": "Process Lab / Kill List",
-      "id": "proc_kill_yourphone__process.lab__revert",
+      "id": "proc_kill_yourpfalcon__process.lab__revert",
       "type": "button",
-      "name": "Revert: Close YourPhone",
+      "name": "Revert: Close YourPfalcon",
       "apply": {
         "steps": [
           {
             "type": "ps.run",
-            "command": "Write-Output \"YourPhone closed; reopen manually.\""
+            "command": "Write-Output \"YourPfalcon closed; reopen manually.\""
           }
         ]
       }

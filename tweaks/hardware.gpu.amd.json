@@ -13,7 +13,7 @@
         "steps": [
           {
             "type": "cmd.run",
-            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_clean_up.bat\""
+            "command": "\"%~dp0\\scripts\\imported\\legacy imported\\legacy imported_clean_up.bat\""
           }
         ]
       },

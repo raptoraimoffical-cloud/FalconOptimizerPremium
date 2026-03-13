@@ -4214,7 +4214,7 @@ label, .muted{
 .kv .k{ color: rgba(232,232,239,0.62); font-weight:700; }
 .kv .v{ color: rgba(232,232,239,0.92); font-weight:800; }
 
-/* Game profiles (Paragon-inspired) */
+/* Game profiles (Falcon-style) */
 .gp-layout{
   display:grid;
   grid-template-columns: 360px 1fr;

@@ -2255,7 +2255,7 @@
         "steps": [
           {
             "type": "cmd.run",
-            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_nvidia_control_panel_download.bat\""
+            "command": "\"%~dp0\\scripts\\imported\\legacy imported\\legacy imported_nvidia_control_panel_download.bat\""
           }
         ]
       },
@@ -2276,7 +2276,7 @@
         "steps": [
           {
             "type": "cmd.run",
-            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_nvidia_gpu_tweaks.bat\""
+            "command": "\"%~dp0\\scripts\\imported\\legacy imported\\legacy imported_nvidia_gpu_tweaks.bat\""
           }
         ]
       },

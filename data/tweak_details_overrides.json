@@ -3,7 +3,14 @@
     {
       "id": "telemetry_privacy",
       "match": {
-        "keywords": ["telemetry", "privacy", "diagnostic", "tracking", "ads id", "background apps"]
+        "keywords": [
+          "telemetry",
+          "privacy",
+          "diagnostic",
+          "tracking",
+          "ads id",
+          "background apps"
+        ]
       },
       "details": {
         "recommendedFor": "Users who want less telemetry and background data collection while keeping core Windows features.",
@@ -26,7 +33,16 @@
     {
       "id": "power_cpu_scheduler",
       "match": {
-        "keywords": ["power plan", "ultimate", "bitsum", "processor", "mmcss", "scheduler", "timer", "priority"]
+        "keywords": [
+          "power plan",
+          "ultimate",
+          "bitsum",
+          "processor",
+          "mmcss",
+          "scheduler",
+          "timer",
+          "priority"
+        ]
       },
       "details": {
         "recommendedFor": "Competitive players and latency-focused users who prioritize responsiveness over idle efficiency.",
@@ -49,7 +65,16 @@
     {
       "id": "gpu_latency",
       "match": {
-        "keywords": ["gpu", "nvidia", "amd", "low latency", "reflex", "adeon", "frame queue", "pre-rendered"]
+        "keywords": [
+          "gpu",
+          "nvidia",
+          "amd",
+          "low latency",
+          "reflex",
+          "adeon",
+          "frame queue",
+          "pre-rendered"
+        ]
       },
       "details": {
         "recommendedFor": "GPU-bound or high-refresh players tuning render latency.",
@@ -72,7 +97,17 @@
     {
       "id": "network_qos_dscp",
       "match": {
-        "keywords": ["network", "qos", "dscp", "mtu", "ecn", "nagle", "tcp", "adapter", "bufferbloat"]
+        "keywords": [
+          "network",
+          "qos",
+          "dscp",
+          "mtu",
+          "ecn",
+          "nagle",
+          "tcp",
+          "adapter",
+          "bufferbloat"
+        ]
       },
       "details": {
         "recommendedFor": "Online gamers optimizing packet priority and latency consistency.",
@@ -95,7 +130,14 @@
     {
       "id": "defender_security",
       "match": {
-        "keywords": ["defender", "security", "exploit guard", "smartscreen", "antivirus", "tamper"]
+        "keywords": [
+          "defender",
+          "security",
+          "exploit guard",
+          "smartscreen",
+          "antivirus",
+          "tamper"
+        ]
       },
       "details": {
         "recommendedFor": "Advanced users balancing low overhead with acceptable baseline security.",
@@ -118,7 +160,15 @@
     {
       "id": "services_process_removal",
       "match": {
-        "keywords": ["service", "services", "process", "disable task", "autorun", "startup", "background service"]
+        "keywords": [
+          "service",
+          "services",
+          "process",
+          "disable task",
+          "autorun",
+          "startup",
+          "background service"
+        ]
       },
       "details": {
         "recommendedFor": "Users trimming persistent background load for lower latency.",
@@ -141,7 +191,13 @@
     {
       "id": "debloat",
       "match": {
-        "keywords": ["debloat", "uninstall", "remove appx", "bloat", "cleanup"]
+        "keywords": [
+          "debloat",
+          "uninstall",
+          "remove appx",
+          "bloat",
+          "cleanup"
+        ]
       },
       "details": {
         "recommendedFor": "Clean installations or power users removing bundled software.",

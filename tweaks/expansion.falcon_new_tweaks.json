@@ -121,9 +121,9 @@
     {
       "id": "falcon_new_disable_ssdp_discovery",
       "type": "toggle",
-      "name": "Network Debloat: Disable SSDP Discovery",
+      "name": "Network Cleanup: Disable SSDP Discovery",
       "description": "Disables SSDP discovery service to reduce UPnP discovery chatter.",
-      "category": "Network Debloat",
+      "category": "Network Cleanup",
       "riskLevel": "Warning",
       "requiresAdmin": true,
       "apply": {
@@ -275,9 +275,9 @@
     {
       "id": "falcon_new_disable_consumer_features",
       "type": "toggle",
-      "name": "UI Debloat: Disable Consumer Features",
+      "name": "UI Cleanup: Disable Consumer Features",
       "description": "Disables Windows consumer content and app suggestions via policy.",
-      "category": "UI Debloat",
+      "category": "UI Cleanup",
       "riskLevel": "Safe",
       "requiresAdmin": true,
       "apply": {
@@ -569,9 +569,9 @@
     {
       "id": "falcon_new_disable_cd_burning",
       "type": "toggle",
-      "name": "Explorer Debloat: Disable CD Burning",
+      "name": "Explorer Cleanup: Disable CD Burning",
       "description": "Disables Explorer CD burning shell features.",
-      "category": "Explorer Debloat",
+      "category": "Explorer Cleanup",
       "riskLevel": "Safe",
       "requiresAdmin": false,
       "apply": {
@@ -965,9 +965,9 @@
     {
       "id": "falcon_new_disable_print_workflow",
       "type": "toggle",
-      "name": "Print Debloat: Disable Print Workflow",
-      "description": "Disables PrintWorkflowUserSvc for full printing-stack debloat.",
-      "category": "Print Debloat",
+      "name": "Print Cleanup: Disable Print Workflow",
+      "description": "Disables PrintWorkflowUserSvc for full printing-stack cleanup.",
+      "category": "Print Cleanup",
       "riskLevel": "Warning",
       "requiresAdmin": true,
       "apply": {
@@ -1105,7 +1105,7 @@
       "type": "toggle",
       "name": "Explorer: Disable Natural Sort",
       "description": "Disables Explorer natural sort (NoStrCmpLogical). Niche shell behavior preference tweak.",
-      "category": "Explorer Debloat",
+      "category": "Explorer Cleanup",
       "riskLevel": "Safe",
       "requiresAdmin": false,
       "apply": {
@@ -1134,7 +1134,7 @@
       "type": "toggle",
       "name": "Explorer QoL: Reduce Foreground Flash Count",
       "description": "Reduces taskbar flash spam from background apps requesting attention.",
-      "category": "Explorer Debloat",
+      "category": "Explorer Cleanup",
       "riskLevel": "Safe",
       "requiresAdmin": false,
       "apply": {
@@ -1163,7 +1163,7 @@
       "type": "toggle",
       "name": "Explorer QoL: Lower DelayedDesktopSwitchTimeout",
       "description": "Lowers desktop switch timeout for snappier shell transitions.",
-      "category": "Explorer Debloat",
+      "category": "Explorer Cleanup",
       "riskLevel": "Warning",
       "requiresAdmin": false,
       "apply": {
@@ -1298,9 +1298,9 @@
     {
       "id": "falcon_new_disable_ssdp_upnp_stack",
       "type": "toggle",
-      "name": "Network Debloat: Disable SSDP/UPnP Stack",
+      "name": "Network Cleanup: Disable SSDP/UPnP Stack",
       "description": "Disables SSDP Discovery and UPnP Device Host for Ethernet-focused gaming rigs.",
-      "category": "Network Debloat",
+      "category": "Network Cleanup",
       "riskLevel": "Warning",
       "requiresAdmin": true,
       "apply": {

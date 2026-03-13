@@ -2,7 +2,7 @@
   "items": [
     {
       "id": "util.autoruns.page__utilities",
-      "name": "Autoruns (Sysinternals) — download page",
+      "name": "Autoruns (Sysinternals) \u2014 download page",
       "category": "Apps / Utilities",
       "risk": "Safe",
       "description": "Official Autoruns page.",
@@ -58,7 +58,7 @@
     },
     {
       "id": "util.bcu.page__utilities",
-      "name": "Bulk Crap Uninstaller — download page",
+      "name": "Bulk Crap Uninstaller \u2014 download page",
       "category": "Apps / Utilities",
       "risk": "Safe",
       "description": "Official BCU site.",
@@ -108,7 +108,7 @@
     },
     {
       "id": "util.openshell.page__utilities",
-      "name": "Open-Shell — releases",
+      "name": "Open-Shell \u2014 releases",
       "category": "Apps / Utilities",
       "risk": "Safe",
       "description": "Open-Shell releases page.",
@@ -158,7 +158,7 @@
     },
     {
       "id": "util.ddu.page__utilities",
-      "name": "DDU — download page",
+      "name": "DDU \u2014 download page",
       "category": "Apps / Utilities",
       "risk": "Safe",
       "description": "Official DDU page.",
@@ -299,7 +299,7 @@
       "name": "System Temperature Quick-Check (UserDiag Home)",
       "category": "Apps / Utilities",
       "risk": "Safe",
-      "description": "Opens the guide's temperature diagnosis link. Target: keep CPU and GPU under ~80°C under load; if 90°C+ fix cooling first.",
+      "description": "Opens the guide's temperature diagnosis link. Target: keep CPU and GPU under ~80\u00b0C under load; if 90\u00b0C+ fix cooling first.",
       "apply": {
         "steps": [
           {
@@ -331,7 +331,7 @@
         "steps": [
           {
             "type": "cmd.run",
-            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_vcruntime_download.bat\""
+            "command": "\"%~dp0\\scripts\\imported\\legacy imported\\legacy imported_vcruntime_download.bat\""
           }
         ]
       },
@@ -352,7 +352,7 @@
         "steps": [
           {
             "type": "cmd.run",
-            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_download_tools.bat\""
+            "command": "\"%~dp0\\scripts\\imported\\legacy imported\\legacy imported_download_tools.bat\""
           }
         ]
       },
@@ -373,7 +373,7 @@
         "steps": [
           {
             "type": "cmd.run",
-            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_dcontrol_download.bat\""
+            "command": "\"%~dp0\\scripts\\imported\\legacy imported\\legacy imported_dcontrol_download.bat\""
           }
         ]
       },
@@ -394,7 +394,7 @@
         "steps": [
           {
             "type": "cmd.run",
-            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_oneclick_start_screen_colors.bat\""
+            "command": "\"%~dp0\\scripts\\imported\\legacy imported\\legacy imported_legacy imported_start_screen_colors.bat\""
           }
         ]
       },
@@ -415,7 +415,7 @@
         "steps": [
           {
             "type": "cmd.run",
-            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_openshell_download.bat\""
+            "command": "\"%~dp0\\scripts\\imported\\legacy imported\\legacy imported_openshell_download.bat\""
           }
         ]
       },
@@ -436,7 +436,7 @@
         "steps": [
           {
             "type": "cmd.run",
-            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_redetect_winver.bat\""
+            "command": "\"%~dp0\\scripts\\imported\\legacy imported\\legacy imported_redetect_winver.bat\""
           }
         ]
       },
@@ -457,7 +457,7 @@
         "steps": [
           {
             "type": "cmd.run",
-            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_recheck_winser.bat\""
+            "command": "\"%~dp0\\scripts\\imported\\legacy imported\\legacy imported_recheck_winser.bat\""
           }
         ]
       },

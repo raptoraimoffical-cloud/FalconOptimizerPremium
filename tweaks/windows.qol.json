@@ -779,7 +779,7 @@
         "steps": [
           {
             "type": "cmd.run",
-            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_search_removal.bat\""
+            "command": "\"%~dp0\\scripts\\imported\\legacy imported\\legacy imported_search_removal.bat\""
           }
         ]
       },
