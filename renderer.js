@@ -69,6 +69,12 @@ let currentHwProfile = readSavedHwProfile();
 let gameModePhotoOptimizations = [];
 let navToken = 0;
 let renderGeneration = 0;
+const RENDER_TRACE = false;
+
+function renderTrace(event, payload){
+  if (!RENDER_TRACE) return;
+  try { console.debug(`[render] ${event}`, payload || {}); } catch(_e) {}
+}
 
 function beginRenderGeneration(){
   renderGeneration += 1;
@@ -4723,8 +4729,11 @@ async function applyDefaultStretchPreset(){
 }
 
 
-async function renderFixes(){
+async function renderFixes(renderCtx){
+  const isCurrent = () => !renderCtx || isRenderContextCurrent(renderCtx);
+  if (!isCurrent()) return;
   const data = await loadJSON('tweaks/fixes.modules.json');
+  if (!isCurrent()) return;
   const items = data.items || [];
   const q = (els.searchInput.value||'').toLowerCase().trim();
   const filtered = items.filter(i => !q || i.name.toLowerCase().includes(q) || (i.description||'').toLowerCase().includes(q));
@@ -5600,8 +5609,11 @@ function classifyProcessForLab(name){
   return { core:false, tier:'unknown', note:'Unknown or mixed‑purpose process. Only close if you know what it is.' };
 }
 
-async function renderProcessLab(){
+async function renderProcessLab(renderCtx){
+  const isCurrent = () => !renderCtx || isRenderContextCurrent(renderCtx);
+  if (!isCurrent()) return;
   const allowed = await ensureAggressiveConsent('processLab');
+  if (!isCurrent()) return;
   if (!allowed) {
     els.panel.innerHTML = `
       <div class="panel">
@@ -6283,7 +6295,6 @@ async function renderProcessLab(){
   if (btnFixes) btnFixes.onclick = () => {
     try {
       setRoute('fixes');
-      refresh(true);
     } catch(_e) {}
   };
 
@@ -6404,6 +6415,7 @@ async function renderPowerAllSettingsExplorer(renderCtx){
 async function refresh(resetTabs=true){
   const generation = beginRenderGeneration();
   let renderCtx = null;
+  renderTrace('start', { generation, resetTabs, route: currentRoute, tabId: currentTab ? currentTab.id : null });
   try {
     if (!els || !els.pageTitle || !els.pageSub || !els.tabs || !els.panel) {
       throw new Error('UI shell did not initialize correctly (missing required DOM nodes).');
@@ -6434,18 +6446,22 @@ async function refresh(resetTabs=true){
     }
 
     renderCtx = captureRenderContext(generation);
+    renderTrace('context-captured', renderCtx);
 
     renderTabs(currentRoute);
-    if (!isRenderContextCurrent(renderCtx)) return;
+    if (!isRenderContextCurrent(renderCtx)) {
+      renderTrace('abort-stale', { generation, reason: 'post-renderTabs-check', route: currentRoute, tabId: currentTab ? currentTab.id : null });
+      return;
+    }
 
     if (currentRoute === 'home')       return await renderHome();
     if (currentRoute === 'backups')    return await renderBackups();
-    if (currentRoute === 'fixes')      return await renderFixes();
+    if (currentRoute === 'fixes')      return await renderFixes(renderCtx);
     if (currentRoute === 'stretchLab') return await renderStretchLab();
-    if (currentRoute === 'processLab') return await renderProcessLab();
+    if (currentRoute === 'processLab') return await renderProcessLab(renderCtx);
     if (currentRoute === 'bios')       return await renderBiosHelper();
     if (currentRoute === 'themes')     return await renderThemes();
-    if (currentRoute === 'explore')    return await renderExplore();
+    if (currentRoute === 'explore')    return await renderExplore(renderCtx);
     if (currentRoute === 'fortnite')   return await renderGameProfiles();
     if (currentRoute === 'language')   return await renderLanguage();
     if (currentRoute === 'updates')    return await renderUpdates();
@@ -6463,13 +6479,23 @@ async function refresh(resetTabs=true){
 
     els.panel.innerHTML = `<div class="notice"><strong>Missing data:</strong> No items configured for this section yet.</div>`;
   } catch (e) {
-    if (!isRenderContextCurrent(renderCtx)) return;
+    if (renderCtx && !isRenderContextCurrent(renderCtx)) {
+      renderTrace('abort-stale', { generation, reason: 'catch', route: currentRoute, tabId: currentTab ? currentTab.id : null });
+      return;
+    }
     console.error('Refresh/navigation error', e);
     const msg = escapeHtml(String(e && e.message ? e.message : e));
     const stack = escapeHtml(String(e && e.stack ? e.stack : 'No stack available.'));
     if (els && els.panel) {
       els.panel.innerHTML = `<div class="notice notice-error"><strong>Navigation error:</strong> ${msg}<details style="margin-top:8px;"><summary>Show details</summary><pre class="log" style="margin-top:8px;">${stack}</pre></details></div>`;
     }
+  } finally {
+    const stale = !!(renderCtx && !isRenderContextCurrent(renderCtx));
+    renderTrace(stale ? 'finish-stale' : 'finish', {
+      generation,
+      route: currentRoute,
+      tabId: currentTab ? currentTab.id : null
+    });
   }
 }
 function setRoute(route){
@@ -6494,7 +6520,9 @@ els.searchInput.addEventListener('input', debounce(() => { setPanelLoading('Sear
 
 
 
-async function renderExplore(){
+async function renderExplore(renderCtx){
+  const isCurrent = () => !renderCtx || isRenderContextCurrent(renderCtx);
+  if (!isCurrent()) return;
   // Phase 2: global optimization explorer (Balanced-safe by default)
   els.panel.innerHTML = `
     <div class="panel" style="margin-top:14px;">
@@ -6781,8 +6809,10 @@ async function renderExplore(){
   }
 
   async function init(){
+    if (!isCurrent()) return;
     els2.results.innerHTML = `<div class="muted" style="padding:8px;">Indexing…</div>`;
     index = await loadIndex();
+    if (!isCurrent()) return;
     syncModeButtons();
     renderResults();
   }
