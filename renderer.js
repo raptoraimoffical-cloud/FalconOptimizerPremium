@@ -6403,8 +6403,11 @@ async function renderPowerAllSettingsExplorer(renderCtx){
 
 async function refresh(resetTabs=true){
   const generation = beginRenderGeneration();
-  let renderCtx = null;
+  const renderCtx = captureRenderContext(generation);
   try {
+    if (!els || !els.pageTitle || !els.pageSub || !els.tabs || !els.panel) {
+      throw new Error('UI shell did not initialize correctly (missing required DOM nodes).');
+    }
     if (currentRoute !== 'processLab' && processLabAutoRefreshTimer) {
       try { window.clearInterval(processLabAutoRefreshTimer); } catch(_e) {}
       processLabAutoRefreshTimer = null;
@@ -6430,7 +6433,6 @@ async function refresh(resetTabs=true){
       else currentTab = null;
     }
 
-    renderCtx = captureRenderContext(generation);
     renderTabs(currentRoute);
     if (!isRenderContextCurrent(renderCtx)) return;
 
@@ -6459,12 +6461,13 @@ async function refresh(resetTabs=true){
 
     els.panel.innerHTML = `<div class="notice"><strong>Missing data:</strong> No items configured for this section yet.</div>`;
   } catch (e) {
-    if (!renderCtx) return;
     if (!isRenderContextCurrent(renderCtx)) return;
     console.error('Refresh/navigation error', e);
     const msg = escapeHtml(String(e && e.message ? e.message : e));
     const stack = escapeHtml(String(e && e.stack ? e.stack : 'No stack available.'));
-    els.panel.innerHTML = `<div class="notice notice-error"><strong>Navigation error:</strong> ${msg}<details style="margin-top:8px;"><summary>Show details</summary><pre class="log" style="margin-top:8px;">${stack}</pre></details></div>`;
+    if (els && els.panel) {
+      els.panel.innerHTML = `<div class="notice notice-error"><strong>Navigation error:</strong> ${msg}<details style="margin-top:8px;"><summary>Show details</summary><pre class="log" style="margin-top:8px;">${stack}</pre></details></div>`;
+    }
   }
 }
 function setRoute(route){
