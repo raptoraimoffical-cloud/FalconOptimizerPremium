@@ -68,6 +68,41 @@ let currentHwProfile = readSavedHwProfile();
 
 let gameModePhotoOptimizations = [];
 let navToken = 0;
+let renderGeneration = 0;
+
+function beginRenderGeneration(){
+  renderGeneration += 1;
+  return renderGeneration;
+}
+
+function captureRenderContext(generation){
+  return {
+    generation,
+    route: currentRoute,
+    tabId: currentTab ? currentTab.id : null,
+    tabSource: currentTab ? currentTab.source : null
+  };
+}
+
+function isRenderContextCurrent(ctx){
+  if (!ctx) return false;
+  return (
+    ctx.generation === renderGeneration &&
+    ctx.route === currentRoute &&
+    (ctx.tabId || null) === (currentTab ? currentTab.id : null) &&
+    (ctx.tabSource || null) === (currentTab ? currentTab.source : null)
+  );
+}
+
+function setPanelLoading(message='Loading…'){
+  if (!els || !els.panel) return;
+  els.panel.innerHTML = `
+    <div class="panel">
+      <div class="card-title">${escapeHtml(message)}</div>
+      <div class="card-desc">Preparing the selected section…</div>
+    </div>
+  `;
+}
 
 
 function getStepsFor(item, mode) {
@@ -1640,7 +1675,13 @@ function renderTabs(route){
     const b = document.createElement('button');
     b.className = 'tab' + (currentTab?.id===t.id ? ' active' : '');
     b.textContent = t.label;
-    b.onclick = () => { currentTab = t; refresh(false); };
+    b.onclick = () => {
+      if (currentTab && currentTab.id === t.id && currentRoute === route) return;
+      currentTab = t;
+      beginRenderGeneration();
+      setPanelLoading('Switching tab…');
+      refresh(false);
+    };
     els.tabs.appendChild(b);
   });
 }
@@ -5043,11 +5084,15 @@ async function renderCoolingDashboard(){
   }, 600);
 }
 
-async function renderTweaksFromSource(source){
+async function renderTweaksFromSource(source, renderCtx){
+  const isCurrent = () => !renderCtx || isRenderContextCurrent(renderCtx);
+  if (!isCurrent()) return;
+
   // Always re-sync toggle state from the main process so UI reflects the last successful apply/revert.
   // This prevents cases where a tweak applied successfully but the visual switch didn't update.
   try {
     toggles = await window.falcon.getState();
+    if (!isCurrent()) return;
     if (!toggles || typeof toggles !== 'object') toggles = {};
   } catch(_e) {
     if (!toggles || typeof toggles !== 'object') toggles = {};
@@ -5062,6 +5107,7 @@ async function renderTweaksFromSource(source){
     return;
   }
   const data = await loadJSON(source);
+  if (!isCurrent()) return;
 
   let extraTopHtml = '';
   if (source === 'tweaks/performance.library.json') {
@@ -5438,6 +5484,7 @@ if (stopBtn) {
 
     try {
       const data = await loadJSON(source);
+  if (!isCurrent()) return;
 
   let extraTopHtml = '';
   if (source === 'tweaks/performance.library.json') {
@@ -6330,6 +6377,7 @@ async function renderPowerAllSettingsExplorer(){
 
 
 async function refresh(resetTabs=true){
+  const renderCtx = captureRenderContext(beginRenderGeneration());
   try {
     if (currentRoute !== 'processLab' && processLabAutoRefreshTimer) {
       try { window.clearInterval(processLabAutoRefreshTimer); } catch(_e) {}
@@ -6348,6 +6396,8 @@ async function refresh(resetTabs=true){
       }
     }
 
+    if (!isRenderContextCurrent(renderCtx)) return;
+
     els.pageTitle.textContent = cfg.title || 'Falcon Optimizer';
     els.pageSub.textContent = cfg.sub || '';
 
@@ -6356,6 +6406,7 @@ async function refresh(resetTabs=true){
       else currentTab = null;
     }
     renderTabs(currentRoute);
+    if (!isRenderContextCurrent(renderCtx)) return;
 
     if (currentRoute === 'home')       return await renderHome();
     if (currentRoute === 'backups')    return await renderBackups();
@@ -6377,11 +6428,12 @@ async function refresh(resetTabs=true){
     }
 
     if (currentTab && currentTab.source) {
-      return await renderTweaksFromSource(currentTab.source);
+      return await renderTweaksFromSource(currentTab.source, renderCtx);
     }
 
     els.panel.innerHTML = `<div class="notice"><strong>Missing data:</strong> No items configured for this section yet.</div>`;
   } catch (e) {
+    if (!isRenderContextCurrent(renderCtx)) return;
     console.error('Refresh/navigation error', e);
     const msg = escapeHtml(String(e && e.message ? e.message : e));
     const stack = escapeHtml(String(e && e.stack ? e.stack : 'No stack available.'));
@@ -6390,17 +6442,19 @@ async function refresh(resetTabs=true){
 }
 function setRoute(route){
   navToken++;
+  beginRenderGeneration();
   currentRoute = route;
   setActiveNav(route);
+  setPanelLoading('Switching section…');
   refresh(true);
 }
 
 document.querySelectorAll('.nav-item').forEach(btn=>{
   btn.addEventListener('click', () => setRoute(btn.dataset.route));
 });
-document.getElementById('refreshBtn').onclick = () => refresh(false);
+document.getElementById('refreshBtn').onclick = () => { setPanelLoading(); refresh(false); };
 // Debounce search to avoid re-rendering on every keystroke.
-els.searchInput.addEventListener('input', debounce(() => refresh(false), 140));
+els.searchInput.addEventListener('input', debounce(() => { beginRenderGeneration(); setPanelLoading('Searching…'); refresh(false); }, 140));
 
 (async function boot(){
   toggles = await window.falcon.getState();
