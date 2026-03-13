@@ -1678,7 +1678,6 @@ function renderTabs(route){
     b.onclick = () => {
       if (currentTab && currentTab.id === t.id && currentRoute === route) return;
       currentTab = t;
-      beginRenderGeneration();
       setPanelLoading('Switching tab…');
       refresh(false);
     };
@@ -6397,6 +6396,9 @@ async function refresh(resetTabs=true){
       }
     }
 
+    els.pageTitle.textContent = cfg.title || 'Falcon Optimizer';
+    els.pageSub.textContent = cfg.sub || '';
+
     if (resetTabs) {
       if (cfg.tabs && cfg.tabs.length > 0) currentTab = cfg.tabs[0];
       else currentTab = null;
@@ -6404,9 +6406,6 @@ async function refresh(resetTabs=true){
 
     renderCtx = captureRenderContext(generation);
     if (!isRenderContextCurrent(renderCtx)) return;
-
-    els.pageTitle.textContent = cfg.title || 'Falcon Optimizer';
-    els.pageSub.textContent = cfg.sub || '';
 
     renderTabs(currentRoute);
     if (!isRenderContextCurrent(renderCtx)) return;
@@ -6457,7 +6456,7 @@ document.querySelectorAll('.nav-item').forEach(btn=>{
 });
 document.getElementById('refreshBtn').onclick = () => { setPanelLoading(); refresh(false); };
 // Debounce search to avoid re-rendering on every keystroke.
-els.searchInput.addEventListener('input', debounce(() => { beginRenderGeneration(); setPanelLoading('Searching…'); refresh(false); }, 140));
+els.searchInput.addEventListener('input', debounce(() => { setPanelLoading('Searching…'); refresh(false); }, 140));
 
 (async function boot(){
   toggles = await window.falcon.getState();
