@@ -1,0 +1,10 @@
+[
+  "DXGK power component idle",
+  "NVIDIA Optimal Power",
+  "NVIDIA Prefer Maximum Performance",
+  "AMD Power Efficiency",
+  "AMD ULPS",
+  "Intel RC6",
+  "Panel self refresh",
+  "Adaptive brightness"
+]

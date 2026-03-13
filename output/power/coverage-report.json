@@ -1,0 +1,12 @@
+{
+  "catalogCount": 205,
+  "supportedCount": 199,
+  "applyCapableCount": 199,
+  "verifyCapableCount": 199,
+  "uiExposedCount": 8,
+  "presetReferencedCount": 21,
+  "missingApplyHandlers": [],
+  "missingVerifyHandlers": [],
+  "orphanUIEntries": [],
+  "orphanPresetEntries": []
+}

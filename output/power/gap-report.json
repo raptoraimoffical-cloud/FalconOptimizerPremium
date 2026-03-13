@@ -1,0 +1,42 @@
+{
+  "generatedAt": "2026-03-13T23:39:38.141019",
+  "targetScopeCount": 155,
+  "catalogCount": 205,
+  "alreadyImplemented": [
+    "Processor idle disable",
+    "Processor idle demote threshold",
+    "Processor idle promote threshold",
+    "Processor performance boost mode",
+    "Processor energy performance preference policy",
+    "Processor duty cycling",
+    "Processor autonomous mode",
+    "Processor performance increase threshold",
+    "Processor performance decrease threshold",
+    "Processor performance increase time",
+    "Processor performance decrease time",
+    "Processor performance time check interval",
+    "Processor performance core parking min cores",
+    "Processor performance core parking max cores",
+    "Processor core parking increase threshold",
+    "Processor core parking decrease threshold",
+    "Processor core parking increase policy",
+    "Processor core parking decrease policy",
+    "Processor core parking concurrency threshold",
+    "Processor core parking distribution threshold"
+  ],
+  "partiallyImplemented": [
+    "device_power_flag class entries are hardware-dependent",
+    "gpu_feature vendor features are detection-based"
+  ],
+  "presentInScriptsNotUi": [],
+  "exposedInUiNotApplied": [],
+  "missing": [],
+  "unsupportedByMachineButRepresented": [
+    "firmware_aspm_mode",
+    "firmware_native_aspm",
+    "firmware_dmi_aspm",
+    "firmware_peg_aspm",
+    "firmware_erp",
+    "firmware_usb_standby_power_in_s5"
+  ]
+}

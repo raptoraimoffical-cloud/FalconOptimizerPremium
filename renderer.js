@@ -5065,6 +5065,10 @@ async function renderTweaksFromSource(source){
     buildPowerPlansPanel();
     return;
   }
+  if (source === 'tweaks/power.management.profiles.json') {
+    buildExhaustivePowerManagementPanel();
+    return;
+  }
 
   const data = await loadJSON(source);
 
@@ -8638,6 +8642,117 @@ async function buildNetworkPriorityPanel(){
   };
 }
 
+
+
+async function buildExhaustivePowerManagementPanel(){
+  const categories = [
+    'CPU / Core Parking','PCIe / Platform','Disk / NVMe / SATA','USB / Thunderbolt','Ethernet / NIC','Wi-Fi / Wireless','GPU / Display','Sleep / Hibernate / Wake','Battery / Laptop','Misc Windows Power','Firmware Recommendations'
+  ];
+  const presetButtons = [
+    ['extreme','Falcon Max FPS Extreme'],['competitive','Falcon Competitive Low Latency'],['balanced','Falcon Balanced Performance'],['powersaver','Falcon Power Saver'],['laptop','Falcon Laptop Gaming'],['restore','Falcon Restore Windows Defaults']
+  ];
+  els.panel.innerHTML = `
+    <div class="panel">
+      <div class="card-title">Exhaustive Power Management</div>
+      <div class="card-desc">Quick Power Plans stay available below. This advanced section scans, builds catalog/manifest, applies exhaustive presets, verifies results, and exports reports.</div>
+      <div class="row" style="gap:8px;flex-wrap:wrap;margin-top:10px;">
+        <button class="btn" id="pmAudit">Audit</button>
+        <button class="btn" id="pmCatalog">Scan all power settings</button>
+        <button class="btn" id="pmManifest">Build normalized manifest</button>
+        <button class="btn primary" id="pmExtreme">Apply Extreme preset</button>
+        <button class="btn primary" id="pmDisableSaving">Disable all discovered power saving</button>
+        <button class="btn" id="pmVerify">Verify all</button>
+        <button class="btn" id="pmCoverage">Run coverage</button>
+        <button class="btn" id="pmExport">Export report</button>
+      </div>
+      <div class="row" style="margin-top:10px;gap:8px;align-items:center;">
+        <input id="pmSearch" class="input" placeholder="Search settings..." style="min-width:280px;" />
+      </div>
+      <div class="row" style="gap:6px;flex-wrap:wrap;margin-top:10px;" id="pmCats"></div>
+      <pre class="log" id="pmLog" style="margin-top:10px;">Ready.</pre>
+    </div>
+    <div class="panel"><div class="card-title">Settings</div><div id="pmRows" class="grid" style="margin-top:10px;"></div></div>
+    <div class="panel"><div class="card-title">Quick Power Plans (legacy + compatible)</div><div class="card-desc">Falcon quick power plans remain supported and can be used alongside exhaustive presets.</div></div>
+  `;
+
+  const catWrap = document.getElementById('pmCats');
+  const rowsEl = document.getElementById('pmRows');
+  const logEl = document.getElementById('pmLog');
+  const searchEl = document.getElementById('pmSearch');
+  const setLog = (v)=>{ if(logEl) logEl.textContent = String(v||''); };
+
+  let activeCategory = 'All';
+  let catalog = [];
+  try {
+    const data = await window.falcon.readJson('data/power/power_management_catalog.json');
+    catalog = Array.isArray(data) ? data : [];
+  } catch(_e) { catalog = []; }
+
+  const categoryForItem = (item) => {
+    const c = String(item.category||'').toLowerCase();
+    if (c.includes('processor') || c.includes('cpu')) return 'CPU / Core Parking';
+    if (c.includes('pcie') || c.includes('platform')) return 'PCIe / Platform';
+    if (c.includes('disk') || c.includes('nvme') || c.includes('sata') || c.includes('storage')) return 'Disk / NVMe / SATA';
+    if (c.includes('usb') || c.includes('thunderbolt')) return 'USB / Thunderbolt';
+    if (c.includes('ethernet') || c.includes('nic')) return 'Ethernet / NIC';
+    if (c.includes('wireless') || c.includes('wifi') || c.includes('wlan')) return 'Wi-Fi / Wireless';
+    if (c.includes('gpu') || c.includes('display')) return 'GPU / Display';
+    if (c.includes('sleep') || c.includes('hibernate') || c.includes('wake')) return 'Sleep / Hibernate / Wake';
+    if (c.includes('battery') || c.includes('laptop')) return 'Battery / Laptop';
+    if (c.includes('firmware')) return 'Firmware Recommendations';
+    return 'Misc Windows Power';
+  };
+
+  const render = () => {
+    const q = String((searchEl && searchEl.value) || '').toLowerCase().trim();
+    const filtered = catalog.filter((item) => {
+      const passCategory = activeCategory === 'All' || categoryForItem(item) === activeCategory;
+      const hay = `${item.title||''} ${item.shortDescription||''} ${item.id||''}`.toLowerCase();
+      return passCategory && (!q || hay.includes(q));
+    });
+    rowsEl.innerHTML = filtered.slice(0, 250).map((item) => `
+      <div class="card">
+        <div class="card-title">${__eh(item.title || item.id)}</div>
+        <div class="card-desc">${__eh(item.shortDescription || '')}</div>
+        <div class="muted">Current value: dynamic • Target: preset-driven • Support: ${__eh(item.sourceType || 'unknown')}</div>
+        <div class="card-actions" style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;">
+          <button class="btn" data-act="apply" data-id="${__eh(item.id)}">Apply</button>
+          <button class="btn" data-act="verify" data-id="${__eh(item.id)}">Verify</button>
+          <button class="btn" data-act="rollback" data-id="${__eh(item.id)}">Rollback</button>
+          <a class="btn" href="#" data-act="log" data-id="${__eh(item.id)}">Logs link</a>
+        </div>
+      </div>`).join('') || '<div class="card-desc">No matching settings.</div>';
+  };
+
+  const tabs = ['All', ...categories];
+  catWrap.innerHTML = tabs.map((c)=>`<button class="btn ${c==='All'?'primary':''}" data-cat="${__eh(c)}">${__eh(c)}</button>`).join('');
+  catWrap.querySelectorAll('[data-cat]').forEach((b)=> b.onclick = ()=>{ activeCategory = b.getAttribute('data-cat') || 'All'; render(); });
+  if (searchEl) searchEl.oninput = render;
+  render();
+
+  const action = async (fn, okText) => { const res = await fn(); setLog((res && (res.stdout || res.stderr || res.error)) || JSON.stringify(res || {}, null, 2)); showToast(res && res.ok ? okText : 'Action failed', res && res.ok ? 'success' : 'error'); };
+  const btn = (id, fn) => { const e = document.getElementById(id); if (e) e.onclick = fn; };
+  btn('pmAudit', ()=>action(()=>window.falcon.powerManagementAudit(), 'Audit complete'));
+  btn('pmCatalog', ()=>action(()=>window.falcon.powerManagementCatalog(), 'Catalog generated'));
+  btn('pmManifest', ()=>action(()=>window.falcon.powerManagementBuildManifest(), 'Manifest built'));
+  btn('pmExtreme', ()=>action(()=>window.falcon.powerManagementApplyPreset('extreme'), 'Extreme applied'));
+  btn('pmDisableSaving', ()=>action(()=>window.falcon.powerManagementApplyPreset('extreme'), 'Power saving disabled where supported'));
+  btn('pmVerify', ()=>action(()=>window.falcon.powerManagementVerify(), 'Verification complete'));
+  btn('pmCoverage', ()=>action(()=>window.falcon.powerManagementCoverage(), 'Coverage complete'));
+  btn('pmExport', ()=>action(()=>window.falcon.powerManagementExportReport(), 'Report export listed'));
+
+  rowsEl.onclick = async (e) => {
+    const t = e.target;
+    if (!t || !t.getAttribute) return;
+    const act = t.getAttribute('data-act');
+    if (!act) return;
+    e.preventDefault();
+    if (act === 'apply') return action(()=>window.falcon.powerManagementApplyPreset('extreme'), 'Applied via preset engine');
+    if (act === 'verify') return action(()=>window.falcon.powerManagementVerify(), 'Verified');
+    if (act === 'rollback') return action(()=>window.falcon.powerManagementApplyPreset('restore'), 'Rollback applied');
+    if (act === 'log') return action(()=>window.falcon.powerManagementExportReport(), 'Report location listed');
+  };
+}
 // --- Custom panel: Power Plans (Desktop/Laptop) ---
 async function buildPowerPlansPanel(){
   const desc = 'Installs real Falcon power plans into Windows (Control Panel → Power Options), lets you apply Windows defaults (Balanced/High/Ultimate), and can auto-switch to your selected profile when games are running.';

@@ -1,242 +1,60 @@
 {
+  "overview": {
+    "title": "Falcon Exhaustive Power Management",
+    "description": "Unified quick power plans + exhaustive power-management engine controls."
+  },
+  "uiExposedIds": [
+    "powercfg_5453325182be482496c147b60b740d00_bc5038f723e0496096da33abaf5935ec",
+    "powercfg_501a4d1342af44299fd1a8218c268e20_ee12f906d277404bb6dae5fa1a576df5",
+    "nic_energy_efficient_ethernet",
+    "device_nic_allowcomputertoturnoffdevice",
+    "storage_nvme_apst",
+    "gpu_dxgk_power_component_idle",
+    "registry_powerthrottlingoff",
+    "firmware_aspm_mode"
+  ],
+  "presets": {
+    "Falcon Max FPS Extreme": [
+      "powercfg_5453325182be482496c147b60b740d00_bc5038f723e0496096da33abaf5935ec",
+      "powercfg_501a4d1342af44299fd1a8218c268e20_ee12f906d277404bb6dae5fa1a576df5",
+      "nic_energy_efficient_ethernet",
+      "storage_nvme_apst",
+      "registry_powerthrottlingoff"
+    ],
+    "Falcon Competitive Low Latency": [
+      "powercfg_5453325182be482496c147b60b740d00_bc5038f723e0496096da33abaf5935ec",
+      "nic_dma_coalescing",
+      "device_usb_hub_allowcomputertoturnoffdevice",
+      "gpu_nvidia_prefer_maximum_performance"
+    ],
+    "Falcon Balanced Performance": [
+      "powercfg_5453325182be482496c147b60b740d00_bc5038f723e0496096da33abaf5935ec",
+      "nic_energy_efficient_ethernet",
+      "gpu_adaptive_brightness"
+    ],
+    "Falcon Power Saver": [
+      "powercfg_5453325182be482496c147b60b740d00_bc5038f723e0496096da33abaf5935ec",
+      "storage_storage_device_idle_timeout",
+      "registry_backgroundapppowerthrottlingdisable"
+    ],
+    "Falcon Laptop Gaming": [
+      "powercfg_5453325182be482496c147b60b740d00_bc5038f723e0496096da33abaf5935ec",
+      "scope_processor_boost_disable_on_low_battery",
+      "scope_power_slider_default_on_dc"
+    ],
+    "Falcon Restore Windows Defaults": [
+      "registry_powerthrottlingoff",
+      "storage_nvme_apst",
+      "nic_energy_efficient_ethernet"
+    ]
+  },
   "items": [
     {
-      "id": "power_profile_max_performance_apply",
-      "type": "button",
-      "name": "Max Performance",
-      "risk": "Warning",
-      "riskLevel": "Warning",
+      "id": "power_management_exhaustive_panel",
+      "type": "info",
+      "name": "Use the Exhaustive Power Management panel",
       "category": "Power Management",
-      "requiresAdmin": true,
-      "description": "Best for desktops and plugged-in laptops chasing max FPS and lowest delay. Disables several AC power-saving behaviors (USB suspend, PCIe ASPM, disk idle) and increases heat/power draw. Snapshot is taken before apply; verify queries run after apply; revert sets Balanced as a safe fallback.",
-      "apply": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "$ts=Get-Date -Format yyyyMMdd-HHmmss; $dir=Join-Path $PWD 'backups'; if(!(Test-Path $dir)){New-Item -ItemType Directory -Path $dir|Out-Null}; $guid=((powercfg /getactivescheme) -replace '.*GUID:\\s*([0-9a-fA-F-]+).*','$1').Trim(); $out=Join-Path $dir ('profile-pre-'+$ts+'.pow'); powercfg /export $out $guid; Write-Output ('Snapshot: '+$out)"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg -setactive SCHEME_MIN"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMIN 100"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMAX 100"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PERFBOOSTMODE 2"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR CPMINCORES 100"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR CPMAXCORES 100"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PCIEXPRESS ASPM 0"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_USB USBSELECTSUSPEND 0"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_DISK DISKIDLE 0"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_SLEEP RTCWAKE 1"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg /setactive SCHEME_CURRENT"
-          }
-        ]
-      },
-      "verify": {
-        "steps": [
-          {
-            "type": "cmd.run",
-            "command": "powercfg /query SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMIN"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg /query SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMAX"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg /query SCHEME_CURRENT SUB_PROCESSOR PERFEPP"
-          }
-        ]
-      },
-      "revert": {
-        "steps": [
-          {
-            "type": "cmd.run",
-            "command": "powercfg /setactive SCHEME_BALANCED"
-          }
-        ]
-      }
-    },
-    {
-      "id": "power_profile_balanced_perf_apply",
-      "type": "button",
-      "name": "Balanced Performance",
-      "risk": "Safe",
-      "riskLevel": "Safe",
-      "category": "Power Management",
-      "requiresAdmin": true,
-      "description": "Good default for most PCs: keeps strong performance while allowing saner idle behavior than Max Performance. Better thermals and power use than max mode. Snapshot is taken before apply; verify queries run after apply; revert sets Balanced as a safe fallback.",
-      "apply": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "$ts=Get-Date -Format yyyyMMdd-HHmmss; $dir=Join-Path $PWD 'backups'; if(!(Test-Path $dir)){New-Item -ItemType Directory -Path $dir|Out-Null}; $guid=((powercfg /getactivescheme) -replace '.*GUID:\\s*([0-9a-fA-F-]+).*','$1').Trim(); $out=Join-Path $dir ('profile-pre-'+$ts+'.pow'); powercfg /export $out $guid; Write-Output ('Snapshot: '+$out)"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg -setactive SCHEME_BALANCED"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMIN 20"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMAX 100"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PERFEPP 20"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR CPMINCORES 40"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR CPMAXCORES 100"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_USB USBSELECTSUSPEND 0"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_DISK DISKIDLE 20"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg /setactive SCHEME_CURRENT"
-          }
-        ]
-      },
-      "verify": {
-        "steps": [
-          {
-            "type": "cmd.run",
-            "command": "powercfg /query SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMIN"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg /query SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMAX"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg /query SCHEME_CURRENT SUB_PROCESSOR PERFEPP"
-          }
-        ]
-      },
-      "revert": {
-        "steps": [
-          {
-            "type": "cmd.run",
-            "command": "powercfg /setactive SCHEME_BALANCED"
-          }
-        ]
-      }
-    },
-    {
-      "id": "power_profile_saver_perf_bias_apply",
-      "type": "button",
-      "name": "Power Saver With Performance Bias",
-      "risk": "Safe",
-      "riskLevel": "Safe",
-      "category": "Power Management",
-      "requiresAdmin": true,
-      "description": "Best for battery/runtime and lower heat on laptops. Uses DC-friendly CPU and device power-saving behavior and is not recommended for competitive FPS sessions. Snapshot is taken before apply; verify queries run after apply; revert sets Balanced as a safe fallback.",
-      "apply": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "$ts=Get-Date -Format yyyyMMdd-HHmmss; $dir=Join-Path $PWD 'backups'; if(!(Test-Path $dir)){New-Item -ItemType Directory -Path $dir|Out-Null}; $guid=((powercfg /getactivescheme) -replace '.*GUID:\\s*([0-9a-fA-F-]+).*','$1').Trim(); $out=Join-Path $dir ('profile-pre-'+$ts+'.pow'); powercfg /export $out $guid; Write-Output ('Snapshot: '+$out)"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg -setactive SCHEME_BALANCED"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMIN 10"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMAX 85"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR PERFEPP 65"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_USB USBSELECTSUSPEND 1"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_VIDEO VIDEOIDLE 5"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_SLEEP STANDBYIDLE 15"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg /setactive SCHEME_CURRENT"
-          }
-        ]
-      },
-      "verify": {
-        "steps": [
-          {
-            "type": "cmd.run",
-            "command": "powercfg /query SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMIN"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg /query SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMAX"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg /query SCHEME_CURRENT SUB_PROCESSOR PERFEPP"
-          }
-        ]
-      },
-      "revert": {
-        "steps": [
-          {
-            "type": "cmd.run",
-            "command": "powercfg /setactive SCHEME_BALANCED"
-          }
-        ]
-      }
+      "description": "This tab is now fully driven by the power-management engine (audit/catalog/manifest/apply/verify/coverage/export) while preserving legacy quick plans."
     }
   ]
 }
