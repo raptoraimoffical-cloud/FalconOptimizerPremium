@@ -105,6 +105,13 @@ removePowerPlans: () => ipcRenderer.invoke("falcon:removePowerPlans"),
 
   powerExplorerScan: () => ipcRenderer.invoke("falcon:powerExplorerScan"),
   powerExplorerSet: (payload) => ipcRenderer.invoke("falcon:powerExplorerSet", payload),
+  powerManagementAudit: () => ipcRenderer.invoke("falcon:powerManagementAudit"),
+  powerManagementCatalog: () => ipcRenderer.invoke("falcon:powerManagementCatalog"),
+  powerManagementBuildManifest: () => ipcRenderer.invoke("falcon:powerManagementBuildManifest"),
+  powerManagementApplyPreset: (preset) => ipcRenderer.invoke("falcon:powerManagementApplyPreset", { preset }),
+  powerManagementVerify: () => ipcRenderer.invoke("falcon:powerManagementVerify"),
+  powerManagementCoverage: () => ipcRenderer.invoke("falcon:powerManagementCoverage"),
+  powerManagementExportReport: () => ipcRenderer.invoke("falcon:powerManagementExportReport"),
 
   getSystemVitals: () => ipcRenderer.invoke("falcon:getSystemVitals"),
   runLatencyBenchmark: (seconds=5) => ipcRenderer.invoke("falcon:runLatencyBenchmark", { seconds }),

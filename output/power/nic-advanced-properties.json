@@ -1,0 +1,19 @@
+[
+  "Energy Efficient Ethernet",
+  "Advanced EEE",
+  "Green Ethernet",
+  "Ultra Low Power Mode",
+  "Reduce Speed On Power Down",
+  "System Idle Power Saver",
+  "Gigabit Lite",
+  "Auto Disable Gigabit",
+  "Power Saving Mode",
+  "Wake on Magic Packet",
+  "Wake on Pattern Match",
+  "Shutdown Wake-On-Lan",
+  "ARP Offload",
+  "NS Offload",
+  "DMA Coalescing",
+  "Idle Power Down Restriction",
+  "S5 Wake on LAN"
+]

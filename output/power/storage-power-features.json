@@ -1,0 +1,10 @@
+[
+  "NVMe APST",
+  "NVMe non-operational power state policy",
+  "NVMe idle timeout",
+  "SATA ALPM",
+  "AHCI HIPM",
+  "AHCI DIPM",
+  "Storage device idle timeout",
+  "Storport link power management"
+]

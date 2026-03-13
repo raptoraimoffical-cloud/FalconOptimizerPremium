@@ -2230,6 +2230,38 @@ ipcMain.handle("falcon:powerExplorerSet", async (_evt, payload) => {
   }
 });
 
+
+
+async function runPowerManagementEngine(mode, extraArgs = []) {
+  const psPath = path.join("scripts","power","power-management-engine.ps1");
+  const args = ["-Mode", String(mode), "-OutputRoot", "output/power", "-CatalogPath", "data/power/power_management_catalog.json", ...extraArgs];
+  return await runPsFile(psPath, args);
+}
+
+ipcMain.handle("falcon:powerManagementAudit", async () => {
+  try { return await runPowerManagementEngine("audit"); } catch (e) { return { ok:false, error:String(e && e.message ? e.message : e) }; }
+});
+ipcMain.handle("falcon:powerManagementCatalog", async () => {
+  try { return await runPowerManagementEngine("catalog"); } catch (e) { return { ok:false, error:String(e && e.message ? e.message : e) }; }
+});
+ipcMain.handle("falcon:powerManagementBuildManifest", async () => {
+  try { return await runPowerManagementEngine("build-manifest"); } catch (e) { return { ok:false, error:String(e && e.message ? e.message : e) }; }
+});
+ipcMain.handle("falcon:powerManagementApplyPreset", async (_evt, payload) => {
+  try { const preset = payload && payload.preset ? String(payload.preset) : "extreme"; return await runPowerManagementEngine("apply-preset", ["-Preset", preset]); } catch (e) { return { ok:false, error:String(e && e.message ? e.message : e) }; }
+});
+ipcMain.handle("falcon:powerManagementVerify", async () => {
+  try { return await runPowerManagementEngine("verify"); } catch (e) { return { ok:false, error:String(e && e.message ? e.message : e) }; }
+});
+ipcMain.handle("falcon:powerManagementCoverage", async () => {
+  try { return await runPowerManagementEngine("coverage"); } catch (e) { return { ok:false, error:String(e && e.message ? e.message : e) }; }
+});
+ipcMain.handle("falcon:powerManagementExportReport", async () => {
+  try {
+    const root = path.join(process.cwd(), "output", "power");
+    return { ok:true, root, files: fs.existsSync(root) ? fs.readdirSync(root) : [] };
+  } catch (e) { return { ok:false, error:String(e && e.message ? e.message : e) }; }
+});
 // --- IPC: Thermals / CPU status ---
 ipcMain.handle("falcon:getSystemVitals", async () => {
   try {
