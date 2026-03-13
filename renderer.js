@@ -68,60 +68,6 @@ let currentHwProfile = readSavedHwProfile();
 
 let gameModePhotoOptimizations = [];
 let navToken = 0;
-let renderGeneration = 0;
-const RENDER_TRACE = false;
-
-function renderTrace(event, payload){
-  if (!RENDER_TRACE) return;
-  try { console.debug(`[render] ${event}`, payload || {}); } catch(_e) {}
-}
-
-function beginRenderGeneration(){
-  renderGeneration += 1;
-  return renderGeneration;
-}
-
-function captureRenderContext(generation){
-  return {
-    generation,
-    route: currentRoute,
-    tabId: currentTab ? currentTab.id : null,
-    tabSource: currentTab ? currentTab.source : null
-  };
-}
-
-function isRenderContextCurrent(ctx){
-  if (!ctx) return false;
-  return (
-    ctx.generation === renderGeneration &&
-    ctx.route === currentRoute &&
-    (ctx.tabId || null) === (currentTab ? currentTab.id : null) &&
-    (ctx.tabSource || null) === (currentTab ? currentTab.source : null)
-  );
-}
-
-function setPanelLoading(message='Loading…'){
-  if (!els || !els.panel) return;
-  els.panel.innerHTML = `
-    <div class="panel">
-      <div class="card-title">${escapeHtml(message)}</div>
-      <div class="card-desc">Preparing the selected section…</div>
-    </div>
-  `;
-}
-
-function withTimeout(promise, timeoutMs, timeoutMessage){
-  const ms = Math.max(250, Number(timeoutMs) || 0);
-  let timer = null;
-  const timeoutPromise = new Promise((_, reject) => {
-    timer = setTimeout(() => {
-      reject(new Error(timeoutMessage || `Operation timed out after ${ms}ms`));
-    }, ms);
-  });
-  return Promise.race([Promise.resolve(promise), timeoutPromise]).finally(() => {
-    if (timer) clearTimeout(timer);
-  });
-}
 
 
 function getStepsFor(item, mode) {
@@ -1108,24 +1054,21 @@ const routes = {
     { id:'lib', label:'Library', source:'tweaks/performance.lib.network.json' }
   ]},
   powerManagement: { title: 'Power Management', sub: 'Performance-focused profiles and direct power behavior tuning.', tabs: [
-    { id:'overview', label:'Overview', source:'tweaks/power.management.overview.json' },
     { id:'profiles', label:'Profiles', source:'tweaks/power.management.profiles.json' },
-    { id:'plans', label:'Plans', source:'tweaks/power.management.plans.json' },
-    { id:'allSettingsExplorer', label:'All Settings Explorer', source:'tweaks/power.management.all_settings_explorer.json' },
+    { id:'allSettings', label:'All Settings Explorer', source:'tweaks/power.management.all_settings_explorer.json' },
     { id:'processor', label:'Processor', source:'tweaks/power.management.processor.json' },
     { id:'graphics', label:'Graphics', source:'tweaks/power.management.graphics.json' },
     { id:'pcie', label:'PCIe', source:'tweaks/power.management.pcie.json' },
     { id:'usb', label:'USB', source:'tweaks/power.management.usb.json' },
-    { id:'storageDisk', label:'Storage / Disk', source:'tweaks/power.management.storage_disk.json' },
+    { id:'storage', label:'Storage / Disk', source:'tweaks/power.management.storage_disk.json' },
     { id:'display', label:'Display', source:'tweaks/power.management.display.json' },
-    { id:'sleepHibernateModernStandby', label:'Sleep / Hibernate / Modern Standby', source:'tweaks/power.management.sleep_hibernate_modern_standby.json' },
-    { id:'buttonsLid', label:'Buttons / Lid', source:'tweaks/power.management.buttons_lid.json' },
+    { id:'sleep', label:'Sleep / Hibernate / Modern Standby', source:'tweaks/power.management.sleep_hibernate_modern_standby.json' },
+    { id:'buttons', label:'Buttons / Lid', source:'tweaks/power.management.buttons_lid.json' },
     { id:'energySaver', label:'Energy Saver', source:'tweaks/power.management.energy_saver.json' },
     { id:'wirelessEthernet', label:'Wireless / Ethernet', source:'tweaks/power.management.wireless_ethernet.json' },
     { id:'bluetooth', label:'Bluetooth', source:'tweaks/power.management.bluetooth.json' },
     { id:'deviceWake', label:'Device Wake', source:'tweaks/power.management.device_wake.json' },
-    { id:'diagnostics', label:'Diagnostics', source:'tweaks/power.management.diagnostics.json' },
-    { id:'hiddenExperimentalOem', label:'Hidden / Experimental / OEM', source:'tweaks/power.management.hidden_experimental.json' }
+    { id:'hidden', label:'Hidden / Experimental', source:'tweaks/power.management.hidden_experimental.json' }
   ]},
   speedCore: { title: 'Falcon Speed & Integrity Core', sub: 'Quick cleanup and deep integrity repair.', tabs: [
     { id:'boost', label:'Speed Boost Cleanup', source:'tweaks/speed.boost.json' },
@@ -1224,6 +1167,9 @@ bios: { title: 'BIOS / UEFI Helper', sub: 'Motherboard detection and firmware sh
   updates: { title: 'Updates', sub: 'Update feed diagnostics and last updater checks.', tabs: [] },
   utilities: { title: 'Utilities & Diagnostics', sub: 'Openers, exporters, readback checks, and helper tools (non-optimizations).', tabs: [
     { id:'tools', label:'Tools', source:'tweaks/utilities.json' },
+    { id:'powerReadback', label:'Power Readback / Exports', source:'tweaks/power.management.overview.json' },
+    { id:'powerPlansUtils', label:'Power Plan Utilities', source:'tweaks/power.management.plans.json' },
+    { id:'powerDiag', label:'Power Diagnostics', source:'tweaks/power.management.diagnostics.json' },
     { id:'falconDiag', label:'System Diagnostics Readback', source:'tweaks/utilities.system_diagnostics.json' },
     { id:'audit', label:'Pro Gamer Audit', source:'tweaks/audit.progamer.json' }
   ]}
@@ -1694,12 +1640,7 @@ function renderTabs(route){
     const b = document.createElement('button');
     b.className = 'tab' + (currentTab?.id===t.id ? ' active' : '');
     b.textContent = t.label;
-    b.onclick = () => {
-      if (currentTab && currentTab.id === t.id && currentRoute === route) return;
-      currentTab = t;
-      setPanelLoading('Switching tab…');
-      refresh(false);
-    };
+    b.onclick = () => { currentTab = t; refresh(false); };
     els.tabs.appendChild(b);
   });
 }
@@ -3761,7 +3702,7 @@ refreshSecurityHome();
           if (hwTier === "mid" && riskRank(risk) >= 3) { bumpReason('low_hw_tier_risk'); return false; }
 
           if (hwTier === "low") {
-            if (id.includes("gpu_nvidia_advanced") || id.includes("msi_mode") || id.includes("scheduler") || id.includes("advanced")) {
+            if (id.includes("gpu_nvidia_advanced") || id.includes("msi_mode") || id.includes("scheduler") || id.includes("paradime_advanced")) {
               bumpReason('low_hw_tier_advanced');
               return false;
             }
@@ -4729,11 +4670,8 @@ async function applyDefaultStretchPreset(){
 }
 
 
-async function renderFixes(renderCtx){
-  const isCurrent = () => !renderCtx || isRenderContextCurrent(renderCtx);
-  if (!isCurrent()) return;
+async function renderFixes(){
   const data = await loadJSON('tweaks/fixes.modules.json');
-  if (!isCurrent()) return;
   const items = data.items || [];
   const q = (els.searchInput.value||'').toLowerCase().trim();
   const filtered = items.filter(i => !q || i.name.toLowerCase().includes(q) || (i.description||'').toLowerCase().includes(q));
@@ -5105,18 +5043,11 @@ async function renderCoolingDashboard(){
   }, 600);
 }
 
-async function renderTweaksFromSource(source, renderCtx){
-  const isCurrent = () => !renderCtx || isRenderContextCurrent(renderCtx);
-  if (!isCurrent()) return;
+async function renderTweaksFromSource(source){
   // Always re-sync toggle state from the main process so UI reflects the last successful apply/revert.
   // This prevents cases where a tweak applied successfully but the visual switch didn't update.
   try {
-    toggles = await withTimeout(
-      window.falcon.getState(),
-      7000,
-      'State sync timed out'
-    );
-    if (!isCurrent()) return;
+    toggles = await window.falcon.getState();
     if (!toggles || typeof toggles !== 'object') toggles = {};
   } catch(_e) {
     if (!toggles || typeof toggles !== 'object') toggles = {};
@@ -5135,20 +5066,7 @@ async function renderTweaksFromSource(source, renderCtx){
     return;
   }
 
-  let data;
-  try {
-    data = await withTimeout(
-      loadJSON(source),
-      10000,
-      `Loading ${source} timed out`
-    );
-  } catch (e) {
-    if (!isCurrent()) return;
-    const msg = __eh(String((e && e.message) ? e.message : e || 'Unknown load error'));
-    els.panel.innerHTML = `<div class="notice notice-error"><strong>Failed to load section data:</strong> ${msg}<div class="muted" style="margin-top:8px;">Source: ${__eh(source)}</div></div>`;
-    return;
-  }
-  if (!isCurrent()) return;
+  const data = await loadJSON(source);
 
   let extraTopHtml = '';
   if (source === 'tweaks/performance.library.json') {
@@ -5263,12 +5181,14 @@ const items = dedupeNumberedClones(filteredItems).filter(it => !hiddenIds.has(it
 
   let toolbarHtml = '';
   if (isSpeedCoreSource) {
+    const isSpeedBoostCleanup = source === 'tweaks/speed.boost.json';
     toolbarHtml = `
       <div class="panel boost-toolbar">
         <div class="card-title">Speed Core – batch optimizations</div>
         <div class="card-desc">Select multiple deep latency / scheduler optimizations and run them together. These tweaks are advanced and focus purely on performance.</div>
         <div class="boost-toolbar-actions">
           <button class="btn secondary" id="boostSelectAll">Select all Speed Core optimizations</button>
+          ${isSpeedBoostCleanup ? '<button class="btn" id="boostSelectNonApp">Select non-app cleanup preset</button>' : ''}
           <button class="btn primary" id="boostRunBtn">Run selected Speed Core optimizations</button>
         </div>
       </div>
@@ -5329,7 +5249,6 @@ const items = dedupeNumberedClones(filteredItems).filter(it => !hiddenIds.has(it
     `;
   }
 
-  if (!isCurrent()) return;
   els.panel.innerHTML = `
     ${toolbarHtml}
     ${extraTopHtml}
@@ -5338,10 +5257,6 @@ const items = dedupeNumberedClones(filteredItems).filter(it => !hiddenIds.has(it
   `;
 
   const grid = document.getElementById('grid');
-  if (!grid) {
-    els.panel.innerHTML = `<div class="notice notice-error"><strong>Renderer error:</strong> The section grid could not be created for this view.</div>`;
-    return;
-  }
   // Performance Library presets
   if (source === 'tweaks/performance.library.json') {
     const byId = new Map(items.map(it => [it.id, it]));
@@ -5962,6 +5877,7 @@ card.innerHTML = `
       <div class="badges">
         ${riskBadge(item.riskLevel || item.risk || 'Safe')}
         ${item.requiresReboot ? `<span class="badge">Reboot</span>` : ``}
+        ${metadataBadges(item)}
       </div>
       ${showToggle ? `
         <label class="fo-switch" title="Toggle">
@@ -5981,10 +5897,11 @@ card.innerHTML = `
       const checkbox = card.querySelector('.boost-select');
       if (checkbox) {
         card.addEventListener('click', (ev) => {
-          // Ignore clicks on actual buttons inside the card
           const target = ev.target;
-          if (target.closest && target.closest('.card-actions')) return;
+          if (!target) return;
+          if (target.closest && target.closest('.card-actions, .boost-check, .fo-switch, .inline-panel, a, button, input, select, textarea, label')) return;
           checkbox.checked = !checkbox.checked;
+          checkbox.dispatchEvent(new Event('change', { bubbles: true }));
         });
       }
     }
@@ -6021,11 +5938,21 @@ card.innerHTML = `
       }
       const needsConfirm = isHighOrCritical(risk) || item.requiresSnapshot || item.requireExplicitConfirm || item.excludeFromApplyAll;
       if(needsConfirm){
+        const applyCount = Array.isArray(item?.apply?.steps) ? item.apply.steps.length : 0;
+        const revertCount = Array.isArray(item?.revert?.steps) ? item.revert.steps.length : 0;
+        const warningBody = (risk === 'Danger' || risk === 'Extreme')
+          ? [
+              (item.warningBody || item.description || item.name || 'Risky action'),
+              '',
+              `What it changes: executes ${applyCount} action step(s).`,
+              `How to revert: ${revertCount > 0 ? `use Revert (${revertCount} step(s)) from this card` : 'no automatic revert is defined; create a restore point before applying.'}`
+            ] .join('\n')
+          : (item.warningBody || item.description || item.name);
         const ok = await showConfirmModal({
-          title: item.warningTitle || (risk === "Critical" ? "CRITICAL ACTION" : "Warning"),
-          body: item.warningBody || item.description || item.name,
+          title: item.warningTitle || (risk === "Extreme" ? "EXTREME ACTION" : "Warning"),
+          body: warningBody,
           risk,
-          requireTyped: !!item.requireExplicitConfirm || risk==="Critical"
+          requireTyped: !!item.requireExplicitConfirm || risk==="Extreme"
         });
         if(!ok) return;
       }
@@ -6518,6 +6445,7 @@ try {
 
   if(isSpeedCoreSource){
     const selectAllBtn = document.getElementById('boostSelectAll');
+    const selectNonAppBtn = document.getElementById('boostSelectNonApp');
     const runBtn = document.getElementById('boostRunBtn');
     const getCheckboxes = () => Array.from(document.querySelectorAll('.boost-select'));
 
@@ -6526,6 +6454,22 @@ try {
         const boxes = getCheckboxes();
         const anyUnchecked = boxes.some(b => !b.checked);
         boxes.forEach(b => { b.checked = anyUnchecked; });
+      };
+    }
+    if (selectNonAppBtn) {
+      selectNonAppBtn.onclick = () => {
+        const appSpecificHints = ['chrome','firefox','edge','opera','discord','steam','epic','battle.net','battlenet','riot','launcher','spotify'];
+        const boxes = getCheckboxes();
+        let selected = 0;
+        boxes.forEach(cb => {
+          const id = String(cb.getAttribute('data-id') || '').toLowerCase();
+          const card = cb.closest('.card');
+          const text = String((card && card.textContent) || '').toLowerCase();
+          const isAppSpecific = appSpecificHints.some(h => id.includes(h) || text.includes(h));
+          cb.checked = !isAppSpecific;
+          if (!isAppSpecific) selected++;
+        });
+        showToast('Selected ' + selected + ' cleanup actions (non app-specific preset).', 'success');
       };
     }
     if(runBtn){
@@ -6723,14 +6667,24 @@ if (stopBtn) {
     } catch(_e) {}
 
     try {
-      const data = await withTimeout(
-        loadJSON(source),
-        10000,
-        `Loading ${source} timed out`
-      );
-      if (!isCurrent()) return;
+      const data = await loadJSON(source);
 
-        const rawItems = (data.items || data.tweaks || []);
+  let extraTopHtml = '';
+  if (source === 'tweaks/performance.library.json') {
+    extraTopHtml = `
+      <div class="panel boost-toolbar">
+        <div class="card-title">Presets</div>
+        <div class="card-desc">Apply a fast preset baseline, then use the Library below to fine-tune. Presets run multiple actions in sequence.</div>
+        <div class="boost-toolbar-actions">
+          <button class="btn secondary" id="plPresetBalanced">Apply Balanced preset</button>
+          <button class="btn primary" id="plPresetLatency">Apply Latency preset</button>
+          <button class="btn secondary" id="plPresetFps">Apply FPS preset</button>
+        </div>
+        <div class="muted" style="margin-top:8px; font-size:12px;">Tip: You can still run any single optimization card below, including custom-value cards.</div>
+      </div>
+    `;
+  }
+      const rawItems = (data.items || data.tweaks || []);
       const byId = new Map(rawItems.map(it => [String(it.id||''), it]));
       const activeItems = activeIds.map(id => byId.get(String(id))).filter(Boolean);
 
@@ -6809,11 +6763,8 @@ function classifyProcessForLab(name){
   return { core:false, tier:'unknown', note:'Unknown or mixed‑purpose process. Only close if you know what it is.' };
 }
 
-async function renderProcessLab(renderCtx){
-  const isCurrent = () => !renderCtx || isRenderContextCurrent(renderCtx);
-  if (!isCurrent()) return;
+async function renderProcessLab(){
   const allowed = await ensureAggressiveConsent('processLab');
-  if (!isCurrent()) return;
   if (!allowed) {
     els.panel.innerHTML = `
       <div class="panel">
@@ -6891,7 +6842,7 @@ async function renderProcessLab(renderCtx){
       </div>
 
     <div class="panel" id="procCustomPanel">
-      <div class="card-title">Custom service matrix (advanced)</div>
+      <div class="card-title">Custom service matrix (max debloat)</div>
       <div class="card-desc">
         Build your own Process Lab preset on top of a base mode. This lets you push Windows services and features as far as you are comfortable,
         with clear labels for what each service touches (Store, Defender screens, Wi-Fi helpers, sensors, etc.).
@@ -7495,131 +7446,14 @@ async function renderProcessLab(renderCtx){
   if (btnFixes) btnFixes.onclick = () => {
     try {
       setRoute('fixes');
+      refresh(true);
     } catch(_e) {}
   };
 
 }
 
-
-async function renderPowerAllSettingsExplorer(renderCtx){
-  const isCurrent = () => !renderCtx || isRenderContextCurrent(renderCtx);
-  if (!isCurrent()) return;
-  els.panel.innerHTML = `
-    <div class="panel">
-      <div class="card-title">All Settings Explorer (dynamic)</div>
-      <div class="card-desc">Scans <code>powercfg /qh SCHEME_CURRENT</code>, <code>/aliases</code>, and <code>/query</code> into a machine-specific catalog with AC/DC readback.</div>
-      <div class="row" style="margin-top:10px; gap:8px; flex-wrap:wrap;">
-        <button class="btn primary" id="pwrExScan">Scan current machine</button>
-        <input class="input" id="pwrExSearch" placeholder="Search setting name, alias, subgroup, or GUID" style="min-width:320px; flex:1;" />
-        <select class="input" id="pwrExSub" style="min-width:220px;"><option value="">All subgroups</option></select>
-      </div>
-      <div class="grid" style="margin-top:10px; grid-template-columns: 1.2fr 1fr; gap:12px;">
-        <div class="card"><div id="pwrExList" style="max-height:520px; overflow:auto;"></div></div>
-        <div class="card"><div id="pwrExDetail" class="muted">Select a setting to view raw details and optionally write AC/DC values.</div></div>
-      </div>
-    </div>
-  `;
-
-  const listEl = document.getElementById('pwrExList');
-  const detailEl = document.getElementById('pwrExDetail');
-  const searchEl = document.getElementById('pwrExSearch');
-  const subEl = document.getElementById('pwrExSub');
-  let rows = [];
-  let selected = null;
-
-  const renderDetails = (r) => {
-    if(!detailEl || !r) return;
-    detailEl.innerHTML = `
-      <div class="card-title">${__eh(r.settingName || r.settingAlias || r.settingGuid)}</div>
-      <div class="muted" style="margin:6px 0 10px;">${__eh(r.description || 'No description available.')}</div>
-      <div class="muted">Subgroup: <code>${__eh((r.subgroupAlias || '-') + ' / ' + (r.subgroupGuid || '-'))}</code></div>
-      <div class="muted">Setting: <code>${__eh((r.settingAlias || '-') + ' / ' + (r.settingGuid || '-'))}</code></div>
-      <div class="muted">Current AC/DC: <b>${__eh(String(r.currentAcValue))}</b> / <b>${__eh(String(r.currentDcValue))}</b></div>
-      <div class="muted">Range: ${__eh(String(r.min))} .. ${__eh(String(r.max))} (inc ${__eh(String(r.increment))}) ${__eh(r.units || '')}</div>
-      <div class="row" style="margin-top:10px; gap:8px;">
-        <input class="input" id="pwrExAc" placeholder="AC value" value="${__eh(String(r.currentAcValue ?? ''))}" />
-        <input class="input" id="pwrExDc" placeholder="DC value" value="${__eh(String(r.currentDcValue ?? ''))}" />
-        <button class="btn" id="pwrExWrite">Write + verify</button>
-      </div>
-      <details style="margin-top:10px;"><summary>Raw details</summary><pre class="log">${__eh(JSON.stringify(r, null, 2))}</pre></details>
-    `;
-    const w = document.getElementById('pwrExWrite');
-    if (w) w.onclick = async () => {
-      const ac = document.getElementById('pwrExAc');
-      const dc = document.getElementById('pwrExDc');
-      const payload = { subgroup: r.subgroupAlias || r.subgroupGuid, setting: r.settingAlias || r.settingGuid };
-      if (ac && String(ac.value).trim() !== '') payload.acValue = String(ac.value).trim();
-      if (dc && String(dc.value).trim() !== '') payload.dcValue = String(dc.value).trim();
-      const res = await window.falcon.powerExplorerSet(payload);
-      if (!isCurrent()) return;
-      if (res && res.ok) {
-        showToast('Power setting updated and queried for verification.', 'success');
-      } else {
-        showToast('Failed to set power setting: ' + String((res && (res.error || res.stderr)) || 'unknown error'), 'error');
-      }
-    };
-  };
-
-  const renderList = () => {
-    if(!listEl) return;
-    const q = String((searchEl && searchEl.value) || '').toLowerCase().trim();
-    const sg = String((subEl && subEl.value) || '').trim();
-    const filtered = rows.filter(r => {
-      const blob = JSON.stringify(r).toLowerCase();
-      if (q && !blob.includes(q)) return false;
-      if (sg && r.subgroupGuid !== sg) return false;
-      return true;
-    });
-    listEl.innerHTML = filtered.map((r, i) => `
-      <button class="btn" data-i="${i}" style="display:block; width:100%; text-align:left; margin-bottom:6px; ${selected===r.settingGuid?'border-color:#66a3ff;':''}">
-        <div><b>${__eh(r.settingName || r.settingAlias || r.settingGuid)}</b></div>
-        <div class="muted" style="font-size:12px;">${__eh(r.subgroupName || r.subgroupAlias || r.subgroupGuid)} · AC ${__eh(String(r.currentAcValue))} / DC ${__eh(String(r.currentDcValue))}</div>
-      </button>
-    `).join('') || '<div class="muted">No settings match your filter.</div>';
-    Array.from(listEl.querySelectorAll('button[data-i]')).forEach(b => {
-      b.onclick = () => {
-        const r = filtered[Number(b.dataset.i)];
-        selected = r ? r.settingGuid : null;
-        renderList();
-        renderDetails(r);
-      };
-    });
-  };
-
-  const load = async () => {
-    const res = await window.falcon.powerExplorerScan();
-    if (!isCurrent()) return;
-    if (!(res && res.ok)) {
-      if (listEl) listEl.innerHTML = '<div class="notice notice-error">Scan failed: ' + __eh(String((res && (res.error || res.stderr)) || 'unknown error')) + '</div>';
-      return;
-    }
-    rows = Array.isArray(res.items) ? res.items : [];
-    const groups = new Map();
-    rows.forEach(r => { if (r && r.subgroupGuid) groups.set(r.subgroupGuid, r.subgroupName || r.subgroupAlias || r.subgroupGuid); });
-    if (subEl) {
-      subEl.innerHTML = '<option value="">All subgroups</option>' + Array.from(groups.entries()).map(([g,n]) => `<option value="${__eh(g)}">${__eh(n)}</option>`).join('');
-      subEl.onchange = renderList;
-    }
-    if (searchEl) searchEl.oninput = renderList;
-    renderList();
-    if (!isCurrent()) return;
-    showToast('Loaded ' + rows.length + ' power settings.', 'success');
-  };
-
-  const scanBtn = document.getElementById('pwrExScan');
-  if (scanBtn) scanBtn.onclick = load;
-  await load();
-}
-
-
 async function refresh(resetTabs=true){
-  const generation = beginRenderGeneration();
-  let renderCtx = null;
-  renderTrace('start', { generation, resetTabs, route: currentRoute, tabId: currentTab ? currentTab.id : null });
   try {
-    if (!els || !els.pageTitle || !els.pageSub || !els.tabs || !els.panel) {
-      throw new Error('UI shell did not initialize correctly (missing required DOM nodes).');
-    }
     if (currentRoute !== 'processLab' && processLabAutoRefreshTimer) {
       try { window.clearInterval(processLabAutoRefreshTimer); } catch(_e) {}
       processLabAutoRefreshTimer = null;
@@ -7644,24 +7478,16 @@ async function refresh(resetTabs=true){
       if (cfg.tabs && cfg.tabs.length > 0) currentTab = cfg.tabs[0];
       else currentTab = null;
     }
-
-    renderCtx = captureRenderContext(generation);
-    renderTrace('context-captured', renderCtx);
-
     renderTabs(currentRoute);
-    if (!isRenderContextCurrent(renderCtx)) {
-      renderTrace('abort-stale', { generation, reason: 'post-renderTabs-check', route: currentRoute, tabId: currentTab ? currentTab.id : null });
-      return;
-    }
 
     if (currentRoute === 'home')       return await renderHome();
     if (currentRoute === 'backups')    return await renderBackups();
-    if (currentRoute === 'fixes')      return await renderFixes(renderCtx);
+    if (currentRoute === 'fixes')      return await renderFixes();
     if (currentRoute === 'stretchLab') return await renderStretchLab();
-    if (currentRoute === 'processLab') return await renderProcessLab(renderCtx);
+    if (currentRoute === 'processLab') return await renderProcessLab();
     if (currentRoute === 'bios')       return await renderBiosHelper();
     if (currentRoute === 'themes')     return await renderThemes();
-    if (currentRoute === 'explore')    return await renderExplore(renderCtx);
+    if (currentRoute === 'explore')    return await renderExplore();
     if (currentRoute === 'fortnite')   return await renderGameProfiles();
     if (currentRoute === 'language')   return await renderLanguage();
     if (currentRoute === 'updates')    return await renderUpdates();
@@ -7669,49 +7495,31 @@ async function refresh(resetTabs=true){
     if (currentRoute === 'thermal' && currentTab && currentTab.id === 'cooling') return await renderCoolingDashboard();
 
 
-    if (currentRoute === 'powerManagement' && currentTab && currentTab.id === 'allSettingsExplorer') {
-      return await renderPowerAllSettingsExplorer(renderCtx);
-    }
-
     if (currentTab && currentTab.source) {
-      return await renderTweaksFromSource(currentTab.source, renderCtx);
+      return await renderTweaksFromSource(currentTab.source);
     }
 
     els.panel.innerHTML = `<div class="notice"><strong>Missing data:</strong> No items configured for this section yet.</div>`;
   } catch (e) {
-    if (renderCtx && !isRenderContextCurrent(renderCtx)) {
-      renderTrace('abort-stale', { generation, reason: 'catch', route: currentRoute, tabId: currentTab ? currentTab.id : null });
-      return;
-    }
     console.error('Refresh/navigation error', e);
     const msg = escapeHtml(String(e && e.message ? e.message : e));
     const stack = escapeHtml(String(e && e.stack ? e.stack : 'No stack available.'));
-    if (els && els.panel) {
-      els.panel.innerHTML = `<div class="notice notice-error"><strong>Navigation error:</strong> ${msg}<details style="margin-top:8px;"><summary>Show details</summary><pre class="log" style="margin-top:8px;">${stack}</pre></details></div>`;
-    }
-  } finally {
-    const stale = !!(renderCtx && !isRenderContextCurrent(renderCtx));
-    renderTrace(stale ? 'finish-stale' : 'finish', {
-      generation,
-      route: currentRoute,
-      tabId: currentTab ? currentTab.id : null
-    });
+    els.panel.innerHTML = `<div class="notice notice-error"><strong>Navigation error:</strong> ${msg}<details style="margin-top:8px;"><summary>Show details</summary><pre class="log" style="margin-top:8px;">${stack}</pre></details></div>`;
   }
 }
 function setRoute(route){
   navToken++;
   currentRoute = route;
   setActiveNav(route);
-  setPanelLoading('Switching section…');
   refresh(true);
 }
 
 document.querySelectorAll('.nav-item').forEach(btn=>{
   btn.addEventListener('click', () => setRoute(btn.dataset.route));
 });
-document.getElementById('refreshBtn').onclick = () => { setPanelLoading(); refresh(false); };
+document.getElementById('refreshBtn').onclick = () => refresh(false);
 // Debounce search to avoid re-rendering on every keystroke.
-els.searchInput.addEventListener('input', debounce(() => { setPanelLoading('Searching…'); refresh(false); }, 140));
+els.searchInput.addEventListener('input', debounce(() => refresh(false), 140));
 
 (async function boot(){
   toggles = await window.falcon.getState();
@@ -7720,9 +7528,7 @@ els.searchInput.addEventListener('input', debounce(() => { setPanelLoading('Sear
 
 
 
-async function renderExplore(renderCtx){
-  const isCurrent = () => !renderCtx || isRenderContextCurrent(renderCtx);
-  if (!isCurrent()) return;
+async function renderExplore(){
   // Phase 2: global optimization explorer (Balanced-safe by default)
   els.panel.innerHTML = `
     <div class="panel" style="margin-top:14px;">
@@ -8009,10 +7815,8 @@ async function renderExplore(renderCtx){
   }
 
   async function init(){
-    if (!isCurrent()) return;
     els2.results.innerHTML = `<div class="muted" style="padding:8px;">Indexing…</div>`;
     index = await loadIndex();
-    if (!isCurrent()) return;
     syncModeButtons();
     renderResults();
   }
