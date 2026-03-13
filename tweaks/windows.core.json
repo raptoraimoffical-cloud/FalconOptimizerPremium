@@ -1834,43 +1834,43 @@
     {
       "id": "core_disable_hibernation__windows.core",
       "type": "button",
-      "name": "Apply: Disable Hibernation",
+      "name": "[Migrated to Power Management] Apply: Disable Hibernation",
       "risk": "Warning",
-      "description": "[Focus: FPS, Latency / Input Delay] Disables hibernation (also disables Fast Startup).",
+      "description": "Migrated to canonical Power Management tabs. Use Power Management section for active apply/revert/verify. This legacy item is now a helper marker.",
       "requiresAdmin": true,
       "apply": {
         "steps": [
           {
-            "type": "cmd.run",
-            "command": "powercfg /hibernate off"
+            "type": "ps.run",
+            "command": "Write-Output 'Migrated: use Power Management canonical tab.'"
           }
         ]
       },
       "revert": {
         "steps": [
           {
-            "type": "cmd.run",
-            "command": "powercfg /hibernate on"
+            "type": "ps.run",
+            "command": "Write-Output 'Migrated: use Power Management canonical tab.'"
           }
         ]
       },
       "riskLevel": "Warning",
-      "category": "General / Core"
+      "category": "Utilities & Diagnostics"
     },
     {
       "risk": "Warning",
-      "description": "[Focus: FPS, Latency / Input Delay] Disables hibernation (also disables Fast Startup).",
+      "description": "Migrated to canonical Power Management tabs. Use Power Management section for active apply/revert/verify. This legacy item is now a helper marker.",
       "requiresAdmin": true,
       "riskLevel": "Warning",
-      "category": "General / Core",
+      "category": "Utilities & Diagnostics",
       "id": "core_disable_hibernation__windows.core__revert",
       "type": "button",
-      "name": "Revert: Disable Hibernation",
+      "name": "[Migrated to Power Management] Revert: Disable Hibernation",
       "apply": {
         "steps": [
           {
-            "type": "cmd.run",
-            "command": "powercfg /hibernate on"
+            "type": "ps.run",
+            "command": "Write-Output 'Migrated: use Power Management canonical tab.'"
           }
         ]
       }
@@ -1878,34 +1878,28 @@
     {
       "id": "core_disable_fast_startup__windows.core",
       "type": "toggle",
-      "name": "Disable Fast Startup",
+      "name": "[Migrated to Power Management] Disable Fast Startup",
       "risk": "Warning",
-      "description": "[Focus: FPS, Latency / Input Delay] Disables Fast Startup.",
+      "description": "Migrated to canonical Power Management tabs. Use Power Management section for active apply/revert/verify. This legacy item is now a helper marker.",
       "requiresAdmin": true,
       "apply": {
         "steps": [
           {
-            "type": "registry.set",
-            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Power",
-            "name": "HiberbootEnabled",
-            "value": 0,
-            "valueType": "DWord"
+            "type": "ps.run",
+            "command": "Write-Output 'Migrated: use Power Management canonical tab.'"
           }
         ]
       },
       "revert": {
         "steps": [
           {
-            "type": "registry.set",
-            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Power",
-            "name": "HiberbootEnabled",
-            "value": 1,
-            "valueType": "DWord"
+            "type": "ps.run",
+            "command": "Write-Output 'Migrated: use Power Management canonical tab.'"
           }
         ]
       },
       "riskLevel": "Warning",
-      "category": "General / Core",
+      "category": "Utilities & Diagnostics",
       "check": {
         "steps": [
           {

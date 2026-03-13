@@ -154,70 +154,46 @@
     },
     {
       "id": "gm_disable_pcie_aspm",
-      "name": "Apply: Disable PCIe ASPM",
-      "category": "Game Mode / Power",
+      "name": "[Migrated to Power Management] Apply: Disable PCIe ASPM",
+      "category": "Utilities & Diagnostics",
       "type": "button",
       "risk": "Warning",
-      "description": "[Focus: Latency / Input Delay] Disables PCIe Active State Power Management so GPU/PCIe devices don't downclock mid-game.",
+      "description": "Migrated to canonical Power Management tabs. Use Power Management section for active apply/revert/verify. This legacy item is now a helper marker.",
       "requiresAdmin": true,
       "requiresReboot": false,
       "apply": {
         "steps": [
           {
-            "type": "cmd.run",
-            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PCIEXPRESS ASPM 0"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_PCIEXPRESS ASPM 0"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg /setactive SCHEME_CURRENT"
+            "type": "ps.run",
+            "command": "Write-Output 'Migrated: use Power Management canonical tab.'"
           }
         ]
       },
       "revert": {
         "steps": [
           {
-            "type": "cmd.run",
-            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PCIEXPRESS ASPM 2"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_PCIEXPRESS ASPM 2"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg /setactive SCHEME_CURRENT"
+            "type": "ps.run",
+            "command": "Write-Output 'Migrated: use Power Management canonical tab.'"
           }
         ]
       },
       "riskLevel": "Warning"
     },
     {
-      "category": "Game Mode / Power",
+      "category": "Utilities & Diagnostics",
       "risk": "Warning",
-      "description": "[Focus: Latency / Input Delay] Disables PCIe Active State Power Management so GPU/PCIe devices don't downclock mid-game.",
+      "description": "Migrated to canonical Power Management tabs. Use Power Management section for active apply/revert/verify. This legacy item is now a helper marker.",
       "requiresAdmin": true,
       "requiresReboot": false,
       "riskLevel": "Warning",
       "id": "gm_disable_pcie_aspm__revert",
       "type": "button",
-      "name": "Revert: Disable PCIe ASPM",
+      "name": "[Migrated to Power Management] Revert: Disable PCIe ASPM",
       "apply": {
         "steps": [
           {
-            "type": "cmd.run",
-            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PCIEXPRESS ASPM 2"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_PCIEXPRESS ASPM 2"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg /setactive SCHEME_CURRENT"
+            "type": "ps.run",
+            "command": "Write-Output 'Migrated: use Power Management canonical tab.'"
           }
         ]
       }

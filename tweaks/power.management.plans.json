@@ -182,7 +182,7 @@
     {
       "id": "power_plan_import_snapshot",
       "type": "button",
-      "name": "Power Plan Tool: Import .pow Snapshot (C:/FalconPower/restore.pow)",
+      "name": "Power Plan Tool: Import .pow Snapshot (from Falcon backups folder)",
       "risk": "Warning",
       "riskLevel": "Warning",
       "category": "Utilities & Diagnostics",
@@ -191,16 +191,8 @@
       "apply": {
         "steps": [
           {
-            "type": "cmd.run",
-            "command": "if not exist C:\\FalconPower mkdir C:\\FalconPower"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg /import C:\\FalconPower\\restore.pow"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg /list"
+            "type": "ps.run",
+            "command": "$f=Join-Path $PWD 'backups\\restore.pow'; if(!(Test-Path $f)){ throw 'Missing backup file: '+$f }; powercfg /import $f; powercfg /list"
           }
         ]
       }
@@ -216,16 +208,8 @@
       "apply": {
         "steps": [
           {
-            "type": "cmd.run",
-            "command": "if not exist C:\\FalconPower mkdir C:\\FalconPower"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg /aliases > C:\\FalconPower\\aliases.txt"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg /query SCHEME_CURRENT > C:\\FalconPower\\query_scheme_current.txt"
+            "type": "ps.run",
+            "command": "$dir=Join-Path $PWD 'logs'; if(!(Test-Path $dir)){New-Item -ItemType Directory -Path $dir|Out-Null}; powercfg /aliases | Out-File -Encoding utf8 (Join-Path $dir 'aliases.txt'); powercfg /query SCHEME_CURRENT | Out-File -Encoding utf8 (Join-Path $dir 'query_scheme_current.txt'); Write-Output ('Saved logs to '+$dir)"
           }
         ]
       }

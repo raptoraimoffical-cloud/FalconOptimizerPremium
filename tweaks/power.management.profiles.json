@@ -8,9 +8,13 @@
       "riskLevel": "Warning",
       "category": "Power Management",
       "requiresAdmin": true,
-      "description": "Best for desktops and plugged-in laptops chasing max FPS and lowest delay. Disables several AC power-saving behaviors (USB suspend, PCIe ASPM, disk idle) and increases heat/power draw.",
+      "description": "Best for desktops and plugged-in laptops chasing max FPS and lowest delay. Disables several AC power-saving behaviors (USB suspend, PCIe ASPM, disk idle) and increases heat/power draw. Snapshot is taken before apply; verify queries run after apply; revert sets Balanced as a safe fallback.",
       "apply": {
         "steps": [
+          {
+            "type": "ps.run",
+            "command": "$ts=Get-Date -Format yyyyMMdd-HHmmss; $dir=Join-Path $PWD 'backups'; if(!(Test-Path $dir)){New-Item -ItemType Directory -Path $dir|Out-Null}; $guid=((powercfg /getactivescheme) -replace '.*GUID:\\s*([0-9a-fA-F-]+).*','$1').Trim(); $out=Join-Path $dir ('profile-pre-'+$ts+'.pow'); powercfg /export $out $guid; Write-Output ('Snapshot: '+$out)"
+          },
           {
             "type": "cmd.run",
             "command": "powercfg -setactive SCHEME_MIN"
@@ -56,19 +60,47 @@
             "command": "powercfg /setactive SCHEME_CURRENT"
           }
         ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg /query SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMIN"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /query SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMAX"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /query SCHEME_CURRENT SUB_PROCESSOR PERFEPP"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_BALANCED"
+          }
+        ]
       }
     },
     {
       "id": "power_profile_balanced_perf_apply",
       "type": "button",
-      "name": "Balanced",
+      "name": "Balanced Performance",
       "risk": "Safe",
       "riskLevel": "Safe",
       "category": "Power Management",
       "requiresAdmin": true,
-      "description": "Good default for most PCs: keeps strong performance while allowing saner idle behavior than Max Performance. Better thermals and power use than max mode.",
+      "description": "Good default for most PCs: keeps strong performance while allowing saner idle behavior than Max Performance. Better thermals and power use than max mode. Snapshot is taken before apply; verify queries run after apply; revert sets Balanced as a safe fallback.",
       "apply": {
         "steps": [
+          {
+            "type": "ps.run",
+            "command": "$ts=Get-Date -Format yyyyMMdd-HHmmss; $dir=Join-Path $PWD 'backups'; if(!(Test-Path $dir)){New-Item -ItemType Directory -Path $dir|Out-Null}; $guid=((powercfg /getactivescheme) -replace '.*GUID:\\s*([0-9a-fA-F-]+).*','$1').Trim(); $out=Join-Path $dir ('profile-pre-'+$ts+'.pow'); powercfg /export $out $guid; Write-Output ('Snapshot: '+$out)"
+          },
           {
             "type": "cmd.run",
             "command": "powercfg -setactive SCHEME_BALANCED"
@@ -106,19 +138,47 @@
             "command": "powercfg /setactive SCHEME_CURRENT"
           }
         ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg /query SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMIN"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /query SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMAX"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /query SCHEME_CURRENT SUB_PROCESSOR PERFEPP"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_BALANCED"
+          }
+        ]
       }
     },
     {
       "id": "power_profile_saver_perf_bias_apply",
       "type": "button",
-      "name": "Power Saver",
+      "name": "Power Saver With Performance Bias",
       "risk": "Safe",
       "riskLevel": "Safe",
       "category": "Power Management",
       "requiresAdmin": true,
-      "description": "Best for battery/runtime and lower heat on laptops. Uses DC-friendly CPU and device power-saving behavior and is not recommended for competitive FPS sessions.",
+      "description": "Best for battery/runtime and lower heat on laptops. Uses DC-friendly CPU and device power-saving behavior and is not recommended for competitive FPS sessions. Snapshot is taken before apply; verify queries run after apply; revert sets Balanced as a safe fallback.",
       "apply": {
         "steps": [
+          {
+            "type": "ps.run",
+            "command": "$ts=Get-Date -Format yyyyMMdd-HHmmss; $dir=Join-Path $PWD 'backups'; if(!(Test-Path $dir)){New-Item -ItemType Directory -Path $dir|Out-Null}; $guid=((powercfg /getactivescheme) -replace '.*GUID:\\s*([0-9a-fA-F-]+).*','$1').Trim(); $out=Join-Path $dir ('profile-pre-'+$ts+'.pow'); powercfg /export $out $guid; Write-Output ('Snapshot: '+$out)"
+          },
           {
             "type": "cmd.run",
             "command": "powercfg -setactive SCHEME_BALANCED"
@@ -150,6 +210,30 @@
           {
             "type": "cmd.run",
             "command": "powercfg /setactive SCHEME_CURRENT"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg /query SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMIN"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /query SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMAX"
+          },
+          {
+            "type": "cmd.run",
+            "command": "powercfg /query SCHEME_CURRENT SUB_PROCESSOR PERFEPP"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "powercfg /setactive SCHEME_BALANCED"
           }
         ]
       }

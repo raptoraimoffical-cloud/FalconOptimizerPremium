@@ -2199,6 +2199,37 @@ ipcMain.handle("falcon:powerPlansRestorePrevious", async () => {
   }
 });
 
+
+ipcMain.handle("falcon:powerExplorerScan", async () => {
+  try {
+    const outDir = path.join(app.getPath("userData"), "power");
+    try { fs.mkdirSync(outDir, { recursive: true }); } catch (_) {}
+    const outPath = path.join(outDir, "all-settings-catalog.json");
+    const res = await runPsFile(path.join("scripts","power","all-settings-explorer.ps1"), ["-Mode", "scan", "-OutputPath", outPath]);
+    if (!res.ok) return { ok:false, stdout:res.stdout||"", stderr:res.stderr||"", outputPath: outPath };
+    const parsed = safeJsonRead(outPath, []);
+    return { ok:true, outputPath: outPath, items: Array.isArray(parsed) ? parsed : [] };
+  } catch (e) {
+    return { ok:false, error:String(e && e.message ? e.message : e) };
+  }
+});
+
+ipcMain.handle("falcon:powerExplorerSet", async (_evt, payload) => {
+  try {
+    const subgroup = payload && payload.subgroup ? String(payload.subgroup) : "";
+    const setting = payload && payload.setting ? String(payload.setting) : "";
+    const acValue = (payload && typeof payload.acValue !== "undefined") ? String(payload.acValue) : "";
+    const dcValue = (payload && typeof payload.dcValue !== "undefined") ? String(payload.dcValue) : "";
+    if (!subgroup || !setting) return { ok:false, error:"Missing subgroup/setting" };
+    const args = ["-Mode","set","-Subgroup", subgroup, "-Setting", setting];
+    if (acValue !== "") args.push("-AcValue", acValue);
+    if (dcValue !== "") args.push("-DcValue", dcValue);
+    return await runPsFile(path.join("scripts","power","all-settings-explorer.ps1"), args);
+  } catch (e) {
+    return { ok:false, error:String(e && e.message ? e.message : e) };
+  }
+});
+
 // --- IPC: Thermals / CPU status ---
 ipcMain.handle("falcon:getSystemVitals", async () => {
   try {

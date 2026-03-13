@@ -1054,16 +1054,24 @@ const routes = {
     { id:'lib', label:'Library', source:'tweaks/performance.lib.network.json' }
   ]},
   powerManagement: { title: 'Power Management', sub: 'Performance-focused profiles and direct power behavior tuning.', tabs: [
+    { id:'overview', label:'Overview', source:'tweaks/power.management.overview.json' },
     { id:'profiles', label:'Profiles', source:'tweaks/power.management.profiles.json' },
+    { id:'plans', label:'Plans', source:'tweaks/power.management.plans.json' },
+    { id:'allSettingsExplorer', label:'All Settings Explorer', source:'tweaks/power.management.all_settings_explorer.json' },
     { id:'processor', label:'Processor', source:'tweaks/power.management.processor.json' },
-    { id:'pcie', label:'PCIe / GPU Bus Power', source:'tweaks/power.management.pcie.json' },
+    { id:'graphics', label:'Graphics', source:'tweaks/power.management.graphics.json' },
+    { id:'pcie', label:'PCIe', source:'tweaks/power.management.pcie.json' },
     { id:'usb', label:'USB', source:'tweaks/power.management.usb.json' },
-    { id:'storage', label:'Storage / Disk', source:'tweaks/power.management.storage_disk.json' },
+    { id:'storageDisk', label:'Storage / Disk', source:'tweaks/power.management.storage_disk.json' },
     { id:'display', label:'Display', source:'tweaks/power.management.display.json' },
-    { id:'sleep', label:'Sleep / Hibernate / Modern Standby', source:'tweaks/power.management.sleep_hibernate_modern_standby.json' },
-    { id:'buttons', label:'Buttons / Lid / Wake', source:'tweaks/power.management.buttons_lid.json' },
+    { id:'sleepHibernateModernStandby', label:'Sleep / Hibernate / Modern Standby', source:'tweaks/power.management.sleep_hibernate_modern_standby.json' },
+    { id:'buttonsLid', label:'Buttons / Lid', source:'tweaks/power.management.buttons_lid.json' },
+    { id:'energySaver', label:'Energy Saver', source:'tweaks/power.management.energy_saver.json' },
     { id:'wirelessEthernet', label:'Wireless / Ethernet', source:'tweaks/power.management.wireless_ethernet.json' },
-    { id:'bluetooth', label:'Bluetooth', source:'tweaks/power.management.bluetooth.json' }
+    { id:'bluetooth', label:'Bluetooth', source:'tweaks/power.management.bluetooth.json' },
+    { id:'deviceWake', label:'Device Wake', source:'tweaks/power.management.device_wake.json' },
+    { id:'diagnostics', label:'Diagnostics', source:'tweaks/power.management.diagnostics.json' },
+    { id:'hiddenExperimentalOem', label:'Hidden / Experimental / OEM', source:'tweaks/power.management.hidden_experimental.json' }
   ]},
   speedCore: { title: 'Falcon Speed & Integrity Core', sub: 'Quick cleanup and deep integrity repair.', tabs: [
     { id:'boost', label:'Speed Boost Cleanup', source:'tweaks/speed.boost.json' },
@@ -1162,11 +1170,6 @@ bios: { title: 'BIOS / UEFI Helper', sub: 'Motherboard detection and firmware sh
   updates: { title: 'Updates', sub: 'Update feed diagnostics and last updater checks.', tabs: [] },
   utilities: { title: 'Utilities & Diagnostics', sub: 'Openers, exporters, readback checks, and helper tools (non-optimizations).', tabs: [
     { id:'tools', label:'Tools', source:'tweaks/utilities.json' },
-    { id:'powerReadback', label:'Readback', source:'tweaks/power.management.overview.json' },
-    { id:'powerPlansUtils', label:'Plan Tools', source:'tweaks/power.management.plans.json' },
-    { id:'powerDiag', label:'System Diagnostics', source:'tweaks/power.management.diagnostics.json' },
-    { id:'powerGraphics', label:'Openers / Helpers', source:'tweaks/power.management.graphics.json' },
-    { id:'powerRecovery', label:'Recovery / Restore', source:'tweaks/power.management.device_wake.json' },
     { id:'falconDiag', label:'System Diagnostics Readback', source:'tweaks/utilities.system_diagnostics.json' },
     { id:'audit', label:'Pro Gamer Audit', source:'tweaks/audit.progamer.json' }
   ]}
@@ -6219,6 +6222,113 @@ async function renderProcessLab(){
 
 }
 
+
+async function renderPowerAllSettingsExplorer(){
+  els.panel.innerHTML = `
+    <div class="panel">
+      <div class="card-title">All Settings Explorer (dynamic)</div>
+      <div class="card-desc">Scans <code>powercfg /qh SCHEME_CURRENT</code>, <code>/aliases</code>, and <code>/query</code> into a machine-specific catalog with AC/DC readback.</div>
+      <div class="row" style="margin-top:10px; gap:8px; flex-wrap:wrap;">
+        <button class="btn primary" id="pwrExScan">Scan current machine</button>
+        <input class="input" id="pwrExSearch" placeholder="Search setting name, alias, subgroup, or GUID" style="min-width:320px; flex:1;" />
+        <select class="input" id="pwrExSub" style="min-width:220px;"><option value="">All subgroups</option></select>
+      </div>
+      <div class="grid" style="margin-top:10px; grid-template-columns: 1.2fr 1fr; gap:12px;">
+        <div class="card"><div id="pwrExList" style="max-height:520px; overflow:auto;"></div></div>
+        <div class="card"><div id="pwrExDetail" class="muted">Select a setting to view raw details and optionally write AC/DC values.</div></div>
+      </div>
+    </div>
+  `;
+
+  const listEl = document.getElementById('pwrExList');
+  const detailEl = document.getElementById('pwrExDetail');
+  const searchEl = document.getElementById('pwrExSearch');
+  const subEl = document.getElementById('pwrExSub');
+  let rows = [];
+  let selected = null;
+
+  const renderDetails = (r) => {
+    if(!detailEl || !r) return;
+    detailEl.innerHTML = `
+      <div class="card-title">${__eh(r.settingName || r.settingAlias || r.settingGuid)}</div>
+      <div class="muted" style="margin:6px 0 10px;">${__eh(r.description || 'No description available.')}</div>
+      <div class="muted">Subgroup: <code>${__eh((r.subgroupAlias || '-') + ' / ' + (r.subgroupGuid || '-'))}</code></div>
+      <div class="muted">Setting: <code>${__eh((r.settingAlias || '-') + ' / ' + (r.settingGuid || '-'))}</code></div>
+      <div class="muted">Current AC/DC: <b>${__eh(String(r.currentAcValue))}</b> / <b>${__eh(String(r.currentDcValue))}</b></div>
+      <div class="muted">Range: ${__eh(String(r.min))} .. ${__eh(String(r.max))} (inc ${__eh(String(r.increment))}) ${__eh(r.units || '')}</div>
+      <div class="row" style="margin-top:10px; gap:8px;">
+        <input class="input" id="pwrExAc" placeholder="AC value" value="${__eh(String(r.currentAcValue ?? ''))}" />
+        <input class="input" id="pwrExDc" placeholder="DC value" value="${__eh(String(r.currentDcValue ?? ''))}" />
+        <button class="btn" id="pwrExWrite">Write + verify</button>
+      </div>
+      <details style="margin-top:10px;"><summary>Raw details</summary><pre class="log">${__eh(JSON.stringify(r, null, 2))}</pre></details>
+    `;
+    const w = document.getElementById('pwrExWrite');
+    if (w) w.onclick = async () => {
+      const ac = document.getElementById('pwrExAc');
+      const dc = document.getElementById('pwrExDc');
+      const payload = { subgroup: r.subgroupAlias || r.subgroupGuid, setting: r.settingAlias || r.settingGuid };
+      if (ac && String(ac.value).trim() !== '') payload.acValue = String(ac.value).trim();
+      if (dc && String(dc.value).trim() !== '') payload.dcValue = String(dc.value).trim();
+      const res = await window.falcon.powerExplorerSet(payload);
+      if (res && res.ok) {
+        showToast('Power setting updated and queried for verification.', 'success');
+      } else {
+        showToast('Failed to set power setting: ' + String((res && (res.error || res.stderr)) || 'unknown error'), 'error');
+      }
+    };
+  };
+
+  const renderList = () => {
+    if(!listEl) return;
+    const q = String((searchEl && searchEl.value) || '').toLowerCase().trim();
+    const sg = String((subEl && subEl.value) || '').trim();
+    const filtered = rows.filter(r => {
+      const blob = JSON.stringify(r).toLowerCase();
+      if (q && !blob.includes(q)) return false;
+      if (sg && r.subgroupGuid !== sg) return false;
+      return true;
+    });
+    listEl.innerHTML = filtered.map((r, i) => `
+      <button class="btn" data-i="${i}" style="display:block; width:100%; text-align:left; margin-bottom:6px; ${selected===r.settingGuid?'border-color:#66a3ff;':''}">
+        <div><b>${__eh(r.settingName || r.settingAlias || r.settingGuid)}</b></div>
+        <div class="muted" style="font-size:12px;">${__eh(r.subgroupName || r.subgroupAlias || r.subgroupGuid)} · AC ${__eh(String(r.currentAcValue))} / DC ${__eh(String(r.currentDcValue))}</div>
+      </button>
+    `).join('') || '<div class="muted">No settings match your filter.</div>';
+    Array.from(listEl.querySelectorAll('button[data-i]')).forEach(b => {
+      b.onclick = () => {
+        const r = filtered[Number(b.dataset.i)];
+        selected = r ? r.settingGuid : null;
+        renderList();
+        renderDetails(r);
+      };
+    });
+  };
+
+  const load = async () => {
+    const res = await window.falcon.powerExplorerScan();
+    if (!(res && res.ok)) {
+      if (listEl) listEl.innerHTML = '<div class="notice notice-error">Scan failed: ' + __eh(String((res && (res.error || res.stderr)) || 'unknown error')) + '</div>';
+      return;
+    }
+    rows = Array.isArray(res.items) ? res.items : [];
+    const groups = new Map();
+    rows.forEach(r => { if (r && r.subgroupGuid) groups.set(r.subgroupGuid, r.subgroupName || r.subgroupAlias || r.subgroupGuid); });
+    if (subEl) {
+      subEl.innerHTML = '<option value="">All subgroups</option>' + Array.from(groups.entries()).map(([g,n]) => `<option value="${__eh(g)}">${__eh(n)}</option>`).join('');
+      subEl.onchange = renderList;
+    }
+    if (searchEl) searchEl.oninput = renderList;
+    renderList();
+    showToast('Loaded ' + rows.length + ' power settings.', 'success');
+  };
+
+  const scanBtn = document.getElementById('pwrExScan');
+  if (scanBtn) scanBtn.onclick = load;
+  await load();
+}
+
+
 async function refresh(resetTabs=true){
   try {
     if (currentRoute !== 'processLab' && processLabAutoRefreshTimer) {
@@ -6261,6 +6371,10 @@ async function refresh(resetTabs=true){
 
     if (currentRoute === 'thermal' && currentTab && currentTab.id === 'cooling') return await renderCoolingDashboard();
 
+
+    if (currentRoute === 'powerManagement' && currentTab && currentTab.id === 'allSettingsExplorer') {
+      return await renderPowerAllSettingsExplorer();
+    }
 
     if (currentTab && currentTab.source) {
       return await renderTweaksFromSource(currentTab.source);

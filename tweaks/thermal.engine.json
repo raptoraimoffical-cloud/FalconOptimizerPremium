@@ -12,7 +12,7 @@
         "steps": [
           {
             "type": "ps.run",
-            "command": "Write-Output \"=== FALCON THERMAL ENGINE: OVERVIEW & SCAN ===\"\nWrite-Output \"\"\n\n# CPU basic info and current clocks (approx)\ntry {\n  $cpu = Get-CimInstance Win32_Processor\n  Write-Output (\"CPU: {0}\" -f $cpu.Name)\n  Write-Output (\"  Cores: {0}, Threads: {1}\" -f $cpu.NumberOfCores, $cpu.NumberOfLogicalProcessors)\n  Write-Output (\"  MaxClockSpeed (MHz): {0}\" -f $cpu.MaxClockSpeed)\n  # Current clock (single sample)\n  try {\n    $cur = Get-Counter '\\Processor Information(_Total)\\Processor Frequency' -ErrorAction SilentlyContinue\n    if ($cur) {\n      $mhz = [math]::Round($cur.CounterSamples[0].CookedValue,0)\n      Write-Output (\"  Current Frequency (MHz): {0}\" -f $mhz)\n    }\n  } catch {}\n} catch {\n  Write-Output \"CPU: <failed to query>\"\n}\n\nWrite-Output \"\"\n\n# Attempt to read ACPI thermal zones (not always populated)\ntry {\n  $tz = Get-WmiObject -Namespace root/wmi -Class MSAcpi_ThermalZoneTemperature -ErrorAction SilentlyContinue\n  if ($tz) {\n    Write-Output \"ACPI Thermal Zones (may not reflect real CPU/GPU sensors):\"\n    foreach ($t in $tz) {\n      $tempC = ($t.CurrentTemperature - 2732) / 10.0\n      Write-Output (\"  {0}: {1:N1} °C\" -f $t.InstanceName, $tempC)\n    }\n  } else {\n    Write-Output \"ACPI Thermal Zones: <none or unsupported on this system>\"\n  }\n} catch {\n  Write-Output \"ACPI Thermal Zones: <failed to query>\"\n}\n\nWrite-Output \"\"\n\n# Try NVIDIA GPU temperature via nvidia-smi if present\ntry {\n  $nv = & nvidia-smi --query-gpu=temperature.gpu,clocks.sm,power.draw --format=csv,noheader 2>$null\n  if ($nv) {\n    Write-Output \"NVIDIA GPU (via nvidia-smi):\"\n    foreach ($line in $nv) {\n      Write-Output (\"  {0}\" -f $line.Trim())\n    }\n  } else {\n    Write-Output \"NVIDIA GPU: nvidia-smi not available or no NVIDIA GPU detected.\"\n  }\n} catch {\n  Write-Output \"NVIDIA GPU: failed to run nvidia-smi.\"\n}\n\nWrite-Output \"\"\n\n# Power plan cooling policy\ntry {\n  Write-Output \"Power Plan Cooling Policy (AC):\"\n  $guid_scheme = \"SCHEME_CURRENT\"\n  $sub_processor = \"SUB_PROCESSOR\"\n  $cool_guid = \"94D3A615-A899-4AC5-AE2B-E4D8F634367F\" # SYSTEM_COOLING_POLICY\n  $coolRaw = powercfg /QUERY $guid_scheme $sub_processor $cool_guid 2>$null\n  if ($coolRaw) {\n    Write-Output $coolRaw\n  } else {\n    Write-Output \"  (Could not query SYSTEM_COOLING_POLICY via powercfg.)\"\n  }\n} catch {\n  Write-Output \"Cooling Policy: <failed to query>\"\n}\n\nWrite-Output \"\"\n\n# PowerThrottling registry state (global)\ntry {\n  $ptKey = \"HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Power\\PowerThrottling\"\n  if (Test-Path $ptKey) {\n    $pt = Get-ItemProperty $ptKey -ErrorAction SilentlyContinue\n    if ($pt.PSObject.Properties.Name -contains \"PowerThrottlingOff\") {\n      Write-Output (\"PowerThrottlingOff (global): {0}\" -f $pt.PowerThrottlingOff)\n    } else {\n      Write-Output \"PowerThrottlingOff: <not set, using defaults>\"\n    }\n  } else {\n    Write-Output \"PowerThrottling key not found (likely using defaults).\"\n  }\n} catch {\n  Write-Output \"PowerThrottling: <failed to query>\"\n}\n\nWrite-Output \"\"\nWrite-Output \"Tip: Thermal Engine focuses on keeping cooling policy 'Active' and reducing OS-side throttling where safe.\"\nWrite-Output \"      For full sensor-level monitoring (per-core temps), use vendor tools alongside Falcon.\"\nWrite-Output \"\"\nWrite-Output \"=== END OF THERMAL OVERVIEW & SCAN ===\""
+            "command": "Write-Output \"=== FALCON THERMAL ENGINE: OVERVIEW & SCAN ===\"\nWrite-Output \"\"\n\n# CPU basic info and current clocks (approx)\ntry {\n  $cpu = Get-CimInstance Win32_Processor\n  Write-Output (\"CPU: {0}\" -f $cpu.Name)\n  Write-Output (\"  Cores: {0}, Threads: {1}\" -f $cpu.NumberOfCores, $cpu.NumberOfLogicalProcessors)\n  Write-Output (\"  MaxClockSpeed (MHz): {0}\" -f $cpu.MaxClockSpeed)\n  # Current clock (single sample)\n  try {\n    $cur = Get-Counter '\\Processor Information(_Total)\\Processor Frequency' -ErrorAction SilentlyContinue\n    if ($cur) {\n      $mhz = [math]::Round($cur.CounterSamples[0].CookedValue,0)\n      Write-Output (\"  Current Frequency (MHz): {0}\" -f $mhz)\n    }\n  } catch {}\n} catch {\n  Write-Output \"CPU: <failed to query>\"\n}\n\nWrite-Output \"\"\n\n# Attempt to read ACPI thermal zones (not always populated)\ntry {\n  $tz = Get-WmiObject -Namespace root/wmi -Class MSAcpi_ThermalZoneTemperature -ErrorAction SilentlyContinue\n  if ($tz) {\n    Write-Output \"ACPI Thermal Zones (may not reflect real CPU/GPU sensors):\"\n    foreach ($t in $tz) {\n      $tempC = ($t.CurrentTemperature - 2732) / 10.0\n      Write-Output (\"  {0}: {1:N1} \u00b0C\" -f $t.InstanceName, $tempC)\n    }\n  } else {\n    Write-Output \"ACPI Thermal Zones: <none or unsupported on this system>\"\n  }\n} catch {\n  Write-Output \"ACPI Thermal Zones: <failed to query>\"\n}\n\nWrite-Output \"\"\n\n# Try NVIDIA GPU temperature via nvidia-smi if present\ntry {\n  $nv = & nvidia-smi --query-gpu=temperature.gpu,clocks.sm,power.draw --format=csv,noheader 2>$null\n  if ($nv) {\n    Write-Output \"NVIDIA GPU (via nvidia-smi):\"\n    foreach ($line in $nv) {\n      Write-Output (\"  {0}\" -f $line.Trim())\n    }\n  } else {\n    Write-Output \"NVIDIA GPU: nvidia-smi not available or no NVIDIA GPU detected.\"\n  }\n} catch {\n  Write-Output \"NVIDIA GPU: failed to run nvidia-smi.\"\n}\n\nWrite-Output \"\"\n\n# Power plan cooling policy\ntry {\n  Write-Output \"Power Plan Cooling Policy (AC):\"\n  $guid_scheme = \"SCHEME_CURRENT\"\n  $sub_processor = \"SUB_PROCESSOR\"\n  $cool_guid = \"94D3A615-A899-4AC5-AE2B-E4D8F634367F\" # SYSTEM_COOLING_POLICY\n  $coolRaw = powercfg /QUERY $guid_scheme $sub_processor $cool_guid 2>$null\n  if ($coolRaw) {\n    Write-Output $coolRaw\n  } else {\n    Write-Output \"  (Could not query SYSTEM_COOLING_POLICY via powercfg.)\"\n  }\n} catch {\n  Write-Output \"Cooling Policy: <failed to query>\"\n}\n\nWrite-Output \"\"\n\n# PowerThrottling registry state (global)\ntry {\n  $ptKey = \"HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Power\\PowerThrottling\"\n  if (Test-Path $ptKey) {\n    $pt = Get-ItemProperty $ptKey -ErrorAction SilentlyContinue\n    if ($pt.PSObject.Properties.Name -contains \"PowerThrottlingOff\") {\n      Write-Output (\"PowerThrottlingOff (global): {0}\" -f $pt.PowerThrottlingOff)\n    } else {\n      Write-Output \"PowerThrottlingOff: <not set, using defaults>\"\n    }\n  } else {\n    Write-Output \"PowerThrottling key not found (likely using defaults).\"\n  }\n} catch {\n  Write-Output \"PowerThrottling: <failed to query>\"\n}\n\nWrite-Output \"\"\nWrite-Output \"Tip: Thermal Engine focuses on keeping cooling policy 'Active' and reducing OS-side throttling where safe.\"\nWrite-Output \"      For full sensor-level monitoring (per-core temps), use vendor tools alongside Falcon.\"\nWrite-Output \"\"\nWrite-Output \"=== END OF THERMAL OVERVIEW & SCAN ===\""
           }
         ]
       },
@@ -152,41 +152,41 @@
     {
       "id": "thermal_disable_hibernate__thermal.engine",
       "type": "button",
-      "name": "Apply: Disable Hibernate",
-      "description": "Disables hibernation and removes hiberfile.sys.",
+      "name": "[Migrated to Power Management] Apply: Disable Hibernate",
+      "description": "Migrated to canonical Power Management tabs. Use Power Management section for active apply/revert/verify. This legacy item is now a helper marker.",
       "requiresAdmin": true,
       "riskLevel": "Caution",
-      "category": "Thermal Engine / Storage",
+      "category": "Utilities & Diagnostics",
       "apply": {
         "steps": [
           {
-            "type": "cmd.run",
-            "command": "powercfg -h off"
+            "type": "ps.run",
+            "command": "Write-Output 'Migrated: use Power Management canonical tab.'"
           }
         ]
       },
       "revert": {
         "steps": [
           {
-            "type": "cmd.run",
-            "command": "powercfg -h on"
+            "type": "ps.run",
+            "command": "Write-Output 'Migrated: use Power Management canonical tab.'"
           }
         ]
       }
     },
     {
-      "description": "Disables hibernation and removes hiberfile.sys.",
+      "description": "Migrated to canonical Power Management tabs. Use Power Management section for active apply/revert/verify. This legacy item is now a helper marker.",
       "requiresAdmin": true,
       "riskLevel": "Caution",
-      "category": "Thermal Engine / Storage",
+      "category": "Utilities & Diagnostics",
       "id": "thermal_disable_hibernate__thermal.engine__revert",
       "type": "button",
-      "name": "Revert: Disable Hibernate",
+      "name": "[Migrated to Power Management] Revert: Disable Hibernate",
       "apply": {
         "steps": [
           {
-            "type": "cmd.run",
-            "command": "powercfg -h on"
+            "type": "ps.run",
+            "command": "Write-Output 'Migrated: use Power Management canonical tab.'"
           }
         ]
       }
@@ -194,16 +194,16 @@
     {
       "id": "thermal_disable_pcie_aspm__thermal.engine",
       "type": "button",
-      "name": "Apply: Disable PCIe ASPM (AC)",
-      "description": "Sets PCIe Link State Power Management to Off on AC power.",
+      "name": "[Migrated to Power Management] Apply: Disable PCIe ASPM (AC)",
+      "description": "Migrated to canonical Power Management tabs. Use Power Management section for active apply/revert/verify. This legacy item is now a helper marker.",
       "requiresAdmin": true,
       "riskLevel": "Caution",
-      "category": "Thermal Engine / PCIe",
+      "category": "Utilities & Diagnostics",
       "apply": {
         "steps": [
           {
             "type": "ps.run",
-            "command": "\n$null = (powercfg /getactivescheme) -match 'GUID:\\s+([A-F0-9-]+)'\n$guid = $Matches[1]\npowercfg /setacvalueindex $guid SUB_PCIEXPRESS ASPM 0 | Out-Null\npowercfg /S $guid | Out-Null\nWrite-Output \"PCIe ASPM set to Off (AC).\"\n"
+            "command": "Write-Output 'Migrated: use Power Management canonical tab.'"
           }
         ]
       },
@@ -211,24 +211,24 @@
         "steps": [
           {
             "type": "ps.run",
-            "command": "\n$null = (powercfg /getactivescheme) -match 'GUID:\\s+([A-F0-9-]+)'\n$guid = $Matches[1]\npowercfg /setacvalueindex $guid SUB_PCIEXPRESS ASPM 2 | Out-Null\npowercfg /S $guid | Out-Null\nWrite-Output \"PCIe ASPM restored to Moderate (AC).\"\n"
+            "command": "Write-Output 'Migrated: use Power Management canonical tab.'"
           }
         ]
       }
     },
     {
-      "description": "Sets PCIe Link State Power Management to Off on AC power.",
+      "description": "Migrated to canonical Power Management tabs. Use Power Management section for active apply/revert/verify. This legacy item is now a helper marker.",
       "requiresAdmin": true,
       "riskLevel": "Caution",
-      "category": "Thermal Engine / PCIe",
+      "category": "Utilities & Diagnostics",
       "id": "thermal_disable_pcie_aspm__thermal.engine__revert",
       "type": "button",
-      "name": "Revert: Disable PCIe ASPM (AC)",
+      "name": "[Migrated to Power Management] Revert: Disable PCIe ASPM (AC)",
       "apply": {
         "steps": [
           {
             "type": "ps.run",
-            "command": "\n$null = (powercfg /getactivescheme) -match 'GUID:\\s+([A-F0-9-]+)'\n$guid = $Matches[1]\npowercfg /setacvalueindex $guid SUB_PCIEXPRESS ASPM 2 | Out-Null\npowercfg /S $guid | Out-Null\nWrite-Output \"PCIe ASPM restored to Moderate (AC).\"\n"
+            "command": "Write-Output 'Migrated: use Power Management canonical tab.'"
           }
         ]
       }
