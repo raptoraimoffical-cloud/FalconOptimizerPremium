@@ -5135,11 +5135,19 @@ async function renderTweaksFromSource(source, renderCtx){
     return;
   }
 
-  const data = await withTimeout(
-    loadJSON(source),
-    10000,
-    `Loading ${source} timed out`
-  );
+  let data;
+  try {
+    data = await withTimeout(
+      loadJSON(source),
+      10000,
+      `Loading ${source} timed out`
+    );
+  } catch (e) {
+    if (!isCurrent()) return;
+    const msg = __eh(String((e && e.message) ? e.message : e || 'Unknown load error'));
+    els.panel.innerHTML = `<div class="notice notice-error"><strong>Failed to load section data:</strong> ${msg}<div class="muted" style="margin-top:8px;">Source: ${__eh(source)}</div></div>`;
+    return;
+  }
   if (!isCurrent()) return;
 
   let extraTopHtml = '';
@@ -5321,6 +5329,7 @@ const items = dedupeNumberedClones(filteredItems).filter(it => !hiddenIds.has(it
     `;
   }
 
+  if (!isCurrent()) return;
   els.panel.innerHTML = `
     ${toolbarHtml}
     ${extraTopHtml}
@@ -5329,6 +5338,10 @@ const items = dedupeNumberedClones(filteredItems).filter(it => !hiddenIds.has(it
   `;
 
   const grid = document.getElementById('grid');
+  if (!grid) {
+    els.panel.innerHTML = `<div class="notice notice-error"><strong>Renderer error:</strong> The section grid could not be created for this view.</div>`;
+    return;
+  }
   // Performance Library presets
   if (source === 'tweaks/performance.library.json') {
     const byId = new Map(items.map(it => [it.id, it]));
