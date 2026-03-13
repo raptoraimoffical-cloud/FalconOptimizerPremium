@@ -6403,7 +6403,7 @@ async function renderPowerAllSettingsExplorer(renderCtx){
 
 async function refresh(resetTabs=true){
   const generation = beginRenderGeneration();
-  const renderCtx = captureRenderContext(generation);
+  let renderCtx = null;
   try {
     if (!els || !els.pageTitle || !els.pageSub || !els.tabs || !els.panel) {
       throw new Error('UI shell did not initialize correctly (missing required DOM nodes).');
@@ -6432,6 +6432,8 @@ async function refresh(resetTabs=true){
       if (cfg.tabs && cfg.tabs.length > 0) currentTab = cfg.tabs[0];
       else currentTab = null;
     }
+
+    renderCtx = captureRenderContext(generation);
 
     renderTabs(currentRoute);
     if (!isRenderContextCurrent(renderCtx)) return;
