@@ -6269,7 +6269,9 @@ async function renderProcessLab(){
 }
 
 
-async function renderPowerAllSettingsExplorer(){
+async function renderPowerAllSettingsExplorer(renderCtx){
+  const isCurrent = () => !renderCtx || isRenderContextCurrent(renderCtx);
+  if (!isCurrent()) return;
   els.panel.innerHTML = `
     <div class="panel">
       <div class="card-title">All Settings Explorer (dynamic)</div>
@@ -6317,6 +6319,7 @@ async function renderPowerAllSettingsExplorer(){
       if (ac && String(ac.value).trim() !== '') payload.acValue = String(ac.value).trim();
       if (dc && String(dc.value).trim() !== '') payload.dcValue = String(dc.value).trim();
       const res = await window.falcon.powerExplorerSet(payload);
+      if (!isCurrent()) return;
       if (res && res.ok) {
         showToast('Power setting updated and queried for verification.', 'success');
       } else {
@@ -6353,6 +6356,7 @@ async function renderPowerAllSettingsExplorer(){
 
   const load = async () => {
     const res = await window.falcon.powerExplorerScan();
+    if (!isCurrent()) return;
     if (!(res && res.ok)) {
       if (listEl) listEl.innerHTML = '<div class="notice notice-error">Scan failed: ' + __eh(String((res && (res.error || res.stderr)) || 'unknown error')) + '</div>';
       return;
@@ -6366,6 +6370,7 @@ async function renderPowerAllSettingsExplorer(){
     }
     if (searchEl) searchEl.oninput = renderList;
     renderList();
+    if (!isCurrent()) return;
     showToast('Loaded ' + rows.length + ' power settings.', 'success');
   };
 
@@ -6405,8 +6410,6 @@ async function refresh(resetTabs=true){
     }
 
     renderCtx = captureRenderContext(generation);
-    if (!isRenderContextCurrent(renderCtx)) return;
-
     renderTabs(currentRoute);
     if (!isRenderContextCurrent(renderCtx)) return;
 
@@ -6426,7 +6429,7 @@ async function refresh(resetTabs=true){
 
 
     if (currentRoute === 'powerManagement' && currentTab && currentTab.id === 'allSettingsExplorer') {
-      return await renderPowerAllSettingsExplorer();
+      return await renderPowerAllSettingsExplorer(renderCtx);
     }
 
     if (currentTab && currentTab.source) {
