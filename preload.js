@@ -103,6 +103,9 @@ removePowerPlans: () => ipcRenderer.invoke("falcon:removePowerPlans"),
   powerPlansApplyWindows: (which) => ipcRenderer.invoke("falcon:powerPlansApplyWindows", { which }),
   powerPlansRestorePrevious: () => ipcRenderer.invoke("falcon:powerPlansRestorePrevious"),
 
+  powerExplorerScan: () => ipcRenderer.invoke("falcon:powerExplorerScan"),
+  powerExplorerSet: (payload) => ipcRenderer.invoke("falcon:powerExplorerSet", payload),
+
   getSystemVitals: () => ipcRenderer.invoke("falcon:getSystemVitals"),
   runLatencyBenchmark: (seconds=5) => ipcRenderer.invoke("falcon:runLatencyBenchmark", { seconds }),
 

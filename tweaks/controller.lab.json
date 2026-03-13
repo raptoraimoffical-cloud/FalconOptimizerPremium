@@ -81,22 +81,14 @@
     },
     {
       "id": "controller.usb.selective_suspend",
-      "name": "Apply: Disable USB Selective Suspend (Controller stability)",
+      "name": "[Migrated to Power Management] Apply: Disable USB Selective Suspend (Controller stability)",
       "type": "button",
-      "description": "Disables USB selective suspend on the current power scheme. Helps prevent random disconnects / input drops on some systems.",
+      "description": "Migrated to canonical Power Management tabs. Use Power Management section for active apply/revert/verify. This legacy item is now a helper marker.",
       "apply": {
         "steps": [
           {
             "type": "ps.run",
-            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_USB USBSELECTIVE 0"
-          },
-          {
-            "type": "ps.run",
-            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_USB USBSELECTIVE 0"
-          },
-          {
-            "type": "ps.run",
-            "command": "powercfg -S SCHEME_CURRENT"
+            "command": "Write-Output 'Migrated: use Power Management canonical tab.'"
           }
         ]
       },
@@ -104,44 +96,28 @@
         "steps": [
           {
             "type": "ps.run",
-            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_USB USBSELECTIVE 1"
-          },
-          {
-            "type": "ps.run",
-            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_USB USBSELECTIVE 1"
-          },
-          {
-            "type": "ps.run",
-            "command": "powercfg -S SCHEME_CURRENT"
+            "command": "Write-Output 'Migrated: use Power Management canonical tab.'"
           }
         ]
       },
-      "category": "Controller / Input",
+      "category": "Utilities & Diagnostics",
       "risk": "Warning",
       "riskLevel": "Warning"
     },
     {
-      "description": "Disables USB selective suspend on the current power scheme. Helps prevent random disconnects / input drops on some systems.",
+      "description": "Migrated to canonical Power Management tabs. Use Power Management section for active apply/revert/verify. This legacy item is now a helper marker.",
       "id": "controller.usb.selective_suspend__revert",
       "type": "button",
-      "name": "Revert: Disable USB Selective Suspend (Controller stability)",
+      "name": "[Migrated to Power Management] Revert: Disable USB Selective Suspend (Controller stability)",
       "apply": {
         "steps": [
           {
             "type": "ps.run",
-            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_USB USBSELECTIVE 1"
-          },
-          {
-            "type": "ps.run",
-            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_USB USBSELECTIVE 1"
-          },
-          {
-            "type": "ps.run",
-            "command": "powercfg -S SCHEME_CURRENT"
+            "command": "Write-Output 'Migrated: use Power Management canonical tab.'"
           }
         ]
       },
-      "category": "Controller / Input",
+      "category": "Utilities & Diagnostics",
       "risk": "Warning",
       "riskLevel": "Warning"
     },
@@ -149,7 +125,7 @@
       "id": "controller.usb.power_mgmt_checklist",
       "name": "USB Power Management Checklist",
       "type": "action",
-      "description": "Opens Device Manager. For each USB Root Hub / controller: Properties → Power Management → uncheck 'Allow the computer to turn off this device to save power'.",
+      "description": "Opens Device Manager. For each USB Root Hub / controller: Properties \u2192 Power Management \u2192 uncheck 'Allow the computer to turn off this device to save power'.",
       "apply": {
         "steps": [
           {

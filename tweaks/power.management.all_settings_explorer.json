@@ -1,95 +1,62 @@
 {
   "items": [
     {
-      "id": "power_all_settings_export_qh",
+      "id": "power_all_settings_dynamic_scan",
       "type": "button",
-      "name": "Power Readback: Export Full SCHEME_CURRENT (/qh)",
+      "name": "All Settings Explorer: Scan and Build Live Catalog",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "category": "Power Management",
+      "description": "Runs a dynamic machine scan from powercfg /qh SCHEME_CURRENT + /aliases + /query and populates Falcon's interactive explorer.",
+      "apply": { "steps": [ { "type": "ps.run", "command": "Write-Output 'Use the All Settings Explorer tab UI scan button for dynamic enumeration and filtering.'" } ] }
+    },
+    {
+      "id": "power_all_settings_export_qh_raw",
+      "type": "button",
+      "name": "All Settings Explorer: Export raw /qh",
       "risk": "Safe",
       "riskLevel": "Safe",
       "category": "Utilities & Diagnostics",
-      "description": "Exports raw powercfg /qh output so Falcon can expose every discovered subgroup/setting on this machine.",
+      "description": "Readback helper. Exports raw powercfg /qh for parser verification.",
       "apply": {
         "steps": [
           {
             "type": "ps.run",
-            "command": "$ts=Get-Date -Format \"yyyyMMdd-HHmmss\"; $dir=Join-Path $PWD \"logs\"; if(!(Test-Path $dir)){ New-Item -ItemType Directory -Path $dir | Out-Null }; $out=Join-Path $dir (\"power-all-settings-qh-\"+$ts+\".txt\"); powercfg /qh SCHEME_CURRENT | Out-File -Encoding utf8 $out; Write-Output \"Saved: $out\""
+            "command": "$ts=Get-Date -Format 'yyyyMMdd-HHmmss'; $dir=Join-Path $PWD 'logs'; if(!(Test-Path $dir)){New-Item -ItemType Directory -Path $dir|Out-Null}; powercfg /qh SCHEME_CURRENT | Out-File -Encoding utf8 (Join-Path $dir ('powercfg-qh-'+$ts+'.txt')); Write-Output 'Raw /qh exported.'"
           }
         ]
       }
     },
     {
-      "id": "power_all_settings_export_aliases",
+      "id": "power_all_settings_export_aliases_query_raw",
       "type": "button",
-      "name": "Power Readback: Export Aliases + Query",
+      "name": "All Settings Explorer: Export raw aliases + query",
       "risk": "Safe",
       "riskLevel": "Safe",
       "category": "Utilities & Diagnostics",
-      "description": "Collects aliases and current effective values to map GUIDs to friendly aliases and verify current values.",
+      "description": "Readback helper. Exports aliases and query raw output to support GUID/alias validation.",
       "apply": {
         "steps": [
           {
             "type": "ps.run",
-            "command": "$ts=Get-Date -Format \"yyyyMMdd-HHmmss\"; $dir=Join-Path $PWD \"logs\"; if(!(Test-Path $dir)){ New-Item -ItemType Directory -Path $dir | Out-Null }; $a=Join-Path $dir (\"power-aliases-\"+$ts+\".txt\"); $q=Join-Path $dir (\"power-query-\"+$ts+\".txt\"); powercfg /aliases | Out-File -Encoding utf8 $a; powercfg /query | Out-File -Encoding utf8 $q; Write-Output \"Saved: $a\"; Write-Output \"Saved: $q\""
+            "command": "$ts=Get-Date -Format 'yyyyMMdd-HHmmss'; $dir=Join-Path $PWD 'logs'; if(!(Test-Path $dir)){New-Item -ItemType Directory -Path $dir|Out-Null}; powercfg /aliases | Out-File -Encoding utf8 (Join-Path $dir ('powercfg-aliases-'+$ts+'.txt')); powercfg /query SCHEME_CURRENT | Out-File -Encoding utf8 (Join-Path $dir ('powercfg-query-current-'+$ts+'.txt')); Write-Output 'Raw aliases/query exported.'"
           }
         ]
       }
     },
     {
-      "id": "power_all_settings_schema_json",
+      "id": "power_all_settings_verify_common",
       "type": "button",
-      "name": "Power Readback: Build Parsed JSON Catalog",
+      "name": "All Settings Explorer: Verify common AC/DC readback",
       "risk": "Safe",
       "riskLevel": "Safe",
       "category": "Utilities & Diagnostics",
-      "description": "Parses powercfg /qh output into JSON with subgroup GUID/alias, setting GUID/alias, AC/DC values, units and enum candidates.",
+      "description": "Diagnostic readback for common processor/video/sleep settings after writes.",
       "apply": {
         "steps": [
-          {
-            "type": "ps.run",
-            "command": "$raw = powercfg /qh SCHEME_CURRENT | Out-String; $lines=$raw -split \"`r?`n\"; $rows=@(); $sub=''; $set=''; foreach($line in $lines){ if($line -match '^\\s*Subgroup GUID:\\s*([0-9a-fA-F-]{36})\\s*\\((.+)\\)'){ $sub=$Matches[1]+'|'+$Matches[2] }; if($line -match '^\\s*Power Setting GUID:\\s*([0-9a-fA-F-]{36})\\s*\\((.+)\\)'){ $set=$Matches[1]+'|'+$Matches[2] }; if($line -match '^\\s*Current AC Power Setting Index:\\s*(0x[0-9a-fA-F]+)'){ $ac=$Matches[1] }; if($line -match '^\\s*Current DC Power Setting Index:\\s*(0x[0-9a-fA-F]+)'){ $dc=$Matches[1]; if($sub -and $set){ $rows += [pscustomobject]@{ subgroup=$sub; setting=$set; ac=$ac; dc=$dc }; $ac=$null; $dc=$null } } }; $ts=Get-Date -Format \"yyyyMMdd-HHmmss\"; $dir=Join-Path $PWD \"logs\"; if(!(Test-Path $dir)){ New-Item -ItemType Directory -Path $dir | Out-Null }; $out=Join-Path $dir (\"power-settings-catalog-\"+$ts+\".json\"); $rows | ConvertTo-Json -Depth 5 | Out-File -Encoding utf8 $out; Write-Output \"Saved: $out\""
-          }
-        ]
-      }
-    },
-    {
-      "id": "power_all_settings_export_query_raw",
-      "type": "button",
-      "name": "Power Readback: Export raw powercfg /query",
-      "risk": "Safe",
-      "riskLevel": "Safe",
-      "category": "Utilities & Diagnostics",
-      "description": "Captures full /query output for active and all schemes to support parser debugging.",
-      "apply": {
-        "steps": [
-          {
-            "type": "cmd.run",
-            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"$ts=Get-Date -Format yyyyMMdd-HHmmss; $dir=Join-Path $PWD \"logs\"; if(!(Test-Path $dir)){New-Item -ItemType Directory -Path $dir|Out-Null}; powercfg /query > (Join-Path $dir (\"powercfg-query-\"+$ts+\".txt\")); powercfg /query SCHEME_CURRENT > (Join-Path $dir (\"powercfg-query-current-\"+$ts+\".txt\")); Write-Output \"Saved query exports in logs\\\"\""
-          }
-        ]
-      }
-    },
-    {
-      "id": "power_all_settings_verify_setting_readback",
-      "type": "button",
-      "name": "Power Readback: Verify AC/DC Readback for a Known Setting",
-      "risk": "Safe",
-      "riskLevel": "Safe",
-      "category": "Utilities & Diagnostics",
-      "description": "Runs /query for common aliases to verify post-write readback behavior.",
-      "apply": {
-        "steps": [
-          {
-            "type": "cmd.run",
-            "command": "powercfg /query SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMAX"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg /query SCHEME_CURRENT SUB_SLEEP STANDBYIDLE"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg /query SCHEME_CURRENT SUB_VIDEO VIDEOIDLE"
-          }
+          { "type": "cmd.run", "command": "powercfg /query SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMAX" },
+          { "type": "cmd.run", "command": "powercfg /query SCHEME_CURRENT SUB_VIDEO VIDEOIDLE" },
+          { "type": "cmd.run", "command": "powercfg /query SCHEME_CURRENT SUB_SLEEP STANDBYIDLE" }
         ]
       }
     }
