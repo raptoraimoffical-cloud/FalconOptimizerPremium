@@ -3,7 +3,7 @@
     {
       "id": "fix.audio_mic",
       "type": "button",
-      "name": "Audio & Microphone",
+      "name": "Audio & Micropfalcon",
       "risk": "Safe",
       "description": "Restarts audio services.",
       "requiresAdmin": true,

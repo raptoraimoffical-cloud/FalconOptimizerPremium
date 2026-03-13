@@ -458,9 +458,9 @@
       }
     },
     {
-      "id": "aphrodite_disable_dynamic_tick__performance.lib.latency.scheduler_timer",
+      "id": "falcon_latency_disable_dynamic_tick__performance.lib.latency.scheduler_timer",
       "type": "action",
-      "name": "Aphrodite: Disable Dynamic Tick",
+      "name": "Falcon Latency: Disable Dynamic Tick",
       "description": "Disables dynamic tick (may reduce latency variance).",
       "requiresAdmin": true,
       "riskLevel": "Safe",
@@ -483,9 +483,9 @@
       }
     },
     {
-      "id": "aphrodite_disable_hpet_platform_clock__performance.lib.latency.scheduler_timer",
+      "id": "falcon_latency_disable_hpet_platform_clock__performance.lib.latency.scheduler_timer",
       "type": "action",
-      "name": "Aphrodite: Disable HPET platform clock",
+      "name": "Falcon Latency: Disable HPET platform clock",
       "description": "Disables useplatformclock (only if you know it helps on your rig).",
       "requiresAdmin": true,
       "riskLevel": "Safe",
@@ -508,9 +508,9 @@
       }
     },
     {
-      "id": "aphrodite_set_system_timer_resolution_helper_on__performance.lib.latency.scheduler_timer",
+      "id": "falcon_latency_set_system_timer_resolution_helper_on__performance.lib.latency.scheduler_timer",
       "type": "action",
-      "name": "Aphrodite: Set system timer resolution helper on",
+      "name": "Falcon Latency: Set system timer resolution helper on",
       "description": "Starts Falcon timer helper (0.5ms).",
       "requiresAdmin": true,
       "riskLevel": "Safe",
@@ -528,9 +528,9 @@
       }
     },
     {
-      "id": "aphrodite_mmcss_gaming_profile__performance.lib.latency.scheduler_timer",
+      "id": "falcon_latency_mmcss_gaming_profile__performance.lib.latency.scheduler_timer",
       "type": "action",
-      "name": "Aphrodite: MMCSS gaming profile",
+      "name": "Falcon Latency: MMCSS gaming profile",
       "description": "Applies MMCSS responsiveness tuning for games.",
       "requiresAdmin": true,
       "riskLevel": "Safe",
@@ -569,9 +569,9 @@
       }
     },
     {
-      "id": "aphrodite_extra_drivers_with_oldest_dates_15__performance.lib.latency.scheduler_timer",
+      "id": "falcon_latency_extra_drivers_with_oldest_dates_15__performance.lib.latency.scheduler_timer",
       "type": "action",
-      "name": "Aphrodite Extra: Drivers with oldest dates (15)",
+      "name": "Falcon Latency Extra: Drivers with oldest dates (15)",
       "description": "Extra unique diagnostic export.",
       "requiresAdmin": true,
       "riskLevel": "Safe",
@@ -580,7 +580,7 @@
         "steps": [
           {
             "type": "ps.run",
-            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\aphrodite_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"aphrodite_extra_15_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Aphrodite Extra 15: Drivers with oldest dates ===\" | Out-File $fn -Encoding utf8\n\n\"Oldest signed drivers:\" | Out-File $fn -Append\nGet-CimInstance Win32_PnPSignedDriver | Sort DriverDate | Select-Object -First 60 DeviceName,DriverDate,DriverVersion | Format-Table -Wrap | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\falcon_latency_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"falcon_latency_extra_15_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Falcon Latency Extra 15: Drivers with oldest dates ===\" | Out-File $fn -Encoding utf8\n\n\"Oldest signed drivers:\" | Out-File $fn -Append\nGet-CimInstance Win32_PnPSignedDriver | Sort DriverDate | Select-Object -First 60 DeviceName,DriverDate,DriverVersion | Format-Table -Wrap | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
           }
         ]
       },
@@ -589,9 +589,9 @@
       }
     },
     {
-      "id": "aphrodite_extra_wmi_latency_checks_16__performance.lib.latency.scheduler_timer",
+      "id": "falcon_latency_extra_wmi_latency_checks_16__performance.lib.latency.scheduler_timer",
       "type": "action",
-      "name": "Aphrodite Extra: WMI latency checks (16)",
+      "name": "Falcon Latency Extra: WMI latency checks (16)",
       "description": "Extra unique diagnostic export.",
       "requiresAdmin": true,
       "riskLevel": "Safe",
@@ -600,7 +600,7 @@
         "steps": [
           {
             "type": "ps.run",
-            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\aphrodite_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"aphrodite_extra_16_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Aphrodite Extra 16: WMI latency checks ===\" | Out-File $fn -Encoding utf8\n\n\"WMI quick check:\" | Out-File $fn -Append\nGet-CimInstance Win32_OperatingSystem | Select Caption,Version,BuildNumber | Format-List | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\falcon_latency_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"falcon_latency_extra_16_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Falcon Latency Extra 16: WMI latency checks ===\" | Out-File $fn -Encoding utf8\n\n\"WMI quick check:\" | Out-File $fn -Append\nGet-CimInstance Win32_OperatingSystem | Select Caption,Version,BuildNumber | Format-List | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
           }
         ]
       },
@@ -609,9 +609,9 @@
       }
     },
     {
-      "id": "aphrodite_extra_services_non_default_start_delta_17__performance.lib.latency.scheduler_timer",
+      "id": "falcon_latency_extra_services_non_default_start_delta_17__performance.lib.latency.scheduler_timer",
       "type": "action",
-      "name": "Aphrodite Extra: Services non-default start (delta) (17)",
+      "name": "Falcon Latency Extra: Services non-default start (delta) (17)",
       "description": "Extra unique diagnostic export.",
       "requiresAdmin": true,
       "riskLevel": "Safe",
@@ -620,7 +620,7 @@
         "steps": [
           {
             "type": "ps.run",
-            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\aphrodite_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"aphrodite_extra_17_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Aphrodite Extra 17: Services non-default start (delta) ===\" | Out-File $fn -Encoding utf8\n\n\"Non-default service start:\" | Out-File $fn -Append\nGet-CimInstance Win32_Service | Where-Object {$_.StartMode -ne \"Auto\"} | Select-Object -First 200 Name,StartMode,State | Format-Table -AutoSize | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\falcon_latency_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"falcon_latency_extra_17_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Falcon Latency Extra 17: Services non-default start (delta) ===\" | Out-File $fn -Encoding utf8\n\n\"Non-default service start:\" | Out-File $fn -Append\nGet-CimInstance Win32_Service | Where-Object {$_.StartMode -ne \"Auto\"} | Select-Object -First 200 Name,StartMode,State | Format-Table -AutoSize | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
           }
         ]
       },
@@ -629,9 +629,9 @@
       }
     },
     {
-      "id": "aphrodite_extra_scheduled_tasks_top_18__performance.lib.latency.scheduler_timer",
+      "id": "falcon_latency_extra_scheduled_tasks_top_18__performance.lib.latency.scheduler_timer",
       "type": "action",
-      "name": "Aphrodite Extra: Scheduled tasks (top) (18)",
+      "name": "Falcon Latency Extra: Scheduled tasks (top) (18)",
       "description": "Extra unique diagnostic export.",
       "requiresAdmin": true,
       "riskLevel": "Safe",
@@ -640,7 +640,7 @@
         "steps": [
           {
             "type": "ps.run",
-            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\aphrodite_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"aphrodite_extra_18_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Aphrodite Extra 18: Scheduled tasks (top) ===\" | Out-File $fn -Encoding utf8\n\n\"Scheduled tasks (top):\" | Out-File $fn -Append\nGet-ScheduledTask | Select-Object -First 120 TaskName,State | Format-Table -AutoSize | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\falcon_latency_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"falcon_latency_extra_18_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Falcon Latency Extra 18: Scheduled tasks (top) ===\" | Out-File $fn -Encoding utf8\n\n\"Scheduled tasks (top):\" | Out-File $fn -Append\nGet-ScheduledTask | Select-Object -First 120 TaskName,State | Format-Table -AutoSize | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
           }
         ]
       },
@@ -649,9 +649,9 @@
       }
     },
     {
-      "id": "aphrodite_extra_drivers_with_oldest_dates_19__performance.lib.latency.scheduler_timer",
+      "id": "falcon_latency_extra_drivers_with_oldest_dates_19__performance.lib.latency.scheduler_timer",
       "type": "action",
-      "name": "Aphrodite Extra: Drivers with oldest dates (19)",
+      "name": "Falcon Latency Extra: Drivers with oldest dates (19)",
       "description": "Extra unique diagnostic export.",
       "requiresAdmin": true,
       "riskLevel": "Safe",
@@ -660,7 +660,7 @@
         "steps": [
           {
             "type": "ps.run",
-            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\aphrodite_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"aphrodite_extra_19_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Aphrodite Extra 19: Drivers with oldest dates ===\" | Out-File $fn -Encoding utf8\n\n\"Oldest signed drivers:\" | Out-File $fn -Append\nGet-CimInstance Win32_PnPSignedDriver | Sort DriverDate | Select-Object -First 60 DeviceName,DriverDate,DriverVersion | Format-Table -Wrap | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\falcon_latency_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"falcon_latency_extra_19_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Falcon Latency Extra 19: Drivers with oldest dates ===\" | Out-File $fn -Encoding utf8\n\n\"Oldest signed drivers:\" | Out-File $fn -Append\nGet-CimInstance Win32_PnPSignedDriver | Sort DriverDate | Select-Object -First 60 DeviceName,DriverDate,DriverVersion | Format-Table -Wrap | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
           }
         ]
       },
@@ -669,9 +669,9 @@
       }
     },
     {
-      "id": "aphrodite_extra_wmi_latency_checks_20__performance.lib.latency.scheduler_timer",
+      "id": "falcon_latency_extra_wmi_latency_checks_20__performance.lib.latency.scheduler_timer",
       "type": "action",
-      "name": "Aphrodite Extra: WMI latency checks (20)",
+      "name": "Falcon Latency Extra: WMI latency checks (20)",
       "description": "Extra unique diagnostic export.",
       "requiresAdmin": true,
       "riskLevel": "Safe",
@@ -680,7 +680,7 @@
         "steps": [
           {
             "type": "ps.run",
-            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\aphrodite_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"aphrodite_extra_20_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Aphrodite Extra 20: WMI latency checks ===\" | Out-File $fn -Encoding utf8\n\n\"WMI quick check:\" | Out-File $fn -Append\nGet-CimInstance Win32_OperatingSystem | Select Caption,Version,BuildNumber | Format-List | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\falcon_latency_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"falcon_latency_extra_20_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Falcon Latency Extra 20: WMI latency checks ===\" | Out-File $fn -Encoding utf8\n\n\"WMI quick check:\" | Out-File $fn -Append\nGet-CimInstance Win32_OperatingSystem | Select Caption,Version,BuildNumber | Format-List | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
           }
         ]
       },
@@ -689,9 +689,9 @@
       }
     },
     {
-      "id": "aphrodite_extra_services_non_default_start_delta_21__performance.lib.latency.scheduler_timer",
+      "id": "falcon_latency_extra_services_non_default_start_delta_21__performance.lib.latency.scheduler_timer",
       "type": "action",
-      "name": "Aphrodite Extra: Services non-default start (delta) (21)",
+      "name": "Falcon Latency Extra: Services non-default start (delta) (21)",
       "description": "Extra unique diagnostic export.",
       "requiresAdmin": true,
       "riskLevel": "Safe",
@@ -700,7 +700,7 @@
         "steps": [
           {
             "type": "ps.run",
-            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\aphrodite_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"aphrodite_extra_21_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Aphrodite Extra 21: Services non-default start (delta) ===\" | Out-File $fn -Encoding utf8\n\n\"Non-default service start:\" | Out-File $fn -Append\nGet-CimInstance Win32_Service | Where-Object {$_.StartMode -ne \"Auto\"} | Select-Object -First 200 Name,StartMode,State | Format-Table -AutoSize | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\falcon_latency_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"falcon_latency_extra_21_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Falcon Latency Extra 21: Services non-default start (delta) ===\" | Out-File $fn -Encoding utf8\n\n\"Non-default service start:\" | Out-File $fn -Append\nGet-CimInstance Win32_Service | Where-Object {$_.StartMode -ne \"Auto\"} | Select-Object -First 200 Name,StartMode,State | Format-Table -AutoSize | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
           }
         ]
       },
@@ -709,9 +709,9 @@
       }
     },
     {
-      "id": "aphrodite_extra_scheduled_tasks_top_22__performance.lib.latency.scheduler_timer",
+      "id": "falcon_latency_extra_scheduled_tasks_top_22__performance.lib.latency.scheduler_timer",
       "type": "action",
-      "name": "Aphrodite Extra: Scheduled tasks (top) (22)",
+      "name": "Falcon Latency Extra: Scheduled tasks (top) (22)",
       "description": "Extra unique diagnostic export.",
       "requiresAdmin": true,
       "riskLevel": "Safe",
@@ -720,7 +720,7 @@
         "steps": [
           {
             "type": "ps.run",
-            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\aphrodite_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"aphrodite_extra_22_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Aphrodite Extra 22: Scheduled tasks (top) ===\" | Out-File $fn -Encoding utf8\n\n\"Scheduled tasks (top):\" | Out-File $fn -Append\nGet-ScheduledTask | Select-Object -First 120 TaskName,State | Format-Table -AutoSize | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\falcon_latency_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"falcon_latency_extra_22_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Falcon Latency Extra 22: Scheduled tasks (top) ===\" | Out-File $fn -Encoding utf8\n\n\"Scheduled tasks (top):\" | Out-File $fn -Append\nGet-ScheduledTask | Select-Object -First 120 TaskName,State | Format-Table -AutoSize | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
           }
         ]
       },
@@ -729,9 +729,9 @@
       }
     },
     {
-      "id": "aphrodite_extra_drivers_with_oldest_dates_23__performance.lib.latency.scheduler_timer",
+      "id": "falcon_latency_extra_drivers_with_oldest_dates_23__performance.lib.latency.scheduler_timer",
       "type": "action",
-      "name": "Aphrodite Extra: Drivers with oldest dates (23)",
+      "name": "Falcon Latency Extra: Drivers with oldest dates (23)",
       "description": "Extra unique diagnostic export.",
       "requiresAdmin": true,
       "riskLevel": "Safe",
@@ -740,7 +740,7 @@
         "steps": [
           {
             "type": "ps.run",
-            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\aphrodite_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"aphrodite_extra_23_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Aphrodite Extra 23: Drivers with oldest dates ===\" | Out-File $fn -Encoding utf8\n\n\"Oldest signed drivers:\" | Out-File $fn -Append\nGet-CimInstance Win32_PnPSignedDriver | Sort DriverDate | Select-Object -First 60 DeviceName,DriverDate,DriverVersion | Format-Table -Wrap | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\falcon_latency_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"falcon_latency_extra_23_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Falcon Latency Extra 23: Drivers with oldest dates ===\" | Out-File $fn -Encoding utf8\n\n\"Oldest signed drivers:\" | Out-File $fn -Append\nGet-CimInstance Win32_PnPSignedDriver | Sort DriverDate | Select-Object -First 60 DeviceName,DriverDate,DriverVersion | Format-Table -Wrap | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
           }
         ]
       },
@@ -749,9 +749,9 @@
       }
     },
     {
-      "id": "aphrodite_extra_wmi_latency_checks_24__performance.lib.latency.scheduler_timer",
+      "id": "falcon_latency_extra_wmi_latency_checks_24__performance.lib.latency.scheduler_timer",
       "type": "action",
-      "name": "Aphrodite Extra: WMI latency checks (24)",
+      "name": "Falcon Latency Extra: WMI latency checks (24)",
       "description": "Extra unique diagnostic export.",
       "requiresAdmin": true,
       "riskLevel": "Safe",
@@ -760,7 +760,7 @@
         "steps": [
           {
             "type": "ps.run",
-            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\aphrodite_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"aphrodite_extra_24_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Aphrodite Extra 24: WMI latency checks ===\" | Out-File $fn -Encoding utf8\n\n\"WMI quick check:\" | Out-File $fn -Append\nGet-CimInstance Win32_OperatingSystem | Select Caption,Version,BuildNumber | Format-List | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\falcon_latency_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"falcon_latency_extra_24_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Falcon Latency Extra 24: WMI latency checks ===\" | Out-File $fn -Encoding utf8\n\n\"WMI quick check:\" | Out-File $fn -Append\nGet-CimInstance Win32_OperatingSystem | Select Caption,Version,BuildNumber | Format-List | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
           }
         ]
       },
@@ -769,9 +769,9 @@
       }
     },
     {
-      "id": "aphrodite_extra_services_non_default_start_delta_25__performance.lib.latency.scheduler_timer",
+      "id": "falcon_latency_extra_services_non_default_start_delta_25__performance.lib.latency.scheduler_timer",
       "type": "action",
-      "name": "Aphrodite Extra: Services non-default start (delta) (25)",
+      "name": "Falcon Latency Extra: Services non-default start (delta) (25)",
       "description": "Extra unique diagnostic export.",
       "requiresAdmin": true,
       "riskLevel": "Safe",
@@ -780,7 +780,7 @@
         "steps": [
           {
             "type": "ps.run",
-            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\aphrodite_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"aphrodite_extra_25_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Aphrodite Extra 25: Services non-default start (delta) ===\" | Out-File $fn -Encoding utf8\n\n\"Non-default service start:\" | Out-File $fn -Append\nGet-CimInstance Win32_Service | Where-Object {$_.StartMode -ne \"Auto\"} | Select-Object -First 200 Name,StartMode,State | Format-Table -AutoSize | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\falcon_latency_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"falcon_latency_extra_25_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Falcon Latency Extra 25: Services non-default start (delta) ===\" | Out-File $fn -Encoding utf8\n\n\"Non-default service start:\" | Out-File $fn -Append\nGet-CimInstance Win32_Service | Where-Object {$_.StartMode -ne \"Auto\"} | Select-Object -First 200 Name,StartMode,State | Format-Table -AutoSize | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
           }
         ]
       },
@@ -789,9 +789,9 @@
       }
     },
     {
-      "id": "aphrodite_extra_scheduled_tasks_top_26__performance.lib.latency.scheduler_timer",
+      "id": "falcon_latency_extra_scheduled_tasks_top_26__performance.lib.latency.scheduler_timer",
       "type": "action",
-      "name": "Aphrodite Extra: Scheduled tasks (top) (26)",
+      "name": "Falcon Latency Extra: Scheduled tasks (top) (26)",
       "description": "Extra unique diagnostic export.",
       "requiresAdmin": true,
       "riskLevel": "Safe",
@@ -800,7 +800,7 @@
         "steps": [
           {
             "type": "ps.run",
-            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\aphrodite_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"aphrodite_extra_26_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Aphrodite Extra 26: Scheduled tasks (top) ===\" | Out-File $fn -Encoding utf8\n\n\"Scheduled tasks (top):\" | Out-File $fn -Append\nGet-ScheduledTask | Select-Object -First 120 TaskName,State | Format-Table -AutoSize | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\falcon_latency_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"falcon_latency_extra_26_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Falcon Latency Extra 26: Scheduled tasks (top) ===\" | Out-File $fn -Encoding utf8\n\n\"Scheduled tasks (top):\" | Out-File $fn -Append\nGet-ScheduledTask | Select-Object -First 120 TaskName,State | Format-Table -AutoSize | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
           }
         ]
       },
@@ -809,9 +809,9 @@
       }
     },
     {
-      "id": "aphrodite_extra_drivers_with_oldest_dates_27__performance.lib.latency.scheduler_timer",
+      "id": "falcon_latency_extra_drivers_with_oldest_dates_27__performance.lib.latency.scheduler_timer",
       "type": "action",
-      "name": "Aphrodite Extra: Drivers with oldest dates (27)",
+      "name": "Falcon Latency Extra: Drivers with oldest dates (27)",
       "description": "Extra unique diagnostic export.",
       "requiresAdmin": true,
       "riskLevel": "Safe",
@@ -820,7 +820,7 @@
         "steps": [
           {
             "type": "ps.run",
-            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\aphrodite_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"aphrodite_extra_27_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Aphrodite Extra 27: Drivers with oldest dates ===\" | Out-File $fn -Encoding utf8\n\n\"Oldest signed drivers:\" | Out-File $fn -Append\nGet-CimInstance Win32_PnPSignedDriver | Sort DriverDate | Select-Object -First 60 DeviceName,DriverDate,DriverVersion | Format-Table -Wrap | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\falcon_latency_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"falcon_latency_extra_27_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Falcon Latency Extra 27: Drivers with oldest dates ===\" | Out-File $fn -Encoding utf8\n\n\"Oldest signed drivers:\" | Out-File $fn -Append\nGet-CimInstance Win32_PnPSignedDriver | Sort DriverDate | Select-Object -First 60 DeviceName,DriverDate,DriverVersion | Format-Table -Wrap | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
           }
         ]
       },
@@ -829,9 +829,9 @@
       }
     },
     {
-      "id": "aphrodite_extra_wmi_latency_checks_28__performance.lib.latency.scheduler_timer",
+      "id": "falcon_latency_extra_wmi_latency_checks_28__performance.lib.latency.scheduler_timer",
       "type": "action",
-      "name": "Aphrodite Extra: WMI latency checks (28)",
+      "name": "Falcon Latency Extra: WMI latency checks (28)",
       "description": "Extra unique diagnostic export.",
       "requiresAdmin": true,
       "riskLevel": "Safe",
@@ -840,7 +840,7 @@
         "steps": [
           {
             "type": "ps.run",
-            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\aphrodite_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"aphrodite_extra_28_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Aphrodite Extra 28: WMI latency checks ===\" | Out-File $fn -Encoding utf8\n\n\"WMI quick check:\" | Out-File $fn -Append\nGet-CimInstance Win32_OperatingSystem | Select Caption,Version,BuildNumber | Format-List | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\falcon_latency_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"falcon_latency_extra_28_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Falcon Latency Extra 28: WMI latency checks ===\" | Out-File $fn -Encoding utf8\n\n\"WMI quick check:\" | Out-File $fn -Append\nGet-CimInstance Win32_OperatingSystem | Select Caption,Version,BuildNumber | Format-List | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
           }
         ]
       },
@@ -849,9 +849,9 @@
       }
     },
     {
-      "id": "aphrodite_extra_services_non_default_start_delta_29__performance.lib.latency.scheduler_timer",
+      "id": "falcon_latency_extra_services_non_default_start_delta_29__performance.lib.latency.scheduler_timer",
       "type": "action",
-      "name": "Aphrodite Extra: Services non-default start (delta) (29)",
+      "name": "Falcon Latency Extra: Services non-default start (delta) (29)",
       "description": "Extra unique diagnostic export.",
       "requiresAdmin": true,
       "riskLevel": "Safe",
@@ -860,7 +860,7 @@
         "steps": [
           {
             "type": "ps.run",
-            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\aphrodite_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"aphrodite_extra_29_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Aphrodite Extra 29: Services non-default start (delta) ===\" | Out-File $fn -Encoding utf8\n\n\"Non-default service start:\" | Out-File $fn -Append\nGet-CimInstance Win32_Service | Where-Object {$_.StartMode -ne \"Auto\"} | Select-Object -First 200 Name,StartMode,State | Format-Table -AutoSize | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\falcon_latency_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"falcon_latency_extra_29_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Falcon Latency Extra 29: Services non-default start (delta) ===\" | Out-File $fn -Encoding utf8\n\n\"Non-default service start:\" | Out-File $fn -Append\nGet-CimInstance Win32_Service | Where-Object {$_.StartMode -ne \"Auto\"} | Select-Object -First 200 Name,StartMode,State | Format-Table -AutoSize | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
           }
         ]
       },
@@ -869,9 +869,9 @@
       }
     },
     {
-      "id": "aphrodite_extra_scheduled_tasks_top_30__performance.lib.latency.scheduler_timer",
+      "id": "falcon_latency_extra_scheduled_tasks_top_30__performance.lib.latency.scheduler_timer",
       "type": "action",
-      "name": "Aphrodite Extra: Scheduled tasks (top) (30)",
+      "name": "Falcon Latency Extra: Scheduled tasks (top) (30)",
       "description": "Extra unique diagnostic export.",
       "requiresAdmin": true,
       "riskLevel": "Safe",
@@ -880,7 +880,7 @@
         "steps": [
           {
             "type": "ps.run",
-            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\aphrodite_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"aphrodite_extra_30_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Aphrodite Extra 30: Scheduled tasks (top) ===\" | Out-File $fn -Encoding utf8\n\n\"Scheduled tasks (top):\" | Out-File $fn -Append\nGet-ScheduledTask | Select-Object -First 120 TaskName,State | Format-Table -AutoSize | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\falcon_latency_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"falcon_latency_extra_30_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Falcon Latency Extra 30: Scheduled tasks (top) ===\" | Out-File $fn -Encoding utf8\n\n\"Scheduled tasks (top):\" | Out-File $fn -Append\nGet-ScheduledTask | Select-Object -First 120 TaskName,State | Format-Table -AutoSize | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
           }
         ]
       },
@@ -889,9 +889,9 @@
       }
     },
     {
-      "id": "aphrodite_extra_drivers_with_oldest_dates_31__performance.lib.latency.scheduler_timer",
+      "id": "falcon_latency_extra_drivers_with_oldest_dates_31__performance.lib.latency.scheduler_timer",
       "type": "action",
-      "name": "Aphrodite Extra: Drivers with oldest dates (31)",
+      "name": "Falcon Latency Extra: Drivers with oldest dates (31)",
       "description": "Extra unique diagnostic export.",
       "requiresAdmin": true,
       "riskLevel": "Safe",
@@ -900,7 +900,7 @@
         "steps": [
           {
             "type": "ps.run",
-            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\aphrodite_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"aphrodite_extra_31_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Aphrodite Extra 31: Drivers with oldest dates ===\" | Out-File $fn -Encoding utf8\n\n\"Oldest signed drivers:\" | Out-File $fn -Append\nGet-CimInstance Win32_PnPSignedDriver | Sort DriverDate | Select-Object -First 60 DeviceName,DriverDate,DriverVersion | Format-Table -Wrap | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\falcon_latency_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"falcon_latency_extra_31_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Falcon Latency Extra 31: Drivers with oldest dates ===\" | Out-File $fn -Encoding utf8\n\n\"Oldest signed drivers:\" | Out-File $fn -Append\nGet-CimInstance Win32_PnPSignedDriver | Sort DriverDate | Select-Object -First 60 DeviceName,DriverDate,DriverVersion | Format-Table -Wrap | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
           }
         ]
       },
@@ -909,9 +909,9 @@
       }
     },
     {
-      "id": "aphrodite_extra_wmi_latency_checks_32__performance.lib.latency.scheduler_timer",
+      "id": "falcon_latency_extra_wmi_latency_checks_32__performance.lib.latency.scheduler_timer",
       "type": "action",
-      "name": "Aphrodite Extra: WMI latency checks (32)",
+      "name": "Falcon Latency Extra: WMI latency checks (32)",
       "description": "Extra unique diagnostic export.",
       "requiresAdmin": true,
       "riskLevel": "Safe",
@@ -920,7 +920,7 @@
         "steps": [
           {
             "type": "ps.run",
-            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\aphrodite_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"aphrodite_extra_32_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Aphrodite Extra 32: WMI latency checks ===\" | Out-File $fn -Encoding utf8\n\n\"WMI quick check:\" | Out-File $fn -Append\nGet-CimInstance Win32_OperatingSystem | Select Caption,Version,BuildNumber | Format-List | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\falcon_latency_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"falcon_latency_extra_32_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Falcon Latency Extra 32: WMI latency checks ===\" | Out-File $fn -Encoding utf8\n\n\"WMI quick check:\" | Out-File $fn -Append\nGet-CimInstance Win32_OperatingSystem | Select Caption,Version,BuildNumber | Format-List | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
           }
         ]
       },
@@ -929,9 +929,9 @@
       }
     },
     {
-      "id": "aphrodite_extra_services_non_default_start_delta_33__performance.lib.latency.scheduler_timer",
+      "id": "falcon_latency_extra_services_non_default_start_delta_33__performance.lib.latency.scheduler_timer",
       "type": "action",
-      "name": "Aphrodite Extra: Services non-default start (delta) (33)",
+      "name": "Falcon Latency Extra: Services non-default start (delta) (33)",
       "description": "Extra unique diagnostic export.",
       "requiresAdmin": true,
       "riskLevel": "Safe",
@@ -940,7 +940,7 @@
         "steps": [
           {
             "type": "ps.run",
-            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\aphrodite_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"aphrodite_extra_33_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Aphrodite Extra 33: Services non-default start (delta) ===\" | Out-File $fn -Encoding utf8\n\n\"Non-default service start:\" | Out-File $fn -Append\nGet-CimInstance Win32_Service | Where-Object {$_.StartMode -ne \"Auto\"} | Select-Object -First 200 Name,StartMode,State | Format-Table -AutoSize | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\falcon_latency_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"falcon_latency_extra_33_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Falcon Latency Extra 33: Services non-default start (delta) ===\" | Out-File $fn -Encoding utf8\n\n\"Non-default service start:\" | Out-File $fn -Append\nGet-CimInstance Win32_Service | Where-Object {$_.StartMode -ne \"Auto\"} | Select-Object -First 200 Name,StartMode,State | Format-Table -AutoSize | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
           }
         ]
       },
@@ -949,9 +949,9 @@
       }
     },
     {
-      "id": "aphrodite_extra_scheduled_tasks_top_34__performance.lib.latency.scheduler_timer",
+      "id": "falcon_latency_extra_scheduled_tasks_top_34__performance.lib.latency.scheduler_timer",
       "type": "action",
-      "name": "Aphrodite Extra: Scheduled tasks (top) (34)",
+      "name": "Falcon Latency Extra: Scheduled tasks (top) (34)",
       "description": "Extra unique diagnostic export.",
       "requiresAdmin": true,
       "riskLevel": "Safe",
@@ -960,7 +960,7 @@
         "steps": [
           {
             "type": "ps.run",
-            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\aphrodite_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"aphrodite_extra_34_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Aphrodite Extra 34: Scheduled tasks (top) ===\" | Out-File $fn -Encoding utf8\n\n\"Scheduled tasks (top):\" | Out-File $fn -Append\nGet-ScheduledTask | Select-Object -First 120 TaskName,State | Format-Table -AutoSize | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\falcon_latency_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"falcon_latency_extra_34_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Falcon Latency Extra 34: Scheduled tasks (top) ===\" | Out-File $fn -Encoding utf8\n\n\"Scheduled tasks (top):\" | Out-File $fn -Append\nGet-ScheduledTask | Select-Object -First 120 TaskName,State | Format-Table -AutoSize | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
           }
         ]
       },
@@ -969,9 +969,9 @@
       }
     },
     {
-      "id": "aphrodite_extra_drivers_with_oldest_dates_35__performance.lib.latency.scheduler_timer",
+      "id": "falcon_latency_extra_drivers_with_oldest_dates_35__performance.lib.latency.scheduler_timer",
       "type": "action",
-      "name": "Aphrodite Extra: Drivers with oldest dates (35)",
+      "name": "Falcon Latency Extra: Drivers with oldest dates (35)",
       "description": "Extra unique diagnostic export.",
       "requiresAdmin": true,
       "riskLevel": "Safe",
@@ -980,7 +980,7 @@
         "steps": [
           {
             "type": "ps.run",
-            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\aphrodite_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"aphrodite_extra_35_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Aphrodite Extra 35: Drivers with oldest dates ===\" | Out-File $fn -Encoding utf8\n\n\"Oldest signed drivers:\" | Out-File $fn -Append\nGet-CimInstance Win32_PnPSignedDriver | Sort DriverDate | Select-Object -First 60 DeviceName,DriverDate,DriverVersion | Format-Table -Wrap | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\falcon_latency_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"falcon_latency_extra_35_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Falcon Latency Extra 35: Drivers with oldest dates ===\" | Out-File $fn -Encoding utf8\n\n\"Oldest signed drivers:\" | Out-File $fn -Append\nGet-CimInstance Win32_PnPSignedDriver | Sort DriverDate | Select-Object -First 60 DeviceName,DriverDate,DriverVersion | Format-Table -Wrap | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
           }
         ]
       },
@@ -989,9 +989,9 @@
       }
     },
     {
-      "id": "aphrodite_extra_wmi_latency_checks_36__performance.lib.latency.scheduler_timer",
+      "id": "falcon_latency_extra_wmi_latency_checks_36__performance.lib.latency.scheduler_timer",
       "type": "action",
-      "name": "Aphrodite Extra: WMI latency checks (36)",
+      "name": "Falcon Latency Extra: WMI latency checks (36)",
       "description": "Extra unique diagnostic export.",
       "requiresAdmin": true,
       "riskLevel": "Safe",
@@ -1000,7 +1000,7 @@
         "steps": [
           {
             "type": "ps.run",
-            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\aphrodite_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"aphrodite_extra_36_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Aphrodite Extra 36: WMI latency checks ===\" | Out-File $fn -Encoding utf8\n\n\"WMI quick check:\" | Out-File $fn -Append\nGet-CimInstance Win32_OperatingSystem | Select Caption,Version,BuildNumber | Format-List | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\falcon_latency_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"falcon_latency_extra_36_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Falcon Latency Extra 36: WMI latency checks ===\" | Out-File $fn -Encoding utf8\n\n\"WMI quick check:\" | Out-File $fn -Append\nGet-CimInstance Win32_OperatingSystem | Select Caption,Version,BuildNumber | Format-List | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
           }
         ]
       },
@@ -1009,9 +1009,9 @@
       }
     },
     {
-      "id": "aphrodite_extra_services_non_default_start_delta_37__performance.lib.latency.scheduler_timer",
+      "id": "falcon_latency_extra_services_non_default_start_delta_37__performance.lib.latency.scheduler_timer",
       "type": "action",
-      "name": "Aphrodite Extra: Services non-default start (delta) (37)",
+      "name": "Falcon Latency Extra: Services non-default start (delta) (37)",
       "description": "Extra unique diagnostic export.",
       "requiresAdmin": true,
       "riskLevel": "Safe",
@@ -1020,7 +1020,7 @@
         "steps": [
           {
             "type": "ps.run",
-            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\aphrodite_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"aphrodite_extra_37_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Aphrodite Extra 37: Services non-default start (delta) ===\" | Out-File $fn -Encoding utf8\n\n\"Non-default service start:\" | Out-File $fn -Append\nGet-CimInstance Win32_Service | Where-Object {$_.StartMode -ne \"Auto\"} | Select-Object -First 200 Name,StartMode,State | Format-Table -AutoSize | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\falcon_latency_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"falcon_latency_extra_37_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Falcon Latency Extra 37: Services non-default start (delta) ===\" | Out-File $fn -Encoding utf8\n\n\"Non-default service start:\" | Out-File $fn -Append\nGet-CimInstance Win32_Service | Where-Object {$_.StartMode -ne \"Auto\"} | Select-Object -First 200 Name,StartMode,State | Format-Table -AutoSize | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
           }
         ]
       },
@@ -1029,9 +1029,9 @@
       }
     },
     {
-      "id": "aphrodite_extra_scheduled_tasks_top_38__performance.lib.latency.scheduler_timer",
+      "id": "falcon_latency_extra_scheduled_tasks_top_38__performance.lib.latency.scheduler_timer",
       "type": "action",
-      "name": "Aphrodite Extra: Scheduled tasks (top) (38)",
+      "name": "Falcon Latency Extra: Scheduled tasks (top) (38)",
       "description": "Extra unique diagnostic export.",
       "requiresAdmin": true,
       "riskLevel": "Safe",
@@ -1040,7 +1040,7 @@
         "steps": [
           {
             "type": "ps.run",
-            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\aphrodite_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"aphrodite_extra_38_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Aphrodite Extra 38: Scheduled tasks (top) ===\" | Out-File $fn -Encoding utf8\n\n\"Scheduled tasks (top):\" | Out-File $fn -Append\nGet-ScheduledTask | Select-Object -First 120 TaskName,State | Format-Table -AutoSize | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\falcon_latency_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"falcon_latency_extra_38_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Falcon Latency Extra 38: Scheduled tasks (top) ===\" | Out-File $fn -Encoding utf8\n\n\"Scheduled tasks (top):\" | Out-File $fn -Append\nGet-ScheduledTask | Select-Object -First 120 TaskName,State | Format-Table -AutoSize | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
           }
         ]
       },
@@ -1049,9 +1049,9 @@
       }
     },
     {
-      "id": "aphrodite_extra_drivers_with_oldest_dates_39__performance.lib.latency.scheduler_timer",
+      "id": "falcon_latency_extra_drivers_with_oldest_dates_39__performance.lib.latency.scheduler_timer",
       "type": "action",
-      "name": "Aphrodite Extra: Drivers with oldest dates (39)",
+      "name": "Falcon Latency Extra: Drivers with oldest dates (39)",
       "description": "Extra unique diagnostic export.",
       "requiresAdmin": true,
       "riskLevel": "Safe",
@@ -1060,7 +1060,7 @@
         "steps": [
           {
             "type": "ps.run",
-            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\aphrodite_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"aphrodite_extra_39_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Aphrodite Extra 39: Drivers with oldest dates ===\" | Out-File $fn -Encoding utf8\n\n\"Oldest signed drivers:\" | Out-File $fn -Append\nGet-CimInstance Win32_PnPSignedDriver | Sort DriverDate | Select-Object -First 60 DeviceName,DriverDate,DriverVersion | Format-Table -Wrap | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\falcon_latency_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"falcon_latency_extra_39_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Falcon Latency Extra 39: Drivers with oldest dates ===\" | Out-File $fn -Encoding utf8\n\n\"Oldest signed drivers:\" | Out-File $fn -Append\nGet-CimInstance Win32_PnPSignedDriver | Sort DriverDate | Select-Object -First 60 DeviceName,DriverDate,DriverVersion | Format-Table -Wrap | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
           }
         ]
       },
@@ -1069,9 +1069,9 @@
       }
     },
     {
-      "id": "aphrodite_extra_wmi_latency_checks_40__performance.lib.latency.scheduler_timer",
+      "id": "falcon_latency_extra_wmi_latency_checks_40__performance.lib.latency.scheduler_timer",
       "type": "action",
-      "name": "Aphrodite Extra: WMI latency checks (40)",
+      "name": "Falcon Latency Extra: WMI latency checks (40)",
       "description": "Extra unique diagnostic export.",
       "requiresAdmin": true,
       "riskLevel": "Safe",
@@ -1080,7 +1080,7 @@
         "steps": [
           {
             "type": "ps.run",
-            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\aphrodite_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"aphrodite_extra_40_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Aphrodite Extra 40: WMI latency checks ===\" | Out-File $fn -Encoding utf8\n\n\"WMI quick check:\" | Out-File $fn -Append\nGet-CimInstance Win32_OperatingSystem | Select Caption,Version,BuildNumber | Format-List | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
+            "command": "\n$dst = Join-Path $env:ProgramData \"FalconOptimizer\\falcon_latency_latency\"\nNew-Item -ItemType Directory -Force -Path $dst | Out-Null\n$fn = Join-Path $dst (\"falcon_latency_extra_40_\" + (Get-Date).ToString('yyyyMMdd_HHmmss') + \".txt\")\n\"=== Falcon Latency Extra 40: WMI latency checks ===\" | Out-File $fn -Encoding utf8\n\n\"WMI quick check:\" | Out-File $fn -Append\nGet-CimInstance Win32_OperatingSystem | Select Caption,Version,BuildNumber | Format-List | Out-String | Out-File $fn -Append\n\nWrite-Output (\"Saved: \" + $fn)\n"
           }
         ]
       },

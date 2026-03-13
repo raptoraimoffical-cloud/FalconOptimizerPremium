@@ -729,8 +729,8 @@
       }
     },
     {
-      "id": "exp_bg_microsoft_yourphone_8wekyb3d8bbwe_app",
-      "name": "Disable background activity: Microsoft.YourPhone_8wekyb3d8bbwe",
+      "id": "exp_bg_microsoft_yourpfalcon_8wekyb3d8bbwe_app",
+      "name": "Disable background activity: Microsoft.YourPfalcon_8wekyb3d8bbwe",
       "category": "Expansion / Background Apps",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Disables background access for this Store/UWP app by setting BackgroundAccessApplications flags.",
@@ -740,14 +740,14 @@
         "steps": [
           {
             "type": "registry.set",
-            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\BackgroundAccessApplications\\Microsoft.YourPhone_8wekyb3d8bbwe!App",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\BackgroundAccessApplications\\Microsoft.YourPfalcon_8wekyb3d8bbwe!App",
             "name": "Disabled",
             "value": 1,
             "valueType": "DWORD"
           },
           {
             "type": "registry.set",
-            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\BackgroundAccessApplications\\Microsoft.YourPhone_8wekyb3d8bbwe!App",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\BackgroundAccessApplications\\Microsoft.YourPfalcon_8wekyb3d8bbwe!App",
             "name": "DisabledByUser",
             "value": 1,
             "valueType": "DWORD"
@@ -758,12 +758,12 @@
         "steps": [
           {
             "type": "registry.remove",
-            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\BackgroundAccessApplications\\Microsoft.YourPhone_8wekyb3d8bbwe!App",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\BackgroundAccessApplications\\Microsoft.YourPfalcon_8wekyb3d8bbwe!App",
             "name": "Disabled"
           },
           {
             "type": "registry.remove",
-            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\BackgroundAccessApplications\\Microsoft.YourPhone_8wekyb3d8bbwe!App",
+            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\BackgroundAccessApplications\\Microsoft.YourPfalcon_8wekyb3d8bbwe!App",
             "name": "DisabledByUser"
           }
         ]

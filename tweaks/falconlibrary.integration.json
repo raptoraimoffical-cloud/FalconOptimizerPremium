@@ -11,11 +11,31 @@
       "type": "action",
       "apply": {
         "steps": [
-          { "type": "falconlib.run", "toolPath": "tools/FalconLibrary/Process Destroyer/FalconLibrary Process Destroyer V2.5.bat", "elevation": "trustedinstaller", "wait": true }
+          {
+            "type": "falconlib.run",
+            "toolPath": "tools/FalconLibrary/Process Destroyer/FalconLibrary Process Destroyer V2.5.bat",
+            "elevation": "trustedinstaller",
+            "wait": true
+          }
         ]
       },
-      "check": { "steps": [ { "type": "cmd.run", "command": "tasklist | findstr /I explorer.exe" } ] },
-      "revert": { "steps": [ { "type": "process.start", "path": "explorer.exe", "wait": false } ] }
+      "check": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "tasklist | findstr /I explorer.exe"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "process.start",
+            "path": "explorer.exe",
+            "wait": false
+          }
+        ]
+      }
     },
     {
       "id": "processlab.process_destroyer.extreme",
@@ -31,11 +51,31 @@
       "type": "action",
       "apply": {
         "steps": [
-          { "type": "falconlib.run", "toolPath": "tools/FalconLibrary/Process Destroyer/FalconLibrary Process Destroyer Extreme V2.5.bat", "elevation": "trustedinstaller", "wait": true }
+          {
+            "type": "falconlib.run",
+            "toolPath": "tools/FalconLibrary/Process Destroyer/FalconLibrary Process Destroyer Extreme V2.5.bat",
+            "elevation": "trustedinstaller",
+            "wait": true
+          }
         ]
       },
-      "check": { "steps": [ { "type": "cmd.run", "command": "tasklist | findstr /I explorer.exe" } ] },
-      "revert": { "steps": [ { "type": "process.start", "path": "explorer.exe", "wait": false } ] }
+      "check": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "tasklist | findstr /I explorer.exe"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "process.start",
+            "path": "explorer.exe",
+            "wait": false
+          }
+        ]
+      }
     },
     {
       "id": "processlab.process_destroyer.status",
@@ -45,9 +85,25 @@
       "riskLevel": "Safe",
       "requiresAdmin": false,
       "type": "action",
-      "apply": { "steps": [ { "type": "cmd.run", "command": "tasklist | findstr /I explorer.exe" } ] },
-      "check": { "steps": [ { "type": "cmd.run", "command": "tasklist | findstr /I explorer.exe" } ] },
-      "revert": { "steps": [] }
+      "apply": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "tasklist | findstr /I explorer.exe"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "tasklist | findstr /I explorer.exe"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
     },
     {
       "id": "processlab.task_destroyer.apply",
@@ -58,9 +114,36 @@
       "requiresAdmin": true,
       "requiresTrustedInstaller": true,
       "type": "action",
-      "apply": { "steps": [ { "type": "falconlib.run", "toolPath": "tools/FalconLibrary/Task Destroyer/FalconLibrary Task Destroyer V1.3.bat", "elevation": "trustedinstaller", "wait": true } ] },
-      "check": { "steps": [ { "type": "task.check", "name": "\\Microsoft\\Windows\\Application Experience\\Microsoft Compatibility Appraiser", "enabled": false, "continueOnError": true } ] },
-      "revert": { "steps": [ { "type": "task", "name": "\\Microsoft\\Windows\\Application Experience\\Microsoft Compatibility Appraiser", "action": "enable", "continueOnError": true } ] }
+      "apply": {
+        "steps": [
+          {
+            "type": "falconlib.run",
+            "toolPath": "tools/FalconLibrary/Task Destroyer/FalconLibrary Task Destroyer V1.3.bat",
+            "elevation": "trustedinstaller",
+            "wait": true
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Application Experience\\Microsoft Compatibility Appraiser",
+            "enabled": false,
+            "continueOnError": true
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "task",
+            "name": "\\Microsoft\\Windows\\Application Experience\\Microsoft Compatibility Appraiser",
+            "action": "enable",
+            "continueOnError": true
+          }
+        ]
+      }
     },
     {
       "id": "processlab.task_destroyer.status",
@@ -70,9 +153,29 @@
       "riskLevel": "Safe",
       "requiresAdmin": false,
       "type": "action",
-      "apply": { "steps": [ { "type": "task.check", "name": "\\Microsoft\\Windows\\Application Experience\\Microsoft Compatibility Appraiser", "enabled": false, "continueOnError": true } ] },
-      "check": { "steps": [ { "type": "task.check", "name": "\\Microsoft\\Windows\\Application Experience\\Microsoft Compatibility Appraiser", "enabled": false, "continueOnError": true } ] },
-      "revert": { "steps": [] }
+      "apply": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Application Experience\\Microsoft Compatibility Appraiser",
+            "enabled": false,
+            "continueOnError": true
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "task.check",
+            "name": "\\Microsoft\\Windows\\Application Experience\\Microsoft Compatibility Appraiser",
+            "enabled": false,
+            "continueOnError": true
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
     },
     {
       "id": "windows.update_disabler.apply",
@@ -83,9 +186,37 @@
       "requiresAdmin": true,
       "requiresTrustedInstaller": true,
       "type": "action",
-      "apply": { "steps": [ { "type": "falconlib.run", "toolPath": "tools/FalconLibrary/Update Disabler/FalconLibrary Update Disabler V1.2.bat", "elevation": "trustedinstaller", "wait": true } ] },
-      "check": { "steps": [ { "type": "service.startup", "name": "wuauserv", "startType": "Disabled", "failIfMissing": false } ] },
-      "revert": { "steps": [ { "type": "service.startup", "name": "wuauserv", "startType": "Manual", "start": false, "failIfMissing": false } ] }
+      "apply": {
+        "steps": [
+          {
+            "type": "falconlib.run",
+            "toolPath": "tools/FalconLibrary/Update Disabler/FalconLibrary Update Disabler V1.2.bat",
+            "elevation": "trustedinstaller",
+            "wait": true
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "wuauserv",
+            "startType": "Disabled",
+            "failIfMissing": false
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "wuauserv",
+            "startType": "Manual",
+            "start": false,
+            "failIfMissing": false
+          }
+        ]
+      }
     },
     {
       "id": "privacy.autologger_destroyer.apply",
@@ -96,9 +227,31 @@
       "requiresAdmin": true,
       "requiresTrustedInstaller": true,
       "type": "action",
-      "apply": { "steps": [ { "type": "falconlib.run", "toolPath": "tools/FalconLibrary/Autologger Destroyer/FalconLibrary Autologger Destroyer V1.0.bat", "elevation": "trustedinstaller", "wait": true } ] },
-      "check": { "steps": [ { "type": "registry.check", "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\WMI\\Autologger\\AutoLogger-Diagtrack-Listener", "name": "Start", "equals": 0, "valueType": "DWORD", "continueOnError": true } ] },
-      "revert": { "steps": [] }
+      "apply": {
+        "steps": [
+          {
+            "type": "falconlib.run",
+            "toolPath": "tools/FalconLibrary/Autologger Destroyer/FalconLibrary Autologger Destroyer V1.0.bat",
+            "elevation": "trustedinstaller",
+            "wait": true
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "registry.check",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\WMI\\Autologger\\AutoLogger-Diagtrack-Listener",
+            "name": "Start",
+            "equals": 0,
+            "valueType": "DWORD",
+            "continueOnError": true
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
     },
     {
       "id": "gpu.nvidia_container.off",
@@ -109,9 +262,36 @@
       "requiresAdmin": true,
       "requiresTrustedInstaller": true,
       "type": "action",
-      "apply": { "steps": [ { "type": "falconlib.run", "toolPath": "tools/FalconLibrary/Nvidia/Nvidia Container/Nvidia Container OFF.bat", "elevation": "trustedinstaller", "wait": true } ] },
-      "check": { "steps": [ { "type": "service.startup", "name": "NVDisplay.ContainerLocalSystem", "startType": "Disabled", "failIfMissing": false } ] },
-      "revert": { "steps": [ { "type": "falconlib.run", "toolPath": "tools/FalconLibrary/Nvidia/Nvidia Container/Nvidia Container ON.bat", "elevation": "trustedinstaller", "wait": true } ] }
+      "apply": {
+        "steps": [
+          {
+            "type": "falconlib.run",
+            "toolPath": "tools/FalconLibrary/Nvidia/Nvidia Container/Nvidia Container OFF.bat",
+            "elevation": "trustedinstaller",
+            "wait": true
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "service.startup",
+            "name": "NVDisplay.ContainerLocalSystem",
+            "startType": "Disabled",
+            "failIfMissing": false
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "falconlib.run",
+            "toolPath": "tools/FalconLibrary/Nvidia/Nvidia Container/Nvidia Container ON.bat",
+            "elevation": "trustedinstaller",
+            "wait": true
+          }
+        ]
+      }
     },
     {
       "id": "utilities.browser_downloader.apply",
@@ -121,9 +301,22 @@
       "riskLevel": "Safe",
       "requiresAdmin": false,
       "type": "action",
-      "apply": { "steps": [ { "type": "falconlib.run", "toolPath": "tools/FalconLibrary/Browser Download/Browser Downloader V1.0.bat", "elevation": "none", "wait": true } ] },
-      "check": { "steps": [] },
-      "revert": { "steps": [] }
+      "apply": {
+        "steps": [
+          {
+            "type": "falconlib.run",
+            "toolPath": "tools/FalconLibrary/Browser Download/Browser Downloader V1.0.bat",
+            "elevation": "none",
+            "wait": true
+          }
+        ]
+      },
+      "check": {
+        "steps": []
+      },
+      "revert": {
+        "steps": []
+      }
     },
     {
       "id": "utilities.dpclat.run",
@@ -133,9 +326,27 @@
       "riskLevel": "Safe",
       "requiresAdmin": false,
       "type": "action",
-      "apply": { "steps": [ { "type": "falconlib.run", "toolPath": "tools/FalconLibrary/DPC Checker/dpclat.exe", "elevation": "none", "wait": false } ] },
-      "check": { "steps": [ { "type": "cmd.run", "command": "if exist \"tools\\FalconLibrary\\DPC Checker\\dpclat.exe\" (echo dpclat ready) else (exit /b 1)" } ] },
-      "revert": { "steps": [] }
+      "apply": {
+        "steps": [
+          {
+            "type": "falconlib.run",
+            "toolPath": "tools/FalconLibrary/DPC Checker/dpclat.exe",
+            "elevation": "none",
+            "wait": false
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "if exist \"tools\\FalconLibrary\\DPC Checker\\dpclat.exe\" (echo dpclat ready) else (exit /b 1)"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
     },
     {
       "id": "input.force_1to1_mouse_movement",
@@ -147,23 +358,77 @@
       "type": "action",
       "apply": {
         "steps": [
-          { "type": "registry.set", "path": "HKCU\\Control Panel\\Mouse", "name": "MouseSpeed", "value": "0", "valueType": "String" },
-          { "type": "registry.set", "path": "HKCU\\Control Panel\\Mouse", "name": "MouseThreshold1", "value": "0", "valueType": "String" },
-          { "type": "registry.set", "path": "HKCU\\Control Panel\\Mouse", "name": "MouseThreshold2", "value": "0", "valueType": "String" }
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Control Panel\\Mouse",
+            "name": "MouseSpeed",
+            "value": "0",
+            "valueType": "String"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Control Panel\\Mouse",
+            "name": "MouseThreshold1",
+            "value": "0",
+            "valueType": "String"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Control Panel\\Mouse",
+            "name": "MouseThreshold2",
+            "value": "0",
+            "valueType": "String"
+          }
         ]
       },
       "check": {
         "steps": [
-          { "type": "registry.check", "path": "HKCU\\Control Panel\\Mouse", "name": "MouseSpeed", "equals": "0", "valueType": "String" },
-          { "type": "registry.check", "path": "HKCU\\Control Panel\\Mouse", "name": "MouseThreshold1", "equals": "0", "valueType": "String" },
-          { "type": "registry.check", "path": "HKCU\\Control Panel\\Mouse", "name": "MouseThreshold2", "equals": "0", "valueType": "String" }
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Control Panel\\Mouse",
+            "name": "MouseSpeed",
+            "equals": "0",
+            "valueType": "String"
+          },
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Control Panel\\Mouse",
+            "name": "MouseThreshold1",
+            "equals": "0",
+            "valueType": "String"
+          },
+          {
+            "type": "registry.check",
+            "path": "HKCU\\Control Panel\\Mouse",
+            "name": "MouseThreshold2",
+            "equals": "0",
+            "valueType": "String"
+          }
         ]
       },
       "revert": {
         "steps": [
-          { "type": "registry.set", "path": "HKCU\\Control Panel\\Mouse", "name": "MouseSpeed", "value": "1", "valueType": "String" },
-          { "type": "registry.set", "path": "HKCU\\Control Panel\\Mouse", "name": "MouseThreshold1", "value": "6", "valueType": "String" },
-          { "type": "registry.set", "path": "HKCU\\Control Panel\\Mouse", "name": "MouseThreshold2", "value": "10", "valueType": "String" }
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Control Panel\\Mouse",
+            "name": "MouseSpeed",
+            "value": "1",
+            "valueType": "String"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Control Panel\\Mouse",
+            "name": "MouseThreshold1",
+            "value": "6",
+            "valueType": "String"
+          },
+          {
+            "type": "registry.set",
+            "path": "HKCU\\Control Panel\\Mouse",
+            "name": "MouseThreshold2",
+            "value": "10",
+            "valueType": "String"
+          }
         ]
       }
     },
@@ -191,7 +456,9 @@
           }
         ]
       },
-      "revert": { "steps": [] }
+      "revert": {
+        "steps": []
+      }
     },
     {
       "id": "timer.custom_resolution_runner",
@@ -203,7 +470,14 @@
       "type": "action",
       "apply": {
         "steps": [
-          { "type": "registry.set", "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Kernel", "name": "GlobalTimerResolutionRequests", "value": 1, "valueType": "DWORD", "continueOnError": true },
+          {
+            "type": "registry.set",
+            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Kernel",
+            "name": "GlobalTimerResolutionRequests",
+            "value": 1,
+            "valueType": "DWORD",
+            "continueOnError": true
+          },
           {
             "type": "ps.run",
             "command": "$base = Join-Path (Get-Location) 'tools\\FalconLibrary'; $timerExe = Join-Path $base 'Timer Resolution\\SetTimerResolution.exe'; $dpcExe = Join-Path $base 'DPC Checker\\dpclat.exe'; if(-not (Test-Path -LiteralPath $timerExe)){ throw \"Missing SetTimerResolution.exe at $timerExe\" }; if(-not (Test-Path -LiteralPath $dpcExe)){ throw \"Missing dpclat.exe at $dpcExe\" }; if(-not (Get-Process -Name dpclat -ErrorAction SilentlyContinue)){ Start-Process -FilePath $dpcExe -WindowStyle Minimized }; $resolution = $env:FalconTimerResolutionUs; if([string]::IsNullOrWhiteSpace($resolution)){ $resolution = '5000' }; if(-not (Get-Process -Name SetTimerResolution -ErrorAction SilentlyContinue)){ Start-Process -FilePath $timerExe -ArgumentList @('--resolution', $resolution, '--no-console') -WindowStyle Hidden }; Start-Sleep -Milliseconds 350; $dp = Get-Process -Name dpclat -ErrorAction SilentlyContinue; $tm = Get-Process -Name SetTimerResolution -ErrorAction SilentlyContinue; if(-not $dp){ throw 'dpclat.exe did not stay running.' }; if(-not $tm){ throw 'SetTimerResolution.exe did not stay running.' }; Write-Output (\"Timer stack running. dpclat PID={0}; SetTimerResolution PID={1}; resolution(us)={2}\" -f $dp.Id, $tm.Id, $resolution)"
@@ -220,9 +494,20 @@
       },
       "revert": {
         "steps": [
-          { "type": "process.kill", "name": "SetTimerResolution" },
-          { "type": "process.kill", "name": "dpclat" },
-          { "type": "registry.remove", "path": "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", "name": "TimerResolution", "continueOnError": true }
+          {
+            "type": "process.kill",
+            "name": "SetTimerResolution"
+          },
+          {
+            "type": "process.kill",
+            "name": "dpclat"
+          },
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run",
+            "name": "TimerResolution",
+            "continueOnError": true
+          }
         ]
       }
     },
@@ -250,7 +535,9 @@
           }
         ]
       },
-      "revert": { "steps": [] }
+      "revert": {
+        "steps": []
+      }
     },
     {
       "id": "timer.custom_resolution_stack.stop",
@@ -262,9 +549,22 @@
       "type": "action",
       "apply": {
         "steps": [
-          { "type": "process.kill", "name": "SetTimerResolution", "continueOnError": true },
-          { "type": "process.kill", "name": "dpclat", "continueOnError": true },
-          { "type": "registry.remove", "path": "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", "name": "TimerResolution", "continueOnError": true }
+          {
+            "type": "process.kill",
+            "name": "SetTimerResolution",
+            "continueOnError": true
+          },
+          {
+            "type": "process.kill",
+            "name": "dpclat",
+            "continueOnError": true
+          },
+          {
+            "type": "registry.remove",
+            "path": "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run",
+            "name": "TimerResolution",
+            "continueOnError": true
+          }
         ]
       },
       "check": {
@@ -275,7 +575,9 @@
           }
         ]
       },
-      "revert": { "steps": [] }
+      "revert": {
+        "steps": []
+      }
     },
     {
       "id": "privacy.oosu10.apply",
@@ -288,9 +590,27 @@
       "warningTitle": "Privacy Hardening Warning",
       "warningBody": "O&O ShutUp10 can disable telemetry and system features. Ensure you understand each setting before applying.",
       "type": "action",
-      "apply": { "steps": [ { "type": "falconlib.run", "toolPath": "tools/FalconLibrary/OOshutup10/OOSU10.exe", "elevation": "admin", "wait": false } ] },
-      "check": { "steps": [ { "type": "cmd.run", "command": "if exist \"tools\\FalconLibrary\\OOshutup10\\OOSU10.exe\" (echo OOSU10 ready) else (exit /b 1)" } ] },
-      "revert": { "steps": [] }
+      "apply": {
+        "steps": [
+          {
+            "type": "falconlib.run",
+            "toolPath": "tools/FalconLibrary/OOshutup10/OOSU10.exe",
+            "elevation": "admin",
+            "wait": false
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "if exist \"tools\\FalconLibrary\\OOshutup10\\OOSU10.exe\" (echo OOSU10 ready) else (exit /b 1)"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
     },
     {
       "id": "gpu.nvidia_profile_inspector.apply",
@@ -300,14 +620,32 @@
       "riskLevel": "Warning",
       "requiresAdmin": false,
       "type": "action",
-      "apply": { "steps": [ { "type": "falconlib.run", "toolPath": "tools/FalconLibrary/Nvidia/Nvidia Profile Inspector/nvidiaProfileInspector.exe", "elevation": "none", "wait": false } ] },
-      "check": { "steps": [ { "type": "ps.run", "command": "$gpu = Get-CimInstance Win32_VideoController -ErrorAction SilentlyContinue | Where-Object { $_.Name -match 'NVIDIA' }; if($gpu){ Write-Output 'NVIDIA GPU detected.' } else { Write-Output 'Not applicable: NVIDIA GPU not detected.' }" } ] },
-      "revert": { "steps": [] }
+      "apply": {
+        "steps": [
+          {
+            "type": "falconlib.run",
+            "toolPath": "tools/FalconLibrary/Nvidia/Nvidia Profile Inspector/nvidiaProfileInspector.exe",
+            "elevation": "none",
+            "wait": false
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$gpu = Get-CimInstance Win32_VideoController -ErrorAction SilentlyContinue | Where-Object { $_.Name -match 'NVIDIA' }; if($gpu){ Write-Output 'NVIDIA GPU detected.' } else { Write-Output 'Not applicable: NVIDIA GPU not detected.' }"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
     },
     {
-      "id": "debloat.edge_remover.apply",
+      "id": "cleanup.edge_remover.apply",
       "name": "Edge Remover",
-      "category": "Debloat / Browsers",
+      "category": "Cleanup / Browsers",
       "description": "Launches Edge Remover setup. Reinstall Edge via Microsoft installer if you need to restore.",
       "riskLevel": "Extreme",
       "requiresAdmin": true,
@@ -315,9 +653,32 @@
       "warningTitle": "Edge Removal Warning",
       "warningBody": "This action can remove Microsoft Edge components. Keep a restoration plan before proceeding.",
       "type": "action",
-      "apply": { "steps": [ { "type": "falconlib.run", "toolPath": "tools/FalconLibrary/Edge Remover/setup.exe", "elevation": "admin", "wait": false } ] },
-      "check": { "steps": [ { "type": "cmd.run", "command": "if exist \"tools\\FalconLibrary\\Edge Remover\\setup.exe\" (echo Edge Remover ready) else (exit /b 1)" } ] },
-      "revert": { "steps": [ { "type": "open.url", "url": "https://www.microsoft.com/edge" } ] }
+      "apply": {
+        "steps": [
+          {
+            "type": "falconlib.run",
+            "toolPath": "tools/FalconLibrary/Edge Remover/setup.exe",
+            "elevation": "admin",
+            "wait": false
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "cmd.run",
+            "command": "if exist \"tools\\FalconLibrary\\Edge Remover\\setup.exe\" (echo Edge Remover ready) else (exit /b 1)"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "open.url",
+            "url": "https://www.microsoft.com/edge"
+          }
+        ]
+      }
     },
     {
       "id": "falcon.timer_resolution.restore",
@@ -327,9 +688,25 @@
       "riskLevel": "Warning",
       "requiresAdmin": true,
       "type": "action",
-      "apply": { "steps": [ { "type": "process.kill", "name": "SetTimerResolution" } ] },
-      "check": { "steps": [ { "type": "ps.run", "command": "$p = Get-Process -Name SetTimerResolution -ErrorAction SilentlyContinue; if($p){ throw 'SetTimerResolution still running' } else { Write-Output 'Timer resolution helper not running.' }" } ] },
-      "revert": { "steps": [] }
+      "apply": {
+        "steps": [
+          {
+            "type": "process.kill",
+            "name": "SetTimerResolution"
+          }
+        ]
+      },
+      "check": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$p = Get-Process -Name SetTimerResolution -ErrorAction SilentlyContinue; if($p){ throw 'SetTimerResolution still running' } else { Write-Output 'Timer resolution helper not running.' }"
+          }
+        ]
+      },
+      "revert": {
+        "steps": []
+      }
     }
   ]
 }

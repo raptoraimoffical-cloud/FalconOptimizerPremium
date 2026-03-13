@@ -387,7 +387,7 @@
           {
             "type": "registry.set",
             "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\GameDVR",
-            "name": "MicrophoneCaptureEnabled",
+            "name": "MicropfalconCaptureEnabled",
             "value": 0,
             "valueType": "DWord"
           },
@@ -3666,7 +3666,7 @@
           {
             "type": "registry.remove",
             "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\GameDVR",
-            "name": "MicrophoneCaptureEnabled"
+            "name": "MicropfalconCaptureEnabled"
           },
           {
             "type": "registry.remove",

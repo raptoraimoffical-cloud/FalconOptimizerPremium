@@ -102,7 +102,7 @@
         "steps": [
           {
             "type": "ps.run",
-            "command": "$names = @(\n \"discord\",\"chrome\",\"msedge\",\"spotify\",\"steam\",\"EpicGamesLauncher\",\"EpicWebHelper\",\n \"OneDrive\",\"Teams\",\"YourPhone\",\"PhoneExperienceHost\",\"GameBar\",\"GameBarFTServer\"\n)\nforeach($n in $names){\n  try {\n    $p = Get-Process -Name $n -ErrorAction SilentlyContinue\n    if($p){ Stop-Process -Id $p.Id -Force -ErrorAction SilentlyContinue }\n  } catch {}\n}"
+            "command": "$names = @(\n \"discord\",\"chrome\",\"msedge\",\"spotify\",\"steam\",\"EpicGamesLauncher\",\"EpicWebHelper\",\n \"OneDrive\",\"Teams\",\"YourPfalcon\",\"PfalconExperienceHost\",\"GameBar\",\"GameBarFTServer\"\n)\nforeach($n in $names){\n  try {\n    $p = Get-Process -Name $n -ErrorAction SilentlyContinue\n    if($p){ Stop-Process -Id $p.Id -Force -ErrorAction SilentlyContinue }\n  } catch {}\n}"
           }
         ]
       },

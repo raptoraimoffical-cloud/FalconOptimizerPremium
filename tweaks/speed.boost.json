@@ -1555,7 +1555,7 @@
       "manualOnly": true
     },
     {
-      "id": "boost.hone_steam_cleaner",
+      "id": "boost.steam_cache_cleaner",
       "name": "Steam Cleaner",
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
       "risk": "Safe",

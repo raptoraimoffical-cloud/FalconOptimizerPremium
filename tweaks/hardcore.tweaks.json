@@ -5910,9 +5910,9 @@
       }
     },
     {
-      "id": "hc_debloat.services_debloat.services.basic",
+      "id": "hc_cleanup.services_cleanup.services.basic",
       "name": "Basic Service Preset",
-      "category": "Hardcore / Debloat / Services",
+      "category": "Hardcore / Cleanup / Services",
       "risk": "Warning",
       "description": "[Focus: FPS, Latency / Input Delay] Disables common telemetry/location services while keeping Windows Update/Defender/Store enabled.",
       "requiresAdmin": true,
@@ -5979,9 +5979,9 @@
       }
     },
     {
-      "id": "hc_debloat.autoruns_debloat.autoruns.edge_autolaunch",
+      "id": "hc_cleanup.autoruns_cleanup.autoruns.edge_autolaunch",
       "name": "Microsoft Edge AutoLaunch",
-      "category": "Hardcore / Debloat / Autoruns",
+      "category": "Hardcore / Cleanup / Autoruns",
       "risk": "Warning",
       "description": "[Focus: FPS, Latency / Input Delay] Disables Microsoft Edge auto-launch/background startup.",
       "requiresAdmin": true,
@@ -6179,7 +6179,7 @@
       "type": "button",
       "name": "Optimize Network Priority",
       "risk": "Warning",
-      "description": "[Focus: Latency / Input Delay, Ping / Network] Optimizes network provider order (Local → Hosts → DNS → NetBT).",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Optimizes network provider order (Local \u2192 Hosts \u2192 DNS \u2192 NetBT).",
       "requiresAdmin": true,
       "apply": {
         "steps": [
@@ -6842,7 +6842,7 @@
       "name": "Kill service: WlanSvc",
       "category": "Hardcore / Services Deep Strip",
       "type": "action",
-      "description": "[Hardcore] Disable and stop WLAN AutoConfig (Wi‑Fi) (WlanSvc) for maximum background trimming. May break related features.",
+      "description": "[Hardcore] Disable and stop WLAN AutoConfig (Wi\u2011Fi) (WlanSvc) for maximum background trimming. May break related features.",
       "riskLevel": "Danger",
       "requiresAdmin": true,
       "apply": {
@@ -8963,18 +8963,18 @@
       }
     },
     {
-      "id": "hc_services_extra_disable_phonesvc",
-      "name": "Kill extra service: PhoneSvc",
+      "id": "hc_services_extra_disable_pfalconsvc",
+      "name": "Kill extra service: PfalconSvc",
       "category": "Hardcore / Services Extra Strip",
       "type": "action",
-      "description": "[Hardcore] Disables Phone Service integration to reduce background or network-related overhead. May break RDP, notifications, or sharing.",
+      "description": "[Hardcore] Disables Pfalcon Service integration to reduce background or network-related overhead. May break RDP, notifications, or sharing.",
       "riskLevel": "Danger",
       "requiresAdmin": true,
       "apply": {
         "steps": [
           {
             "type": "ps.run",
-            "command": "$name = 'PhoneSvc'\nWrite-Output (\"[Hardcore] Disabling additional service: PhoneSvc\")\ntry {\n  $svc = Get-Service -Name $name -ErrorAction SilentlyContinue\n  if ($svc) {\n    if ($svc.Status -eq 'Running') {\n      Stop-Service -Name $name -Force -ErrorAction SilentlyContinue\n    }\n    Set-Service -Name $name -StartupType Disabled -ErrorAction SilentlyContinue\n  } else {\n    Write-Output (\"Service not found: PhoneSvc\")\n  }\n} catch {\n  Write-Output (\"Failed to disable service PhoneSvc: \" + $_.Exception.Message)\n}"
+            "command": "$name = 'PfalconSvc'\nWrite-Output (\"[Hardcore] Disabling additional service: PfalconSvc\")\ntry {\n  $svc = Get-Service -Name $name -ErrorAction SilentlyContinue\n  if ($svc) {\n    if ($svc.Status -eq 'Running') {\n      Stop-Service -Name $name -Force -ErrorAction SilentlyContinue\n    }\n    Set-Service -Name $name -StartupType Disabled -ErrorAction SilentlyContinue\n  } else {\n    Write-Output (\"Service not found: PfalconSvc\")\n  }\n} catch {\n  Write-Output (\"Failed to disable service PfalconSvc: \" + $_.Exception.Message)\n}"
           }
         ]
       },

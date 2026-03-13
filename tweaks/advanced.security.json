@@ -546,7 +546,7 @@
         "steps": [
           {
             "type": "cmd.run",
-            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_rtp_tpr_disable.bat\""
+            "command": "\"%~dp0\\scripts\\imported\\legacy imported\\legacy imported_rtp_tpr_disable.bat\""
           }
         ]
       },
@@ -567,7 +567,7 @@
         "steps": [
           {
             "type": "cmd.run",
-            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_dcontrol_run_check.bat\""
+            "command": "\"%~dp0\\scripts\\imported\\legacy imported\\legacy imported_dcontrol_run_check.bat\""
           }
         ]
       },
@@ -588,7 +588,7 @@
         "steps": [
           {
             "type": "cmd.run",
-            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_system_visual_perferences.bat\""
+            "command": "\"%~dp0\\scripts\\imported\\legacy imported\\legacy imported_system_visual_perferences.bat\""
           }
         ]
       },

@@ -3128,7 +3128,7 @@
         "steps": [
           {
             "type": "cmd.run",
-            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_windows_version_check.bat\""
+            "command": "\"%~dp0\\scripts\\imported\\legacy imported\\legacy imported_windows_version_check.bat\""
           }
         ]
       },
@@ -3149,7 +3149,7 @@
         "steps": [
           {
             "type": "cmd.run",
-            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_global_regkey.bat\""
+            "command": "\"%~dp0\\scripts\\imported\\legacy imported\\legacy imported_global_regkey.bat\""
           }
         ]
       },
@@ -3170,7 +3170,7 @@
         "steps": [
           {
             "type": "cmd.run",
-            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_win_server_check.bat\""
+            "command": "\"%~dp0\\scripts\\imported\\legacy imported\\legacy imported_win_server_check.bat\""
           }
         ]
       },
@@ -3191,7 +3191,7 @@
         "steps": [
           {
             "type": "cmd.run",
-            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_autorun_oneclick.bat\""
+            "command": "\"%~dp0\\scripts\\imported\\legacy imported\\legacy imported_autorun_legacy imported.bat\""
           }
         ]
       },
@@ -3212,7 +3212,7 @@
         "steps": [
           {
             "type": "cmd.run",
-            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_priority_separation.bat\""
+            "command": "\"%~dp0\\scripts\\imported\\legacy imported\\legacy imported_priority_separation.bat\""
           }
         ]
       },
@@ -3233,7 +3233,7 @@
         "steps": [
           {
             "type": "cmd.run",
-            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_custom_priority_separation.bat\""
+            "command": "\"%~dp0\\scripts\\imported\\legacy imported\\legacy imported_custom_priority_separation.bat\""
           }
         ]
       },
@@ -3254,7 +3254,7 @@
         "steps": [
           {
             "type": "cmd.run",
-            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_dpc_checker.bat\""
+            "command": "\"%~dp0\\scripts\\imported\\legacy imported\\legacy imported_dpc_checker.bat\""
           }
         ]
       },
@@ -3275,7 +3275,7 @@
         "steps": [
           {
             "type": "cmd.run",
-            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_timer_res_11.bat\""
+            "command": "\"%~dp0\\scripts\\imported\\legacy imported\\legacy imported_timer_res_11.bat\""
           }
         ]
       },
@@ -3296,7 +3296,7 @@
         "steps": [
           {
             "type": "cmd.run",
-            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_custom_timer_resolution.bat\""
+            "command": "\"%~dp0\\scripts\\imported\\legacy imported\\legacy imported_custom_timer_resolution.bat\""
           }
         ]
       },

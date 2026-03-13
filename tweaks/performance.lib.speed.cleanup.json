@@ -141,9 +141,9 @@
       }
     },
     {
-      "id": "debloat.autoruns.opera_gx_assistant__performance.lib.speed.cleanup",
+      "id": "cleanup.autoruns.opera_gx_assistant__performance.lib.speed.cleanup",
       "name": "Opera GX Browser Assistant",
-      "category": "Debloat / Autoruns",
+      "category": "Cleanup / Autoruns",
       "risk": "Safe",
       "description": "[Focus: FPS, Latency / Input Delay] Attempts to disable Opera GX assistant startup entry for the current user.",
       "requiresAdmin": true,
@@ -199,7 +199,7 @@
     {
       "id": "clean.device_cleanup__performance.lib.speed.cleanup",
       "name": "Device Cleanup",
-      "category": "Debloat / System Cleaner",
+      "category": "Cleanup / System Cleaner",
       "risk": "Safe",
       "description": "[Focus: FPS, Latency / Input Delay] Cleans selected temporary/cache files.",
       "requiresAdmin": true,
@@ -230,7 +230,7 @@
     {
       "id": "clean.general_cleanup__performance.lib.speed.cleanup",
       "name": "General Cleanup",
-      "category": "Debloat / System Cleaner",
+      "category": "Cleanup / System Cleaner",
       "risk": "Safe",
       "description": "[Focus: FPS, Latency / Input Delay] Cleans selected temporary/cache files.",
       "requiresAdmin": true,
@@ -261,7 +261,7 @@
     {
       "id": "clean.logs_&_crash_reports__performance.lib.speed.cleanup",
       "name": "Logs & Crash Reports",
-      "category": "Debloat / System Cleaner",
+      "category": "Cleanup / System Cleaner",
       "risk": "Safe",
       "description": "[Focus: FPS, Latency / Input Delay] Cleans selected temporary/cache files.",
       "requiresAdmin": true,
@@ -615,7 +615,7 @@
     },
     {
       "id": "exp_svc_fontcache__performance.lib.speed.cleanup",
-      "name": "Set service startup: FontCache → Disabled",
+      "name": "Set service startup: FontCache \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -2332,7 +2332,7 @@
     {
       "id": "stretch_valorant_1280x960__performance.lib.speed.cleanup",
       "name": "TenZ-style stretch (Valorant 1280x960)",
-      "category": "Stretch Resolution Lab / Valorant – Quick Presets",
+      "category": "Stretch Resolution Lab / Valorant \u2013 Quick Presets",
       "type": "action",
       "description": "[Focus: FPS] Attempts to apply a 1280x960 stretched-style resolution to Valorant's GameUserSettings-style configs. You should keep the game closed while this runs.",
       "riskLevel": "Warning",
@@ -2983,7 +2983,7 @@
       "name": "Kill service: WlanSvc",
       "category": "Hardcore / Services Deep Strip",
       "type": "action",
-      "description": "[Hardcore] Disable and stop WLAN AutoConfig (Wi‑Fi) (WlanSvc) for maximum background trimming. May break related features.",
+      "description": "[Hardcore] Disable and stop WLAN AutoConfig (Wi\u2011Fi) (WlanSvc) for maximum background trimming. May break related features.",
       "riskLevel": "Danger",
       "requiresAdmin": true,
       "apply": {

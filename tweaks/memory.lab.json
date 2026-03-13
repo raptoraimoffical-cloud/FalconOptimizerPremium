@@ -1381,10 +1381,10 @@
       }
     },
     {
-      "id": "mem_kill_phoneexperiencehost",
+      "id": "mem_kill_pfalconexperiencehost",
       "type": "button",
-      "name": "Apply: Close PhoneExperienceHost (if running)",
-      "description": "Closes PhoneExperienceHost if running to free RAM before gaming.",
+      "name": "Apply: Close PfalconExperienceHost (if running)",
+      "description": "Closes PfalconExperienceHost if running to free RAM before gaming.",
       "requiresAdmin": true,
       "riskLevel": "Warning",
       "category": "Memory Lab / Background Kill",
@@ -1392,7 +1392,7 @@
         "steps": [
           {
             "type": "process.kill",
-            "name": "PhoneExperienceHost"
+            "name": "PfalconExperienceHost"
           }
         ]
       },
@@ -1400,33 +1400,33 @@
         "steps": [
           {
             "type": "ps.run",
-            "command": "Write-Output \"PhoneExperienceHost was closed. Re-open manually if needed.\""
+            "command": "Write-Output \"PfalconExperienceHost was closed. Re-open manually if needed.\""
           }
         ]
       }
     },
     {
-      "description": "Closes PhoneExperienceHost if running to free RAM before gaming.",
+      "description": "Closes PfalconExperienceHost if running to free RAM before gaming.",
       "requiresAdmin": true,
       "riskLevel": "Warning",
       "category": "Memory Lab / Background Kill",
-      "id": "mem_kill_phoneexperiencehost__revert",
+      "id": "mem_kill_pfalconexperiencehost__revert",
       "type": "button",
-      "name": "Revert: Close PhoneExperienceHost (if running)",
+      "name": "Revert: Close PfalconExperienceHost (if running)",
       "apply": {
         "steps": [
           {
             "type": "ps.run",
-            "command": "Write-Output \"PhoneExperienceHost was closed. Re-open manually if needed.\""
+            "command": "Write-Output \"PfalconExperienceHost was closed. Re-open manually if needed.\""
           }
         ]
       }
     },
     {
-      "id": "mem_kill_yourphone",
+      "id": "mem_kill_yourpfalcon",
       "type": "button",
-      "name": "Apply: Close YourPhone (if running)",
-      "description": "Closes YourPhone if running to free RAM before gaming.",
+      "name": "Apply: Close YourPfalcon (if running)",
+      "description": "Closes YourPfalcon if running to free RAM before gaming.",
       "requiresAdmin": true,
       "riskLevel": "Warning",
       "category": "Memory Lab / Background Kill",
@@ -1434,7 +1434,7 @@
         "steps": [
           {
             "type": "process.kill",
-            "name": "YourPhone"
+            "name": "YourPfalcon"
           }
         ]
       },
@@ -1442,24 +1442,24 @@
         "steps": [
           {
             "type": "ps.run",
-            "command": "Write-Output \"YourPhone was closed. Re-open manually if needed.\""
+            "command": "Write-Output \"YourPfalcon was closed. Re-open manually if needed.\""
           }
         ]
       }
     },
     {
-      "description": "Closes YourPhone if running to free RAM before gaming.",
+      "description": "Closes YourPfalcon if running to free RAM before gaming.",
       "requiresAdmin": true,
       "riskLevel": "Warning",
       "category": "Memory Lab / Background Kill",
-      "id": "mem_kill_yourphone__revert",
+      "id": "mem_kill_yourpfalcon__revert",
       "type": "button",
-      "name": "Revert: Close YourPhone (if running)",
+      "name": "Revert: Close YourPfalcon (if running)",
       "apply": {
         "steps": [
           {
             "type": "ps.run",
-            "command": "Write-Output \"YourPhone was closed. Re-open manually if needed.\""
+            "command": "Write-Output \"YourPfalcon was closed. Re-open manually if needed.\""
           }
         ]
       }

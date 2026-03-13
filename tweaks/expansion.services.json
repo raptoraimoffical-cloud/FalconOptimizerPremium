@@ -2,7 +2,7 @@
   "items": [
     {
       "id": "exp_svc_wmpnetworksvc",
-      "name": "Set service startup: WMPNetworkSvc → Disabled",
+      "name": "Set service startup: WMPNetworkSvc \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay, Ping / Network] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -38,7 +38,7 @@
     },
     {
       "id": "exp_svc_wercplsupport",
-      "name": "Set service startup: wercplsupport → Disabled",
+      "name": "Set service startup: wercplsupport \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -74,7 +74,7 @@
     },
     {
       "id": "exp_svc_bcastdvruserservice",
-      "name": "Set service startup: BcastDVRUserService → Disabled",
+      "name": "Set service startup: BcastDVRUserService \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -110,7 +110,7 @@
     },
     {
       "id": "exp_svc_gamingservices",
-      "name": "Set service startup: GamingServices → Disabled",
+      "name": "Set service startup: GamingServices \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -146,7 +146,7 @@
     },
     {
       "id": "exp_svc_gamingservicesnet",
-      "name": "Set service startup: GamingServicesNet → Disabled",
+      "name": "Set service startup: GamingServicesNet \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -182,7 +182,7 @@
     },
     {
       "id": "exp_svc_onesyncsvc",
-      "name": "Set service startup: OneSyncSvc → Disabled",
+      "name": "Set service startup: OneSyncSvc \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -218,7 +218,7 @@
     },
     {
       "id": "exp_svc_unistoresvc",
-      "name": "Set service startup: UnistoreSvc → Disabled",
+      "name": "Set service startup: UnistoreSvc \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -254,7 +254,7 @@
     },
     {
       "id": "exp_svc_userdatasvc",
-      "name": "Set service startup: UserDataSvc → Disabled",
+      "name": "Set service startup: UserDataSvc \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -290,7 +290,7 @@
     },
     {
       "id": "exp_svc_messagingservice",
-      "name": "Set service startup: MessagingService → Disabled",
+      "name": "Set service startup: MessagingService \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -326,7 +326,7 @@
     },
     {
       "id": "exp_svc_pimindexmaintenancesvc",
-      "name": "Set service startup: PimIndexMaintenanceSvc → Disabled",
+      "name": "Set service startup: PimIndexMaintenanceSvc \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -362,7 +362,7 @@
     },
     {
       "id": "exp_svc_printnotify",
-      "name": "Set service startup: PrintNotify → Disabled",
+      "name": "Set service startup: PrintNotify \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -398,7 +398,7 @@
     },
     {
       "id": "exp_svc_fax",
-      "name": "Set service startup: Fax → Manual",
+      "name": "Set service startup: Fax \u2192 Manual",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -433,8 +433,8 @@
       }
     },
     {
-      "id": "exp_svc_phonesvc",
-      "name": "Set service startup: PhoneSvc → Disabled",
+      "id": "exp_svc_pfalconsvc",
+      "name": "Set service startup: PfalconSvc \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -444,7 +444,7 @@
         "steps": [
           {
             "type": "service.startup",
-            "name": "PhoneSvc",
+            "name": "PfalconSvc",
             "startType": "Disabled"
           }
         ]
@@ -453,7 +453,7 @@
         "steps": [
           {
             "type": "service.startup",
-            "name": "PhoneSvc",
+            "name": "PfalconSvc",
             "startType": "Automatic"
           }
         ]
@@ -470,7 +470,7 @@
     },
     {
       "id": "exp_svc_remoteregistry",
-      "name": "Set service startup: RemoteRegistry → Disabled",
+      "name": "Set service startup: RemoteRegistry \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -506,7 +506,7 @@
     },
     {
       "id": "exp_svc_remoteaccess",
-      "name": "Set service startup: RemoteAccess → Disabled",
+      "name": "Set service startup: RemoteAccess \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -542,7 +542,7 @@
     },
     {
       "id": "exp_svc_seclogon",
-      "name": "Set service startup: seclogon → Disabled",
+      "name": "Set service startup: seclogon \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -578,7 +578,7 @@
     },
     {
       "id": "exp_svc_iphlpsvc",
-      "name": "Set service startup: iphlpsvc → Manual",
+      "name": "Set service startup: iphlpsvc \u2192 Manual",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -614,7 +614,7 @@
     },
     {
       "id": "exp_svc_btagservice",
-      "name": "Set service startup: BTAGService → Manual",
+      "name": "Set service startup: BTAGService \u2192 Manual",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -650,7 +650,7 @@
     },
     {
       "id": "exp_svc_bthavctpsvc",
-      "name": "Set service startup: BthAvctpSvc → Disabled",
+      "name": "Set service startup: BthAvctpSvc \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -686,7 +686,7 @@
     },
     {
       "id": "exp_svc_wbiosrvc",
-      "name": "Set service startup: WbioSrvc → Disabled",
+      "name": "Set service startup: WbioSrvc \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -722,7 +722,7 @@
     },
     {
       "id": "exp_svc_walletservice",
-      "name": "Set service startup: WalletService → Disabled",
+      "name": "Set service startup: WalletService \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -758,7 +758,7 @@
     },
     {
       "id": "exp_svc_wisvc",
-      "name": "Set service startup: wisvc → Disabled",
+      "name": "Set service startup: wisvc \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -794,7 +794,7 @@
     },
     {
       "id": "exp_svc_wpnservice",
-      "name": "Set service startup: WpnService → Disabled",
+      "name": "Set service startup: WpnService \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -830,7 +830,7 @@
     },
     {
       "id": "exp_svc_wpnuserservice",
-      "name": "Set service startup: WpnUserService → Disabled",
+      "name": "Set service startup: WpnUserService \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -866,7 +866,7 @@
     },
     {
       "id": "exp_svc_pushtoinstall",
-      "name": "Set service startup: PushToInstall → Disabled",
+      "name": "Set service startup: PushToInstall \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -902,7 +902,7 @@
     },
     {
       "id": "exp_svc_waasmedicsvc",
-      "name": "Set service startup: WaaSMedicSvc → Disabled",
+      "name": "Set service startup: WaaSMedicSvc \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -938,7 +938,7 @@
     },
     {
       "id": "exp_svc_bits",
-      "name": "Set service startup: BITS → Disabled",
+      "name": "Set service startup: BITS \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -974,7 +974,7 @@
     },
     {
       "id": "exp_svc_cryptsvc",
-      "name": "Set service startup: CryptSvc → Disabled",
+      "name": "Set service startup: CryptSvc \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -1010,7 +1010,7 @@
     },
     {
       "id": "exp_svc_appxsvc",
-      "name": "Set service startup: AppXSvc → Disabled",
+      "name": "Set service startup: AppXSvc \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -1046,7 +1046,7 @@
     },
     {
       "id": "exp_svc_cdpsvc",
-      "name": "Set service startup: CDPSvc → Disabled",
+      "name": "Set service startup: CDPSvc \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -1082,7 +1082,7 @@
     },
     {
       "id": "exp_svc_cdpusersvc",
-      "name": "Set service startup: CDPUserSvc → Disabled",
+      "name": "Set service startup: CDPUserSvc \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -1118,7 +1118,7 @@
     },
     {
       "id": "exp_svc_dusmsvc",
-      "name": "Set service startup: DusmSvc → Disabled",
+      "name": "Set service startup: DusmSvc \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -1154,7 +1154,7 @@
     },
     {
       "id": "exp_svc_nlasvc",
-      "name": "Set service startup: NlaSvc → Manual",
+      "name": "Set service startup: NlaSvc \u2192 Manual",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -1190,7 +1190,7 @@
     },
     {
       "id": "exp_svc_trkwks",
-      "name": "Set service startup: TrkWks → Disabled",
+      "name": "Set service startup: TrkWks \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -1226,7 +1226,7 @@
     },
     {
       "id": "exp_svc_ssdpsrv",
-      "name": "Set service startup: SSDPSRV → Disabled",
+      "name": "Set service startup: SSDPSRV \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -1262,7 +1262,7 @@
     },
     {
       "id": "exp_svc_upnphost",
-      "name": "Set service startup: upnphost → Disabled",
+      "name": "Set service startup: upnphost \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -1298,7 +1298,7 @@
     },
     {
       "id": "exp_svc_rmsvc",
-      "name": "Set service startup: RmSvc → Disabled",
+      "name": "Set service startup: RmSvc \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -1334,7 +1334,7 @@
     },
     {
       "id": "exp_svc_lmhosts",
-      "name": "Set service startup: lmhosts → Disabled",
+      "name": "Set service startup: lmhosts \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -1370,7 +1370,7 @@
     },
     {
       "id": "exp_svc_lanmanworkstation",
-      "name": "Set service startup: LanmanWorkstation → Manual",
+      "name": "Set service startup: LanmanWorkstation \u2192 Manual",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -1406,7 +1406,7 @@
     },
     {
       "id": "exp_svc_lanmanserver",
-      "name": "Set service startup: LanmanServer → Manual",
+      "name": "Set service startup: LanmanServer \u2192 Manual",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -1442,7 +1442,7 @@
     },
     {
       "id": "exp_svc_sharedaccess",
-      "name": "Set service startup: SharedAccess → Disabled",
+      "name": "Set service startup: SharedAccess \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -1478,7 +1478,7 @@
     },
     {
       "id": "exp_svc_ikeext",
-      "name": "Set service startup: IKEEXT → Disabled",
+      "name": "Set service startup: IKEEXT \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -1514,7 +1514,7 @@
     },
     {
       "id": "exp_svc_policyagent",
-      "name": "Set service startup: PolicyAgent → Disabled",
+      "name": "Set service startup: PolicyAgent \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -1550,7 +1550,7 @@
     },
     {
       "id": "exp_svc_w32time",
-      "name": "Set service startup: W32Time → Manual",
+      "name": "Set service startup: W32Time \u2192 Manual",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -1586,7 +1586,7 @@
     },
     {
       "id": "exp_svc_fontcache",
-      "name": "Set service startup: FontCache → Disabled",
+      "name": "Set service startup: FontCache \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -1622,7 +1622,7 @@
     },
     {
       "id": "exp_svc_stisvc",
-      "name": "Set service startup: stisvc → Disabled",
+      "name": "Set service startup: stisvc \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -1658,7 +1658,7 @@
     },
     {
       "id": "exp_svc_frameserver",
-      "name": "Set service startup: FrameServer → Disabled",
+      "name": "Set service startup: FrameServer \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -1694,7 +1694,7 @@
     },
     {
       "id": "exp_svc_scdeviceenum",
-      "name": "Set service startup: ScDeviceEnum → Disabled",
+      "name": "Set service startup: ScDeviceEnum \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -1730,7 +1730,7 @@
     },
     {
       "id": "exp_svc_scardsvr",
-      "name": "Set service startup: SCardSvr → Disabled",
+      "name": "Set service startup: SCardSvr \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -1766,7 +1766,7 @@
     },
     {
       "id": "exp_svc_wiarpc",
-      "name": "Set service startup: WiaRpc → Disabled",
+      "name": "Set service startup: WiaRpc \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -1802,7 +1802,7 @@
     },
     {
       "id": "exp_svc_diagsvc",
-      "name": "Set service startup: DiagSvc → Disabled",
+      "name": "Set service startup: DiagSvc \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -1838,7 +1838,7 @@
     },
     {
       "id": "exp_svc_dps",
-      "name": "Set service startup: DPS → Disabled",
+      "name": "Set service startup: DPS \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -1874,7 +1874,7 @@
     },
     {
       "id": "exp_svc_wdiservicehost",
-      "name": "Set service startup: WdiServiceHost → Disabled",
+      "name": "Set service startup: WdiServiceHost \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -1910,7 +1910,7 @@
     },
     {
       "id": "exp_svc_wdisystemhost",
-      "name": "Set service startup: WdiSystemHost → Disabled",
+      "name": "Set service startup: WdiSystemHost \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -1946,7 +1946,7 @@
     },
     {
       "id": "exp_svc_pcasvc",
-      "name": "Set service startup: PcaSvc → Disabled",
+      "name": "Set service startup: PcaSvc \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -1982,7 +1982,7 @@
     },
     {
       "id": "exp_svc_pcasvc2",
-      "name": "Set service startup: PcaSvc2 → Disabled",
+      "name": "Set service startup: PcaSvc2 \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -2018,7 +2018,7 @@
     },
     {
       "id": "exp_svc_gupdate",
-      "name": "Set service startup: gupdate → Disabled",
+      "name": "Set service startup: gupdate \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -2054,7 +2054,7 @@
     },
     {
       "id": "exp_svc_gupdatem",
-      "name": "Set service startup: gupdatem → Disabled",
+      "name": "Set service startup: gupdatem \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -2090,7 +2090,7 @@
     },
     {
       "id": "exp_svc_googlechromeelevationservice",
-      "name": "Set service startup: GoogleChromeElevationService → Disabled",
+      "name": "Set service startup: GoogleChromeElevationService \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -2126,7 +2126,7 @@
     },
     {
       "id": "exp_svc_steamclientservice",
-      "name": "Set service startup: SteamClientService → Disabled",
+      "name": "Set service startup: SteamClientService \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -2162,7 +2162,7 @@
     },
     {
       "id": "exp_svc_epiconlineservices",
-      "name": "Set service startup: EpicOnlineServices → Disabled",
+      "name": "Set service startup: EpicOnlineServices \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -2198,7 +2198,7 @@
     },
     {
       "id": "exp_svc_eosservice",
-      "name": "Set service startup: EosService → Disabled",
+      "name": "Set service startup: EosService \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -2234,7 +2234,7 @@
     },
     {
       "id": "exp_svc_nvtelemetrycontainer",
-      "name": "Set service startup: NvTelemetryContainer → Disabled",
+      "name": "Set service startup: NvTelemetryContainer \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -2270,7 +2270,7 @@
     },
     {
       "id": "exp_svc_nvcontainerlocalsystem",
-      "name": "Set service startup: NvContainerLocalSystem → Disabled",
+      "name": "Set service startup: NvContainerLocalSystem \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -2306,7 +2306,7 @@
     },
     {
       "id": "exp_svc_nvidia_display_container_ls",
-      "name": "Set service startup: NVIDIA Display Container LS → Disabled",
+      "name": "Set service startup: NVIDIA Display Container LS \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -2342,7 +2342,7 @@
     },
     {
       "id": "exp_svc_ajrouter",
-      "name": "Set service startup: AJRouter → Disabled",
+      "name": "Set service startup: AJRouter \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -2378,7 +2378,7 @@
     },
     {
       "id": "exp_svc_assignedaccessmanagersvc",
-      "name": "Set service startup: AssignedAccessManagerSvc → Disabled",
+      "name": "Set service startup: AssignedAccessManagerSvc \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -2414,7 +2414,7 @@
     },
     {
       "id": "exp_svc_bthhfsrv",
-      "name": "Set service startup: BthHFSrv → Disabled",
+      "name": "Set service startup: BthHFSrv \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -2450,7 +2450,7 @@
     },
     {
       "id": "exp_svc_captureservice",
-      "name": "Set service startup: CaptureService → Disabled",
+      "name": "Set service startup: CaptureService \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -2486,7 +2486,7 @@
     },
     {
       "id": "exp_svc_cbdhsvc",
-      "name": "Set service startup: cbdhsvc → Disabled",
+      "name": "Set service startup: cbdhsvc \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -2522,7 +2522,7 @@
     },
     {
       "id": "exp_svc_cscservice",
-      "name": "Set service startup: CscService → Disabled",
+      "name": "Set service startup: CscService \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -2558,7 +2558,7 @@
     },
     {
       "id": "exp_svc_entappsvc",
-      "name": "Set service startup: EntAppSvc → Disabled",
+      "name": "Set service startup: EntAppSvc \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -2594,7 +2594,7 @@
     },
     {
       "id": "exp_svc_graphicsperfsvc",
-      "name": "Set service startup: GraphicsPerfSvc → Disabled",
+      "name": "Set service startup: GraphicsPerfSvc \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -2630,7 +2630,7 @@
     },
     {
       "id": "exp_svc_homegrouplistener",
-      "name": "Set service startup: HomeGroupListener → Disabled",
+      "name": "Set service startup: HomeGroupListener \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -2666,7 +2666,7 @@
     },
     {
       "id": "exp_svc_homegroupprovider",
-      "name": "Set service startup: HomeGroupProvider → Disabled",
+      "name": "Set service startup: HomeGroupProvider \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -2702,7 +2702,7 @@
     },
     {
       "id": "exp_svc_hvhost",
-      "name": "Set service startup: HvHost → Disabled",
+      "name": "Set service startup: HvHost \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -2738,7 +2738,7 @@
     },
     {
       "id": "exp_svc_icssvc",
-      "name": "Set service startup: icssvc → Disabled",
+      "name": "Set service startup: icssvc \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -2774,7 +2774,7 @@
     },
     {
       "id": "exp_svc_lltdsvc",
-      "name": "Set service startup: lltdsvc → Disabled",
+      "name": "Set service startup: lltdsvc \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -2810,7 +2810,7 @@
     },
     {
       "id": "exp_svc_nettcpportsharing",
-      "name": "Set service startup: NetTcpPortSharing → Disabled",
+      "name": "Set service startup: NetTcpPortSharing \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -2846,7 +2846,7 @@
     },
     {
       "id": "exp_svc_p9rdrservice",
-      "name": "Set service startup: P9RdrService → Disabled",
+      "name": "Set service startup: P9RdrService \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -2882,7 +2882,7 @@
     },
     {
       "id": "exp_svc_peerdistsvc",
-      "name": "Set service startup: PeerDistSvc → Disabled",
+      "name": "Set service startup: PeerDistSvc \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -2918,7 +2918,7 @@
     },
     {
       "id": "exp_svc_perfhost",
-      "name": "Set service startup: PerfHost → Disabled",
+      "name": "Set service startup: PerfHost \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -2954,7 +2954,7 @@
     },
     {
       "id": "exp_svc_qwave",
-      "name": "Set service startup: QWAVE → Disabled",
+      "name": "Set service startup: QWAVE \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -2990,7 +2990,7 @@
     },
     {
       "id": "exp_svc_rasauto",
-      "name": "Set service startup: RasAuto → Disabled",
+      "name": "Set service startup: RasAuto \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -3026,7 +3026,7 @@
     },
     {
       "id": "exp_svc_rasman",
-      "name": "Set service startup: RasMan → Disabled",
+      "name": "Set service startup: RasMan \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -3062,7 +3062,7 @@
     },
     {
       "id": "exp_svc_retaildemo",
-      "name": "Set service startup: RetailDemo → Disabled",
+      "name": "Set service startup: RetailDemo \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -3098,7 +3098,7 @@
     },
     {
       "id": "exp_svc_sens",
-      "name": "Set service startup: SENS → Disabled",
+      "name": "Set service startup: SENS \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -3134,7 +3134,7 @@
     },
     {
       "id": "exp_svc_sensordataservice",
-      "name": "Set service startup: SensorDataService → Disabled",
+      "name": "Set service startup: SensorDataService \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -3170,7 +3170,7 @@
     },
     {
       "id": "exp_svc_sensorservice",
-      "name": "Set service startup: SensorService → Disabled",
+      "name": "Set service startup: SensorService \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -3206,7 +3206,7 @@
     },
     {
       "id": "exp_svc_sensrsvc",
-      "name": "Set service startup: SensrSvc → Disabled",
+      "name": "Set service startup: SensrSvc \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -3242,7 +3242,7 @@
     },
     {
       "id": "exp_svc_sharedrealitysvc",
-      "name": "Set service startup: SharedRealitySvc → Disabled",
+      "name": "Set service startup: SharedRealitySvc \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -3278,7 +3278,7 @@
     },
     {
       "id": "exp_svc_shellhwdetection",
-      "name": "Set service startup: ShellHWDetection → Manual",
+      "name": "Set service startup: ShellHWDetection \u2192 Manual",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -3314,7 +3314,7 @@
     },
     {
       "id": "exp_svc_smsrouter",
-      "name": "Set service startup: SmsRouter → Disabled",
+      "name": "Set service startup: SmsRouter \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -3350,7 +3350,7 @@
     },
     {
       "id": "exp_svc_snmptrap",
-      "name": "Set service startup: SNMPTRAP → Disabled",
+      "name": "Set service startup: SNMPTRAP \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -3386,7 +3386,7 @@
     },
     {
       "id": "exp_svc_tzautoupdate",
-      "name": "Set service startup: tzautoupdate → Disabled",
+      "name": "Set service startup: tzautoupdate \u2192 Disabled",
       "category": "Expansion / Services",
       "type": "toggle",
       "description": "[Focus: FPS, Latency / Input Delay] Sets service StartupType. If service is missing, it will be skipped safely. Revert sets Automatic.",
@@ -3433,7 +3433,7 @@
         "steps": [
           {
             "type": "cmd.run",
-            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_trustedinstaller_check.bat\""
+            "command": "\"%~dp0\\scripts\\imported\\legacy imported\\legacy imported_trustedinstaller_check.bat\""
           }
         ]
       },
@@ -3454,7 +3454,7 @@
         "steps": [
           {
             "type": "cmd.run",
-            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_setup_restore_point.bat\""
+            "command": "\"%~dp0\\scripts\\imported\\legacy imported\\legacy imported_setup_restore_point.bat\""
           }
         ]
       },
@@ -3475,7 +3475,7 @@
         "steps": [
           {
             "type": "cmd.run",
-            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_replace_basebrd.bat\""
+            "command": "\"%~dp0\\scripts\\imported\\legacy imported\\legacy imported_replace_basebrd.bat\""
           }
         ]
       },
@@ -3496,7 +3496,7 @@
         "steps": [
           {
             "type": "cmd.run",
-            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_fixers.bat\""
+            "command": "\"%~dp0\\scripts\\imported\\legacy imported\\legacy imported_fixers.bat\""
           }
         ]
       },
@@ -3517,7 +3517,7 @@
         "steps": [
           {
             "type": "cmd.run",
-            "command": "\"%~dp0\\scripts\\imported\\oneclick\\oneclick_restart.bat\""
+            "command": "\"%~dp0\\scripts\\imported\\legacy imported\\legacy imported_restart.bat\""
           }
         ]
       },
