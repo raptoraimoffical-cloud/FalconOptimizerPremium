@@ -16,6 +16,7 @@ function Ensure-Dir([string]$path) { if ($path -and -not (Test-Path -LiteralPath
 function Save-Json([string]$path, $obj) { $d = Split-Path -Parent $path; if ($d) { Ensure-Dir $d }; $obj | ConvertTo-Json -Depth 16 | Set-Content -LiteralPath $path -Encoding UTF8 }
 function Load-Json([string]$path) { if (-not (Test-Path -LiteralPath $path)) { return $null }; Get-Content -LiteralPath $path -Raw | ConvertFrom-Json }
 function Test-Cmd([string]$name) { return [bool](Get-Command $name -ErrorAction SilentlyContinue) }
+function Test-RealPowercfgItem($item) { return [bool]($item -and $item.subgroupGuid -and $item.settingGuid) }
 
 function Import-MasterScopeNames {
   $file = 'data/power/master_scope_names.json'
@@ -118,6 +119,7 @@ function Invoke-ItemApply($item, $targetValue) {
   try {
     switch ($item.sourceType) {
       'powercfg' {
+        if (-not (Test-RealPowercfgItem $item)) { $r.details='powercfg item missing subgroupGuid/settingGuid mapping'; break }
         if (-not (Test-Cmd 'powercfg')) { $r.details='powercfg unavailable'; break }
         powercfg -setacvalueindex SCHEME_CURRENT $item.subgroupGuid $item.settingGuid $targetValue | Out-Null
         powercfg -setdcvalueindex SCHEME_CURRENT $item.subgroupGuid $item.settingGuid $targetValue | Out-Null
@@ -175,6 +177,7 @@ function Invoke-ItemApply($item, $targetValue) {
         $r.verify=$true; $r.status='applied'; $r.details="updatedTargets=$changed"
       }
       'firmware_candidate' { $r.status='unsupported'; $r.details='Recommendation-only' }
+      'powercfg_unmapped' { $r.status='unsupported'; $r.details='No GUID mapping yet; cannot apply' }
       default { $r.details='Unknown source type' }
     }
   } catch { $r.status='failed'; $r.details=$_.Exception.Message }
@@ -185,13 +188,18 @@ function Invoke-ItemVerify($item) {
   $e = [ordered]@{ id=$item.id; title=$item.title; sourceType=$item.sourceType; readable=$true; supported=$true; state='verified'; details='' }
   try {
     switch ($item.sourceType) {
-      'powercfg' { if (-not (Test-Cmd 'powercfg')) { $e.supported=$false; $e.state='unsupported'; $e.details='powercfg unavailable' } else { $e.details = (powercfg /query SCHEME_CURRENT $item.subgroupGuid $item.settingGuid | Out-String) } }
+      'powercfg' {
+        if (-not (Test-RealPowercfgItem $item)) { $e.supported=$false; $e.state='unsupported'; $e.details='powercfg item missing subgroupGuid/settingGuid mapping' }
+        elseif (-not (Test-Cmd 'powercfg')) { $e.supported=$false; $e.state='unsupported'; $e.details='powercfg unavailable' }
+        else { $e.details = (powercfg /query SCHEME_CURRENT $item.subgroupGuid $item.settingGuid | Out-String) }
+      }
       'nic_advanced' { if (-not (Test-Cmd 'Get-NetAdapter')) { $e.supported=$false; $e.state='unsupported'; $e.details='NetAdapter cmdlets unavailable' } else { $present = $false; foreach ($nic in (Get-NetAdapter -Physical -ErrorAction SilentlyContinue)) { if (Get-NetAdapterAdvancedProperty -Name $nic.Name -ErrorAction SilentlyContinue | Where-Object { $_.DisplayName -eq $item.propertyName }) { $present = $true } }; if (-not $present) { $e.supported=$false; $e.state='unsupported'; $e.details='property missing on adapters' } else { $e.details='advanced property readable' } } }
       'registry_power' { if (-not (Test-Path -LiteralPath $item.registryPath)) { $e.supported=$false; $e.state='unsupported'; $e.details='registry path missing' } else { $v=(Get-ItemProperty -Path $item.registryPath -Name $item.registryValueName -ErrorAction SilentlyContinue).$($item.registryValueName); $e.details="value=$v" } }
       'device_power_flag' { $paths = Find-DeviceRegistryPaths $item.title; if ($paths.Count -eq 0) { $e.supported=$false; $e.state='unsupported'; $e.details='device class not found' } else { $vals=@(); foreach ($p in $paths) { $val=(Get-ItemProperty -Path $p -Name 'PnPCapabilities' -ErrorAction SilentlyContinue).PnPCapabilities; if ($null -ne $val) { $vals+="$p=$val" } }; if ($vals.Count -eq 0) { $e.supported=$false; $e.state='unsupported'; $e.details='power flag value not present' } else { $e.details=($vals -join '; ') } } }
       'storage_feature' { $targets = Get-StorageTargets $item.title; if ($targets.Count -eq 0) { $e.supported=$false; $e.state='unsupported'; $e.details='storage mapping unavailable' } else { $vals=@(); foreach ($t in $targets) { if (Test-Path -LiteralPath $t.path) { $vals += "$($t.path)::$($t.name)=" + ((Get-ItemProperty -Path $t.path -Name $t.name -ErrorAction SilentlyContinue).$($t.name)) } }; if ($vals.Count -eq 0) { $e.supported=$false; $e.state='unsupported'; $e.details='storage values unavailable' } else { $e.details=($vals -join '; ') } } }
       'gpu_feature' { $targets = Get-GpuTargets $item.title; if ($targets.Count -eq 0) { $e.supported=$false; $e.state='unsupported'; $e.details='gpu mapping unavailable' } else { $details=@(); foreach($t in $targets){ if(Test-Path -LiteralPath $t.path){ $details += $t.path } }; if($details.Count -eq 0){$e.supported=$false; $e.state='unsupported'; $e.details='vendor path unavailable'} else {$e.details=($details -join '; ')} } }
       'firmware_candidate' { $e.supported=$false; $e.state='recommendation_only'; $e.details='manual BIOS check required' }
+      'powercfg_unmapped' { $e.supported=$false; $e.state='unsupported'; $e.details='No GUID mapping yet; cannot verify via powercfg' }
     }
   } catch { $e.state='error'; $e.details=$_.Exception.Message }
   [pscustomobject]$e
@@ -224,21 +232,25 @@ function Invoke-Coverage {
   $presetIds = @(); if ($profile -and $profile.presets) { foreach ($k in $profile.presets.psobject.Properties.Name) { $presetIds += @($profile.presets.$k) } }
 
   $catalogIds = @($catalog | ForEach-Object { $_.id })
-  $realPowercfg = @($catalog | Where-Object { $_.sourceType -eq 'powercfg' -and $_.subgroupGuid -and $_.settingGuid })
-  $applyCapable = @($catalog | Where-Object { $_.sourceType -in @('powercfg','nic_advanced','device_power_flag','storage_feature','gpu_feature','registry_power') })
+  $realPowercfg = @($catalog | Where-Object { $_.sourceType -eq 'powercfg' -and (Test-RealPowercfgItem $_) })
+  $unmappedPowercfg = @($catalog | Where-Object { $_.sourceType -eq 'powercfg' -and (-not (Test-RealPowercfgItem $_)) })
+  $applyCapable = @($catalog | Where-Object { ($_.sourceType -eq 'powercfg' -and (Test-RealPowercfgItem $_)) -or $_.sourceType -in @('nic_advanced','device_power_flag','storage_feature','gpu_feature','registry_power') })
   $verifyCapable = @($applyCapable | Where-Object { $_.canVerify })
+  $unsupportedCount = @($catalog | Where-Object { $_.sourceType -in @('firmware_candidate','powercfg_unmapped') }).Count
 
   $report = [ordered]@{
     catalogCount=$catalog.Count
     supportedCount=@($catalog|Where-Object{$_.sourceType -ne 'firmware_candidate'}).Count
     applyCapableCount=$applyCapable.Count
     verifyCapableCount=$verifyCapable.Count
+    unsupportedCount=$unsupportedCount
     fullyActionableCount=$verifyCapable.Count
     uiExposedCount=$ui.Count
     presetReferencedCount=$presetIds.Count
     placeholderCount=0
     placeholderRatio=0
     realPowercfgCount=$realPowercfg.Count
+    unmappedPowercfgCount=$unmappedPowercfg.Count
     fakeApplyBranchCount=0
     fakeVerifyBranchCount=0
     orphanUIEntries=@($ui | Where-Object { $catalogIds -notcontains $_ })
@@ -252,6 +264,7 @@ function Invoke-Coverage {
   }
   Save-Json (Join-Path $OutputRoot 'coverage-report.json') $report
   if ($report.orphanUIEntries.Count -gt 0 -or $report.orphanPresetEntries.Count -gt 0) { throw 'Coverage failure: ui/preset orphan references exist.' }
+  if ($report.unmappedPowercfgCount -gt 0) { throw ('Coverage failure: unmapped powercfg entries present: ' + $report.unmappedPowercfgCount) }
 }
 
 function Invoke-Audit {
@@ -264,7 +277,7 @@ function Invoke-Audit {
   $partial = @($catalog | Where-Object { $_.title -in $scope -and $_.sourceType -in @('device_power_flag','storage_feature','gpu_feature') } | ForEach-Object { $_.title })
   $narrow = @($catalog | Where-Object { $_.title -in $scope -and $_.sourceType -in @('device_power_flag','storage_feature','gpu_feature','nic_advanced') } | ForEach-Object { $_.title })
   $recommendation = @($catalog | Where-Object { $_.sourceType -eq 'firmware_candidate' } | ForEach-Object { $_.title })
-  $unsupported = @($catalog | Where-Object { $_.sourceType -eq 'powercfg' -and (-not $_.subgroupGuid -or -not $_.settingGuid) } | ForEach-Object { $_.title })
+  $unsupported = @($catalog | Where-Object { ($_.sourceType -eq 'powercfg' -and (-not (Test-RealPowercfgItem $_))) -or $_.sourceType -eq 'powercfg_unmapped' } | ForEach-Object { $_.title })
   $catalogTitles = @($catalog | ForEach-Object { $_.title })
   $missing = @($scope | Where-Object { $catalogTitles -notcontains $_ })
 
