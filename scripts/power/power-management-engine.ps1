@@ -1,6 +1,6 @@
 param(
   [Parameter(Mandatory = $true)]
-  [ValidateSet('audit','catalog','build-manifest','apply-preset','apply-item','verify','verify-item','coverage','rollback-item')]
+  [ValidateSet('audit','catalog','scan','build-manifest','apply','apply-preset','apply-item','verify','verify-item','coverage','rollback-item')]
   [string]$Mode,
   [ValidateSet('extreme','competitive','balanced','powersaver','laptop','restore')]
   [string]$Preset = 'extreme',
@@ -205,12 +205,61 @@ function Invoke-ItemVerify($item) {
   [pscustomobject]$e
 }
 
+function Apply-And-VerifyWithRetry($item, $targetValue) {
+  $first = Invoke-ItemApply $item $targetValue
+  if ($first.status -eq 'applied' -and $first.verify) { return $first }
+
+  $second = Invoke-ItemApply $item $targetValue
+  if ($second.status -eq 'applied' -and $second.verify) {
+    $second.details = "retry-success; " + $second.details
+    return $second
+  }
+
+  if (-not $second.details) { $second.details = '' }
+  $second.details = "retry-failed; " + $second.details
+  return $second
+}
+
+function Invoke-Scan {
+  $rows = Invoke-PowercfgExplorer
+  $summary = [ordered]@{
+    generatedAt = (Get-Date).ToString('s')
+    discoveredCount = @($rows).Count
+    outputFile = (Join-Path $OutputRoot 'full-powercfg-catalog.json')
+  }
+  Save-Json (Join-Path $OutputRoot 'scan-summary.json') $summary
+  return $summary
+}
+
+function Invoke-Apply {
+  param([string]$preset = 'extreme')
+
+  $catalog = Load-Json $CatalogPath
+  if (-not $catalog) { $catalog = Build-NormalizedManifest }
+
+  $results = @()
+  foreach ($item in $catalog) {
+    $target = Get-PresetValue $item $preset
+    $results += Apply-And-VerifyWithRetry $item $target
+  }
+
+  $log = [ordered]@{
+    generatedAt = (Get-Date).ToString('s')
+    preset = $preset
+    totalItems = $catalog.Count
+    results = $results
+  }
+  Save-Json (Join-Path $OutputRoot 'apply-log.json') $log
+  Save-Json (Join-Path $OutputRoot 'apply-progress.json') $log
+  return $log
+}
+
 function Get-PresetValue($item, [string]$preset) { switch ($preset) { 'extreme' { $item.maxPerformanceValue } 'competitive' { $item.maxPerformanceValue } 'balanced' { $item.balancedValue } 'powersaver' { $item.powerSaverValue } 'laptop' { if ($item.appliesTo -match 'laptop|battery') { $item.balancedValue } else { $item.maxPerformanceValue } } 'restore' { $item.rollbackValue } } }
 
 function Apply-Preset([string]$preset) {
   $catalog = Load-Json $CatalogPath; if (-not $catalog) { $catalog = Build-NormalizedManifest }
   $results = @()
-  foreach ($item in $catalog) { $results += Invoke-ItemApply $item (Get-PresetValue $item $preset) }
+  foreach ($item in $catalog) { $results += Apply-And-VerifyWithRetry $item (Get-PresetValue $item $preset) }
   Save-Json (Join-Path $OutputRoot 'apply-progress.json') ([ordered]@{ generatedAt=(Get-Date).ToString('s'); totalItems=$catalog.Count; results=$results })
 }
 
@@ -311,6 +360,8 @@ Ensure-Dir $OutputRoot
 switch ($Mode) {
   'audit' { Invoke-Audit }
   'catalog' { Invoke-PowercfgExplorer | Out-Null; Get-NonPowercfgCatalogs | Out-Null }
+  'scan' { Invoke-Scan | Out-Null }
+  'apply' { Invoke-Apply -preset $Preset | Out-Null }
   'build-manifest' { Build-NormalizedManifest | Out-Null }
   'apply-preset' { Apply-Preset -preset $Preset }
   'apply-item' { Invoke-ItemMode -operation 'apply' -id $ItemId | ConvertTo-Json -Depth 6 | Write-Output }

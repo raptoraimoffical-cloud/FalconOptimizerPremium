@@ -85,6 +85,7 @@ if ($Mode -eq 'scan') {
   if ([string]::IsNullOrWhiteSpace($OutputPath)) { throw 'OutputPath required for scan mode' }
   $aliases = Get-AliasMap
   $qh = (powercfg /qh SCHEME_CURRENT | Out-String)
+  $query = (powercfg /query SCHEME_CURRENT | Out-String)
   $lines = $qh -split "`r?`n"
   $rows = @()
   $sgGuid=''; $sgName=''; $setGuid=''; $setName=''; $desc=''; $min=$null; $max=$null; $inc=$null; $units=''; $ac=$null; $dc=$null; $hidden = $false
@@ -140,6 +141,9 @@ if ($Mode -eq 'scan') {
 
   $rows | ConvertTo-Json -Depth 8 | Out-File -Encoding utf8 $OutputPath
 
+  $queryPath = Join-Path $dir 'full-powercfg-query.txt'
+  Set-Content -LiteralPath $queryPath -Value $query -Encoding UTF8
+
   $prettyPath = [System.IO.Path]::ChangeExtension($OutputPath, '.pretty.json')
   $rows | Sort-Object subgroupName, settingName | ConvertTo-Json -Depth 8 | Out-File -Encoding utf8 $prettyPath
 
@@ -148,6 +152,7 @@ if ($Mode -eq 'scan') {
 
   Write-Output ("OK scan: " + $rows.Count + " settings")
   Write-Output ("JSON=" + $OutputPath)
+  Write-Output ("QUERY=" + $queryPath)
   Write-Output ("CSV=" + $csvPath)
   Write-Output ("PRETTY=" + $prettyPath)
   exit 0
