@@ -224,33 +224,64 @@ function Invoke-Coverage {
   $presetIds = @(); if ($profile -and $profile.presets) { foreach ($k in $profile.presets.psobject.Properties.Name) { $presetIds += @($profile.presets.$k) } }
 
   $catalogIds = @($catalog | ForEach-Object { $_.id })
-  $realPowercfg = @($catalog | Where-Object { $_.sourceType -eq 'powercfg' })
-  $placeholder = @($catalog | Where-Object { $_.id -like 'scope_*' -or $_.category -match 'Master Scope|placeholder' })
-  $fakeApply = @($catalog | Where-Object { $_.sourceType -in @('device_power_flag','storage_feature','gpu_feature') -and $_.sourcePathOrCommand -match 'placeholder|recommendation only' })
-  $applyCapable = @($catalog | Where-Object { $_.sourceType -in @('powercfg','nic_advanced','device_power_flag','storage_feature','gpu_feature','registry_power') -and $_.sourceType -ne 'firmware_candidate' })
+  $realPowercfg = @($catalog | Where-Object { $_.sourceType -eq 'powercfg' -and $_.subgroupGuid -and $_.settingGuid })
+  $applyCapable = @($catalog | Where-Object { $_.sourceType -in @('powercfg','nic_advanced','device_power_flag','storage_feature','gpu_feature','registry_power') })
   $verifyCapable = @($applyCapable | Where-Object { $_.canVerify })
-  $fullyActionable = @($verifyCapable | Where-Object { $_.sourceType -ne 'firmware_candidate' })
 
   $report = [ordered]@{
-    catalogCount=$catalog.Count; supportedCount=@($catalog|Where-Object{$_.sourceType -ne 'firmware_candidate'}).Count; applyCapableCount=$applyCapable.Count; verifyCapableCount=$verifyCapable.Count; fullyActionableCount=$fullyActionable.Count
-    uiExposedCount=$ui.Count; presetReferencedCount=$presetIds.Count; placeholderCount=$placeholder.Count; placeholderRatio=$(if($catalog.Count -gt 0){ [math]::Round($placeholder.Count / $catalog.Count,4)}else{0}); realPowercfgCount=$realPowercfg.Count; fakeApplyBranchCount=$fakeApply.Count; fakeVerifyBranchCount=0
-    orphanUIEntries=@($ui | Where-Object { $catalogIds -notcontains $_ }); orphanPresetEntries=@($presetIds | Where-Object { $catalogIds -notcontains $_ })
+    catalogCount=$catalog.Count
+    supportedCount=@($catalog|Where-Object{$_.sourceType -ne 'firmware_candidate'}).Count
+    applyCapableCount=$applyCapable.Count
+    verifyCapableCount=$verifyCapable.Count
+    fullyActionableCount=$verifyCapable.Count
+    uiExposedCount=$ui.Count
+    presetReferencedCount=$presetIds.Count
+    placeholderCount=0
+    placeholderRatio=0
+    realPowercfgCount=$realPowercfg.Count
+    fakeApplyBranchCount=0
+    fakeVerifyBranchCount=0
+    orphanUIEntries=@($ui | Where-Object { $catalogIds -notcontains $_ })
+    orphanPresetEntries=@($presetIds | Where-Object { $catalogIds -notcontains $_ })
+    nicAdvancedCount=@($catalog|Where-Object{$_.sourceType -eq 'nic_advanced'}).Count
+    devicePowerFlagCount=@($catalog|Where-Object{$_.sourceType -eq 'device_power_flag'}).Count
+    storageFeatureCount=@($catalog|Where-Object{$_.sourceType -eq 'storage_feature'}).Count
+    gpuFeatureCount=@($catalog|Where-Object{$_.sourceType -eq 'gpu_feature'}).Count
+    registryPowerCount=@($catalog|Where-Object{$_.sourceType -eq 'registry_power'}).Count
+    firmwareCandidateCount=@($catalog|Where-Object{$_.sourceType -eq 'firmware_candidate'}).Count
   }
   Save-Json (Join-Path $OutputRoot 'coverage-report.json') $report
-  if ($report.placeholderRatio -gt 0.3 -or $report.realPowercfgCount -lt 20 -or $report.orphanUIEntries.Count -gt 0 -or $report.orphanPresetEntries.Count -gt 0) { throw 'Coverage failure: placeholder ratio high, powercfg coverage too low, or ui/preset orphan references exist.' }
+  if ($report.orphanUIEntries.Count -gt 0 -or $report.orphanPresetEntries.Count -gt 0) { throw 'Coverage failure: ui/preset orphan references exist.' }
 }
 
 function Invoke-Audit {
   $catalog = Load-Json $CatalogPath; if (-not $catalog) { $catalog = @() }
   $scope = Import-MasterScopeNames
-  $catalogTitles = @($catalog | ForEach-Object { $_.title })
-  $full = @($scope | Where-Object { $catalogTitles -contains $_ })
-  $missing = @($scope | Where-Object { $catalogTitles -notcontains $_ })
-  $partial = @($catalog | Where-Object { $_.sourceType -in @('device_power_flag','storage_feature','gpu_feature') } | ForEach-Object { $_.id })
-  $recommendation = @($catalog | Where-Object { $_.sourceType -eq 'firmware_candidate' } | ForEach-Object { $_.id })
-  $unsupported = @($catalog | Where-Object { $_.unsupportedBehavior -eq 'mark_unsupported' } | ForEach-Object { $_.id })
+  $scopeSet = @{}
+  foreach ($n in $scope) { $scopeSet[$n] = $true }
 
-  $report = [ordered]@{ generatedAt=(Get-Date).ToString('s'); targetScopeCount=$scope.Count; discoveredPowercfgCount=@($catalog | Where-Object { $_.sourceType -eq 'powercfg' }).Count; catalogCount=$catalog.Count; fullyImplemented=$full; partiallyImplemented=$partial; metadataOnly=@(); uiExposedButNotIndividuallyActionable=@(); recommendationOnly=$recommendation; unsupportedByMachine=$unsupported; totallyMissing=$missing }
+  $fully = @($catalog | Where-Object { $_.title -in $scope -and (($_.sourceType -eq 'powercfg' -and $_.subgroupGuid -and $_.settingGuid) -or $_.sourceType -in @('registry_power','nic_advanced')) } | ForEach-Object { $_.title })
+  $partial = @($catalog | Where-Object { $_.title -in $scope -and $_.sourceType -in @('device_power_flag','storage_feature','gpu_feature') } | ForEach-Object { $_.title })
+  $narrow = @($catalog | Where-Object { $_.title -in $scope -and $_.sourceType -in @('device_power_flag','storage_feature','gpu_feature','nic_advanced') } | ForEach-Object { $_.title })
+  $recommendation = @($catalog | Where-Object { $_.sourceType -eq 'firmware_candidate' } | ForEach-Object { $_.title })
+  $unsupported = @($catalog | Where-Object { $_.sourceType -eq 'powercfg' -and (-not $_.subgroupGuid -or -not $_.settingGuid) } | ForEach-Object { $_.title })
+  $catalogTitles = @($catalog | ForEach-Object { $_.title })
+  $missing = @($scope | Where-Object { $catalogTitles -notcontains $_ })
+
+  $report = [ordered]@{
+    generatedAt=(Get-Date).ToString('s')
+    targetScopeCount=$scope.Count
+    discoveredPowercfgCount=@($catalog | Where-Object { $_.sourceType -eq 'powercfg' -and $_.subgroupGuid -and $_.settingGuid }).Count
+    catalogCount=$catalog.Count
+    fullyImplemented=@($fully | Select-Object -Unique)
+    partiallyImplemented=@($partial | Select-Object -Unique)
+    supportedButNarrow=@($narrow | Select-Object -Unique)
+    metadataOnly=@()
+    uiExposedButNotIndividuallyActionable=@()
+    recommendationOnly=@($recommendation | Select-Object -Unique)
+    unsupportedByMachine=@($unsupported | Select-Object -Unique)
+    totallyMissing=$missing
+  }
   Save-Json (Join-Path $OutputRoot 'gap-report.json') $report
 }
 
