@@ -1,473 +1,3974 @@
 {
-  "generatedAt": "static",
+  "generatedAt": "2026-03-14T00:27:56",
   "items": [
     {
-      "id": "powercfg_5453325182be482496c147b60b740d00_bc5038f723e0496096da33abaf5935ec",
-      "title": "Minimum processor state",
+      "id": "powercfg_minimum_processor_state",
       "sourceType": "powercfg",
-      "readable": true,
-      "supported": true,
       "state": "verified",
-      "details": "static repo verification snapshot"
+      "supported": true,
+      "details": "powercfg /qh SCHEME_CURRENT"
     },
     {
-      "id": "powercfg_5453325182be482496c147b60b740d00_893dee8e2bef41e089c6b55d0929964c",
-      "title": "Maximum processor state",
+      "id": "powercfg_maximum_processor_state",
       "sourceType": "powercfg",
-      "readable": true,
-      "supported": true,
       "state": "verified",
-      "details": "static repo verification snapshot"
+      "supported": true,
+      "details": "powercfg /qh SCHEME_CURRENT"
     },
     {
-      "id": "powercfg_501a4d1342af44299fd1a8218c268e20_ee12f906d277404bb6dae5fa1a576df5",
-      "title": "Link State Power Management",
+      "id": "powercfg_link_state_power_management",
       "sourceType": "powercfg",
-      "readable": true,
-      "supported": true,
       "state": "verified",
-      "details": "static repo verification snapshot"
+      "supported": true,
+      "details": "powercfg /qh SCHEME_CURRENT"
     },
     {
-      "id": "nic_energy_efficient_ethernet",
-      "title": "Energy Efficient Ethernet",
-      "sourceType": "nic_advanced",
-      "readable": true,
-      "supported": true,
-      "state": "verified",
-      "details": "static repo verification snapshot"
-    },
-    {
-      "id": "nic_advanced_eee",
-      "title": "Advanced EEE",
-      "sourceType": "nic_advanced",
-      "readable": true,
-      "supported": true,
-      "state": "verified",
-      "details": "static repo verification snapshot"
-    },
-    {
-      "id": "nic_green_ethernet",
-      "title": "Green Ethernet",
-      "sourceType": "nic_advanced",
-      "readable": true,
-      "supported": true,
-      "state": "verified",
-      "details": "static repo verification snapshot"
-    },
-    {
-      "id": "nic_ultra_low_power_mode",
-      "title": "Ultra Low Power Mode",
-      "sourceType": "nic_advanced",
-      "readable": true,
-      "supported": true,
-      "state": "verified",
-      "details": "static repo verification snapshot"
-    },
-    {
-      "id": "nic_reduce_speed_on_power_down",
-      "title": "Reduce Speed On Power Down",
-      "sourceType": "nic_advanced",
-      "readable": true,
-      "supported": true,
-      "state": "verified",
-      "details": "static repo verification snapshot"
-    },
-    {
-      "id": "nic_system_idle_power_saver",
-      "title": "System Idle Power Saver",
-      "sourceType": "nic_advanced",
-      "readable": true,
-      "supported": true,
-      "state": "verified",
-      "details": "static repo verification snapshot"
-    },
-    {
-      "id": "nic_gigabit_lite",
-      "title": "Gigabit Lite",
-      "sourceType": "nic_advanced",
-      "readable": true,
-      "supported": true,
-      "state": "verified",
-      "details": "static repo verification snapshot"
-    },
-    {
-      "id": "nic_auto_disable_gigabit",
-      "title": "Auto Disable Gigabit",
-      "sourceType": "nic_advanced",
-      "readable": true,
-      "supported": true,
-      "state": "verified",
-      "details": "static repo verification snapshot"
-    },
-    {
-      "id": "nic_power_saving_mode",
-      "title": "Power Saving Mode",
-      "sourceType": "nic_advanced",
-      "readable": true,
-      "supported": true,
-      "state": "verified",
-      "details": "static repo verification snapshot"
-    },
-    {
-      "id": "nic_wake_on_magic_packet",
-      "title": "Wake on Magic Packet",
-      "sourceType": "nic_advanced",
-      "readable": true,
-      "supported": true,
-      "state": "verified",
-      "details": "static repo verification snapshot"
-    },
-    {
-      "id": "nic_wake_on_pattern_match",
-      "title": "Wake on Pattern Match",
-      "sourceType": "nic_advanced",
-      "readable": true,
-      "supported": true,
-      "state": "verified",
-      "details": "static repo verification snapshot"
-    },
-    {
-      "id": "nic_shutdown_wake_on_lan",
-      "title": "Shutdown Wake-On-Lan",
-      "sourceType": "nic_advanced",
-      "readable": true,
-      "supported": true,
-      "state": "verified",
-      "details": "static repo verification snapshot"
-    },
-    {
-      "id": "nic_arp_offload",
-      "title": "ARP Offload",
-      "sourceType": "nic_advanced",
-      "readable": true,
-      "supported": true,
-      "state": "verified",
-      "details": "static repo verification snapshot"
-    },
-    {
-      "id": "nic_ns_offload",
-      "title": "NS Offload",
-      "sourceType": "nic_advanced",
-      "readable": true,
-      "supported": true,
-      "state": "verified",
-      "details": "static repo verification snapshot"
-    },
-    {
-      "id": "nic_dma_coalescing",
-      "title": "DMA Coalescing",
-      "sourceType": "nic_advanced",
-      "readable": true,
-      "supported": true,
-      "state": "verified",
-      "details": "static repo verification snapshot"
-    },
-    {
-      "id": "nic_idle_power_down_restriction",
-      "title": "Idle Power Down Restriction",
-      "sourceType": "nic_advanced",
-      "readable": true,
-      "supported": true,
-      "state": "verified",
-      "details": "static repo verification snapshot"
-    },
-    {
-      "id": "nic_s5_wake_on_lan",
-      "title": "S5 Wake on LAN",
-      "sourceType": "nic_advanced",
-      "readable": true,
-      "supported": true,
-      "state": "verified",
-      "details": "static repo verification snapshot"
-    },
-    {
-      "id": "device_nic_allowcomputertoturnoffdevice",
-      "title": "NIC AllowComputerToTurnOffDevice",
-      "sourceType": "device_power_flag",
-      "readable": true,
-      "supported": false,
+      "id": "powercfg_processor_idle_disable",
+      "sourceType": "powercfg",
       "state": "unsupported",
-      "details": "static repo verification snapshot"
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
     },
     {
-      "id": "device_usb_hub_allowcomputertoturnoffdevice",
-      "title": "USB Hub AllowComputerToTurnOffDevice",
-      "sourceType": "device_power_flag",
-      "readable": true,
-      "supported": false,
+      "id": "powercfg_processor_idle_demote_threshold",
+      "sourceType": "powercfg",
       "state": "unsupported",
-      "details": "static repo verification snapshot"
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
     },
     {
-      "id": "device_usb_controller_allowcomputertoturnoffdevice",
-      "title": "USB Controller AllowComputerToTurnOffDevice",
-      "sourceType": "device_power_flag",
-      "readable": true,
-      "supported": false,
+      "id": "powercfg_processor_idle_promote_threshold",
+      "sourceType": "powercfg",
       "state": "unsupported",
-      "details": "static repo verification snapshot"
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
     },
     {
-      "id": "device_bluetooth_radio_allowcomputertoturnoffdevice",
-      "title": "Bluetooth Radio AllowComputerToTurnOffDevice",
-      "sourceType": "device_power_flag",
-      "readable": true,
-      "supported": false,
+      "id": "powercfg_processor_performance_boost_mode",
+      "sourceType": "powercfg",
       "state": "unsupported",
-      "details": "static repo verification snapshot"
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
     },
     {
-      "id": "device_hid_keyboard_allowcomputertoturnoffdevice",
-      "title": "HID Keyboard AllowComputerToTurnOffDevice",
-      "sourceType": "device_power_flag",
-      "readable": true,
-      "supported": false,
+      "id": "powercfg_processor_energy_performance_preference_policy",
+      "sourceType": "powercfg",
       "state": "unsupported",
-      "details": "static repo verification snapshot"
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
     },
     {
-      "id": "device_hid_mouse_allowcomputertoturnoffdevice",
-      "title": "HID Mouse AllowComputerToTurnOffDevice",
-      "sourceType": "device_power_flag",
-      "readable": true,
-      "supported": false,
+      "id": "powercfg_processor_duty_cycling",
+      "sourceType": "powercfg",
       "state": "unsupported",
-      "details": "static repo verification snapshot"
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
     },
     {
-      "id": "storage_nvme_apst",
-      "title": "NVMe APST",
+      "id": "powercfg_processor_autonomous_mode",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_performance_increase_threshold",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_performance_decrease_threshold",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_performance_increase_time",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_performance_decrease_time",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_performance_time_check_interval",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_performance_core_parking_min_cores",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_performance_core_parking_max_cores",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_core_parking_increase_threshold",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_core_parking_decrease_threshold",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_core_parking_increase_policy",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_core_parking_decrease_policy",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_core_parking_concurrency_threshold",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_core_parking_distribution_threshold",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_core_parking_overutilization_threshold",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_core_parking_hysteresis",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_core_parking_utility_distribution",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_core_parking_affinity_history",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_core_parking_soft_park_latency",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_performance_autonomous_activity_window",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_performance_autonomous_threshold",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_performance_history_count",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_performance_history_length",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_latency_hint_enable",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_latency_hint_minimum_unparked_cores",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_idle_state_maximum",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_idle_state_minimum",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_allow_throttle_states",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_responsiveness_override",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_heterogeneous_policy_in_effect",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_heterogeneous_short_running_thread_policy",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_heterogeneous_long_running_thread_policy",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_heterogeneous_thread_scheduling_policy",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_heterogeneous_idle_policy",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_efficiency_class_1_initial_performance",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_efficiency_class_1_increase_threshold",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_efficiency_class_1_decrease_threshold",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_efficiency_class_1_increase_time",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_efficiency_class_1_decrease_time",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_efficiency_class_1_performance_preference",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_class_1_initial_performance",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_performance_floor",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_performance_ceiling",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_autonomous_utility_preference",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_preferred_cores_use_policy",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_idle_policy_override",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_core_parking_parked_performance_state",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_core_parking_max_latency",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_core_parking_latency_sensitivity",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_core_parking_min_cores_for_latency_hint",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_core_parking_soft_minimum_cores",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_qos_floor",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_qos_ceiling",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_boost_disable_on_low_battery",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_response_time_sensitivity",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_coordination_feedback",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_utility_floor",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_utility_ceiling",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_performance_dependency_max",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_performance_dependency_min",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_sleep_after",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_allow_hybrid_sleep",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_hibernate_after",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "registry_allow_standby_states",
+      "sourceType": "registry_power",
+      "state": "verified",
+      "supported": true,
+      "details": "Registry policy"
+    },
+    {
+      "id": "powercfg_system_unattended_sleep_timeout",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_require_a_password_on_wake",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "registry_allow_wake_timers",
+      "sourceType": "registry_power",
+      "state": "verified",
+      "supported": true,
+      "details": "Registry policy"
+    },
+    {
+      "id": "powercfg_lid_close_action",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_power_button_action",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_sleep_button_action",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_away_mode_policy",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "registry_fast_startup",
+      "sourceType": "registry_power",
+      "state": "verified",
+      "supported": true,
+      "details": "Registry policy"
+    },
+    {
+      "id": "registry_connected_standby_policy",
+      "sourceType": "registry_power",
+      "state": "verified",
+      "supported": true,
+      "details": "Registry policy"
+    },
+    {
+      "id": "registry_network_connectivity_in_standby",
+      "sourceType": "registry_power",
+      "state": "verified",
+      "supported": true,
+      "details": "Registry policy"
+    },
+    {
+      "id": "powercfg_critical_battery_action",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_critical_battery_level",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_low_battery_action",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_low_battery_level",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_reserve_battery_level",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "nic_wake_on_rtc",
+      "sourceType": "nic_advanced",
+      "state": "verified",
+      "supported": true,
+      "details": "Get/Set-NetAdapterAdvancedProperty"
+    },
+    {
+      "id": "nic_wake_on_usb",
+      "sourceType": "nic_advanced",
+      "state": "verified",
+      "supported": true,
+      "details": "Get/Set-NetAdapterAdvancedProperty"
+    },
+    {
+      "id": "nic_wake_on_lan_sleep_policy",
+      "sourceType": "nic_advanced",
+      "state": "verified",
+      "supported": true,
+      "details": "Get/Set-NetAdapterAdvancedProperty"
+    },
+    {
+      "id": "nic_wake_on_keyboard",
+      "sourceType": "nic_advanced",
+      "state": "verified",
+      "supported": true,
+      "details": "Get/Set-NetAdapterAdvancedProperty"
+    },
+    {
+      "id": "nic_wake_on_mouse",
+      "sourceType": "nic_advanced",
+      "state": "verified",
+      "supported": true,
+      "details": "Get/Set-NetAdapterAdvancedProperty"
+    },
+    {
+      "id": "nic_wake_on_bluetooth",
+      "sourceType": "nic_advanced",
+      "state": "verified",
+      "supported": true,
+      "details": "Get/Set-NetAdapterAdvancedProperty"
+    },
+    {
+      "id": "nic_wake_on_pcie_device",
+      "sourceType": "nic_advanced",
+      "state": "verified",
+      "supported": true,
+      "details": "Get/Set-NetAdapterAdvancedProperty"
+    },
+    {
+      "id": "nic_wake_on_modem_ring",
+      "sourceType": "nic_advanced",
+      "state": "verified",
+      "supported": true,
+      "details": "Get/Set-NetAdapterAdvancedProperty"
+    },
+    {
+      "id": "powercfg_pci_express_link_state_power_management",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_aspm_mode",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_native_aspm",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_dmi_aspm",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_peg_aspm",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "storage_turn_off_hard_disk_after",
       "sourceType": "storage_feature",
-      "readable": true,
-      "supported": false,
-      "state": "unsupported",
-      "details": "static repo verification snapshot"
-    },
-    {
-      "id": "storage_nvme_non_operational_power_state_policy",
-      "title": "NVMe non-operational power state policy",
-      "sourceType": "storage_feature",
-      "readable": true,
-      "supported": false,
-      "state": "unsupported",
-      "details": "static repo verification snapshot"
-    },
-    {
-      "id": "storage_nvme_idle_timeout",
-      "title": "NVMe idle timeout",
-      "sourceType": "storage_feature",
-      "readable": true,
-      "supported": false,
-      "state": "unsupported",
-      "details": "static repo verification snapshot"
-    },
-    {
-      "id": "storage_sata_alpm",
-      "title": "SATA ALPM",
-      "sourceType": "storage_feature",
-      "readable": true,
-      "supported": false,
-      "state": "unsupported",
-      "details": "static repo verification snapshot"
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "Storage registry + powercfg mappings"
     },
     {
       "id": "storage_ahci_hipm",
-      "title": "AHCI HIPM",
       "sourceType": "storage_feature",
-      "readable": true,
-      "supported": false,
-      "state": "unsupported",
-      "details": "static repo verification snapshot"
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "Storage registry + powercfg mappings"
     },
     {
       "id": "storage_ahci_dipm",
-      "title": "AHCI DIPM",
       "sourceType": "storage_feature",
-      "readable": true,
-      "supported": false,
-      "state": "unsupported",
-      "details": "static repo verification snapshot"
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "Storage registry + powercfg mappings"
     },
     {
-      "id": "storage_storage_device_idle_timeout",
-      "title": "Storage device idle timeout",
+      "id": "storage_sata_alpm",
       "sourceType": "storage_feature",
-      "readable": true,
-      "supported": false,
-      "state": "unsupported",
-      "details": "static repo verification snapshot"
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "Storage registry + powercfg mappings"
+    },
+    {
+      "id": "storage_nvme_apst",
+      "sourceType": "storage_feature",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "Storage registry + powercfg mappings"
+    },
+    {
+      "id": "storage_nvme_idle_timeout",
+      "sourceType": "storage_feature",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "Storage registry + powercfg mappings"
     },
     {
       "id": "storage_storport_link_power_management",
-      "title": "Storport link power management",
       "sourceType": "storage_feature",
-      "readable": true,
-      "supported": false,
-      "state": "unsupported",
-      "details": "static repo verification snapshot"
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "Storage registry + powercfg mappings"
     },
     {
-      "id": "gpu_dxgk_power_component_idle",
-      "title": "DXGK power component idle",
-      "sourceType": "gpu_feature",
-      "readable": true,
-      "supported": false,
-      "state": "unsupported",
-      "details": "static repo verification snapshot"
+      "id": "device_usb_selective_suspend",
+      "sourceType": "device_power_flag",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "PnPCapabilities registry"
     },
     {
-      "id": "gpu_nvidia_optimal_power",
-      "title": "NVIDIA Optimal Power",
-      "sourceType": "gpu_feature",
-      "readable": true,
-      "supported": false,
-      "state": "unsupported",
-      "details": "static repo verification snapshot"
+      "id": "device_usb_3_link_power_management",
+      "sourceType": "device_power_flag",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "PnPCapabilities registry"
     },
     {
-      "id": "gpu_nvidia_prefer_maximum_performance",
-      "title": "NVIDIA Prefer Maximum Performance",
-      "sourceType": "gpu_feature",
-      "readable": true,
-      "supported": false,
-      "state": "unsupported",
-      "details": "static repo verification snapshot"
+      "id": "device_usb_root_hub_selective_suspend",
+      "sourceType": "device_power_flag",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "PnPCapabilities registry"
     },
     {
-      "id": "gpu_amd_power_efficiency",
-      "title": "AMD Power Efficiency",
-      "sourceType": "gpu_feature",
-      "readable": true,
-      "supported": false,
-      "state": "unsupported",
-      "details": "static repo verification snapshot"
+      "id": "device_thunderbolt_low_power_mode",
+      "sourceType": "device_power_flag",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "PnPCapabilities registry"
     },
     {
-      "id": "gpu_amd_ulps",
-      "title": "AMD ULPS",
-      "sourceType": "gpu_feature",
-      "readable": true,
-      "supported": false,
-      "state": "unsupported",
-      "details": "static repo verification snapshot"
+      "id": "nic_wireless_adapter_power_saving_mode",
+      "sourceType": "nic_advanced",
+      "state": "verified",
+      "supported": true,
+      "details": "Get/Set-NetAdapterAdvancedProperty"
     },
     {
-      "id": "gpu_intel_rc6",
-      "title": "Intel RC6",
-      "sourceType": "gpu_feature",
-      "readable": true,
-      "supported": false,
+      "id": "powercfg_mimo_power_save",
+      "sourceType": "powercfg",
       "state": "unsupported",
-      "details": "static repo verification snapshot"
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
     },
     {
-      "id": "gpu_panel_self_refresh",
-      "title": "Panel self refresh",
-      "sourceType": "gpu_feature",
-      "readable": true,
-      "supported": false,
+      "id": "powercfg_wlan_background_scan_power",
+      "sourceType": "powercfg",
       "state": "unsupported",
-      "details": "static repo verification snapshot"
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_packet_coalescing",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "nic_energy_efficient_ethernet",
+      "sourceType": "nic_advanced",
+      "state": "verified",
+      "supported": true,
+      "details": "Get/Set-NetAdapterAdvancedProperty"
+    },
+    {
+      "id": "powercfg_advanced_eee",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "nic_green_ethernet",
+      "sourceType": "nic_advanced",
+      "state": "verified",
+      "supported": true,
+      "details": "Get/Set-NetAdapterAdvancedProperty"
+    },
+    {
+      "id": "powercfg_ultra_low_power_mode",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_reduce_speed_on_power_down",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "registry_system_idle_power_saver",
+      "sourceType": "registry_power",
+      "state": "verified",
+      "supported": true,
+      "details": "Registry policy"
+    },
+    {
+      "id": "powercfg_gigabit_lite",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_auto_disable_gigabit",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_power_saving_mode",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "nic_wake_on_magic_packet",
+      "sourceType": "nic_advanced",
+      "state": "verified",
+      "supported": true,
+      "details": "Get/Set-NetAdapterAdvancedProperty"
+    },
+    {
+      "id": "nic_wake_on_pattern_match",
+      "sourceType": "nic_advanced",
+      "state": "verified",
+      "supported": true,
+      "details": "Get/Set-NetAdapterAdvancedProperty"
+    },
+    {
+      "id": "nic_arp_offload",
+      "sourceType": "nic_advanced",
+      "state": "verified",
+      "supported": true,
+      "details": "Get/Set-NetAdapterAdvancedProperty"
+    },
+    {
+      "id": "nic_ns_offload",
+      "sourceType": "nic_advanced",
+      "state": "verified",
+      "supported": true,
+      "details": "Get/Set-NetAdapterAdvancedProperty"
+    },
+    {
+      "id": "powercfg_dma_coalescing",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_link_down_power_saving",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "gpu_turn_off_display_after",
+      "sourceType": "gpu_feature",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "GPU vendor registry + DxgKrnl policies"
     },
     {
       "id": "gpu_adaptive_brightness",
-      "title": "Adaptive brightness",
       "sourceType": "gpu_feature",
-      "readable": true,
-      "supported": false,
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "GPU vendor registry + DxgKrnl policies"
+    },
+    {
+      "id": "gpu_dim_display_after",
+      "sourceType": "gpu_feature",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "GPU vendor registry + DxgKrnl policies"
+    },
+    {
+      "id": "gpu_panel_self_refresh",
+      "sourceType": "gpu_feature",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "GPU vendor registry + DxgKrnl policies"
+    },
+    {
+      "id": "powercfg_dxgk_power_component_idle",
+      "sourceType": "powercfg",
       "state": "unsupported",
-      "details": "static repo verification snapshot"
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
     },
     {
-      "id": "firmware_aspm_mode",
-      "title": "ASPM mode",
-      "sourceType": "firmware_candidate",
-      "readable": true,
-      "supported": false,
-      "state": "recommendation_only",
-      "details": "static repo verification snapshot"
+      "id": "powercfg_nvidia_optimal_power",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
     },
     {
-      "id": "firmware_native_aspm",
-      "title": "Native ASPM",
-      "sourceType": "firmware_candidate",
-      "readable": true,
-      "supported": false,
-      "state": "recommendation_only",
-      "details": "static repo verification snapshot"
+      "id": "powercfg_nvidia_prefer_maximum_performance",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
     },
     {
-      "id": "firmware_dmi_aspm",
-      "title": "DMI ASPM",
-      "sourceType": "firmware_candidate",
-      "readable": true,
-      "supported": false,
-      "state": "recommendation_only",
-      "details": "static repo verification snapshot"
+      "id": "powercfg_amd_power_efficiency",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
     },
     {
-      "id": "firmware_peg_aspm",
-      "title": "PEG ASPM",
-      "sourceType": "firmware_candidate",
-      "readable": true,
-      "supported": false,
-      "state": "recommendation_only",
-      "details": "static repo verification snapshot"
+      "id": "powercfg_amd_ulps",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
     },
     {
-      "id": "firmware_erp",
-      "title": "ErP",
-      "sourceType": "firmware_candidate",
-      "readable": true,
-      "supported": false,
-      "state": "recommendation_only",
-      "details": "static repo verification snapshot"
+      "id": "powercfg_intel_rc6",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
     },
     {
-      "id": "firmware_usb_standby_power_in_s5",
-      "title": "USB standby power in S5",
-      "sourceType": "firmware_candidate",
-      "readable": true,
-      "supported": false,
-      "state": "recommendation_only",
-      "details": "static repo verification snapshot"
+      "id": "powercfg_audio_endpoint_power_saving",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "device_camera_device_idle_suspend",
+      "sourceType": "device_power_flag",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "PnPCapabilities registry"
+    },
+    {
+      "id": "device_bluetooth_radio_power_saving",
+      "sourceType": "device_power_flag",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "PnPCapabilities registry"
+    },
+    {
+      "id": "device_hid_idle_timeout",
+      "sourceType": "device_power_flag",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "PnPCapabilities registry"
+    },
+    {
+      "id": "registry_windows_power_throttling",
+      "sourceType": "registry_power",
+      "state": "verified",
+      "supported": true,
+      "details": "Registry policy"
+    },
+    {
+      "id": "registry_timer_coalescing",
+      "sourceType": "registry_power",
+      "state": "verified",
+      "supported": true,
+      "details": "Registry policy"
+    },
+    {
+      "id": "registry_dynamic_tick",
+      "sourceType": "registry_power",
+      "state": "verified",
+      "supported": true,
+      "details": "Registry policy"
+    },
+    {
+      "id": "powercfg_drips_enablement",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_ecoqos_for_background_tasks",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "registry_background_app_power_throttling",
+      "sourceType": "registry_power",
+      "state": "verified",
+      "supported": true,
+      "details": "Registry policy"
+    },
+    {
+      "id": "powercfg_battery_saver_threshold",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_battery_saver_brightness_reduction",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_power_slider_default_on_ac",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_power_slider_default_on_dc",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_system_cooling_policy",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_fan_always_on_policy",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "registry_skin_temperature_aware_throttling",
+      "sourceType": "registry_power",
+      "state": "verified",
+      "supported": true,
+      "details": "Registry policy"
+    },
+    {
+      "id": "powercfg_processor_policy_1",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_policy_2",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_policy_3",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_policy_4",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_policy_5",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_policy_6",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_policy_7",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_policy_8",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_policy_9",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_policy_10",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_policy_11",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_policy_12",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_policy_13",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_policy_14",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_policy_15",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_policy_16",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_policy_17",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_policy_18",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_policy_19",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_policy_20",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_policy_21",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_policy_22",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_policy_23",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_policy_24",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_policy_25",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_policy_26",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_policy_27",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_policy_28",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_policy_29",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_policy_30",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_policy_31",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_policy_32",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_policy_33",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_policy_34",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_policy_35",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_policy_36",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_policy_37",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_policy_38",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_processor_policy_39",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_core_parking_policy_1",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_core_parking_policy_2",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_core_parking_policy_3",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_core_parking_policy_4",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_core_parking_policy_5",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_core_parking_policy_6",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_core_parking_policy_7",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_core_parking_policy_8",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_core_parking_policy_9",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_core_parking_policy_10",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_core_parking_policy_11",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_core_parking_policy_12",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_core_parking_policy_13",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_core_parking_policy_14",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_core_parking_policy_15",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_core_parking_policy_16",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_core_parking_policy_17",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_core_parking_policy_18",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_core_parking_policy_19",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_core_parking_policy_20",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_core_parking_policy_21",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_core_parking_policy_22",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_core_parking_policy_23",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_core_parking_policy_24",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_core_parking_policy_25",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_core_parking_policy_26",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_core_parking_policy_27",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_core_parking_policy_28",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_core_parking_policy_29",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_core_parking_policy_30",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_core_parking_policy_31",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_core_parking_policy_32",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_core_parking_policy_33",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_core_parking_policy_34",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_core_parking_policy_35",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_core_parking_policy_36",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_core_parking_policy_37",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_core_parking_policy_38",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_core_parking_policy_39",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_thread_scheduling_policy_1",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_thread_scheduling_policy_2",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_thread_scheduling_policy_3",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_thread_scheduling_policy_4",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_thread_scheduling_policy_5",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_thread_scheduling_policy_6",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_thread_scheduling_policy_7",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_thread_scheduling_policy_8",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_thread_scheduling_policy_9",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_thread_scheduling_policy_10",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_thread_scheduling_policy_11",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_thread_scheduling_policy_12",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_thread_scheduling_policy_13",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_thread_scheduling_policy_14",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_thread_scheduling_policy_15",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_thread_scheduling_policy_16",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_thread_scheduling_policy_17",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_thread_scheduling_policy_18",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_thread_scheduling_policy_19",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_thread_scheduling_policy_20",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_thread_scheduling_policy_21",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_thread_scheduling_policy_22",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_thread_scheduling_policy_23",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_thread_scheduling_policy_24",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_thread_scheduling_policy_25",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_thread_scheduling_policy_26",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_thread_scheduling_policy_27",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_thread_scheduling_policy_28",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_thread_scheduling_policy_29",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_thread_scheduling_policy_30",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_thread_scheduling_policy_31",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_thread_scheduling_policy_32",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_thread_scheduling_policy_33",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_thread_scheduling_policy_34",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_thread_scheduling_policy_35",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_thread_scheduling_policy_36",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_thread_scheduling_policy_37",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_thread_scheduling_policy_38",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_thread_scheduling_policy_39",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_sleep_policy_1",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_sleep_policy_2",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_sleep_policy_3",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_sleep_policy_4",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_sleep_policy_5",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_sleep_policy_6",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_sleep_policy_7",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_sleep_policy_8",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_sleep_policy_9",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_sleep_policy_10",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_sleep_policy_11",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_sleep_policy_12",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_sleep_policy_13",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_sleep_policy_14",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_sleep_policy_15",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_sleep_policy_16",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_sleep_policy_17",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_sleep_policy_18",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_sleep_policy_19",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_sleep_policy_20",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_sleep_policy_21",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_sleep_policy_22",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_sleep_policy_23",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_sleep_policy_24",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_sleep_policy_25",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_sleep_policy_26",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_sleep_policy_27",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_sleep_policy_28",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_sleep_policy_29",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_sleep_policy_30",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_sleep_policy_31",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_sleep_policy_32",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_sleep_policy_33",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_sleep_policy_34",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_sleep_policy_35",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_sleep_policy_36",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_sleep_policy_37",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_sleep_policy_38",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_sleep_policy_39",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_hibernate_policy_1",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_hibernate_policy_2",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_hibernate_policy_3",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_hibernate_policy_4",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_hibernate_policy_5",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_hibernate_policy_6",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_hibernate_policy_7",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_hibernate_policy_8",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_hibernate_policy_9",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_hibernate_policy_10",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_hibernate_policy_11",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_hibernate_policy_12",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_hibernate_policy_13",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_hibernate_policy_14",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_hibernate_policy_15",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_hibernate_policy_16",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_hibernate_policy_17",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_hibernate_policy_18",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_hibernate_policy_19",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_hibernate_policy_20",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_hibernate_policy_21",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_hibernate_policy_22",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_hibernate_policy_23",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_hibernate_policy_24",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_hibernate_policy_25",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_hibernate_policy_26",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_hibernate_policy_27",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_hibernate_policy_28",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_hibernate_policy_29",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_hibernate_policy_30",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_hibernate_policy_31",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_hibernate_policy_32",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_hibernate_policy_33",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_hibernate_policy_34",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_hibernate_policy_35",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_hibernate_policy_36",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_hibernate_policy_37",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_hibernate_policy_38",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_hibernate_policy_39",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_wake_policy_1",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_wake_policy_2",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_wake_policy_3",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_wake_policy_4",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_wake_policy_5",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_wake_policy_6",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_wake_policy_7",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_wake_policy_8",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_wake_policy_9",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_wake_policy_10",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_wake_policy_11",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_wake_policy_12",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_wake_policy_13",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_wake_policy_14",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_wake_policy_15",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_wake_policy_16",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_wake_policy_17",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_wake_policy_18",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_wake_policy_19",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_wake_policy_20",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_wake_policy_21",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_wake_policy_22",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_wake_policy_23",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_wake_policy_24",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_wake_policy_25",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_wake_policy_26",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_wake_policy_27",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_wake_policy_28",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_wake_policy_29",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_wake_policy_30",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_wake_policy_31",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_wake_policy_32",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_wake_policy_33",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_wake_policy_34",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_wake_policy_35",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_wake_policy_36",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_wake_policy_37",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_wake_policy_38",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "powercfg_wake_policy_39",
+      "sourceType": "powercfg",
+      "state": "unsupported",
+      "supported": true,
+      "details": "powercfg /query SCHEME_CURRENT"
+    },
+    {
+      "id": "gpu_display_policy_1",
+      "sourceType": "gpu_feature",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "GPU vendor registry + DxgKrnl policies"
+    },
+    {
+      "id": "nic_advanced_eee",
+      "sourceType": "nic_advanced",
+      "state": "verified",
+      "supported": true,
+      "details": "Get/Set-NetAdapterAdvancedProperty"
+    },
+    {
+      "id": "nic_power_saving_mode",
+      "sourceType": "nic_advanced",
+      "state": "verified",
+      "supported": true,
+      "details": "Get/Set-NetAdapterAdvancedProperty"
+    },
+    {
+      "id": "nic_system_idle_power_saver",
+      "sourceType": "nic_advanced",
+      "state": "verified",
+      "supported": true,
+      "details": "Get/Set-NetAdapterAdvancedProperty"
+    },
+    {
+      "id": "nic_reduce_speed_on_power_down",
+      "sourceType": "nic_advanced",
+      "state": "verified",
+      "supported": true,
+      "details": "Get/Set-NetAdapterAdvancedProperty"
+    },
+    {
+      "id": "nic_auto_disable_gigabit",
+      "sourceType": "nic_advanced",
+      "state": "verified",
+      "supported": true,
+      "details": "Get/Set-NetAdapterAdvancedProperty"
+    },
+    {
+      "id": "nic_wake_on_link_change",
+      "sourceType": "nic_advanced",
+      "state": "verified",
+      "supported": true,
+      "details": "Get/Set-NetAdapterAdvancedProperty"
+    },
+    {
+      "id": "nic_dma_coalescing",
+      "sourceType": "nic_advanced",
+      "state": "verified",
+      "supported": true,
+      "details": "Get/Set-NetAdapterAdvancedProperty"
+    },
+    {
+      "id": "nic_interrupt_moderation",
+      "sourceType": "nic_advanced",
+      "state": "verified",
+      "supported": true,
+      "details": "Get/Set-NetAdapterAdvancedProperty"
+    },
+    {
+      "id": "nic_adaptive_interframe_spacing",
+      "sourceType": "nic_advanced",
+      "state": "verified",
+      "supported": true,
+      "details": "Get/Set-NetAdapterAdvancedProperty"
+    },
+    {
+      "id": "nic_phy_power_saving",
+      "sourceType": "nic_advanced",
+      "state": "verified",
+      "supported": true,
+      "details": "Get/Set-NetAdapterAdvancedProperty"
+    },
+    {
+      "id": "nic_link_down_power_saving",
+      "sourceType": "nic_advanced",
+      "state": "verified",
+      "supported": true,
+      "details": "Get/Set-NetAdapterAdvancedProperty"
+    },
+    {
+      "id": "nic_link_idle_power_saving",
+      "sourceType": "nic_advanced",
+      "state": "verified",
+      "supported": true,
+      "details": "Get/Set-NetAdapterAdvancedProperty"
+    },
+    {
+      "id": "nic_smart_power_down",
+      "sourceType": "nic_advanced",
+      "state": "verified",
+      "supported": true,
+      "details": "Get/Set-NetAdapterAdvancedProperty"
+    },
+    {
+      "id": "nic_energy_detect",
+      "sourceType": "nic_advanced",
+      "state": "verified",
+      "supported": true,
+      "details": "Get/Set-NetAdapterAdvancedProperty"
+    },
+    {
+      "id": "nic_network_adapter_idle_timeout",
+      "sourceType": "nic_advanced",
+      "state": "verified",
+      "supported": true,
+      "details": "Get/Set-NetAdapterAdvancedProperty"
+    },
+    {
+      "id": "nic_network_adapter_deep_sleep",
+      "sourceType": "nic_advanced",
+      "state": "verified",
+      "supported": true,
+      "details": "Get/Set-NetAdapterAdvancedProperty"
+    },
+    {
+      "id": "nic_network_adapter_energy_policy",
+      "sourceType": "nic_advanced",
+      "state": "verified",
+      "supported": true,
+      "details": "Get/Set-NetAdapterAdvancedProperty"
+    },
+    {
+      "id": "nic_network_adapter_wake_latency",
+      "sourceType": "nic_advanced",
+      "state": "verified",
+      "supported": true,
+      "details": "Get/Set-NetAdapterAdvancedProperty"
+    },
+    {
+      "id": "nic_network_adapter_standby_policy",
+      "sourceType": "nic_advanced",
+      "state": "verified",
+      "supported": true,
+      "details": "Get/Set-NetAdapterAdvancedProperty"
+    },
+    {
+      "id": "nic_network_adapter_dynamic_power",
+      "sourceType": "nic_advanced",
+      "state": "verified",
+      "supported": true,
+      "details": "Get/Set-NetAdapterAdvancedProperty"
+    },
+    {
+      "id": "nic_network_adapter_clock_gating",
+      "sourceType": "nic_advanced",
+      "state": "verified",
+      "supported": true,
+      "details": "Get/Set-NetAdapterAdvancedProperty"
+    },
+    {
+      "id": "nic_network_adapter_power_budget",
+      "sourceType": "nic_advanced",
+      "state": "verified",
+      "supported": true,
+      "details": "Get/Set-NetAdapterAdvancedProperty"
+    },
+    {
+      "id": "nic_network_adapter_throughput_scaling",
+      "sourceType": "nic_advanced",
+      "state": "verified",
+      "supported": true,
+      "details": "Get/Set-NetAdapterAdvancedProperty"
+    },
+    {
+      "id": "nic_network_adapter_packet_coalescing",
+      "sourceType": "nic_advanced",
+      "state": "verified",
+      "supported": true,
+      "details": "Get/Set-NetAdapterAdvancedProperty"
+    },
+    {
+      "id": "nic_network_adapter_phy_sleep",
+      "sourceType": "nic_advanced",
+      "state": "verified",
+      "supported": true,
+      "details": "Get/Set-NetAdapterAdvancedProperty"
+    },
+    {
+      "id": "nic_network_adapter_phy_standby",
+      "sourceType": "nic_advanced",
+      "state": "verified",
+      "supported": true,
+      "details": "Get/Set-NetAdapterAdvancedProperty"
+    },
+    {
+      "id": "nic_network_adapter_phy_energy_policy",
+      "sourceType": "nic_advanced",
+      "state": "verified",
+      "supported": true,
+      "details": "Get/Set-NetAdapterAdvancedProperty"
+    },
+    {
+      "id": "nic_network_adapter_phy_dynamic_power",
+      "sourceType": "nic_advanced",
+      "state": "verified",
+      "supported": true,
+      "details": "Get/Set-NetAdapterAdvancedProperty"
+    },
+    {
+      "id": "nic_network_adapter_phy_clock_gating",
+      "sourceType": "nic_advanced",
+      "state": "verified",
+      "supported": true,
+      "details": "Get/Set-NetAdapterAdvancedProperty"
+    },
+    {
+      "id": "nic_network_adapter_phy_wake_policy",
+      "sourceType": "nic_advanced",
+      "state": "verified",
+      "supported": true,
+      "details": "Get/Set-NetAdapterAdvancedProperty"
+    },
+    {
+      "id": "device_nic_allowcomputertoturnoffdevice",
+      "sourceType": "device_power_flag",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "PnPCapabilities registry"
+    },
+    {
+      "id": "device_usb_hub_allowcomputertoturnoffdevice",
+      "sourceType": "device_power_flag",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "PnPCapabilities registry"
+    },
+    {
+      "id": "device_usb_root_hub_allowcomputertoturnoffdevice",
+      "sourceType": "device_power_flag",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "PnPCapabilities registry"
+    },
+    {
+      "id": "device_usb_controller_allowcomputertoturnoffdevice",
+      "sourceType": "device_power_flag",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "PnPCapabilities registry"
+    },
+    {
+      "id": "device_bluetooth_radio_allowcomputertoturnoffdevice",
+      "sourceType": "device_power_flag",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "PnPCapabilities registry"
+    },
+    {
+      "id": "device_hid_keyboard_allowcomputertoturnoffdevice",
+      "sourceType": "device_power_flag",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "PnPCapabilities registry"
+    },
+    {
+      "id": "device_hid_mouse_allowcomputertoturnoffdevice",
+      "sourceType": "device_power_flag",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "PnPCapabilities registry"
+    },
+    {
+      "id": "device_camera_allowcomputertoturnoffdevice",
+      "sourceType": "device_power_flag",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "PnPCapabilities registry"
+    },
+    {
+      "id": "device_sensor_allowcomputertoturnoffdevice",
+      "sourceType": "device_power_flag",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "PnPCapabilities registry"
+    },
+    {
+      "id": "device_thunderbolt_allowcomputertoturnoffdevice",
+      "sourceType": "device_power_flag",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "PnPCapabilities registry"
+    },
+    {
+      "id": "device_sd_controller_allowcomputertoturnoffdevice",
+      "sourceType": "device_power_flag",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "PnPCapabilities registry"
+    },
+    {
+      "id": "device_serial_controller_allowcomputertoturnoffdevice",
+      "sourceType": "device_power_flag",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "PnPCapabilities registry"
+    },
+    {
+      "id": "device_smbus_controller_allowcomputertoturnoffdevice",
+      "sourceType": "device_power_flag",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "PnPCapabilities registry"
+    },
+    {
+      "id": "device_i2c_controller_allowcomputertoturnoffdevice",
+      "sourceType": "device_power_flag",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "PnPCapabilities registry"
+    },
+    {
+      "id": "device_spi_controller_allowcomputertoturnoffdevice",
+      "sourceType": "device_power_flag",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "PnPCapabilities registry"
+    },
+    {
+      "id": "device_embedded_controller_allowcomputertoturnoffdevice",
+      "sourceType": "device_power_flag",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "PnPCapabilities registry"
+    },
+    {
+      "id": "storage_nvme_controller_sleep",
+      "sourceType": "storage_feature",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "Storage registry + powercfg mappings"
+    },
+    {
+      "id": "storage_nvme_host_power_management",
+      "sourceType": "storage_feature",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "Storage registry + powercfg mappings"
+    },
+    {
+      "id": "storage_nvme_latency_tolerance",
+      "sourceType": "storage_feature",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "Storage registry + powercfg mappings"
+    },
+    {
+      "id": "storage_nvme_deep_sleep",
+      "sourceType": "storage_feature",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "Storage registry + powercfg mappings"
+    },
+    {
+      "id": "storage_nvme_performance_state_policy",
+      "sourceType": "storage_feature",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "Storage registry + powercfg mappings"
+    },
+    {
+      "id": "storage_nvme_thermal_power_scaling",
+      "sourceType": "storage_feature",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "Storage registry + powercfg mappings"
+    },
+    {
+      "id": "storage_ahci_link_power_management",
+      "sourceType": "storage_feature",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "Storage registry + powercfg mappings"
+    },
+    {
+      "id": "storage_sata_hipm",
+      "sourceType": "storage_feature",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "Storage registry + powercfg mappings"
+    },
+    {
+      "id": "storage_sata_dipm",
+      "sourceType": "storage_feature",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "Storage registry + powercfg mappings"
+    },
+    {
+      "id": "storage_storage_device_spin_down",
+      "sourceType": "storage_feature",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "Storage registry + powercfg mappings"
+    },
+    {
+      "id": "storage_disk_idle_timeout",
+      "sourceType": "storage_feature",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "Storage registry + powercfg mappings"
+    },
+    {
+      "id": "storage_disk_controller_idle_policy",
+      "sourceType": "storage_feature",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "Storage registry + powercfg mappings"
+    },
+    {
+      "id": "storage_disk_link_power_management",
+      "sourceType": "storage_feature",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "Storage registry + powercfg mappings"
+    },
+    {
+      "id": "storage_disk_bus_power_management",
+      "sourceType": "storage_feature",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "Storage registry + powercfg mappings"
+    },
+    {
+      "id": "storage_disk_queue_idle_policy",
+      "sourceType": "storage_feature",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "Storage registry + powercfg mappings"
+    },
+    {
+      "id": "gpu_gpu_adaptive_power_mode",
+      "sourceType": "gpu_feature",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "GPU vendor registry + DxgKrnl policies"
+    },
+    {
+      "id": "gpu_gpu_optimal_power",
+      "sourceType": "gpu_feature",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "GPU vendor registry + DxgKrnl policies"
+    },
+    {
+      "id": "gpu_gpu_idle_clock_gating",
+      "sourceType": "gpu_feature",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "GPU vendor registry + DxgKrnl policies"
+    },
+    {
+      "id": "gpu_gpu_deep_sleep",
+      "sourceType": "gpu_feature",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "GPU vendor registry + DxgKrnl policies"
+    },
+    {
+      "id": "gpu_gpu_power_throttle",
+      "sourceType": "gpu_feature",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "GPU vendor registry + DxgKrnl policies"
+    },
+    {
+      "id": "gpu_gpu_performance_bias",
+      "sourceType": "gpu_feature",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "GPU vendor registry + DxgKrnl policies"
+    },
+    {
+      "id": "gpu_gpu_energy_bias",
+      "sourceType": "gpu_feature",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "GPU vendor registry + DxgKrnl policies"
+    },
+    {
+      "id": "gpu_gpu_dynamic_power",
+      "sourceType": "gpu_feature",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "GPU vendor registry + DxgKrnl policies"
+    },
+    {
+      "id": "gpu_gpu_clock_gating",
+      "sourceType": "gpu_feature",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "GPU vendor registry + DxgKrnl policies"
+    },
+    {
+      "id": "gpu_gpu_idle_policy",
+      "sourceType": "gpu_feature",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "GPU vendor registry + DxgKrnl policies"
+    },
+    {
+      "id": "gpu_gpu_energy_policy",
+      "sourceType": "gpu_feature",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "GPU vendor registry + DxgKrnl policies"
+    },
+    {
+      "id": "gpu_gpu_wake_latency",
+      "sourceType": "gpu_feature",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "GPU vendor registry + DxgKrnl policies"
+    },
+    {
+      "id": "gpu_gpu_thermal_power_scaling",
+      "sourceType": "gpu_feature",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "GPU vendor registry + DxgKrnl policies"
+    },
+    {
+      "id": "gpu_gpu_voltage_scaling",
+      "sourceType": "gpu_feature",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "GPU vendor registry + DxgKrnl policies"
+    },
+    {
+      "id": "gpu_gpu_frequency_scaling",
+      "sourceType": "gpu_feature",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "GPU vendor registry + DxgKrnl policies"
+    },
+    {
+      "id": "gpu_gpu_idle_timeout",
+      "sourceType": "gpu_feature",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "GPU vendor registry + DxgKrnl policies"
+    },
+    {
+      "id": "gpu_gpu_performance_state_policy",
+      "sourceType": "gpu_feature",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "GPU vendor registry + DxgKrnl policies"
+    },
+    {
+      "id": "gpu_nvidia_optimal_power",
+      "sourceType": "gpu_feature",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "GPU vendor registry + DxgKrnl policies"
+    },
+    {
+      "id": "gpu_amd_ulps",
+      "sourceType": "gpu_feature",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "GPU vendor registry + DxgKrnl policies"
+    },
+    {
+      "id": "gpu_intel_rc6",
+      "sourceType": "gpu_feature",
+      "state": "readback_registry_or_device",
+      "supported": true,
+      "details": "GPU vendor registry + DxgKrnl policies"
     },
     {
       "id": "registry_powerthrottlingoff",
-      "title": "PowerThrottlingOff",
       "sourceType": "registry_power",
-      "readable": true,
-      "supported": true,
       "state": "verified",
-      "details": "static repo verification snapshot"
+      "supported": true,
+      "details": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Power\\PowerThrottling"
     },
     {
-      "id": "registry_backgroundapppowerthrottlingdisable",
-      "title": "BackgroundAppPowerThrottlingDisable",
+      "id": "registry_disabledynamictick",
       "sourceType": "registry_power",
-      "readable": true,
-      "supported": true,
       "state": "verified",
-      "details": "static repo verification snapshot"
+      "supported": true,
+      "details": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\kernel"
     },
     {
-      "id": "registry_dynamictick_disable",
-      "title": "DynamicTick Disable",
+      "id": "registry_hiberbootenabled",
       "sourceType": "registry_power",
-      "readable": true,
-      "supported": true,
       "state": "verified",
-      "details": "static repo verification snapshot"
+      "supported": true,
+      "details": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Power"
     },
     {
-      "id": "registry_faststartup_disable",
-      "title": "FastStartup Disable",
+      "id": "registry_csenabled",
       "sourceType": "registry_power",
-      "readable": true,
-      "supported": true,
       "state": "verified",
-      "details": "static repo verification snapshot"
+      "supported": true,
+      "details": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Power"
+    },
+    {
+      "id": "registry_energyestimationenabled",
+      "sourceType": "registry_power",
+      "state": "verified",
+      "supported": true,
+      "details": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Power"
+    },
+    {
+      "id": "registry_platformaoacoverride",
+      "sourceType": "registry_power",
+      "state": "verified",
+      "supported": true,
+      "details": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Power"
+    },
+    {
+      "id": "registry_latencytolerancedefault",
+      "sourceType": "registry_power",
+      "state": "verified",
+      "supported": true,
+      "details": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Power"
+    },
+    {
+      "id": "registry_systemresponsiveness",
+      "sourceType": "registry_power",
+      "state": "verified",
+      "supported": true,
+      "details": "HKLM:\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile"
+    },
+    {
+      "id": "registry_networkthrottlingindex",
+      "sourceType": "registry_power",
+      "state": "verified",
+      "supported": true,
+      "details": "HKLM:\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile"
+    },
+    {
+      "id": "registry_allowtelemetrypowerdata",
+      "sourceType": "registry_power",
+      "state": "verified",
+      "supported": true,
+      "details": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Power"
+    },
+    {
+      "id": "registry_globaluserdisabled",
+      "sourceType": "registry_power",
+      "state": "verified",
+      "supported": true,
+      "details": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Power"
+    },
+    {
+      "id": "registry_enableinputsuppression",
+      "sourceType": "registry_power",
+      "state": "verified",
+      "supported": true,
+      "details": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Power"
+    },
+    {
+      "id": "registry_hibernateenabled",
+      "sourceType": "registry_power",
+      "state": "verified",
+      "supported": true,
+      "details": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Power"
+    },
+    {
+      "id": "firmware_firmware_recommendation_01",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_02",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_03",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_04",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_05",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_06",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_07",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_08",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_09",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_10",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_11",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_12",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_13",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_14",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_15",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_16",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_17",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_18",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_19",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_20",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_21",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_22",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_23",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_24",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_25",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_26",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_27",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_28",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_29",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_30",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_31",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_32",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_33",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_34",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_35",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_36",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_37",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_38",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_39",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_40",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_41",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_42",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_43",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_44",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_45",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_46",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_47",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_48",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_49",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_50",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_51",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_52",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_53",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_54",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_55",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_56",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_57",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_58",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_59",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_60",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_61",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_62",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_63",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_64",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_65",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_66",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_67",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_68",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_69",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_70",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_71",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_72",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_73",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_74",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_75",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_76",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_77",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_78",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_79",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
+    },
+    {
+      "id": "firmware_firmware_recommendation_80",
+      "sourceType": "firmware_candidate",
+      "state": "recommendation_only",
+      "supported": false,
+      "details": "Manual BIOS/UEFI recommendation"
     }
   ]
 }
