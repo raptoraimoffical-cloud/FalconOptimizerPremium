@@ -8714,7 +8714,7 @@ async function buildExhaustivePowerManagementPanel(){
       <div class="card">
         <div class="card-title">${__eh(item.title || item.id)}</div>
         <div class="card-desc">${__eh(item.shortDescription || '')}</div>
-        <div class="muted">Current value: dynamic • Target: preset-driven • Support: ${__eh(item.sourceType || 'unknown')}</div>
+        <div class="muted">ID: ${__eh(item.id||'')} • Source: ${__eh(item.sourceType || 'unknown')} • Subcategory: ${__eh(item.subcategory||'')}</div>
         <div class="card-actions" style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;">
           <button class="btn" data-act="apply" data-id="${__eh(item.id)}">Apply</button>
           <button class="btn" data-act="verify" data-id="${__eh(item.id)}">Verify</button>
@@ -8747,10 +8747,12 @@ async function buildExhaustivePowerManagementPanel(){
     const act = t.getAttribute('data-act');
     if (!act) return;
     e.preventDefault();
-    if (act === 'apply') return action(()=>window.falcon.powerManagementApplyPreset('extreme'), 'Applied via preset engine');
-    if (act === 'verify') return action(()=>window.falcon.powerManagementVerify(), 'Verified');
-    if (act === 'rollback') return action(()=>window.falcon.powerManagementApplyPreset('restore'), 'Rollback applied');
-    if (act === 'log') return action(()=>window.falcon.powerManagementExportReport(), 'Report location listed');
+    const id = t.getAttribute('data-id');
+    if (!id) return;
+    if (act === 'apply') return action(()=>window.falcon.powerManagementApplyItem(id), `Applied ${id}`);
+    if (act === 'verify') return action(()=>window.falcon.powerManagementVerifyItem(id), `Verified ${id}`);
+    if (act === 'rollback') return action(()=>window.falcon.powerManagementRollbackItem(id), `Rolled back ${id}`);
+    if (act === 'log') return action(async()=>{ const exp = await window.falcon.powerManagementExportReport(); return { ok: !!(exp&&exp.ok), stdout: `Item: ${id}\nReport root: ${(exp&&exp.root)||'n/a'}\nFiles: ${((exp&&exp.files)||[]).join(', ')}` }; }, 'Report location listed');
   };
 }
 // --- Custom panel: Power Plans (Desktop/Laptop) ---
