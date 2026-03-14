@@ -2253,6 +2253,16 @@ ipcMain.handle("falcon:powerManagementApplyPreset", async (_evt, payload) => {
 ipcMain.handle("falcon:powerManagementVerify", async () => {
   try { return await runPowerManagementEngine("verify"); } catch (e) { return { ok:false, error:String(e && e.message ? e.message : e) }; }
 });
+
+ipcMain.handle("falcon:powerManagementApplyItem", async (_evt, payload) => {
+  try { const itemId = payload && payload.itemId ? String(payload.itemId) : ""; if (!itemId) return { ok:false, error:"Missing itemId" }; return await runPowerManagementEngine("apply-item", ["-ItemId", itemId]); } catch (e) { return { ok:false, error:String(e && e.message ? e.message : e) }; }
+});
+ipcMain.handle("falcon:powerManagementVerifyItem", async (_evt, payload) => {
+  try { const itemId = payload && payload.itemId ? String(payload.itemId) : ""; if (!itemId) return { ok:false, error:"Missing itemId" }; return await runPowerManagementEngine("verify-item", ["-ItemId", itemId]); } catch (e) { return { ok:false, error:String(e && e.message ? e.message : e) }; }
+});
+ipcMain.handle("falcon:powerManagementRollbackItem", async (_evt, payload) => {
+  try { const itemId = payload && payload.itemId ? String(payload.itemId) : ""; if (!itemId) return { ok:false, error:"Missing itemId" }; return await runPowerManagementEngine("rollback-item", ["-ItemId", itemId]); } catch (e) { return { ok:false, error:String(e && e.message ? e.message : e) }; }
+});
 ipcMain.handle("falcon:powerManagementCoverage", async () => {
   try { return await runPowerManagementEngine("coverage"); } catch (e) { return { ok:false, error:String(e && e.message ? e.message : e) }; }
 });

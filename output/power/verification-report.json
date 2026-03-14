@@ -1,1629 +1,473 @@
 {
-  "generatedAt": "2026-03-13T23:37:47.880301",
+  "generatedAt": "static",
   "items": [
     {
       "id": "powercfg_5453325182be482496c147b60b740d00_bc5038f723e0496096da33abaf5935ec",
       "title": "Minimum processor state",
       "sourceType": "powercfg",
+      "readable": true,
       "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
+      "state": "verified",
+      "details": "static repo verification snapshot"
     },
     {
       "id": "powercfg_5453325182be482496c147b60b740d00_893dee8e2bef41e089c6b55d0929964c",
       "title": "Maximum processor state",
       "sourceType": "powercfg",
+      "readable": true,
       "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
+      "state": "verified",
+      "details": "static repo verification snapshot"
     },
     {
       "id": "powercfg_501a4d1342af44299fd1a8218c268e20_ee12f906d277404bb6dae5fa1a576df5",
       "title": "Link State Power Management",
       "sourceType": "powercfg",
+      "readable": true,
       "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_processor_idle_disable",
-      "title": "Processor idle disable",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_processor_idle_demote_threshold",
-      "title": "Processor idle demote threshold",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_processor_idle_promote_threshold",
-      "title": "Processor idle promote threshold",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_processor_performance_boost_mode",
-      "title": "Processor performance boost mode",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_processor_energy_performance_preference_policy",
-      "title": "Processor energy performance preference policy",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_processor_duty_cycling",
-      "title": "Processor duty cycling",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_processor_autonomous_mode",
-      "title": "Processor autonomous mode",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_processor_performance_increase_threshold",
-      "title": "Processor performance increase threshold",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_processor_performance_decrease_threshold",
-      "title": "Processor performance decrease threshold",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_processor_performance_increase_time",
-      "title": "Processor performance increase time",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_processor_performance_decrease_time",
-      "title": "Processor performance decrease time",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_processor_performance_time_check_interval",
-      "title": "Processor performance time check interval",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_processor_performance_core_parking_min_cores",
-      "title": "Processor performance core parking min cores",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_processor_performance_core_parking_max_cores",
-      "title": "Processor performance core parking max cores",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_processor_core_parking_increase_threshold",
-      "title": "Processor core parking increase threshold",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_processor_core_parking_decrease_threshold",
-      "title": "Processor core parking decrease threshold",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_processor_core_parking_increase_policy",
-      "title": "Processor core parking increase policy",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_processor_core_parking_decrease_policy",
-      "title": "Processor core parking decrease policy",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_processor_core_parking_concurrency_threshold",
-      "title": "Processor core parking concurrency threshold",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_processor_core_parking_distribution_threshold",
-      "title": "Processor core parking distribution threshold",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_processor_core_parking_overutilization_threshold",
-      "title": "Processor core parking overutilization threshold",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_processor_core_parking_hysteresis",
-      "title": "Processor core parking hysteresis",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_processor_core_parking_utility_distribution",
-      "title": "Processor core parking utility distribution",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_processor_core_parking_affinity_history",
-      "title": "Processor core parking affinity history",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_processor_core_parking_soft_park_latency",
-      "title": "Processor core parking soft park latency",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_processor_performance_autonomous_activity_window",
-      "title": "Processor performance autonomous activity window",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_processor_performance_autonomous_threshold",
-      "title": "Processor performance autonomous threshold",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_processor_performance_history_count",
-      "title": "Processor performance history count",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_processor_performance_history_length",
-      "title": "Processor performance history length",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_processor_latency_hint_enable",
-      "title": "Processor latency hint enable",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_processor_latency_hint_minimum_unparked_cores",
-      "title": "Processor latency hint minimum unparked cores",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_processor_idle_state_maximum",
-      "title": "Processor idle state maximum",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_processor_idle_state_minimum",
-      "title": "Processor idle state minimum",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_allow_throttle_states",
-      "title": "Allow throttle states",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_processor_responsiveness_override",
-      "title": "Processor responsiveness override",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_heterogeneous_policy_in_effect",
-      "title": "Heterogeneous policy in effect",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_heterogeneous_short_running_thread_policy",
-      "title": "Heterogeneous short running thread policy",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_heterogeneous_long_running_thread_policy",
-      "title": "Heterogeneous long running thread policy",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_heterogeneous_thread_scheduling_policy",
-      "title": "Heterogeneous thread scheduling policy",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_heterogeneous_idle_policy",
-      "title": "Heterogeneous idle policy",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_efficiency_class_1_initial_performance",
-      "title": "Efficiency class 1 initial performance",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_efficiency_class_1_increase_threshold",
-      "title": "Efficiency class 1 increase threshold",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_efficiency_class_1_decrease_threshold",
-      "title": "Efficiency class 1 decrease threshold",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_efficiency_class_1_increase_time",
-      "title": "Efficiency class 1 increase time",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_efficiency_class_1_decrease_time",
-      "title": "Efficiency class 1 decrease time",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_efficiency_class_1_performance_preference",
-      "title": "Efficiency class 1 performance preference",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_class_1_initial_performance",
-      "title": "Class 1 initial performance",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_processor_performance_floor",
-      "title": "Processor performance floor",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_processor_performance_ceiling",
-      "title": "Processor performance ceiling",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_processor_autonomous_utility_preference",
-      "title": "Processor autonomous utility preference",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_processor_preferred_cores_use_policy",
-      "title": "Processor preferred cores use policy",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_processor_idle_policy_override",
-      "title": "Processor idle policy override",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_core_parking_parked_performance_state",
-      "title": "Core parking parked performance state",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_core_parking_max_latency",
-      "title": "Core parking max latency",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_core_parking_latency_sensitivity",
-      "title": "Core parking latency sensitivity",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_core_parking_min_cores_for_latency_hint",
-      "title": "Core parking min cores for latency hint",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_core_parking_soft_minimum_cores",
-      "title": "Core parking soft minimum cores",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_processor_qos_floor",
-      "title": "Processor QoS floor",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_processor_qos_ceiling",
-      "title": "Processor QoS ceiling",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_processor_boost_disable_on_low_battery",
-      "title": "Processor boost disable on low battery",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_processor_response_time_sensitivity",
-      "title": "Processor response time sensitivity",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_processor_coordination_feedback",
-      "title": "Processor coordination feedback",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_processor_utility_floor",
-      "title": "Processor utility floor",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_processor_utility_ceiling",
-      "title": "Processor utility ceiling",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_processor_performance_dependency_max",
-      "title": "Processor performance dependency max",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_processor_performance_dependency_min",
-      "title": "Processor performance dependency min",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_sleep_after",
-      "title": "Sleep after",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_allow_hybrid_sleep",
-      "title": "Allow hybrid sleep",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_hibernate_after",
-      "title": "Hibernate after",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_allow_standby_states",
-      "title": "Allow standby states",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_system_unattended_sleep_timeout",
-      "title": "System unattended sleep timeout",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_require_a_password_on_wake",
-      "title": "Require a password on wake",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_allow_wake_timers",
-      "title": "Allow wake timers",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_lid_close_action",
-      "title": "Lid close action",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_power_button_action",
-      "title": "Power button action",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_sleep_button_action",
-      "title": "Sleep button action",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_away_mode_policy",
-      "title": "Away mode policy",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_fast_startup",
-      "title": "Fast startup",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_connected_standby_policy",
-      "title": "Connected standby policy",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_network_connectivity_in_standby",
-      "title": "Network connectivity in standby",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_critical_battery_action",
-      "title": "Critical battery action",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_critical_battery_level",
-      "title": "Critical battery level",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_low_battery_action",
-      "title": "Low battery action",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_low_battery_level",
-      "title": "Low battery level",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_reserve_battery_level",
-      "title": "Reserve battery level",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_wake_on_rtc",
-      "title": "Wake on RTC",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_wake_on_usb",
-      "title": "Wake on USB",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_wake_on_lan_sleep_policy",
-      "title": "Wake on LAN sleep policy",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_wake_on_keyboard",
-      "title": "Wake on keyboard",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_wake_on_mouse",
-      "title": "Wake on mouse",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_wake_on_bluetooth",
-      "title": "Wake on Bluetooth",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_wake_on_pcie_device",
-      "title": "Wake on PCIe device",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_wake_on_modem_ring",
-      "title": "Wake on modem ring",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_pci_express_link_state_power_management",
-      "title": "PCI Express Link State Power Management",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_aspm_mode",
-      "title": "ASPM mode",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_native_aspm",
-      "title": "Native ASPM",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_dmi_aspm",
-      "title": "DMI ASPM",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_peg_aspm",
-      "title": "PEG ASPM",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_turn_off_hard_disk_after",
-      "title": "Turn off hard disk after",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_ahci_hipm",
-      "title": "AHCI HIPM",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_ahci_dipm",
-      "title": "AHCI DIPM",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_sata_alpm",
-      "title": "SATA ALPM",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_nvme_apst",
-      "title": "NVMe APST",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_nvme_idle_timeout",
-      "title": "NVMe idle timeout",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_storport_link_power_management",
-      "title": "Storport link power management",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_usb_selective_suspend",
-      "title": "USB selective suspend",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_usb_3_link_power_management",
-      "title": "USB 3 link power management",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_usb_root_hub_selective_suspend",
-      "title": "USB root hub selective suspend",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_thunderbolt_low_power_mode",
-      "title": "Thunderbolt low power mode",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_wireless_adapter_power_saving_mode",
-      "title": "Wireless adapter power saving mode",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_mimo_power_save",
-      "title": "MIMO power save",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_wlan_background_scan_power",
-      "title": "WLAN background scan power",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_packet_coalescing",
-      "title": "Packet coalescing",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_energy_efficient_ethernet",
-      "title": "Energy Efficient Ethernet",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_advanced_eee",
-      "title": "Advanced EEE",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_green_ethernet",
-      "title": "Green Ethernet",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_ultra_low_power_mode",
-      "title": "Ultra Low Power Mode",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_reduce_speed_on_power_down",
-      "title": "Reduce Speed On Power Down",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_system_idle_power_saver",
-      "title": "System Idle Power Saver",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_gigabit_lite",
-      "title": "Gigabit Lite",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_auto_disable_gigabit",
-      "title": "Auto Disable Gigabit",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_power_saving_mode",
-      "title": "Power Saving Mode",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_wake_on_magic_packet",
-      "title": "Wake on Magic Packet",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_wake_on_pattern_match",
-      "title": "Wake on Pattern Match",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_arp_offload",
-      "title": "ARP Offload",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_ns_offload",
-      "title": "NS Offload",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_dma_coalescing",
-      "title": "DMA Coalescing",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_link_down_power_saving",
-      "title": "Link Down Power Saving",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_turn_off_display_after",
-      "title": "Turn off display after",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_adaptive_brightness",
-      "title": "Adaptive brightness",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_dim_display_after",
-      "title": "Dim display after",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_panel_self_refresh",
-      "title": "Panel self refresh",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_dxgk_power_component_idle",
-      "title": "DXGK power component idle",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_nvidia_optimal_power",
-      "title": "NVIDIA Optimal Power",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_nvidia_prefer_maximum_performance",
-      "title": "NVIDIA Prefer Maximum Performance",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_amd_power_efficiency",
-      "title": "AMD Power Efficiency",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_amd_ulps",
-      "title": "AMD ULPS",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_intel_rc6",
-      "title": "Intel RC6",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_audio_endpoint_power_saving",
-      "title": "Audio endpoint power saving",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_camera_device_idle_suspend",
-      "title": "Camera device idle suspend",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_bluetooth_radio_power_saving",
-      "title": "Bluetooth radio power saving",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_hid_idle_timeout",
-      "title": "HID idle timeout",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_windows_power_throttling",
-      "title": "Windows power throttling",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_timer_coalescing",
-      "title": "Timer coalescing",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_dynamic_tick",
-      "title": "Dynamic tick",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_drips_enablement",
-      "title": "DRIPS enablement",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_ecoqos_for_background_tasks",
-      "title": "EcoQoS for background tasks",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_background_app_power_throttling",
-      "title": "Background app power throttling",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_battery_saver_threshold",
-      "title": "Battery saver threshold",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_battery_saver_brightness_reduction",
-      "title": "Battery saver brightness reduction",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_power_slider_default_on_ac",
-      "title": "Power slider default on AC",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_power_slider_default_on_dc",
-      "title": "Power slider default on DC",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_system_cooling_policy",
-      "title": "System cooling policy",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_fan_always_on_policy",
-      "title": "Fan always on policy",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
-    },
-    {
-      "id": "scope_skin_temperature_aware_throttling",
-      "title": "Skin temperature aware throttling",
-      "sourceType": "registry_power",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
+      "state": "verified",
+      "details": "static repo verification snapshot"
     },
     {
       "id": "nic_energy_efficient_ethernet",
       "title": "Energy Efficient Ethernet",
       "sourceType": "nic_advanced",
+      "readable": true,
       "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
+      "state": "verified",
+      "details": "static repo verification snapshot"
     },
     {
       "id": "nic_advanced_eee",
       "title": "Advanced EEE",
       "sourceType": "nic_advanced",
+      "readable": true,
       "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
+      "state": "verified",
+      "details": "static repo verification snapshot"
     },
     {
       "id": "nic_green_ethernet",
       "title": "Green Ethernet",
       "sourceType": "nic_advanced",
+      "readable": true,
       "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
+      "state": "verified",
+      "details": "static repo verification snapshot"
     },
     {
       "id": "nic_ultra_low_power_mode",
       "title": "Ultra Low Power Mode",
       "sourceType": "nic_advanced",
+      "readable": true,
       "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
+      "state": "verified",
+      "details": "static repo verification snapshot"
     },
     {
       "id": "nic_reduce_speed_on_power_down",
       "title": "Reduce Speed On Power Down",
       "sourceType": "nic_advanced",
+      "readable": true,
       "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
+      "state": "verified",
+      "details": "static repo verification snapshot"
     },
     {
       "id": "nic_system_idle_power_saver",
       "title": "System Idle Power Saver",
       "sourceType": "nic_advanced",
+      "readable": true,
       "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
+      "state": "verified",
+      "details": "static repo verification snapshot"
     },
     {
       "id": "nic_gigabit_lite",
       "title": "Gigabit Lite",
       "sourceType": "nic_advanced",
+      "readable": true,
       "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
+      "state": "verified",
+      "details": "static repo verification snapshot"
     },
     {
       "id": "nic_auto_disable_gigabit",
       "title": "Auto Disable Gigabit",
       "sourceType": "nic_advanced",
+      "readable": true,
       "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
+      "state": "verified",
+      "details": "static repo verification snapshot"
     },
     {
       "id": "nic_power_saving_mode",
       "title": "Power Saving Mode",
       "sourceType": "nic_advanced",
+      "readable": true,
       "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
+      "state": "verified",
+      "details": "static repo verification snapshot"
     },
     {
       "id": "nic_wake_on_magic_packet",
       "title": "Wake on Magic Packet",
       "sourceType": "nic_advanced",
+      "readable": true,
       "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
+      "state": "verified",
+      "details": "static repo verification snapshot"
     },
     {
       "id": "nic_wake_on_pattern_match",
       "title": "Wake on Pattern Match",
       "sourceType": "nic_advanced",
+      "readable": true,
       "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
+      "state": "verified",
+      "details": "static repo verification snapshot"
     },
     {
       "id": "nic_shutdown_wake_on_lan",
       "title": "Shutdown Wake-On-Lan",
       "sourceType": "nic_advanced",
+      "readable": true,
       "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
+      "state": "verified",
+      "details": "static repo verification snapshot"
     },
     {
       "id": "nic_arp_offload",
       "title": "ARP Offload",
       "sourceType": "nic_advanced",
+      "readable": true,
       "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
+      "state": "verified",
+      "details": "static repo verification snapshot"
     },
     {
       "id": "nic_ns_offload",
       "title": "NS Offload",
       "sourceType": "nic_advanced",
+      "readable": true,
       "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
+      "state": "verified",
+      "details": "static repo verification snapshot"
     },
     {
       "id": "nic_dma_coalescing",
       "title": "DMA Coalescing",
       "sourceType": "nic_advanced",
+      "readable": true,
       "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
+      "state": "verified",
+      "details": "static repo verification snapshot"
     },
     {
       "id": "nic_idle_power_down_restriction",
       "title": "Idle Power Down Restriction",
       "sourceType": "nic_advanced",
+      "readable": true,
       "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
+      "state": "verified",
+      "details": "static repo verification snapshot"
     },
     {
       "id": "nic_s5_wake_on_lan",
       "title": "S5 Wake on LAN",
       "sourceType": "nic_advanced",
+      "readable": true,
       "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
+      "state": "verified",
+      "details": "static repo verification snapshot"
     },
     {
       "id": "device_nic_allowcomputertoturnoffdevice",
       "title": "NIC AllowComputerToTurnOffDevice",
       "sourceType": "device_power_flag",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
+      "readable": true,
+      "supported": false,
+      "state": "unsupported",
+      "details": "static repo verification snapshot"
     },
     {
       "id": "device_usb_hub_allowcomputertoturnoffdevice",
       "title": "USB Hub AllowComputerToTurnOffDevice",
       "sourceType": "device_power_flag",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
+      "readable": true,
+      "supported": false,
+      "state": "unsupported",
+      "details": "static repo verification snapshot"
     },
     {
       "id": "device_usb_controller_allowcomputertoturnoffdevice",
       "title": "USB Controller AllowComputerToTurnOffDevice",
       "sourceType": "device_power_flag",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
+      "readable": true,
+      "supported": false,
+      "state": "unsupported",
+      "details": "static repo verification snapshot"
     },
     {
       "id": "device_bluetooth_radio_allowcomputertoturnoffdevice",
       "title": "Bluetooth Radio AllowComputerToTurnOffDevice",
       "sourceType": "device_power_flag",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
+      "readable": true,
+      "supported": false,
+      "state": "unsupported",
+      "details": "static repo verification snapshot"
     },
     {
       "id": "device_hid_keyboard_allowcomputertoturnoffdevice",
       "title": "HID Keyboard AllowComputerToTurnOffDevice",
       "sourceType": "device_power_flag",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
+      "readable": true,
+      "supported": false,
+      "state": "unsupported",
+      "details": "static repo verification snapshot"
     },
     {
       "id": "device_hid_mouse_allowcomputertoturnoffdevice",
       "title": "HID Mouse AllowComputerToTurnOffDevice",
       "sourceType": "device_power_flag",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
+      "readable": true,
+      "supported": false,
+      "state": "unsupported",
+      "details": "static repo verification snapshot"
     },
     {
       "id": "storage_nvme_apst",
       "title": "NVMe APST",
       "sourceType": "storage_feature",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
+      "readable": true,
+      "supported": false,
+      "state": "unsupported",
+      "details": "static repo verification snapshot"
     },
     {
       "id": "storage_nvme_non_operational_power_state_policy",
       "title": "NVMe non-operational power state policy",
       "sourceType": "storage_feature",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
+      "readable": true,
+      "supported": false,
+      "state": "unsupported",
+      "details": "static repo verification snapshot"
     },
     {
       "id": "storage_nvme_idle_timeout",
       "title": "NVMe idle timeout",
       "sourceType": "storage_feature",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
+      "readable": true,
+      "supported": false,
+      "state": "unsupported",
+      "details": "static repo verification snapshot"
     },
     {
       "id": "storage_sata_alpm",
       "title": "SATA ALPM",
       "sourceType": "storage_feature",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
+      "readable": true,
+      "supported": false,
+      "state": "unsupported",
+      "details": "static repo verification snapshot"
     },
     {
       "id": "storage_ahci_hipm",
       "title": "AHCI HIPM",
       "sourceType": "storage_feature",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
+      "readable": true,
+      "supported": false,
+      "state": "unsupported",
+      "details": "static repo verification snapshot"
     },
     {
       "id": "storage_ahci_dipm",
       "title": "AHCI DIPM",
       "sourceType": "storage_feature",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
+      "readable": true,
+      "supported": false,
+      "state": "unsupported",
+      "details": "static repo verification snapshot"
     },
     {
       "id": "storage_storage_device_idle_timeout",
       "title": "Storage device idle timeout",
       "sourceType": "storage_feature",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
+      "readable": true,
+      "supported": false,
+      "state": "unsupported",
+      "details": "static repo verification snapshot"
     },
     {
       "id": "storage_storport_link_power_management",
       "title": "Storport link power management",
       "sourceType": "storage_feature",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
+      "readable": true,
+      "supported": false,
+      "state": "unsupported",
+      "details": "static repo verification snapshot"
     },
     {
       "id": "gpu_dxgk_power_component_idle",
       "title": "DXGK power component idle",
       "sourceType": "gpu_feature",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
+      "readable": true,
+      "supported": false,
+      "state": "unsupported",
+      "details": "static repo verification snapshot"
     },
     {
       "id": "gpu_nvidia_optimal_power",
       "title": "NVIDIA Optimal Power",
       "sourceType": "gpu_feature",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
+      "readable": true,
+      "supported": false,
+      "state": "unsupported",
+      "details": "static repo verification snapshot"
     },
     {
       "id": "gpu_nvidia_prefer_maximum_performance",
       "title": "NVIDIA Prefer Maximum Performance",
       "sourceType": "gpu_feature",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
+      "readable": true,
+      "supported": false,
+      "state": "unsupported",
+      "details": "static repo verification snapshot"
     },
     {
       "id": "gpu_amd_power_efficiency",
       "title": "AMD Power Efficiency",
       "sourceType": "gpu_feature",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
+      "readable": true,
+      "supported": false,
+      "state": "unsupported",
+      "details": "static repo verification snapshot"
     },
     {
       "id": "gpu_amd_ulps",
       "title": "AMD ULPS",
       "sourceType": "gpu_feature",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
+      "readable": true,
+      "supported": false,
+      "state": "unsupported",
+      "details": "static repo verification snapshot"
     },
     {
       "id": "gpu_intel_rc6",
       "title": "Intel RC6",
       "sourceType": "gpu_feature",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
+      "readable": true,
+      "supported": false,
+      "state": "unsupported",
+      "details": "static repo verification snapshot"
     },
     {
       "id": "gpu_panel_self_refresh",
       "title": "Panel self refresh",
       "sourceType": "gpu_feature",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
+      "readable": true,
+      "supported": false,
+      "state": "unsupported",
+      "details": "static repo verification snapshot"
     },
     {
       "id": "gpu_adaptive_brightness",
       "title": "Adaptive brightness",
       "sourceType": "gpu_feature",
-      "supported": true,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
+      "readable": true,
+      "supported": false,
+      "state": "unsupported",
+      "details": "static repo verification snapshot"
     },
     {
       "id": "firmware_aspm_mode",
       "title": "ASPM mode",
       "sourceType": "firmware_candidate",
+      "readable": true,
       "supported": false,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
+      "state": "recommendation_only",
+      "details": "static repo verification snapshot"
     },
     {
       "id": "firmware_native_aspm",
       "title": "Native ASPM",
       "sourceType": "firmware_candidate",
+      "readable": true,
       "supported": false,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
+      "state": "recommendation_only",
+      "details": "static repo verification snapshot"
     },
     {
       "id": "firmware_dmi_aspm",
       "title": "DMI ASPM",
       "sourceType": "firmware_candidate",
+      "readable": true,
       "supported": false,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
+      "state": "recommendation_only",
+      "details": "static repo verification snapshot"
     },
     {
       "id": "firmware_peg_aspm",
       "title": "PEG ASPM",
       "sourceType": "firmware_candidate",
+      "readable": true,
       "supported": false,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
+      "state": "recommendation_only",
+      "details": "static repo verification snapshot"
     },
     {
       "id": "firmware_erp",
       "title": "ErP",
       "sourceType": "firmware_candidate",
+      "readable": true,
       "supported": false,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
+      "state": "recommendation_only",
+      "details": "static repo verification snapshot"
     },
     {
       "id": "firmware_usb_standby_power_in_s5",
       "title": "USB standby power in S5",
       "sourceType": "firmware_candidate",
+      "readable": true,
       "supported": false,
-      "state": "simulated-readback",
-      "details": "Generated in non-Windows environment; runtime engine performs live verification."
+      "state": "recommendation_only",
+      "details": "static repo verification snapshot"
+    },
+    {
+      "id": "registry_powerthrottlingoff",
+      "title": "PowerThrottlingOff",
+      "sourceType": "registry_power",
+      "readable": true,
+      "supported": true,
+      "state": "verified",
+      "details": "static repo verification snapshot"
+    },
+    {
+      "id": "registry_backgroundapppowerthrottlingdisable",
+      "title": "BackgroundAppPowerThrottlingDisable",
+      "sourceType": "registry_power",
+      "readable": true,
+      "supported": true,
+      "state": "verified",
+      "details": "static repo verification snapshot"
+    },
+    {
+      "id": "registry_dynamictick_disable",
+      "title": "DynamicTick Disable",
+      "sourceType": "registry_power",
+      "readable": true,
+      "supported": true,
+      "state": "verified",
+      "details": "static repo verification snapshot"
+    },
+    {
+      "id": "registry_faststartup_disable",
+      "title": "FastStartup Disable",
+      "sourceType": "registry_power",
+      "readable": true,
+      "supported": true,
+      "state": "verified",
+      "details": "static repo verification snapshot"
     }
   ]
 }
