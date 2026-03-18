@@ -27,7 +27,13 @@
       "type": "button",
       "riskLevel": "Safe",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "isAppSpecific": false,
+      "isSystemWide": true,
+      "appTargets": [],
+      "bulkSelectableGroups": [
+        "non_app"
+      ]
     },
     {
       "id": "boost.clean_network_stack",
@@ -56,14 +62,20 @@
       "type": "button",
       "riskLevel": "Safe",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "isAppSpecific": false,
+      "isSystemWide": true,
+      "appTargets": [],
+      "bulkSelectableGroups": [
+        "non_app"
+      ]
     },
     {
       "id": "boost.latency_registry_baseline",
-      "name": "Apply Latency Registry Baseline",
-      "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
+      "name": "Apply Latency Registry Optimization Bundle",
+      "category": "Falcon Speed & Integrity Core / Latency & Scheduler",
       "risk": "Warning",
-      "description": "Applies known low-latency baseline values: Win32PrioritySeparation=38, NetworkThrottlingIndex=FFFFFFFF, SystemResponsiveness=0, TCPNoDelay=1, TcpAckFrequency=1.",
+      "description": "Writes a latency-focused registry bundle (Win32PrioritySeparation, NetworkThrottlingIndex, SystemResponsiveness, TCPNoDelay, TcpAckFrequency). Not a reset action.",
       "requiresAdmin": true,
       "requiresReboot": false,
       "apply": {
@@ -85,7 +97,15 @@
       "type": "button",
       "riskLevel": "Warning",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "isAppSpecific": false,
+      "isSystemWide": true,
+      "appTargets": [],
+      "bulkSelectableGroups": [
+        "non_app",
+        "latency_core"
+      ],
+      "shortDescription": "Applies scheduler, MMCSS, and TCP latency-oriented registry values."
     },
     {
       "id": "boost.clear_cache__speed.boost",
@@ -115,7 +135,13 @@
       "riskLevel": "Safe",
       "note": "Converted from toggle (missing revert).",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "isAppSpecific": false,
+      "isSystemWide": true,
+      "appTargets": [],
+      "bulkSelectableGroups": [
+        "non_app"
+      ]
     },
     {
       "id": "boost.clear_chrome_temp__speed.boost",
@@ -145,7 +171,15 @@
       "riskLevel": "Safe",
       "note": "Converted from toggle (missing revert).",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "isAppSpecific": true,
+      "isSystemWide": false,
+      "appTargets": [
+        "chrome"
+      ],
+      "bulkSelectableGroups": [
+        "app_specific"
+      ]
     },
     {
       "id": "boost.clear_games_temp__speed.boost",
@@ -175,7 +209,13 @@
       "riskLevel": "Safe",
       "note": "Converted from toggle (missing revert).",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "isAppSpecific": false,
+      "isSystemWide": true,
+      "appTargets": [],
+      "bulkSelectableGroups": [
+        "non_app"
+      ]
     },
     {
       "id": "boost.clear_history_recent__speed.boost",
@@ -205,7 +245,13 @@
       "riskLevel": "Safe",
       "note": "Converted from toggle (missing revert).",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "isAppSpecific": false,
+      "isSystemWide": true,
+      "appTargets": [],
+      "bulkSelectableGroups": [
+        "non_app"
+      ]
     },
     {
       "id": "boost.clear_installer_caches__speed.boost",
@@ -235,7 +281,13 @@
       "riskLevel": "Safe",
       "note": "Converted from toggle (missing revert).",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "isAppSpecific": false,
+      "isSystemWide": true,
+      "appTargets": [],
+      "bulkSelectableGroups": [
+        "non_app"
+      ]
     },
     {
       "id": "boost.clear_prefetch__speed.boost",
@@ -265,7 +317,13 @@
       "riskLevel": "Safe",
       "note": "Converted from toggle (missing revert).",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "isAppSpecific": false,
+      "isSystemWide": true,
+      "appTargets": [],
+      "bulkSelectableGroups": [
+        "non_app"
+      ]
     },
     {
       "id": "boost.clear_thumbnail_cache__speed.boost",
@@ -295,7 +353,13 @@
       "riskLevel": "Safe",
       "note": "Converted from toggle (missing revert).",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "isAppSpecific": false,
+      "isSystemWide": true,
+      "appTargets": [],
+      "bulkSelectableGroups": [
+        "non_app"
+      ]
     },
     {
       "id": "boost.clear_font_cache__speed.boost",
@@ -325,7 +389,13 @@
       "riskLevel": "Safe",
       "note": "Converted from toggle (missing revert).",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "isAppSpecific": false,
+      "isSystemWide": true,
+      "appTargets": [],
+      "bulkSelectableGroups": [
+        "non_app"
+      ]
     },
     {
       "id": "boost.clear_discord_cache__speed.boost",
@@ -355,7 +425,15 @@
       "riskLevel": "Safe",
       "note": "Converted from toggle (missing revert).",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "isAppSpecific": true,
+      "isSystemWide": false,
+      "appTargets": [
+        "discord"
+      ],
+      "bulkSelectableGroups": [
+        "app_specific"
+      ]
     },
     {
       "id": "boost.clear_steam_cache__speed.boost",
@@ -385,7 +463,15 @@
       "riskLevel": "Safe",
       "note": "Converted from toggle (missing revert).",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "isAppSpecific": true,
+      "isSystemWide": false,
+      "appTargets": [
+        "steam"
+      ],
+      "bulkSelectableGroups": [
+        "app_specific"
+      ]
     },
     {
       "id": "boost.clear_epic_cache__speed.boost",
@@ -415,7 +501,16 @@
       "riskLevel": "Safe",
       "note": "Converted from toggle (missing revert).",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "isAppSpecific": true,
+      "isSystemWide": false,
+      "appTargets": [
+        "epic",
+        "launcher"
+      ],
+      "bulkSelectableGroups": [
+        "app_specific"
+      ]
     },
     {
       "id": "boost.clear_temp_files_bundle__speed.boost",
@@ -445,7 +540,13 @@
       "riskLevel": "Safe",
       "note": "Converted from toggle (missing revert).",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "isAppSpecific": false,
+      "isSystemWide": true,
+      "appTargets": [],
+      "bulkSelectableGroups": [
+        "non_app"
+      ]
     },
     {
       "id": "boost.empty_recycle_bin__speed.boost",
@@ -475,7 +576,13 @@
       "riskLevel": "Safe",
       "note": "Converted from toggle (missing revert).",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "isAppSpecific": false,
+      "isSystemWide": true,
+      "appTargets": [],
+      "bulkSelectableGroups": [
+        "non_app"
+      ]
     },
     {
       "id": "boost.clear_directx_shader__speed.boost",
@@ -505,7 +612,13 @@
       "riskLevel": "Safe",
       "note": "Converted from toggle (missing revert).",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "isAppSpecific": false,
+      "isSystemWide": true,
+      "appTargets": [],
+      "bulkSelectableGroups": [
+        "non_app"
+      ]
     },
     {
       "id": "boost.clear_delivery_optimization__speed.boost",
@@ -535,7 +648,13 @@
       "riskLevel": "Safe",
       "note": "Converted from toggle (missing revert).",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "isAppSpecific": false,
+      "isSystemWide": true,
+      "appTargets": [],
+      "bulkSelectableGroups": [
+        "non_app"
+      ]
     },
     {
       "id": "boost.clear_crash_dumps__speed.boost",
@@ -565,7 +684,13 @@
       "riskLevel": "Safe",
       "note": "Converted from toggle (missing revert).",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "isAppSpecific": false,
+      "isSystemWide": true,
+      "appTargets": [],
+      "bulkSelectableGroups": [
+        "non_app"
+      ]
     },
     {
       "id": "boost.clear_wer_reports__speed.boost",
@@ -595,7 +720,13 @@
       "riskLevel": "Safe",
       "note": "Converted from toggle (missing revert).",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "isAppSpecific": false,
+      "isSystemWide": true,
+      "appTargets": [],
+      "bulkSelectableGroups": [
+        "non_app"
+      ]
     },
     {
       "id": "boost.clear_store_cache__speed.boost",
@@ -625,7 +756,13 @@
       "riskLevel": "Safe",
       "note": "Converted from toggle (missing revert).",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "isAppSpecific": false,
+      "isSystemWide": true,
+      "appTargets": [],
+      "bulkSelectableGroups": [
+        "non_app"
+      ]
     },
     {
       "id": "boost.clear_edge_cache__speed.boost",
@@ -655,7 +792,15 @@
       "riskLevel": "Safe",
       "note": "Converted from toggle (missing revert).",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "isAppSpecific": true,
+      "isSystemWide": false,
+      "appTargets": [
+        "edge"
+      ],
+      "bulkSelectableGroups": [
+        "app_specific"
+      ]
     },
     {
       "id": "boost.clear_firefox_cache__speed.boost",
@@ -685,7 +830,15 @@
       "riskLevel": "Safe",
       "note": "Converted from toggle (missing revert).",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "isAppSpecific": true,
+      "isSystemWide": false,
+      "appTargets": [
+        "firefox"
+      ],
+      "bulkSelectableGroups": [
+        "app_specific"
+      ]
     },
     {
       "id": "boost.clear_webview2_cache__speed.boost",
@@ -715,7 +868,13 @@
       "riskLevel": "Safe",
       "note": "Converted from toggle (missing revert).",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "isAppSpecific": false,
+      "isSystemWide": true,
+      "appTargets": [],
+      "bulkSelectableGroups": [
+        "non_app"
+      ]
     },
     {
       "id": "boost.clear_quick_access__speed.boost",
@@ -745,7 +904,13 @@
       "riskLevel": "Safe",
       "note": "Converted from toggle (missing revert).",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "isAppSpecific": false,
+      "isSystemWide": true,
+      "appTargets": [],
+      "bulkSelectableGroups": [
+        "non_app"
+      ]
     },
     {
       "id": "boost.clear_spotify_cache__speed.boost",
@@ -775,7 +940,15 @@
       "riskLevel": "Safe",
       "note": "Converted from toggle (missing revert).",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "isAppSpecific": true,
+      "isSystemWide": false,
+      "appTargets": [
+        "spotify"
+      ],
+      "bulkSelectableGroups": [
+        "app_specific"
+      ]
     },
     {
       "id": "boost.clear_telegram_cache__speed.boost",
@@ -805,7 +978,15 @@
       "riskLevel": "Safe",
       "note": "Converted from toggle (missing revert).",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "isAppSpecific": true,
+      "isSystemWide": false,
+      "appTargets": [
+        "telegram"
+      ],
+      "bulkSelectableGroups": [
+        "app_specific"
+      ]
     },
     {
       "id": "boost.clear_temp_prefetch_mru__speed.boost",
@@ -835,7 +1016,13 @@
       "riskLevel": "Safe",
       "note": "Converted from toggle (missing revert).",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "isAppSpecific": false,
+      "isSystemWide": true,
+      "appTargets": [],
+      "bulkSelectableGroups": [
+        "non_app"
+      ]
     },
     {
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
@@ -865,7 +1052,16 @@
       },
       "note": "Converted from toggle (missing revert).",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "isAppSpecific": true,
+      "isSystemWide": false,
+      "appTargets": [
+        "battlenet",
+        "launcher"
+      ],
+      "bulkSelectableGroups": [
+        "app_specific"
+      ]
     },
     {
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
@@ -895,7 +1091,15 @@
       },
       "note": "Converted from toggle (missing revert).",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "isAppSpecific": true,
+      "isSystemWide": false,
+      "appTargets": [
+        "riot"
+      ],
+      "bulkSelectableGroups": [
+        "app_specific"
+      ]
     },
     {
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
@@ -925,7 +1129,15 @@
       },
       "note": "Converted from toggle (missing revert).",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "isAppSpecific": true,
+      "isSystemWide": false,
+      "appTargets": [
+        "xbox"
+      ],
+      "bulkSelectableGroups": [
+        "app_specific"
+      ]
     },
     {
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
@@ -955,7 +1167,15 @@
       },
       "note": "Converted from toggle (missing revert).",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "isAppSpecific": true,
+      "isSystemWide": false,
+      "appTargets": [
+        "minecraft"
+      ],
+      "bulkSelectableGroups": [
+        "app_specific"
+      ]
     },
     {
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
@@ -985,7 +1205,13 @@
       },
       "note": "Converted from toggle (missing revert).",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "isAppSpecific": false,
+      "isSystemWide": true,
+      "appTargets": [],
+      "bulkSelectableGroups": [
+        "non_app"
+      ]
     },
     {
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
@@ -1015,7 +1241,16 @@
       },
       "note": "Converted from toggle (missing revert).",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "isAppSpecific": true,
+      "isSystemWide": false,
+      "appTargets": [
+        "opera",
+        "browser"
+      ],
+      "bulkSelectableGroups": [
+        "app_specific"
+      ]
     },
     {
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
@@ -1045,7 +1280,16 @@
       },
       "note": "Converted from toggle (missing revert).",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "isAppSpecific": true,
+      "isSystemWide": false,
+      "appTargets": [
+        "brave",
+        "browser"
+      ],
+      "bulkSelectableGroups": [
+        "app_specific"
+      ]
     },
     {
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
@@ -1075,7 +1319,13 @@
       },
       "note": "Converted from toggle (missing revert).",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "isAppSpecific": false,
+      "isSystemWide": true,
+      "appTargets": [],
+      "bulkSelectableGroups": [
+        "non_app"
+      ]
     },
     {
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
@@ -1105,7 +1355,13 @@
       },
       "note": "Converted from toggle (missing revert).",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "isAppSpecific": false,
+      "isSystemWide": true,
+      "appTargets": [],
+      "bulkSelectableGroups": [
+        "non_app"
+      ]
     },
     {
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
@@ -1135,7 +1391,13 @@
       },
       "note": "Converted from toggle (missing revert).",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "isAppSpecific": false,
+      "isSystemWide": true,
+      "appTargets": [],
+      "bulkSelectableGroups": [
+        "non_app"
+      ]
     },
     {
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
@@ -1165,7 +1427,13 @@
       },
       "note": "Converted from toggle (missing revert).",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "isAppSpecific": false,
+      "isSystemWide": true,
+      "appTargets": [],
+      "bulkSelectableGroups": [
+        "non_app"
+      ]
     },
     {
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
@@ -1195,7 +1463,13 @@
       },
       "note": "Converted from toggle (missing revert).",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "isAppSpecific": false,
+      "isSystemWide": true,
+      "appTargets": [],
+      "bulkSelectableGroups": [
+        "non_app"
+      ]
     },
     {
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
@@ -1225,7 +1499,13 @@
       },
       "note": "Converted from toggle (missing revert).",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "isAppSpecific": false,
+      "isSystemWide": true,
+      "appTargets": [],
+      "bulkSelectableGroups": [
+        "non_app"
+      ]
     },
     {
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
@@ -1255,7 +1535,15 @@
       },
       "note": "Converted from toggle (missing revert).",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "isAppSpecific": true,
+      "isSystemWide": false,
+      "appTargets": [
+        "office"
+      ],
+      "bulkSelectableGroups": [
+        "app_specific"
+      ]
     },
     {
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
@@ -1285,7 +1573,15 @@
       },
       "note": "Converted from toggle (missing revert).",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "isAppSpecific": true,
+      "isSystemWide": false,
+      "appTargets": [
+        "adobe"
+      ],
+      "bulkSelectableGroups": [
+        "app_specific"
+      ]
     },
     {
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
@@ -1315,7 +1611,15 @@
       },
       "note": "Converted from toggle (missing revert).",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "isAppSpecific": true,
+      "isSystemWide": false,
+      "appTargets": [
+        "roblox"
+      ],
+      "bulkSelectableGroups": [
+        "app_specific"
+      ]
     },
     {
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
@@ -1345,7 +1649,13 @@
       },
       "note": "Converted from toggle (missing revert).",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "isAppSpecific": false,
+      "isSystemWide": true,
+      "appTargets": [],
+      "bulkSelectableGroups": [
+        "non_app"
+      ]
     },
     {
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
@@ -1375,7 +1685,15 @@
       },
       "note": "Converted from toggle (missing revert).",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "isAppSpecific": true,
+      "isSystemWide": false,
+      "appTargets": [
+        "onedrive"
+      ],
+      "bulkSelectableGroups": [
+        "app_specific"
+      ]
     },
     {
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
@@ -1405,7 +1723,13 @@
       },
       "note": "Converted from toggle (missing revert).",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "isAppSpecific": false,
+      "isSystemWide": true,
+      "appTargets": [],
+      "bulkSelectableGroups": [
+        "non_app"
+      ]
     },
     {
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
@@ -1435,7 +1759,16 @@
       },
       "note": "Converted from toggle (missing revert).",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "isAppSpecific": true,
+      "isSystemWide": false,
+      "appTargets": [
+        "chrome",
+        "browser"
+      ],
+      "bulkSelectableGroups": [
+        "app_specific"
+      ]
     },
     {
       "id": "boost.junk_cleaner",
@@ -1465,7 +1798,13 @@
       "riskLevel": "Safe",
       "note": "Converted from toggle (missing revert).",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "isAppSpecific": false,
+      "isSystemWide": true,
+      "appTargets": [],
+      "bulkSelectableGroups": [
+        "non_app"
+      ]
     },
     {
       "id": "boost.optimize_defrag_drives",
@@ -1492,7 +1831,13 @@
       "riskLevel": "Safe",
       "note": "Converted from toggle (missing revert).",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "isAppSpecific": false,
+      "isSystemWide": true,
+      "appTargets": [],
+      "bulkSelectableGroups": [
+        "non_app"
+      ]
     },
     {
       "id": "boost.clean_recent_documents",
@@ -1522,7 +1867,13 @@
       "riskLevel": "Safe",
       "note": "Converted from toggle (missing revert).",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "isAppSpecific": false,
+      "isSystemWide": true,
+      "appTargets": [],
+      "bulkSelectableGroups": [
+        "non_app"
+      ]
     },
     {
       "id": "boost.clean_discord_history",
@@ -1552,7 +1903,15 @@
       "riskLevel": "Medium",
       "note": "Converted from toggle (missing revert).",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "isAppSpecific": true,
+      "isSystemWide": false,
+      "appTargets": [
+        "discord"
+      ],
+      "bulkSelectableGroups": [
+        "app_specific"
+      ]
     },
     {
       "id": "boost.steam_cache_cleaner",
@@ -1582,7 +1941,15 @@
       "riskLevel": "Safe",
       "note": "Converted from toggle (missing revert).",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "isAppSpecific": true,
+      "isSystemWide": false,
+      "appTargets": [
+        "steam"
+      ],
+      "bulkSelectableGroups": [
+        "app_specific"
+      ]
     }
   ]
 }
