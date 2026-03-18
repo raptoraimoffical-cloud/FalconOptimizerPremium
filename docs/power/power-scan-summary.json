@@ -1,0 +1,29 @@
+{
+  "total_items": 567,
+  "source_type_breakdown": {
+    "powercfg": 3,
+    "powercfg_unmapped": 345,
+    "registry_power": 24,
+    "nic_advanced": 45,
+    "storage_feature": 22,
+    "device_power_flag": 23,
+    "gpu_feature": 25,
+    "firmware_candidate": 80
+  },
+  "missing_guid_count": 564,
+  "unsupported_apply_count": 345,
+  "placeholder_description_count": 567,
+  "processor_policy_range": [
+    1,
+    39
+  ],
+  "processor_policy_count": 39,
+  "family_counts": {
+    "processor_idle": 6,
+    "core_parking": 57,
+    "performance_history": 2,
+    "latency_hint": 4,
+    "heterogeneous_scheduling": 11,
+    "processor_policy_n": 39
+  }
+}
