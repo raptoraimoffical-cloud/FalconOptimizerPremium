@@ -5681,7 +5681,7 @@ const buildCard = (item) => {
     const card = document.createElement('div');
     card.className = isBulkSource ? 'card speedboost-card' : 'card';
     const preChecked = (isGameModeSource && item.id && gmSelectedIds.has(item.id));
-    const selectHtml = (isBulkSource ? `<label class="boost-check"><input type="checkbox" class="boost-select" data-id="${__eh(item.id || '')}" ${preChecked ? 'checked' : ''} /></label>` : '');
+    const selectHtml = (isBulkSource ? `<label class="boost-check"><input type="checkbox" class="boost-select" data-id="${__eh(item.id || '')}" data-app-specific="${item.isAppSpecific ? 'true' : 'false'}" data-system-wide="${item.isSystemWide ? 'true' : 'false'}" data-app-targets="${__eh((Array.isArray(item.appTargets) ? item.appTargets.join(',') : ''))}" ${preChecked ? 'checked' : ''} /></label>` : '');
     const showToggle = isToggle && !isBulkSource;
     const safeName = item.name || item.id || '(unnamed tweak)';
     
@@ -6462,14 +6462,18 @@ try {
     }
     if (selectNonAppBtn) {
       selectNonAppBtn.onclick = () => {
-        const appSpecificHints = ['chrome','firefox','edge','opera','discord','steam','epic','battle.net','battlenet','riot','launcher','spotify'];
+        const appSpecificHints = ['chrome','firefox','edge','opera','discord','steam','epic','battle.net','battlenet','riot','launcher','spotify','roblox','minecraft','adobe'];
         const boxes = getCheckboxes();
         let selected = 0;
         boxes.forEach(cb => {
           const id = String(cb.getAttribute('data-id') || '').toLowerCase();
+          const appSpecificMeta = String(cb.getAttribute('data-app-specific') || '').toLowerCase() === 'true';
+          const systemWideMeta = String(cb.getAttribute('data-system-wide') || '').toLowerCase() === 'true';
+          const appTargets = String(cb.getAttribute('data-app-targets') || '').toLowerCase();
           const card = cb.closest('.card');
           const text = String((card && card.textContent) || '').toLowerCase();
-          const isAppSpecific = appSpecificHints.some(h => id.includes(h) || text.includes(h));
+          const hintApp = appSpecificHints.some(h => id.includes(h) || text.includes(h) || appTargets.includes(h));
+          const isAppSpecific = appSpecificMeta || hintApp || !systemWideMeta;
           cb.checked = !isAppSpecific;
           if (!isAppSpecific) selected++;
         });

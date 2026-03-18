@@ -1,0 +1,603 @@
+# Falcon Power Management Mega Prompt (Repo-Hardened)
+
+Use this prompt in Codex when doing a full power-management refactor:
+
+---
+You are auditing and hardening Falcon Optimizer power management end-to-end.
+
+## Hard requirements
+1. Audit every entry in data/power/power_management_catalog.json.
+2. Never invent semantics for undocumented/internal settings.
+3. Hide processor_policy_N and core_parking_policy_N families from main UI unless exact GUID+alias proof exists.
+4. Keep processor performance history count/length as advanced-only at most; do not market as FPS tweaks.
+5. Ensure every visible setting has full descriptions (what/why/fps/latency/power/heat/risk/recommendations).
+6. Ensure every visible supported setting has apply + verify + rollback behavior.
+7. Mark unresolved items as experimental/hidden with UNDOCUMENTED badge.
+8. Update tweaks/power.management.profiles.json uiExposedIds from catalog uiVisibility=main.
+9. Fix Speed Core non-app bulk selection using explicit metadata (isAppSpecific / isSystemWide), not fuzzy name-only checks.
+10. Keep "Apply Latency Registry Optimization Bundle" in latency/scheduler grouping (it is not a reset).
+
+## Deliverables
+- Updated data/power/power_management_catalog.json
+- output/power/power-audit-report.json
+- output/power/power-audit-report.md
+- output/power/power-unresolved-report.md
+- docs/power-badge-system.md
+- docs/power-description-style-guide.md
+
+## Anti-hallucination rules
+- Missing GUID = unsupported for normal apply/verify.
+- repo placeholder text is not proof.
+- Prefer hiding dubious entries over exposing misleading toggles.
+---
+
+## Full catalog checklist (567 settings)
+Use this list to guarantee no setting is skipped during review:
+
+- powercfg_minimum_processor_state :: Minimum processor state
+- powercfg_maximum_processor_state :: Maximum processor state
+- powercfg_link_state_power_management :: Link State Power Management
+- powercfg_processor_idle_disable :: Processor idle disable
+- powercfg_processor_idle_demote_threshold :: Processor idle demote threshold
+- powercfg_processor_idle_promote_threshold :: Processor idle promote threshold
+- powercfg_processor_performance_boost_mode :: Processor performance boost mode
+- powercfg_processor_energy_performance_preference_policy :: Processor energy performance preference policy
+- powercfg_processor_duty_cycling :: Processor duty cycling
+- powercfg_processor_autonomous_mode :: Processor autonomous mode
+- powercfg_processor_performance_increase_threshold :: Processor performance increase threshold
+- powercfg_processor_performance_decrease_threshold :: Processor performance decrease threshold
+- powercfg_processor_performance_increase_time :: Processor performance increase time
+- powercfg_processor_performance_decrease_time :: Processor performance decrease time
+- powercfg_processor_performance_time_check_interval :: Processor performance time check interval
+- powercfg_processor_performance_core_parking_min_cores :: Processor performance core parking min cores
+- powercfg_processor_performance_core_parking_max_cores :: Processor performance core parking max cores
+- powercfg_processor_core_parking_increase_threshold :: Processor core parking increase threshold
+- powercfg_processor_core_parking_decrease_threshold :: Processor core parking decrease threshold
+- powercfg_processor_core_parking_increase_policy :: Processor core parking increase policy
+- powercfg_processor_core_parking_decrease_policy :: Processor core parking decrease policy
+- powercfg_processor_core_parking_concurrency_threshold :: Processor core parking concurrency threshold
+- powercfg_processor_core_parking_distribution_threshold :: Processor core parking distribution threshold
+- powercfg_processor_core_parking_overutilization_threshold :: Processor core parking overutilization threshold
+- powercfg_processor_core_parking_hysteresis :: Processor core parking hysteresis
+- powercfg_processor_core_parking_utility_distribution :: Processor core parking utility distribution
+- powercfg_processor_core_parking_affinity_history :: Processor core parking affinity history
+- powercfg_processor_core_parking_soft_park_latency :: Processor core parking soft park latency
+- powercfg_processor_performance_autonomous_activity_window :: Processor performance autonomous activity window
+- powercfg_processor_performance_autonomous_threshold :: Processor performance autonomous threshold
+- powercfg_processor_performance_history_count :: Processor performance history count
+- powercfg_processor_performance_history_length :: Processor performance history length
+- powercfg_processor_latency_hint_enable :: Processor latency hint enable
+- powercfg_processor_latency_hint_minimum_unparked_cores :: Processor latency hint minimum unparked cores
+- powercfg_processor_idle_state_maximum :: Processor idle state maximum
+- powercfg_processor_idle_state_minimum :: Processor idle state minimum
+- powercfg_allow_throttle_states :: Allow throttle states
+- powercfg_processor_responsiveness_override :: Processor responsiveness override
+- powercfg_heterogeneous_policy_in_effect :: Heterogeneous policy in effect
+- powercfg_heterogeneous_short_running_thread_policy :: Heterogeneous short running thread policy
+- powercfg_heterogeneous_long_running_thread_policy :: Heterogeneous long running thread policy
+- powercfg_heterogeneous_thread_scheduling_policy :: Heterogeneous thread scheduling policy
+- powercfg_heterogeneous_idle_policy :: Heterogeneous idle policy
+- powercfg_efficiency_class_1_initial_performance :: Efficiency class 1 initial performance
+- powercfg_efficiency_class_1_increase_threshold :: Efficiency class 1 increase threshold
+- powercfg_efficiency_class_1_decrease_threshold :: Efficiency class 1 decrease threshold
+- powercfg_efficiency_class_1_increase_time :: Efficiency class 1 increase time
+- powercfg_efficiency_class_1_decrease_time :: Efficiency class 1 decrease time
+- powercfg_efficiency_class_1_performance_preference :: Efficiency class 1 performance preference
+- powercfg_class_1_initial_performance :: Class 1 initial performance
+- powercfg_processor_performance_floor :: Processor performance floor
+- powercfg_processor_performance_ceiling :: Processor performance ceiling
+- powercfg_processor_autonomous_utility_preference :: Processor autonomous utility preference
+- powercfg_processor_preferred_cores_use_policy :: Processor preferred cores use policy
+- powercfg_processor_idle_policy_override :: Processor idle policy override
+- powercfg_core_parking_parked_performance_state :: Core parking parked performance state
+- powercfg_core_parking_max_latency :: Core parking max latency
+- powercfg_core_parking_latency_sensitivity :: Core parking latency sensitivity
+- powercfg_core_parking_min_cores_for_latency_hint :: Core parking min cores for latency hint
+- powercfg_core_parking_soft_minimum_cores :: Core parking soft minimum cores
+- powercfg_processor_qos_floor :: Processor QoS floor
+- powercfg_processor_qos_ceiling :: Processor QoS ceiling
+- powercfg_processor_boost_disable_on_low_battery :: Processor boost disable on low battery
+- powercfg_processor_response_time_sensitivity :: Processor response time sensitivity
+- powercfg_processor_coordination_feedback :: Processor coordination feedback
+- powercfg_processor_utility_floor :: Processor utility floor
+- powercfg_processor_utility_ceiling :: Processor utility ceiling
+- powercfg_processor_performance_dependency_max :: Processor performance dependency max
+- powercfg_processor_performance_dependency_min :: Processor performance dependency min
+- powercfg_sleep_after :: Sleep after
+- powercfg_allow_hybrid_sleep :: Allow hybrid sleep
+- powercfg_hibernate_after :: Hibernate after
+- registry_allow_standby_states :: Allow standby states
+- powercfg_system_unattended_sleep_timeout :: System unattended sleep timeout
+- powercfg_require_a_password_on_wake :: Require a password on wake
+- registry_allow_wake_timers :: Allow wake timers
+- powercfg_lid_close_action :: Lid close action
+- powercfg_power_button_action :: Power button action
+- powercfg_sleep_button_action :: Sleep button action
+- powercfg_away_mode_policy :: Away mode policy
+- registry_fast_startup :: Fast startup
+- registry_connected_standby_policy :: Connected standby policy
+- registry_network_connectivity_in_standby :: Network connectivity in standby
+- powercfg_critical_battery_action :: Critical battery action
+- powercfg_critical_battery_level :: Critical battery level
+- powercfg_low_battery_action :: Low battery action
+- powercfg_low_battery_level :: Low battery level
+- powercfg_reserve_battery_level :: Reserve battery level
+- nic_wake_on_rtc :: Wake on RTC
+- nic_wake_on_usb :: Wake on USB
+- nic_wake_on_lan_sleep_policy :: Wake on LAN sleep policy
+- nic_wake_on_keyboard :: Wake on keyboard
+- nic_wake_on_mouse :: Wake on mouse
+- nic_wake_on_bluetooth :: Wake on Bluetooth
+- nic_wake_on_pcie_device :: Wake on PCIe device
+- nic_wake_on_modem_ring :: Wake on modem ring
+- powercfg_pci_express_link_state_power_management :: PCI Express Link State Power Management
+- powercfg_aspm_mode :: ASPM mode
+- powercfg_native_aspm :: Native ASPM
+- powercfg_dmi_aspm :: DMI ASPM
+- powercfg_peg_aspm :: PEG ASPM
+- storage_turn_off_hard_disk_after :: Turn off hard disk after
+- storage_ahci_hipm :: AHCI HIPM
+- storage_ahci_dipm :: AHCI DIPM
+- storage_sata_alpm :: SATA ALPM
+- storage_nvme_apst :: NVMe APST
+- storage_nvme_idle_timeout :: NVMe idle timeout
+- storage_storport_link_power_management :: Storport link power management
+- device_usb_selective_suspend :: USB selective suspend
+- device_usb_3_link_power_management :: USB 3 link power management
+- device_usb_root_hub_selective_suspend :: USB root hub selective suspend
+- device_thunderbolt_low_power_mode :: Thunderbolt low power mode
+- nic_wireless_adapter_power_saving_mode :: Wireless adapter power saving mode
+- powercfg_mimo_power_save :: MIMO power save
+- powercfg_wlan_background_scan_power :: WLAN background scan power
+- powercfg_packet_coalescing :: Packet coalescing
+- nic_energy_efficient_ethernet :: Energy Efficient Ethernet
+- powercfg_advanced_eee :: Advanced EEE
+- nic_green_ethernet :: Green Ethernet
+- powercfg_ultra_low_power_mode :: Ultra Low Power Mode
+- powercfg_reduce_speed_on_power_down :: Reduce Speed On Power Down
+- registry_system_idle_power_saver :: System Idle Power Saver
+- powercfg_gigabit_lite :: Gigabit Lite
+- powercfg_auto_disable_gigabit :: Auto Disable Gigabit
+- powercfg_power_saving_mode :: Power Saving Mode
+- nic_wake_on_magic_packet :: Wake on Magic Packet
+- nic_wake_on_pattern_match :: Wake on Pattern Match
+- nic_arp_offload :: ARP Offload
+- nic_ns_offload :: NS Offload
+- powercfg_dma_coalescing :: DMA Coalescing
+- powercfg_link_down_power_saving :: Link Down Power Saving
+- gpu_turn_off_display_after :: Turn off display after
+- gpu_adaptive_brightness :: Adaptive brightness
+- gpu_dim_display_after :: Dim display after
+- gpu_panel_self_refresh :: Panel self refresh
+- powercfg_dxgk_power_component_idle :: DXGK power component idle
+- powercfg_nvidia_optimal_power :: NVIDIA Optimal Power
+- powercfg_nvidia_prefer_maximum_performance :: NVIDIA Prefer Maximum Performance
+- powercfg_amd_power_efficiency :: AMD Power Efficiency
+- powercfg_amd_ulps :: AMD ULPS
+- powercfg_intel_rc6 :: Intel RC6
+- powercfg_audio_endpoint_power_saving :: Audio endpoint power saving
+- device_camera_device_idle_suspend :: Camera device idle suspend
+- device_bluetooth_radio_power_saving :: Bluetooth radio power saving
+- device_hid_idle_timeout :: HID idle timeout
+- registry_windows_power_throttling :: Windows power throttling
+- registry_timer_coalescing :: Timer coalescing
+- registry_dynamic_tick :: Dynamic tick
+- powercfg_drips_enablement :: DRIPS enablement
+- powercfg_ecoqos_for_background_tasks :: EcoQoS for background tasks
+- registry_background_app_power_throttling :: Background app power throttling
+- powercfg_battery_saver_threshold :: Battery saver threshold
+- powercfg_battery_saver_brightness_reduction :: Battery saver brightness reduction
+- powercfg_power_slider_default_on_ac :: Power slider default on AC
+- powercfg_power_slider_default_on_dc :: Power slider default on DC
+- powercfg_system_cooling_policy :: System cooling policy
+- powercfg_fan_always_on_policy :: Fan always on policy
+- registry_skin_temperature_aware_throttling :: Skin temperature aware throttling
+- powercfg_processor_policy_1 :: Processor policy 1
+- powercfg_processor_policy_2 :: Processor policy 2
+- powercfg_processor_policy_3 :: Processor policy 3
+- powercfg_processor_policy_4 :: Processor policy 4
+- powercfg_processor_policy_5 :: Processor policy 5
+- powercfg_processor_policy_6 :: Processor policy 6
+- powercfg_processor_policy_7 :: Processor policy 7
+- powercfg_processor_policy_8 :: Processor policy 8
+- powercfg_processor_policy_9 :: Processor policy 9
+- powercfg_processor_policy_10 :: Processor policy 10
+- powercfg_processor_policy_11 :: Processor policy 11
+- powercfg_processor_policy_12 :: Processor policy 12
+- powercfg_processor_policy_13 :: Processor policy 13
+- powercfg_processor_policy_14 :: Processor policy 14
+- powercfg_processor_policy_15 :: Processor policy 15
+- powercfg_processor_policy_16 :: Processor policy 16
+- powercfg_processor_policy_17 :: Processor policy 17
+- powercfg_processor_policy_18 :: Processor policy 18
+- powercfg_processor_policy_19 :: Processor policy 19
+- powercfg_processor_policy_20 :: Processor policy 20
+- powercfg_processor_policy_21 :: Processor policy 21
+- powercfg_processor_policy_22 :: Processor policy 22
+- powercfg_processor_policy_23 :: Processor policy 23
+- powercfg_processor_policy_24 :: Processor policy 24
+- powercfg_processor_policy_25 :: Processor policy 25
+- powercfg_processor_policy_26 :: Processor policy 26
+- powercfg_processor_policy_27 :: Processor policy 27
+- powercfg_processor_policy_28 :: Processor policy 28
+- powercfg_processor_policy_29 :: Processor policy 29
+- powercfg_processor_policy_30 :: Processor policy 30
+- powercfg_processor_policy_31 :: Processor policy 31
+- powercfg_processor_policy_32 :: Processor policy 32
+- powercfg_processor_policy_33 :: Processor policy 33
+- powercfg_processor_policy_34 :: Processor policy 34
+- powercfg_processor_policy_35 :: Processor policy 35
+- powercfg_processor_policy_36 :: Processor policy 36
+- powercfg_processor_policy_37 :: Processor policy 37
+- powercfg_processor_policy_38 :: Processor policy 38
+- powercfg_processor_policy_39 :: Processor policy 39
+- powercfg_core_parking_policy_1 :: Core parking policy 1
+- powercfg_core_parking_policy_2 :: Core parking policy 2
+- powercfg_core_parking_policy_3 :: Core parking policy 3
+- powercfg_core_parking_policy_4 :: Core parking policy 4
+- powercfg_core_parking_policy_5 :: Core parking policy 5
+- powercfg_core_parking_policy_6 :: Core parking policy 6
+- powercfg_core_parking_policy_7 :: Core parking policy 7
+- powercfg_core_parking_policy_8 :: Core parking policy 8
+- powercfg_core_parking_policy_9 :: Core parking policy 9
+- powercfg_core_parking_policy_10 :: Core parking policy 10
+- powercfg_core_parking_policy_11 :: Core parking policy 11
+- powercfg_core_parking_policy_12 :: Core parking policy 12
+- powercfg_core_parking_policy_13 :: Core parking policy 13
+- powercfg_core_parking_policy_14 :: Core parking policy 14
+- powercfg_core_parking_policy_15 :: Core parking policy 15
+- powercfg_core_parking_policy_16 :: Core parking policy 16
+- powercfg_core_parking_policy_17 :: Core parking policy 17
+- powercfg_core_parking_policy_18 :: Core parking policy 18
+- powercfg_core_parking_policy_19 :: Core parking policy 19
+- powercfg_core_parking_policy_20 :: Core parking policy 20
+- powercfg_core_parking_policy_21 :: Core parking policy 21
+- powercfg_core_parking_policy_22 :: Core parking policy 22
+- powercfg_core_parking_policy_23 :: Core parking policy 23
+- powercfg_core_parking_policy_24 :: Core parking policy 24
+- powercfg_core_parking_policy_25 :: Core parking policy 25
+- powercfg_core_parking_policy_26 :: Core parking policy 26
+- powercfg_core_parking_policy_27 :: Core parking policy 27
+- powercfg_core_parking_policy_28 :: Core parking policy 28
+- powercfg_core_parking_policy_29 :: Core parking policy 29
+- powercfg_core_parking_policy_30 :: Core parking policy 30
+- powercfg_core_parking_policy_31 :: Core parking policy 31
+- powercfg_core_parking_policy_32 :: Core parking policy 32
+- powercfg_core_parking_policy_33 :: Core parking policy 33
+- powercfg_core_parking_policy_34 :: Core parking policy 34
+- powercfg_core_parking_policy_35 :: Core parking policy 35
+- powercfg_core_parking_policy_36 :: Core parking policy 36
+- powercfg_core_parking_policy_37 :: Core parking policy 37
+- powercfg_core_parking_policy_38 :: Core parking policy 38
+- powercfg_core_parking_policy_39 :: Core parking policy 39
+- powercfg_thread_scheduling_policy_1 :: Thread scheduling policy 1
+- powercfg_thread_scheduling_policy_2 :: Thread scheduling policy 2
+- powercfg_thread_scheduling_policy_3 :: Thread scheduling policy 3
+- powercfg_thread_scheduling_policy_4 :: Thread scheduling policy 4
+- powercfg_thread_scheduling_policy_5 :: Thread scheduling policy 5
+- powercfg_thread_scheduling_policy_6 :: Thread scheduling policy 6
+- powercfg_thread_scheduling_policy_7 :: Thread scheduling policy 7
+- powercfg_thread_scheduling_policy_8 :: Thread scheduling policy 8
+- powercfg_thread_scheduling_policy_9 :: Thread scheduling policy 9
+- powercfg_thread_scheduling_policy_10 :: Thread scheduling policy 10
+- powercfg_thread_scheduling_policy_11 :: Thread scheduling policy 11
+- powercfg_thread_scheduling_policy_12 :: Thread scheduling policy 12
+- powercfg_thread_scheduling_policy_13 :: Thread scheduling policy 13
+- powercfg_thread_scheduling_policy_14 :: Thread scheduling policy 14
+- powercfg_thread_scheduling_policy_15 :: Thread scheduling policy 15
+- powercfg_thread_scheduling_policy_16 :: Thread scheduling policy 16
+- powercfg_thread_scheduling_policy_17 :: Thread scheduling policy 17
+- powercfg_thread_scheduling_policy_18 :: Thread scheduling policy 18
+- powercfg_thread_scheduling_policy_19 :: Thread scheduling policy 19
+- powercfg_thread_scheduling_policy_20 :: Thread scheduling policy 20
+- powercfg_thread_scheduling_policy_21 :: Thread scheduling policy 21
+- powercfg_thread_scheduling_policy_22 :: Thread scheduling policy 22
+- powercfg_thread_scheduling_policy_23 :: Thread scheduling policy 23
+- powercfg_thread_scheduling_policy_24 :: Thread scheduling policy 24
+- powercfg_thread_scheduling_policy_25 :: Thread scheduling policy 25
+- powercfg_thread_scheduling_policy_26 :: Thread scheduling policy 26
+- powercfg_thread_scheduling_policy_27 :: Thread scheduling policy 27
+- powercfg_thread_scheduling_policy_28 :: Thread scheduling policy 28
+- powercfg_thread_scheduling_policy_29 :: Thread scheduling policy 29
+- powercfg_thread_scheduling_policy_30 :: Thread scheduling policy 30
+- powercfg_thread_scheduling_policy_31 :: Thread scheduling policy 31
+- powercfg_thread_scheduling_policy_32 :: Thread scheduling policy 32
+- powercfg_thread_scheduling_policy_33 :: Thread scheduling policy 33
+- powercfg_thread_scheduling_policy_34 :: Thread scheduling policy 34
+- powercfg_thread_scheduling_policy_35 :: Thread scheduling policy 35
+- powercfg_thread_scheduling_policy_36 :: Thread scheduling policy 36
+- powercfg_thread_scheduling_policy_37 :: Thread scheduling policy 37
+- powercfg_thread_scheduling_policy_38 :: Thread scheduling policy 38
+- powercfg_thread_scheduling_policy_39 :: Thread scheduling policy 39
+- powercfg_sleep_policy_1 :: Sleep policy 1
+- powercfg_sleep_policy_2 :: Sleep policy 2
+- powercfg_sleep_policy_3 :: Sleep policy 3
+- powercfg_sleep_policy_4 :: Sleep policy 4
+- powercfg_sleep_policy_5 :: Sleep policy 5
+- powercfg_sleep_policy_6 :: Sleep policy 6
+- powercfg_sleep_policy_7 :: Sleep policy 7
+- powercfg_sleep_policy_8 :: Sleep policy 8
+- powercfg_sleep_policy_9 :: Sleep policy 9
+- powercfg_sleep_policy_10 :: Sleep policy 10
+- powercfg_sleep_policy_11 :: Sleep policy 11
+- powercfg_sleep_policy_12 :: Sleep policy 12
+- powercfg_sleep_policy_13 :: Sleep policy 13
+- powercfg_sleep_policy_14 :: Sleep policy 14
+- powercfg_sleep_policy_15 :: Sleep policy 15
+- powercfg_sleep_policy_16 :: Sleep policy 16
+- powercfg_sleep_policy_17 :: Sleep policy 17
+- powercfg_sleep_policy_18 :: Sleep policy 18
+- powercfg_sleep_policy_19 :: Sleep policy 19
+- powercfg_sleep_policy_20 :: Sleep policy 20
+- powercfg_sleep_policy_21 :: Sleep policy 21
+- powercfg_sleep_policy_22 :: Sleep policy 22
+- powercfg_sleep_policy_23 :: Sleep policy 23
+- powercfg_sleep_policy_24 :: Sleep policy 24
+- powercfg_sleep_policy_25 :: Sleep policy 25
+- powercfg_sleep_policy_26 :: Sleep policy 26
+- powercfg_sleep_policy_27 :: Sleep policy 27
+- powercfg_sleep_policy_28 :: Sleep policy 28
+- powercfg_sleep_policy_29 :: Sleep policy 29
+- powercfg_sleep_policy_30 :: Sleep policy 30
+- powercfg_sleep_policy_31 :: Sleep policy 31
+- powercfg_sleep_policy_32 :: Sleep policy 32
+- powercfg_sleep_policy_33 :: Sleep policy 33
+- powercfg_sleep_policy_34 :: Sleep policy 34
+- powercfg_sleep_policy_35 :: Sleep policy 35
+- powercfg_sleep_policy_36 :: Sleep policy 36
+- powercfg_sleep_policy_37 :: Sleep policy 37
+- powercfg_sleep_policy_38 :: Sleep policy 38
+- powercfg_sleep_policy_39 :: Sleep policy 39
+- powercfg_hibernate_policy_1 :: Hibernate policy 1
+- powercfg_hibernate_policy_2 :: Hibernate policy 2
+- powercfg_hibernate_policy_3 :: Hibernate policy 3
+- powercfg_hibernate_policy_4 :: Hibernate policy 4
+- powercfg_hibernate_policy_5 :: Hibernate policy 5
+- powercfg_hibernate_policy_6 :: Hibernate policy 6
+- powercfg_hibernate_policy_7 :: Hibernate policy 7
+- powercfg_hibernate_policy_8 :: Hibernate policy 8
+- powercfg_hibernate_policy_9 :: Hibernate policy 9
+- powercfg_hibernate_policy_10 :: Hibernate policy 10
+- powercfg_hibernate_policy_11 :: Hibernate policy 11
+- powercfg_hibernate_policy_12 :: Hibernate policy 12
+- powercfg_hibernate_policy_13 :: Hibernate policy 13
+- powercfg_hibernate_policy_14 :: Hibernate policy 14
+- powercfg_hibernate_policy_15 :: Hibernate policy 15
+- powercfg_hibernate_policy_16 :: Hibernate policy 16
+- powercfg_hibernate_policy_17 :: Hibernate policy 17
+- powercfg_hibernate_policy_18 :: Hibernate policy 18
+- powercfg_hibernate_policy_19 :: Hibernate policy 19
+- powercfg_hibernate_policy_20 :: Hibernate policy 20
+- powercfg_hibernate_policy_21 :: Hibernate policy 21
+- powercfg_hibernate_policy_22 :: Hibernate policy 22
+- powercfg_hibernate_policy_23 :: Hibernate policy 23
+- powercfg_hibernate_policy_24 :: Hibernate policy 24
+- powercfg_hibernate_policy_25 :: Hibernate policy 25
+- powercfg_hibernate_policy_26 :: Hibernate policy 26
+- powercfg_hibernate_policy_27 :: Hibernate policy 27
+- powercfg_hibernate_policy_28 :: Hibernate policy 28
+- powercfg_hibernate_policy_29 :: Hibernate policy 29
+- powercfg_hibernate_policy_30 :: Hibernate policy 30
+- powercfg_hibernate_policy_31 :: Hibernate policy 31
+- powercfg_hibernate_policy_32 :: Hibernate policy 32
+- powercfg_hibernate_policy_33 :: Hibernate policy 33
+- powercfg_hibernate_policy_34 :: Hibernate policy 34
+- powercfg_hibernate_policy_35 :: Hibernate policy 35
+- powercfg_hibernate_policy_36 :: Hibernate policy 36
+- powercfg_hibernate_policy_37 :: Hibernate policy 37
+- powercfg_hibernate_policy_38 :: Hibernate policy 38
+- powercfg_hibernate_policy_39 :: Hibernate policy 39
+- powercfg_wake_policy_1 :: Wake policy 1
+- powercfg_wake_policy_2 :: Wake policy 2
+- powercfg_wake_policy_3 :: Wake policy 3
+- powercfg_wake_policy_4 :: Wake policy 4
+- powercfg_wake_policy_5 :: Wake policy 5
+- powercfg_wake_policy_6 :: Wake policy 6
+- powercfg_wake_policy_7 :: Wake policy 7
+- powercfg_wake_policy_8 :: Wake policy 8
+- powercfg_wake_policy_9 :: Wake policy 9
+- powercfg_wake_policy_10 :: Wake policy 10
+- powercfg_wake_policy_11 :: Wake policy 11
+- powercfg_wake_policy_12 :: Wake policy 12
+- powercfg_wake_policy_13 :: Wake policy 13
+- powercfg_wake_policy_14 :: Wake policy 14
+- powercfg_wake_policy_15 :: Wake policy 15
+- powercfg_wake_policy_16 :: Wake policy 16
+- powercfg_wake_policy_17 :: Wake policy 17
+- powercfg_wake_policy_18 :: Wake policy 18
+- powercfg_wake_policy_19 :: Wake policy 19
+- powercfg_wake_policy_20 :: Wake policy 20
+- powercfg_wake_policy_21 :: Wake policy 21
+- powercfg_wake_policy_22 :: Wake policy 22
+- powercfg_wake_policy_23 :: Wake policy 23
+- powercfg_wake_policy_24 :: Wake policy 24
+- powercfg_wake_policy_25 :: Wake policy 25
+- powercfg_wake_policy_26 :: Wake policy 26
+- powercfg_wake_policy_27 :: Wake policy 27
+- powercfg_wake_policy_28 :: Wake policy 28
+- powercfg_wake_policy_29 :: Wake policy 29
+- powercfg_wake_policy_30 :: Wake policy 30
+- powercfg_wake_policy_31 :: Wake policy 31
+- powercfg_wake_policy_32 :: Wake policy 32
+- powercfg_wake_policy_33 :: Wake policy 33
+- powercfg_wake_policy_34 :: Wake policy 34
+- powercfg_wake_policy_35 :: Wake policy 35
+- powercfg_wake_policy_36 :: Wake policy 36
+- powercfg_wake_policy_37 :: Wake policy 37
+- powercfg_wake_policy_38 :: Wake policy 38
+- powercfg_wake_policy_39 :: Wake policy 39
+- gpu_display_policy_1 :: Display policy 1
+- nic_advanced_eee :: Advanced EEE
+- nic_power_saving_mode :: Power Saving Mode
+- nic_system_idle_power_saver :: System Idle Power Saver
+- nic_reduce_speed_on_power_down :: Reduce Speed On Power Down
+- nic_auto_disable_gigabit :: Auto Disable Gigabit
+- nic_wake_on_link_change :: Wake On Link Change
+- nic_dma_coalescing :: DMA Coalescing
+- nic_interrupt_moderation :: Interrupt Moderation
+- nic_adaptive_interframe_spacing :: Adaptive Interframe Spacing
+- nic_phy_power_saving :: PHY Power Saving
+- nic_link_down_power_saving :: Link Down Power Saving
+- nic_link_idle_power_saving :: Link Idle Power Saving
+- nic_smart_power_down :: Smart Power Down
+- nic_energy_detect :: Energy Detect
+- nic_network_adapter_idle_timeout :: Network Adapter Idle Timeout
+- nic_network_adapter_deep_sleep :: Network Adapter Deep Sleep
+- nic_network_adapter_energy_policy :: Network Adapter Energy Policy
+- nic_network_adapter_wake_latency :: Network Adapter Wake Latency
+- nic_network_adapter_standby_policy :: Network Adapter Standby Policy
+- nic_network_adapter_dynamic_power :: Network Adapter Dynamic Power
+- nic_network_adapter_clock_gating :: Network Adapter Clock Gating
+- nic_network_adapter_power_budget :: Network Adapter Power Budget
+- nic_network_adapter_throughput_scaling :: Network Adapter Throughput Scaling
+- nic_network_adapter_packet_coalescing :: Network Adapter Packet Coalescing
+- nic_network_adapter_phy_sleep :: Network Adapter PHY Sleep
+- nic_network_adapter_phy_standby :: Network Adapter PHY Standby
+- nic_network_adapter_phy_energy_policy :: Network Adapter PHY Energy Policy
+- nic_network_adapter_phy_dynamic_power :: Network Adapter PHY Dynamic Power
+- nic_network_adapter_phy_clock_gating :: Network Adapter PHY Clock Gating
+- nic_network_adapter_phy_wake_policy :: Network Adapter PHY Wake Policy
+- device_nic_allowcomputertoturnoffdevice :: NIC AllowComputerToTurnOffDevice
+- device_usb_hub_allowcomputertoturnoffdevice :: USB Hub AllowComputerToTurnOffDevice
+- device_usb_root_hub_allowcomputertoturnoffdevice :: USB Root Hub AllowComputerToTurnOffDevice
+- device_usb_controller_allowcomputertoturnoffdevice :: USB Controller AllowComputerToTurnOffDevice
+- device_bluetooth_radio_allowcomputertoturnoffdevice :: Bluetooth Radio AllowComputerToTurnOffDevice
+- device_hid_keyboard_allowcomputertoturnoffdevice :: HID Keyboard AllowComputerToTurnOffDevice
+- device_hid_mouse_allowcomputertoturnoffdevice :: HID Mouse AllowComputerToTurnOffDevice
+- device_camera_allowcomputertoturnoffdevice :: Camera AllowComputerToTurnOffDevice
+- device_sensor_allowcomputertoturnoffdevice :: Sensor AllowComputerToTurnOffDevice
+- device_thunderbolt_allowcomputertoturnoffdevice :: Thunderbolt AllowComputerToTurnOffDevice
+- device_sd_controller_allowcomputertoturnoffdevice :: SD Controller AllowComputerToTurnOffDevice
+- device_serial_controller_allowcomputertoturnoffdevice :: Serial Controller AllowComputerToTurnOffDevice
+- device_smbus_controller_allowcomputertoturnoffdevice :: SMBus Controller AllowComputerToTurnOffDevice
+- device_i2c_controller_allowcomputertoturnoffdevice :: I2C Controller AllowComputerToTurnOffDevice
+- device_spi_controller_allowcomputertoturnoffdevice :: SPI Controller AllowComputerToTurnOffDevice
+- device_embedded_controller_allowcomputertoturnoffdevice :: Embedded Controller AllowComputerToTurnOffDevice
+- storage_nvme_controller_sleep :: NVMe Controller Sleep
+- storage_nvme_host_power_management :: NVMe Host Power Management
+- storage_nvme_latency_tolerance :: NVMe Latency Tolerance
+- storage_nvme_deep_sleep :: NVMe Deep Sleep
+- storage_nvme_performance_state_policy :: NVMe Performance State Policy
+- storage_nvme_thermal_power_scaling :: NVMe Thermal Power Scaling
+- storage_ahci_link_power_management :: AHCI Link Power Management
+- storage_sata_hipm :: SATA HIPM
+- storage_sata_dipm :: SATA DIPM
+- storage_storage_device_spin_down :: Storage Device Spin Down
+- storage_disk_idle_timeout :: Disk Idle Timeout
+- storage_disk_controller_idle_policy :: Disk Controller Idle Policy
+- storage_disk_link_power_management :: Disk Link Power Management
+- storage_disk_bus_power_management :: Disk Bus Power Management
+- storage_disk_queue_idle_policy :: Disk Queue Idle Policy
+- gpu_gpu_adaptive_power_mode :: GPU Adaptive Power Mode
+- gpu_gpu_optimal_power :: GPU Optimal Power
+- gpu_gpu_idle_clock_gating :: GPU Idle Clock Gating
+- gpu_gpu_deep_sleep :: GPU Deep Sleep
+- gpu_gpu_power_throttle :: GPU Power Throttle
+- gpu_gpu_performance_bias :: GPU Performance Bias
+- gpu_gpu_energy_bias :: GPU Energy Bias
+- gpu_gpu_dynamic_power :: GPU Dynamic Power
+- gpu_gpu_clock_gating :: GPU Clock Gating
+- gpu_gpu_idle_policy :: GPU Idle Policy
+- gpu_gpu_energy_policy :: GPU Energy Policy
+- gpu_gpu_wake_latency :: GPU Wake Latency
+- gpu_gpu_thermal_power_scaling :: GPU Thermal Power Scaling
+- gpu_gpu_voltage_scaling :: GPU Voltage Scaling
+- gpu_gpu_frequency_scaling :: GPU Frequency Scaling
+- gpu_gpu_idle_timeout :: GPU Idle Timeout
+- gpu_gpu_performance_state_policy :: GPU Performance State Policy
+- gpu_nvidia_optimal_power :: NVIDIA Optimal Power
+- gpu_amd_ulps :: AMD ULPS
+- gpu_intel_rc6 :: Intel RC6
+- registry_powerthrottlingoff :: PowerThrottlingOff
+- registry_disabledynamictick :: DisableDynamicTick
+- registry_hiberbootenabled :: HiberbootEnabled
+- registry_csenabled :: CsEnabled
+- registry_energyestimationenabled :: EnergyEstimationEnabled
+- registry_platformaoacoverride :: PlatformAoAcOverride
+- registry_latencytolerancedefault :: LatencyToleranceDefault
+- registry_systemresponsiveness :: SystemResponsiveness
+- registry_networkthrottlingindex :: NetworkThrottlingIndex
+- registry_allowtelemetrypowerdata :: AllowTelemetryPowerData
+- registry_globaluserdisabled :: GlobalUserDisabled
+- registry_enableinputsuppression :: EnableInputSuppression
+- registry_hibernateenabled :: HibernateEnabled
+- firmware_firmware_recommendation_01 :: Firmware recommendation 01
+- firmware_firmware_recommendation_02 :: Firmware recommendation 02
+- firmware_firmware_recommendation_03 :: Firmware recommendation 03
+- firmware_firmware_recommendation_04 :: Firmware recommendation 04
+- firmware_firmware_recommendation_05 :: Firmware recommendation 05
+- firmware_firmware_recommendation_06 :: Firmware recommendation 06
+- firmware_firmware_recommendation_07 :: Firmware recommendation 07
+- firmware_firmware_recommendation_08 :: Firmware recommendation 08
+- firmware_firmware_recommendation_09 :: Firmware recommendation 09
+- firmware_firmware_recommendation_10 :: Firmware recommendation 10
+- firmware_firmware_recommendation_11 :: Firmware recommendation 11
+- firmware_firmware_recommendation_12 :: Firmware recommendation 12
+- firmware_firmware_recommendation_13 :: Firmware recommendation 13
+- firmware_firmware_recommendation_14 :: Firmware recommendation 14
+- firmware_firmware_recommendation_15 :: Firmware recommendation 15
+- firmware_firmware_recommendation_16 :: Firmware recommendation 16
+- firmware_firmware_recommendation_17 :: Firmware recommendation 17
+- firmware_firmware_recommendation_18 :: Firmware recommendation 18
+- firmware_firmware_recommendation_19 :: Firmware recommendation 19
+- firmware_firmware_recommendation_20 :: Firmware recommendation 20
+- firmware_firmware_recommendation_21 :: Firmware recommendation 21
+- firmware_firmware_recommendation_22 :: Firmware recommendation 22
+- firmware_firmware_recommendation_23 :: Firmware recommendation 23
+- firmware_firmware_recommendation_24 :: Firmware recommendation 24
+- firmware_firmware_recommendation_25 :: Firmware recommendation 25
+- firmware_firmware_recommendation_26 :: Firmware recommendation 26
+- firmware_firmware_recommendation_27 :: Firmware recommendation 27
+- firmware_firmware_recommendation_28 :: Firmware recommendation 28
+- firmware_firmware_recommendation_29 :: Firmware recommendation 29
+- firmware_firmware_recommendation_30 :: Firmware recommendation 30
+- firmware_firmware_recommendation_31 :: Firmware recommendation 31
+- firmware_firmware_recommendation_32 :: Firmware recommendation 32
+- firmware_firmware_recommendation_33 :: Firmware recommendation 33
+- firmware_firmware_recommendation_34 :: Firmware recommendation 34
+- firmware_firmware_recommendation_35 :: Firmware recommendation 35
+- firmware_firmware_recommendation_36 :: Firmware recommendation 36
+- firmware_firmware_recommendation_37 :: Firmware recommendation 37
+- firmware_firmware_recommendation_38 :: Firmware recommendation 38
+- firmware_firmware_recommendation_39 :: Firmware recommendation 39
+- firmware_firmware_recommendation_40 :: Firmware recommendation 40
+- firmware_firmware_recommendation_41 :: Firmware recommendation 41
+- firmware_firmware_recommendation_42 :: Firmware recommendation 42
+- firmware_firmware_recommendation_43 :: Firmware recommendation 43
+- firmware_firmware_recommendation_44 :: Firmware recommendation 44
+- firmware_firmware_recommendation_45 :: Firmware recommendation 45
+- firmware_firmware_recommendation_46 :: Firmware recommendation 46
+- firmware_firmware_recommendation_47 :: Firmware recommendation 47
+- firmware_firmware_recommendation_48 :: Firmware recommendation 48
+- firmware_firmware_recommendation_49 :: Firmware recommendation 49
+- firmware_firmware_recommendation_50 :: Firmware recommendation 50
+- firmware_firmware_recommendation_51 :: Firmware recommendation 51
+- firmware_firmware_recommendation_52 :: Firmware recommendation 52
+- firmware_firmware_recommendation_53 :: Firmware recommendation 53
+- firmware_firmware_recommendation_54 :: Firmware recommendation 54
+- firmware_firmware_recommendation_55 :: Firmware recommendation 55
+- firmware_firmware_recommendation_56 :: Firmware recommendation 56
+- firmware_firmware_recommendation_57 :: Firmware recommendation 57
+- firmware_firmware_recommendation_58 :: Firmware recommendation 58
+- firmware_firmware_recommendation_59 :: Firmware recommendation 59
+- firmware_firmware_recommendation_60 :: Firmware recommendation 60
+- firmware_firmware_recommendation_61 :: Firmware recommendation 61
+- firmware_firmware_recommendation_62 :: Firmware recommendation 62
+- firmware_firmware_recommendation_63 :: Firmware recommendation 63
+- firmware_firmware_recommendation_64 :: Firmware recommendation 64
+- firmware_firmware_recommendation_65 :: Firmware recommendation 65
+- firmware_firmware_recommendation_66 :: Firmware recommendation 66
+- firmware_firmware_recommendation_67 :: Firmware recommendation 67
+- firmware_firmware_recommendation_68 :: Firmware recommendation 68
+- firmware_firmware_recommendation_69 :: Firmware recommendation 69
+- firmware_firmware_recommendation_70 :: Firmware recommendation 70
+- firmware_firmware_recommendation_71 :: Firmware recommendation 71
+- firmware_firmware_recommendation_72 :: Firmware recommendation 72
+- firmware_firmware_recommendation_73 :: Firmware recommendation 73
+- firmware_firmware_recommendation_74 :: Firmware recommendation 74
+- firmware_firmware_recommendation_75 :: Firmware recommendation 75
+- firmware_firmware_recommendation_76 :: Firmware recommendation 76
+- firmware_firmware_recommendation_77 :: Firmware recommendation 77
+- firmware_firmware_recommendation_78 :: Firmware recommendation 78
+- firmware_firmware_recommendation_79 :: Firmware recommendation 79
+- firmware_firmware_recommendation_80 :: Firmware recommendation 80
