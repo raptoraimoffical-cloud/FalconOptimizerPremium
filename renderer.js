@@ -6473,7 +6473,15 @@ try {
           const card = cb.closest('.card');
           const text = String((card && card.textContent) || '').toLowerCase();
           const hintApp = appSpecificHints.some(h => id.includes(h) || text.includes(h) || appTargets.includes(h));
-          const isAppSpecific = appSpecificMeta || hintApp || !systemWideMeta;
+          // Metadata-first selection: explicit flags win, fuzzy hints are fallback only.
+          let isAppSpecific;
+          if (appSpecificMeta) {
+            isAppSpecific = true;
+          } else if (systemWideMeta) {
+            isAppSpecific = false;
+          } else {
+            isAppSpecific = hintApp;
+          }
           cb.checked = !isAppSpecific;
           if (!isAppSpecific) selected++;
         });
