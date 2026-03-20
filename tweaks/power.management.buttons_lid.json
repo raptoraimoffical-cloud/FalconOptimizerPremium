@@ -1,217 +1,167 @@
 {
   "items": [
     {
-      "id": "power_button_action_shutdown",
+      "id": "pm_powercfg_lid_close_action",
       "type": "button",
-      "name": "Buttons: Power Button = Shutdown (AC/DC)",
-      "risk": "Warning",
-      "riskLevel": "Warning",
-      "category": "Power Management",
-      "requiresAdmin": true,
-      "description": "Maps physical power button action to shutdown for both AC and DC.",
-      "apply": {
-        "steps": [
-          {
-            "type": "cmd.run",
-            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_BUTTONS PBUTTONACTION 3"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_BUTTONS PBUTTONACTION 3"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg /setactive SCHEME_CURRENT"
-          }
-        ]
-      }
-    },
-    {
-      "id": "power_sleep_button_sleep",
-      "type": "button",
-      "name": "Buttons: Sleep Button = Sleep (AC/DC)",
-      "risk": "Safe",
-      "riskLevel": "Safe",
-      "category": "Power Management",
-      "requiresAdmin": true,
-      "description": "Sets dedicated sleep button action explicitly.",
-      "apply": {
-        "steps": [
-          {
-            "type": "cmd.run",
-            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_BUTTONS SBUTTONACTION 1"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_BUTTONS SBUTTONACTION 1"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg /setactive SCHEME_CURRENT"
-          }
-        ]
-      }
-    },
-    {
-      "id": "power_lid_action_noop_ac",
-      "type": "button",
-      "name": "Lid: Do Nothing (AC) / Sleep (DC)",
-      "risk": "Warning",
-      "riskLevel": "Warning",
-      "category": "Power Management",
-      "requiresAdmin": true,
-      "description": "Laptop-focused split behavior for lid close actions.",
-      "apply": {
-        "steps": [
-          {
-            "type": "cmd.run",
-            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_BUTTONS LIDACTION 0"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_BUTTONS LIDACTION 1"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg /setactive SCHEME_CURRENT"
-          }
-        ]
-      }
-    },
-    {
-      "id": "power_button_action_do_nothing",
-      "type": "button",
-      "name": "Power Button Action: Do Nothing (AC/DC)",
+      "name": "Lid close action",
       "risk": "Experimental",
       "riskLevel": "Experimental",
       "category": "Power Management",
-      "requiresAdmin": true,
-      "description": "Prevents accidental power-button shutdown triggers.",
+      "description": "Lid close action controls sleep/standby and wake orchestration.",
+      "shortDescription": "Lid close action controls sleep/standby and wake orchestration.",
+      "longDescription": "Adjusts lid close action through sleep/standby and wake orchestration. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks lid close action so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "EXPERIMENTAL",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM",
+        "WAKE_BEHAVIOR"
+      ],
+      "support": "conditional",
+      "proofSource": "unresolved",
+      "documentationStatus": "UNDOCUMENTED_INTERNAL",
+      "sourceType": "powercfg_unmapped",
+      "catalogId": "powercfg_lid_close_action",
       "apply": {
         "steps": [
           {
-            "type": "cmd.run",
-            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_BUTTONS PBUTTONACTION 0"
-          },
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId powercfg_lid_close_action"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
           {
-            "type": "cmd.run",
-            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_BUTTONS PBUTTONACTION 0"
-          },
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId powercfg_lid_close_action"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
           {
-            "type": "cmd.run",
-            "command": "powercfg /setactive SCHEME_CURRENT"
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId powercfg_lid_close_action"
           }
         ]
       }
     },
     {
-      "id": "sleep_button_action_sleep",
+      "id": "pm_powercfg_power_button_action",
       "type": "button",
-      "name": "Sleep Button Action: Sleep (AC/DC)",
-      "risk": "Safe",
-      "riskLevel": "Safe",
+      "name": "Power button action",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
       "category": "Power Management",
-      "requiresAdmin": true,
-      "description": "Maps sleep button to sleep on both power sources.",
+      "description": "Power button action controls sleep/standby and wake orchestration.",
+      "shortDescription": "Power button action controls sleep/standby and wake orchestration.",
+      "longDescription": "Adjusts power button action through sleep/standby and wake orchestration. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks power button action so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "EXPERIMENTAL",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM",
+        "WAKE_BEHAVIOR"
+      ],
+      "support": "conditional",
+      "proofSource": "unresolved",
+      "documentationStatus": "UNDOCUMENTED_INTERNAL",
+      "sourceType": "powercfg_unmapped",
+      "catalogId": "powercfg_power_button_action",
       "apply": {
         "steps": [
           {
-            "type": "cmd.run",
-            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_BUTTONS SBUTTONACTION 1"
-          },
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId powercfg_power_button_action"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
           {
-            "type": "cmd.run",
-            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_BUTTONS SBUTTONACTION 1"
-          },
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId powercfg_power_button_action"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
           {
-            "type": "cmd.run",
-            "command": "powercfg /setactive SCHEME_CURRENT"
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId powercfg_power_button_action"
           }
         ]
       }
     },
     {
-      "id": "power_button_action_split_acdc",
+      "id": "pm_powercfg_sleep_button_action",
       "type": "button",
-      "name": "Buttons: Set Power Button Action AC=Shutdown / DC=Sleep",
-      "risk": "Warning",
-      "riskLevel": "Warning",
+      "name": "Sleep button action",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
       "category": "Power Management",
-      "requiresAdmin": true,
-      "description": "Applies explicit split behavior for power button action across AC and battery.",
+      "description": "Sleep button action controls sleep/standby and wake orchestration.",
+      "shortDescription": "Sleep button action controls sleep/standby and wake orchestration.",
+      "longDescription": "Adjusts sleep button action through sleep/standby and wake orchestration. Lower values usually save power but increase wake delay or reduce throughput headroom.",
+      "whatItDoes": "Writes and tracks sleep button action so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "BATTERY_NEGATIVE",
+        "EXPERIMENTAL",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM",
+        "WAKE_BEHAVIOR"
+      ],
+      "support": "conditional",
+      "proofSource": "unresolved",
+      "documentationStatus": "UNDOCUMENTED_INTERNAL",
+      "sourceType": "powercfg_unmapped",
+      "catalogId": "powercfg_sleep_button_action",
       "apply": {
         "steps": [
           {
-            "type": "cmd.run",
-            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_BUTTONS PBUTTONACTION 3"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_BUTTONS PBUTTONACTION 1"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg /setactive SCHEME_CURRENT"
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId powercfg_sleep_button_action"
           }
         ]
-      }
-    },
-    {
-      "id": "power_lid_action_split",
-      "type": "button",
-      "name": "Buttons: Lid Close Action AC=Do Nothing / DC=Sleep",
-      "risk": "Warning",
-      "riskLevel": "Warning",
-      "category": "Power Management",
-      "requiresAdmin": true,
-      "description": "Laptop-focused split for lid-close behavior.",
-      "apply": {
+      },
+      "verify": {
         "steps": [
           {
-            "type": "cmd.run",
-            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_BUTTONS LIDACTION 0"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_BUTTONS LIDACTION 1"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg /setactive SCHEME_CURRENT"
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId powercfg_sleep_button_action"
           }
         ]
-      }
-    },
-    {
-      "id": "power_buttons_restore_defaults",
-      "type": "button",
-      "name": "Buttons: Restore Windows Default Button/Lid Actions",
-      "risk": "Safe",
-      "riskLevel": "Safe",
-      "category": "Power Management",
-      "requiresAdmin": true,
-      "description": "Resets common button and lid actions to conservative defaults.",
-      "apply": {
+      },
+      "revert": {
         "steps": [
           {
-            "type": "cmd.run",
-            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_BUTTONS PBUTTONACTION 3"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_BUTTONS PBUTTONACTION 3"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_BUTTONS SBUTTONACTION 1"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_BUTTONS SBUTTONACTION 1"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg /setactive SCHEME_CURRENT"
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId powercfg_sleep_button_action"
           }
         ]
       }

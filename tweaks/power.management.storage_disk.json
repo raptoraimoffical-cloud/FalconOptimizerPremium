@@ -1,125 +1,1239 @@
 {
   "items": [
     {
-      "id": "power_disk_timeout_gaming",
+      "id": "pm_storage_ahci_dipm",
       "type": "button",
-      "name": "Disk Idle Timeout: Never (AC) / 20 min (DC)",
-      "risk": "Warning",
-      "riskLevel": "Warning",
+      "name": "AHCI DIPM",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
       "category": "Power Management",
-      "requiresAdmin": true,
-      "description": "Prevents AC disk spin-down stutter while keeping a battery-safe DC timeout.",
+      "description": "AHCI DIPM controls I/O link power management.",
+      "shortDescription": "AHCI DIPM controls I/O link power management.",
+      "longDescription": "Adjusts ahci dipm through I/O link power management. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks ahci dipm so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "STORAGE_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "storage_feature",
+      "catalogId": "storage_ahci_dipm",
       "apply": {
         "steps": [
           {
-            "type": "cmd.run",
-            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_DISK DISKIDLE 0"
-          },
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId storage_ahci_dipm"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
           {
-            "type": "cmd.run",
-            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_DISK DISKIDLE 20"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg /setactive SCHEME_CURRENT"
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId storage_ahci_dipm"
           }
         ]
       },
       "revert": {
         "steps": [
           {
-            "type": "cmd.run",
-            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_DISK DISKIDLE 20"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_DISK DISKIDLE 10"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg /setactive SCHEME_CURRENT"
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId storage_ahci_dipm"
           }
         ]
       }
     },
     {
-      "id": "power_hibernate_type_control",
+      "id": "pm_storage_ahci_hipm",
       "type": "button",
-      "name": "Hibernate File Type: Reduced",
-      "risk": "Warning",
-      "riskLevel": "Warning",
+      "name": "AHCI HIPM",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
       "category": "Power Management",
-      "requiresAdmin": true,
-      "description": "Sets reduced hiberfile mode for fast startup scenarios where supported.",
+      "description": "AHCI HIPM controls I/O link power management.",
+      "shortDescription": "AHCI HIPM controls I/O link power management.",
+      "longDescription": "Adjusts ahci hipm through I/O link power management. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks ahci hipm so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "STORAGE_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "storage_feature",
+      "catalogId": "storage_ahci_hipm",
       "apply": {
         "steps": [
           {
-            "type": "cmd.run",
-            "command": "powercfg /hibernate on"
-          },
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId storage_ahci_hipm"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
           {
-            "type": "cmd.run",
-            "command": "powercfg /hibernate /type reduced"
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId storage_ahci_hipm"
           }
         ]
       },
       "revert": {
         "steps": [
           {
-            "type": "cmd.run",
-            "command": "powercfg /hibernate /type full"
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId storage_ahci_hipm"
           }
         ]
       }
     },
     {
-      "id": "power_disk_idle_never_split",
+      "id": "pm_storage_ahci_link_power_management",
       "type": "button",
-      "name": "Disk Idle Timeout: Never (AC/DC)",
-      "risk": "Warning",
-      "riskLevel": "Warning",
+      "name": "AHCI Link Power Management",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
       "category": "Power Management",
-      "requiresAdmin": true,
-      "description": "Prevents disk spindown/idle transitions.",
+      "description": "AHCI Link Power Management controls I/O link power management.",
+      "shortDescription": "AHCI Link Power Management controls I/O link power management.",
+      "longDescription": "Adjusts ahci link power management through I/O link power management. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks ahci link power management so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "STORAGE_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "storage_feature",
+      "catalogId": "storage_ahci_link_power_management",
       "apply": {
         "steps": [
           {
-            "type": "cmd.run",
-            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_DISK DISKIDLE 0"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_DISK DISKIDLE 0"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg /setactive SCHEME_CURRENT"
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId storage_ahci_link_power_management"
           }
         ]
-      }
-    },
-    {
-      "id": "power_fast_startup_disable",
-      "type": "button",
-      "name": "Fast Startup: Disable",
-      "risk": "Warning",
-      "riskLevel": "Warning",
-      "category": "Power Management",
-      "requiresAdmin": true,
-      "description": "Turns off Fast Startup for cleaner shutdown cycles.",
-      "apply": {
+      },
+      "verify": {
         "steps": [
           {
-            "type": "cmd.run",
-            "command": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Power\" /v HiberbootEnabled /t REG_DWORD /d 0 /f"
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId storage_ahci_link_power_management"
           }
         ]
       },
       "revert": {
         "steps": [
           {
-            "type": "cmd.run",
-            "command": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Power\" /v HiberbootEnabled /t REG_DWORD /d 1 /f"
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId storage_ahci_link_power_management"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_storage_disk_bus_power_management",
+      "type": "button",
+      "name": "Disk Bus Power Management",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "Disk Bus Power Management controls I/O link power management.",
+      "shortDescription": "Disk Bus Power Management controls I/O link power management.",
+      "longDescription": "Adjusts disk bus power management through I/O link power management. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks disk bus power management so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "STORAGE_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "storage_feature",
+      "catalogId": "storage_disk_bus_power_management",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId storage_disk_bus_power_management"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId storage_disk_bus_power_management"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId storage_disk_bus_power_management"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_storage_disk_controller_idle_policy",
+      "type": "button",
+      "name": "Disk Controller Idle Policy",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "Disk Controller Idle Policy controls cpu scheduler and frequency policy.",
+      "shortDescription": "Disk Controller Idle Policy controls cpu scheduler and frequency policy.",
+      "longDescription": "Adjusts disk controller idle policy through cpu scheduler and frequency policy. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks disk controller idle policy so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It can change frame-time consistency and input-to-render responsiveness during bursty loads.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Latency-sensitive users may notice faster wake/ramp and steadier input response.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "STORAGE_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "storage_feature",
+      "catalogId": "storage_disk_controller_idle_policy",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId storage_disk_controller_idle_policy"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId storage_disk_controller_idle_policy"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId storage_disk_controller_idle_policy"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_storage_disk_idle_timeout",
+      "type": "button",
+      "name": "Disk Idle Timeout",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "Disk Idle Timeout controls cpu scheduler and frequency policy.",
+      "shortDescription": "Disk Idle Timeout controls cpu scheduler and frequency policy.",
+      "longDescription": "Adjusts disk idle timeout through cpu scheduler and frequency policy. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks disk idle timeout so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It can change frame-time consistency and input-to-render responsiveness during bursty loads.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Latency-sensitive users may notice faster wake/ramp and steadier input response.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "STORAGE_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "storage_feature",
+      "catalogId": "storage_disk_idle_timeout",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId storage_disk_idle_timeout"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId storage_disk_idle_timeout"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId storage_disk_idle_timeout"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_storage_disk_link_power_management",
+      "type": "button",
+      "name": "Disk Link Power Management",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "Disk Link Power Management controls I/O link power management.",
+      "shortDescription": "Disk Link Power Management controls I/O link power management.",
+      "longDescription": "Adjusts disk link power management through I/O link power management. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks disk link power management so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "STORAGE_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "storage_feature",
+      "catalogId": "storage_disk_link_power_management",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId storage_disk_link_power_management"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId storage_disk_link_power_management"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId storage_disk_link_power_management"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_storage_disk_queue_idle_policy",
+      "type": "button",
+      "name": "Disk Queue Idle Policy",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "Disk Queue Idle Policy controls cpu scheduler and frequency policy.",
+      "shortDescription": "Disk Queue Idle Policy controls cpu scheduler and frequency policy.",
+      "longDescription": "Adjusts disk queue idle policy through cpu scheduler and frequency policy. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks disk queue idle policy so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It can change frame-time consistency and input-to-render responsiveness during bursty loads.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Latency-sensitive users may notice faster wake/ramp and steadier input response.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "STORAGE_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "storage_feature",
+      "catalogId": "storage_disk_queue_idle_policy",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId storage_disk_queue_idle_policy"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId storage_disk_queue_idle_policy"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId storage_disk_queue_idle_policy"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_storage_nvme_apst",
+      "type": "button",
+      "name": "NVMe APST",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "NVMe APST controls I/O link power management.",
+      "shortDescription": "NVMe APST controls I/O link power management.",
+      "longDescription": "Adjusts nvme apst through I/O link power management. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks nvme apst so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "STORAGE_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "storage_feature",
+      "catalogId": "storage_nvme_apst",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId storage_nvme_apst"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId storage_nvme_apst"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId storage_nvme_apst"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_storage_nvme_controller_sleep",
+      "type": "button",
+      "name": "NVMe Controller Sleep",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "NVMe Controller Sleep controls sleep/standby and wake orchestration.",
+      "shortDescription": "NVMe Controller Sleep controls sleep/standby and wake orchestration.",
+      "longDescription": "Adjusts nvme controller sleep through sleep/standby and wake orchestration. Lower values usually save power but increase wake delay or reduce throughput headroom.",
+      "whatItDoes": "Writes and tracks nvme controller sleep so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "BATTERY_NEGATIVE",
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "STORAGE_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM",
+        "WAKE_BEHAVIOR"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "storage_feature",
+      "catalogId": "storage_nvme_controller_sleep",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId storage_nvme_controller_sleep"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId storage_nvme_controller_sleep"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId storage_nvme_controller_sleep"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_storage_nvme_deep_sleep",
+      "type": "button",
+      "name": "NVMe Deep Sleep",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "NVMe Deep Sleep controls sleep/standby and wake orchestration.",
+      "shortDescription": "NVMe Deep Sleep controls sleep/standby and wake orchestration.",
+      "longDescription": "Adjusts nvme deep sleep through sleep/standby and wake orchestration. Lower values usually save power but increase wake delay or reduce throughput headroom.",
+      "whatItDoes": "Writes and tracks nvme deep sleep so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "BATTERY_NEGATIVE",
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "STORAGE_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM",
+        "WAKE_BEHAVIOR"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "storage_feature",
+      "catalogId": "storage_nvme_deep_sleep",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId storage_nvme_deep_sleep"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId storage_nvme_deep_sleep"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId storage_nvme_deep_sleep"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_storage_nvme_host_power_management",
+      "type": "button",
+      "name": "NVMe Host Power Management",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "NVMe Host Power Management controls I/O link power management.",
+      "shortDescription": "NVMe Host Power Management controls I/O link power management.",
+      "longDescription": "Adjusts nvme host power management through I/O link power management. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks nvme host power management so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "STORAGE_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "storage_feature",
+      "catalogId": "storage_nvme_host_power_management",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId storage_nvme_host_power_management"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId storage_nvme_host_power_management"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId storage_nvme_host_power_management"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_storage_nvme_latency_tolerance",
+      "type": "button",
+      "name": "NVMe Latency Tolerance",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "NVMe Latency Tolerance controls I/O link power management.",
+      "shortDescription": "NVMe Latency Tolerance controls I/O link power management.",
+      "longDescription": "Adjusts nvme latency tolerance through I/O link power management. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks nvme latency tolerance so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It can change frame-time consistency and input-to-render responsiveness during bursty loads.",
+      "fpsImpact": "Can indirectly stabilize frame pacing in I/O-bound scenarios; average FPS impact is typically small.",
+      "latencyImpact": "Latency-sensitive users may notice faster wake/ramp and steadier input response.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "LATENCY_RESPONSIVENESS",
+        "STORAGE_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "storage_feature",
+      "catalogId": "storage_nvme_latency_tolerance",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId storage_nvme_latency_tolerance"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId storage_nvme_latency_tolerance"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId storage_nvme_latency_tolerance"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_storage_nvme_performance_state_policy",
+      "type": "button",
+      "name": "NVMe Performance State Policy",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "NVMe Performance State Policy controls I/O link power management.",
+      "shortDescription": "NVMe Performance State Policy controls I/O link power management.",
+      "longDescription": "Adjusts nvme performance state policy through I/O link power management. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks nvme performance state policy so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Higher-performance values increase package power and reduce idle savings.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "STORAGE_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "storage_feature",
+      "catalogId": "storage_nvme_performance_state_policy",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId storage_nvme_performance_state_policy"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId storage_nvme_performance_state_policy"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId storage_nvme_performance_state_policy"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_storage_nvme_thermal_power_scaling",
+      "type": "button",
+      "name": "NVMe Thermal Power Scaling",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "NVMe Thermal Power Scaling controls I/O link power management.",
+      "shortDescription": "NVMe Thermal Power Scaling controls I/O link power management.",
+      "longDescription": "Adjusts nvme thermal power scaling through I/O link power management. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks nvme thermal power scaling so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "STORAGE_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "storage_feature",
+      "catalogId": "storage_nvme_thermal_power_scaling",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId storage_nvme_thermal_power_scaling"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId storage_nvme_thermal_power_scaling"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId storage_nvme_thermal_power_scaling"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_storage_nvme_idle_timeout",
+      "type": "button",
+      "name": "NVMe idle timeout",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "NVMe idle timeout controls cpu scheduler and frequency policy.",
+      "shortDescription": "NVMe idle timeout controls cpu scheduler and frequency policy.",
+      "longDescription": "Adjusts nvme idle timeout through cpu scheduler and frequency policy. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks nvme idle timeout so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It can change frame-time consistency and input-to-render responsiveness during bursty loads.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Latency-sensitive users may notice faster wake/ramp and steadier input response.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "STORAGE_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "storage_feature",
+      "catalogId": "storage_nvme_idle_timeout",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId storage_nvme_idle_timeout"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId storage_nvme_idle_timeout"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId storage_nvme_idle_timeout"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_storage_sata_alpm",
+      "type": "button",
+      "name": "SATA ALPM",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "SATA ALPM controls I/O link power management.",
+      "shortDescription": "SATA ALPM controls I/O link power management.",
+      "longDescription": "Adjusts sata alpm through I/O link power management. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks sata alpm so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "STORAGE_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "storage_feature",
+      "catalogId": "storage_sata_alpm",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId storage_sata_alpm"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId storage_sata_alpm"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId storage_sata_alpm"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_storage_sata_dipm",
+      "type": "button",
+      "name": "SATA DIPM",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "SATA DIPM controls I/O link power management.",
+      "shortDescription": "SATA DIPM controls I/O link power management.",
+      "longDescription": "Adjusts sata dipm through I/O link power management. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks sata dipm so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "STORAGE_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "storage_feature",
+      "catalogId": "storage_sata_dipm",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId storage_sata_dipm"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId storage_sata_dipm"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId storage_sata_dipm"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_storage_sata_hipm",
+      "type": "button",
+      "name": "SATA HIPM",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "SATA HIPM controls I/O link power management.",
+      "shortDescription": "SATA HIPM controls I/O link power management.",
+      "longDescription": "Adjusts sata hipm through I/O link power management. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks sata hipm so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "STORAGE_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "storage_feature",
+      "catalogId": "storage_sata_hipm",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId storage_sata_hipm"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId storage_sata_hipm"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId storage_sata_hipm"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_storage_storage_device_spin_down",
+      "type": "button",
+      "name": "Storage Device Spin Down",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "Storage Device Spin Down controls I/O link power management.",
+      "shortDescription": "Storage Device Spin Down controls I/O link power management.",
+      "longDescription": "Adjusts storage device spin down through I/O link power management. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks storage device spin down so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "STORAGE_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM",
+        "USB_POWER"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "storage_feature",
+      "catalogId": "storage_storage_device_spin_down",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId storage_storage_device_spin_down"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId storage_storage_device_spin_down"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId storage_storage_device_spin_down"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_storage_storport_link_power_management",
+      "type": "button",
+      "name": "Storport link power management",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "Storport link power management controls I/O link power management.",
+      "shortDescription": "Storport link power management controls I/O link power management.",
+      "longDescription": "Adjusts storport link power management through I/O link power management. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks storport link power management so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "STORAGE_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "storage_feature",
+      "catalogId": "storage_storport_link_power_management",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId storage_storport_link_power_management"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId storage_storport_link_power_management"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId storage_storport_link_power_management"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_storage_turn_off_hard_disk_after",
+      "type": "button",
+      "name": "Turn off hard disk after",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "Turn off hard disk after controls I/O link power management.",
+      "shortDescription": "Turn off hard disk after controls I/O link power management.",
+      "longDescription": "Adjusts turn off hard disk after through I/O link power management. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks turn off hard disk after so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "STORAGE_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "storage_feature",
+      "catalogId": "storage_turn_off_hard_disk_after",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId storage_turn_off_hard_disk_after"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId storage_turn_off_hard_disk_after"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId storage_turn_off_hard_disk_after"
           }
         ]
       }

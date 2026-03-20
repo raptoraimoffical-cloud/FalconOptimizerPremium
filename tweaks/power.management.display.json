@@ -1,179 +1,1349 @@
 {
   "items": [
     {
-      "id": "power_display_idle_acdc",
+      "id": "pm_gpu_amd_ulps",
       "type": "button",
-      "name": "Display: Idle Timeout 15m (AC) / 5m (DC)",
-      "risk": "Safe",
-      "riskLevel": "Safe",
+      "name": "AMD ULPS",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
       "category": "Power Management",
-      "requiresAdmin": true,
-      "description": "Controls display-off timeout separately by power source.",
+      "description": "AMD ULPS controls display/GPU idle and panel policy.",
+      "shortDescription": "AMD ULPS controls display/GPU idle and panel policy.",
+      "longDescription": "Adjusts amd ulps through display/GPU idle and panel policy. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks amd ulps so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "DISPLAY_POWER",
+        "EXPERIMENTAL",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "gpu_feature",
+      "catalogId": "gpu_amd_ulps",
       "apply": {
         "steps": [
           {
-            "type": "cmd.run",
-            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_VIDEO VIDEOIDLE 15"
-          },
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId gpu_amd_ulps"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
           {
-            "type": "cmd.run",
-            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_VIDEO VIDEOIDLE 5"
-          },
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId gpu_amd_ulps"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
           {
-            "type": "cmd.run",
-            "command": "powercfg /setactive SCHEME_CURRENT"
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId gpu_amd_ulps"
           }
         ]
       }
     },
     {
-      "id": "power_display_dim_timeout",
+      "id": "pm_gpu_adaptive_brightness",
       "type": "button",
-      "name": "Display: Dim Timeout 10m (AC) / 3m (DC)",
-      "risk": "Safe",
-      "riskLevel": "Safe",
+      "name": "Adaptive brightness",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
       "category": "Power Management",
-      "requiresAdmin": true,
-      "description": "Sets dim timeout separately from display-off timeout.",
+      "description": "Adaptive brightness controls display/GPU idle and panel policy.",
+      "shortDescription": "Adaptive brightness controls display/GPU idle and panel policy.",
+      "longDescription": "Adjusts adaptive brightness through display/GPU idle and panel policy. Lower values usually save power but increase wake delay or reduce throughput headroom.",
+      "whatItDoes": "Writes and tracks adaptive brightness so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "DISPLAY_POWER",
+        "EXPERIMENTAL",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "gpu_feature",
+      "catalogId": "gpu_adaptive_brightness",
       "apply": {
         "steps": [
           {
-            "type": "cmd.run",
-            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_VIDEO VIDEODIM 10"
-          },
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId gpu_adaptive_brightness"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
           {
-            "type": "cmd.run",
-            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_VIDEO VIDEODIM 3"
-          },
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId gpu_adaptive_brightness"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
           {
-            "type": "cmd.run",
-            "command": "powercfg /setactive SCHEME_CURRENT"
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId gpu_adaptive_brightness"
           }
         ]
       }
     },
     {
-      "id": "power_display_adaptive_brightness",
+      "id": "pm_gpu_dim_display_after",
       "type": "button",
-      "name": "Display: Adaptive Brightness Off (AC/DC)",
-      "risk": "Safe",
-      "riskLevel": "Safe",
+      "name": "Dim display after",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
       "category": "Power Management",
-      "requiresAdmin": true,
-      "description": "Disables adaptive brightness on systems that expose the setting.",
+      "description": "Dim display after controls display/GPU idle and panel policy.",
+      "shortDescription": "Dim display after controls display/GPU idle and panel policy.",
+      "longDescription": "Adjusts dim display after through display/GPU idle and panel policy. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks dim display after so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "DISPLAY_POWER",
+        "EXPERIMENTAL",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "gpu_feature",
+      "catalogId": "gpu_dim_display_after",
       "apply": {
         "steps": [
           {
-            "type": "cmd.run",
-            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_VIDEO ADAPTBRIGHT 0"
-          },
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId gpu_dim_display_after"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
           {
-            "type": "cmd.run",
-            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_VIDEO ADAPTBRIGHT 0"
-          },
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId gpu_dim_display_after"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
           {
-            "type": "cmd.run",
-            "command": "powercfg /setactive SCHEME_CURRENT"
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId gpu_dim_display_after"
           }
         ]
       }
     },
     {
-      "id": "power_display_off_never_split",
+      "id": "pm_gpu_gpu_adaptive_power_mode",
       "type": "button",
-      "name": "Display Off Timeout: Never (AC/DC)",
-      "risk": "Warning",
-      "riskLevel": "Warning",
+      "name": "GPU Adaptive Power Mode",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
       "category": "Power Management",
-      "requiresAdmin": true,
-      "description": "Keeps displays active indefinitely on both power sources.",
+      "description": "GPU Adaptive Power Mode controls display/GPU idle and panel policy.",
+      "shortDescription": "GPU Adaptive Power Mode controls display/GPU idle and panel policy.",
+      "longDescription": "Adjusts gpu adaptive power mode through display/GPU idle and panel policy. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks gpu adaptive power mode so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "DISPLAY_POWER",
+        "EXPERIMENTAL",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "gpu_feature",
+      "catalogId": "gpu_gpu_adaptive_power_mode",
       "apply": {
         "steps": [
           {
-            "type": "cmd.run",
-            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_VIDEO VIDEOIDLE 0"
-          },
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId gpu_gpu_adaptive_power_mode"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
           {
-            "type": "cmd.run",
-            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_VIDEO VIDEOIDLE 0"
-          },
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId gpu_gpu_adaptive_power_mode"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
           {
-            "type": "cmd.run",
-            "command": "powercfg /setactive SCHEME_CURRENT"
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId gpu_gpu_adaptive_power_mode"
           }
         ]
       }
     },
     {
-      "id": "power_console_lock_display_timeout",
+      "id": "pm_gpu_gpu_clock_gating",
       "type": "button",
-      "name": "Console Lock Display Timeout: 60s",
-      "risk": "Safe",
-      "riskLevel": "Safe",
+      "name": "GPU Clock Gating",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
       "category": "Power Management",
-      "requiresAdmin": true,
-      "description": "Sets hidden console-lock display off timeout.",
+      "description": "GPU Clock Gating controls display/GPU idle and panel policy.",
+      "shortDescription": "GPU Clock Gating controls display/GPU idle and panel policy.",
+      "longDescription": "Adjusts gpu clock gating through display/GPU idle and panel policy. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks gpu clock gating so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "DISPLAY_POWER",
+        "EXPERIMENTAL",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "gpu_feature",
+      "catalogId": "gpu_gpu_clock_gating",
       "apply": {
         "steps": [
           {
-            "type": "cmd.run",
-            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_VIDEO VIDEOCONLOCK 60"
-          },
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId gpu_gpu_clock_gating"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
           {
-            "type": "cmd.run",
-            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_VIDEO VIDEOCONLOCK 60"
-          },
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId gpu_gpu_clock_gating"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
           {
-            "type": "cmd.run",
-            "command": "powercfg /setactive SCHEME_CURRENT"
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId gpu_gpu_clock_gating"
           }
         ]
       }
     },
     {
-      "id": "power_display_media_sharing_prevent_sleep",
+      "id": "pm_gpu_gpu_deep_sleep",
       "type": "button",
-      "name": "Display/Media: Prevent Idle to Sleep During Media Share",
-      "risk": "Warning",
-      "riskLevel": "Warning",
+      "name": "GPU Deep Sleep",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
       "category": "Power Management",
-      "requiresAdmin": true,
-      "description": "Keeps system awake while sharing media; can increase idle power usage.",
+      "description": "GPU Deep Sleep controls sleep/standby and wake orchestration.",
+      "shortDescription": "GPU Deep Sleep controls sleep/standby and wake orchestration.",
+      "longDescription": "Adjusts gpu deep sleep through sleep/standby and wake orchestration. Lower values usually save power but increase wake delay or reduce throughput headroom.",
+      "whatItDoes": "Writes and tracks gpu deep sleep so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "BATTERY_NEGATIVE",
+        "CONDITIONAL_HARDWARE",
+        "DISPLAY_POWER",
+        "EXPERIMENTAL",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM",
+        "WAKE_BEHAVIOR"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "gpu_feature",
+      "catalogId": "gpu_gpu_deep_sleep",
       "apply": {
         "steps": [
           {
-            "type": "cmd.run",
-            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_VIDEO VIDEOCONLOCK 1"
-          },
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId gpu_gpu_deep_sleep"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
           {
-            "type": "cmd.run",
-            "command": "powercfg /setactive SCHEME_CURRENT"
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId gpu_gpu_deep_sleep"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId gpu_gpu_deep_sleep"
           }
         ]
       }
     },
     {
-      "id": "power_display_normal_brightness_80",
+      "id": "pm_gpu_gpu_dynamic_power",
       "type": "button",
-      "name": "Display: Set Normal Brightness 80% (AC/DC)",
-      "risk": "Safe",
-      "riskLevel": "Safe",
+      "name": "GPU Dynamic Power",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
       "category": "Power Management",
-      "requiresAdmin": true,
-      "description": "Sets explicit normal brightness level when setting exists on device.",
+      "description": "GPU Dynamic Power controls display/GPU idle and panel policy.",
+      "shortDescription": "GPU Dynamic Power controls display/GPU idle and panel policy.",
+      "longDescription": "Adjusts gpu dynamic power through display/GPU idle and panel policy. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks gpu dynamic power so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "DISPLAY_POWER",
+        "EXPERIMENTAL",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "gpu_feature",
+      "catalogId": "gpu_gpu_dynamic_power",
       "apply": {
         "steps": [
           {
-            "type": "cmd.run",
-            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_VIDEO VIDEONORMALLEVEL 80"
-          },
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId gpu_gpu_dynamic_power"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
           {
-            "type": "cmd.run",
-            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_VIDEO VIDEONORMALLEVEL 80"
-          },
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId gpu_gpu_dynamic_power"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
           {
-            "type": "cmd.run",
-            "command": "powercfg /setactive SCHEME_CURRENT"
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId gpu_gpu_dynamic_power"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_gpu_gpu_energy_bias",
+      "type": "button",
+      "name": "GPU Energy Bias",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "GPU Energy Bias controls display/GPU idle and panel policy.",
+      "shortDescription": "GPU Energy Bias controls display/GPU idle and panel policy.",
+      "longDescription": "Adjusts gpu energy bias through display/GPU idle and panel policy. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks gpu energy bias so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "DISPLAY_POWER",
+        "EXPERIMENTAL",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "gpu_feature",
+      "catalogId": "gpu_gpu_energy_bias",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId gpu_gpu_energy_bias"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId gpu_gpu_energy_bias"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId gpu_gpu_energy_bias"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_gpu_gpu_energy_policy",
+      "type": "button",
+      "name": "GPU Energy Policy",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "GPU Energy Policy controls display/GPU idle and panel policy.",
+      "shortDescription": "GPU Energy Policy controls display/GPU idle and panel policy.",
+      "longDescription": "Adjusts gpu energy policy through display/GPU idle and panel policy. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks gpu energy policy so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "DISPLAY_POWER",
+        "EXPERIMENTAL",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "gpu_feature",
+      "catalogId": "gpu_gpu_energy_policy",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId gpu_gpu_energy_policy"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId gpu_gpu_energy_policy"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId gpu_gpu_energy_policy"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_gpu_gpu_frequency_scaling",
+      "type": "button",
+      "name": "GPU Frequency Scaling",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "GPU Frequency Scaling controls display/GPU idle and panel policy.",
+      "shortDescription": "GPU Frequency Scaling controls display/GPU idle and panel policy.",
+      "longDescription": "Adjusts gpu frequency scaling through display/GPU idle and panel policy. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks gpu frequency scaling so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "DISPLAY_POWER",
+        "EXPERIMENTAL",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "gpu_feature",
+      "catalogId": "gpu_gpu_frequency_scaling",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId gpu_gpu_frequency_scaling"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId gpu_gpu_frequency_scaling"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId gpu_gpu_frequency_scaling"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_gpu_gpu_idle_clock_gating",
+      "type": "button",
+      "name": "GPU Idle Clock Gating",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "GPU Idle Clock Gating controls cpu scheduler and frequency policy.",
+      "shortDescription": "GPU Idle Clock Gating controls cpu scheduler and frequency policy.",
+      "longDescription": "Adjusts gpu idle clock gating through cpu scheduler and frequency policy. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks gpu idle clock gating so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It can change frame-time consistency and input-to-render responsiveness during bursty loads.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Latency-sensitive users may notice faster wake/ramp and steadier input response.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "DISPLAY_POWER",
+        "EXPERIMENTAL",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "gpu_feature",
+      "catalogId": "gpu_gpu_idle_clock_gating",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId gpu_gpu_idle_clock_gating"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId gpu_gpu_idle_clock_gating"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId gpu_gpu_idle_clock_gating"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_gpu_gpu_idle_policy",
+      "type": "button",
+      "name": "GPU Idle Policy",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "GPU Idle Policy controls cpu scheduler and frequency policy.",
+      "shortDescription": "GPU Idle Policy controls cpu scheduler and frequency policy.",
+      "longDescription": "Adjusts gpu idle policy through cpu scheduler and frequency policy. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks gpu idle policy so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It can change frame-time consistency and input-to-render responsiveness during bursty loads.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Latency-sensitive users may notice faster wake/ramp and steadier input response.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "DISPLAY_POWER",
+        "EXPERIMENTAL",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "gpu_feature",
+      "catalogId": "gpu_gpu_idle_policy",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId gpu_gpu_idle_policy"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId gpu_gpu_idle_policy"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId gpu_gpu_idle_policy"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_gpu_gpu_idle_timeout",
+      "type": "button",
+      "name": "GPU Idle Timeout",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "GPU Idle Timeout controls cpu scheduler and frequency policy.",
+      "shortDescription": "GPU Idle Timeout controls cpu scheduler and frequency policy.",
+      "longDescription": "Adjusts gpu idle timeout through cpu scheduler and frequency policy. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks gpu idle timeout so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It can change frame-time consistency and input-to-render responsiveness during bursty loads.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Latency-sensitive users may notice faster wake/ramp and steadier input response.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "DISPLAY_POWER",
+        "EXPERIMENTAL",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "gpu_feature",
+      "catalogId": "gpu_gpu_idle_timeout",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId gpu_gpu_idle_timeout"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId gpu_gpu_idle_timeout"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId gpu_gpu_idle_timeout"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_gpu_gpu_optimal_power",
+      "type": "button",
+      "name": "GPU Optimal Power",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "GPU Optimal Power controls display/GPU idle and panel policy.",
+      "shortDescription": "GPU Optimal Power controls display/GPU idle and panel policy.",
+      "longDescription": "Adjusts gpu optimal power through display/GPU idle and panel policy. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks gpu optimal power so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "DISPLAY_POWER",
+        "EXPERIMENTAL",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "gpu_feature",
+      "catalogId": "gpu_gpu_optimal_power",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId gpu_gpu_optimal_power"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId gpu_gpu_optimal_power"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId gpu_gpu_optimal_power"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_gpu_gpu_performance_bias",
+      "type": "button",
+      "name": "GPU Performance Bias",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "GPU Performance Bias controls display/GPU idle and panel policy.",
+      "shortDescription": "GPU Performance Bias controls display/GPU idle and panel policy.",
+      "longDescription": "Adjusts gpu performance bias through display/GPU idle and panel policy. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks gpu performance bias so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Higher-performance values increase package power and reduce idle savings.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "DISPLAY_POWER",
+        "EXPERIMENTAL",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "gpu_feature",
+      "catalogId": "gpu_gpu_performance_bias",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId gpu_gpu_performance_bias"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId gpu_gpu_performance_bias"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId gpu_gpu_performance_bias"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_gpu_gpu_performance_state_policy",
+      "type": "button",
+      "name": "GPU Performance State Policy",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "GPU Performance State Policy controls display/GPU idle and panel policy.",
+      "shortDescription": "GPU Performance State Policy controls display/GPU idle and panel policy.",
+      "longDescription": "Adjusts gpu performance state policy through display/GPU idle and panel policy. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks gpu performance state policy so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Higher-performance values increase package power and reduce idle savings.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "DISPLAY_POWER",
+        "EXPERIMENTAL",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "gpu_feature",
+      "catalogId": "gpu_gpu_performance_state_policy",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId gpu_gpu_performance_state_policy"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId gpu_gpu_performance_state_policy"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId gpu_gpu_performance_state_policy"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_gpu_gpu_power_throttle",
+      "type": "button",
+      "name": "GPU Power Throttle",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "GPU Power Throttle controls display/GPU idle and panel policy.",
+      "shortDescription": "GPU Power Throttle controls display/GPU idle and panel policy.",
+      "longDescription": "Adjusts gpu power throttle through display/GPU idle and panel policy. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks gpu power throttle so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "DISPLAY_POWER",
+        "EXPERIMENTAL",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "gpu_feature",
+      "catalogId": "gpu_gpu_power_throttle",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId gpu_gpu_power_throttle"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId gpu_gpu_power_throttle"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId gpu_gpu_power_throttle"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_gpu_gpu_thermal_power_scaling",
+      "type": "button",
+      "name": "GPU Thermal Power Scaling",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "GPU Thermal Power Scaling controls display/GPU idle and panel policy.",
+      "shortDescription": "GPU Thermal Power Scaling controls display/GPU idle and panel policy.",
+      "longDescription": "Adjusts gpu thermal power scaling through display/GPU idle and panel policy. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks gpu thermal power scaling so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "DISPLAY_POWER",
+        "EXPERIMENTAL",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "gpu_feature",
+      "catalogId": "gpu_gpu_thermal_power_scaling",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId gpu_gpu_thermal_power_scaling"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId gpu_gpu_thermal_power_scaling"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId gpu_gpu_thermal_power_scaling"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_gpu_gpu_voltage_scaling",
+      "type": "button",
+      "name": "GPU Voltage Scaling",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "GPU Voltage Scaling controls display/GPU idle and panel policy.",
+      "shortDescription": "GPU Voltage Scaling controls display/GPU idle and panel policy.",
+      "longDescription": "Adjusts gpu voltage scaling through display/GPU idle and panel policy. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks gpu voltage scaling so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "DISPLAY_POWER",
+        "EXPERIMENTAL",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "gpu_feature",
+      "catalogId": "gpu_gpu_voltage_scaling",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId gpu_gpu_voltage_scaling"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId gpu_gpu_voltage_scaling"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId gpu_gpu_voltage_scaling"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_gpu_gpu_wake_latency",
+      "type": "button",
+      "name": "GPU Wake Latency",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "GPU Wake Latency controls sleep/standby and wake orchestration.",
+      "shortDescription": "GPU Wake Latency controls sleep/standby and wake orchestration.",
+      "longDescription": "Adjusts gpu wake latency through sleep/standby and wake orchestration. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks gpu wake latency so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It can change frame-time consistency and input-to-render responsiveness during bursty loads.",
+      "fpsImpact": "Can indirectly stabilize frame pacing in I/O-bound scenarios; average FPS impact is typically small.",
+      "latencyImpact": "Latency-sensitive users may notice faster wake/ramp and steadier input response.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "DISPLAY_POWER",
+        "EXPERIMENTAL",
+        "LATENCY_RESPONSIVENESS",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM",
+        "WAKE_BEHAVIOR"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "gpu_feature",
+      "catalogId": "gpu_gpu_wake_latency",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId gpu_gpu_wake_latency"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId gpu_gpu_wake_latency"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId gpu_gpu_wake_latency"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_gpu_intel_rc6",
+      "type": "button",
+      "name": "Intel RC6",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "Intel RC6 controls display/GPU idle and panel policy.",
+      "shortDescription": "Intel RC6 controls display/GPU idle and panel policy.",
+      "longDescription": "Adjusts intel rc6 through display/GPU idle and panel policy. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks intel rc6 so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "DISPLAY_POWER",
+        "EXPERIMENTAL",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "gpu_feature",
+      "catalogId": "gpu_intel_rc6",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId gpu_intel_rc6"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId gpu_intel_rc6"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId gpu_intel_rc6"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_gpu_nvidia_optimal_power",
+      "type": "button",
+      "name": "NVIDIA Optimal Power",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "NVIDIA Optimal Power controls display/GPU idle and panel policy.",
+      "shortDescription": "NVIDIA Optimal Power controls display/GPU idle and panel policy.",
+      "longDescription": "Adjusts nvidia optimal power through display/GPU idle and panel policy. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks nvidia optimal power so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "DISPLAY_POWER",
+        "EXPERIMENTAL",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "gpu_feature",
+      "catalogId": "gpu_nvidia_optimal_power",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId gpu_nvidia_optimal_power"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId gpu_nvidia_optimal_power"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId gpu_nvidia_optimal_power"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_gpu_panel_self_refresh",
+      "type": "button",
+      "name": "Panel self refresh",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "Panel self refresh controls display/GPU idle and panel policy.",
+      "shortDescription": "Panel self refresh controls display/GPU idle and panel policy.",
+      "longDescription": "Adjusts panel self refresh through display/GPU idle and panel policy. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks panel self refresh so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "DISPLAY_POWER",
+        "EXPERIMENTAL",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "gpu_feature",
+      "catalogId": "gpu_panel_self_refresh",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId gpu_panel_self_refresh"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId gpu_panel_self_refresh"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId gpu_panel_self_refresh"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_gpu_turn_off_display_after",
+      "type": "button",
+      "name": "Turn off display after",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "Turn off display after controls display/GPU idle and panel policy.",
+      "shortDescription": "Turn off display after controls display/GPU idle and panel policy.",
+      "longDescription": "Adjusts turn off display after through display/GPU idle and panel policy. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks turn off display after so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "DISPLAY_POWER",
+        "EXPERIMENTAL",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "gpu_feature",
+      "catalogId": "gpu_turn_off_display_after",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId gpu_turn_off_display_after"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId gpu_turn_off_display_after"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId gpu_turn_off_display_after"
           }
         ]
       }

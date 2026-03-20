@@ -1,179 +1,2771 @@
 {
   "items": [
     {
-      "id": "power_nic_disable_pm_all_adapters",
+      "id": "pm_nic_arp_offload",
       "type": "button",
-      "name": "NIC: Disable Adapter Power Management (all physical adapters)",
-      "risk": "Warning",
-      "riskLevel": "Warning",
-      "category": "Power Management",
-      "requiresAdmin": true,
-      "description": "Uses NetAdapter cmdlets to disable adapter-level power management on physical NICs.",
-      "apply": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "$nics=Get-NetAdapter -Physical -ErrorAction SilentlyContinue; foreach($n in $nics){ Disable-NetAdapterPowerManagement -Name $n.Name -NoRestart -ErrorAction SilentlyContinue }; Get-NetAdapterPowerManagement -Name * | Format-Table -AutoSize | Out-String | Write-Output"
-          }
-        ]
-      }
-    },
-    {
-      "id": "power_nic_eee_disable_when_present",
-      "type": "button",
-      "name": "NIC: Disable Energy Efficient Ethernet (EEE) where present",
-      "risk": "Warning",
-      "riskLevel": "Warning",
-      "category": "Power Management",
-      "requiresAdmin": true,
-      "description": "Enumerates advanced properties and disables EEE only on adapters that expose the property.",
-      "apply": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "$nics=Get-NetAdapter -Physical -ErrorAction SilentlyContinue; foreach($n in $nics){ $props=Get-NetAdapterAdvancedProperty -Name $n.Name -AllProperties -ErrorAction SilentlyContinue; $targets=$props|?{ $_.DisplayName -match 'Energy Efficient Ethernet|EEE' -or $_.RegistryKeyword -match 'EEE' }; foreach($p in $targets){ Set-NetAdapterAdvancedProperty -Name $n.Name -RegistryKeyword $p.RegistryKeyword -RegistryValue 0 -NoRestart -ErrorAction SilentlyContinue } }; Write-Output 'EEE pass complete.'"
-          }
-        ]
-      }
-    },
-    {
-      "id": "power_nic_green_ethernet_disable_when_present",
-      "type": "button",
-      "name": "NIC: Disable Green Ethernet where present",
-      "risk": "Warning",
-      "riskLevel": "Warning",
-      "category": "Power Management",
-      "requiresAdmin": true,
-      "description": "Disables Green Ethernet or similarly named power-saving properties per adapter when exposed.",
-      "apply": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "$patterns='Green Ethernet','Green','Power Saving'; $nics=Get-NetAdapter -Physical -ErrorAction SilentlyContinue; foreach($n in $nics){ $props=Get-NetAdapterAdvancedProperty -Name $n.Name -AllProperties -ErrorAction SilentlyContinue; $targets=$props|?{ $dn=$_.DisplayName; ($patterns|%{ $dn -like \"*$_*\" }) -contains $true }; foreach($p in $targets){ if($p.RegistryKeyword){ Set-NetAdapterAdvancedProperty -Name $n.Name -RegistryKeyword $p.RegistryKeyword -RegistryValue 0 -NoRestart -ErrorAction SilentlyContinue } } }; Write-Output 'Green Ethernet pass complete.'"
-          }
-        ]
-      }
-    },
-    {
-      "id": "power_nic_idle_power_modes_disable_when_present",
-      "type": "button",
-      "name": "NIC: Disable Idle/Ultra-Low-Power Modes where present",
+      "name": "ARP Offload",
       "risk": "Experimental",
       "riskLevel": "Experimental",
       "category": "Power Management",
-      "requiresAdmin": true,
-      "description": "Targets common vendor labels (idle power saving, reduce speed on power down, ultra low power) only when properties exist.",
+      "description": "ARP Offload controls network adapter power behavior.",
+      "shortDescription": "ARP Offload controls network adapter power behavior.",
+      "longDescription": "Adjusts arp offload through network adapter power behavior. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks arp offload so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "NETWORK_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "nic_advanced",
+      "catalogId": "nic_arp_offload",
       "apply": {
         "steps": [
           {
             "type": "ps.run",
-            "command": "$re='Idle Power|Reduce Speed|Power Down|Ultra Low|Auto Disable Gigabit|Gigabit Auto'; $nics=Get-NetAdapter -Physical -ErrorAction SilentlyContinue; foreach($n in $nics){ $props=Get-NetAdapterAdvancedProperty -Name $n.Name -AllProperties -ErrorAction SilentlyContinue | ? { $_.DisplayName -match $re -or $_.RegistryKeyword -match 'Idle|PowerDown|Ultra|Gigabit' }; foreach($p in $props){ if($p.RegistryKeyword){ Set-NetAdapterAdvancedProperty -Name $n.Name -RegistryKeyword $p.RegistryKeyword -RegistryValue 0 -NoRestart -ErrorAction SilentlyContinue } } }; Write-Output 'Idle power mode pass complete.'"
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId nic_arp_offload"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId nic_arp_offload"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_arp_offload"
           }
         ]
       }
     },
     {
-      "id": "power_nic_export_all_advanced_properties",
+      "id": "pm_nic_adaptive_interframe_spacing",
       "type": "button",
-      "name": "NIC: Export Full Advanced Property Inventory",
-      "risk": "Safe",
-      "riskLevel": "Safe",
-      "category": "Power Management",
-      "description": "Exports all adapter advanced properties for dynamic OEM/vendor discovery.",
-      "apply": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "$ts=Get-Date -Format 'yyyyMMdd-HHmmss'; $dir=Join-Path $PWD 'logs'; if(!(Test-Path $dir)){New-Item -ItemType Directory -Path $dir|Out-Null}; $out=Join-Path $dir (\"nic-advanced-properties-\"+$ts+\".json\"); $data=Get-NetAdapter -Physical -ErrorAction SilentlyContinue | ForEach-Object { $name=$_.Name; [pscustomobject]@{ Adapter=$name; Properties=(Get-NetAdapterAdvancedProperty -Name $name -AllProperties -ErrorAction SilentlyContinue) } }; $data|ConvertTo-Json -Depth 6 | Out-File -Encoding utf8 $out; Write-Output \"Saved: $out\""
-          }
-        ]
-      }
-    },
-    {
-      "id": "nic_disable_allow_turn_off_device",
-      "type": "button",
-      "name": "NIC Power Management: Disable Device Sleep Allowance",
-      "risk": "Warning",
-      "riskLevel": "Warning",
-      "category": "Power Management",
-      "requiresAdmin": true,
-      "description": "Disables 'Allow computer to turn off this device' where supported.",
-      "apply": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "Get-NetAdapter | Where-Object Status -eq 'Up' | ForEach-Object { Disable-NetAdapterPowerManagement -Name $_.Name -NoRestart -ErrorAction SilentlyContinue }"
-          }
-        ]
-      }
-    },
-    {
-      "id": "nic_toggle_gigabit_auto_disable",
-      "type": "button",
-      "name": "NIC Advanced: Disable Gigabit Auto Disable / Auto Power Save",
+      "name": "Adaptive Interframe Spacing",
       "risk": "Experimental",
       "riskLevel": "Experimental",
       "category": "Power Management",
-      "requiresAdmin": true,
-      "description": "Attempts to disable common vendor properties that downshift link speed for power savings.",
+      "description": "Adaptive Interframe Spacing controls network adapter power behavior.",
+      "shortDescription": "Adaptive Interframe Spacing controls network adapter power behavior.",
+      "longDescription": "Adjusts adaptive interframe spacing through network adapter power behavior. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks adaptive interframe spacing so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "NETWORK_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "nic_advanced",
+      "catalogId": "nic_adaptive_interframe_spacing",
       "apply": {
         "steps": [
           {
             "type": "ps.run",
-            "command": "$keys='*EEE','*GreenEthernet','*AutoDisableGigabit','*AutoPowerSaveModeEnabled','*IdlePowerSaving','*UltraLowPowerMode'; Get-NetAdapter | ForEach-Object { $n=$_.Name; foreach($k in $keys){ try { Set-NetAdapterAdvancedProperty -Name $n -RegistryKeyword $k -RegistryValue 0 -NoRestart -ErrorAction Stop } catch {} } }"
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId nic_adaptive_interframe_spacing"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId nic_adaptive_interframe_spacing"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_adaptive_interframe_spacing"
           }
         ]
       }
     },
     {
-      "id": "nic_wol_cleanup",
+      "id": "pm_powercfg_advanced_eee",
       "type": "button",
-      "name": "NIC Wake Cleanup: Disable Wake-On-Pattern Offloads",
-      "risk": "Warning",
-      "riskLevel": "Warning",
+      "name": "Advanced EEE",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
       "category": "Power Management",
-      "requiresAdmin": true,
-      "description": "Disables wake-on-pattern features while leaving manual wake management explicit.",
+      "description": "Advanced EEE controls network adapter power behavior.",
+      "shortDescription": "Advanced EEE controls network adapter power behavior.",
+      "longDescription": "Adjusts advanced eee through network adapter power behavior. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks advanced eee so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "EXPERIMENTAL",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "unresolved",
+      "documentationStatus": "UNDOCUMENTED_INTERNAL",
+      "sourceType": "powercfg_unmapped",
+      "catalogId": "powercfg_advanced_eee",
       "apply": {
         "steps": [
           {
             "type": "ps.run",
-            "command": "Get-NetAdapter | ForEach-Object { $n=$_.Name; try { Set-NetAdapterPowerManagement -Name $n -WakeOnMagicPacket Disabled -WakeOnPattern Disabled -ErrorAction Stop } catch {} }"
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId powercfg_advanced_eee"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId powercfg_advanced_eee"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId powercfg_advanced_eee"
           }
         ]
       }
     },
     {
-      "id": "power_nic_pm_inventory",
+      "id": "pm_nic_advanced_eee",
       "type": "button",
-      "name": "NIC: Export Adapter Power-Management State",
-      "risk": "Safe",
-      "riskLevel": "Safe",
+      "name": "Advanced EEE",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
       "category": "Power Management",
-      "description": "Dumps NetAdapter power-management state for all adapters.",
+      "description": "Advanced EEE controls network adapter power behavior.",
+      "shortDescription": "Advanced EEE controls network adapter power behavior.",
+      "longDescription": "Adjusts advanced eee through network adapter power behavior. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks advanced eee so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "NETWORK_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "nic_advanced",
+      "catalogId": "nic_advanced_eee",
       "apply": {
         "steps": [
           {
             "type": "ps.run",
-            "command": "$ts=Get-Date -Format yyyyMMdd-HHmmss; $dir=Join-Path $PWD \"logs\"; if(!(Test-Path $dir)){New-Item -ItemType Directory -Path $dir|Out-Null}; $out=Join-Path $dir (\"nic-power-management-\"+$ts+\".txt\"); Get-NetAdapterPowerManagement -Name * -ErrorAction SilentlyContinue | Format-List * | Out-File -Encoding utf8 $out; Write-Output \"Saved: $out\""
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId nic_advanced_eee"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId nic_advanced_eee"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_advanced_eee"
           }
         ]
       }
     },
     {
-      "id": "power_nic_enable_pm_balanced",
+      "id": "pm_nic_auto_disable_gigabit",
       "type": "button",
-      "name": "NIC: Re-enable Adapter Power Management (Balanced fallback)",
-      "risk": "Safe",
-      "riskLevel": "Safe",
+      "name": "Auto Disable Gigabit",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
       "category": "Power Management",
-      "requiresAdmin": true,
-      "description": "Re-enables adapter PM for users leaving max-performance profile.",
+      "description": "Auto Disable Gigabit controls network adapter power behavior.",
+      "shortDescription": "Auto Disable Gigabit controls network adapter power behavior.",
+      "longDescription": "Adjusts auto disable gigabit through network adapter power behavior. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks auto disable gigabit so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Higher-performance values increase package power and reduce idle savings.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "HIGH_POWER_USE",
+        "NETWORK_POWER",
+        "POWER_SAVING_DISABLED",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "nic_advanced",
+      "catalogId": "nic_auto_disable_gigabit",
       "apply": {
         "steps": [
           {
             "type": "ps.run",
-            "command": "$nics=Get-NetAdapter -Physical -ErrorAction SilentlyContinue; foreach($n in $nics){ try{ Set-NetAdapterPowerManagement -Name $n.Name -AllowComputerToTurnOffDevice Enabled -ErrorAction Stop } catch{} }; Get-NetAdapterPowerManagement -Name * | Format-Table -AutoSize | Out-String | Write-Output"
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId nic_auto_disable_gigabit"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId nic_auto_disable_gigabit"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_auto_disable_gigabit"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_nic_dma_coalescing",
+      "type": "button",
+      "name": "DMA Coalescing",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "DMA Coalescing controls network adapter power behavior.",
+      "shortDescription": "DMA Coalescing controls network adapter power behavior.",
+      "longDescription": "Adjusts dma coalescing through network adapter power behavior. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks dma coalescing so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "NETWORK_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "nic_advanced",
+      "catalogId": "nic_dma_coalescing",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId nic_dma_coalescing"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId nic_dma_coalescing"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_dma_coalescing"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_nic_energy_detect",
+      "type": "button",
+      "name": "Energy Detect",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "Energy Detect controls network adapter power behavior.",
+      "shortDescription": "Energy Detect controls network adapter power behavior.",
+      "longDescription": "Adjusts energy detect through network adapter power behavior. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks energy detect so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "NETWORK_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "nic_advanced",
+      "catalogId": "nic_energy_detect",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId nic_energy_detect"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId nic_energy_detect"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_energy_detect"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_nic_energy_efficient_ethernet",
+      "type": "button",
+      "name": "Energy Efficient Ethernet",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "Energy Efficient Ethernet controls network adapter power behavior.",
+      "shortDescription": "Energy Efficient Ethernet controls network adapter power behavior.",
+      "longDescription": "Adjusts energy efficient ethernet through network adapter power behavior. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks energy efficient ethernet so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "NETWORK_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "nic_advanced",
+      "catalogId": "nic_energy_efficient_ethernet",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId nic_energy_efficient_ethernet"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId nic_energy_efficient_ethernet"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_energy_efficient_ethernet"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_nic_green_ethernet",
+      "type": "button",
+      "name": "Green Ethernet",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "Green Ethernet controls network adapter power behavior.",
+      "shortDescription": "Green Ethernet controls network adapter power behavior.",
+      "longDescription": "Adjusts green ethernet through network adapter power behavior. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks green ethernet so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "NETWORK_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "nic_advanced",
+      "catalogId": "nic_green_ethernet",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId nic_green_ethernet"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId nic_green_ethernet"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_green_ethernet"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_nic_interrupt_moderation",
+      "type": "button",
+      "name": "Interrupt Moderation",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "Interrupt Moderation controls network adapter power behavior.",
+      "shortDescription": "Interrupt Moderation controls network adapter power behavior.",
+      "longDescription": "Adjusts interrupt moderation through network adapter power behavior. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks interrupt moderation so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "NETWORK_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "nic_advanced",
+      "catalogId": "nic_interrupt_moderation",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId nic_interrupt_moderation"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId nic_interrupt_moderation"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_interrupt_moderation"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_nic_link_down_power_saving",
+      "type": "button",
+      "name": "Link Down Power Saving",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "Link Down Power Saving controls network adapter power behavior.",
+      "shortDescription": "Link Down Power Saving controls network adapter power behavior.",
+      "longDescription": "Adjusts link down power saving through network adapter power behavior. Lower values usually save power but increase wake delay or reduce throughput headroom.",
+      "whatItDoes": "Writes and tracks link down power saving so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "NETWORK_POWER",
+        "POWER_SAVING_DISABLED",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "nic_advanced",
+      "catalogId": "nic_link_down_power_saving",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId nic_link_down_power_saving"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId nic_link_down_power_saving"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_link_down_power_saving"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_nic_link_idle_power_saving",
+      "type": "button",
+      "name": "Link Idle Power Saving",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "Link Idle Power Saving controls cpu scheduler and frequency policy.",
+      "shortDescription": "Link Idle Power Saving controls cpu scheduler and frequency policy.",
+      "longDescription": "Adjusts link idle power saving through cpu scheduler and frequency policy. Lower values usually save power but increase wake delay or reduce throughput headroom.",
+      "whatItDoes": "Writes and tracks link idle power saving so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It can change frame-time consistency and input-to-render responsiveness during bursty loads.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Latency-sensitive users may notice faster wake/ramp and steadier input response.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "NETWORK_POWER",
+        "POWER_SAVING_DISABLED",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "nic_advanced",
+      "catalogId": "nic_link_idle_power_saving",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId nic_link_idle_power_saving"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId nic_link_idle_power_saving"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_link_idle_power_saving"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_device_nic_allowcomputertoturnoffdevice",
+      "type": "button",
+      "name": "NIC AllowComputerToTurnOffDevice",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "NIC AllowComputerToTurnOffDevice controls network adapter power behavior.",
+      "shortDescription": "NIC AllowComputerToTurnOffDevice controls network adapter power behavior.",
+      "longDescription": "Adjusts nic allowcomputertoturnoffdevice through network adapter power behavior. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks nic allowcomputertoturnoffdevice so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "NETWORK_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "device_power_flag",
+      "catalogId": "device_nic_allowcomputertoturnoffdevice",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId device_nic_allowcomputertoturnoffdevice"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId device_nic_allowcomputertoturnoffdevice"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId device_nic_allowcomputertoturnoffdevice"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_nic_ns_offload",
+      "type": "button",
+      "name": "NS Offload",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "NS Offload controls network adapter power behavior.",
+      "shortDescription": "NS Offload controls network adapter power behavior.",
+      "longDescription": "Adjusts ns offload through network adapter power behavior. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks ns offload so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "NETWORK_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "nic_advanced",
+      "catalogId": "nic_ns_offload",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId nic_ns_offload"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId nic_ns_offload"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_ns_offload"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_nic_network_adapter_clock_gating",
+      "type": "button",
+      "name": "Network Adapter Clock Gating",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "Network Adapter Clock Gating controls network adapter power behavior.",
+      "shortDescription": "Network Adapter Clock Gating controls network adapter power behavior.",
+      "longDescription": "Adjusts network adapter clock gating through network adapter power behavior. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks network adapter clock gating so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It can change frame-time consistency and input-to-render responsiveness during bursty loads.",
+      "fpsImpact": "Can indirectly stabilize frame pacing in I/O-bound scenarios; average FPS impact is typically small.",
+      "latencyImpact": "Latency-sensitive users may notice faster wake/ramp and steadier input response.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "NETWORK_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "nic_advanced",
+      "catalogId": "nic_network_adapter_clock_gating",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId nic_network_adapter_clock_gating"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId nic_network_adapter_clock_gating"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_network_adapter_clock_gating"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_nic_network_adapter_deep_sleep",
+      "type": "button",
+      "name": "Network Adapter Deep Sleep",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "Network Adapter Deep Sleep controls sleep/standby and wake orchestration.",
+      "shortDescription": "Network Adapter Deep Sleep controls sleep/standby and wake orchestration.",
+      "longDescription": "Adjusts network adapter deep sleep through sleep/standby and wake orchestration. Lower values usually save power but increase wake delay or reduce throughput headroom.",
+      "whatItDoes": "Writes and tracks network adapter deep sleep so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It can change frame-time consistency and input-to-render responsiveness during bursty loads.",
+      "fpsImpact": "Can indirectly stabilize frame pacing in I/O-bound scenarios; average FPS impact is typically small.",
+      "latencyImpact": "Latency-sensitive users may notice faster wake/ramp and steadier input response.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "BATTERY_NEGATIVE",
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "NETWORK_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM",
+        "WAKE_BEHAVIOR"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "nic_advanced",
+      "catalogId": "nic_network_adapter_deep_sleep",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId nic_network_adapter_deep_sleep"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId nic_network_adapter_deep_sleep"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_network_adapter_deep_sleep"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_nic_network_adapter_dynamic_power",
+      "type": "button",
+      "name": "Network Adapter Dynamic Power",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "Network Adapter Dynamic Power controls network adapter power behavior.",
+      "shortDescription": "Network Adapter Dynamic Power controls network adapter power behavior.",
+      "longDescription": "Adjusts network adapter dynamic power through network adapter power behavior. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks network adapter dynamic power so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It can change frame-time consistency and input-to-render responsiveness during bursty loads.",
+      "fpsImpact": "Can indirectly stabilize frame pacing in I/O-bound scenarios; average FPS impact is typically small.",
+      "latencyImpact": "Latency-sensitive users may notice faster wake/ramp and steadier input response.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "NETWORK_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "nic_advanced",
+      "catalogId": "nic_network_adapter_dynamic_power",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId nic_network_adapter_dynamic_power"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId nic_network_adapter_dynamic_power"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_network_adapter_dynamic_power"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_nic_network_adapter_energy_policy",
+      "type": "button",
+      "name": "Network Adapter Energy Policy",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "Network Adapter Energy Policy controls network adapter power behavior.",
+      "shortDescription": "Network Adapter Energy Policy controls network adapter power behavior.",
+      "longDescription": "Adjusts network adapter energy policy through network adapter power behavior. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks network adapter energy policy so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It can change frame-time consistency and input-to-render responsiveness during bursty loads.",
+      "fpsImpact": "Can indirectly stabilize frame pacing in I/O-bound scenarios; average FPS impact is typically small.",
+      "latencyImpact": "Latency-sensitive users may notice faster wake/ramp and steadier input response.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "NETWORK_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "nic_advanced",
+      "catalogId": "nic_network_adapter_energy_policy",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId nic_network_adapter_energy_policy"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId nic_network_adapter_energy_policy"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_network_adapter_energy_policy"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_nic_network_adapter_idle_timeout",
+      "type": "button",
+      "name": "Network Adapter Idle Timeout",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "Network Adapter Idle Timeout controls cpu scheduler and frequency policy.",
+      "shortDescription": "Network Adapter Idle Timeout controls cpu scheduler and frequency policy.",
+      "longDescription": "Adjusts network adapter idle timeout through cpu scheduler and frequency policy. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks network adapter idle timeout so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It can change frame-time consistency and input-to-render responsiveness during bursty loads.",
+      "fpsImpact": "Can indirectly stabilize frame pacing in I/O-bound scenarios; average FPS impact is typically small.",
+      "latencyImpact": "Latency-sensitive users may notice faster wake/ramp and steadier input response.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "NETWORK_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "nic_advanced",
+      "catalogId": "nic_network_adapter_idle_timeout",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId nic_network_adapter_idle_timeout"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId nic_network_adapter_idle_timeout"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_network_adapter_idle_timeout"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_nic_network_adapter_phy_clock_gating",
+      "type": "button",
+      "name": "Network Adapter PHY Clock Gating",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "Network Adapter PHY Clock Gating controls network adapter power behavior.",
+      "shortDescription": "Network Adapter PHY Clock Gating controls network adapter power behavior.",
+      "longDescription": "Adjusts network adapter phy clock gating through network adapter power behavior. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks network adapter phy clock gating so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It can change frame-time consistency and input-to-render responsiveness during bursty loads.",
+      "fpsImpact": "Can indirectly stabilize frame pacing in I/O-bound scenarios; average FPS impact is typically small.",
+      "latencyImpact": "Latency-sensitive users may notice faster wake/ramp and steadier input response.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "NETWORK_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "nic_advanced",
+      "catalogId": "nic_network_adapter_phy_clock_gating",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId nic_network_adapter_phy_clock_gating"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId nic_network_adapter_phy_clock_gating"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_network_adapter_phy_clock_gating"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_nic_network_adapter_phy_dynamic_power",
+      "type": "button",
+      "name": "Network Adapter PHY Dynamic Power",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "Network Adapter PHY Dynamic Power controls network adapter power behavior.",
+      "shortDescription": "Network Adapter PHY Dynamic Power controls network adapter power behavior.",
+      "longDescription": "Adjusts network adapter phy dynamic power through network adapter power behavior. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks network adapter phy dynamic power so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It can change frame-time consistency and input-to-render responsiveness during bursty loads.",
+      "fpsImpact": "Can indirectly stabilize frame pacing in I/O-bound scenarios; average FPS impact is typically small.",
+      "latencyImpact": "Latency-sensitive users may notice faster wake/ramp and steadier input response.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "NETWORK_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "nic_advanced",
+      "catalogId": "nic_network_adapter_phy_dynamic_power",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId nic_network_adapter_phy_dynamic_power"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId nic_network_adapter_phy_dynamic_power"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_network_adapter_phy_dynamic_power"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_nic_network_adapter_phy_energy_policy",
+      "type": "button",
+      "name": "Network Adapter PHY Energy Policy",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "Network Adapter PHY Energy Policy controls network adapter power behavior.",
+      "shortDescription": "Network Adapter PHY Energy Policy controls network adapter power behavior.",
+      "longDescription": "Adjusts network adapter phy energy policy through network adapter power behavior. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks network adapter phy energy policy so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It can change frame-time consistency and input-to-render responsiveness during bursty loads.",
+      "fpsImpact": "Can indirectly stabilize frame pacing in I/O-bound scenarios; average FPS impact is typically small.",
+      "latencyImpact": "Latency-sensitive users may notice faster wake/ramp and steadier input response.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "NETWORK_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "nic_advanced",
+      "catalogId": "nic_network_adapter_phy_energy_policy",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId nic_network_adapter_phy_energy_policy"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId nic_network_adapter_phy_energy_policy"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_network_adapter_phy_energy_policy"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_nic_network_adapter_phy_sleep",
+      "type": "button",
+      "name": "Network Adapter PHY Sleep",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "Network Adapter PHY Sleep controls sleep/standby and wake orchestration.",
+      "shortDescription": "Network Adapter PHY Sleep controls sleep/standby and wake orchestration.",
+      "longDescription": "Adjusts network adapter phy sleep through sleep/standby and wake orchestration. Lower values usually save power but increase wake delay or reduce throughput headroom.",
+      "whatItDoes": "Writes and tracks network adapter phy sleep so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It can change frame-time consistency and input-to-render responsiveness during bursty loads.",
+      "fpsImpact": "Can indirectly stabilize frame pacing in I/O-bound scenarios; average FPS impact is typically small.",
+      "latencyImpact": "Latency-sensitive users may notice faster wake/ramp and steadier input response.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "BATTERY_NEGATIVE",
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "NETWORK_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM",
+        "WAKE_BEHAVIOR"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "nic_advanced",
+      "catalogId": "nic_network_adapter_phy_sleep",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId nic_network_adapter_phy_sleep"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId nic_network_adapter_phy_sleep"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_network_adapter_phy_sleep"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_nic_network_adapter_phy_standby",
+      "type": "button",
+      "name": "Network Adapter PHY Standby",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "Network Adapter PHY Standby controls sleep/standby and wake orchestration.",
+      "shortDescription": "Network Adapter PHY Standby controls sleep/standby and wake orchestration.",
+      "longDescription": "Adjusts network adapter phy standby through sleep/standby and wake orchestration. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks network adapter phy standby so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It can change frame-time consistency and input-to-render responsiveness during bursty loads.",
+      "fpsImpact": "Can indirectly stabilize frame pacing in I/O-bound scenarios; average FPS impact is typically small.",
+      "latencyImpact": "Latency-sensitive users may notice faster wake/ramp and steadier input response.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "BATTERY_NEGATIVE",
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "NETWORK_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM",
+        "WAKE_BEHAVIOR"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "nic_advanced",
+      "catalogId": "nic_network_adapter_phy_standby",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId nic_network_adapter_phy_standby"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId nic_network_adapter_phy_standby"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_network_adapter_phy_standby"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_nic_network_adapter_phy_wake_policy",
+      "type": "button",
+      "name": "Network Adapter PHY Wake Policy",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "Network Adapter PHY Wake Policy controls sleep/standby and wake orchestration.",
+      "shortDescription": "Network Adapter PHY Wake Policy controls sleep/standby and wake orchestration.",
+      "longDescription": "Adjusts network adapter phy wake policy through sleep/standby and wake orchestration. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks network adapter phy wake policy so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It can change frame-time consistency and input-to-render responsiveness during bursty loads.",
+      "fpsImpact": "Can indirectly stabilize frame pacing in I/O-bound scenarios; average FPS impact is typically small.",
+      "latencyImpact": "Latency-sensitive users may notice faster wake/ramp and steadier input response.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "NETWORK_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM",
+        "WAKE_BEHAVIOR"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "nic_advanced",
+      "catalogId": "nic_network_adapter_phy_wake_policy",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId nic_network_adapter_phy_wake_policy"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId nic_network_adapter_phy_wake_policy"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_network_adapter_phy_wake_policy"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_nic_network_adapter_packet_coalescing",
+      "type": "button",
+      "name": "Network Adapter Packet Coalescing",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "Network Adapter Packet Coalescing controls network adapter power behavior.",
+      "shortDescription": "Network Adapter Packet Coalescing controls network adapter power behavior.",
+      "longDescription": "Adjusts network adapter packet coalescing through network adapter power behavior. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks network adapter packet coalescing so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It can change frame-time consistency and input-to-render responsiveness during bursty loads.",
+      "fpsImpact": "Can indirectly stabilize frame pacing in I/O-bound scenarios; average FPS impact is typically small.",
+      "latencyImpact": "Latency-sensitive users may notice faster wake/ramp and steadier input response.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "NETWORK_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "nic_advanced",
+      "catalogId": "nic_network_adapter_packet_coalescing",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId nic_network_adapter_packet_coalescing"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId nic_network_adapter_packet_coalescing"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_network_adapter_packet_coalescing"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_nic_network_adapter_power_budget",
+      "type": "button",
+      "name": "Network Adapter Power Budget",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "Network Adapter Power Budget controls network adapter power behavior.",
+      "shortDescription": "Network Adapter Power Budget controls network adapter power behavior.",
+      "longDescription": "Adjusts network adapter power budget through network adapter power behavior. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks network adapter power budget so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It can change frame-time consistency and input-to-render responsiveness during bursty loads.",
+      "fpsImpact": "Can indirectly stabilize frame pacing in I/O-bound scenarios; average FPS impact is typically small.",
+      "latencyImpact": "Latency-sensitive users may notice faster wake/ramp and steadier input response.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "NETWORK_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "nic_advanced",
+      "catalogId": "nic_network_adapter_power_budget",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId nic_network_adapter_power_budget"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId nic_network_adapter_power_budget"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_network_adapter_power_budget"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_nic_network_adapter_standby_policy",
+      "type": "button",
+      "name": "Network Adapter Standby Policy",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "Network Adapter Standby Policy controls sleep/standby and wake orchestration.",
+      "shortDescription": "Network Adapter Standby Policy controls sleep/standby and wake orchestration.",
+      "longDescription": "Adjusts network adapter standby policy through sleep/standby and wake orchestration. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks network adapter standby policy so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It can change frame-time consistency and input-to-render responsiveness during bursty loads.",
+      "fpsImpact": "Can indirectly stabilize frame pacing in I/O-bound scenarios; average FPS impact is typically small.",
+      "latencyImpact": "Latency-sensitive users may notice faster wake/ramp and steadier input response.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "BATTERY_NEGATIVE",
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "NETWORK_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM",
+        "WAKE_BEHAVIOR"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "nic_advanced",
+      "catalogId": "nic_network_adapter_standby_policy",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId nic_network_adapter_standby_policy"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId nic_network_adapter_standby_policy"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_network_adapter_standby_policy"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_nic_network_adapter_throughput_scaling",
+      "type": "button",
+      "name": "Network Adapter Throughput Scaling",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "Network Adapter Throughput Scaling controls network adapter power behavior.",
+      "shortDescription": "Network Adapter Throughput Scaling controls network adapter power behavior.",
+      "longDescription": "Adjusts network adapter throughput scaling through network adapter power behavior. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks network adapter throughput scaling so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It can change frame-time consistency and input-to-render responsiveness during bursty loads.",
+      "fpsImpact": "Can indirectly stabilize frame pacing in I/O-bound scenarios; average FPS impact is typically small.",
+      "latencyImpact": "Latency-sensitive users may notice faster wake/ramp and steadier input response.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "NETWORK_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "nic_advanced",
+      "catalogId": "nic_network_adapter_throughput_scaling",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId nic_network_adapter_throughput_scaling"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId nic_network_adapter_throughput_scaling"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_network_adapter_throughput_scaling"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_nic_network_adapter_wake_latency",
+      "type": "button",
+      "name": "Network Adapter Wake Latency",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "Network Adapter Wake Latency controls sleep/standby and wake orchestration.",
+      "shortDescription": "Network Adapter Wake Latency controls sleep/standby and wake orchestration.",
+      "longDescription": "Adjusts network adapter wake latency through sleep/standby and wake orchestration. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks network adapter wake latency so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It can change frame-time consistency and input-to-render responsiveness during bursty loads.",
+      "fpsImpact": "Can indirectly stabilize frame pacing in I/O-bound scenarios; average FPS impact is typically small.",
+      "latencyImpact": "Latency-sensitive users may notice faster wake/ramp and steadier input response.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "LATENCY_RESPONSIVENESS",
+        "NETWORK_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM",
+        "WAKE_BEHAVIOR"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "nic_advanced",
+      "catalogId": "nic_network_adapter_wake_latency",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId nic_network_adapter_wake_latency"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId nic_network_adapter_wake_latency"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_network_adapter_wake_latency"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_nic_phy_power_saving",
+      "type": "button",
+      "name": "PHY Power Saving",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "PHY Power Saving controls network adapter power behavior.",
+      "shortDescription": "PHY Power Saving controls network adapter power behavior.",
+      "longDescription": "Adjusts phy power saving through network adapter power behavior. Lower values usually save power but increase wake delay or reduce throughput headroom.",
+      "whatItDoes": "Writes and tracks phy power saving so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "NETWORK_POWER",
+        "POWER_SAVING_DISABLED",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "nic_advanced",
+      "catalogId": "nic_phy_power_saving",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId nic_phy_power_saving"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId nic_phy_power_saving"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_phy_power_saving"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_powercfg_packet_coalescing",
+      "type": "button",
+      "name": "Packet coalescing",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "Packet coalescing controls Windows power policy behavior.",
+      "shortDescription": "Packet coalescing controls Windows power policy behavior.",
+      "longDescription": "Adjusts packet coalescing through Windows power policy behavior. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks packet coalescing so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "EXPERIMENTAL",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "unresolved",
+      "documentationStatus": "UNDOCUMENTED_INTERNAL",
+      "sourceType": "powercfg_unmapped",
+      "catalogId": "powercfg_packet_coalescing",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId powercfg_packet_coalescing"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId powercfg_packet_coalescing"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId powercfg_packet_coalescing"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_nic_power_saving_mode",
+      "type": "button",
+      "name": "Power Saving Mode",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "Power Saving Mode controls network adapter power behavior.",
+      "shortDescription": "Power Saving Mode controls network adapter power behavior.",
+      "longDescription": "Adjusts power saving mode through network adapter power behavior. Lower values usually save power but increase wake delay or reduce throughput headroom.",
+      "whatItDoes": "Writes and tracks power saving mode so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "NETWORK_POWER",
+        "POWER_SAVING_DISABLED",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "nic_advanced",
+      "catalogId": "nic_power_saving_mode",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId nic_power_saving_mode"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId nic_power_saving_mode"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_power_saving_mode"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_nic_reduce_speed_on_power_down",
+      "type": "button",
+      "name": "Reduce Speed On Power Down",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "Reduce Speed On Power Down controls network adapter power behavior.",
+      "shortDescription": "Reduce Speed On Power Down controls network adapter power behavior.",
+      "longDescription": "Adjusts reduce speed on power down through network adapter power behavior. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks reduce speed on power down so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "NETWORK_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "nic_advanced",
+      "catalogId": "nic_reduce_speed_on_power_down",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId nic_reduce_speed_on_power_down"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId nic_reduce_speed_on_power_down"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_reduce_speed_on_power_down"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_nic_smart_power_down",
+      "type": "button",
+      "name": "Smart Power Down",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "Smart Power Down controls network adapter power behavior.",
+      "shortDescription": "Smart Power Down controls network adapter power behavior.",
+      "longDescription": "Adjusts smart power down through network adapter power behavior. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks smart power down so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "NETWORK_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "nic_advanced",
+      "catalogId": "nic_smart_power_down",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId nic_smart_power_down"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId nic_smart_power_down"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_smart_power_down"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_nic_system_idle_power_saver",
+      "type": "button",
+      "name": "System Idle Power Saver",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "System Idle Power Saver controls cpu scheduler and frequency policy.",
+      "shortDescription": "System Idle Power Saver controls cpu scheduler and frequency policy.",
+      "longDescription": "Adjusts system idle power saver through cpu scheduler and frequency policy. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks system idle power saver so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It can change frame-time consistency and input-to-render responsiveness during bursty loads.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Latency-sensitive users may notice faster wake/ramp and steadier input response.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "NETWORK_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "nic_advanced",
+      "catalogId": "nic_system_idle_power_saver",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId nic_system_idle_power_saver"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId nic_system_idle_power_saver"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_system_idle_power_saver"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_powercfg_wlan_background_scan_power",
+      "type": "button",
+      "name": "WLAN background scan power",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "WLAN background scan power controls Windows power policy behavior.",
+      "shortDescription": "WLAN background scan power controls Windows power policy behavior.",
+      "longDescription": "Adjusts wlan background scan power through Windows power policy behavior. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks wlan background scan power so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "EXPERIMENTAL",
+        "NETWORK_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "unresolved",
+      "documentationStatus": "UNDOCUMENTED_INTERNAL",
+      "sourceType": "powercfg_unmapped",
+      "catalogId": "powercfg_wlan_background_scan_power",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId powercfg_wlan_background_scan_power"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId powercfg_wlan_background_scan_power"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId powercfg_wlan_background_scan_power"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_nic_wake_on_link_change",
+      "type": "button",
+      "name": "Wake On Link Change",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "Wake On Link Change controls sleep/standby and wake orchestration.",
+      "shortDescription": "Wake On Link Change controls sleep/standby and wake orchestration.",
+      "longDescription": "Adjusts wake on link change through sleep/standby and wake orchestration. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks wake on link change so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Latency-sensitive users may notice faster wake/ramp and steadier input response.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "NETWORK_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM",
+        "WAKE_BEHAVIOR"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "nic_advanced",
+      "catalogId": "nic_wake_on_link_change",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId nic_wake_on_link_change"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId nic_wake_on_link_change"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_wake_on_link_change"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_nic_wake_on_bluetooth",
+      "type": "button",
+      "name": "Wake on Bluetooth",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "Wake on Bluetooth controls sleep/standby and wake orchestration.",
+      "shortDescription": "Wake on Bluetooth controls sleep/standby and wake orchestration.",
+      "longDescription": "Adjusts wake on bluetooth through sleep/standby and wake orchestration. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks wake on bluetooth so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Latency-sensitive users may notice faster wake/ramp and steadier input response.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "NETWORK_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM",
+        "WAKE_BEHAVIOR"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "nic_advanced",
+      "catalogId": "nic_wake_on_bluetooth",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId nic_wake_on_bluetooth"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId nic_wake_on_bluetooth"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_wake_on_bluetooth"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_nic_wake_on_lan_sleep_policy",
+      "type": "button",
+      "name": "Wake on LAN sleep policy",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "Wake on LAN sleep policy controls sleep/standby and wake orchestration.",
+      "shortDescription": "Wake on LAN sleep policy controls sleep/standby and wake orchestration.",
+      "longDescription": "Adjusts wake on lan sleep policy through sleep/standby and wake orchestration. Lower values usually save power but increase wake delay or reduce throughput headroom.",
+      "whatItDoes": "Writes and tracks wake on lan sleep policy so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Latency-sensitive users may notice faster wake/ramp and steadier input response.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "BATTERY_NEGATIVE",
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "NETWORK_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM",
+        "WAKE_BEHAVIOR"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "nic_advanced",
+      "catalogId": "nic_wake_on_lan_sleep_policy",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId nic_wake_on_lan_sleep_policy"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId nic_wake_on_lan_sleep_policy"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_wake_on_lan_sleep_policy"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_nic_wake_on_magic_packet",
+      "type": "button",
+      "name": "Wake on Magic Packet",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "Wake on Magic Packet controls sleep/standby and wake orchestration.",
+      "shortDescription": "Wake on Magic Packet controls sleep/standby and wake orchestration.",
+      "longDescription": "Adjusts wake on magic packet through sleep/standby and wake orchestration. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks wake on magic packet so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Latency-sensitive users may notice faster wake/ramp and steadier input response.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "NETWORK_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM",
+        "WAKE_BEHAVIOR"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "nic_advanced",
+      "catalogId": "nic_wake_on_magic_packet",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId nic_wake_on_magic_packet"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId nic_wake_on_magic_packet"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_wake_on_magic_packet"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_nic_wake_on_pcie_device",
+      "type": "button",
+      "name": "Wake on PCIe device",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "Wake on PCIe device controls sleep/standby and wake orchestration.",
+      "shortDescription": "Wake on PCIe device controls sleep/standby and wake orchestration.",
+      "longDescription": "Adjusts wake on pcie device through sleep/standby and wake orchestration. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks wake on pcie device so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Latency-sensitive users may notice faster wake/ramp and steadier input response.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "NETWORK_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM",
+        "WAKE_BEHAVIOR"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "nic_advanced",
+      "catalogId": "nic_wake_on_pcie_device",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId nic_wake_on_pcie_device"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId nic_wake_on_pcie_device"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_wake_on_pcie_device"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_nic_wake_on_pattern_match",
+      "type": "button",
+      "name": "Wake on Pattern Match",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "Wake on Pattern Match controls sleep/standby and wake orchestration.",
+      "shortDescription": "Wake on Pattern Match controls sleep/standby and wake orchestration.",
+      "longDescription": "Adjusts wake on pattern match through sleep/standby and wake orchestration. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks wake on pattern match so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Latency-sensitive users may notice faster wake/ramp and steadier input response.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "NETWORK_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM",
+        "WAKE_BEHAVIOR"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "nic_advanced",
+      "catalogId": "nic_wake_on_pattern_match",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId nic_wake_on_pattern_match"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId nic_wake_on_pattern_match"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_wake_on_pattern_match"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_nic_wake_on_rtc",
+      "type": "button",
+      "name": "Wake on RTC",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "Wake on RTC controls sleep/standby and wake orchestration.",
+      "shortDescription": "Wake on RTC controls sleep/standby and wake orchestration.",
+      "longDescription": "Adjusts wake on rtc through sleep/standby and wake orchestration. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks wake on rtc so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Latency-sensitive users may notice faster wake/ramp and steadier input response.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "NETWORK_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM",
+        "WAKE_BEHAVIOR"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "nic_advanced",
+      "catalogId": "nic_wake_on_rtc",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId nic_wake_on_rtc"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId nic_wake_on_rtc"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_wake_on_rtc"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_nic_wake_on_usb",
+      "type": "button",
+      "name": "Wake on USB",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "Wake on USB controls sleep/standby and wake orchestration.",
+      "shortDescription": "Wake on USB controls sleep/standby and wake orchestration.",
+      "longDescription": "Adjusts wake on usb through sleep/standby and wake orchestration. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks wake on usb so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It can change frame-time consistency and input-to-render responsiveness during bursty loads.",
+      "fpsImpact": "Can indirectly stabilize frame pacing in I/O-bound scenarios; average FPS impact is typically small.",
+      "latencyImpact": "Latency-sensitive users may notice faster wake/ramp and steadier input response.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "NETWORK_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM",
+        "USB_POWER",
+        "WAKE_BEHAVIOR"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "nic_advanced",
+      "catalogId": "nic_wake_on_usb",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId nic_wake_on_usb"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId nic_wake_on_usb"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_wake_on_usb"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_nic_wake_on_keyboard",
+      "type": "button",
+      "name": "Wake on keyboard",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "Wake on keyboard controls sleep/standby and wake orchestration.",
+      "shortDescription": "Wake on keyboard controls sleep/standby and wake orchestration.",
+      "longDescription": "Adjusts wake on keyboard through sleep/standby and wake orchestration. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks wake on keyboard so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Latency-sensitive users may notice faster wake/ramp and steadier input response.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "NETWORK_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM",
+        "WAKE_BEHAVIOR"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "nic_advanced",
+      "catalogId": "nic_wake_on_keyboard",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId nic_wake_on_keyboard"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId nic_wake_on_keyboard"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_wake_on_keyboard"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_nic_wake_on_modem_ring",
+      "type": "button",
+      "name": "Wake on modem ring",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "Wake on modem ring controls sleep/standby and wake orchestration.",
+      "shortDescription": "Wake on modem ring controls sleep/standby and wake orchestration.",
+      "longDescription": "Adjusts wake on modem ring through sleep/standby and wake orchestration. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks wake on modem ring so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Latency-sensitive users may notice faster wake/ramp and steadier input response.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "NETWORK_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM",
+        "WAKE_BEHAVIOR"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "nic_advanced",
+      "catalogId": "nic_wake_on_modem_ring",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId nic_wake_on_modem_ring"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId nic_wake_on_modem_ring"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_wake_on_modem_ring"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_nic_wake_on_mouse",
+      "type": "button",
+      "name": "Wake on mouse",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "Wake on mouse controls sleep/standby and wake orchestration.",
+      "shortDescription": "Wake on mouse controls sleep/standby and wake orchestration.",
+      "longDescription": "Adjusts wake on mouse through sleep/standby and wake orchestration. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks wake on mouse so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Latency-sensitive users may notice faster wake/ramp and steadier input response.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "NETWORK_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM",
+        "WAKE_BEHAVIOR"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "nic_advanced",
+      "catalogId": "nic_wake_on_mouse",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId nic_wake_on_mouse"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId nic_wake_on_mouse"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_wake_on_mouse"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_nic_wireless_adapter_power_saving_mode",
+      "type": "button",
+      "name": "Wireless adapter power saving mode",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "Wireless adapter power saving mode controls network adapter power behavior.",
+      "shortDescription": "Wireless adapter power saving mode controls network adapter power behavior.",
+      "longDescription": "Adjusts wireless adapter power saving mode through network adapter power behavior. Lower values usually save power but increase wake delay or reduce throughput headroom.",
+      "whatItDoes": "Writes and tracks wireless adapter power saving mode so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "NETWORK_POWER",
+        "POWER_SAVING_DISABLED",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "nic_advanced",
+      "catalogId": "nic_wireless_adapter_power_saving_mode",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId nic_wireless_adapter_power_saving_mode"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId nic_wireless_adapter_power_saving_mode"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_wireless_adapter_power_saving_mode"
           }
         ]
       }

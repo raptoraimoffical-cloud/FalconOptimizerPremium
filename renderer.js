@@ -8701,7 +8701,7 @@ async function buildExhaustivePowerManagementPanel(){
   } catch(_e) { catalog = []; }
 
   const categoryForItem = (item) => {
-    const c = String(item.category||'').toLowerCase();
+    const c = `${String(item.category||'')} ${String(item.subcategory||'')} ${String(item.title||'')} ${String(item.id||'')}`.toLowerCase();
     if (c.includes('processor') || c.includes('cpu')) return 'CPU / Core Parking';
     if (c.includes('pcie') || c.includes('platform')) return 'PCIe / Platform';
     if (c.includes('disk') || c.includes('nvme') || c.includes('sata') || c.includes('storage')) return 'Disk / NVMe / SATA';
@@ -8719,13 +8719,29 @@ async function buildExhaustivePowerManagementPanel(){
     const q = String((searchEl && searchEl.value) || '').toLowerCase().trim();
     const filtered = catalog.filter((item) => {
       const passCategory = activeCategory === 'All' || categoryForItem(item) === activeCategory;
-      const hay = `${item.title||''} ${item.shortDescription||''} ${item.id||''}`.toLowerCase();
+      const hay = `${item.title||''} ${item.shortDescription||''} ${item.id||''} ${item.category||''} ${item.subcategory||''} ${(item.badges||[]).join(' ')} ${item.documentationStatus||''} ${item.proofSource||''}`.toLowerCase();
       return passCategory && (!q || hay.includes(q));
     });
+    const renderBadge = (b) => `<span class="badge">${__eh(b)}</span>`;
+    const supportBadge = (item) => {
+      const status = String(item.resolvedStatus || '').toLowerCase();
+      if (status.includes('unsupported') || status.includes('unresolved')) return '<span class="badge">UNSUPPORTED_ON_THIS_SYSTEM</span>';
+      if (String(item.uiVisibility || '').toLowerCase() === 'experimental') return '<span class="badge">EXPERIMENTAL</span>';
+      if (String(item.uiVisibility || '').toLowerCase() === 'advanced') return '<span class="badge">ADVANCED</span>';
+      return '<span class="badge">SUPPORTED</span>';
+    };
     rowsEl.innerHTML = filtered.slice(0, 250).map((item) => `
       <div class="card">
         <div class="card-title">${__eh(item.title || item.id)}</div>
         <div class="card-desc">${__eh(item.shortDescription || '')}</div>
+        <div class="badges" style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px;">
+          ${(Array.isArray(item.badges) && item.badges.length ? item.badges.map(renderBadge).join('') : '<span class="badge">SYSTEM_WIDE</span>')}
+        </div>
+        <div class="muted" style="margin-top:6px;">
+          ${supportBadge(item)}
+          <span class="badge">${__eh(item.documentationStatus || 'DOC_STATUS_UNKNOWN')}</span>
+          <span class="badge">${__eh(item.proofSource || 'proof:unknown')}</span>
+        </div>
         <div class="muted">ID: ${__eh(item.id||'')} • Source: ${__eh(item.sourceType || 'unknown')} • Subcategory: ${__eh(item.subcategory||'')}</div>
         <div class="card-actions" style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;">
           <button class="btn" data-act="apply" data-id="${__eh(item.id)}">Apply</button>
