@@ -1,126 +1,16 @@
 {
   "items": [
     {
-      "id": "pm_powercfg_lid_close_action",
+      "id": "pm_registry_allow_standby_states",
       "type": "button",
-      "name": "Lid close action",
-      "risk": "Experimental",
-      "riskLevel": "Experimental",
+      "name": "Allow standby states",
+      "risk": "Safe",
+      "riskLevel": "Safe",
       "category": "Power Management",
-      "description": "Lid close action controls sleep/standby and wake orchestration.",
-      "shortDescription": "Lid close action controls sleep/standby and wake orchestration.",
-      "longDescription": "Adjusts lid close action through sleep/standby and wake orchestration. Performance-oriented values reduce ramp delays but increase draw and heat.",
-      "whatItDoes": "Writes and tracks lid close action so Falcon can apply, verify, and rollback consistently for this policy family.",
-      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
-      "fpsImpact": "Average FPS impact is generally minimal.",
-      "latencyImpact": "Direct end-to-end latency impact is usually low.",
-      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
-      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
-      "stabilityRisk": "Medium when changed without hardware-specific validation.",
-      "recommendedFor": "Only for controlled experiments with rollback ready.",
-      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
-      "badges": [
-        "EXPERIMENTAL",
-        "SYSTEM_WIDE",
-        "UNSUPPORTED_ON_THIS_SYSTEM",
-        "WAKE_BEHAVIOR"
-      ],
-      "support": "conditional",
-      "proofSource": "unresolved",
-      "documentationStatus": "UNDOCUMENTED_INTERNAL",
-      "sourceType": "powercfg_unmapped",
-      "catalogId": "powercfg_lid_close_action",
-      "apply": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId powercfg_lid_close_action"
-          }
-        ]
-      },
-      "verify": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId powercfg_lid_close_action"
-          }
-        ]
-      },
-      "revert": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId powercfg_lid_close_action"
-          }
-        ]
-      }
-    },
-    {
-      "id": "pm_powercfg_power_button_action",
-      "type": "button",
-      "name": "Power button action",
-      "risk": "Experimental",
-      "riskLevel": "Experimental",
-      "category": "Power Management",
-      "description": "Power button action controls sleep/standby and wake orchestration.",
-      "shortDescription": "Power button action controls sleep/standby and wake orchestration.",
-      "longDescription": "Adjusts power button action through sleep/standby and wake orchestration. Performance-oriented values reduce ramp delays but increase draw and heat.",
-      "whatItDoes": "Writes and tracks power button action so Falcon can apply, verify, and rollback consistently for this policy family.",
-      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
-      "fpsImpact": "Average FPS impact is generally minimal.",
-      "latencyImpact": "Direct end-to-end latency impact is usually low.",
-      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
-      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
-      "stabilityRisk": "Medium when changed without hardware-specific validation.",
-      "recommendedFor": "Only for controlled experiments with rollback ready.",
-      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
-      "badges": [
-        "EXPERIMENTAL",
-        "SYSTEM_WIDE",
-        "UNSUPPORTED_ON_THIS_SYSTEM",
-        "WAKE_BEHAVIOR"
-      ],
-      "support": "conditional",
-      "proofSource": "unresolved",
-      "documentationStatus": "UNDOCUMENTED_INTERNAL",
-      "sourceType": "powercfg_unmapped",
-      "catalogId": "powercfg_power_button_action",
-      "apply": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId powercfg_power_button_action"
-          }
-        ]
-      },
-      "verify": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId powercfg_power_button_action"
-          }
-        ]
-      },
-      "revert": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId powercfg_power_button_action"
-          }
-        ]
-      }
-    },
-    {
-      "id": "pm_powercfg_sleep_button_action",
-      "type": "button",
-      "name": "Sleep button action",
-      "risk": "Experimental",
-      "riskLevel": "Experimental",
-      "category": "Power Management",
-      "description": "Sleep button action controls sleep/standby and wake orchestration.",
-      "shortDescription": "Sleep button action controls sleep/standby and wake orchestration.",
-      "longDescription": "Adjusts sleep button action through sleep/standby and wake orchestration. Lower values usually save power but increase wake delay or reduce throughput headroom.",
-      "whatItDoes": "Writes and tracks sleep button action so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "description": "Allow standby states controls sleep/standby and wake orchestration.",
+      "shortDescription": "Allow standby states controls sleep/standby and wake orchestration.",
+      "longDescription": "Adjusts allow standby states through sleep/standby and wake orchestration. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks allow standby states so Falcon can apply, verify, and rollback consistently for this policy family.",
       "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
       "fpsImpact": "Average FPS impact is generally minimal.",
       "latencyImpact": "Direct end-to-end latency impact is usually low.",
@@ -131,21 +21,20 @@
       "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
       "badges": [
         "BATTERY_NEGATIVE",
-        "EXPERIMENTAL",
         "SYSTEM_WIDE",
-        "UNSUPPORTED_ON_THIS_SYSTEM",
-        "WAKE_BEHAVIOR"
+        "WAKE_BEHAVIOR",
+        "TRUSTED"
       ],
-      "support": "conditional",
-      "proofSource": "unresolved",
-      "documentationStatus": "UNDOCUMENTED_INTERNAL",
-      "sourceType": "powercfg_unmapped",
-      "catalogId": "powercfg_sleep_button_action",
+      "support": "supported",
+      "proofSource": "registry_path_mapping",
+      "documentationStatus": "REGISTRY_VERIFIED",
+      "sourceType": "registry_power",
+      "catalogId": "registry_allow_standby_states",
       "apply": {
         "steps": [
           {
             "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId powercfg_sleep_button_action"
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId registry_allow_standby_states"
           }
         ]
       },
@@ -153,7 +42,7 @@
         "steps": [
           {
             "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId powercfg_sleep_button_action"
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId registry_allow_standby_states"
           }
         ]
       },
@@ -161,7 +50,115 @@
         "steps": [
           {
             "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId powercfg_sleep_button_action"
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId registry_allow_standby_states"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_registry_fast_startup",
+      "type": "button",
+      "name": "Fast startup",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "category": "Power Management",
+      "description": "Fast startup controls registry-backed Windows power behavior.",
+      "shortDescription": "Fast startup controls registry-backed Windows power behavior.",
+      "longDescription": "Adjusts fast startup through registry-backed Windows power behavior. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks fast startup so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "SYSTEM_WIDE",
+        "TRUSTED"
+      ],
+      "support": "supported",
+      "proofSource": "registry_path_mapping",
+      "documentationStatus": "REGISTRY_VERIFIED",
+      "sourceType": "registry_power",
+      "catalogId": "registry_fast_startup",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId registry_fast_startup"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId registry_fast_startup"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId registry_fast_startup"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_registry_connected_standby_policy",
+      "type": "button",
+      "name": "Connected standby policy",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "category": "Power Management",
+      "description": "Connected standby policy controls sleep/standby and wake orchestration.",
+      "shortDescription": "Connected standby policy controls sleep/standby and wake orchestration.",
+      "longDescription": "Adjusts connected standby policy through sleep/standby and wake orchestration. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks connected standby policy so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "BATTERY_NEGATIVE",
+        "SYSTEM_WIDE",
+        "WAKE_BEHAVIOR",
+        "TRUSTED"
+      ],
+      "support": "supported",
+      "proofSource": "registry_path_mapping",
+      "documentationStatus": "REGISTRY_VERIFIED",
+      "sourceType": "registry_power",
+      "catalogId": "registry_connected_standby_policy",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId registry_connected_standby_policy"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId registry_connected_standby_policy"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId registry_connected_standby_policy"
           }
         ]
       }

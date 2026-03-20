@@ -1,294 +1,11 @@
 {
   "items": [
     {
-      "id": "pm_registry_allow_wake_timers",
-      "type": "button",
-      "name": "Allow wake timers",
-      "risk": "Experimental",
-      "riskLevel": "Experimental",
-      "category": "Power Management",
-      "description": "Allow wake timers controls sleep/standby and wake orchestration.",
-      "shortDescription": "Allow wake timers controls sleep/standby and wake orchestration.",
-      "longDescription": "Adjusts allow wake timers through sleep/standby and wake orchestration. Performance-oriented values reduce ramp delays but increase draw and heat.",
-      "whatItDoes": "Writes and tracks allow wake timers so Falcon can apply, verify, and rollback consistently for this policy family.",
-      "whyGamersCare": "It can change frame-time consistency and input-to-render responsiveness during bursty loads.",
-      "fpsImpact": "Can indirectly stabilize frame pacing in I/O-bound scenarios; average FPS impact is typically small.",
-      "latencyImpact": "Latency-sensitive users may notice faster wake/ramp and steadier input response.",
-      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
-      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
-      "stabilityRisk": "Medium when changed without hardware-specific validation.",
-      "recommendedFor": "Only for controlled experiments with rollback ready.",
-      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
-      "badges": [
-        "EXPERIMENTAL",
-        "LATENCY_RESPONSIVENESS",
-        "SYSTEM_WIDE",
-        "UNSUPPORTED_ON_THIS_SYSTEM",
-        "WAKE_BEHAVIOR"
-      ],
-      "support": "conditional",
-      "proofSource": "repo_placeholder_only",
-      "documentationStatus": "UNRESOLVED",
-      "sourceType": "registry_power",
-      "catalogId": "registry_allow_wake_timers",
-      "apply": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId registry_allow_wake_timers"
-          }
-        ]
-      },
-      "verify": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId registry_allow_wake_timers"
-          }
-        ]
-      },
-      "revert": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId registry_allow_wake_timers"
-          }
-        ]
-      }
-    },
-    {
-      "id": "pm_powercfg_require_a_password_on_wake",
-      "type": "button",
-      "name": "Require a password on wake",
-      "risk": "Experimental",
-      "riskLevel": "Experimental",
-      "category": "Power Management",
-      "description": "Require a password on wake controls sleep/standby and wake orchestration.",
-      "shortDescription": "Require a password on wake controls sleep/standby and wake orchestration.",
-      "longDescription": "Adjusts require a password on wake through sleep/standby and wake orchestration. Performance-oriented values reduce ramp delays but increase draw and heat.",
-      "whatItDoes": "Writes and tracks require a password on wake so Falcon can apply, verify, and rollback consistently for this policy family.",
-      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
-      "fpsImpact": "Average FPS impact is generally minimal.",
-      "latencyImpact": "Latency-sensitive users may notice faster wake/ramp and steadier input response.",
-      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
-      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
-      "stabilityRisk": "Medium when changed without hardware-specific validation.",
-      "recommendedFor": "Only for controlled experiments with rollback ready.",
-      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
-      "badges": [
-        "EXPERIMENTAL",
-        "SYSTEM_WIDE",
-        "UNSUPPORTED_ON_THIS_SYSTEM",
-        "WAKE_BEHAVIOR"
-      ],
-      "support": "conditional",
-      "proofSource": "unresolved",
-      "documentationStatus": "UNDOCUMENTED_INTERNAL",
-      "sourceType": "powercfg_unmapped",
-      "catalogId": "powercfg_require_a_password_on_wake",
-      "apply": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId powercfg_require_a_password_on_wake"
-          }
-        ]
-      },
-      "verify": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId powercfg_require_a_password_on_wake"
-          }
-        ]
-      },
-      "revert": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId powercfg_require_a_password_on_wake"
-          }
-        ]
-      }
-    },
-    {
-      "id": "pm_nic_wake_on_link_change",
-      "type": "button",
-      "name": "Wake On Link Change",
-      "risk": "Experimental",
-      "riskLevel": "Experimental",
-      "category": "Power Management",
-      "description": "Wake On Link Change controls sleep/standby and wake orchestration.",
-      "shortDescription": "Wake On Link Change controls sleep/standby and wake orchestration.",
-      "longDescription": "Adjusts wake on link change through sleep/standby and wake orchestration. Performance-oriented values reduce ramp delays but increase draw and heat.",
-      "whatItDoes": "Writes and tracks wake on link change so Falcon can apply, verify, and rollback consistently for this policy family.",
-      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
-      "fpsImpact": "Average FPS impact is generally minimal.",
-      "latencyImpact": "Latency-sensitive users may notice faster wake/ramp and steadier input response.",
-      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
-      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
-      "stabilityRisk": "Medium when changed without hardware-specific validation.",
-      "recommendedFor": "Only for controlled experiments with rollback ready.",
-      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
-      "badges": [
-        "CONDITIONAL_HARDWARE",
-        "EXPERIMENTAL",
-        "NETWORK_POWER",
-        "SYSTEM_WIDE",
-        "UNSUPPORTED_ON_THIS_SYSTEM",
-        "WAKE_BEHAVIOR"
-      ],
-      "support": "conditional",
-      "proofSource": "repo_placeholder_only",
-      "documentationStatus": "UNRESOLVED",
-      "sourceType": "nic_advanced",
-      "catalogId": "nic_wake_on_link_change",
-      "apply": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId nic_wake_on_link_change"
-          }
-        ]
-      },
-      "verify": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId nic_wake_on_link_change"
-          }
-        ]
-      },
-      "revert": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_wake_on_link_change"
-          }
-        ]
-      }
-    },
-    {
-      "id": "pm_nic_wake_on_bluetooth",
-      "type": "button",
-      "name": "Wake on Bluetooth",
-      "risk": "Experimental",
-      "riskLevel": "Experimental",
-      "category": "Power Management",
-      "description": "Wake on Bluetooth controls sleep/standby and wake orchestration.",
-      "shortDescription": "Wake on Bluetooth controls sleep/standby and wake orchestration.",
-      "longDescription": "Adjusts wake on bluetooth through sleep/standby and wake orchestration. Performance-oriented values reduce ramp delays but increase draw and heat.",
-      "whatItDoes": "Writes and tracks wake on bluetooth so Falcon can apply, verify, and rollback consistently for this policy family.",
-      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
-      "fpsImpact": "Average FPS impact is generally minimal.",
-      "latencyImpact": "Latency-sensitive users may notice faster wake/ramp and steadier input response.",
-      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
-      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
-      "stabilityRisk": "Medium when changed without hardware-specific validation.",
-      "recommendedFor": "Only for controlled experiments with rollback ready.",
-      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
-      "badges": [
-        "CONDITIONAL_HARDWARE",
-        "EXPERIMENTAL",
-        "NETWORK_POWER",
-        "SYSTEM_WIDE",
-        "UNSUPPORTED_ON_THIS_SYSTEM",
-        "WAKE_BEHAVIOR"
-      ],
-      "support": "conditional",
-      "proofSource": "repo_placeholder_only",
-      "documentationStatus": "UNRESOLVED",
-      "sourceType": "nic_advanced",
-      "catalogId": "nic_wake_on_bluetooth",
-      "apply": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId nic_wake_on_bluetooth"
-          }
-        ]
-      },
-      "verify": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId nic_wake_on_bluetooth"
-          }
-        ]
-      },
-      "revert": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_wake_on_bluetooth"
-          }
-        ]
-      }
-    },
-    {
-      "id": "pm_nic_wake_on_lan_sleep_policy",
-      "type": "button",
-      "name": "Wake on LAN sleep policy",
-      "risk": "Experimental",
-      "riskLevel": "Experimental",
-      "category": "Power Management",
-      "description": "Wake on LAN sleep policy controls sleep/standby and wake orchestration.",
-      "shortDescription": "Wake on LAN sleep policy controls sleep/standby and wake orchestration.",
-      "longDescription": "Adjusts wake on lan sleep policy through sleep/standby and wake orchestration. Lower values usually save power but increase wake delay or reduce throughput headroom.",
-      "whatItDoes": "Writes and tracks wake on lan sleep policy so Falcon can apply, verify, and rollback consistently for this policy family.",
-      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
-      "fpsImpact": "Average FPS impact is generally minimal.",
-      "latencyImpact": "Latency-sensitive users may notice faster wake/ramp and steadier input response.",
-      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
-      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
-      "stabilityRisk": "Medium when changed without hardware-specific validation.",
-      "recommendedFor": "Only for controlled experiments with rollback ready.",
-      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
-      "badges": [
-        "BATTERY_NEGATIVE",
-        "CONDITIONAL_HARDWARE",
-        "EXPERIMENTAL",
-        "NETWORK_POWER",
-        "SYSTEM_WIDE",
-        "UNSUPPORTED_ON_THIS_SYSTEM",
-        "WAKE_BEHAVIOR"
-      ],
-      "support": "conditional",
-      "proofSource": "repo_placeholder_only",
-      "documentationStatus": "UNRESOLVED",
-      "sourceType": "nic_advanced",
-      "catalogId": "nic_wake_on_lan_sleep_policy",
-      "apply": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId nic_wake_on_lan_sleep_policy"
-          }
-        ]
-      },
-      "verify": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId nic_wake_on_lan_sleep_policy"
-          }
-        ]
-      },
-      "revert": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_wake_on_lan_sleep_policy"
-          }
-        ]
-      }
-    },
-    {
       "id": "pm_nic_wake_on_magic_packet",
       "type": "button",
       "name": "Wake on Magic Packet",
-      "risk": "Experimental",
-      "riskLevel": "Experimental",
+      "risk": "Warning",
+      "riskLevel": "Warning",
       "category": "Power Management",
       "description": "Wake on Magic Packet controls sleep/standby and wake orchestration.",
       "shortDescription": "Wake on Magic Packet controls sleep/standby and wake orchestration.",
@@ -307,12 +24,11 @@
         "EXPERIMENTAL",
         "NETWORK_POWER",
         "SYSTEM_WIDE",
-        "UNSUPPORTED_ON_THIS_SYSTEM",
         "WAKE_BEHAVIOR"
       ],
-      "support": "conditional",
-      "proofSource": "repo_placeholder_only",
-      "documentationStatus": "UNRESOLVED",
+      "support": "conditional-hardware",
+      "proofSource": "inventory_discovery_required",
+      "documentationStatus": "CONDITIONAL_DISCOVERY_REQUIRED",
       "sourceType": "nic_advanced",
       "catalogId": "nic_wake_on_magic_packet",
       "apply": {
@@ -341,68 +57,11 @@
       }
     },
     {
-      "id": "pm_nic_wake_on_pcie_device",
-      "type": "button",
-      "name": "Wake on PCIe device",
-      "risk": "Experimental",
-      "riskLevel": "Experimental",
-      "category": "Power Management",
-      "description": "Wake on PCIe device controls sleep/standby and wake orchestration.",
-      "shortDescription": "Wake on PCIe device controls sleep/standby and wake orchestration.",
-      "longDescription": "Adjusts wake on pcie device through sleep/standby and wake orchestration. Performance-oriented values reduce ramp delays but increase draw and heat.",
-      "whatItDoes": "Writes and tracks wake on pcie device so Falcon can apply, verify, and rollback consistently for this policy family.",
-      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
-      "fpsImpact": "Average FPS impact is generally minimal.",
-      "latencyImpact": "Latency-sensitive users may notice faster wake/ramp and steadier input response.",
-      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
-      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
-      "stabilityRisk": "Medium when changed without hardware-specific validation.",
-      "recommendedFor": "Only for controlled experiments with rollback ready.",
-      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
-      "badges": [
-        "CONDITIONAL_HARDWARE",
-        "EXPERIMENTAL",
-        "NETWORK_POWER",
-        "SYSTEM_WIDE",
-        "UNSUPPORTED_ON_THIS_SYSTEM",
-        "WAKE_BEHAVIOR"
-      ],
-      "support": "conditional",
-      "proofSource": "repo_placeholder_only",
-      "documentationStatus": "UNRESOLVED",
-      "sourceType": "nic_advanced",
-      "catalogId": "nic_wake_on_pcie_device",
-      "apply": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId nic_wake_on_pcie_device"
-          }
-        ]
-      },
-      "verify": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId nic_wake_on_pcie_device"
-          }
-        ]
-      },
-      "revert": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_wake_on_pcie_device"
-          }
-        ]
-      }
-    },
-    {
       "id": "pm_nic_wake_on_pattern_match",
       "type": "button",
       "name": "Wake on Pattern Match",
-      "risk": "Experimental",
-      "riskLevel": "Experimental",
+      "risk": "Warning",
+      "riskLevel": "Warning",
       "category": "Power Management",
       "description": "Wake on Pattern Match controls sleep/standby and wake orchestration.",
       "shortDescription": "Wake on Pattern Match controls sleep/standby and wake orchestration.",
@@ -421,12 +80,11 @@
         "EXPERIMENTAL",
         "NETWORK_POWER",
         "SYSTEM_WIDE",
-        "UNSUPPORTED_ON_THIS_SYSTEM",
         "WAKE_BEHAVIOR"
       ],
-      "support": "conditional",
-      "proofSource": "repo_placeholder_only",
-      "documentationStatus": "UNRESOLVED",
+      "support": "conditional-hardware",
+      "proofSource": "inventory_discovery_required",
+      "documentationStatus": "CONDITIONAL_DISCOVERY_REQUIRED",
       "sourceType": "nic_advanced",
       "catalogId": "nic_wake_on_pattern_match",
       "apply": {
@@ -455,73 +113,16 @@
       }
     },
     {
-      "id": "pm_nic_wake_on_rtc",
+      "id": "pm_registry_allow_wake_timers",
       "type": "button",
-      "name": "Wake on RTC",
-      "risk": "Experimental",
-      "riskLevel": "Experimental",
+      "name": "Allow wake timers",
+      "risk": "Safe",
+      "riskLevel": "Safe",
       "category": "Power Management",
-      "description": "Wake on RTC controls sleep/standby and wake orchestration.",
-      "shortDescription": "Wake on RTC controls sleep/standby and wake orchestration.",
-      "longDescription": "Adjusts wake on rtc through sleep/standby and wake orchestration. Performance-oriented values reduce ramp delays but increase draw and heat.",
-      "whatItDoes": "Writes and tracks wake on rtc so Falcon can apply, verify, and rollback consistently for this policy family.",
-      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
-      "fpsImpact": "Average FPS impact is generally minimal.",
-      "latencyImpact": "Latency-sensitive users may notice faster wake/ramp and steadier input response.",
-      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
-      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
-      "stabilityRisk": "Medium when changed without hardware-specific validation.",
-      "recommendedFor": "Only for controlled experiments with rollback ready.",
-      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
-      "badges": [
-        "CONDITIONAL_HARDWARE",
-        "EXPERIMENTAL",
-        "NETWORK_POWER",
-        "SYSTEM_WIDE",
-        "UNSUPPORTED_ON_THIS_SYSTEM",
-        "WAKE_BEHAVIOR"
-      ],
-      "support": "conditional",
-      "proofSource": "repo_placeholder_only",
-      "documentationStatus": "UNRESOLVED",
-      "sourceType": "nic_advanced",
-      "catalogId": "nic_wake_on_rtc",
-      "apply": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId nic_wake_on_rtc"
-          }
-        ]
-      },
-      "verify": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId nic_wake_on_rtc"
-          }
-        ]
-      },
-      "revert": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_wake_on_rtc"
-          }
-        ]
-      }
-    },
-    {
-      "id": "pm_nic_wake_on_usb",
-      "type": "button",
-      "name": "Wake on USB",
-      "risk": "Experimental",
-      "riskLevel": "Experimental",
-      "category": "Power Management",
-      "description": "Wake on USB controls sleep/standby and wake orchestration.",
-      "shortDescription": "Wake on USB controls sleep/standby and wake orchestration.",
-      "longDescription": "Adjusts wake on usb through sleep/standby and wake orchestration. Performance-oriented values reduce ramp delays but increase draw and heat.",
-      "whatItDoes": "Writes and tracks wake on usb so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "description": "Allow wake timers controls sleep/standby and wake orchestration.",
+      "shortDescription": "Allow wake timers controls sleep/standby and wake orchestration.",
+      "longDescription": "Adjusts allow wake timers through sleep/standby and wake orchestration. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks allow wake timers so Falcon can apply, verify, and rollback consistently for this policy family.",
       "whyGamersCare": "It can change frame-time consistency and input-to-render responsiveness during bursty loads.",
       "fpsImpact": "Can indirectly stabilize frame pacing in I/O-bound scenarios; average FPS impact is typically small.",
       "latencyImpact": "Latency-sensitive users may notice faster wake/ramp and steadier input response.",
@@ -531,24 +132,21 @@
       "recommendedFor": "Only for controlled experiments with rollback ready.",
       "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
       "badges": [
-        "CONDITIONAL_HARDWARE",
-        "EXPERIMENTAL",
-        "NETWORK_POWER",
+        "LATENCY_RESPONSIVENESS",
         "SYSTEM_WIDE",
-        "UNSUPPORTED_ON_THIS_SYSTEM",
-        "USB_POWER",
-        "WAKE_BEHAVIOR"
+        "WAKE_BEHAVIOR",
+        "TRUSTED"
       ],
-      "support": "conditional",
-      "proofSource": "repo_placeholder_only",
-      "documentationStatus": "UNRESOLVED",
-      "sourceType": "nic_advanced",
-      "catalogId": "nic_wake_on_usb",
+      "support": "supported",
+      "proofSource": "registry_path_mapping",
+      "documentationStatus": "REGISTRY_VERIFIED",
+      "sourceType": "registry_power",
+      "catalogId": "registry_allow_wake_timers",
       "apply": {
         "steps": [
           {
             "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId nic_wake_on_usb"
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId registry_allow_wake_timers"
           }
         ]
       },
@@ -556,7 +154,7 @@
         "steps": [
           {
             "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId nic_wake_on_usb"
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId registry_allow_wake_timers"
           }
         ]
       },
@@ -564,24 +162,24 @@
         "steps": [
           {
             "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_wake_on_usb"
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId registry_allow_wake_timers"
           }
         ]
       }
     },
     {
-      "id": "pm_nic_wake_on_keyboard",
+      "id": "pm_registry_network_connectivity_in_standby",
       "type": "button",
-      "name": "Wake on keyboard",
-      "risk": "Experimental",
-      "riskLevel": "Experimental",
+      "name": "Network connectivity in standby",
+      "risk": "Safe",
+      "riskLevel": "Safe",
       "category": "Power Management",
-      "description": "Wake on keyboard controls sleep/standby and wake orchestration.",
-      "shortDescription": "Wake on keyboard controls sleep/standby and wake orchestration.",
-      "longDescription": "Adjusts wake on keyboard through sleep/standby and wake orchestration. Performance-oriented values reduce ramp delays but increase draw and heat.",
-      "whatItDoes": "Writes and tracks wake on keyboard so Falcon can apply, verify, and rollback consistently for this policy family.",
-      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
-      "fpsImpact": "Average FPS impact is generally minimal.",
+      "description": "Network connectivity in standby controls sleep/standby and wake orchestration.",
+      "shortDescription": "Network connectivity in standby controls sleep/standby and wake orchestration.",
+      "longDescription": "Adjusts network connectivity in standby through sleep/standby and wake orchestration. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks network connectivity in standby so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It can change frame-time consistency and input-to-render responsiveness during bursty loads.",
+      "fpsImpact": "Can indirectly stabilize frame pacing in I/O-bound scenarios; average FPS impact is typically small.",
       "latencyImpact": "Latency-sensitive users may notice faster wake/ramp and steadier input response.",
       "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
       "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
@@ -589,23 +187,21 @@
       "recommendedFor": "Only for controlled experiments with rollback ready.",
       "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
       "badges": [
-        "CONDITIONAL_HARDWARE",
-        "EXPERIMENTAL",
-        "NETWORK_POWER",
+        "BATTERY_NEGATIVE",
         "SYSTEM_WIDE",
-        "UNSUPPORTED_ON_THIS_SYSTEM",
-        "WAKE_BEHAVIOR"
+        "WAKE_BEHAVIOR",
+        "TRUSTED"
       ],
-      "support": "conditional",
-      "proofSource": "repo_placeholder_only",
-      "documentationStatus": "UNRESOLVED",
-      "sourceType": "nic_advanced",
-      "catalogId": "nic_wake_on_keyboard",
+      "support": "supported",
+      "proofSource": "registry_path_mapping",
+      "documentationStatus": "REGISTRY_VERIFIED",
+      "sourceType": "registry_power",
+      "catalogId": "registry_network_connectivity_in_standby",
       "apply": {
         "steps": [
           {
             "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId nic_wake_on_keyboard"
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId registry_network_connectivity_in_standby"
           }
         ]
       },
@@ -613,7 +209,7 @@
         "steps": [
           {
             "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId nic_wake_on_keyboard"
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId registry_network_connectivity_in_standby"
           }
         ]
       },
@@ -621,121 +217,7 @@
         "steps": [
           {
             "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_wake_on_keyboard"
-          }
-        ]
-      }
-    },
-    {
-      "id": "pm_nic_wake_on_modem_ring",
-      "type": "button",
-      "name": "Wake on modem ring",
-      "risk": "Experimental",
-      "riskLevel": "Experimental",
-      "category": "Power Management",
-      "description": "Wake on modem ring controls sleep/standby and wake orchestration.",
-      "shortDescription": "Wake on modem ring controls sleep/standby and wake orchestration.",
-      "longDescription": "Adjusts wake on modem ring through sleep/standby and wake orchestration. Performance-oriented values reduce ramp delays but increase draw and heat.",
-      "whatItDoes": "Writes and tracks wake on modem ring so Falcon can apply, verify, and rollback consistently for this policy family.",
-      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
-      "fpsImpact": "Average FPS impact is generally minimal.",
-      "latencyImpact": "Latency-sensitive users may notice faster wake/ramp and steadier input response.",
-      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
-      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
-      "stabilityRisk": "Medium when changed without hardware-specific validation.",
-      "recommendedFor": "Only for controlled experiments with rollback ready.",
-      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
-      "badges": [
-        "CONDITIONAL_HARDWARE",
-        "EXPERIMENTAL",
-        "NETWORK_POWER",
-        "SYSTEM_WIDE",
-        "UNSUPPORTED_ON_THIS_SYSTEM",
-        "WAKE_BEHAVIOR"
-      ],
-      "support": "conditional",
-      "proofSource": "repo_placeholder_only",
-      "documentationStatus": "UNRESOLVED",
-      "sourceType": "nic_advanced",
-      "catalogId": "nic_wake_on_modem_ring",
-      "apply": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId nic_wake_on_modem_ring"
-          }
-        ]
-      },
-      "verify": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId nic_wake_on_modem_ring"
-          }
-        ]
-      },
-      "revert": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_wake_on_modem_ring"
-          }
-        ]
-      }
-    },
-    {
-      "id": "pm_nic_wake_on_mouse",
-      "type": "button",
-      "name": "Wake on mouse",
-      "risk": "Experimental",
-      "riskLevel": "Experimental",
-      "category": "Power Management",
-      "description": "Wake on mouse controls sleep/standby and wake orchestration.",
-      "shortDescription": "Wake on mouse controls sleep/standby and wake orchestration.",
-      "longDescription": "Adjusts wake on mouse through sleep/standby and wake orchestration. Performance-oriented values reduce ramp delays but increase draw and heat.",
-      "whatItDoes": "Writes and tracks wake on mouse so Falcon can apply, verify, and rollback consistently for this policy family.",
-      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
-      "fpsImpact": "Average FPS impact is generally minimal.",
-      "latencyImpact": "Latency-sensitive users may notice faster wake/ramp and steadier input response.",
-      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
-      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
-      "stabilityRisk": "Medium when changed without hardware-specific validation.",
-      "recommendedFor": "Only for controlled experiments with rollback ready.",
-      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
-      "badges": [
-        "CONDITIONAL_HARDWARE",
-        "EXPERIMENTAL",
-        "NETWORK_POWER",
-        "SYSTEM_WIDE",
-        "UNSUPPORTED_ON_THIS_SYSTEM",
-        "WAKE_BEHAVIOR"
-      ],
-      "support": "conditional",
-      "proofSource": "repo_placeholder_only",
-      "documentationStatus": "UNRESOLVED",
-      "sourceType": "nic_advanced",
-      "catalogId": "nic_wake_on_mouse",
-      "apply": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId nic_wake_on_mouse"
-          }
-        ]
-      },
-      "verify": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId nic_wake_on_mouse"
-          }
-        ]
-      },
-      "revert": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_wake_on_mouse"
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId registry_network_connectivity_in_standby"
           }
         ]
       }

@@ -1,48 +1,152 @@
 {
-  "generatedAt": "2026-03-20T03:35:05Z",
-  "summary": {
-    "totalCatalogItems": 567,
-    "mainVisible": 3,
-    "advancedVisible": 27,
-    "experimentalHidden": 537,
-    "badgedItems": 567,
-    "descriptionsWithFullFields": 567,
-    "firmwareNamedItems": 80,
-    "unresolvedHidden": 564
-  },
-  "tabCounts": {
-    "before": {
-      "energy_saver": 4,
-      "wireless_ethernet": 10,
-      "processor": 17,
-      "storage_disk": 4,
-      "usb": 5,
-      "display": 7,
-      "sleep_hibernate_modern_standby": 13
+  "generatedAt": "2026-03-20T04:48:16.714Z",
+  "totalCatalogItems": 567,
+  "totalTier1Verified": 27,
+  "totalTier1FirmwareAdvisory": 80,
+  "totalTier2ConditionalDiscovered": 115,
+  "totalTier3UnresolvedPlaceholder": 345,
+  "perCategoryBefore": {
+    "processor": {
+      "total": 68,
+      "unresolved": 66
     },
-    "after": {
-      "processor": 68,
-      "storage_disk": 22,
-      "usb": 21,
-      "wireless_ethernet": 49,
-      "display": 24,
-      "sleep_hibernate_modern_standby": 33,
-      "energy_saver": 12
+    "pcie": {
+      "total": 8,
+      "unresolved": 7
+    },
+    "storage_disk": {
+      "total": 22,
+      "unresolved": 22
+    },
+    "usb": {
+      "total": 21,
+      "unresolved": 21
+    },
+    "wireless_ethernet": {
+      "total": 49,
+      "unresolved": 49
+    },
+    "display": {
+      "total": 24,
+      "unresolved": 24
+    },
+    "sleep_hibernate_modern_standby": {
+      "total": 33,
+      "unresolved": 33
+    },
+    "energy_saver": {
+      "total": 12,
+      "unresolved": 12
+    },
+    "device_wake": {
+      "total": 13,
+      "unresolved": 13
+    },
+    "graphics": {
+      "total": 30,
+      "unresolved": 30
+    },
+    "bluetooth": {
+      "total": 3,
+      "unresolved": 3
     }
   },
-  "categoryCounts": {
-    "processor": 68,
-    "pcie": 8,
+  "perCategoryAfter": {
+    "processor": {
+      "total": 2,
+      "trusted": 2,
+      "unresolved": 0
+    },
+    "pcie": {
+      "total": 1,
+      "trusted": 1,
+      "unresolved": 0
+    },
+    "storage_disk": {
+      "total": 7,
+      "trusted": 7,
+      "unresolved": 0
+    },
+    "usb": {
+      "total": 5,
+      "trusted": 5,
+      "unresolved": 0
+    },
+    "wireless_ethernet": {
+      "total": 11,
+      "trusted": 11,
+      "unresolved": 0
+    },
+    "display": {
+      "total": 4,
+      "trusted": 4,
+      "unresolved": 0
+    },
+    "sleep_hibernate_modern_standby": {
+      "total": 6,
+      "trusted": 6,
+      "unresolved": 0
+    },
+    "energy_saver": {
+      "total": 5,
+      "trusted": 5,
+      "unresolved": 0
+    },
+    "device_wake": {
+      "total": 4,
+      "trusted": 4,
+      "unresolved": 0
+    },
+    "graphics": {
+      "total": 5,
+      "trusted": 5,
+      "unresolved": 0
+    },
+    "bluetooth": {
+      "total": 1,
+      "trusted": 1,
+      "unresolved": 0
+    }
+  },
+  "placeholderRemovedFromNormalTabs": {
+    "processor": 66,
+    "pcie": 7,
     "storage_disk": 22,
     "usb": 21,
     "wireless_ethernet": 49,
-    "graphics": 30,
     "display": 24,
     "sleep_hibernate_modern_standby": 33,
-    "buttons_lid": 3,
     "energy_saver": 12,
-    "bluetooth": 3,
     "device_wake": 13,
-    "hidden_experimental": 120
+    "graphics": 30,
+    "bluetooth": 3
+  },
+  "firmwareAdvisoryItemsCreated": 13,
+  "presetUsageCounts": {
+    "Max Performance / Disable Power Saving": {
+      "apply-safe": 3,
+      "readback-only": 2
+    },
+    "Competitive Low Latency": {
+      "apply-safe": 2,
+      "readback-only": 2,
+      "conditional-hardware": 1
+    },
+    "Balanced": {
+      "apply-safe": 3
+    },
+    "Power Saver": {
+      "apply-safe": 3
+    },
+    "Laptop Gaming": {
+      "apply-safe": 3,
+      "conditional-hardware": 1
+    },
+    "Diagnostics / Readback / Export": {
+      "readback-only": 3
+    },
+    "Advisory / Firmware": {
+      "advisory-only": 13
+    }
   }
 }

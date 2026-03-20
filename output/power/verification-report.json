@@ -1,10 +1,66 @@
 {
-  "generatedAt": "2026-03-20T03:35:05Z",
-  "summary": {
-    "total": 567,
-    "supported": 3,
-    "conditionalHardware": 115,
-    "advisoryOnly": 80,
-    "unsupported": 564
+  "generatedAt": "2026-03-20T04:48:16.717Z",
+  "trustTiers": {
+    "t1": 27,
+    "t2": 115,
+    "t3": 345,
+    "t1a": 80
+  },
+  "visibleByCategory": {
+    "processor": {
+      "total": 2,
+      "trusted": 2,
+      "unresolved": 0
+    },
+    "pcie": {
+      "total": 1,
+      "trusted": 1,
+      "unresolved": 0
+    },
+    "storage_disk": {
+      "total": 7,
+      "trusted": 7,
+      "unresolved": 0
+    },
+    "usb": {
+      "total": 5,
+      "trusted": 5,
+      "unresolved": 0
+    },
+    "wireless_ethernet": {
+      "total": 11,
+      "trusted": 11,
+      "unresolved": 0
+    },
+    "display": {
+      "total": 4,
+      "trusted": 4,
+      "unresolved": 0
+    },
+    "sleep_hibernate_modern_standby": {
+      "total": 6,
+      "trusted": 6,
+      "unresolved": 0
+    },
+    "energy_saver": {
+      "total": 5,
+      "trusted": 5,
+      "unresolved": 0
+    },
+    "device_wake": {
+      "total": 4,
+      "trusted": 4,
+      "unresolved": 0
+    },
+    "graphics": {
+      "total": 5,
+      "trusted": 5,
+      "unresolved": 0
+    },
+    "bluetooth": {
+      "total": 1,
+      "trusted": 1,
+      "unresolved": 0
+    }
   }
 }
