@@ -24,7 +24,8 @@
         "EXPERIMENTAL",
         "NETWORK_POWER",
         "POWER_SAVING_DISABLED",
-        "SYSTEM_WIDE"
+        "SYSTEM_WIDE",
+        "DEVICE_DISCONNECT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -54,7 +55,13 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_wireless_adapter_power_saving_mode"
           }
         ]
-      }
+      },
+      "warningText": "Can cause USB mouse/keyboard/controller or NIC disconnects and delayed reconnects.",
+      "riskNotes": [
+        "Can cause USB/HID/Bluetooth/NIC disconnects, delayed reconnects, or wake failures."
+      ],
+      "requiresTypedConfirm": false,
+      "rollbackNotes": "Revert if devices disconnect, miss wake events, or reconnect slowly."
     },
     {
       "id": "pm_nic_energy_efficient_ethernet",
@@ -79,7 +86,8 @@
         "CONDITIONAL_HARDWARE",
         "EXPERIMENTAL",
         "NETWORK_POWER",
-        "SYSTEM_WIDE"
+        "SYSTEM_WIDE",
+        "DEVICE_DISCONNECT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -109,7 +117,13 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_energy_efficient_ethernet"
           }
         ]
-      }
+      },
+      "warningText": "Can cause USB mouse/keyboard/controller or NIC disconnects and delayed reconnects.",
+      "riskNotes": [
+        "Can cause USB/HID/Bluetooth/NIC disconnects, delayed reconnects, or wake failures."
+      ],
+      "requiresTypedConfirm": false,
+      "rollbackNotes": "Revert if devices disconnect, miss wake events, or reconnect slowly."
     },
     {
       "id": "pm_nic_green_ethernet",
@@ -134,7 +148,8 @@
         "CONDITIONAL_HARDWARE",
         "EXPERIMENTAL",
         "NETWORK_POWER",
-        "SYSTEM_WIDE"
+        "SYSTEM_WIDE",
+        "DEVICE_DISCONNECT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -164,7 +179,13 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_green_ethernet"
           }
         ]
-      }
+      },
+      "warningText": "Can cause USB mouse/keyboard/controller or NIC disconnects and delayed reconnects.",
+      "riskNotes": [
+        "Can cause USB/HID/Bluetooth/NIC disconnects, delayed reconnects, or wake failures."
+      ],
+      "requiresTypedConfirm": false,
+      "rollbackNotes": "Revert if devices disconnect, miss wake events, or reconnect slowly."
     },
     {
       "id": "pm_nic_power_saving_mode",
@@ -190,7 +211,8 @@
         "EXPERIMENTAL",
         "NETWORK_POWER",
         "POWER_SAVING_DISABLED",
-        "SYSTEM_WIDE"
+        "SYSTEM_WIDE",
+        "DEVICE_DISCONNECT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -220,7 +242,13 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_power_saving_mode"
           }
         ]
-      }
+      },
+      "warningText": "Can cause USB mouse/keyboard/controller or NIC disconnects and delayed reconnects.",
+      "riskNotes": [
+        "Can cause USB/HID/Bluetooth/NIC disconnects, delayed reconnects, or wake failures."
+      ],
+      "requiresTypedConfirm": false,
+      "rollbackNotes": "Revert if devices disconnect, miss wake events, or reconnect slowly."
     },
     {
       "id": "pm_nic_wake_on_magic_packet",
@@ -246,7 +274,8 @@
         "EXPERIMENTAL",
         "NETWORK_POWER",
         "SYSTEM_WIDE",
-        "WAKE_BEHAVIOR"
+        "WAKE_BEHAVIOR",
+        "DEVICE_DISCONNECT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -276,7 +305,13 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_wake_on_magic_packet"
           }
         ]
-      }
+      },
+      "warningText": "Can cause USB mouse/keyboard/controller or NIC disconnects and delayed reconnects.",
+      "riskNotes": [
+        "Can cause USB/HID/Bluetooth/NIC disconnects, delayed reconnects, or wake failures."
+      ],
+      "requiresTypedConfirm": false,
+      "rollbackNotes": "Revert if devices disconnect, miss wake events, or reconnect slowly."
     },
     {
       "id": "pm_nic_wake_on_pattern_match",
@@ -302,7 +337,8 @@
         "EXPERIMENTAL",
         "NETWORK_POWER",
         "SYSTEM_WIDE",
-        "WAKE_BEHAVIOR"
+        "WAKE_BEHAVIOR",
+        "DEVICE_DISCONNECT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -332,7 +368,13 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_wake_on_pattern_match"
           }
         ]
-      }
+      },
+      "warningText": "Can cause USB mouse/keyboard/controller or NIC disconnects and delayed reconnects.",
+      "riskNotes": [
+        "Can cause USB/HID/Bluetooth/NIC disconnects, delayed reconnects, or wake failures."
+      ],
+      "requiresTypedConfirm": false,
+      "rollbackNotes": "Revert if devices disconnect, miss wake events, or reconnect slowly."
     },
     {
       "id": "pm_nic_arp_offload",
@@ -357,7 +399,8 @@
         "CONDITIONAL_HARDWARE",
         "EXPERIMENTAL",
         "NETWORK_POWER",
-        "SYSTEM_WIDE"
+        "SYSTEM_WIDE",
+        "DEVICE_DISCONNECT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -387,7 +430,13 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_arp_offload"
           }
         ]
-      }
+      },
+      "warningText": "Can cause USB mouse/keyboard/controller or NIC disconnects and delayed reconnects.",
+      "riskNotes": [
+        "Can cause USB/HID/Bluetooth/NIC disconnects, delayed reconnects, or wake failures."
+      ],
+      "requiresTypedConfirm": false,
+      "rollbackNotes": "Revert if devices disconnect, miss wake events, or reconnect slowly."
     },
     {
       "id": "pm_nic_ns_offload",
@@ -412,7 +461,8 @@
         "CONDITIONAL_HARDWARE",
         "EXPERIMENTAL",
         "NETWORK_POWER",
-        "SYSTEM_WIDE"
+        "SYSTEM_WIDE",
+        "DEVICE_DISCONNECT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -442,7 +492,13 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_ns_offload"
           }
         ]
-      }
+      },
+      "warningText": "Can cause USB mouse/keyboard/controller or NIC disconnects and delayed reconnects.",
+      "riskNotes": [
+        "Can cause USB/HID/Bluetooth/NIC disconnects, delayed reconnects, or wake failures."
+      ],
+      "requiresTypedConfirm": false,
+      "rollbackNotes": "Revert if devices disconnect, miss wake events, or reconnect slowly."
     },
     {
       "id": "pm_nic_dma_coalescing",
@@ -467,7 +523,8 @@
         "CONDITIONAL_HARDWARE",
         "EXPERIMENTAL",
         "NETWORK_POWER",
-        "SYSTEM_WIDE"
+        "SYSTEM_WIDE",
+        "DEVICE_DISCONNECT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -497,7 +554,13 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_dma_coalescing"
           }
         ]
-      }
+      },
+      "warningText": "Can cause USB mouse/keyboard/controller or NIC disconnects and delayed reconnects.",
+      "riskNotes": [
+        "Can cause USB/HID/Bluetooth/NIC disconnects, delayed reconnects, or wake failures."
+      ],
+      "requiresTypedConfirm": false,
+      "rollbackNotes": "Revert if devices disconnect, miss wake events, or reconnect slowly."
     },
     {
       "id": "pm_nic_reduce_speed_on_power_down",
@@ -522,7 +585,8 @@
         "CONDITIONAL_HARDWARE",
         "EXPERIMENTAL",
         "NETWORK_POWER",
-        "SYSTEM_WIDE"
+        "SYSTEM_WIDE",
+        "DEVICE_DISCONNECT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -552,7 +616,13 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_reduce_speed_on_power_down"
           }
         ]
-      }
+      },
+      "warningText": "Can cause USB mouse/keyboard/controller or NIC disconnects and delayed reconnects.",
+      "riskNotes": [
+        "Can cause USB/HID/Bluetooth/NIC disconnects, delayed reconnects, or wake failures."
+      ],
+      "requiresTypedConfirm": false,
+      "rollbackNotes": "Revert if devices disconnect, miss wake events, or reconnect slowly."
     },
     {
       "id": "pm_nic_auto_disable_gigabit",
@@ -579,7 +649,8 @@
         "HIGH_POWER_USE",
         "NETWORK_POWER",
         "POWER_SAVING_DISABLED",
-        "SYSTEM_WIDE"
+        "SYSTEM_WIDE",
+        "DEVICE_DISCONNECT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -609,7 +680,13 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_auto_disable_gigabit"
           }
         ]
-      }
+      },
+      "warningText": "Can cause USB mouse/keyboard/controller or NIC disconnects and delayed reconnects.",
+      "riskNotes": [
+        "Can cause USB/HID/Bluetooth/NIC disconnects, delayed reconnects, or wake failures."
+      ],
+      "requiresTypedConfirm": false,
+      "rollbackNotes": "Revert if devices disconnect, miss wake events, or reconnect slowly."
     }
   ]
 }

@@ -3933,7 +3933,8 @@
         "SYSTEM_WIDE",
         "UNSUPPORTED_ON_THIS_SYSTEM",
         "WAKE_BEHAVIOR",
-        "UNDOCUMENTED"
+        "UNDOCUMENTED",
+        "BOOT_RISK"
       ],
       "support": "unsupported",
       "proofSource": "unresolved",
@@ -3963,7 +3964,14 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId powercfg_hibernate_after"
           }
         ]
-      }
+      },
+      "warningText": "Can break startup, resume, or hibernate behavior on some systems.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Rollback immediately if boot/resume issues appear."
     },
     {
       "id": "pm_powercfg_system_unattended_sleep_timeout",
@@ -4606,7 +4614,8 @@
         "EXPERIMENTAL",
         "NETWORK_POWER",
         "SYSTEM_WIDE",
-        "WAKE_BEHAVIOR"
+        "WAKE_BEHAVIOR",
+        "DEVICE_DISCONNECT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -4636,7 +4645,13 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_wake_on_rtc"
           }
         ]
-      }
+      },
+      "warningText": "Can cause USB mouse/keyboard/controller or NIC disconnects and delayed reconnects.",
+      "riskNotes": [
+        "Can cause USB/HID/Bluetooth/NIC disconnects, delayed reconnects, or wake failures."
+      ],
+      "requiresTypedConfirm": false,
+      "rollbackNotes": "Revert if devices disconnect, miss wake events, or reconnect slowly."
     },
     {
       "id": "pm_nic_wake_on_usb",
@@ -4663,7 +4678,8 @@
         "NETWORK_POWER",
         "SYSTEM_WIDE",
         "USB_POWER",
-        "WAKE_BEHAVIOR"
+        "WAKE_BEHAVIOR",
+        "DEVICE_DISCONNECT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -4693,7 +4709,13 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_wake_on_usb"
           }
         ]
-      }
+      },
+      "warningText": "Can cause USB mouse/keyboard/controller or NIC disconnects and delayed reconnects.",
+      "riskNotes": [
+        "Can cause USB/HID/Bluetooth/NIC disconnects, delayed reconnects, or wake failures."
+      ],
+      "requiresTypedConfirm": false,
+      "rollbackNotes": "Revert if devices disconnect, miss wake events, or reconnect slowly."
     },
     {
       "id": "pm_nic_wake_on_lan_sleep_policy",
@@ -4720,7 +4742,8 @@
         "EXPERIMENTAL",
         "NETWORK_POWER",
         "SYSTEM_WIDE",
-        "WAKE_BEHAVIOR"
+        "WAKE_BEHAVIOR",
+        "DEVICE_DISCONNECT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -4750,7 +4773,13 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_wake_on_lan_sleep_policy"
           }
         ]
-      }
+      },
+      "warningText": "Can cause USB mouse/keyboard/controller or NIC disconnects and delayed reconnects.",
+      "riskNotes": [
+        "Can cause USB/HID/Bluetooth/NIC disconnects, delayed reconnects, or wake failures."
+      ],
+      "requiresTypedConfirm": false,
+      "rollbackNotes": "Revert if devices disconnect, miss wake events, or reconnect slowly."
     },
     {
       "id": "pm_nic_wake_on_keyboard",
@@ -4776,7 +4805,8 @@
         "EXPERIMENTAL",
         "NETWORK_POWER",
         "SYSTEM_WIDE",
-        "WAKE_BEHAVIOR"
+        "WAKE_BEHAVIOR",
+        "DEVICE_DISCONNECT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -4806,7 +4836,13 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_wake_on_keyboard"
           }
         ]
-      }
+      },
+      "warningText": "Can cause USB mouse/keyboard/controller or NIC disconnects and delayed reconnects.",
+      "riskNotes": [
+        "Can cause USB/HID/Bluetooth/NIC disconnects, delayed reconnects, or wake failures."
+      ],
+      "requiresTypedConfirm": false,
+      "rollbackNotes": "Revert if devices disconnect, miss wake events, or reconnect slowly."
     },
     {
       "id": "pm_nic_wake_on_mouse",
@@ -4832,7 +4868,8 @@
         "EXPERIMENTAL",
         "NETWORK_POWER",
         "SYSTEM_WIDE",
-        "WAKE_BEHAVIOR"
+        "WAKE_BEHAVIOR",
+        "DEVICE_DISCONNECT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -4862,7 +4899,13 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_wake_on_mouse"
           }
         ]
-      }
+      },
+      "warningText": "Can cause USB mouse/keyboard/controller or NIC disconnects and delayed reconnects.",
+      "riskNotes": [
+        "Can cause USB/HID/Bluetooth/NIC disconnects, delayed reconnects, or wake failures."
+      ],
+      "requiresTypedConfirm": false,
+      "rollbackNotes": "Revert if devices disconnect, miss wake events, or reconnect slowly."
     },
     {
       "id": "pm_nic_wake_on_bluetooth",
@@ -4888,7 +4931,8 @@
         "EXPERIMENTAL",
         "NETWORK_POWER",
         "SYSTEM_WIDE",
-        "WAKE_BEHAVIOR"
+        "WAKE_BEHAVIOR",
+        "DEVICE_DISCONNECT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -4918,7 +4962,13 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_wake_on_bluetooth"
           }
         ]
-      }
+      },
+      "warningText": "Can cause USB mouse/keyboard/controller or NIC disconnects and delayed reconnects.",
+      "riskNotes": [
+        "Can cause USB/HID/Bluetooth/NIC disconnects, delayed reconnects, or wake failures."
+      ],
+      "requiresTypedConfirm": false,
+      "rollbackNotes": "Revert if devices disconnect, miss wake events, or reconnect slowly."
     },
     {
       "id": "pm_nic_wake_on_pcie_device",
@@ -4944,7 +4994,8 @@
         "EXPERIMENTAL",
         "NETWORK_POWER",
         "SYSTEM_WIDE",
-        "WAKE_BEHAVIOR"
+        "WAKE_BEHAVIOR",
+        "DEVICE_DISCONNECT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -4974,7 +5025,13 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_wake_on_pcie_device"
           }
         ]
-      }
+      },
+      "warningText": "Can cause USB mouse/keyboard/controller or NIC disconnects and delayed reconnects.",
+      "riskNotes": [
+        "Can cause USB/HID/Bluetooth/NIC disconnects, delayed reconnects, or wake failures."
+      ],
+      "requiresTypedConfirm": false,
+      "rollbackNotes": "Revert if devices disconnect, miss wake events, or reconnect slowly."
     },
     {
       "id": "pm_nic_wake_on_modem_ring",
@@ -5000,7 +5057,8 @@
         "EXPERIMENTAL",
         "NETWORK_POWER",
         "SYSTEM_WIDE",
-        "WAKE_BEHAVIOR"
+        "WAKE_BEHAVIOR",
+        "DEVICE_DISCONNECT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -5030,7 +5088,13 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_wake_on_modem_ring"
           }
         ]
-      }
+      },
+      "warningText": "Can cause USB mouse/keyboard/controller or NIC disconnects and delayed reconnects.",
+      "riskNotes": [
+        "Can cause USB/HID/Bluetooth/NIC disconnects, delayed reconnects, or wake failures."
+      ],
+      "requiresTypedConfirm": false,
+      "rollbackNotes": "Revert if devices disconnect, miss wake events, or reconnect slowly."
     },
     {
       "id": "pm_powercfg_pci_express_link_state_power_management",
@@ -5665,7 +5729,8 @@
         "EXPERIMENTAL",
         "SYSTEM_WIDE",
         "UNSUPPORTED_ON_THIS_SYSTEM",
-        "UNDOCUMENTED"
+        "UNDOCUMENTED",
+        "DEVICE_DISCONNECT_RISK"
       ],
       "support": "unsupported",
       "proofSource": "unresolved",
@@ -5695,7 +5760,13 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId powercfg_reduce_speed_on_power_down"
           }
         ]
-      }
+      },
+      "warningText": "Can cause USB mouse/keyboard/controller or NIC disconnects and delayed reconnects.",
+      "riskNotes": [
+        "Can cause USB/HID/Bluetooth/NIC disconnects, delayed reconnects, or wake failures."
+      ],
+      "requiresTypedConfirm": false,
+      "rollbackNotes": "Revert if devices disconnect, miss wake events, or reconnect slowly."
     },
     {
       "id": "pm_powercfg_gigabit_lite",
@@ -15656,7 +15727,8 @@
         "UNDOCUMENTED",
         "UNSUPPORTED_ON_THIS_SYSTEM",
         "WAKE_BEHAVIOR",
-        "EXPERIMENTAL"
+        "EXPERIMENTAL",
+        "BOOT_RISK"
       ],
       "support": "unsupported",
       "proofSource": "unresolved",
@@ -15686,7 +15758,14 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId powercfg_hibernate_policy_1"
           }
         ]
-      }
+      },
+      "warningText": "Can break startup, resume, or hibernate behavior on some systems.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Rollback immediately if boot/resume issues appear."
     },
     {
       "id": "pm_powercfg_hibernate_policy_2",
@@ -15713,7 +15792,8 @@
         "UNDOCUMENTED",
         "UNSUPPORTED_ON_THIS_SYSTEM",
         "WAKE_BEHAVIOR",
-        "EXPERIMENTAL"
+        "EXPERIMENTAL",
+        "BOOT_RISK"
       ],
       "support": "unsupported",
       "proofSource": "unresolved",
@@ -15743,7 +15823,14 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId powercfg_hibernate_policy_2"
           }
         ]
-      }
+      },
+      "warningText": "Can break startup, resume, or hibernate behavior on some systems.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Rollback immediately if boot/resume issues appear."
     },
     {
       "id": "pm_powercfg_hibernate_policy_3",
@@ -15770,7 +15857,8 @@
         "UNDOCUMENTED",
         "UNSUPPORTED_ON_THIS_SYSTEM",
         "WAKE_BEHAVIOR",
-        "EXPERIMENTAL"
+        "EXPERIMENTAL",
+        "BOOT_RISK"
       ],
       "support": "unsupported",
       "proofSource": "unresolved",
@@ -15800,7 +15888,14 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId powercfg_hibernate_policy_3"
           }
         ]
-      }
+      },
+      "warningText": "Can break startup, resume, or hibernate behavior on some systems.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Rollback immediately if boot/resume issues appear."
     },
     {
       "id": "pm_powercfg_hibernate_policy_4",
@@ -15827,7 +15922,8 @@
         "UNDOCUMENTED",
         "UNSUPPORTED_ON_THIS_SYSTEM",
         "WAKE_BEHAVIOR",
-        "EXPERIMENTAL"
+        "EXPERIMENTAL",
+        "BOOT_RISK"
       ],
       "support": "unsupported",
       "proofSource": "unresolved",
@@ -15857,7 +15953,14 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId powercfg_hibernate_policy_4"
           }
         ]
-      }
+      },
+      "warningText": "Can break startup, resume, or hibernate behavior on some systems.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Rollback immediately if boot/resume issues appear."
     },
     {
       "id": "pm_powercfg_hibernate_policy_5",
@@ -15884,7 +15987,8 @@
         "UNDOCUMENTED",
         "UNSUPPORTED_ON_THIS_SYSTEM",
         "WAKE_BEHAVIOR",
-        "EXPERIMENTAL"
+        "EXPERIMENTAL",
+        "BOOT_RISK"
       ],
       "support": "unsupported",
       "proofSource": "unresolved",
@@ -15914,7 +16018,14 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId powercfg_hibernate_policy_5"
           }
         ]
-      }
+      },
+      "warningText": "Can break startup, resume, or hibernate behavior on some systems.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Rollback immediately if boot/resume issues appear."
     },
     {
       "id": "pm_powercfg_hibernate_policy_6",
@@ -15941,7 +16052,8 @@
         "UNDOCUMENTED",
         "UNSUPPORTED_ON_THIS_SYSTEM",
         "WAKE_BEHAVIOR",
-        "EXPERIMENTAL"
+        "EXPERIMENTAL",
+        "BOOT_RISK"
       ],
       "support": "unsupported",
       "proofSource": "unresolved",
@@ -15971,7 +16083,14 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId powercfg_hibernate_policy_6"
           }
         ]
-      }
+      },
+      "warningText": "Can break startup, resume, or hibernate behavior on some systems.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Rollback immediately if boot/resume issues appear."
     },
     {
       "id": "pm_powercfg_hibernate_policy_7",
@@ -15998,7 +16117,8 @@
         "UNDOCUMENTED",
         "UNSUPPORTED_ON_THIS_SYSTEM",
         "WAKE_BEHAVIOR",
-        "EXPERIMENTAL"
+        "EXPERIMENTAL",
+        "BOOT_RISK"
       ],
       "support": "unsupported",
       "proofSource": "unresolved",
@@ -16028,7 +16148,14 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId powercfg_hibernate_policy_7"
           }
         ]
-      }
+      },
+      "warningText": "Can break startup, resume, or hibernate behavior on some systems.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Rollback immediately if boot/resume issues appear."
     },
     {
       "id": "pm_powercfg_hibernate_policy_8",
@@ -16055,7 +16182,8 @@
         "UNDOCUMENTED",
         "UNSUPPORTED_ON_THIS_SYSTEM",
         "WAKE_BEHAVIOR",
-        "EXPERIMENTAL"
+        "EXPERIMENTAL",
+        "BOOT_RISK"
       ],
       "support": "unsupported",
       "proofSource": "unresolved",
@@ -16085,7 +16213,14 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId powercfg_hibernate_policy_8"
           }
         ]
-      }
+      },
+      "warningText": "Can break startup, resume, or hibernate behavior on some systems.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Rollback immediately if boot/resume issues appear."
     },
     {
       "id": "pm_powercfg_hibernate_policy_9",
@@ -16112,7 +16247,8 @@
         "UNDOCUMENTED",
         "UNSUPPORTED_ON_THIS_SYSTEM",
         "WAKE_BEHAVIOR",
-        "EXPERIMENTAL"
+        "EXPERIMENTAL",
+        "BOOT_RISK"
       ],
       "support": "unsupported",
       "proofSource": "unresolved",
@@ -16142,7 +16278,14 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId powercfg_hibernate_policy_9"
           }
         ]
-      }
+      },
+      "warningText": "Can break startup, resume, or hibernate behavior on some systems.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Rollback immediately if boot/resume issues appear."
     },
     {
       "id": "pm_powercfg_hibernate_policy_10",
@@ -16169,7 +16312,8 @@
         "UNDOCUMENTED",
         "UNSUPPORTED_ON_THIS_SYSTEM",
         "WAKE_BEHAVIOR",
-        "EXPERIMENTAL"
+        "EXPERIMENTAL",
+        "BOOT_RISK"
       ],
       "support": "unsupported",
       "proofSource": "unresolved",
@@ -16199,7 +16343,14 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId powercfg_hibernate_policy_10"
           }
         ]
-      }
+      },
+      "warningText": "Can break startup, resume, or hibernate behavior on some systems.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Rollback immediately if boot/resume issues appear."
     },
     {
       "id": "pm_powercfg_hibernate_policy_11",
@@ -16226,7 +16377,8 @@
         "UNDOCUMENTED",
         "UNSUPPORTED_ON_THIS_SYSTEM",
         "WAKE_BEHAVIOR",
-        "EXPERIMENTAL"
+        "EXPERIMENTAL",
+        "BOOT_RISK"
       ],
       "support": "unsupported",
       "proofSource": "unresolved",
@@ -16256,7 +16408,14 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId powercfg_hibernate_policy_11"
           }
         ]
-      }
+      },
+      "warningText": "Can break startup, resume, or hibernate behavior on some systems.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Rollback immediately if boot/resume issues appear."
     },
     {
       "id": "pm_powercfg_hibernate_policy_12",
@@ -16283,7 +16442,8 @@
         "UNDOCUMENTED",
         "UNSUPPORTED_ON_THIS_SYSTEM",
         "WAKE_BEHAVIOR",
-        "EXPERIMENTAL"
+        "EXPERIMENTAL",
+        "BOOT_RISK"
       ],
       "support": "unsupported",
       "proofSource": "unresolved",
@@ -16313,7 +16473,14 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId powercfg_hibernate_policy_12"
           }
         ]
-      }
+      },
+      "warningText": "Can break startup, resume, or hibernate behavior on some systems.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Rollback immediately if boot/resume issues appear."
     },
     {
       "id": "pm_powercfg_hibernate_policy_13",
@@ -16340,7 +16507,8 @@
         "UNDOCUMENTED",
         "UNSUPPORTED_ON_THIS_SYSTEM",
         "WAKE_BEHAVIOR",
-        "EXPERIMENTAL"
+        "EXPERIMENTAL",
+        "BOOT_RISK"
       ],
       "support": "unsupported",
       "proofSource": "unresolved",
@@ -16370,7 +16538,14 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId powercfg_hibernate_policy_13"
           }
         ]
-      }
+      },
+      "warningText": "Can break startup, resume, or hibernate behavior on some systems.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Rollback immediately if boot/resume issues appear."
     },
     {
       "id": "pm_powercfg_hibernate_policy_14",
@@ -16397,7 +16572,8 @@
         "UNDOCUMENTED",
         "UNSUPPORTED_ON_THIS_SYSTEM",
         "WAKE_BEHAVIOR",
-        "EXPERIMENTAL"
+        "EXPERIMENTAL",
+        "BOOT_RISK"
       ],
       "support": "unsupported",
       "proofSource": "unresolved",
@@ -16427,7 +16603,14 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId powercfg_hibernate_policy_14"
           }
         ]
-      }
+      },
+      "warningText": "Can break startup, resume, or hibernate behavior on some systems.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Rollback immediately if boot/resume issues appear."
     },
     {
       "id": "pm_powercfg_hibernate_policy_15",
@@ -16454,7 +16637,8 @@
         "UNDOCUMENTED",
         "UNSUPPORTED_ON_THIS_SYSTEM",
         "WAKE_BEHAVIOR",
-        "EXPERIMENTAL"
+        "EXPERIMENTAL",
+        "BOOT_RISK"
       ],
       "support": "unsupported",
       "proofSource": "unresolved",
@@ -16484,7 +16668,14 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId powercfg_hibernate_policy_15"
           }
         ]
-      }
+      },
+      "warningText": "Can break startup, resume, or hibernate behavior on some systems.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Rollback immediately if boot/resume issues appear."
     },
     {
       "id": "pm_powercfg_hibernate_policy_16",
@@ -16511,7 +16702,8 @@
         "UNDOCUMENTED",
         "UNSUPPORTED_ON_THIS_SYSTEM",
         "WAKE_BEHAVIOR",
-        "EXPERIMENTAL"
+        "EXPERIMENTAL",
+        "BOOT_RISK"
       ],
       "support": "unsupported",
       "proofSource": "unresolved",
@@ -16541,7 +16733,14 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId powercfg_hibernate_policy_16"
           }
         ]
-      }
+      },
+      "warningText": "Can break startup, resume, or hibernate behavior on some systems.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Rollback immediately if boot/resume issues appear."
     },
     {
       "id": "pm_powercfg_hibernate_policy_17",
@@ -16568,7 +16767,8 @@
         "UNDOCUMENTED",
         "UNSUPPORTED_ON_THIS_SYSTEM",
         "WAKE_BEHAVIOR",
-        "EXPERIMENTAL"
+        "EXPERIMENTAL",
+        "BOOT_RISK"
       ],
       "support": "unsupported",
       "proofSource": "unresolved",
@@ -16598,7 +16798,14 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId powercfg_hibernate_policy_17"
           }
         ]
-      }
+      },
+      "warningText": "Can break startup, resume, or hibernate behavior on some systems.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Rollback immediately if boot/resume issues appear."
     },
     {
       "id": "pm_powercfg_hibernate_policy_18",
@@ -16625,7 +16832,8 @@
         "UNDOCUMENTED",
         "UNSUPPORTED_ON_THIS_SYSTEM",
         "WAKE_BEHAVIOR",
-        "EXPERIMENTAL"
+        "EXPERIMENTAL",
+        "BOOT_RISK"
       ],
       "support": "unsupported",
       "proofSource": "unresolved",
@@ -16655,7 +16863,14 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId powercfg_hibernate_policy_18"
           }
         ]
-      }
+      },
+      "warningText": "Can break startup, resume, or hibernate behavior on some systems.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Rollback immediately if boot/resume issues appear."
     },
     {
       "id": "pm_powercfg_hibernate_policy_19",
@@ -16682,7 +16897,8 @@
         "UNDOCUMENTED",
         "UNSUPPORTED_ON_THIS_SYSTEM",
         "WAKE_BEHAVIOR",
-        "EXPERIMENTAL"
+        "EXPERIMENTAL",
+        "BOOT_RISK"
       ],
       "support": "unsupported",
       "proofSource": "unresolved",
@@ -16712,7 +16928,14 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId powercfg_hibernate_policy_19"
           }
         ]
-      }
+      },
+      "warningText": "Can break startup, resume, or hibernate behavior on some systems.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Rollback immediately if boot/resume issues appear."
     },
     {
       "id": "pm_powercfg_hibernate_policy_20",
@@ -16739,7 +16962,8 @@
         "UNDOCUMENTED",
         "UNSUPPORTED_ON_THIS_SYSTEM",
         "WAKE_BEHAVIOR",
-        "EXPERIMENTAL"
+        "EXPERIMENTAL",
+        "BOOT_RISK"
       ],
       "support": "unsupported",
       "proofSource": "unresolved",
@@ -16769,7 +16993,14 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId powercfg_hibernate_policy_20"
           }
         ]
-      }
+      },
+      "warningText": "Can break startup, resume, or hibernate behavior on some systems.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Rollback immediately if boot/resume issues appear."
     },
     {
       "id": "pm_powercfg_hibernate_policy_21",
@@ -16796,7 +17027,8 @@
         "UNDOCUMENTED",
         "UNSUPPORTED_ON_THIS_SYSTEM",
         "WAKE_BEHAVIOR",
-        "EXPERIMENTAL"
+        "EXPERIMENTAL",
+        "BOOT_RISK"
       ],
       "support": "unsupported",
       "proofSource": "unresolved",
@@ -16826,7 +17058,14 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId powercfg_hibernate_policy_21"
           }
         ]
-      }
+      },
+      "warningText": "Can break startup, resume, or hibernate behavior on some systems.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Rollback immediately if boot/resume issues appear."
     },
     {
       "id": "pm_powercfg_hibernate_policy_22",
@@ -16853,7 +17092,8 @@
         "UNDOCUMENTED",
         "UNSUPPORTED_ON_THIS_SYSTEM",
         "WAKE_BEHAVIOR",
-        "EXPERIMENTAL"
+        "EXPERIMENTAL",
+        "BOOT_RISK"
       ],
       "support": "unsupported",
       "proofSource": "unresolved",
@@ -16883,7 +17123,14 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId powercfg_hibernate_policy_22"
           }
         ]
-      }
+      },
+      "warningText": "Can break startup, resume, or hibernate behavior on some systems.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Rollback immediately if boot/resume issues appear."
     },
     {
       "id": "pm_powercfg_hibernate_policy_23",
@@ -16910,7 +17157,8 @@
         "UNDOCUMENTED",
         "UNSUPPORTED_ON_THIS_SYSTEM",
         "WAKE_BEHAVIOR",
-        "EXPERIMENTAL"
+        "EXPERIMENTAL",
+        "BOOT_RISK"
       ],
       "support": "unsupported",
       "proofSource": "unresolved",
@@ -16940,7 +17188,14 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId powercfg_hibernate_policy_23"
           }
         ]
-      }
+      },
+      "warningText": "Can break startup, resume, or hibernate behavior on some systems.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Rollback immediately if boot/resume issues appear."
     },
     {
       "id": "pm_powercfg_hibernate_policy_24",
@@ -16967,7 +17222,8 @@
         "UNDOCUMENTED",
         "UNSUPPORTED_ON_THIS_SYSTEM",
         "WAKE_BEHAVIOR",
-        "EXPERIMENTAL"
+        "EXPERIMENTAL",
+        "BOOT_RISK"
       ],
       "support": "unsupported",
       "proofSource": "unresolved",
@@ -16997,7 +17253,14 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId powercfg_hibernate_policy_24"
           }
         ]
-      }
+      },
+      "warningText": "Can break startup, resume, or hibernate behavior on some systems.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Rollback immediately if boot/resume issues appear."
     },
     {
       "id": "pm_powercfg_hibernate_policy_25",
@@ -17024,7 +17287,8 @@
         "UNDOCUMENTED",
         "UNSUPPORTED_ON_THIS_SYSTEM",
         "WAKE_BEHAVIOR",
-        "EXPERIMENTAL"
+        "EXPERIMENTAL",
+        "BOOT_RISK"
       ],
       "support": "unsupported",
       "proofSource": "unresolved",
@@ -17054,7 +17318,14 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId powercfg_hibernate_policy_25"
           }
         ]
-      }
+      },
+      "warningText": "Can break startup, resume, or hibernate behavior on some systems.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Rollback immediately if boot/resume issues appear."
     },
     {
       "id": "pm_powercfg_hibernate_policy_26",
@@ -17081,7 +17352,8 @@
         "UNDOCUMENTED",
         "UNSUPPORTED_ON_THIS_SYSTEM",
         "WAKE_BEHAVIOR",
-        "EXPERIMENTAL"
+        "EXPERIMENTAL",
+        "BOOT_RISK"
       ],
       "support": "unsupported",
       "proofSource": "unresolved",
@@ -17111,7 +17383,14 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId powercfg_hibernate_policy_26"
           }
         ]
-      }
+      },
+      "warningText": "Can break startup, resume, or hibernate behavior on some systems.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Rollback immediately if boot/resume issues appear."
     },
     {
       "id": "pm_powercfg_hibernate_policy_27",
@@ -17138,7 +17417,8 @@
         "UNDOCUMENTED",
         "UNSUPPORTED_ON_THIS_SYSTEM",
         "WAKE_BEHAVIOR",
-        "EXPERIMENTAL"
+        "EXPERIMENTAL",
+        "BOOT_RISK"
       ],
       "support": "unsupported",
       "proofSource": "unresolved",
@@ -17168,7 +17448,14 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId powercfg_hibernate_policy_27"
           }
         ]
-      }
+      },
+      "warningText": "Can break startup, resume, or hibernate behavior on some systems.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Rollback immediately if boot/resume issues appear."
     },
     {
       "id": "pm_powercfg_hibernate_policy_28",
@@ -17195,7 +17482,8 @@
         "UNDOCUMENTED",
         "UNSUPPORTED_ON_THIS_SYSTEM",
         "WAKE_BEHAVIOR",
-        "EXPERIMENTAL"
+        "EXPERIMENTAL",
+        "BOOT_RISK"
       ],
       "support": "unsupported",
       "proofSource": "unresolved",
@@ -17225,7 +17513,14 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId powercfg_hibernate_policy_28"
           }
         ]
-      }
+      },
+      "warningText": "Can break startup, resume, or hibernate behavior on some systems.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Rollback immediately if boot/resume issues appear."
     },
     {
       "id": "pm_powercfg_hibernate_policy_29",
@@ -17252,7 +17547,8 @@
         "UNDOCUMENTED",
         "UNSUPPORTED_ON_THIS_SYSTEM",
         "WAKE_BEHAVIOR",
-        "EXPERIMENTAL"
+        "EXPERIMENTAL",
+        "BOOT_RISK"
       ],
       "support": "unsupported",
       "proofSource": "unresolved",
@@ -17282,7 +17578,14 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId powercfg_hibernate_policy_29"
           }
         ]
-      }
+      },
+      "warningText": "Can break startup, resume, or hibernate behavior on some systems.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Rollback immediately if boot/resume issues appear."
     },
     {
       "id": "pm_powercfg_hibernate_policy_30",
@@ -17309,7 +17612,8 @@
         "UNDOCUMENTED",
         "UNSUPPORTED_ON_THIS_SYSTEM",
         "WAKE_BEHAVIOR",
-        "EXPERIMENTAL"
+        "EXPERIMENTAL",
+        "BOOT_RISK"
       ],
       "support": "unsupported",
       "proofSource": "unresolved",
@@ -17339,7 +17643,14 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId powercfg_hibernate_policy_30"
           }
         ]
-      }
+      },
+      "warningText": "Can break startup, resume, or hibernate behavior on some systems.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Rollback immediately if boot/resume issues appear."
     },
     {
       "id": "pm_powercfg_hibernate_policy_31",
@@ -17366,7 +17677,8 @@
         "UNDOCUMENTED",
         "UNSUPPORTED_ON_THIS_SYSTEM",
         "WAKE_BEHAVIOR",
-        "EXPERIMENTAL"
+        "EXPERIMENTAL",
+        "BOOT_RISK"
       ],
       "support": "unsupported",
       "proofSource": "unresolved",
@@ -17396,7 +17708,14 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId powercfg_hibernate_policy_31"
           }
         ]
-      }
+      },
+      "warningText": "Can break startup, resume, or hibernate behavior on some systems.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Rollback immediately if boot/resume issues appear."
     },
     {
       "id": "pm_powercfg_hibernate_policy_32",
@@ -17423,7 +17742,8 @@
         "UNDOCUMENTED",
         "UNSUPPORTED_ON_THIS_SYSTEM",
         "WAKE_BEHAVIOR",
-        "EXPERIMENTAL"
+        "EXPERIMENTAL",
+        "BOOT_RISK"
       ],
       "support": "unsupported",
       "proofSource": "unresolved",
@@ -17453,7 +17773,14 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId powercfg_hibernate_policy_32"
           }
         ]
-      }
+      },
+      "warningText": "Can break startup, resume, or hibernate behavior on some systems.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Rollback immediately if boot/resume issues appear."
     },
     {
       "id": "pm_powercfg_hibernate_policy_33",
@@ -17480,7 +17807,8 @@
         "UNDOCUMENTED",
         "UNSUPPORTED_ON_THIS_SYSTEM",
         "WAKE_BEHAVIOR",
-        "EXPERIMENTAL"
+        "EXPERIMENTAL",
+        "BOOT_RISK"
       ],
       "support": "unsupported",
       "proofSource": "unresolved",
@@ -17510,7 +17838,14 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId powercfg_hibernate_policy_33"
           }
         ]
-      }
+      },
+      "warningText": "Can break startup, resume, or hibernate behavior on some systems.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Rollback immediately if boot/resume issues appear."
     },
     {
       "id": "pm_powercfg_hibernate_policy_34",
@@ -17537,7 +17872,8 @@
         "UNDOCUMENTED",
         "UNSUPPORTED_ON_THIS_SYSTEM",
         "WAKE_BEHAVIOR",
-        "EXPERIMENTAL"
+        "EXPERIMENTAL",
+        "BOOT_RISK"
       ],
       "support": "unsupported",
       "proofSource": "unresolved",
@@ -17567,7 +17903,14 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId powercfg_hibernate_policy_34"
           }
         ]
-      }
+      },
+      "warningText": "Can break startup, resume, or hibernate behavior on some systems.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Rollback immediately if boot/resume issues appear."
     },
     {
       "id": "pm_powercfg_hibernate_policy_35",
@@ -17594,7 +17937,8 @@
         "UNDOCUMENTED",
         "UNSUPPORTED_ON_THIS_SYSTEM",
         "WAKE_BEHAVIOR",
-        "EXPERIMENTAL"
+        "EXPERIMENTAL",
+        "BOOT_RISK"
       ],
       "support": "unsupported",
       "proofSource": "unresolved",
@@ -17624,7 +17968,14 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId powercfg_hibernate_policy_35"
           }
         ]
-      }
+      },
+      "warningText": "Can break startup, resume, or hibernate behavior on some systems.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Rollback immediately if boot/resume issues appear."
     },
     {
       "id": "pm_powercfg_hibernate_policy_36",
@@ -17651,7 +18002,8 @@
         "UNDOCUMENTED",
         "UNSUPPORTED_ON_THIS_SYSTEM",
         "WAKE_BEHAVIOR",
-        "EXPERIMENTAL"
+        "EXPERIMENTAL",
+        "BOOT_RISK"
       ],
       "support": "unsupported",
       "proofSource": "unresolved",
@@ -17681,7 +18033,14 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId powercfg_hibernate_policy_36"
           }
         ]
-      }
+      },
+      "warningText": "Can break startup, resume, or hibernate behavior on some systems.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Rollback immediately if boot/resume issues appear."
     },
     {
       "id": "pm_powercfg_hibernate_policy_37",
@@ -17708,7 +18067,8 @@
         "UNDOCUMENTED",
         "UNSUPPORTED_ON_THIS_SYSTEM",
         "WAKE_BEHAVIOR",
-        "EXPERIMENTAL"
+        "EXPERIMENTAL",
+        "BOOT_RISK"
       ],
       "support": "unsupported",
       "proofSource": "unresolved",
@@ -17738,7 +18098,14 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId powercfg_hibernate_policy_37"
           }
         ]
-      }
+      },
+      "warningText": "Can break startup, resume, or hibernate behavior on some systems.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Rollback immediately if boot/resume issues appear."
     },
     {
       "id": "pm_powercfg_hibernate_policy_38",
@@ -17765,7 +18132,8 @@
         "UNDOCUMENTED",
         "UNSUPPORTED_ON_THIS_SYSTEM",
         "WAKE_BEHAVIOR",
-        "EXPERIMENTAL"
+        "EXPERIMENTAL",
+        "BOOT_RISK"
       ],
       "support": "unsupported",
       "proofSource": "unresolved",
@@ -17795,7 +18163,14 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId powercfg_hibernate_policy_38"
           }
         ]
-      }
+      },
+      "warningText": "Can break startup, resume, or hibernate behavior on some systems.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Rollback immediately if boot/resume issues appear."
     },
     {
       "id": "pm_powercfg_hibernate_policy_39",
@@ -17822,7 +18197,8 @@
         "UNDOCUMENTED",
         "UNSUPPORTED_ON_THIS_SYSTEM",
         "WAKE_BEHAVIOR",
-        "EXPERIMENTAL"
+        "EXPERIMENTAL",
+        "BOOT_RISK"
       ],
       "support": "unsupported",
       "proofSource": "unresolved",
@@ -17852,7 +18228,14 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId powercfg_hibernate_policy_39"
           }
         ]
-      }
+      },
+      "warningText": "Can break startup, resume, or hibernate behavior on some systems.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Rollback immediately if boot/resume issues appear."
     },
     {
       "id": "pm_powercfg_wake_policy_1",
@@ -20115,7 +20498,8 @@
         "CONDITIONAL_HARDWARE",
         "EXPERIMENTAL",
         "NETWORK_POWER",
-        "SYSTEM_WIDE"
+        "SYSTEM_WIDE",
+        "DEVICE_DISCONNECT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -20145,7 +20529,13 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_advanced_eee"
           }
         ]
-      }
+      },
+      "warningText": "Can cause USB mouse/keyboard/controller or NIC disconnects and delayed reconnects.",
+      "riskNotes": [
+        "Can cause USB/HID/Bluetooth/NIC disconnects, delayed reconnects, or wake failures."
+      ],
+      "requiresTypedConfirm": false,
+      "rollbackNotes": "Revert if devices disconnect, miss wake events, or reconnect slowly."
     },
     {
       "id": "pm_nic_system_idle_power_saver",
@@ -20170,7 +20560,8 @@
         "CONDITIONAL_HARDWARE",
         "EXPERIMENTAL",
         "NETWORK_POWER",
-        "SYSTEM_WIDE"
+        "SYSTEM_WIDE",
+        "DEVICE_DISCONNECT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -20200,7 +20591,13 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_system_idle_power_saver"
           }
         ]
-      }
+      },
+      "warningText": "Can cause USB mouse/keyboard/controller or NIC disconnects and delayed reconnects.",
+      "riskNotes": [
+        "Can cause USB/HID/Bluetooth/NIC disconnects, delayed reconnects, or wake failures."
+      ],
+      "requiresTypedConfirm": false,
+      "rollbackNotes": "Revert if devices disconnect, miss wake events, or reconnect slowly."
     },
     {
       "id": "pm_nic_wake_on_link_change",
@@ -20226,7 +20623,8 @@
         "EXPERIMENTAL",
         "NETWORK_POWER",
         "SYSTEM_WIDE",
-        "WAKE_BEHAVIOR"
+        "WAKE_BEHAVIOR",
+        "DEVICE_DISCONNECT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -20256,7 +20654,13 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_wake_on_link_change"
           }
         ]
-      }
+      },
+      "warningText": "Can cause USB mouse/keyboard/controller or NIC disconnects and delayed reconnects.",
+      "riskNotes": [
+        "Can cause USB/HID/Bluetooth/NIC disconnects, delayed reconnects, or wake failures."
+      ],
+      "requiresTypedConfirm": false,
+      "rollbackNotes": "Revert if devices disconnect, miss wake events, or reconnect slowly."
     },
     {
       "id": "pm_nic_interrupt_moderation",
@@ -20281,7 +20685,8 @@
         "CONDITIONAL_HARDWARE",
         "EXPERIMENTAL",
         "NETWORK_POWER",
-        "SYSTEM_WIDE"
+        "SYSTEM_WIDE",
+        "DEVICE_DISCONNECT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -20311,7 +20716,13 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_interrupt_moderation"
           }
         ]
-      }
+      },
+      "warningText": "Can cause USB mouse/keyboard/controller or NIC disconnects and delayed reconnects.",
+      "riskNotes": [
+        "Can cause USB/HID/Bluetooth/NIC disconnects, delayed reconnects, or wake failures."
+      ],
+      "requiresTypedConfirm": false,
+      "rollbackNotes": "Revert if devices disconnect, miss wake events, or reconnect slowly."
     },
     {
       "id": "pm_nic_adaptive_interframe_spacing",
@@ -20336,7 +20747,8 @@
         "CONDITIONAL_HARDWARE",
         "EXPERIMENTAL",
         "NETWORK_POWER",
-        "SYSTEM_WIDE"
+        "SYSTEM_WIDE",
+        "DEVICE_DISCONNECT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -20366,7 +20778,13 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_adaptive_interframe_spacing"
           }
         ]
-      }
+      },
+      "warningText": "Can cause USB mouse/keyboard/controller or NIC disconnects and delayed reconnects.",
+      "riskNotes": [
+        "Can cause USB/HID/Bluetooth/NIC disconnects, delayed reconnects, or wake failures."
+      ],
+      "requiresTypedConfirm": false,
+      "rollbackNotes": "Revert if devices disconnect, miss wake events, or reconnect slowly."
     },
     {
       "id": "pm_nic_phy_power_saving",
@@ -20392,7 +20810,8 @@
         "EXPERIMENTAL",
         "NETWORK_POWER",
         "POWER_SAVING_DISABLED",
-        "SYSTEM_WIDE"
+        "SYSTEM_WIDE",
+        "DEVICE_DISCONNECT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -20422,7 +20841,13 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_phy_power_saving"
           }
         ]
-      }
+      },
+      "warningText": "Can cause USB mouse/keyboard/controller or NIC disconnects and delayed reconnects.",
+      "riskNotes": [
+        "Can cause USB/HID/Bluetooth/NIC disconnects, delayed reconnects, or wake failures."
+      ],
+      "requiresTypedConfirm": false,
+      "rollbackNotes": "Revert if devices disconnect, miss wake events, or reconnect slowly."
     },
     {
       "id": "pm_nic_link_down_power_saving",
@@ -20448,7 +20873,8 @@
         "EXPERIMENTAL",
         "NETWORK_POWER",
         "POWER_SAVING_DISABLED",
-        "SYSTEM_WIDE"
+        "SYSTEM_WIDE",
+        "DEVICE_DISCONNECT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -20478,7 +20904,13 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_link_down_power_saving"
           }
         ]
-      }
+      },
+      "warningText": "Can cause USB mouse/keyboard/controller or NIC disconnects and delayed reconnects.",
+      "riskNotes": [
+        "Can cause USB/HID/Bluetooth/NIC disconnects, delayed reconnects, or wake failures."
+      ],
+      "requiresTypedConfirm": false,
+      "rollbackNotes": "Revert if devices disconnect, miss wake events, or reconnect slowly."
     },
     {
       "id": "pm_nic_link_idle_power_saving",
@@ -20504,7 +20936,8 @@
         "EXPERIMENTAL",
         "NETWORK_POWER",
         "POWER_SAVING_DISABLED",
-        "SYSTEM_WIDE"
+        "SYSTEM_WIDE",
+        "DEVICE_DISCONNECT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -20534,7 +20967,13 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_link_idle_power_saving"
           }
         ]
-      }
+      },
+      "warningText": "Can cause USB mouse/keyboard/controller or NIC disconnects and delayed reconnects.",
+      "riskNotes": [
+        "Can cause USB/HID/Bluetooth/NIC disconnects, delayed reconnects, or wake failures."
+      ],
+      "requiresTypedConfirm": false,
+      "rollbackNotes": "Revert if devices disconnect, miss wake events, or reconnect slowly."
     },
     {
       "id": "pm_nic_smart_power_down",
@@ -20559,7 +20998,8 @@
         "CONDITIONAL_HARDWARE",
         "EXPERIMENTAL",
         "NETWORK_POWER",
-        "SYSTEM_WIDE"
+        "SYSTEM_WIDE",
+        "DEVICE_DISCONNECT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -20589,7 +21029,13 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_smart_power_down"
           }
         ]
-      }
+      },
+      "warningText": "Can cause USB mouse/keyboard/controller or NIC disconnects and delayed reconnects.",
+      "riskNotes": [
+        "Can cause USB/HID/Bluetooth/NIC disconnects, delayed reconnects, or wake failures."
+      ],
+      "requiresTypedConfirm": false,
+      "rollbackNotes": "Revert if devices disconnect, miss wake events, or reconnect slowly."
     },
     {
       "id": "pm_nic_energy_detect",
@@ -20614,7 +21060,8 @@
         "CONDITIONAL_HARDWARE",
         "EXPERIMENTAL",
         "NETWORK_POWER",
-        "SYSTEM_WIDE"
+        "SYSTEM_WIDE",
+        "DEVICE_DISCONNECT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -20644,7 +21091,13 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_energy_detect"
           }
         ]
-      }
+      },
+      "warningText": "Can cause USB mouse/keyboard/controller or NIC disconnects and delayed reconnects.",
+      "riskNotes": [
+        "Can cause USB/HID/Bluetooth/NIC disconnects, delayed reconnects, or wake failures."
+      ],
+      "requiresTypedConfirm": false,
+      "rollbackNotes": "Revert if devices disconnect, miss wake events, or reconnect slowly."
     },
     {
       "id": "pm_nic_network_adapter_idle_timeout",
@@ -20669,7 +21122,8 @@
         "CONDITIONAL_HARDWARE",
         "EXPERIMENTAL",
         "NETWORK_POWER",
-        "SYSTEM_WIDE"
+        "SYSTEM_WIDE",
+        "DEVICE_DISCONNECT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -20699,7 +21153,13 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_network_adapter_idle_timeout"
           }
         ]
-      }
+      },
+      "warningText": "Can cause USB mouse/keyboard/controller or NIC disconnects and delayed reconnects.",
+      "riskNotes": [
+        "Can cause USB/HID/Bluetooth/NIC disconnects, delayed reconnects, or wake failures."
+      ],
+      "requiresTypedConfirm": false,
+      "rollbackNotes": "Revert if devices disconnect, miss wake events, or reconnect slowly."
     },
     {
       "id": "pm_nic_network_adapter_deep_sleep",
@@ -20726,7 +21186,8 @@
         "EXPERIMENTAL",
         "NETWORK_POWER",
         "SYSTEM_WIDE",
-        "WAKE_BEHAVIOR"
+        "WAKE_BEHAVIOR",
+        "DEVICE_DISCONNECT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -20756,7 +21217,13 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_network_adapter_deep_sleep"
           }
         ]
-      }
+      },
+      "warningText": "Can cause USB mouse/keyboard/controller or NIC disconnects and delayed reconnects.",
+      "riskNotes": [
+        "Can cause USB/HID/Bluetooth/NIC disconnects, delayed reconnects, or wake failures."
+      ],
+      "requiresTypedConfirm": false,
+      "rollbackNotes": "Revert if devices disconnect, miss wake events, or reconnect slowly."
     },
     {
       "id": "pm_nic_network_adapter_energy_policy",
@@ -20781,7 +21248,8 @@
         "CONDITIONAL_HARDWARE",
         "EXPERIMENTAL",
         "NETWORK_POWER",
-        "SYSTEM_WIDE"
+        "SYSTEM_WIDE",
+        "DEVICE_DISCONNECT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -20811,7 +21279,13 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_network_adapter_energy_policy"
           }
         ]
-      }
+      },
+      "warningText": "Can cause USB mouse/keyboard/controller or NIC disconnects and delayed reconnects.",
+      "riskNotes": [
+        "Can cause USB/HID/Bluetooth/NIC disconnects, delayed reconnects, or wake failures."
+      ],
+      "requiresTypedConfirm": false,
+      "rollbackNotes": "Revert if devices disconnect, miss wake events, or reconnect slowly."
     },
     {
       "id": "pm_nic_network_adapter_wake_latency",
@@ -20838,7 +21312,8 @@
         "LATENCY_RESPONSIVENESS",
         "NETWORK_POWER",
         "SYSTEM_WIDE",
-        "WAKE_BEHAVIOR"
+        "WAKE_BEHAVIOR",
+        "DEVICE_DISCONNECT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -20868,7 +21343,13 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_network_adapter_wake_latency"
           }
         ]
-      }
+      },
+      "warningText": "Can cause USB mouse/keyboard/controller or NIC disconnects and delayed reconnects.",
+      "riskNotes": [
+        "Can cause USB/HID/Bluetooth/NIC disconnects, delayed reconnects, or wake failures."
+      ],
+      "requiresTypedConfirm": false,
+      "rollbackNotes": "Revert if devices disconnect, miss wake events, or reconnect slowly."
     },
     {
       "id": "pm_nic_network_adapter_standby_policy",
@@ -20895,7 +21376,9 @@
         "EXPERIMENTAL",
         "NETWORK_POWER",
         "SYSTEM_WIDE",
-        "WAKE_BEHAVIOR"
+        "WAKE_BEHAVIOR",
+        "BOOT_RISK",
+        "DEVICE_DISCONNECT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -20925,7 +21408,15 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_network_adapter_standby_policy"
           }
         ]
-      }
+      },
+      "warningText": "Can break startup, resume, or hibernate behavior on some systems.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode.",
+        "Can cause USB/HID/Bluetooth/NIC disconnects, delayed reconnects, or wake failures."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Rollback immediately if boot/resume issues appear."
     },
     {
       "id": "pm_nic_network_adapter_dynamic_power",
@@ -20950,7 +21441,8 @@
         "CONDITIONAL_HARDWARE",
         "EXPERIMENTAL",
         "NETWORK_POWER",
-        "SYSTEM_WIDE"
+        "SYSTEM_WIDE",
+        "DEVICE_DISCONNECT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -20980,7 +21472,13 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_network_adapter_dynamic_power"
           }
         ]
-      }
+      },
+      "warningText": "Can cause USB mouse/keyboard/controller or NIC disconnects and delayed reconnects.",
+      "riskNotes": [
+        "Can cause USB/HID/Bluetooth/NIC disconnects, delayed reconnects, or wake failures."
+      ],
+      "requiresTypedConfirm": false,
+      "rollbackNotes": "Revert if devices disconnect, miss wake events, or reconnect slowly."
     },
     {
       "id": "pm_nic_network_adapter_clock_gating",
@@ -21005,7 +21503,8 @@
         "CONDITIONAL_HARDWARE",
         "EXPERIMENTAL",
         "NETWORK_POWER",
-        "SYSTEM_WIDE"
+        "SYSTEM_WIDE",
+        "DEVICE_DISCONNECT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -21035,7 +21534,13 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_network_adapter_clock_gating"
           }
         ]
-      }
+      },
+      "warningText": "Can cause USB mouse/keyboard/controller or NIC disconnects and delayed reconnects.",
+      "riskNotes": [
+        "Can cause USB/HID/Bluetooth/NIC disconnects, delayed reconnects, or wake failures."
+      ],
+      "requiresTypedConfirm": false,
+      "rollbackNotes": "Revert if devices disconnect, miss wake events, or reconnect slowly."
     },
     {
       "id": "pm_nic_network_adapter_power_budget",
@@ -21060,7 +21565,8 @@
         "CONDITIONAL_HARDWARE",
         "EXPERIMENTAL",
         "NETWORK_POWER",
-        "SYSTEM_WIDE"
+        "SYSTEM_WIDE",
+        "DEVICE_DISCONNECT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -21090,7 +21596,13 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_network_adapter_power_budget"
           }
         ]
-      }
+      },
+      "warningText": "Can cause USB mouse/keyboard/controller or NIC disconnects and delayed reconnects.",
+      "riskNotes": [
+        "Can cause USB/HID/Bluetooth/NIC disconnects, delayed reconnects, or wake failures."
+      ],
+      "requiresTypedConfirm": false,
+      "rollbackNotes": "Revert if devices disconnect, miss wake events, or reconnect slowly."
     },
     {
       "id": "pm_nic_network_adapter_throughput_scaling",
@@ -21115,7 +21627,8 @@
         "CONDITIONAL_HARDWARE",
         "EXPERIMENTAL",
         "NETWORK_POWER",
-        "SYSTEM_WIDE"
+        "SYSTEM_WIDE",
+        "DEVICE_DISCONNECT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -21145,7 +21658,13 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_network_adapter_throughput_scaling"
           }
         ]
-      }
+      },
+      "warningText": "Can cause USB mouse/keyboard/controller or NIC disconnects and delayed reconnects.",
+      "riskNotes": [
+        "Can cause USB/HID/Bluetooth/NIC disconnects, delayed reconnects, or wake failures."
+      ],
+      "requiresTypedConfirm": false,
+      "rollbackNotes": "Revert if devices disconnect, miss wake events, or reconnect slowly."
     },
     {
       "id": "pm_nic_network_adapter_packet_coalescing",
@@ -21170,7 +21689,8 @@
         "CONDITIONAL_HARDWARE",
         "EXPERIMENTAL",
         "NETWORK_POWER",
-        "SYSTEM_WIDE"
+        "SYSTEM_WIDE",
+        "DEVICE_DISCONNECT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -21200,7 +21720,13 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_network_adapter_packet_coalescing"
           }
         ]
-      }
+      },
+      "warningText": "Can cause USB mouse/keyboard/controller or NIC disconnects and delayed reconnects.",
+      "riskNotes": [
+        "Can cause USB/HID/Bluetooth/NIC disconnects, delayed reconnects, or wake failures."
+      ],
+      "requiresTypedConfirm": false,
+      "rollbackNotes": "Revert if devices disconnect, miss wake events, or reconnect slowly."
     },
     {
       "id": "pm_nic_network_adapter_phy_sleep",
@@ -21227,7 +21753,8 @@
         "EXPERIMENTAL",
         "NETWORK_POWER",
         "SYSTEM_WIDE",
-        "WAKE_BEHAVIOR"
+        "WAKE_BEHAVIOR",
+        "DEVICE_DISCONNECT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -21257,7 +21784,13 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_network_adapter_phy_sleep"
           }
         ]
-      }
+      },
+      "warningText": "Can cause USB mouse/keyboard/controller or NIC disconnects and delayed reconnects.",
+      "riskNotes": [
+        "Can cause USB/HID/Bluetooth/NIC disconnects, delayed reconnects, or wake failures."
+      ],
+      "requiresTypedConfirm": false,
+      "rollbackNotes": "Revert if devices disconnect, miss wake events, or reconnect slowly."
     },
     {
       "id": "pm_nic_network_adapter_phy_standby",
@@ -21284,7 +21817,9 @@
         "EXPERIMENTAL",
         "NETWORK_POWER",
         "SYSTEM_WIDE",
-        "WAKE_BEHAVIOR"
+        "WAKE_BEHAVIOR",
+        "BOOT_RISK",
+        "DEVICE_DISCONNECT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -21314,7 +21849,15 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_network_adapter_phy_standby"
           }
         ]
-      }
+      },
+      "warningText": "Can break startup, resume, or hibernate behavior on some systems.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode.",
+        "Can cause USB/HID/Bluetooth/NIC disconnects, delayed reconnects, or wake failures."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Rollback immediately if boot/resume issues appear."
     },
     {
       "id": "pm_nic_network_adapter_phy_energy_policy",
@@ -21339,7 +21882,8 @@
         "CONDITIONAL_HARDWARE",
         "EXPERIMENTAL",
         "NETWORK_POWER",
-        "SYSTEM_WIDE"
+        "SYSTEM_WIDE",
+        "DEVICE_DISCONNECT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -21369,7 +21913,13 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_network_adapter_phy_energy_policy"
           }
         ]
-      }
+      },
+      "warningText": "Can cause USB mouse/keyboard/controller or NIC disconnects and delayed reconnects.",
+      "riskNotes": [
+        "Can cause USB/HID/Bluetooth/NIC disconnects, delayed reconnects, or wake failures."
+      ],
+      "requiresTypedConfirm": false,
+      "rollbackNotes": "Revert if devices disconnect, miss wake events, or reconnect slowly."
     },
     {
       "id": "pm_nic_network_adapter_phy_dynamic_power",
@@ -21394,7 +21944,8 @@
         "CONDITIONAL_HARDWARE",
         "EXPERIMENTAL",
         "NETWORK_POWER",
-        "SYSTEM_WIDE"
+        "SYSTEM_WIDE",
+        "DEVICE_DISCONNECT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -21424,7 +21975,13 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_network_adapter_phy_dynamic_power"
           }
         ]
-      }
+      },
+      "warningText": "Can cause USB mouse/keyboard/controller or NIC disconnects and delayed reconnects.",
+      "riskNotes": [
+        "Can cause USB/HID/Bluetooth/NIC disconnects, delayed reconnects, or wake failures."
+      ],
+      "requiresTypedConfirm": false,
+      "rollbackNotes": "Revert if devices disconnect, miss wake events, or reconnect slowly."
     },
     {
       "id": "pm_nic_network_adapter_phy_clock_gating",
@@ -21449,7 +22006,8 @@
         "CONDITIONAL_HARDWARE",
         "EXPERIMENTAL",
         "NETWORK_POWER",
-        "SYSTEM_WIDE"
+        "SYSTEM_WIDE",
+        "DEVICE_DISCONNECT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -21479,7 +22037,13 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_network_adapter_phy_clock_gating"
           }
         ]
-      }
+      },
+      "warningText": "Can cause USB mouse/keyboard/controller or NIC disconnects and delayed reconnects.",
+      "riskNotes": [
+        "Can cause USB/HID/Bluetooth/NIC disconnects, delayed reconnects, or wake failures."
+      ],
+      "requiresTypedConfirm": false,
+      "rollbackNotes": "Revert if devices disconnect, miss wake events, or reconnect slowly."
     },
     {
       "id": "pm_nic_network_adapter_phy_wake_policy",
@@ -21505,7 +22069,8 @@
         "EXPERIMENTAL",
         "NETWORK_POWER",
         "SYSTEM_WIDE",
-        "WAKE_BEHAVIOR"
+        "WAKE_BEHAVIOR",
+        "DEVICE_DISCONNECT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -21535,7 +22100,13 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_network_adapter_phy_wake_policy"
           }
         ]
-      }
+      },
+      "warningText": "Can cause USB mouse/keyboard/controller or NIC disconnects and delayed reconnects.",
+      "riskNotes": [
+        "Can cause USB/HID/Bluetooth/NIC disconnects, delayed reconnects, or wake failures."
+      ],
+      "requiresTypedConfirm": false,
+      "rollbackNotes": "Revert if devices disconnect, miss wake events, or reconnect slowly."
     },
     {
       "id": "pm_device_nic_allowcomputertoturnoffdevice",
@@ -21560,7 +22131,8 @@
         "CONDITIONAL_HARDWARE",
         "EXPERIMENTAL",
         "NETWORK_POWER",
-        "SYSTEM_WIDE"
+        "SYSTEM_WIDE",
+        "DEVICE_DISCONNECT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -21590,7 +22162,13 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId device_nic_allowcomputertoturnoffdevice"
           }
         ]
-      }
+      },
+      "warningText": "Can cause USB mouse/keyboard/controller or NIC disconnects and delayed reconnects.",
+      "riskNotes": [
+        "Can cause USB/HID/Bluetooth/NIC disconnects, delayed reconnects, or wake failures."
+      ],
+      "requiresTypedConfirm": false,
+      "rollbackNotes": "Revert if devices disconnect, miss wake events, or reconnect slowly."
     },
     {
       "id": "pm_device_usb_hub_allowcomputertoturnoffdevice",
@@ -21615,7 +22193,8 @@
         "CONDITIONAL_HARDWARE",
         "EXPERIMENTAL",
         "SYSTEM_WIDE",
-        "USB_POWER"
+        "USB_POWER",
+        "DEVICE_DISCONNECT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -21645,7 +22224,13 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId device_usb_hub_allowcomputertoturnoffdevice"
           }
         ]
-      }
+      },
+      "warningText": "Can cause USB mouse/keyboard/controller or NIC disconnects and delayed reconnects.",
+      "riskNotes": [
+        "Can cause USB/HID/Bluetooth/NIC disconnects, delayed reconnects, or wake failures."
+      ],
+      "requiresTypedConfirm": false,
+      "rollbackNotes": "Revert if devices disconnect, miss wake events, or reconnect slowly."
     },
     {
       "id": "pm_device_usb_root_hub_allowcomputertoturnoffdevice",
@@ -21670,7 +22255,8 @@
         "CONDITIONAL_HARDWARE",
         "EXPERIMENTAL",
         "SYSTEM_WIDE",
-        "USB_POWER"
+        "USB_POWER",
+        "DEVICE_DISCONNECT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -21700,7 +22286,13 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId device_usb_root_hub_allowcomputertoturnoffdevice"
           }
         ]
-      }
+      },
+      "warningText": "Can cause USB mouse/keyboard/controller or NIC disconnects and delayed reconnects.",
+      "riskNotes": [
+        "Can cause USB/HID/Bluetooth/NIC disconnects, delayed reconnects, or wake failures."
+      ],
+      "requiresTypedConfirm": false,
+      "rollbackNotes": "Revert if devices disconnect, miss wake events, or reconnect slowly."
     },
     {
       "id": "pm_device_usb_controller_allowcomputertoturnoffdevice",
@@ -21725,7 +22317,8 @@
         "CONDITIONAL_HARDWARE",
         "EXPERIMENTAL",
         "SYSTEM_WIDE",
-        "USB_POWER"
+        "USB_POWER",
+        "DEVICE_DISCONNECT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -21755,7 +22348,13 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId device_usb_controller_allowcomputertoturnoffdevice"
           }
         ]
-      }
+      },
+      "warningText": "Can cause USB mouse/keyboard/controller or NIC disconnects and delayed reconnects.",
+      "riskNotes": [
+        "Can cause USB/HID/Bluetooth/NIC disconnects, delayed reconnects, or wake failures."
+      ],
+      "requiresTypedConfirm": false,
+      "rollbackNotes": "Revert if devices disconnect, miss wake events, or reconnect slowly."
     },
     {
       "id": "pm_device_bluetooth_radio_allowcomputertoturnoffdevice",
@@ -21834,7 +22433,8 @@
         "CONDITIONAL_HARDWARE",
         "EXPERIMENTAL",
         "SYSTEM_WIDE",
-        "USB_POWER"
+        "USB_POWER",
+        "DEVICE_DISCONNECT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -21864,7 +22464,13 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId device_hid_keyboard_allowcomputertoturnoffdevice"
           }
         ]
-      }
+      },
+      "warningText": "Can cause USB mouse/keyboard/controller or NIC disconnects and delayed reconnects.",
+      "riskNotes": [
+        "Can cause USB/HID/Bluetooth/NIC disconnects, delayed reconnects, or wake failures."
+      ],
+      "requiresTypedConfirm": false,
+      "rollbackNotes": "Revert if devices disconnect, miss wake events, or reconnect slowly."
     },
     {
       "id": "pm_device_hid_mouse_allowcomputertoturnoffdevice",
@@ -21889,7 +22495,8 @@
         "CONDITIONAL_HARDWARE",
         "EXPERIMENTAL",
         "SYSTEM_WIDE",
-        "USB_POWER"
+        "USB_POWER",
+        "DEVICE_DISCONNECT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -21919,7 +22526,13 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId device_hid_mouse_allowcomputertoturnoffdevice"
           }
         ]
-      }
+      },
+      "warningText": "Can cause USB mouse/keyboard/controller or NIC disconnects and delayed reconnects.",
+      "riskNotes": [
+        "Can cause USB/HID/Bluetooth/NIC disconnects, delayed reconnects, or wake failures."
+      ],
+      "requiresTypedConfirm": false,
+      "rollbackNotes": "Revert if devices disconnect, miss wake events, or reconnect slowly."
     },
     {
       "id": "pm_device_camera_allowcomputertoturnoffdevice",
@@ -21943,7 +22556,8 @@
       "badges": [
         "CONDITIONAL_HARDWARE",
         "EXPERIMENTAL",
-        "SYSTEM_WIDE"
+        "SYSTEM_WIDE",
+        "DEVICE_DISCONNECT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -21973,7 +22587,13 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId device_camera_allowcomputertoturnoffdevice"
           }
         ]
-      }
+      },
+      "warningText": "Can cause USB mouse/keyboard/controller or NIC disconnects and delayed reconnects.",
+      "riskNotes": [
+        "Can cause USB/HID/Bluetooth/NIC disconnects, delayed reconnects, or wake failures."
+      ],
+      "requiresTypedConfirm": false,
+      "rollbackNotes": "Revert if devices disconnect, miss wake events, or reconnect slowly."
     },
     {
       "id": "pm_device_sensor_allowcomputertoturnoffdevice",
@@ -22436,7 +23056,9 @@
         "EXPERIMENTAL",
         "STORAGE_POWER",
         "SYSTEM_WIDE",
-        "WAKE_BEHAVIOR"
+        "WAKE_BEHAVIOR",
+        "BLUESCREEN_RISK",
+        "BOOT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -22466,7 +23088,15 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId storage_nvme_controller_sleep"
           }
         ]
-      }
+      },
+      "warningText": "Can trigger BSOD or boot failure on unsupported storage/NVMe drivers.",
+      "riskNotes": [
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations.",
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Use rollback from this card or restore previous storage power values before rebooting."
     },
     {
       "id": "pm_storage_nvme_host_power_management",
@@ -22491,7 +23121,9 @@
         "CONDITIONAL_HARDWARE",
         "EXPERIMENTAL",
         "STORAGE_POWER",
-        "SYSTEM_WIDE"
+        "SYSTEM_WIDE",
+        "BLUESCREEN_RISK",
+        "BOOT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -22521,7 +23153,15 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId storage_nvme_host_power_management"
           }
         ]
-      }
+      },
+      "warningText": "Can trigger BSOD or boot failure on unsupported storage/NVMe drivers.",
+      "riskNotes": [
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations.",
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Use rollback from this card or restore previous storage power values before rebooting."
     },
     {
       "id": "pm_storage_nvme_latency_tolerance",
@@ -22547,7 +23187,9 @@
         "EXPERIMENTAL",
         "LATENCY_RESPONSIVENESS",
         "STORAGE_POWER",
-        "SYSTEM_WIDE"
+        "SYSTEM_WIDE",
+        "BLUESCREEN_RISK",
+        "BOOT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -22577,7 +23219,15 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId storage_nvme_latency_tolerance"
           }
         ]
-      }
+      },
+      "warningText": "Can trigger BSOD or boot failure on unsupported storage/NVMe drivers.",
+      "riskNotes": [
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations.",
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Use rollback from this card or restore previous storage power values before rebooting."
     },
     {
       "id": "pm_storage_nvme_deep_sleep",
@@ -22604,7 +23254,9 @@
         "EXPERIMENTAL",
         "STORAGE_POWER",
         "SYSTEM_WIDE",
-        "WAKE_BEHAVIOR"
+        "WAKE_BEHAVIOR",
+        "BLUESCREEN_RISK",
+        "BOOT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -22634,7 +23286,15 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId storage_nvme_deep_sleep"
           }
         ]
-      }
+      },
+      "warningText": "Can trigger BSOD or boot failure on unsupported storage/NVMe drivers.",
+      "riskNotes": [
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations.",
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Use rollback from this card or restore previous storage power values before rebooting."
     },
     {
       "id": "pm_storage_nvme_performance_state_policy",
@@ -22659,7 +23319,9 @@
         "CONDITIONAL_HARDWARE",
         "EXPERIMENTAL",
         "STORAGE_POWER",
-        "SYSTEM_WIDE"
+        "SYSTEM_WIDE",
+        "BLUESCREEN_RISK",
+        "BOOT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -22689,7 +23351,15 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId storage_nvme_performance_state_policy"
           }
         ]
-      }
+      },
+      "warningText": "Can trigger BSOD or boot failure on unsupported storage/NVMe drivers.",
+      "riskNotes": [
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations.",
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Use rollback from this card or restore previous storage power values before rebooting."
     },
     {
       "id": "pm_storage_nvme_thermal_power_scaling",
@@ -22714,7 +23384,9 @@
         "CONDITIONAL_HARDWARE",
         "EXPERIMENTAL",
         "STORAGE_POWER",
-        "SYSTEM_WIDE"
+        "SYSTEM_WIDE",
+        "BLUESCREEN_RISK",
+        "BOOT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -22744,7 +23416,15 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId storage_nvme_thermal_power_scaling"
           }
         ]
-      }
+      },
+      "warningText": "Can trigger BSOD or boot failure on unsupported storage/NVMe drivers.",
+      "riskNotes": [
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations.",
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Use rollback from this card or restore previous storage power values before rebooting."
     },
     {
       "id": "pm_storage_ahci_link_power_management",
@@ -22769,7 +23449,9 @@
         "CONDITIONAL_HARDWARE",
         "EXPERIMENTAL",
         "STORAGE_POWER",
-        "SYSTEM_WIDE"
+        "SYSTEM_WIDE",
+        "BLUESCREEN_RISK",
+        "BOOT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -22799,7 +23481,15 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId storage_ahci_link_power_management"
           }
         ]
-      }
+      },
+      "warningText": "Can trigger BSOD or boot failure on unsupported storage/NVMe drivers.",
+      "riskNotes": [
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations.",
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Use rollback from this card or restore previous storage power values before rebooting."
     },
     {
       "id": "pm_storage_sata_hipm",
@@ -22824,7 +23514,9 @@
         "CONDITIONAL_HARDWARE",
         "EXPERIMENTAL",
         "STORAGE_POWER",
-        "SYSTEM_WIDE"
+        "SYSTEM_WIDE",
+        "BLUESCREEN_RISK",
+        "BOOT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -22854,7 +23546,15 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId storage_sata_hipm"
           }
         ]
-      }
+      },
+      "warningText": "Can trigger BSOD or boot failure on unsupported storage/NVMe drivers.",
+      "riskNotes": [
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations.",
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Use rollback from this card or restore previous storage power values before rebooting."
     },
     {
       "id": "pm_storage_sata_dipm",
@@ -22879,7 +23579,9 @@
         "CONDITIONAL_HARDWARE",
         "EXPERIMENTAL",
         "STORAGE_POWER",
-        "SYSTEM_WIDE"
+        "SYSTEM_WIDE",
+        "BLUESCREEN_RISK",
+        "BOOT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -22909,7 +23611,15 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId storage_sata_dipm"
           }
         ]
-      }
+      },
+      "warningText": "Can trigger BSOD or boot failure on unsupported storage/NVMe drivers.",
+      "riskNotes": [
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations.",
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Use rollback from this card or restore previous storage power values before rebooting."
     },
     {
       "id": "pm_storage_storage_device_spin_down",

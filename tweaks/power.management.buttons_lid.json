@@ -23,7 +23,8 @@
         "BATTERY_NEGATIVE",
         "SYSTEM_WIDE",
         "WAKE_BEHAVIOR",
-        "TRUSTED"
+        "TRUSTED",
+        "BOOT_RISK"
       ],
       "support": "supported",
       "proofSource": "registry_path_mapping",
@@ -53,7 +54,14 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId registry_allow_standby_states"
           }
         ]
-      }
+      },
+      "warningText": "Can break startup, resume, or hibernate behavior on some systems.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Rollback immediately if boot/resume issues appear."
     },
     {
       "id": "pm_registry_fast_startup",
@@ -76,7 +84,8 @@
       "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
       "badges": [
         "SYSTEM_WIDE",
-        "TRUSTED"
+        "TRUSTED",
+        "BOOT_RISK"
       ],
       "support": "supported",
       "proofSource": "registry_path_mapping",
@@ -106,7 +115,14 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId registry_fast_startup"
           }
         ]
-      }
+      },
+      "warningText": "Can break startup, resume, or hibernate behavior on some systems.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Rollback immediately if boot/resume issues appear."
     },
     {
       "id": "pm_registry_connected_standby_policy",
@@ -131,7 +147,8 @@
         "BATTERY_NEGATIVE",
         "SYSTEM_WIDE",
         "WAKE_BEHAVIOR",
-        "TRUSTED"
+        "TRUSTED",
+        "BOOT_RISK"
       ],
       "support": "supported",
       "proofSource": "registry_path_mapping",
@@ -161,7 +178,14 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId registry_connected_standby_policy"
           }
         ]
-      }
+      },
+      "warningText": "Can break startup, resume, or hibernate behavior on some systems.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Rollback immediately if boot/resume issues appear."
     }
   ]
 }

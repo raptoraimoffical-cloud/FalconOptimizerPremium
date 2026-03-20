@@ -169,7 +169,12 @@
       },
       {
         "type": "reg_add",
-        "raw": "reg add \"HKCU\\Control Panel\\Desktop\" /v \"UserPreferencesMask\" /t REG_BINARY /d \"9012038010000000\" /f >nul 2>&1"
+        "raw": "reg add \"HKCU\\Control Panel\\Desktop\" /v \"UserPreferencesMask\" /t REG_BINARY /d \"9012038010000000\" /f >nul 2>&1",
+        "safety": {
+          "status": "quarantined_legacy",
+          "reason": "UI_BUG_RISK duplicate legacy write; use hardened Falcon tweak with backup/restore.",
+          "excludeFromBroadPresets": true
+        }
       },
       {
         "type": "reg_add",
@@ -293,7 +298,12 @@
       },
       {
         "type": "reg_add",
-        "raw": "reg add \"HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\GameDVR\" /v \"CursorCaptureEnabled\" /t REG_DWORD /d \"0\" /f >nul 2>&1"
+        "raw": "reg add \"HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\GameDVR\" /v \"CursorCaptureEnabled\" /t REG_DWORD /d \"0\" /f >nul 2>&1",
+        "safety": {
+          "status": "quarantined_legacy",
+          "reason": "UI_BUG_RISK duplicate legacy write; use hardened Falcon tweak with backup/restore.",
+          "excludeFromBroadPresets": true
+        }
       },
       {
         "type": "reg_add",
@@ -2045,15 +2055,30 @@
       },
       {
         "type": "bcdedit",
-        "raw": "bcdedit /deletevalue useplatformclock >nul 2>&1"
+        "raw": "bcdedit /deletevalue useplatformclock >nul 2>&1",
+        "safety": {
+          "status": "quarantined_legacy",
+          "reason": "BOOT_RISK duplicate legacy boot-path write; require explicit per-item execution.",
+          "excludeFromBroadPresets": true
+        }
       },
       {
         "type": "bcdedit",
-        "raw": "bcdedit /set useplatformtick no >nul 2>&1"
+        "raw": "bcdedit /set useplatformtick no >nul 2>&1",
+        "safety": {
+          "status": "quarantined_legacy",
+          "reason": "BOOT_RISK duplicate legacy boot-path write; require explicit per-item execution.",
+          "excludeFromBroadPresets": true
+        }
       },
       {
         "type": "bcdedit",
-        "raw": "bcdedit /set disabledynamictick yes >nul 2>&1"
+        "raw": "bcdedit /set disabledynamictick yes >nul 2>&1",
+        "safety": {
+          "status": "quarantined_legacy",
+          "reason": "BOOT_RISK duplicate legacy boot-path write; require explicit per-item execution.",
+          "excludeFromBroadPresets": true
+        }
       },
       {
         "type": "reg_add",
@@ -2348,5 +2373,9 @@
         "raw": "sc config TrustedInstaller start=disabled >nul 2>&1"
       }
     ]
+  },
+  "safetyHardening": {
+    "updatedAt": "2026-03-20T07:19:37.968Z",
+    "note": "Dangerous legacy duplicates are quarantined and excluded from broad presets."
   }
 }

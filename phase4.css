@@ -74,6 +74,17 @@ input:focus, select:focus, textarea:focus{
   letter-spacing: .01em;
 }
 
+.safety-warning-strip{
+  margin-top: 8px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,145,0,.45);
+  background: rgba(255,145,0,.12);
+  color: #ffe1b3;
+  font-size: 12px;
+  line-height: 1.35;
+}
+
 /* Subtle scrollbars */
 *{
   scrollbar-width: thin;
@@ -584,4 +595,3 @@ input::placeholder,
 textarea::placeholder{
   opacity:0.90 !important;
 }
-

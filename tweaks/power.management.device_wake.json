@@ -24,7 +24,8 @@
         "EXPERIMENTAL",
         "NETWORK_POWER",
         "SYSTEM_WIDE",
-        "WAKE_BEHAVIOR"
+        "WAKE_BEHAVIOR",
+        "DEVICE_DISCONNECT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -54,7 +55,13 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_wake_on_magic_packet"
           }
         ]
-      }
+      },
+      "warningText": "Can cause USB mouse/keyboard/controller or NIC disconnects and delayed reconnects.",
+      "riskNotes": [
+        "Can cause USB/HID/Bluetooth/NIC disconnects, delayed reconnects, or wake failures."
+      ],
+      "requiresTypedConfirm": false,
+      "rollbackNotes": "Revert if devices disconnect, miss wake events, or reconnect slowly."
     },
     {
       "id": "pm_nic_wake_on_pattern_match",
@@ -80,7 +87,8 @@
         "EXPERIMENTAL",
         "NETWORK_POWER",
         "SYSTEM_WIDE",
-        "WAKE_BEHAVIOR"
+        "WAKE_BEHAVIOR",
+        "DEVICE_DISCONNECT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -110,7 +118,13 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_wake_on_pattern_match"
           }
         ]
-      }
+      },
+      "warningText": "Can cause USB mouse/keyboard/controller or NIC disconnects and delayed reconnects.",
+      "riskNotes": [
+        "Can cause USB/HID/Bluetooth/NIC disconnects, delayed reconnects, or wake failures."
+      ],
+      "requiresTypedConfirm": false,
+      "rollbackNotes": "Revert if devices disconnect, miss wake events, or reconnect slowly."
     },
     {
       "id": "pm_registry_allow_wake_timers",
@@ -135,7 +149,8 @@
         "LATENCY_RESPONSIVENESS",
         "SYSTEM_WIDE",
         "WAKE_BEHAVIOR",
-        "TRUSTED"
+        "TRUSTED",
+        "BOOT_RISK"
       ],
       "support": "supported",
       "proofSource": "registry_path_mapping",
@@ -165,7 +180,14 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId registry_allow_wake_timers"
           }
         ]
-      }
+      },
+      "warningText": "Can break startup, resume, or hibernate behavior on some systems.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Rollback immediately if boot/resume issues appear."
     },
     {
       "id": "pm_registry_network_connectivity_in_standby",
@@ -190,7 +212,8 @@
         "BATTERY_NEGATIVE",
         "SYSTEM_WIDE",
         "WAKE_BEHAVIOR",
-        "TRUSTED"
+        "TRUSTED",
+        "BOOT_RISK"
       ],
       "support": "supported",
       "proofSource": "registry_path_mapping",
@@ -220,7 +243,14 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId registry_network_connectivity_in_standby"
           }
         ]
-      }
+      },
+      "warningText": "Can break startup, resume, or hibernate behavior on some systems.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Rollback immediately if boot/resume issues appear."
     }
   ]
 }

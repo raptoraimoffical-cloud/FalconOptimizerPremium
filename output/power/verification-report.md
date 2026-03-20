@@ -1,8 +1,12 @@
 # Power Verification Report
 
-Trust tier totals
+Generated: 2026-03-20T07:21:13.733Z
 
-- Tier 1 verified: 27
-- Tier 1 firmware advisory: 80
-- Tier 2 conditional hardware: 115
-- Tier 3 unresolved: 345
+- safety_badges_present: PASS
+- power_cards_warning_strip: PASS
+- typed_confirm_for_boot_bsod: PASS
+- cursor_userpreferencesmask_hardened: PASS
+- legacy_duplicate_quarantine: PASS
+
+## Notes
+- Verification is static metadata/UI verification; runtime hardware validation still required per-device.

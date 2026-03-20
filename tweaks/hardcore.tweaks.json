@@ -818,7 +818,14 @@
             "equals": 1
           }
         ]
-      }
+      },
+      "badges": [
+        "DEVICE_DISCONNECT_RISK"
+      ],
+      "warningText": "Can cause device disconnects or wake instability for USB/HID/Bluetooth/NIC hardware.",
+      "riskNotes": [
+        "Can cause USB/HID/Bluetooth/NIC disconnects, delayed reconnects, or wake failures."
+      ]
     },
     {
       "id": "hc_windows.core_core.timer_set",
@@ -5329,7 +5336,14 @@
             "equals": 1
           }
         ]
-      }
+      },
+      "badges": [
+        "DEVICE_DISCONNECT_RISK"
+      ],
+      "warningText": "Can cause device disconnects or wake instability for USB/HID/Bluetooth/NIC hardware.",
+      "riskNotes": [
+        "Can cause USB/HID/Bluetooth/NIC disconnects, delayed reconnects, or wake failures."
+      ]
     },
     {
       "id": "hc_hardware.peripherals_usb_disable_power_saving",
@@ -6179,7 +6193,7 @@
       "type": "button",
       "name": "Optimize Network Priority",
       "risk": "Warning",
-      "description": "[Focus: Latency / Input Delay, Ping / Network] Optimizes network provider order (Local \u2192 Hosts \u2192 DNS \u2192 NetBT).",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Optimizes network provider order (Local → Hosts → DNS → NetBT).",
       "requiresAdmin": true,
       "apply": {
         "steps": [
@@ -6842,7 +6856,7 @@
       "name": "Kill service: WlanSvc",
       "category": "Hardcore / Services Deep Strip",
       "type": "action",
-      "description": "[Hardcore] Disable and stop WLAN AutoConfig (Wi\u2011Fi) (WlanSvc) for maximum background trimming. May break related features.",
+      "description": "[Hardcore] Disable and stop WLAN AutoConfig (Wi‑Fi) (WlanSvc) for maximum background trimming. May break related features.",
       "riskLevel": "Danger",
       "requiresAdmin": true,
       "apply": {
@@ -9760,7 +9774,19 @@
             "command": "Write-Output \"Revert animations via Windows Settings > Accessibility > Visual effects (manual).\" "
           }
         ]
-      }
+      },
+      "badges": [
+        "UI_BUG_RISK"
+      ],
+      "warningText": "Can break cursor visibility or shell/UI behavior because it overwrites UserPreferencesMask. This legacy form is quarantined from broad presets until bit-level safe editor support is implemented.",
+      "riskNotes": [
+        "Can break cursor visibility, shell behavior, or desktop UI rendering.",
+        "Legacy broad overwrite is quarantined; use explicit one-off apply with rollback backup."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT UI RISK",
+      "rollbackNotes": "Back up the existing UserPreferencesMask before apply and restore it if cursor/UI issues appear.",
+      "excludeFromApplyAll": true
     },
     {
       "id": "hc_ui_disable_background_apps",

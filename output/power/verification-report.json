@@ -1,66 +1,28 @@
 {
-  "generatedAt": "2026-03-20T04:48:16.717Z",
-  "trustTiers": {
-    "t1": 27,
-    "t2": 115,
-    "t3": 345,
-    "t1a": 80
-  },
-  "visibleByCategory": {
-    "processor": {
-      "total": 2,
-      "trusted": 2,
-      "unresolved": 0
+  "generatedAt": "2026-03-20T07:21:13.733Z",
+  "checks": [
+    {
+      "name": "safety_badges_present",
+      "status": "PASS"
     },
-    "pcie": {
-      "total": 1,
-      "trusted": 1,
-      "unresolved": 0
+    {
+      "name": "power_cards_warning_strip",
+      "status": "PASS"
     },
-    "storage_disk": {
-      "total": 7,
-      "trusted": 7,
-      "unresolved": 0
+    {
+      "name": "typed_confirm_for_boot_bsod",
+      "status": "PASS"
     },
-    "usb": {
-      "total": 5,
-      "trusted": 5,
-      "unresolved": 0
+    {
+      "name": "cursor_userpreferencesmask_hardened",
+      "status": "PASS"
     },
-    "wireless_ethernet": {
-      "total": 11,
-      "trusted": 11,
-      "unresolved": 0
-    },
-    "display": {
-      "total": 4,
-      "trusted": 4,
-      "unresolved": 0
-    },
-    "sleep_hibernate_modern_standby": {
-      "total": 6,
-      "trusted": 6,
-      "unresolved": 0
-    },
-    "energy_saver": {
-      "total": 5,
-      "trusted": 5,
-      "unresolved": 0
-    },
-    "device_wake": {
-      "total": 4,
-      "trusted": 4,
-      "unresolved": 0
-    },
-    "graphics": {
-      "total": 5,
-      "trusted": 5,
-      "unresolved": 0
-    },
-    "bluetooth": {
-      "total": 1,
-      "trusted": 1,
-      "unresolved": 0
+    {
+      "name": "legacy_duplicate_quarantine",
+      "status": "PASS"
     }
-  }
+  ],
+  "notes": [
+    "Verification is static metadata/UI verification; runtime hardware validation still required per-device."
+  ]
 }

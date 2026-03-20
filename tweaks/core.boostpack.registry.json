@@ -5795,7 +5795,21 @@
             "equals": 1
           }
         ]
-      }
+      },
+      "badges": [
+        "UI_BUG_RISK",
+        "DEVICE_DISCONNECT_RISK"
+      ],
+      "warningText": "Can break cursor visibility or shell/UI behavior because it overwrites UserPreferencesMask. This legacy form is quarantined from broad presets until bit-level safe editor support is implemented.",
+      "riskNotes": [
+        "Can break cursor visibility, shell behavior, or desktop UI rendering.",
+        "Affects cursor capture behavior, not just FPS.",
+        "Can cause USB/HID/Bluetooth/NIC disconnects, delayed reconnects, or wake failures.",
+        "Legacy broad overwrite is quarantined; use explicit one-off apply with rollback backup."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT UI RISK",
+      "rollbackNotes": "Back up the existing UserPreferencesMask before apply and restore it if cursor/UI issues appear."
     }
   ]
 }

@@ -20,7 +20,19 @@
       },
       "revert": {
         "steps": []
-      }
+      },
+      "badges": [
+        "BOOT_RISK",
+        "BLUESCREEN_RISK"
+      ],
+      "warningText": "BCD/timer boot-path changes can cause boot loops, black screens, or resume failure.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode.",
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Export current BCD before apply and rollback from recovery if normal boot fails."
     },
     {
       "id": "import.imported.plan_import_worked.063840f8c8",
@@ -42,7 +54,19 @@
       },
       "revert": {
         "steps": []
-      }
+      },
+      "badges": [
+        "BOOT_RISK",
+        "BLUESCREEN_RISK"
+      ],
+      "warningText": "BCD/timer boot-path changes can cause boot loops, black screens, or resume failure.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode.",
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Export current BCD before apply and rollback from recovery if normal boot fails."
     },
     {
       "id": "import.imported.power_plan.d8e9c14aa8",
@@ -64,7 +88,19 @@
       },
       "revert": {
         "steps": []
-      }
+      },
+      "badges": [
+        "BOOT_RISK",
+        "BLUESCREEN_RISK"
+      ],
+      "warningText": "BCD/timer boot-path changes can cause boot loops, black screens, or resume failure.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode.",
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Export current BCD before apply and rollback from recovery if normal boot fails."
     }
   ]
 }
