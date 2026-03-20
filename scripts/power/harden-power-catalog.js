@@ -101,6 +101,17 @@ function detectBadges(item, c) {
   if (text.match(/minimum processor state|idle disable|max performance|core parking min cores/)) b.add('MAX_POWER_USE');
   if (text.match(/latency|responsiveness|parking|idle|network|usb|storage|pcie/)) b.add('LATENCY_RESPONSIVENESS');
   if (text.match(/processor|min|max|boost|parking|qos|utility|response time|dependency/)) b.add('FPS_CONSISTENCY');
+
+  const bluescreenRisk = /msi|message signaled|platform clock|hpet|timer|dynamic tick|nvme|storage controller|pcie|aspm|ulps|interrupt/.test(text);
+  const bootRisk = /platform clock|hpet|bcd|dynamic tick|timer|aspm|storage/.test(text);
+  const uiBugRisk = /cursor|userpreferencesmask|desktop composition|visual effects/.test(text);
+  const deviceDisconnectRisk = /usb selective suspend|device wake|nic wake|bluetooth|wireless adapter/.test(text);
+
+  if (bluescreenRisk) b.add('BLUESCREEN_RISK');
+  if (bootRisk) b.add('BOOT_RISK');
+  if (uiBugRisk) b.add('UI_BUG_RISK');
+  if (deviceDisconnectRisk) b.add('DEVICE_DISCONNECT_RISK');
+
   if (text.match(/battery|low battery|reserve battery|dc|power saver|sleep/)) b.add('LAPTOP_ONLY');
   if (text.match(/battery|high_power_use|max_power_use|power_saving_disabled/)) b.add('BATTERY_NEGATIVE');
   if (text.match(/boost|minimum processor|idle disable|core parking|min cores/)) b.add('THERMAL_RISK');
