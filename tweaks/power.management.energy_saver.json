@@ -1,596 +1,38 @@
 {
   "items": [
     {
-      "id": "pm_powercfg_battery_saver_brightness_reduction",
+      "id": "pm_registry_windows_power_throttling",
       "type": "button",
-      "name": "Battery saver brightness reduction",
-      "risk": "Experimental",
-      "riskLevel": "Experimental",
+      "name": "Windows power throttling",
+      "risk": "Safe",
+      "riskLevel": "Safe",
       "category": "Power Management",
-      "description": "Battery saver brightness reduction controls sleep/standby and wake orchestration.",
-      "shortDescription": "Battery saver brightness reduction controls sleep/standby and wake orchestration.",
-      "longDescription": "Adjusts battery saver brightness reduction through sleep/standby and wake orchestration. Lower values usually save power but increase wake delay or reduce throughput headroom.",
-      "whatItDoes": "Writes and tracks battery saver brightness reduction so Falcon can apply, verify, and rollback consistently for this policy family.",
-      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
-      "fpsImpact": "Average FPS impact is generally minimal.",
-      "latencyImpact": "Direct end-to-end latency impact is usually low.",
-      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
-      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
-      "stabilityRisk": "Medium when changed without hardware-specific validation.",
-      "recommendedFor": "Only for controlled experiments with rollback ready.",
-      "avoidIf": "Avoid aggressive values on battery-limited or thermally constrained laptops.",
-      "badges": [
-        "BATTERY_NEGATIVE",
-        "DISPLAY_POWER",
-        "EXPERIMENTAL",
-        "SYSTEM_WIDE",
-        "UNSUPPORTED_ON_THIS_SYSTEM"
-      ],
-      "support": "conditional",
-      "proofSource": "unresolved",
-      "documentationStatus": "UNDOCUMENTED_INTERNAL",
-      "sourceType": "powercfg_unmapped",
-      "catalogId": "powercfg_battery_saver_brightness_reduction",
-      "apply": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId powercfg_battery_saver_brightness_reduction"
-          }
-        ]
-      },
-      "verify": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId powercfg_battery_saver_brightness_reduction"
-          }
-        ]
-      },
-      "revert": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId powercfg_battery_saver_brightness_reduction"
-          }
-        ]
-      }
-    },
-    {
-      "id": "pm_powercfg_battery_saver_threshold",
-      "type": "button",
-      "name": "Battery saver threshold",
-      "risk": "Experimental",
-      "riskLevel": "Experimental",
-      "category": "Power Management",
-      "description": "Battery saver threshold controls sleep/standby and wake orchestration.",
-      "shortDescription": "Battery saver threshold controls sleep/standby and wake orchestration.",
-      "longDescription": "Adjusts battery saver threshold through sleep/standby and wake orchestration. Lower values usually save power but increase wake delay or reduce throughput headroom.",
-      "whatItDoes": "Writes and tracks battery saver threshold so Falcon can apply, verify, and rollback consistently for this policy family.",
-      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
-      "fpsImpact": "Average FPS impact is generally minimal.",
-      "latencyImpact": "Direct end-to-end latency impact is usually low.",
-      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
-      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
-      "stabilityRisk": "Medium when changed without hardware-specific validation.",
-      "recommendedFor": "Only for controlled experiments with rollback ready.",
-      "avoidIf": "Avoid aggressive values on battery-limited or thermally constrained laptops.",
-      "badges": [
-        "BATTERY_NEGATIVE",
-        "EXPERIMENTAL",
-        "SYSTEM_WIDE",
-        "UNSUPPORTED_ON_THIS_SYSTEM"
-      ],
-      "support": "conditional",
-      "proofSource": "unresolved",
-      "documentationStatus": "UNDOCUMENTED_INTERNAL",
-      "sourceType": "powercfg_unmapped",
-      "catalogId": "powercfg_battery_saver_threshold",
-      "apply": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId powercfg_battery_saver_threshold"
-          }
-        ]
-      },
-      "verify": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId powercfg_battery_saver_threshold"
-          }
-        ]
-      },
-      "revert": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId powercfg_battery_saver_threshold"
-          }
-        ]
-      }
-    },
-    {
-      "id": "pm_powercfg_critical_battery_action",
-      "type": "button",
-      "name": "Critical battery action",
-      "risk": "Experimental",
-      "riskLevel": "Experimental",
-      "category": "Power Management",
-      "description": "Critical battery action controls sleep/standby and wake orchestration.",
-      "shortDescription": "Critical battery action controls sleep/standby and wake orchestration.",
-      "longDescription": "Adjusts critical battery action through sleep/standby and wake orchestration. Lower values usually save power but increase wake delay or reduce throughput headroom.",
-      "whatItDoes": "Writes and tracks critical battery action so Falcon can apply, verify, and rollback consistently for this policy family.",
-      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
-      "fpsImpact": "Average FPS impact is generally minimal.",
-      "latencyImpact": "Direct end-to-end latency impact is usually low.",
-      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
-      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
-      "stabilityRisk": "Medium when changed without hardware-specific validation.",
-      "recommendedFor": "Only for controlled experiments with rollback ready.",
-      "avoidIf": "Avoid aggressive values on battery-limited or thermally constrained laptops.",
-      "badges": [
-        "BATTERY_NEGATIVE",
-        "EXPERIMENTAL",
-        "SYSTEM_WIDE",
-        "UNSUPPORTED_ON_THIS_SYSTEM"
-      ],
-      "support": "conditional",
-      "proofSource": "unresolved",
-      "documentationStatus": "UNDOCUMENTED_INTERNAL",
-      "sourceType": "powercfg_unmapped",
-      "catalogId": "powercfg_critical_battery_action",
-      "apply": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId powercfg_critical_battery_action"
-          }
-        ]
-      },
-      "verify": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId powercfg_critical_battery_action"
-          }
-        ]
-      },
-      "revert": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId powercfg_critical_battery_action"
-          }
-        ]
-      }
-    },
-    {
-      "id": "pm_powercfg_critical_battery_level",
-      "type": "button",
-      "name": "Critical battery level",
-      "risk": "Experimental",
-      "riskLevel": "Experimental",
-      "category": "Power Management",
-      "description": "Critical battery level controls sleep/standby and wake orchestration.",
-      "shortDescription": "Critical battery level controls sleep/standby and wake orchestration.",
-      "longDescription": "Adjusts critical battery level through sleep/standby and wake orchestration. Lower values usually save power but increase wake delay or reduce throughput headroom.",
-      "whatItDoes": "Writes and tracks critical battery level so Falcon can apply, verify, and rollback consistently for this policy family.",
-      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
-      "fpsImpact": "Average FPS impact is generally minimal.",
-      "latencyImpact": "Direct end-to-end latency impact is usually low.",
-      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
-      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
-      "stabilityRisk": "Medium when changed without hardware-specific validation.",
-      "recommendedFor": "Only for controlled experiments with rollback ready.",
-      "avoidIf": "Avoid aggressive values on battery-limited or thermally constrained laptops.",
-      "badges": [
-        "BATTERY_NEGATIVE",
-        "EXPERIMENTAL",
-        "SYSTEM_WIDE",
-        "UNSUPPORTED_ON_THIS_SYSTEM"
-      ],
-      "support": "conditional",
-      "proofSource": "unresolved",
-      "documentationStatus": "UNDOCUMENTED_INTERNAL",
-      "sourceType": "powercfg_unmapped",
-      "catalogId": "powercfg_critical_battery_level",
-      "apply": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId powercfg_critical_battery_level"
-          }
-        ]
-      },
-      "verify": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId powercfg_critical_battery_level"
-          }
-        ]
-      },
-      "revert": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId powercfg_critical_battery_level"
-          }
-        ]
-      }
-    },
-    {
-      "id": "pm_powercfg_fan_always_on_policy",
-      "type": "button",
-      "name": "Fan always on policy",
-      "risk": "Experimental",
-      "riskLevel": "Experimental",
-      "category": "Power Management",
-      "description": "Fan always on policy controls Windows power policy behavior.",
-      "shortDescription": "Fan always on policy controls Windows power policy behavior.",
-      "longDescription": "Adjusts fan always on policy through Windows power policy behavior. Performance-oriented values reduce ramp delays but increase draw and heat.",
-      "whatItDoes": "Writes and tracks fan always on policy so Falcon can apply, verify, and rollback consistently for this policy family.",
-      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
-      "fpsImpact": "Average FPS impact is generally minimal.",
-      "latencyImpact": "Direct end-to-end latency impact is usually low.",
-      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
-      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
-      "stabilityRisk": "Medium when changed without hardware-specific validation.",
-      "recommendedFor": "Only for controlled experiments with rollback ready.",
-      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
-      "badges": [
-        "EXPERIMENTAL",
-        "SYSTEM_WIDE",
-        "UNSUPPORTED_ON_THIS_SYSTEM"
-      ],
-      "support": "conditional",
-      "proofSource": "unresolved",
-      "documentationStatus": "UNDOCUMENTED_INTERNAL",
-      "sourceType": "powercfg_unmapped",
-      "catalogId": "powercfg_fan_always_on_policy",
-      "apply": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId powercfg_fan_always_on_policy"
-          }
-        ]
-      },
-      "verify": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId powercfg_fan_always_on_policy"
-          }
-        ]
-      },
-      "revert": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId powercfg_fan_always_on_policy"
-          }
-        ]
-      }
-    },
-    {
-      "id": "pm_powercfg_low_battery_action",
-      "type": "button",
-      "name": "Low battery action",
-      "risk": "Experimental",
-      "riskLevel": "Experimental",
-      "category": "Power Management",
-      "description": "Low battery action controls sleep/standby and wake orchestration.",
-      "shortDescription": "Low battery action controls sleep/standby and wake orchestration.",
-      "longDescription": "Adjusts low battery action through sleep/standby and wake orchestration. Lower values usually save power but increase wake delay or reduce throughput headroom.",
-      "whatItDoes": "Writes and tracks low battery action so Falcon can apply, verify, and rollback consistently for this policy family.",
-      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
-      "fpsImpact": "Average FPS impact is generally minimal.",
-      "latencyImpact": "Direct end-to-end latency impact is usually low.",
-      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
-      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
-      "stabilityRisk": "Medium when changed without hardware-specific validation.",
-      "recommendedFor": "Only for controlled experiments with rollback ready.",
-      "avoidIf": "Avoid aggressive values on battery-limited or thermally constrained laptops.",
-      "badges": [
-        "BATTERY_NEGATIVE",
-        "EXPERIMENTAL",
-        "SYSTEM_WIDE",
-        "UNSUPPORTED_ON_THIS_SYSTEM"
-      ],
-      "support": "conditional",
-      "proofSource": "unresolved",
-      "documentationStatus": "UNDOCUMENTED_INTERNAL",
-      "sourceType": "powercfg_unmapped",
-      "catalogId": "powercfg_low_battery_action",
-      "apply": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId powercfg_low_battery_action"
-          }
-        ]
-      },
-      "verify": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId powercfg_low_battery_action"
-          }
-        ]
-      },
-      "revert": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId powercfg_low_battery_action"
-          }
-        ]
-      }
-    },
-    {
-      "id": "pm_powercfg_low_battery_level",
-      "type": "button",
-      "name": "Low battery level",
-      "risk": "Experimental",
-      "riskLevel": "Experimental",
-      "category": "Power Management",
-      "description": "Low battery level controls sleep/standby and wake orchestration.",
-      "shortDescription": "Low battery level controls sleep/standby and wake orchestration.",
-      "longDescription": "Adjusts low battery level through sleep/standby and wake orchestration. Lower values usually save power but increase wake delay or reduce throughput headroom.",
-      "whatItDoes": "Writes and tracks low battery level so Falcon can apply, verify, and rollback consistently for this policy family.",
-      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
-      "fpsImpact": "Average FPS impact is generally minimal.",
-      "latencyImpact": "Direct end-to-end latency impact is usually low.",
-      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
-      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
-      "stabilityRisk": "Medium when changed without hardware-specific validation.",
-      "recommendedFor": "Only for controlled experiments with rollback ready.",
-      "avoidIf": "Avoid aggressive values on battery-limited or thermally constrained laptops.",
-      "badges": [
-        "BATTERY_NEGATIVE",
-        "EXPERIMENTAL",
-        "SYSTEM_WIDE",
-        "UNSUPPORTED_ON_THIS_SYSTEM"
-      ],
-      "support": "conditional",
-      "proofSource": "unresolved",
-      "documentationStatus": "UNDOCUMENTED_INTERNAL",
-      "sourceType": "powercfg_unmapped",
-      "catalogId": "powercfg_low_battery_level",
-      "apply": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId powercfg_low_battery_level"
-          }
-        ]
-      },
-      "verify": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId powercfg_low_battery_level"
-          }
-        ]
-      },
-      "revert": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId powercfg_low_battery_level"
-          }
-        ]
-      }
-    },
-    {
-      "id": "pm_powercfg_power_slider_default_on_ac",
-      "type": "button",
-      "name": "Power slider default on AC",
-      "risk": "Experimental",
-      "riskLevel": "Experimental",
-      "category": "Power Management",
-      "description": "Power slider default on AC controls sleep/standby and wake orchestration.",
-      "shortDescription": "Power slider default on AC controls sleep/standby and wake orchestration.",
-      "longDescription": "Adjusts power slider default on ac through sleep/standby and wake orchestration. Performance-oriented values reduce ramp delays but increase draw and heat.",
-      "whatItDoes": "Writes and tracks power slider default on ac so Falcon can apply, verify, and rollback consistently for this policy family.",
-      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
-      "fpsImpact": "Average FPS impact is generally minimal.",
-      "latencyImpact": "Direct end-to-end latency impact is usually low.",
-      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
-      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
-      "stabilityRisk": "Medium when changed without hardware-specific validation.",
-      "recommendedFor": "Only for controlled experiments with rollback ready.",
-      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
-      "badges": [
-        "EXPERIMENTAL",
-        "SYSTEM_WIDE",
-        "UNSUPPORTED_ON_THIS_SYSTEM",
-        "WAKE_BEHAVIOR"
-      ],
-      "support": "conditional",
-      "proofSource": "unresolved",
-      "documentationStatus": "UNDOCUMENTED_INTERNAL",
-      "sourceType": "powercfg_unmapped",
-      "catalogId": "powercfg_power_slider_default_on_ac",
-      "apply": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId powercfg_power_slider_default_on_ac"
-          }
-        ]
-      },
-      "verify": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId powercfg_power_slider_default_on_ac"
-          }
-        ]
-      },
-      "revert": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId powercfg_power_slider_default_on_ac"
-          }
-        ]
-      }
-    },
-    {
-      "id": "pm_powercfg_power_slider_default_on_dc",
-      "type": "button",
-      "name": "Power slider default on DC",
-      "risk": "Experimental",
-      "riskLevel": "Experimental",
-      "category": "Power Management",
-      "description": "Power slider default on DC controls sleep/standby and wake orchestration.",
-      "shortDescription": "Power slider default on DC controls sleep/standby and wake orchestration.",
-      "longDescription": "Adjusts power slider default on dc through sleep/standby and wake orchestration. Performance-oriented values reduce ramp delays but increase draw and heat.",
-      "whatItDoes": "Writes and tracks power slider default on dc so Falcon can apply, verify, and rollback consistently for this policy family.",
-      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
-      "fpsImpact": "Average FPS impact is generally minimal.",
-      "latencyImpact": "Direct end-to-end latency impact is usually low.",
-      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
-      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
-      "stabilityRisk": "Medium when changed without hardware-specific validation.",
-      "recommendedFor": "Only for controlled experiments with rollback ready.",
-      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
-      "badges": [
-        "EXPERIMENTAL",
-        "SYSTEM_WIDE",
-        "UNSUPPORTED_ON_THIS_SYSTEM",
-        "WAKE_BEHAVIOR"
-      ],
-      "support": "conditional",
-      "proofSource": "unresolved",
-      "documentationStatus": "UNDOCUMENTED_INTERNAL",
-      "sourceType": "powercfg_unmapped",
-      "catalogId": "powercfg_power_slider_default_on_dc",
-      "apply": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId powercfg_power_slider_default_on_dc"
-          }
-        ]
-      },
-      "verify": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId powercfg_power_slider_default_on_dc"
-          }
-        ]
-      },
-      "revert": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId powercfg_power_slider_default_on_dc"
-          }
-        ]
-      }
-    },
-    {
-      "id": "pm_powercfg_processor_boost_disable_on_low_battery",
-      "type": "button",
-      "name": "Processor boost disable on low battery",
-      "risk": "Experimental",
-      "riskLevel": "Experimental",
-      "category": "Power Management",
-      "description": "Processor boost disable on low battery controls cpu scheduler and frequency policy.",
-      "shortDescription": "Processor boost disable on low battery controls cpu scheduler and frequency policy.",
-      "longDescription": "Adjusts processor boost disable on low battery through cpu scheduler and frequency policy. Lower values usually save power but increase wake delay or reduce throughput headroom.",
-      "whatItDoes": "Writes and tracks processor boost disable on low battery so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "description": "Windows power throttling controls registry-backed Windows power behavior.",
+      "shortDescription": "Windows power throttling controls registry-backed Windows power behavior.",
+      "longDescription": "Adjusts windows power throttling through registry-backed Windows power behavior. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks windows power throttling so Falcon can apply, verify, and rollback consistently for this policy family.",
       "whyGamersCare": "It can change frame-time consistency and input-to-render responsiveness during bursty loads.",
-      "fpsImpact": "Primarily affects 1% low consistency; average FPS change is usually small to moderate.",
-      "latencyImpact": "Direct end-to-end latency impact is usually low.",
-      "powerImpact": "Higher-performance values increase package power and reduce idle savings.",
-      "heatImpact": "Higher sustained clocks can raise temperature and fan noise under load.",
-      "stabilityRisk": "Medium when changed without hardware-specific validation.",
-      "recommendedFor": "Only for controlled experiments with rollback ready.",
-      "avoidIf": "Avoid aggressive values on battery-limited or thermally constrained laptops.",
-      "badges": [
-        "BATTERY_NEGATIVE",
-        "CPU_POWER",
-        "EXPERIMENTAL",
-        "FPS_CONSISTENCY",
-        "HIGH_POWER_USE",
-        "LATENCY_RESPONSIVENESS",
-        "POWER_SAVING_DISABLED",
-        "SYSTEM_WIDE",
-        "THERMAL_RISK",
-        "UNSUPPORTED_ON_THIS_SYSTEM"
-      ],
-      "support": "conditional",
-      "proofSource": "unresolved",
-      "documentationStatus": "UNDOCUMENTED_INTERNAL",
-      "sourceType": "powercfg_unmapped",
-      "catalogId": "powercfg_processor_boost_disable_on_low_battery",
-      "apply": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId powercfg_processor_boost_disable_on_low_battery"
-          }
-        ]
-      },
-      "verify": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId powercfg_processor_boost_disable_on_low_battery"
-          }
-        ]
-      },
-      "revert": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId powercfg_processor_boost_disable_on_low_battery"
-          }
-        ]
-      }
-    },
-    {
-      "id": "pm_powercfg_reserve_battery_level",
-      "type": "button",
-      "name": "Reserve battery level",
-      "risk": "Experimental",
-      "riskLevel": "Experimental",
-      "category": "Power Management",
-      "description": "Reserve battery level controls sleep/standby and wake orchestration.",
-      "shortDescription": "Reserve battery level controls sleep/standby and wake orchestration.",
-      "longDescription": "Adjusts reserve battery level through sleep/standby and wake orchestration. Lower values usually save power but increase wake delay or reduce throughput headroom.",
-      "whatItDoes": "Writes and tracks reserve battery level so Falcon can apply, verify, and rollback consistently for this policy family.",
-      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
       "fpsImpact": "Average FPS impact is generally minimal.",
       "latencyImpact": "Direct end-to-end latency impact is usually low.",
       "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
       "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
       "stabilityRisk": "Medium when changed without hardware-specific validation.",
       "recommendedFor": "Only for controlled experiments with rollback ready.",
-      "avoidIf": "Avoid aggressive values on battery-limited or thermally constrained laptops.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
       "badges": [
-        "BATTERY_NEGATIVE",
-        "EXPERIMENTAL",
         "SYSTEM_WIDE",
-        "UNSUPPORTED_ON_THIS_SYSTEM"
+        "TRUSTED"
       ],
-      "support": "conditional",
-      "proofSource": "unresolved",
-      "documentationStatus": "UNDOCUMENTED_INTERNAL",
-      "sourceType": "powercfg_unmapped",
-      "catalogId": "powercfg_reserve_battery_level",
+      "support": "supported",
+      "proofSource": "registry_path_mapping",
+      "documentationStatus": "REGISTRY_VERIFIED",
+      "sourceType": "registry_power",
+      "catalogId": "registry_windows_power_throttling",
       "apply": {
         "steps": [
           {
             "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId powercfg_reserve_battery_level"
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId registry_windows_power_throttling"
           }
         ]
       },
@@ -598,7 +40,7 @@
         "steps": [
           {
             "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId powercfg_reserve_battery_level"
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId registry_windows_power_throttling"
           }
         ]
       },
@@ -606,22 +48,128 @@
         "steps": [
           {
             "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId powercfg_reserve_battery_level"
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId registry_windows_power_throttling"
           }
         ]
       }
     },
     {
-      "id": "pm_powercfg_system_cooling_policy",
+      "id": "pm_registry_background_app_power_throttling",
       "type": "button",
-      "name": "System cooling policy",
-      "risk": "Experimental",
-      "riskLevel": "Experimental",
+      "name": "Background app power throttling",
+      "risk": "Safe",
+      "riskLevel": "Safe",
       "category": "Power Management",
-      "description": "System cooling policy controls Windows power policy behavior.",
-      "shortDescription": "System cooling policy controls Windows power policy behavior.",
-      "longDescription": "Adjusts system cooling policy through Windows power policy behavior. Performance-oriented values reduce ramp delays but increase draw and heat.",
-      "whatItDoes": "Writes and tracks system cooling policy so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "description": "Background app power throttling controls registry-backed Windows power behavior.",
+      "shortDescription": "Background app power throttling controls registry-backed Windows power behavior.",
+      "longDescription": "Adjusts background app power throttling through registry-backed Windows power behavior. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks background app power throttling so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It can change frame-time consistency and input-to-render responsiveness during bursty loads.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "SYSTEM_WIDE",
+        "TRUSTED"
+      ],
+      "support": "supported",
+      "proofSource": "registry_path_mapping",
+      "documentationStatus": "REGISTRY_VERIFIED",
+      "sourceType": "registry_power",
+      "catalogId": "registry_background_app_power_throttling",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId registry_background_app_power_throttling"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId registry_background_app_power_throttling"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId registry_background_app_power_throttling"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_registry_system_idle_power_saver",
+      "type": "button",
+      "name": "System Idle Power Saver",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "category": "Power Management",
+      "description": "System Idle Power Saver controls cpu scheduler and frequency policy.",
+      "shortDescription": "System Idle Power Saver controls cpu scheduler and frequency policy.",
+      "longDescription": "Adjusts system idle power saver through cpu scheduler and frequency policy. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks system idle power saver so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It can change frame-time consistency and input-to-render responsiveness during bursty loads.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Latency-sensitive users may notice faster wake/ramp and steadier input response.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "SYSTEM_WIDE",
+        "TRUSTED"
+      ],
+      "support": "supported",
+      "proofSource": "registry_path_mapping",
+      "documentationStatus": "REGISTRY_VERIFIED",
+      "sourceType": "registry_power",
+      "catalogId": "registry_system_idle_power_saver",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId registry_system_idle_power_saver"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId registry_system_idle_power_saver"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId registry_system_idle_power_saver"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_registry_energyestimationenabled",
+      "type": "button",
+      "name": "EnergyEstimationEnabled",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "category": "Power Management",
+      "description": "EnergyEstimationEnabled controls registry-backed Windows power behavior.",
+      "shortDescription": "EnergyEstimationEnabled controls registry-backed Windows power behavior.",
+      "longDescription": "Adjusts energyestimationenabled through registry-backed Windows power behavior. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks energyestimationenabled so Falcon can apply, verify, and rollback consistently for this policy family.",
       "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
       "fpsImpact": "Average FPS impact is generally minimal.",
       "latencyImpact": "Direct end-to-end latency impact is usually low.",
@@ -631,20 +179,19 @@
       "recommendedFor": "Only for controlled experiments with rollback ready.",
       "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
       "badges": [
-        "EXPERIMENTAL",
         "SYSTEM_WIDE",
-        "UNSUPPORTED_ON_THIS_SYSTEM"
+        "TRUSTED"
       ],
-      "support": "conditional",
-      "proofSource": "unresolved",
-      "documentationStatus": "UNDOCUMENTED_INTERNAL",
-      "sourceType": "powercfg_unmapped",
-      "catalogId": "powercfg_system_cooling_policy",
+      "support": "supported",
+      "proofSource": "registry_path_mapping",
+      "documentationStatus": "REGISTRY_VERIFIED",
+      "sourceType": "registry_power",
+      "catalogId": "registry_energyestimationenabled",
       "apply": {
         "steps": [
           {
             "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId powercfg_system_cooling_policy"
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId registry_energyestimationenabled"
           }
         ]
       },
@@ -652,7 +199,7 @@
         "steps": [
           {
             "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId powercfg_system_cooling_policy"
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId registry_energyestimationenabled"
           }
         ]
       },
@@ -660,7 +207,60 @@
         "steps": [
           {
             "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId powercfg_system_cooling_policy"
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId registry_energyestimationenabled"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_registry_skin_temperature_aware_throttling",
+      "type": "button",
+      "name": "Skin temperature aware throttling",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "category": "Power Management",
+      "description": "Skin temperature aware throttling controls registry-backed Windows power behavior.",
+      "shortDescription": "Skin temperature aware throttling controls registry-backed Windows power behavior.",
+      "longDescription": "Adjusts skin temperature aware throttling through registry-backed Windows power behavior. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks skin temperature aware throttling so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It can change frame-time consistency and input-to-render responsiveness during bursty loads.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "SYSTEM_WIDE",
+        "TRUSTED"
+      ],
+      "support": "supported",
+      "proofSource": "registry_path_mapping",
+      "documentationStatus": "REGISTRY_VERIFIED",
+      "sourceType": "registry_power",
+      "catalogId": "registry_skin_temperature_aware_throttling",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId registry_skin_temperature_aware_throttling"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId registry_skin_temperature_aware_throttling"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId registry_skin_temperature_aware_throttling"
           }
         ]
       }

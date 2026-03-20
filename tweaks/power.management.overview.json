@@ -3,9 +3,9 @@
     {
       "id": "power_overview_summary",
       "type": "info",
-      "name": "Power Management coverage summary",
+      "name": "Power Management trust-tier summary",
       "category": "Power Management",
-      "description": "This panel now surfaces verified mainstream items plus conditional advanced controls with explicit badges and support/proof metadata."
+      "description": "Tabs now prioritize Tier 1 verified settings, optionally include Tier 2 conditional hardware items, and quarantine Tier 3 unresolved placeholders."
     },
     {
       "id": "power_overview_export_qh",

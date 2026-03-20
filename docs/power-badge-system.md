@@ -1,32 +1,9 @@
 # Power Badge System
 
-Allowed semantic badges for power settings:
+## Trust badges
+- TRUSTED: Tier 1 verified (GUID-backed powercfg or registry-backed) or advisory firmware card.
+- CONDITIONAL_HARDWARE: Tier 2 hardware-dependent setting that requires live discovery before apply.
+- ADVISORY_ONLY + FIRMWARE_ONLY: BIOS/UEFI recommendation cards with no direct Windows write path.
+- EXPERIMENTAL + UNDOCUMENTED + UNSUPPORTED_ON_THIS_SYSTEM: Tier 3 unresolved placeholders kept in quarantine only.
 
-- MAX_PERFORMANCE
-- HIGH_POWER_USE
-- MAX_POWER_USE
-- POWER_SAVING_DISABLED
-- LATENCY_RESPONSIVENESS
-- FPS_CONSISTENCY
-- BATTERY_NEGATIVE
-- THERMAL_RISK
-- SAFE_DEFAULT
-- ADVANCED
-- EXPERIMENTAL
-- UNDOCUMENTED
-- UNSUPPORTED_ON_THIS_SYSTEM
-- REQUIRES_REBOOT
-- LAPTOP_ONLY
-- DESKTOP_ONLY
-- APP_SPECIFIC
-- SYSTEM_WIDE
-- CONDITIONAL_HARDWARE
-- WAKE_BEHAVIOR
-- DISPLAY_POWER
-- NETWORK_POWER
-- STORAGE_POWER
-- USB_POWER
-- CPU_POWER
-- FIRMWARE_ONLY
-
-Rules: every visible item must include at least one scope badge and one behavior/support badge. Conditional, unsupported, and experimental states must be explicit in metadata and UI chips.
+All visible power cards still render badge row, support, documentation status, and proof source metadata in the renderer UI.

@@ -1,1072 +1,11 @@
 {
   "items": [
     {
-      "id": "pm_device_camera_allowcomputertoturnoffdevice",
-      "type": "button",
-      "name": "Camera AllowComputerToTurnOffDevice",
-      "risk": "Experimental",
-      "riskLevel": "Experimental",
-      "category": "Power Management",
-      "description": "Camera AllowComputerToTurnOffDevice controls Windows power policy behavior.",
-      "shortDescription": "Camera AllowComputerToTurnOffDevice controls Windows power policy behavior.",
-      "longDescription": "Adjusts camera allowcomputertoturnoffdevice through Windows power policy behavior. Performance-oriented values reduce ramp delays but increase draw and heat.",
-      "whatItDoes": "Writes and tracks camera allowcomputertoturnoffdevice so Falcon can apply, verify, and rollback consistently for this policy family.",
-      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
-      "fpsImpact": "Average FPS impact is generally minimal.",
-      "latencyImpact": "Direct end-to-end latency impact is usually low.",
-      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
-      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
-      "stabilityRisk": "Medium when changed without hardware-specific validation.",
-      "recommendedFor": "Only for controlled experiments with rollback ready.",
-      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
-      "badges": [
-        "CONDITIONAL_HARDWARE",
-        "EXPERIMENTAL",
-        "SYSTEM_WIDE",
-        "UNSUPPORTED_ON_THIS_SYSTEM"
-      ],
-      "support": "conditional",
-      "proofSource": "repo_placeholder_only",
-      "documentationStatus": "UNRESOLVED",
-      "sourceType": "device_power_flag",
-      "catalogId": "device_camera_allowcomputertoturnoffdevice",
-      "apply": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId device_camera_allowcomputertoturnoffdevice"
-          }
-        ]
-      },
-      "verify": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId device_camera_allowcomputertoturnoffdevice"
-          }
-        ]
-      },
-      "revert": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId device_camera_allowcomputertoturnoffdevice"
-          }
-        ]
-      }
-    },
-    {
-      "id": "pm_device_camera_device_idle_suspend",
-      "type": "button",
-      "name": "Camera device idle suspend",
-      "risk": "Experimental",
-      "riskLevel": "Experimental",
-      "category": "Power Management",
-      "description": "Camera device idle suspend controls cpu scheduler and frequency policy.",
-      "shortDescription": "Camera device idle suspend controls cpu scheduler and frequency policy.",
-      "longDescription": "Adjusts camera device idle suspend through cpu scheduler and frequency policy. Performance-oriented values reduce ramp delays but increase draw and heat.",
-      "whatItDoes": "Writes and tracks camera device idle suspend so Falcon can apply, verify, and rollback consistently for this policy family.",
-      "whyGamersCare": "It can change frame-time consistency and input-to-render responsiveness during bursty loads.",
-      "fpsImpact": "Average FPS impact is generally minimal.",
-      "latencyImpact": "Latency-sensitive users may notice faster wake/ramp and steadier input response.",
-      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
-      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
-      "stabilityRisk": "Medium when changed without hardware-specific validation.",
-      "recommendedFor": "Only for controlled experiments with rollback ready.",
-      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
-      "badges": [
-        "CONDITIONAL_HARDWARE",
-        "EXPERIMENTAL",
-        "SYSTEM_WIDE",
-        "UNSUPPORTED_ON_THIS_SYSTEM"
-      ],
-      "support": "conditional",
-      "proofSource": "repo_placeholder_only",
-      "documentationStatus": "UNRESOLVED",
-      "sourceType": "device_power_flag",
-      "catalogId": "device_camera_device_idle_suspend",
-      "apply": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId device_camera_device_idle_suspend"
-          }
-        ]
-      },
-      "verify": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId device_camera_device_idle_suspend"
-          }
-        ]
-      },
-      "revert": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId device_camera_device_idle_suspend"
-          }
-        ]
-      }
-    },
-    {
-      "id": "pm_device_hid_keyboard_allowcomputertoturnoffdevice",
-      "type": "button",
-      "name": "HID Keyboard AllowComputerToTurnOffDevice",
-      "risk": "Experimental",
-      "riskLevel": "Experimental",
-      "category": "Power Management",
-      "description": "HID Keyboard AllowComputerToTurnOffDevice controls Windows power policy behavior.",
-      "shortDescription": "HID Keyboard AllowComputerToTurnOffDevice controls Windows power policy behavior.",
-      "longDescription": "Adjusts hid keyboard allowcomputertoturnoffdevice through Windows power policy behavior. Performance-oriented values reduce ramp delays but increase draw and heat.",
-      "whatItDoes": "Writes and tracks hid keyboard allowcomputertoturnoffdevice so Falcon can apply, verify, and rollback consistently for this policy family.",
-      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
-      "fpsImpact": "Average FPS impact is generally minimal.",
-      "latencyImpact": "Direct end-to-end latency impact is usually low.",
-      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
-      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
-      "stabilityRisk": "Medium when changed without hardware-specific validation.",
-      "recommendedFor": "Only for controlled experiments with rollback ready.",
-      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
-      "badges": [
-        "CONDITIONAL_HARDWARE",
-        "EXPERIMENTAL",
-        "SYSTEM_WIDE",
-        "UNSUPPORTED_ON_THIS_SYSTEM",
-        "USB_POWER"
-      ],
-      "support": "conditional",
-      "proofSource": "repo_placeholder_only",
-      "documentationStatus": "UNRESOLVED",
-      "sourceType": "device_power_flag",
-      "catalogId": "device_hid_keyboard_allowcomputertoturnoffdevice",
-      "apply": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId device_hid_keyboard_allowcomputertoturnoffdevice"
-          }
-        ]
-      },
-      "verify": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId device_hid_keyboard_allowcomputertoturnoffdevice"
-          }
-        ]
-      },
-      "revert": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId device_hid_keyboard_allowcomputertoturnoffdevice"
-          }
-        ]
-      }
-    },
-    {
-      "id": "pm_device_hid_mouse_allowcomputertoturnoffdevice",
-      "type": "button",
-      "name": "HID Mouse AllowComputerToTurnOffDevice",
-      "risk": "Experimental",
-      "riskLevel": "Experimental",
-      "category": "Power Management",
-      "description": "HID Mouse AllowComputerToTurnOffDevice controls Windows power policy behavior.",
-      "shortDescription": "HID Mouse AllowComputerToTurnOffDevice controls Windows power policy behavior.",
-      "longDescription": "Adjusts hid mouse allowcomputertoturnoffdevice through Windows power policy behavior. Performance-oriented values reduce ramp delays but increase draw and heat.",
-      "whatItDoes": "Writes and tracks hid mouse allowcomputertoturnoffdevice so Falcon can apply, verify, and rollback consistently for this policy family.",
-      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
-      "fpsImpact": "Average FPS impact is generally minimal.",
-      "latencyImpact": "Direct end-to-end latency impact is usually low.",
-      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
-      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
-      "stabilityRisk": "Medium when changed without hardware-specific validation.",
-      "recommendedFor": "Only for controlled experiments with rollback ready.",
-      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
-      "badges": [
-        "CONDITIONAL_HARDWARE",
-        "EXPERIMENTAL",
-        "SYSTEM_WIDE",
-        "UNSUPPORTED_ON_THIS_SYSTEM",
-        "USB_POWER"
-      ],
-      "support": "conditional",
-      "proofSource": "repo_placeholder_only",
-      "documentationStatus": "UNRESOLVED",
-      "sourceType": "device_power_flag",
-      "catalogId": "device_hid_mouse_allowcomputertoturnoffdevice",
-      "apply": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId device_hid_mouse_allowcomputertoturnoffdevice"
-          }
-        ]
-      },
-      "verify": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId device_hid_mouse_allowcomputertoturnoffdevice"
-          }
-        ]
-      },
-      "revert": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId device_hid_mouse_allowcomputertoturnoffdevice"
-          }
-        ]
-      }
-    },
-    {
-      "id": "pm_device_hid_idle_timeout",
-      "type": "button",
-      "name": "HID idle timeout",
-      "risk": "Experimental",
-      "riskLevel": "Experimental",
-      "category": "Power Management",
-      "description": "HID idle timeout controls cpu scheduler and frequency policy.",
-      "shortDescription": "HID idle timeout controls cpu scheduler and frequency policy.",
-      "longDescription": "Adjusts hid idle timeout through cpu scheduler and frequency policy. Performance-oriented values reduce ramp delays but increase draw and heat.",
-      "whatItDoes": "Writes and tracks hid idle timeout so Falcon can apply, verify, and rollback consistently for this policy family.",
-      "whyGamersCare": "It can change frame-time consistency and input-to-render responsiveness during bursty loads.",
-      "fpsImpact": "Average FPS impact is generally minimal.",
-      "latencyImpact": "Latency-sensitive users may notice faster wake/ramp and steadier input response.",
-      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
-      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
-      "stabilityRisk": "Medium when changed without hardware-specific validation.",
-      "recommendedFor": "Only for controlled experiments with rollback ready.",
-      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
-      "badges": [
-        "CONDITIONAL_HARDWARE",
-        "EXPERIMENTAL",
-        "SYSTEM_WIDE",
-        "UNSUPPORTED_ON_THIS_SYSTEM",
-        "USB_POWER"
-      ],
-      "support": "conditional",
-      "proofSource": "repo_placeholder_only",
-      "documentationStatus": "UNRESOLVED",
-      "sourceType": "device_power_flag",
-      "catalogId": "device_hid_idle_timeout",
-      "apply": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId device_hid_idle_timeout"
-          }
-        ]
-      },
-      "verify": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId device_hid_idle_timeout"
-          }
-        ]
-      },
-      "revert": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId device_hid_idle_timeout"
-          }
-        ]
-      }
-    },
-    {
-      "id": "pm_device_i2c_controller_allowcomputertoturnoffdevice",
-      "type": "button",
-      "name": "I2C Controller AllowComputerToTurnOffDevice",
-      "risk": "Experimental",
-      "riskLevel": "Experimental",
-      "category": "Power Management",
-      "description": "I2C Controller AllowComputerToTurnOffDevice controls Windows power policy behavior.",
-      "shortDescription": "I2C Controller AllowComputerToTurnOffDevice controls Windows power policy behavior.",
-      "longDescription": "Adjusts i2c controller allowcomputertoturnoffdevice through Windows power policy behavior. Performance-oriented values reduce ramp delays but increase draw and heat.",
-      "whatItDoes": "Writes and tracks i2c controller allowcomputertoturnoffdevice so Falcon can apply, verify, and rollback consistently for this policy family.",
-      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
-      "fpsImpact": "Average FPS impact is generally minimal.",
-      "latencyImpact": "Direct end-to-end latency impact is usually low.",
-      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
-      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
-      "stabilityRisk": "Medium when changed without hardware-specific validation.",
-      "recommendedFor": "Only for controlled experiments with rollback ready.",
-      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
-      "badges": [
-        "CONDITIONAL_HARDWARE",
-        "EXPERIMENTAL",
-        "SYSTEM_WIDE",
-        "UNSUPPORTED_ON_THIS_SYSTEM",
-        "USB_POWER"
-      ],
-      "support": "conditional",
-      "proofSource": "repo_placeholder_only",
-      "documentationStatus": "UNRESOLVED",
-      "sourceType": "device_power_flag",
-      "catalogId": "device_i2c_controller_allowcomputertoturnoffdevice",
-      "apply": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId device_i2c_controller_allowcomputertoturnoffdevice"
-          }
-        ]
-      },
-      "verify": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId device_i2c_controller_allowcomputertoturnoffdevice"
-          }
-        ]
-      },
-      "revert": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId device_i2c_controller_allowcomputertoturnoffdevice"
-          }
-        ]
-      }
-    },
-    {
-      "id": "pm_device_sd_controller_allowcomputertoturnoffdevice",
-      "type": "button",
-      "name": "SD Controller AllowComputerToTurnOffDevice",
-      "risk": "Experimental",
-      "riskLevel": "Experimental",
-      "category": "Power Management",
-      "description": "SD Controller AllowComputerToTurnOffDevice controls Windows power policy behavior.",
-      "shortDescription": "SD Controller AllowComputerToTurnOffDevice controls Windows power policy behavior.",
-      "longDescription": "Adjusts sd controller allowcomputertoturnoffdevice through Windows power policy behavior. Performance-oriented values reduce ramp delays but increase draw and heat.",
-      "whatItDoes": "Writes and tracks sd controller allowcomputertoturnoffdevice so Falcon can apply, verify, and rollback consistently for this policy family.",
-      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
-      "fpsImpact": "Average FPS impact is generally minimal.",
-      "latencyImpact": "Direct end-to-end latency impact is usually low.",
-      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
-      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
-      "stabilityRisk": "Medium when changed without hardware-specific validation.",
-      "recommendedFor": "Only for controlled experiments with rollback ready.",
-      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
-      "badges": [
-        "CONDITIONAL_HARDWARE",
-        "EXPERIMENTAL",
-        "SYSTEM_WIDE",
-        "UNSUPPORTED_ON_THIS_SYSTEM"
-      ],
-      "support": "conditional",
-      "proofSource": "repo_placeholder_only",
-      "documentationStatus": "UNRESOLVED",
-      "sourceType": "device_power_flag",
-      "catalogId": "device_sd_controller_allowcomputertoturnoffdevice",
-      "apply": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId device_sd_controller_allowcomputertoturnoffdevice"
-          }
-        ]
-      },
-      "verify": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId device_sd_controller_allowcomputertoturnoffdevice"
-          }
-        ]
-      },
-      "revert": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId device_sd_controller_allowcomputertoturnoffdevice"
-          }
-        ]
-      }
-    },
-    {
-      "id": "pm_device_smbus_controller_allowcomputertoturnoffdevice",
-      "type": "button",
-      "name": "SMBus Controller AllowComputerToTurnOffDevice",
-      "risk": "Experimental",
-      "riskLevel": "Experimental",
-      "category": "Power Management",
-      "description": "SMBus Controller AllowComputerToTurnOffDevice controls Windows power policy behavior.",
-      "shortDescription": "SMBus Controller AllowComputerToTurnOffDevice controls Windows power policy behavior.",
-      "longDescription": "Adjusts smbus controller allowcomputertoturnoffdevice through Windows power policy behavior. Performance-oriented values reduce ramp delays but increase draw and heat.",
-      "whatItDoes": "Writes and tracks smbus controller allowcomputertoturnoffdevice so Falcon can apply, verify, and rollback consistently for this policy family.",
-      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
-      "fpsImpact": "Average FPS impact is generally minimal.",
-      "latencyImpact": "Direct end-to-end latency impact is usually low.",
-      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
-      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
-      "stabilityRisk": "Medium when changed without hardware-specific validation.",
-      "recommendedFor": "Only for controlled experiments with rollback ready.",
-      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
-      "badges": [
-        "CONDITIONAL_HARDWARE",
-        "EXPERIMENTAL",
-        "SYSTEM_WIDE",
-        "UNSUPPORTED_ON_THIS_SYSTEM",
-        "USB_POWER"
-      ],
-      "support": "conditional",
-      "proofSource": "repo_placeholder_only",
-      "documentationStatus": "UNRESOLVED",
-      "sourceType": "device_power_flag",
-      "catalogId": "device_smbus_controller_allowcomputertoturnoffdevice",
-      "apply": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId device_smbus_controller_allowcomputertoturnoffdevice"
-          }
-        ]
-      },
-      "verify": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId device_smbus_controller_allowcomputertoturnoffdevice"
-          }
-        ]
-      },
-      "revert": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId device_smbus_controller_allowcomputertoturnoffdevice"
-          }
-        ]
-      }
-    },
-    {
-      "id": "pm_device_spi_controller_allowcomputertoturnoffdevice",
-      "type": "button",
-      "name": "SPI Controller AllowComputerToTurnOffDevice",
-      "risk": "Experimental",
-      "riskLevel": "Experimental",
-      "category": "Power Management",
-      "description": "SPI Controller AllowComputerToTurnOffDevice controls Windows power policy behavior.",
-      "shortDescription": "SPI Controller AllowComputerToTurnOffDevice controls Windows power policy behavior.",
-      "longDescription": "Adjusts spi controller allowcomputertoturnoffdevice through Windows power policy behavior. Performance-oriented values reduce ramp delays but increase draw and heat.",
-      "whatItDoes": "Writes and tracks spi controller allowcomputertoturnoffdevice so Falcon can apply, verify, and rollback consistently for this policy family.",
-      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
-      "fpsImpact": "Average FPS impact is generally minimal.",
-      "latencyImpact": "Direct end-to-end latency impact is usually low.",
-      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
-      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
-      "stabilityRisk": "Medium when changed without hardware-specific validation.",
-      "recommendedFor": "Only for controlled experiments with rollback ready.",
-      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
-      "badges": [
-        "CONDITIONAL_HARDWARE",
-        "EXPERIMENTAL",
-        "SYSTEM_WIDE",
-        "UNSUPPORTED_ON_THIS_SYSTEM",
-        "USB_POWER"
-      ],
-      "support": "conditional",
-      "proofSource": "repo_placeholder_only",
-      "documentationStatus": "UNRESOLVED",
-      "sourceType": "device_power_flag",
-      "catalogId": "device_spi_controller_allowcomputertoturnoffdevice",
-      "apply": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId device_spi_controller_allowcomputertoturnoffdevice"
-          }
-        ]
-      },
-      "verify": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId device_spi_controller_allowcomputertoturnoffdevice"
-          }
-        ]
-      },
-      "revert": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId device_spi_controller_allowcomputertoturnoffdevice"
-          }
-        ]
-      }
-    },
-    {
-      "id": "pm_device_sensor_allowcomputertoturnoffdevice",
-      "type": "button",
-      "name": "Sensor AllowComputerToTurnOffDevice",
-      "risk": "Experimental",
-      "riskLevel": "Experimental",
-      "category": "Power Management",
-      "description": "Sensor AllowComputerToTurnOffDevice controls Windows power policy behavior.",
-      "shortDescription": "Sensor AllowComputerToTurnOffDevice controls Windows power policy behavior.",
-      "longDescription": "Adjusts sensor allowcomputertoturnoffdevice through Windows power policy behavior. Performance-oriented values reduce ramp delays but increase draw and heat.",
-      "whatItDoes": "Writes and tracks sensor allowcomputertoturnoffdevice so Falcon can apply, verify, and rollback consistently for this policy family.",
-      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
-      "fpsImpact": "Average FPS impact is generally minimal.",
-      "latencyImpact": "Direct end-to-end latency impact is usually low.",
-      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
-      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
-      "stabilityRisk": "Medium when changed without hardware-specific validation.",
-      "recommendedFor": "Only for controlled experiments with rollback ready.",
-      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
-      "badges": [
-        "CONDITIONAL_HARDWARE",
-        "EXPERIMENTAL",
-        "SYSTEM_WIDE",
-        "UNSUPPORTED_ON_THIS_SYSTEM"
-      ],
-      "support": "conditional",
-      "proofSource": "repo_placeholder_only",
-      "documentationStatus": "UNRESOLVED",
-      "sourceType": "device_power_flag",
-      "catalogId": "device_sensor_allowcomputertoturnoffdevice",
-      "apply": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId device_sensor_allowcomputertoturnoffdevice"
-          }
-        ]
-      },
-      "verify": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId device_sensor_allowcomputertoturnoffdevice"
-          }
-        ]
-      },
-      "revert": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId device_sensor_allowcomputertoturnoffdevice"
-          }
-        ]
-      }
-    },
-    {
-      "id": "pm_device_serial_controller_allowcomputertoturnoffdevice",
-      "type": "button",
-      "name": "Serial Controller AllowComputerToTurnOffDevice",
-      "risk": "Experimental",
-      "riskLevel": "Experimental",
-      "category": "Power Management",
-      "description": "Serial Controller AllowComputerToTurnOffDevice controls Windows power policy behavior.",
-      "shortDescription": "Serial Controller AllowComputerToTurnOffDevice controls Windows power policy behavior.",
-      "longDescription": "Adjusts serial controller allowcomputertoturnoffdevice through Windows power policy behavior. Performance-oriented values reduce ramp delays but increase draw and heat.",
-      "whatItDoes": "Writes and tracks serial controller allowcomputertoturnoffdevice so Falcon can apply, verify, and rollback consistently for this policy family.",
-      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
-      "fpsImpact": "Average FPS impact is generally minimal.",
-      "latencyImpact": "Direct end-to-end latency impact is usually low.",
-      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
-      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
-      "stabilityRisk": "Medium when changed without hardware-specific validation.",
-      "recommendedFor": "Only for controlled experiments with rollback ready.",
-      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
-      "badges": [
-        "CONDITIONAL_HARDWARE",
-        "EXPERIMENTAL",
-        "SYSTEM_WIDE",
-        "UNSUPPORTED_ON_THIS_SYSTEM"
-      ],
-      "support": "conditional",
-      "proofSource": "repo_placeholder_only",
-      "documentationStatus": "UNRESOLVED",
-      "sourceType": "device_power_flag",
-      "catalogId": "device_serial_controller_allowcomputertoturnoffdevice",
-      "apply": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId device_serial_controller_allowcomputertoturnoffdevice"
-          }
-        ]
-      },
-      "verify": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId device_serial_controller_allowcomputertoturnoffdevice"
-          }
-        ]
-      },
-      "revert": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId device_serial_controller_allowcomputertoturnoffdevice"
-          }
-        ]
-      }
-    },
-    {
-      "id": "pm_storage_storage_device_spin_down",
-      "type": "button",
-      "name": "Storage Device Spin Down",
-      "risk": "Experimental",
-      "riskLevel": "Experimental",
-      "category": "Power Management",
-      "description": "Storage Device Spin Down controls I/O link power management.",
-      "shortDescription": "Storage Device Spin Down controls I/O link power management.",
-      "longDescription": "Adjusts storage device spin down through I/O link power management. Performance-oriented values reduce ramp delays but increase draw and heat.",
-      "whatItDoes": "Writes and tracks storage device spin down so Falcon can apply, verify, and rollback consistently for this policy family.",
-      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
-      "fpsImpact": "Average FPS impact is generally minimal.",
-      "latencyImpact": "Direct end-to-end latency impact is usually low.",
-      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
-      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
-      "stabilityRisk": "Medium when changed without hardware-specific validation.",
-      "recommendedFor": "Only for controlled experiments with rollback ready.",
-      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
-      "badges": [
-        "CONDITIONAL_HARDWARE",
-        "EXPERIMENTAL",
-        "STORAGE_POWER",
-        "SYSTEM_WIDE",
-        "UNSUPPORTED_ON_THIS_SYSTEM",
-        "USB_POWER"
-      ],
-      "support": "conditional",
-      "proofSource": "repo_placeholder_only",
-      "documentationStatus": "UNRESOLVED",
-      "sourceType": "storage_feature",
-      "catalogId": "storage_storage_device_spin_down",
-      "apply": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId storage_storage_device_spin_down"
-          }
-        ]
-      },
-      "verify": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId storage_storage_device_spin_down"
-          }
-        ]
-      },
-      "revert": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId storage_storage_device_spin_down"
-          }
-        ]
-      }
-    },
-    {
-      "id": "pm_device_thunderbolt_allowcomputertoturnoffdevice",
-      "type": "button",
-      "name": "Thunderbolt AllowComputerToTurnOffDevice",
-      "risk": "Experimental",
-      "riskLevel": "Experimental",
-      "category": "Power Management",
-      "description": "Thunderbolt AllowComputerToTurnOffDevice controls Windows power policy behavior.",
-      "shortDescription": "Thunderbolt AllowComputerToTurnOffDevice controls Windows power policy behavior.",
-      "longDescription": "Adjusts thunderbolt allowcomputertoturnoffdevice through Windows power policy behavior. Performance-oriented values reduce ramp delays but increase draw and heat.",
-      "whatItDoes": "Writes and tracks thunderbolt allowcomputertoturnoffdevice so Falcon can apply, verify, and rollback consistently for this policy family.",
-      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
-      "fpsImpact": "Average FPS impact is generally minimal.",
-      "latencyImpact": "Direct end-to-end latency impact is usually low.",
-      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
-      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
-      "stabilityRisk": "Medium when changed without hardware-specific validation.",
-      "recommendedFor": "Only for controlled experiments with rollback ready.",
-      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
-      "badges": [
-        "CONDITIONAL_HARDWARE",
-        "EXPERIMENTAL",
-        "SYSTEM_WIDE",
-        "UNSUPPORTED_ON_THIS_SYSTEM",
-        "USB_POWER"
-      ],
-      "support": "conditional",
-      "proofSource": "repo_placeholder_only",
-      "documentationStatus": "UNRESOLVED",
-      "sourceType": "device_power_flag",
-      "catalogId": "device_thunderbolt_allowcomputertoturnoffdevice",
-      "apply": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId device_thunderbolt_allowcomputertoturnoffdevice"
-          }
-        ]
-      },
-      "verify": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId device_thunderbolt_allowcomputertoturnoffdevice"
-          }
-        ]
-      },
-      "revert": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId device_thunderbolt_allowcomputertoturnoffdevice"
-          }
-        ]
-      }
-    },
-    {
-      "id": "pm_device_thunderbolt_low_power_mode",
-      "type": "button",
-      "name": "Thunderbolt low power mode",
-      "risk": "Experimental",
-      "riskLevel": "Experimental",
-      "category": "Power Management",
-      "description": "Thunderbolt low power mode controls Windows power policy behavior.",
-      "shortDescription": "Thunderbolt low power mode controls Windows power policy behavior.",
-      "longDescription": "Adjusts thunderbolt low power mode through Windows power policy behavior. Performance-oriented values reduce ramp delays but increase draw and heat.",
-      "whatItDoes": "Writes and tracks thunderbolt low power mode so Falcon can apply, verify, and rollback consistently for this policy family.",
-      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
-      "fpsImpact": "Average FPS impact is generally minimal.",
-      "latencyImpact": "Direct end-to-end latency impact is usually low.",
-      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
-      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
-      "stabilityRisk": "Medium when changed without hardware-specific validation.",
-      "recommendedFor": "Only for controlled experiments with rollback ready.",
-      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
-      "badges": [
-        "CONDITIONAL_HARDWARE",
-        "EXPERIMENTAL",
-        "SYSTEM_WIDE",
-        "UNSUPPORTED_ON_THIS_SYSTEM",
-        "USB_POWER"
-      ],
-      "support": "conditional",
-      "proofSource": "repo_placeholder_only",
-      "documentationStatus": "UNRESOLVED",
-      "sourceType": "device_power_flag",
-      "catalogId": "device_thunderbolt_low_power_mode",
-      "apply": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId device_thunderbolt_low_power_mode"
-          }
-        ]
-      },
-      "verify": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId device_thunderbolt_low_power_mode"
-          }
-        ]
-      },
-      "revert": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId device_thunderbolt_low_power_mode"
-          }
-        ]
-      }
-    },
-    {
-      "id": "pm_device_usb_3_link_power_management",
-      "type": "button",
-      "name": "USB 3 link power management",
-      "risk": "Experimental",
-      "riskLevel": "Experimental",
-      "category": "Power Management",
-      "description": "USB 3 link power management controls I/O link power management.",
-      "shortDescription": "USB 3 link power management controls I/O link power management.",
-      "longDescription": "Adjusts usb 3 link power management through I/O link power management. Performance-oriented values reduce ramp delays but increase draw and heat.",
-      "whatItDoes": "Writes and tracks usb 3 link power management so Falcon can apply, verify, and rollback consistently for this policy family.",
-      "whyGamersCare": "It can change frame-time consistency and input-to-render responsiveness during bursty loads.",
-      "fpsImpact": "Can indirectly stabilize frame pacing in I/O-bound scenarios; average FPS impact is typically small.",
-      "latencyImpact": "Latency-sensitive users may notice faster wake/ramp and steadier input response.",
-      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
-      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
-      "stabilityRisk": "Medium when changed without hardware-specific validation.",
-      "recommendedFor": "Only for controlled experiments with rollback ready.",
-      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
-      "badges": [
-        "CONDITIONAL_HARDWARE",
-        "EXPERIMENTAL",
-        "SYSTEM_WIDE",
-        "UNSUPPORTED_ON_THIS_SYSTEM",
-        "USB_POWER"
-      ],
-      "support": "conditional",
-      "proofSource": "repo_placeholder_only",
-      "documentationStatus": "UNRESOLVED",
-      "sourceType": "device_power_flag",
-      "catalogId": "device_usb_3_link_power_management",
-      "apply": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId device_usb_3_link_power_management"
-          }
-        ]
-      },
-      "verify": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId device_usb_3_link_power_management"
-          }
-        ]
-      },
-      "revert": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId device_usb_3_link_power_management"
-          }
-        ]
-      }
-    },
-    {
-      "id": "pm_device_usb_controller_allowcomputertoturnoffdevice",
-      "type": "button",
-      "name": "USB Controller AllowComputerToTurnOffDevice",
-      "risk": "Experimental",
-      "riskLevel": "Experimental",
-      "category": "Power Management",
-      "description": "USB Controller AllowComputerToTurnOffDevice controls I/O link power management.",
-      "shortDescription": "USB Controller AllowComputerToTurnOffDevice controls I/O link power management.",
-      "longDescription": "Adjusts usb controller allowcomputertoturnoffdevice through I/O link power management. Performance-oriented values reduce ramp delays but increase draw and heat.",
-      "whatItDoes": "Writes and tracks usb controller allowcomputertoturnoffdevice so Falcon can apply, verify, and rollback consistently for this policy family.",
-      "whyGamersCare": "It can change frame-time consistency and input-to-render responsiveness during bursty loads.",
-      "fpsImpact": "Can indirectly stabilize frame pacing in I/O-bound scenarios; average FPS impact is typically small.",
-      "latencyImpact": "Latency-sensitive users may notice faster wake/ramp and steadier input response.",
-      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
-      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
-      "stabilityRisk": "Medium when changed without hardware-specific validation.",
-      "recommendedFor": "Only for controlled experiments with rollback ready.",
-      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
-      "badges": [
-        "CONDITIONAL_HARDWARE",
-        "EXPERIMENTAL",
-        "SYSTEM_WIDE",
-        "UNSUPPORTED_ON_THIS_SYSTEM",
-        "USB_POWER"
-      ],
-      "support": "conditional",
-      "proofSource": "repo_placeholder_only",
-      "documentationStatus": "UNRESOLVED",
-      "sourceType": "device_power_flag",
-      "catalogId": "device_usb_controller_allowcomputertoturnoffdevice",
-      "apply": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId device_usb_controller_allowcomputertoturnoffdevice"
-          }
-        ]
-      },
-      "verify": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId device_usb_controller_allowcomputertoturnoffdevice"
-          }
-        ]
-      },
-      "revert": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId device_usb_controller_allowcomputertoturnoffdevice"
-          }
-        ]
-      }
-    },
-    {
-      "id": "pm_device_usb_hub_allowcomputertoturnoffdevice",
-      "type": "button",
-      "name": "USB Hub AllowComputerToTurnOffDevice",
-      "risk": "Experimental",
-      "riskLevel": "Experimental",
-      "category": "Power Management",
-      "description": "USB Hub AllowComputerToTurnOffDevice controls I/O link power management.",
-      "shortDescription": "USB Hub AllowComputerToTurnOffDevice controls I/O link power management.",
-      "longDescription": "Adjusts usb hub allowcomputertoturnoffdevice through I/O link power management. Performance-oriented values reduce ramp delays but increase draw and heat.",
-      "whatItDoes": "Writes and tracks usb hub allowcomputertoturnoffdevice so Falcon can apply, verify, and rollback consistently for this policy family.",
-      "whyGamersCare": "It can change frame-time consistency and input-to-render responsiveness during bursty loads.",
-      "fpsImpact": "Can indirectly stabilize frame pacing in I/O-bound scenarios; average FPS impact is typically small.",
-      "latencyImpact": "Latency-sensitive users may notice faster wake/ramp and steadier input response.",
-      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
-      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
-      "stabilityRisk": "Medium when changed without hardware-specific validation.",
-      "recommendedFor": "Only for controlled experiments with rollback ready.",
-      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
-      "badges": [
-        "CONDITIONAL_HARDWARE",
-        "EXPERIMENTAL",
-        "SYSTEM_WIDE",
-        "UNSUPPORTED_ON_THIS_SYSTEM",
-        "USB_POWER"
-      ],
-      "support": "conditional",
-      "proofSource": "repo_placeholder_only",
-      "documentationStatus": "UNRESOLVED",
-      "sourceType": "device_power_flag",
-      "catalogId": "device_usb_hub_allowcomputertoturnoffdevice",
-      "apply": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId device_usb_hub_allowcomputertoturnoffdevice"
-          }
-        ]
-      },
-      "verify": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId device_usb_hub_allowcomputertoturnoffdevice"
-          }
-        ]
-      },
-      "revert": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId device_usb_hub_allowcomputertoturnoffdevice"
-          }
-        ]
-      }
-    },
-    {
-      "id": "pm_device_usb_root_hub_allowcomputertoturnoffdevice",
-      "type": "button",
-      "name": "USB Root Hub AllowComputerToTurnOffDevice",
-      "risk": "Experimental",
-      "riskLevel": "Experimental",
-      "category": "Power Management",
-      "description": "USB Root Hub AllowComputerToTurnOffDevice controls I/O link power management.",
-      "shortDescription": "USB Root Hub AllowComputerToTurnOffDevice controls I/O link power management.",
-      "longDescription": "Adjusts usb root hub allowcomputertoturnoffdevice through I/O link power management. Performance-oriented values reduce ramp delays but increase draw and heat.",
-      "whatItDoes": "Writes and tracks usb root hub allowcomputertoturnoffdevice so Falcon can apply, verify, and rollback consistently for this policy family.",
-      "whyGamersCare": "It can change frame-time consistency and input-to-render responsiveness during bursty loads.",
-      "fpsImpact": "Can indirectly stabilize frame pacing in I/O-bound scenarios; average FPS impact is typically small.",
-      "latencyImpact": "Latency-sensitive users may notice faster wake/ramp and steadier input response.",
-      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
-      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
-      "stabilityRisk": "Medium when changed without hardware-specific validation.",
-      "recommendedFor": "Only for controlled experiments with rollback ready.",
-      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
-      "badges": [
-        "CONDITIONAL_HARDWARE",
-        "EXPERIMENTAL",
-        "SYSTEM_WIDE",
-        "UNSUPPORTED_ON_THIS_SYSTEM",
-        "USB_POWER"
-      ],
-      "support": "conditional",
-      "proofSource": "repo_placeholder_only",
-      "documentationStatus": "UNRESOLVED",
-      "sourceType": "device_power_flag",
-      "catalogId": "device_usb_root_hub_allowcomputertoturnoffdevice",
-      "apply": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId device_usb_root_hub_allowcomputertoturnoffdevice"
-          }
-        ]
-      },
-      "verify": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId device_usb_root_hub_allowcomputertoturnoffdevice"
-          }
-        ]
-      },
-      "revert": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId device_usb_root_hub_allowcomputertoturnoffdevice"
-          }
-        ]
-      }
-    },
-    {
-      "id": "pm_device_usb_root_hub_selective_suspend",
-      "type": "button",
-      "name": "USB root hub selective suspend",
-      "risk": "Experimental",
-      "riskLevel": "Experimental",
-      "category": "Power Management",
-      "description": "USB root hub selective suspend controls I/O link power management.",
-      "shortDescription": "USB root hub selective suspend controls I/O link power management.",
-      "longDescription": "Adjusts usb root hub selective suspend through I/O link power management. Performance-oriented values reduce ramp delays but increase draw and heat.",
-      "whatItDoes": "Writes and tracks usb root hub selective suspend so Falcon can apply, verify, and rollback consistently for this policy family.",
-      "whyGamersCare": "It can change frame-time consistency and input-to-render responsiveness during bursty loads.",
-      "fpsImpact": "Can indirectly stabilize frame pacing in I/O-bound scenarios; average FPS impact is typically small.",
-      "latencyImpact": "Latency-sensitive users may notice faster wake/ramp and steadier input response.",
-      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
-      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
-      "stabilityRisk": "Medium when changed without hardware-specific validation.",
-      "recommendedFor": "Only for controlled experiments with rollback ready.",
-      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
-      "badges": [
-        "CONDITIONAL_HARDWARE",
-        "EXPERIMENTAL",
-        "POWER_SAVING_DISABLED",
-        "SYSTEM_WIDE",
-        "UNSUPPORTED_ON_THIS_SYSTEM",
-        "USB_POWER"
-      ],
-      "support": "conditional",
-      "proofSource": "repo_placeholder_only",
-      "documentationStatus": "UNRESOLVED",
-      "sourceType": "device_power_flag",
-      "catalogId": "device_usb_root_hub_selective_suspend",
-      "apply": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId device_usb_root_hub_selective_suspend"
-          }
-        ]
-      },
-      "verify": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId device_usb_root_hub_selective_suspend"
-          }
-        ]
-      },
-      "revert": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId device_usb_root_hub_selective_suspend"
-          }
-        ]
-      }
-    },
-    {
       "id": "pm_device_usb_selective_suspend",
       "type": "button",
       "name": "USB selective suspend",
-      "risk": "Experimental",
-      "riskLevel": "Experimental",
+      "risk": "Warning",
+      "riskLevel": "Warning",
       "category": "Power Management",
       "description": "USB selective suspend controls I/O link power management.",
       "shortDescription": "USB selective suspend controls I/O link power management.",
@@ -1085,12 +24,11 @@
         "EXPERIMENTAL",
         "POWER_SAVING_DISABLED",
         "SYSTEM_WIDE",
-        "UNSUPPORTED_ON_THIS_SYSTEM",
         "USB_POWER"
       ],
-      "support": "conditional",
-      "proofSource": "repo_placeholder_only",
-      "documentationStatus": "UNRESOLVED",
+      "support": "conditional-hardware",
+      "proofSource": "inventory_discovery_required",
+      "documentationStatus": "CONDITIONAL_DISCOVERY_REQUIRED",
       "sourceType": "device_power_flag",
       "catalogId": "device_usb_selective_suspend",
       "apply": {
@@ -1119,16 +57,16 @@
       }
     },
     {
-      "id": "pm_nic_wake_on_usb",
+      "id": "pm_device_usb_3_link_power_management",
       "type": "button",
-      "name": "Wake on USB",
-      "risk": "Experimental",
-      "riskLevel": "Experimental",
+      "name": "USB 3 link power management",
+      "risk": "Warning",
+      "riskLevel": "Warning",
       "category": "Power Management",
-      "description": "Wake on USB controls sleep/standby and wake orchestration.",
-      "shortDescription": "Wake on USB controls sleep/standby and wake orchestration.",
-      "longDescription": "Adjusts wake on usb through sleep/standby and wake orchestration. Performance-oriented values reduce ramp delays but increase draw and heat.",
-      "whatItDoes": "Writes and tracks wake on usb so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "description": "USB 3 link power management controls I/O link power management.",
+      "shortDescription": "USB 3 link power management controls I/O link power management.",
+      "longDescription": "Adjusts usb 3 link power management through I/O link power management. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks usb 3 link power management so Falcon can apply, verify, and rollback consistently for this policy family.",
       "whyGamersCare": "It can change frame-time consistency and input-to-render responsiveness during bursty loads.",
       "fpsImpact": "Can indirectly stabilize frame pacing in I/O-bound scenarios; average FPS impact is typically small.",
       "latencyImpact": "Latency-sensitive users may notice faster wake/ramp and steadier input response.",
@@ -1140,22 +78,19 @@
       "badges": [
         "CONDITIONAL_HARDWARE",
         "EXPERIMENTAL",
-        "NETWORK_POWER",
         "SYSTEM_WIDE",
-        "UNSUPPORTED_ON_THIS_SYSTEM",
-        "USB_POWER",
-        "WAKE_BEHAVIOR"
+        "USB_POWER"
       ],
-      "support": "conditional",
-      "proofSource": "repo_placeholder_only",
-      "documentationStatus": "UNRESOLVED",
-      "sourceType": "nic_advanced",
-      "catalogId": "nic_wake_on_usb",
+      "support": "conditional-hardware",
+      "proofSource": "inventory_discovery_required",
+      "documentationStatus": "CONDITIONAL_DISCOVERY_REQUIRED",
+      "sourceType": "device_power_flag",
+      "catalogId": "device_usb_3_link_power_management",
       "apply": {
         "steps": [
           {
             "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId nic_wake_on_usb"
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId device_usb_3_link_power_management"
           }
         ]
       },
@@ -1163,7 +98,7 @@
         "steps": [
           {
             "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId nic_wake_on_usb"
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId device_usb_3_link_power_management"
           }
         ]
       },
@@ -1171,7 +106,172 @@
         "steps": [
           {
             "type": "ps.run",
-            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_wake_on_usb"
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId device_usb_3_link_power_management"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_device_usb_root_hub_selective_suspend",
+      "type": "button",
+      "name": "USB root hub selective suspend",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "category": "Power Management",
+      "description": "USB root hub selective suspend controls I/O link power management.",
+      "shortDescription": "USB root hub selective suspend controls I/O link power management.",
+      "longDescription": "Adjusts usb root hub selective suspend through I/O link power management. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks usb root hub selective suspend so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It can change frame-time consistency and input-to-render responsiveness during bursty loads.",
+      "fpsImpact": "Can indirectly stabilize frame pacing in I/O-bound scenarios; average FPS impact is typically small.",
+      "latencyImpact": "Latency-sensitive users may notice faster wake/ramp and steadier input response.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "POWER_SAVING_DISABLED",
+        "SYSTEM_WIDE",
+        "USB_POWER"
+      ],
+      "support": "conditional-hardware",
+      "proofSource": "inventory_discovery_required",
+      "documentationStatus": "CONDITIONAL_DISCOVERY_REQUIRED",
+      "sourceType": "device_power_flag",
+      "catalogId": "device_usb_root_hub_selective_suspend",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId device_usb_root_hub_selective_suspend"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId device_usb_root_hub_selective_suspend"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId device_usb_root_hub_selective_suspend"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_device_hid_idle_timeout",
+      "type": "button",
+      "name": "HID idle timeout",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "category": "Power Management",
+      "description": "HID idle timeout controls cpu scheduler and frequency policy.",
+      "shortDescription": "HID idle timeout controls cpu scheduler and frequency policy.",
+      "longDescription": "Adjusts hid idle timeout through cpu scheduler and frequency policy. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks hid idle timeout so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It can change frame-time consistency and input-to-render responsiveness during bursty loads.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Latency-sensitive users may notice faster wake/ramp and steadier input response.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "SYSTEM_WIDE",
+        "USB_POWER"
+      ],
+      "support": "conditional-hardware",
+      "proofSource": "inventory_discovery_required",
+      "documentationStatus": "CONDITIONAL_DISCOVERY_REQUIRED",
+      "sourceType": "device_power_flag",
+      "catalogId": "device_hid_idle_timeout",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId device_hid_idle_timeout"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId device_hid_idle_timeout"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId device_hid_idle_timeout"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_device_camera_device_idle_suspend",
+      "type": "button",
+      "name": "Camera device idle suspend",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "category": "Power Management",
+      "description": "Camera device idle suspend controls cpu scheduler and frequency policy.",
+      "shortDescription": "Camera device idle suspend controls cpu scheduler and frequency policy.",
+      "longDescription": "Adjusts camera device idle suspend through cpu scheduler and frequency policy. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks camera device idle suspend so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It can change frame-time consistency and input-to-render responsiveness during bursty loads.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Latency-sensitive users may notice faster wake/ramp and steadier input response.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "SYSTEM_WIDE"
+      ],
+      "support": "conditional-hardware",
+      "proofSource": "inventory_discovery_required",
+      "documentationStatus": "CONDITIONAL_DISCOVERY_REQUIRED",
+      "sourceType": "device_power_flag",
+      "catalogId": "device_camera_device_idle_suspend",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId device_camera_device_idle_suspend"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId device_camera_device_idle_suspend"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId device_camera_device_idle_suspend"
           }
         ]
       }
