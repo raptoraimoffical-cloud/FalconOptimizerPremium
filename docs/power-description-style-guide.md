@@ -1,20 +1,13 @@
 # Power Description Style Guide
 
-Every visible power item must include:
-- whatItDoes
-- whyGamersCare
-- fpsImpact
-- latencyImpact
-- powerImpact
-- heatImpact
-- stabilityRisk
-- recommendedFor
-- avoidIf
-- documentationStatus
-- proofSource
+Updated 2026-03-20T03:06:34.561Z.
 
-## Quality rules
-1. No placeholder text (e.g., "Live discovered powercfg item").
-2. No fake certainty for undocumented settings.
-3. Unresolved settings must explicitly say they are unresolved/internal.
-4. Keep tradeoffs explicit (performance vs power/heat/stability).
+## Required fields for every visible item
+shortDescription, longDescription, whatItDoes, whyGamersCare, fpsImpact, latencyImpact, powerImpact, heatImpact, stabilityRisk, recommendedFor, avoidIf.
+
+## Quality requirements
+1. Mention the actual mechanism family (CPU scheduler, sleep/wake, I/O link power, network power, display/GPU power, or registry-backed policy).
+2. Include a concrete tradeoff (responsiveness vs power/heat) for that specific item family.
+3. Avoid generic clone text and avoid unproven certainty.
+4. If semantics are unresolved, explicitly mark the item as advanced/experimental and non-main.
+
