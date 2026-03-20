@@ -1,96 +1,169 @@
 {
   "items": [
     {
-      "id": "power_bt_enumerate_radios",
+      "id": "pm_device_bluetooth_radio_allowcomputertoturnoffdevice",
       "type": "button",
-      "name": "Bluetooth: Enumerate Radio Power-Management State",
-      "risk": "Safe",
-      "riskLevel": "Safe",
-      "category": "Power Management",
-      "description": "Lists Bluetooth radios and device power-management capabilities for manual tuning and diagnostics.",
-      "apply": {
-        "steps": [
-          {
-            "type": "ps.run",
-            "command": "Get-PnpDevice -Class Bluetooth -ErrorAction SilentlyContinue | Select-Object Status,FriendlyName,InstanceId | Format-Table -AutoSize | Out-String | Write-Output"
-          }
-        ]
-      }
-    },
-    {
-      "id": "power_bt_disable_selective_suspend_hint",
-      "type": "button",
-      "name": "Bluetooth: Disable Selective Suspend (registry policy helper)",
+      "name": "Bluetooth Radio AllowComputerToTurnOffDevice",
       "risk": "Experimental",
       "riskLevel": "Experimental",
       "category": "Power Management",
-      "requiresAdmin": true,
-      "description": "Applies a conservative USB-level selective suspend policy commonly affecting Bluetooth adapters; verify adapter behavior after apply.",
-      "apply": {
-        "steps": [
-          {
-            "type": "cmd.run",
-            "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_USB USBSELECTSUSPEND 0"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_USB USBSELECTSUSPEND 1"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg /setactive SCHEME_CURRENT"
-          }
-        ]
-      }
-    },
-    {
-      "id": "power_bt_disable_adapter_pm_when_present",
-      "type": "button",
-      "name": "Bluetooth: Disable Adapter Power Management where available",
-      "risk": "Warning",
-      "riskLevel": "Warning",
-      "category": "Power Management",
-      "requiresAdmin": true,
-      "description": "Attempts to disable PnP-level power saving on Bluetooth radios that expose power management capabilities.",
+      "description": "Bluetooth Radio AllowComputerToTurnOffDevice controls Windows power policy behavior.",
+      "shortDescription": "Bluetooth Radio AllowComputerToTurnOffDevice controls Windows power policy behavior.",
+      "longDescription": "Adjusts bluetooth radio allowcomputertoturnoffdevice through Windows power policy behavior. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks bluetooth radio allowcomputertoturnoffdevice so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "device_power_flag",
+      "catalogId": "device_bluetooth_radio_allowcomputertoturnoffdevice",
       "apply": {
         "steps": [
           {
             "type": "ps.run",
-            "command": "$radios=Get-PnpDevice -Class Bluetooth -Status OK -ErrorAction SilentlyContinue; foreach($r in $radios){ try{ $id=$r.InstanceId.Replace(\"\\\",\"\\\\\"); powercfg /devicedisablewake \"$($r.FriendlyName)\" | Out-Null }catch{} }; Get-PnpDevice -Class Bluetooth -ErrorAction SilentlyContinue | Select-Object FriendlyName,Status | Format-Table -AutoSize | Out-String | Write-Output"
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId device_bluetooth_radio_allowcomputertoturnoffdevice"
           }
         ]
-      }
-    },
-    {
-      "id": "power_bt_wake_armed_list",
-      "type": "button",
-      "name": "Bluetooth: List Wake-Armed Bluetooth Devices",
-      "risk": "Safe",
-      "riskLevel": "Safe",
-      "category": "Power Management",
-      "description": "Lists Bluetooth devices currently armed for wake.",
-      "apply": {
+      },
+      "verify": {
         "steps": [
           {
-            "type": "cmd.run",
-            "command": "powercfg /devicequery wake_armed | findstr /I \"Bluetooth\""
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId device_bluetooth_radio_allowcomputertoturnoffdevice"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId device_bluetooth_radio_allowcomputertoturnoffdevice"
           }
         ]
       }
     },
     {
-      "id": "power_bt_export_device_inventory",
+      "id": "pm_device_bluetooth_radio_power_saving",
       "type": "button",
-      "name": "Bluetooth: Export Device and Power Inventory",
-      "risk": "Safe",
-      "riskLevel": "Safe",
+      "name": "Bluetooth radio power saving",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
       "category": "Power Management",
-      "description": "Exports Bluetooth PnP inventory for machine-specific tuning in Experimental pages.",
+      "description": "Bluetooth radio power saving controls Windows power policy behavior.",
+      "shortDescription": "Bluetooth radio power saving controls Windows power policy behavior.",
+      "longDescription": "Adjusts bluetooth radio power saving through Windows power policy behavior. Lower values usually save power but increase wake delay or reduce throughput headroom.",
+      "whatItDoes": "Writes and tracks bluetooth radio power saving so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Direct end-to-end latency impact is usually low.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "POWER_SAVING_DISABLED",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "device_power_flag",
+      "catalogId": "device_bluetooth_radio_power_saving",
       "apply": {
         "steps": [
           {
             "type": "ps.run",
-            "command": "$ts=Get-Date -Format yyyyMMdd-HHmmss; $dir=Join-Path $PWD \"logs\"; if(!(Test-Path $dir)){New-Item -ItemType Directory -Path $dir|Out-Null}; $out=Join-Path $dir (\"bluetooth-inventory-\"+$ts+\".json\"); Get-PnpDevice -Class Bluetooth -ErrorAction SilentlyContinue | Select-Object FriendlyName,InstanceId,Status,Class | ConvertTo-Json -Depth 3 | Out-File -Encoding utf8 $out; Write-Output \"Saved: $out\""
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId device_bluetooth_radio_power_saving"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId device_bluetooth_radio_power_saving"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId device_bluetooth_radio_power_saving"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pm_nic_wake_on_bluetooth",
+      "type": "button",
+      "name": "Wake on Bluetooth",
+      "risk": "Experimental",
+      "riskLevel": "Experimental",
+      "category": "Power Management",
+      "description": "Wake on Bluetooth controls sleep/standby and wake orchestration.",
+      "shortDescription": "Wake on Bluetooth controls sleep/standby and wake orchestration.",
+      "longDescription": "Adjusts wake on bluetooth through sleep/standby and wake orchestration. Performance-oriented values reduce ramp delays but increase draw and heat.",
+      "whatItDoes": "Writes and tracks wake on bluetooth so Falcon can apply, verify, and rollback consistently for this policy family.",
+      "whyGamersCare": "It is mostly a power-behavior control and usually has limited direct gaming benefit.",
+      "fpsImpact": "Average FPS impact is generally minimal.",
+      "latencyImpact": "Latency-sensitive users may notice faster wake/ramp and steadier input response.",
+      "powerImpact": "Conservative values favor lower power at the cost of responsiveness.",
+      "heatImpact": "Thermal impact is usually modest unless combined with other aggressive settings.",
+      "stabilityRisk": "Medium when changed without hardware-specific validation.",
+      "recommendedFor": "Only for controlled experiments with rollback ready.",
+      "avoidIf": "Avoid if you cannot benchmark changes or need strict OEM-default behavior.",
+      "badges": [
+        "CONDITIONAL_HARDWARE",
+        "EXPERIMENTAL",
+        "NETWORK_POWER",
+        "SYSTEM_WIDE",
+        "UNSUPPORTED_ON_THIS_SYSTEM",
+        "WAKE_BEHAVIOR"
+      ],
+      "support": "conditional",
+      "proofSource": "repo_placeholder_only",
+      "documentationStatus": "UNRESOLVED",
+      "sourceType": "nic_advanced",
+      "catalogId": "nic_wake_on_bluetooth",
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode apply-item -ItemId nic_wake_on_bluetooth"
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode verify-item -ItemId nic_wake_on_bluetooth"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId nic_wake_on_bluetooth"
           }
         ]
       }

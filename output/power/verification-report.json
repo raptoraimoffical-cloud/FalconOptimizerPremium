@@ -1,64 +1,10 @@
 {
-  "generatedAt": "2026-03-20T03:06:34.561Z",
-  "checklist": [
-    {
-      "rule": "No main item missing subgroupGuid",
-      "status": "PASS"
-    },
-    {
-      "rule": "No main item missing settingGuid",
-      "status": "PASS"
-    },
-    {
-      "rule": "No main item applyMethod unsupported",
-      "status": "PASS"
-    },
-    {
-      "rule": "No main item verifyMethod unsupported",
-      "status": "PASS"
-    },
-    {
-      "rule": "No powercfg_unmapped in main",
-      "status": "PASS"
-    },
-    {
-      "rule": "No Processor policy N in main",
-      "status": "PASS"
-    },
-    {
-      "rule": "No unresolved placeholder family in main",
-      "status": "PASS"
-    },
-    {
-      "rule": "Every visible item has description fields",
-      "status": "PASS"
-    },
-    {
-      "rule": "Speed Core metadata complete",
-      "status": "PASS"
-    },
-    {
-      "rule": "uiExposedIds matches main",
-      "status": "PASS"
-    }
-  ],
-  "counts": {
-    "totalCatalogItems": 567,
-    "totalMainItems": 3,
-    "totalAdvancedItems": 27,
-    "totalExperimentalItems": 222,
-    "totalHiddenItems": 315,
-    "totalValidGuidPairs": 3,
-    "totalMissingSubgroupGuid": 564,
-    "totalMissingSettingGuid": 564,
-    "totalStillUnsupported": 564,
-    "totalRemovedFromMainUiThisPass": 139,
-    "totalMovedToAdvanced": 27,
-    "totalMovedToExperimental": 138,
-    "totalMovedToHidden": 237,
-    "totalDescriptionsRewritten": 567,
-    "totalMainWithValidApplyVerifyRollback": 3,
-    "totalAppSpecificSpeedCoreItems": 21,
-    "totalSystemWideSpeedCoreItems": 32
+  "generatedAt": "2026-03-20T03:35:05Z",
+  "summary": {
+    "total": 567,
+    "supported": 3,
+    "conditionalHardware": 115,
+    "advisoryOnly": 80,
+    "unsupported": 564
   }
 }

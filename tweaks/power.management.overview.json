@@ -1,57 +1,42 @@
 {
   "items": [
     {
-      "id": "power_mgmt_overview_intro",
+      "id": "power_overview_summary",
+      "type": "info",
+      "name": "Power Management coverage summary",
+      "category": "Power Management",
+      "description": "This panel now surfaces verified mainstream items plus conditional advanced controls with explicit badges and support/proof metadata."
+    },
+    {
+      "id": "power_overview_export_qh",
       "type": "button",
-      "name": "Power Management Workflow Overview",
+      "name": "Export powercfg /qh + /aliases snapshot",
       "risk": "Safe",
       "riskLevel": "Safe",
       "category": "Utilities & Diagnostics",
-      "description": "Readback-only helper that explains the safe workflow: snapshot first, apply one change, then verify with powercfg query commands.",
+      "description": "Exports authoritative powercfg evidence for local verification and troubleshooting.",
       "apply": {
         "steps": [
           {
             "type": "ps.run",
-            "command": "Write-Output \"Power Management flow: 1) Snapshot plan 2) Apply scoped change 3) Verify with powercfg /query or /qh.\""
+            "command": "$ts=Get-Date -Format \"yyyyMMdd-HHmmss\"; $dir=Join-Path $PWD \"logs\"; if(!(Test-Path $dir)){New-Item -ItemType Directory -Path $dir|Out-Null}; powercfg /qh SCHEME_CURRENT | Out-File -Encoding utf8 (Join-Path $dir (\"power-qh-\"+$ts+\".txt\")); powercfg /aliases | Out-File -Encoding utf8 (Join-Path $dir (\"power-aliases-\"+$ts+\".txt\")); Write-Output \"Saved powercfg snapshots.\""
           }
         ]
       }
     },
     {
-      "id": "power_mgmt_export_all_settings_snapshot",
+      "id": "power_overview_verify_catalog",
       "type": "button",
-      "name": "Export: All Settings Explorer Snapshot (/qh + aliases)",
+      "name": "Run power catalog verification reports",
       "risk": "Safe",
       "riskLevel": "Safe",
       "category": "Utilities & Diagnostics",
-      "description": "Exports aliases and /qh output so you can inspect real power setting values (diagnostic export, not an optimization).",
-      "requiresAdmin": false,
+      "description": "Regenerates verification and audit report artifacts from the current catalog/manifests.",
       "apply": {
         "steps": [
           {
             "type": "ps.run",
-            "command": "$ts=Get-Date -Format \"yyyyMMdd-HHmmss\"; $dir=Join-Path $PWD \"logs\"; if(!(Test-Path $dir)){New-Item -ItemType Directory -Path $dir | Out-Null}; powercfg /aliases | Out-File -Encoding utf8 (Join-Path $dir (\"power-aliases-\"+$ts+\".txt\")); powercfg /qh SCHEME_CURRENT | Out-File -Encoding utf8 (Join-Path $dir (\"power-qh-\"+$ts+\".txt\")); Write-Output \"Saved power snapshots to logs/.\""
-          }
-        ]
-      }
-    },
-    {
-      "id": "power_mgmt_refresh_scheme_cache",
-      "type": "button",
-      "name": "Refresh Active Scheme (readback helper)",
-      "risk": "Safe",
-      "riskLevel": "Safe",
-      "category": "Utilities & Diagnostics",
-      "description": "Re-applies the active scheme and prints it for verification (readback helper, not an optimization).",
-      "apply": {
-        "steps": [
-          {
-            "type": "cmd.run",
-            "command": "powercfg /setactive SCHEME_CURRENT"
-          },
-          {
-            "type": "cmd.run",
-            "command": "powercfg /getactivescheme"
+            "command": "powershell -ExecutionPolicy Bypass -File scripts/validation/report-power-management.ps1; powershell -ExecutionPolicy Bypass -File scripts/validation/verify-power-management.ps1"
           }
         ]
       }
