@@ -1486,6 +1486,10 @@ function renderTweakDetails(item){
     out += 'Name: ' + (item.name || item.id || '(unnamed)') + '\n';
     out += 'ID: ' + (item.id || '(none)') + '\n';
     out += 'Risk: ' + (item.riskLevel || item.risk || 'Safe') + '\n\n';
+    out += 'Safety Warning: ' + (item.warningText || 'No explicit warning text.') + '\n';
+    out += 'Badges: ' + (((Array.isArray(item.badges) && item.badges.length) ? item.badges.join(', ') : 'None')) + '\n';
+    out += 'Typed confirm required: ' + ((item.requiresTypedConfirm || item.requireExplicitConfirm) ? 'Yes' : 'No') + '\n';
+    out += 'Rollback notes: ' + (item.rollbackNotes || structured.reversible) + '\n\n';
     out += 'Recommended for:\n' + structured.recommendedFor + '\n\n';
     out += 'Benefits:\n - ' + structured.benefits.join('\n - ') + '\n\n';
     out += 'Tradeoffs:\n - ' + structured.tradeoffs.join('\n - ') + '\n\n';
@@ -1649,6 +1653,7 @@ function renderTabs(route){
 function metadataBadges(item){
   if(!item || typeof item!=='object') return '';
   const badges = [];
+  const rawBadges = Array.isArray(item.badges) ? item.badges : [];
   const useCase = item.useCase ? String(item.useCase) : '';
   const rec = item.recommendedFor ? 'Recommended: ' + String(item.recommendedFor) : '';
   const nrec = item.notRecommendedFor ? 'Avoid: ' + String(item.notRecommendedFor) : '';
@@ -1657,6 +1662,9 @@ function metadataBadges(item){
   for (const b of [useCase, rec, nrec, elev, tools]) {
     if (b) badges.push('<span class="badge">'+__eh(b)+'</span>');
   }
+  for (const b of rawBadges) {
+    badges.push('<span class="badge">'+__eh(String(b))+'</span>');
+  }
   return badges.join('');
 }
 
@@ -1664,6 +1672,21 @@ function riskBadge(risk){
   const r = String(risk||"Safe");
   const cls = r==="Extreme" ? "risk-critical" : (r==="Danger" ? "risk-high" : (r==="Warning" ? "risk-warning" : ""));
   return `<span class="badge ${cls}">${__eh(r)}</span>`;
+}
+
+function getSafetyBadges(item){
+  const badges = Array.isArray(item && item.badges) ? item.badges : [];
+  const risky = ["BLUESCREEN_RISK","BOOT_RISK","UI_BUG_RISK","DEVICE_DISCONNECT_RISK"];
+  return badges.filter(b => risky.includes(String(b)));
+}
+
+function buildSafetyWarningStrip(item){
+  const safetyBadges = getSafetyBadges(item);
+  const warningText = (item && item.warningText) ? String(item.warningText) : "";
+  if(!safetyBadges.length && !warningText) return "";
+  const labels = safetyBadges.map(b => b.replace(/_/g,' ')).join(" • ");
+  const body = warningText || "High-risk tweak. Review risk notes and rollback before applying.";
+  return `<div class=\"safety-warning-strip\">⚠️ ${__eh(labels)}${labels ? ': ' : ''}${__eh(body)}</div>`;
 }
 
 
@@ -5883,6 +5906,7 @@ card.innerHTML = `
         ${item.requiresReboot ? `<span class="badge">Reboot</span>` : ``}
         ${metadataBadges(item)}
       </div>
+      ${buildSafetyWarningStrip(item)}
       ${showToggle ? `
         <label class="fo-switch" title="Toggle">
           <input class="fo-switch-input" type="checkbox" ${isOn ? 'checked' : ''} />
@@ -5942,6 +5966,10 @@ card.innerHTML = `
       }
       const needsConfirm = isHighOrCritical(risk) || item.requiresSnapshot || item.requireExplicitConfirm || item.excludeFromApplyAll;
       if(needsConfirm){
+        const safetyBadges = getSafetyBadges(item);
+        const hasBootRisk = safetyBadges.includes("BOOT_RISK");
+        const hasBsodRisk = safetyBadges.includes("BLUESCREEN_RISK");
+        const typedText = item.typedConfirmText || (hasBootRisk ? "I ACCEPT BOOT RISK" : (hasBsodRisk ? "I ACCEPT BSOD RISK" : undefined));
         const applyCount = Array.isArray(item?.apply?.steps) ? item.apply.steps.length : 0;
         const revertCount = Array.isArray(item?.revert?.steps) ? item.revert.steps.length : 0;
         const warningBody = (risk === 'Danger' || risk === 'Extreme')
@@ -5956,7 +5984,8 @@ card.innerHTML = `
           title: item.warningTitle || (risk === "Extreme" ? "EXTREME ACTION" : "Warning"),
           body: warningBody,
           risk,
-          requireTyped: !!item.requireExplicitConfirm || risk==="Extreme"
+          requireTyped: !!item.requireExplicitConfirm || !!item.requiresTypedConfirm || risk==="Extreme" || hasBootRisk || hasBsodRisk,
+          typedText
         });
         if(!ok) return;
       }
@@ -8737,6 +8766,7 @@ async function buildExhaustivePowerManagementPanel(){
         <div class="badges" style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px;">
           ${(Array.isArray(item.badges) && item.badges.length ? item.badges.map(renderBadge).join('') : '<span class="badge">SYSTEM_WIDE</span>')}
         </div>
+        ${buildSafetyWarningStrip(item)}
         <div class="muted" style="margin-top:6px;">
           ${supportBadge(item)}
           <span class="badge">${__eh(item.documentationStatus || 'DOC_STATUS_UNKNOWN')}</span>

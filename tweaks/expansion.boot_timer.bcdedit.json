@@ -25,7 +25,19 @@
           }
         ]
       },
-      "riskLevel": "High"
+      "riskLevel": "High",
+      "badges": [
+        "BOOT_RISK",
+        "BLUESCREEN_RISK"
+      ],
+      "warningText": "BCD/timer boot-path changes can cause boot loops, black screens, or resume failure.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode.",
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Export current BCD before apply and rollback from recovery if normal boot fails."
     },
     {
       "category": "Expansion / Boot & Timer (BCDEdit)",
@@ -44,7 +56,19 @@
             "command": "bcdedit /deletevalue {current} disabledynamictick"
           }
         ]
-      }
+      },
+      "badges": [
+        "BOOT_RISK",
+        "BLUESCREEN_RISK"
+      ],
+      "warningText": "BCD/timer boot-path changes can cause boot loops, black screens, or resume failure.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode.",
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Export current BCD before apply and rollback from recovery if normal boot fails."
     },
     {
       "id": "exp.boot.useplatformclock_on",
@@ -71,7 +95,19 @@
           }
         ]
       },
-      "riskLevel": "High"
+      "riskLevel": "High",
+      "badges": [
+        "BOOT_RISK",
+        "BLUESCREEN_RISK"
+      ],
+      "warningText": "BCD/timer boot-path changes can cause boot loops, black screens, or resume failure.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode.",
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Export current BCD before apply and rollback from recovery if normal boot fails."
     },
     {
       "category": "Expansion / Boot & Timer (BCDEdit)",
@@ -90,7 +126,19 @@
             "command": "bcdedit /deletevalue {current} useplatformclock"
           }
         ]
-      }
+      },
+      "badges": [
+        "BOOT_RISK",
+        "BLUESCREEN_RISK"
+      ],
+      "warningText": "BCD/timer boot-path changes can cause boot loops, black screens, or resume failure.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode.",
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Export current BCD before apply and rollback from recovery if normal boot fails."
     },
     {
       "id": "exp.boot.useplatformclock_off",
@@ -117,7 +165,19 @@
           }
         ]
       },
-      "riskLevel": "High"
+      "riskLevel": "High",
+      "badges": [
+        "BOOT_RISK",
+        "BLUESCREEN_RISK"
+      ],
+      "warningText": "BCD/timer boot-path changes can cause boot loops, black screens, or resume failure.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode.",
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Export current BCD before apply and rollback from recovery if normal boot fails."
     },
     {
       "category": "Expansion / Boot & Timer (BCDEdit)",
@@ -136,7 +196,19 @@
             "command": "bcdedit /deletevalue {current} useplatformclock"
           }
         ]
-      }
+      },
+      "badges": [
+        "BOOT_RISK",
+        "BLUESCREEN_RISK"
+      ],
+      "warningText": "BCD/timer boot-path changes can cause boot loops, black screens, or resume failure.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode.",
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Export current BCD before apply and rollback from recovery if normal boot fails."
     },
     {
       "id": "exp.boot.useplatformtick_on",
@@ -163,7 +235,19 @@
           }
         ]
       },
-      "riskLevel": "High"
+      "riskLevel": "High",
+      "badges": [
+        "BOOT_RISK",
+        "BLUESCREEN_RISK"
+      ],
+      "warningText": "BCD/timer boot-path changes can cause boot loops, black screens, or resume failure.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode.",
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Export current BCD before apply and rollback from recovery if normal boot fails."
     },
     {
       "category": "Expansion / Boot & Timer (BCDEdit)",
@@ -182,7 +266,19 @@
             "command": "bcdedit /deletevalue {current} useplatformtick"
           }
         ]
-      }
+      },
+      "badges": [
+        "BOOT_RISK",
+        "BLUESCREEN_RISK"
+      ],
+      "warningText": "BCD/timer boot-path changes can cause boot loops, black screens, or resume failure.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode.",
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Export current BCD before apply and rollback from recovery if normal boot fails."
     },
     {
       "id": "exp.boot.useplatformtick_off",
@@ -209,7 +305,19 @@
           }
         ]
       },
-      "riskLevel": "High"
+      "riskLevel": "High",
+      "badges": [
+        "BOOT_RISK",
+        "BLUESCREEN_RISK"
+      ],
+      "warningText": "BCD/timer boot-path changes can cause boot loops, black screens, or resume failure.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode.",
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Export current BCD before apply and rollback from recovery if normal boot fails."
     },
     {
       "category": "Expansion / Boot & Timer (BCDEdit)",
@@ -228,7 +336,19 @@
             "command": "bcdedit /deletevalue {current} useplatformtick"
           }
         ]
-      }
+      },
+      "badges": [
+        "BOOT_RISK",
+        "BLUESCREEN_RISK"
+      ],
+      "warningText": "BCD/timer boot-path changes can cause boot loops, black screens, or resume failure.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode.",
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Export current BCD before apply and rollback from recovery if normal boot fails."
     },
     {
       "id": "exp.boot.tscsync_legacy",
@@ -255,7 +375,19 @@
           }
         ]
       },
-      "riskLevel": "High"
+      "riskLevel": "High",
+      "badges": [
+        "BOOT_RISK",
+        "BLUESCREEN_RISK"
+      ],
+      "warningText": "BCD/timer boot-path changes can cause boot loops, black screens, or resume failure.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode.",
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Export current BCD before apply and rollback from recovery if normal boot fails."
     },
     {
       "category": "Expansion / Boot & Timer (BCDEdit)",
@@ -274,7 +406,19 @@
             "command": "bcdedit /deletevalue {current} tscsyncpolicy"
           }
         ]
-      }
+      },
+      "badges": [
+        "BOOT_RISK",
+        "BLUESCREEN_RISK"
+      ],
+      "warningText": "BCD/timer boot-path changes can cause boot loops, black screens, or resume failure.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode.",
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Export current BCD before apply and rollback from recovery if normal boot fails."
     },
     {
       "id": "exp.boot.tscsync_enhanced",
@@ -301,7 +445,19 @@
           }
         ]
       },
-      "riskLevel": "High"
+      "riskLevel": "High",
+      "badges": [
+        "BOOT_RISK",
+        "BLUESCREEN_RISK"
+      ],
+      "warningText": "BCD/timer boot-path changes can cause boot loops, black screens, or resume failure.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode.",
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Export current BCD before apply and rollback from recovery if normal boot fails."
     },
     {
       "category": "Expansion / Boot & Timer (BCDEdit)",
@@ -320,7 +476,19 @@
             "command": "bcdedit /deletevalue {current} tscsyncpolicy"
           }
         ]
-      }
+      },
+      "badges": [
+        "BOOT_RISK",
+        "BLUESCREEN_RISK"
+      ],
+      "warningText": "BCD/timer boot-path changes can cause boot loops, black screens, or resume failure.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode.",
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Export current BCD before apply and rollback from recovery if normal boot fails."
     },
     {
       "id": "exp.boot.bootmenupolicy_legacy",
@@ -347,7 +515,19 @@
           }
         ]
       },
-      "riskLevel": "Warning"
+      "riskLevel": "Warning",
+      "badges": [
+        "BOOT_RISK",
+        "BLUESCREEN_RISK"
+      ],
+      "warningText": "BCD/timer boot-path changes can cause boot loops, black screens, or resume failure.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode.",
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Export current BCD before apply and rollback from recovery if normal boot fails."
     },
     {
       "category": "Expansion / Boot & Timer (BCDEdit)",
@@ -366,7 +546,19 @@
             "command": "bcdedit /set {default} bootmenupolicy standard"
           }
         ]
-      }
+      },
+      "badges": [
+        "BOOT_RISK",
+        "BLUESCREEN_RISK"
+      ],
+      "warningText": "BCD/timer boot-path changes can cause boot loops, black screens, or resume failure.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode.",
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Export current BCD before apply and rollback from recovery if normal boot fails."
     },
     {
       "id": "exp.boot.disable_debug",
@@ -393,7 +585,19 @@
           }
         ]
       },
-      "riskLevel": "Safe"
+      "riskLevel": "Safe",
+      "badges": [
+        "BOOT_RISK",
+        "BLUESCREEN_RISK"
+      ],
+      "warningText": "BCD/timer boot-path changes can cause boot loops, black screens, or resume failure.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode.",
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Export current BCD before apply and rollback from recovery if normal boot fails."
     },
     {
       "category": "Expansion / Boot & Timer (BCDEdit)",
@@ -412,7 +616,19 @@
             "command": "bcdedit /debug on"
           }
         ]
-      }
+      },
+      "badges": [
+        "BOOT_RISK",
+        "BLUESCREEN_RISK"
+      ],
+      "warningText": "BCD/timer boot-path changes can cause boot loops, black screens, or resume failure.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode.",
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Export current BCD before apply and rollback from recovery if normal boot fails."
     },
     {
       "id": "exp.boot.bootlog_on",
@@ -439,7 +655,19 @@
           }
         ]
       },
-      "riskLevel": "Warning"
+      "riskLevel": "Warning",
+      "badges": [
+        "BOOT_RISK",
+        "BLUESCREEN_RISK"
+      ],
+      "warningText": "BCD/timer boot-path changes can cause boot loops, black screens, or resume failure.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode.",
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Export current BCD before apply and rollback from recovery if normal boot fails."
     },
     {
       "category": "Expansion / Boot & Timer (BCDEdit)",
@@ -458,7 +686,19 @@
             "command": "bcdedit /deletevalue {current} bootlog"
           }
         ]
-      }
+      },
+      "badges": [
+        "BOOT_RISK",
+        "BLUESCREEN_RISK"
+      ],
+      "warningText": "BCD/timer boot-path changes can cause boot loops, black screens, or resume failure.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode.",
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Export current BCD before apply and rollback from recovery if normal boot fails."
     },
     {
       "id": "exp.boot.timerhelper_persistent_0p5ms",
@@ -490,7 +730,19 @@
       },
       "riskLevel": "Warning",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "badges": [
+        "BOOT_RISK",
+        "BLUESCREEN_RISK"
+      ],
+      "warningText": "BCD/timer boot-path changes can cause boot loops, black screens, or resume failure.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode.",
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Export current BCD before apply and rollback from recovery if normal boot fails."
     },
     {
       "category": "Expansion / Boot & Timer (BCDEdit)",
@@ -512,7 +764,19 @@
             "match": "timer-helper.ps1"
           }
         ]
-      }
+      },
+      "badges": [
+        "BOOT_RISK",
+        "BLUESCREEN_RISK"
+      ],
+      "warningText": "BCD/timer boot-path changes can cause boot loops, black screens, or resume failure.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode.",
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Export current BCD before apply and rollback from recovery if normal boot fails."
     },
     {
       "id": "exp.boot.docs_bcdedit",
@@ -536,7 +800,19 @@
       },
       "riskLevel": "Safe",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "badges": [
+        "BOOT_RISK",
+        "BLUESCREEN_RISK"
+      ],
+      "warningText": "BCD/timer boot-path changes can cause boot loops, black screens, or resume failure.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode.",
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Export current BCD before apply and rollback from recovery if normal boot fails."
     },
     {
       "id": "exp.boot.docs_timer_resolution",
@@ -560,7 +836,19 @@
       },
       "riskLevel": "Safe",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "badges": [
+        "BOOT_RISK",
+        "BLUESCREEN_RISK"
+      ],
+      "warningText": "BCD/timer boot-path changes can cause boot loops, black screens, or resume failure.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode.",
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Export current BCD before apply and rollback from recovery if normal boot fails."
     },
     {
       "id": "exp.boot.report_bcd_current",
@@ -586,7 +874,19 @@
       "revert": {
         "steps": []
       },
-      "riskLevel": "Safe"
+      "riskLevel": "Safe",
+      "badges": [
+        "BOOT_RISK",
+        "BLUESCREEN_RISK"
+      ],
+      "warningText": "BCD/timer boot-path changes can cause boot loops, black screens, or resume failure.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode.",
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Export current BCD before apply and rollback from recovery if normal boot fails."
     },
     {
       "id": "exp.boot.reset_timer_flags",
@@ -620,7 +920,19 @@
       "revert": {
         "steps": []
       },
-      "riskLevel": "High"
+      "riskLevel": "High",
+      "badges": [
+        "BOOT_RISK",
+        "BLUESCREEN_RISK"
+      ],
+      "warningText": "BCD/timer boot-path changes can cause boot loops, black screens, or resume failure.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode.",
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Export current BCD before apply and rollback from recovery if normal boot fails."
     },
     {
       "id": "exp.boot.docs_safe_mode",
@@ -644,7 +956,19 @@
       },
       "riskLevel": "Safe",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "badges": [
+        "BOOT_RISK",
+        "BLUESCREEN_RISK"
+      ],
+      "warningText": "BCD/timer boot-path changes can cause boot loops, black screens, or resume failure.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode.",
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Export current BCD before apply and rollback from recovery if normal boot fails."
     },
     {
       "id": "exp.boot.check_bitlocker",
@@ -666,7 +990,19 @@
       "revert": {
         "steps": []
       },
-      "riskLevel": "Safe"
+      "riskLevel": "Safe",
+      "badges": [
+        "BOOT_RISK",
+        "BLUESCREEN_RISK"
+      ],
+      "warningText": "BCD/timer boot-path changes can cause boot loops, black screens, or resume failure.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode.",
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Export current BCD before apply and rollback from recovery if normal boot fails."
     },
     {
       "id": "exp.boot.check_secureboot",
@@ -688,7 +1024,19 @@
       "revert": {
         "steps": []
       },
-      "riskLevel": "Safe"
+      "riskLevel": "Safe",
+      "badges": [
+        "BOOT_RISK",
+        "BLUESCREEN_RISK"
+      ],
+      "warningText": "BCD/timer boot-path changes can cause boot loops, black screens, or resume failure.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode.",
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Export current BCD before apply and rollback from recovery if normal boot fails."
     },
     {
       "id": "exp.boot.report_qpc_source",
@@ -714,7 +1062,19 @@
       "revert": {
         "steps": []
       },
-      "riskLevel": "Safe"
+      "riskLevel": "Safe",
+      "badges": [
+        "BOOT_RISK",
+        "BLUESCREEN_RISK"
+      ],
+      "warningText": "BCD/timer boot-path changes can cause boot loops, black screens, or resume failure.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode.",
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Export current BCD before apply and rollback from recovery if normal boot fails."
     },
     {
       "id": "exp.boot.docs_hpet_bios",
@@ -738,7 +1098,19 @@
       },
       "riskLevel": "Safe",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "badges": [
+        "BOOT_RISK",
+        "BLUESCREEN_RISK"
+      ],
+      "warningText": "BCD/timer boot-path changes can cause boot loops, black screens, or resume failure.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode.",
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Export current BCD before apply and rollback from recovery if normal boot fails."
     },
     {
       "id": "exp.boot.docs_etw",
@@ -762,7 +1134,19 @@
       },
       "riskLevel": "Safe",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "badges": [
+        "BOOT_RISK",
+        "BLUESCREEN_RISK"
+      ],
+      "warningText": "BCD/timer boot-path changes can cause boot loops, black screens, or resume failure.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode.",
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Export current BCD before apply and rollback from recovery if normal boot fails."
     },
     {
       "id": "exp.boot.create_restore_point",
@@ -784,7 +1168,19 @@
       "revert": {
         "steps": []
       },
-      "riskLevel": "Warning"
+      "riskLevel": "Warning",
+      "badges": [
+        "BOOT_RISK",
+        "BLUESCREEN_RISK"
+      ],
+      "warningText": "BCD/timer boot-path changes can cause boot loops, black screens, or resume failure.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode.",
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Export current BCD before apply and rollback from recovery if normal boot fails."
     },
     {
       "id": "exp.boot.open_reports_folder",
@@ -808,7 +1204,19 @@
       },
       "riskLevel": "Safe",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "badges": [
+        "BOOT_RISK",
+        "BLUESCREEN_RISK"
+      ],
+      "warningText": "BCD/timer boot-path changes can cause boot loops, black screens, or resume failure.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode.",
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Export current BCD before apply and rollback from recovery if normal boot fails."
     },
     {
       "id": "exp.boot.open_backups_folder",
@@ -832,7 +1240,19 @@
       },
       "riskLevel": "Safe",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "badges": [
+        "BOOT_RISK",
+        "BLUESCREEN_RISK"
+      ],
+      "warningText": "BCD/timer boot-path changes can cause boot loops, black screens, or resume failure.",
+      "riskNotes": [
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode.",
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Export current BCD before apply and rollback from recovery if normal boot fails."
     }
   ]
 }

@@ -102,7 +102,14 @@
       },
       "category": "Utilities & Diagnostics",
       "risk": "Warning",
-      "riskLevel": "Warning"
+      "riskLevel": "Warning",
+      "badges": [
+        "DEVICE_DISCONNECT_RISK"
+      ],
+      "warningText": "Can cause device disconnects or wake instability for USB/HID/Bluetooth/NIC hardware.",
+      "riskNotes": [
+        "Can cause USB/HID/Bluetooth/NIC disconnects, delayed reconnects, or wake failures."
+      ]
     },
     {
       "description": "Migrated to canonical Power Management tabs. Use Power Management section for active apply/revert/verify. This legacy item is now a helper marker.",
@@ -119,13 +126,20 @@
       },
       "category": "Utilities & Diagnostics",
       "risk": "Warning",
-      "riskLevel": "Warning"
+      "riskLevel": "Warning",
+      "badges": [
+        "DEVICE_DISCONNECT_RISK"
+      ],
+      "warningText": "Can cause device disconnects or wake instability for USB/HID/Bluetooth/NIC hardware.",
+      "riskNotes": [
+        "Can cause USB/HID/Bluetooth/NIC disconnects, delayed reconnects, or wake failures."
+      ]
     },
     {
       "id": "controller.usb.power_mgmt_checklist",
       "name": "USB Power Management Checklist",
       "type": "action",
-      "description": "Opens Device Manager. For each USB Root Hub / controller: Properties \u2192 Power Management \u2192 uncheck 'Allow the computer to turn off this device to save power'.",
+      "description": "Opens Device Manager. For each USB Root Hub / controller: Properties → Power Management → uncheck 'Allow the computer to turn off this device to save power'.",
       "apply": {
         "steps": [
           {
@@ -141,7 +155,14 @@
       "risk": "Info",
       "riskLevel": "Info",
       "manualOnly": true,
-      "category": "Controller / Input"
+      "category": "Controller / Input",
+      "badges": [
+        "DEVICE_DISCONNECT_RISK"
+      ],
+      "warningText": "Can cause device disconnects or wake instability for USB/HID/Bluetooth/NIC hardware.",
+      "riskNotes": [
+        "Can cause USB/HID/Bluetooth/NIC disconnects, delayed reconnects, or wake failures."
+      ]
     },
     {
       "id": "controller.gameinput.service",

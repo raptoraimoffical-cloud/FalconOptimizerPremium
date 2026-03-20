@@ -19,7 +19,19 @@
             }
           }
         ]
-      }
+      },
+      "badges": [
+        "BLUESCREEN_RISK",
+        "BOOT_RISK"
+      ],
+      "warningText": "Changing MSI interrupt mode can trigger BSOD on unsupported GPU/USB/audio/storage drivers.",
+      "riskNotes": [
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations.",
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Use paired Revert cards or safe mode rollback if the system becomes unstable."
     },
     {
       "id": "adv.msi.enable_net",
@@ -40,7 +52,17 @@
             }
           }
         ]
-      }
+      },
+      "badges": [
+        "BLUESCREEN_RISK"
+      ],
+      "warningText": "Changing MSI interrupt mode can trigger BSOD on unsupported GPU/USB/audio/storage drivers.",
+      "riskNotes": [
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BSOD RISK",
+      "rollbackNotes": "Use paired Revert cards or safe mode rollback if the system becomes unstable."
     },
     {
       "id": "adv.msi.enable_usb",
@@ -61,7 +83,17 @@
             }
           }
         ]
-      }
+      },
+      "badges": [
+        "BLUESCREEN_RISK"
+      ],
+      "warningText": "Changing MSI interrupt mode can trigger BSOD on unsupported GPU/USB/audio/storage drivers.",
+      "riskNotes": [
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BSOD RISK",
+      "rollbackNotes": "Use paired Revert cards or safe mode rollback if the system becomes unstable."
     },
     {
       "id": "adv.msi.enable_gpu",
@@ -82,7 +114,19 @@
             }
           }
         ]
-      }
+      },
+      "badges": [
+        "BLUESCREEN_RISK",
+        "BOOT_RISK"
+      ],
+      "warningText": "Changing MSI interrupt mode can trigger BSOD on unsupported GPU/USB/audio/storage drivers.",
+      "riskNotes": [
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations.",
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Use paired Revert cards or safe mode rollback if the system becomes unstable."
     },
     {
       "id": "adv.msi.status",
@@ -103,7 +147,17 @@
             }
           }
         ]
-      }
+      },
+      "badges": [
+        "BLUESCREEN_RISK"
+      ],
+      "warningText": "Changing MSI interrupt mode can trigger BSOD on unsupported GPU/USB/audio/storage drivers.",
+      "riskNotes": [
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BSOD RISK",
+      "rollbackNotes": "Use paired Revert cards or safe mode rollback if the system becomes unstable."
     },
     {
       "id": "adv.msi.auto_gpu_audio",
@@ -128,7 +182,19 @@
       },
       "type": "button",
       "riskLevel": "Warning",
-      "note": "Converted from toggle (missing revert)."
+      "note": "Converted from toggle (missing revert).",
+      "badges": [
+        "BLUESCREEN_RISK",
+        "BOOT_RISK"
+      ],
+      "warningText": "Changing MSI interrupt mode can trigger BSOD on unsupported GPU/USB/audio/storage drivers.",
+      "riskNotes": [
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations.",
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Use paired Revert cards or safe mode rollback if the system becomes unstable."
     },
     {
       "id": "adv.msi.open_msi_utility_v3",
@@ -162,7 +228,17 @@
       "revert": {
         "steps": []
       },
-      "riskLevel": "Warning"
+      "riskLevel": "Warning",
+      "badges": [
+        "BLUESCREEN_RISK"
+      ],
+      "warningText": "Changing MSI interrupt mode can trigger BSOD on unsupported GPU/USB/audio/storage drivers.",
+      "riskNotes": [
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BSOD RISK",
+      "rollbackNotes": "Use paired Revert cards or safe mode rollback if the system becomes unstable."
     },
     {
       "id": "adv.msi.gpu_msi_toggle",
@@ -197,7 +273,19 @@
         ]
       },
       "type": "button",
-      "riskLevel": "Warning"
+      "riskLevel": "Warning",
+      "badges": [
+        "BLUESCREEN_RISK",
+        "BOOT_RISK"
+      ],
+      "warningText": "Changing MSI interrupt mode can trigger BSOD on unsupported GPU/USB/audio/storage drivers.",
+      "riskNotes": [
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations.",
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Use paired Revert cards or safe mode rollback if the system becomes unstable."
     },
     {
       "category": "Advanced / MSI Mode",
@@ -220,7 +308,19 @@
             }
           }
         ]
-      }
+      },
+      "badges": [
+        "BLUESCREEN_RISK",
+        "BOOT_RISK"
+      ],
+      "warningText": "Changing MSI interrupt mode can trigger BSOD on unsupported GPU/USB/audio/storage drivers.",
+      "riskNotes": [
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations.",
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Use paired Revert cards or safe mode rollback if the system becomes unstable."
     },
     {
       "id": "adv.msi.high_definition_audio_controllers_msi_toggle",
@@ -255,7 +355,19 @@
         ]
       },
       "type": "button",
-      "riskLevel": "Warning"
+      "riskLevel": "Warning",
+      "badges": [
+        "BLUESCREEN_RISK",
+        "BOOT_RISK"
+      ],
+      "warningText": "Changing MSI interrupt mode can trigger BSOD on unsupported GPU/USB/audio/storage drivers.",
+      "riskNotes": [
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations.",
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Use paired Revert cards or safe mode rollback if the system becomes unstable."
     },
     {
       "category": "Advanced / MSI Mode",
@@ -278,7 +390,19 @@
             }
           }
         ]
-      }
+      },
+      "badges": [
+        "BLUESCREEN_RISK",
+        "BOOT_RISK"
+      ],
+      "warningText": "Changing MSI interrupt mode can trigger BSOD on unsupported GPU/USB/audio/storage drivers.",
+      "riskNotes": [
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations.",
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Use paired Revert cards or safe mode rollback if the system becomes unstable."
     },
     {
       "id": "adv.msi.network_adapter_msi_toggle",
@@ -323,7 +447,17 @@
       "type": "button",
       "riskLevel": "Warning",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "badges": [
+        "BLUESCREEN_RISK"
+      ],
+      "warningText": "Changing MSI interrupt mode can trigger BSOD on unsupported GPU/USB/audio/storage drivers.",
+      "riskNotes": [
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BSOD RISK",
+      "rollbackNotes": "Use paired Revert cards or safe mode rollback if the system becomes unstable."
     },
     {
       "category": "Advanced / MSI Mode",
@@ -352,7 +486,17 @@
             "wait": true
           }
         ]
-      }
+      },
+      "badges": [
+        "BLUESCREEN_RISK"
+      ],
+      "warningText": "Changing MSI interrupt mode can trigger BSOD on unsupported GPU/USB/audio/storage drivers.",
+      "riskNotes": [
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BSOD RISK",
+      "rollbackNotes": "Use paired Revert cards or safe mode rollback if the system becomes unstable."
     },
     {
       "id": "adv.msi.nvme_msi_toggle",
@@ -397,7 +541,19 @@
       "type": "button",
       "riskLevel": "Warning",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "badges": [
+        "BLUESCREEN_RISK",
+        "BOOT_RISK"
+      ],
+      "warningText": "Changing MSI interrupt mode can trigger BSOD on unsupported GPU/USB/audio/storage drivers.",
+      "riskNotes": [
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations.",
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Use paired Revert cards or safe mode rollback if the system becomes unstable."
     },
     {
       "category": "Advanced / MSI Mode",
@@ -426,7 +582,19 @@
             "wait": true
           }
         ]
-      }
+      },
+      "badges": [
+        "BLUESCREEN_RISK",
+        "BOOT_RISK"
+      ],
+      "warningText": "Changing MSI interrupt mode can trigger BSOD on unsupported GPU/USB/audio/storage drivers.",
+      "riskNotes": [
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations.",
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Use paired Revert cards or safe mode rollback if the system becomes unstable."
     },
     {
       "id": "adv.msi.sata_msi_toggle",
@@ -471,7 +639,19 @@
       "type": "button",
       "riskLevel": "Warning",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "badges": [
+        "BLUESCREEN_RISK",
+        "BOOT_RISK"
+      ],
+      "warningText": "Changing MSI interrupt mode can trigger BSOD on unsupported GPU/USB/audio/storage drivers.",
+      "riskNotes": [
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations.",
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Use paired Revert cards or safe mode rollback if the system becomes unstable."
     },
     {
       "category": "Advanced / MSI Mode",
@@ -500,7 +680,19 @@
             "wait": true
           }
         ]
-      }
+      },
+      "badges": [
+        "BLUESCREEN_RISK",
+        "BOOT_RISK"
+      ],
+      "warningText": "Changing MSI interrupt mode can trigger BSOD on unsupported GPU/USB/audio/storage drivers.",
+      "riskNotes": [
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations.",
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Use paired Revert cards or safe mode rollback if the system becomes unstable."
     }
   ]
 }

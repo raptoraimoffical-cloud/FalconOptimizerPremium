@@ -7,9 +7,12 @@
 - EXPERIMENTAL + UNDOCUMENTED + UNSUPPORTED_ON_THIS_SYSTEM: Tier 3 unresolved placeholders kept in quarantine only.
 
 ## Safety risk badges
-- BLUESCREEN_RISK: Device interrupt/timer/storage path changes that can trigger BSOD on unstable driver/firmware stacks.
-- BOOT_RISK: Boot-time clock/timer/storage behavior changes that can cause startup instability.
-- UI_BUG_RISK: Desktop/UI binary mask or shell behavior changes that can cause visual/input anomalies.
-- DEVICE_DISCONNECT_RISK: Power wake/suspend changes that can intermittently drop peripherals or NIC connectivity.
+- BLUESCREEN_RISK: The tweak can plausibly crash Windows or trigger BSOD on unsupported drivers, hardware, or firmware combinations.
+- BOOT_RISK: The tweak can plausibly cause boot failure, black screen, recovery loop, startup failure, resume failure, or broken wake/hibernate/startup behavior.
+- UI_BUG_RISK: The tweak can plausibly break cursor visibility, desktop visuals, shell behavior, explorer behavior, or other UI/input presentation behavior.
+- DEVICE_DISCONNECT_RISK: The tweak can plausibly cause mouse, keyboard, controller, Bluetooth, USB, network, audio, dongle, or other device disconnect / wake / reconnect instability.
 
-All visible power cards still render badge row, support, documentation status, and proof source metadata in the renderer UI.
+## Rendering requirements
+- All four safety badges render as normal badges in tweak cards and power catalog cards.
+- A visible warning strip is rendered under badge rows when any safety badge is present.
+- BOOT_RISK and BLUESCREEN_RISK tweaks escalate confirmation and can require typed confirmation text.

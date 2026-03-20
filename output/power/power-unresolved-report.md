@@ -1,5 +1,4 @@
-# Power Unresolved / Quarantine Report
+# Power Unresolved Safety Items
 
-Tier 3 unresolved items are quarantined in tweaks/power.management.hidden_experimental.json and excluded from normal category tabs.
-
-Total quarantined Tier 3 items: 345.
+- Legacy BAT/CMD assets in BoostPack remain distributable for forensic parity but now flagged in metadata/quarantine reports.
+- Bit-level UserPreferencesMask safe editor is not implemented; high-risk writes remain strongly gated with typed confirmation.

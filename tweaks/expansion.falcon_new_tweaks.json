@@ -1027,7 +1027,14 @@
         "UI_BUG_RISK",
         "ROLLBACK_REQUIRED",
         "USER_PROFILE_CHANGE"
-      ]
+      ],
+      "warningText": "Can break cursor visibility or shell/UI behavior because it overwrites UserPreferencesMask.",
+      "riskNotes": [
+        "Can break cursor visibility, shell behavior, or desktop UI rendering."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT UI RISK",
+      "rollbackNotes": "Back up the existing UserPreferencesMask before apply and restore it if cursor/UI issues appear."
     },
     {
       "id": "falcon_new_clean_input_accessibility_profile",

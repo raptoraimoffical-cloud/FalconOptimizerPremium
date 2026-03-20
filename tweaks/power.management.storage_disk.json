@@ -78,7 +78,9 @@
         "CONDITIONAL_HARDWARE",
         "EXPERIMENTAL",
         "STORAGE_POWER",
-        "SYSTEM_WIDE"
+        "SYSTEM_WIDE",
+        "BLUESCREEN_RISK",
+        "BOOT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -108,7 +110,15 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId storage_nvme_apst"
           }
         ]
-      }
+      },
+      "warningText": "Can trigger BSOD or boot failure on unsupported storage/NVMe drivers.",
+      "riskNotes": [
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations.",
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Use rollback from this card or restore previous storage power values before rebooting."
     },
     {
       "id": "pm_storage_nvme_idle_timeout",
@@ -133,7 +143,9 @@
         "CONDITIONAL_HARDWARE",
         "EXPERIMENTAL",
         "STORAGE_POWER",
-        "SYSTEM_WIDE"
+        "SYSTEM_WIDE",
+        "BLUESCREEN_RISK",
+        "BOOT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -163,7 +175,15 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId storage_nvme_idle_timeout"
           }
         ]
-      }
+      },
+      "warningText": "Can trigger BSOD or boot failure on unsupported storage/NVMe drivers.",
+      "riskNotes": [
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations.",
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Use rollback from this card or restore previous storage power values before rebooting."
     },
     {
       "id": "pm_storage_sata_alpm",
@@ -188,7 +208,9 @@
         "CONDITIONAL_HARDWARE",
         "EXPERIMENTAL",
         "STORAGE_POWER",
-        "SYSTEM_WIDE"
+        "SYSTEM_WIDE",
+        "BLUESCREEN_RISK",
+        "BOOT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -218,7 +240,15 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId storage_sata_alpm"
           }
         ]
-      }
+      },
+      "warningText": "Can trigger BSOD or boot failure on unsupported storage/NVMe drivers.",
+      "riskNotes": [
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations.",
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Use rollback from this card or restore previous storage power values before rebooting."
     },
     {
       "id": "pm_storage_ahci_hipm",
@@ -243,7 +273,9 @@
         "CONDITIONAL_HARDWARE",
         "EXPERIMENTAL",
         "STORAGE_POWER",
-        "SYSTEM_WIDE"
+        "SYSTEM_WIDE",
+        "BLUESCREEN_RISK",
+        "BOOT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -273,7 +305,15 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId storage_ahci_hipm"
           }
         ]
-      }
+      },
+      "warningText": "Can trigger BSOD or boot failure on unsupported storage/NVMe drivers.",
+      "riskNotes": [
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations.",
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Use rollback from this card or restore previous storage power values before rebooting."
     },
     {
       "id": "pm_storage_ahci_dipm",
@@ -298,7 +338,9 @@
         "CONDITIONAL_HARDWARE",
         "EXPERIMENTAL",
         "STORAGE_POWER",
-        "SYSTEM_WIDE"
+        "SYSTEM_WIDE",
+        "BLUESCREEN_RISK",
+        "BOOT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -328,7 +370,15 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId storage_ahci_dipm"
           }
         ]
-      }
+      },
+      "warningText": "Can trigger BSOD or boot failure on unsupported storage/NVMe drivers.",
+      "riskNotes": [
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations.",
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Use rollback from this card or restore previous storage power values before rebooting."
     },
     {
       "id": "pm_storage_storport_link_power_management",
@@ -353,7 +403,9 @@
         "CONDITIONAL_HARDWARE",
         "EXPERIMENTAL",
         "STORAGE_POWER",
-        "SYSTEM_WIDE"
+        "SYSTEM_WIDE",
+        "BLUESCREEN_RISK",
+        "BOOT_RISK"
       ],
       "support": "conditional-hardware",
       "proofSource": "inventory_discovery_required",
@@ -383,7 +435,15 @@
             "command": "powershell -ExecutionPolicy Bypass -File scripts/power/power-management-engine.ps1 -Mode rollback-item -ItemId storage_storport_link_power_management"
           }
         ]
-      }
+      },
+      "warningText": "Can trigger BSOD or boot failure on unsupported storage/NVMe drivers.",
+      "riskNotes": [
+        "Can trigger BSOD on unsupported driver, firmware, or interrupt-routing combinations.",
+        "Can break startup, resume, hibernate, or wake paths and may force recovery mode."
+      ],
+      "requiresTypedConfirm": true,
+      "typedConfirmText": "I ACCEPT BOOT RISK",
+      "rollbackNotes": "Use rollback from this card or restore previous storage power values before rebooting."
     }
   ]
 }
