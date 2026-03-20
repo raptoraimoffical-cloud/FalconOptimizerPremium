@@ -1002,30 +1002,32 @@
       "id": "falcon_new_disable_cursor_suppression",
       "type": "toggle",
       "name": "Input: Disable Cursor Suppression",
-      "description": "Disables cursor suppression behavior for more consistent mouse visibility/handling in desktop and some game launch flows.",
+      "description": "Disables a cursor-related desktop suppression flag, but this writes UserPreferencesMask and can cause UI side effects on some systems.",
       "category": "Input",
-      "riskLevel": "Safe",
+      "riskLevel": "Warning",
       "requiresAdmin": false,
       "apply": {
         "steps": [
           {
-            "type": "registry.set",
-            "path": "HKCU\\Control Panel\\Desktop",
-            "name": "UserPreferencesMask",
-            "value": "9e3e078012000000",
-            "valueType": "Binary"
+            "type": "ps.run",
+            "command": "$desktopKey = \"HKCU:\\Control Panel\\Desktop\"\n$backupKey = \"HKCU:\\Software\\FalconOptimizer\\Backups\"\nNew-Item -Path $backupKey -Force | Out-Null\n$existing = (Get-ItemProperty -Path $desktopKey -Name UserPreferencesMask -ErrorAction SilentlyContinue).UserPreferencesMask\nif ($null -ne $existing) {\n  Set-ItemProperty -Path $backupKey -Name UserPreferencesMask_PreFalcon -Type Binary -Value $existing\n}\nSet-ItemProperty -Path $desktopKey -Name UserPreferencesMask -Type Binary -Value ([byte[]](0x9e,0x3e,0x07,0x80,0x12,0x00,0x00,0x00))\nWrite-Output \"UserPreferencesMask updated; previous value backed up to HKCU\\Software\\FalconOptimizer\\Backups when available.\""
           }
         ]
       },
       "revert": {
         "steps": [
           {
-            "type": "registry.remove",
-            "path": "HKCU\\Control Panel\\Desktop",
-            "name": "UserPreferencesMask"
+            "type": "ps.run",
+            "command": "$desktopKey = \"HKCU:\\Control Panel\\Desktop\"\n$backupKey = \"HKCU:\\Software\\FalconOptimizer\\Backups\"\n$backup = (Get-ItemProperty -Path $backupKey -Name UserPreferencesMask_PreFalcon -ErrorAction SilentlyContinue).UserPreferencesMask_PreFalcon\nif ($null -ne $backup) {\n  Set-ItemProperty -Path $desktopKey -Name UserPreferencesMask -Type Binary -Value $backup\n  Remove-ItemProperty -Path $backupKey -Name UserPreferencesMask_PreFalcon -ErrorAction SilentlyContinue\n  Write-Output \"Restored prior UserPreferencesMask backup.\"\n} else {\n  Write-Output \"No Falcon backup found; leaving current UserPreferencesMask unchanged.\"\n}"
           }
         ]
-      }
+      },
+      "risk": "Warning",
+      "badges": [
+        "UI_BUG_RISK",
+        "ROLLBACK_REQUIRED",
+        "USER_PROFILE_CHANGE"
+      ]
     },
     {
       "id": "falcon_new_clean_input_accessibility_profile",

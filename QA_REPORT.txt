@@ -1,10 +1,76 @@
-Manifest files: 114
-Parsed tweak items: 4788
-Runner step handlers: 42
-Unique step types in tweaks: 33
-StrictMode property access scan matches: 292
+Falcon Optimizer Catalog QA Report
+Generated: 2026-03-20T05:01:00.152Z
 
-WARNINGS:
-- Review property access manually for null/missing guards.
+Summary
+Manifest files listed: 118
+Unique categories: 237
+Total tweaks: 5298
+Total steps: 14087
 
-QA STATUS: PASS
+Step type counts:
+- cmd: 321
+- cmd.run: 1903
+- falconlib.run: 14
+- file.ensureDir: 5
+- nsudo.run: 1
+- open.file: 8
+- open.path: 34
+- open.url: 429
+- powercfg: 8
+- powercfg.check: 16
+- powercfg.set: 80
+- process.kill: 165
+- process.start: 29
+- ps.file: 364
+- ps.run: 3813
+- reg.del: 28
+- reg.set: 28
+- registry.check: 864
+- registry.remove: 1597
+- registry.set: 1855
+- run.exe: 6
+- service.check: 367
+- service.disable: 96
+- service.enable: 100
+- service.startup: 740
+- shell.start: 362
+- task: 557
+- task.check: 269
+- timer.reset: 14
+- timer.set: 6
+- tool.ensure: 3
+- tool.launch: 3
+- uac.disable: 1
+- uac.restore: 1
+
+Raw risk values:
+- 5: 1
+- Caution: 154
+- Critical: 2
+- Danger: 655
+- Experimental: 357
+- Extreme: 42
+- high: 1
+- High: 51
+- Info: 3
+- low: 9
+- Low: 4
+- medium: 6
+- Medium: 15
+- Safe: 2056
+- Warning: 1940
+
+Errors (9):
+- Duplicate tweak id: pm_gpu_turn_off_display_after in tweaks/power.management.graphics.json and tweaks/power.management.display.json
+- Duplicate tweak id: pm_gpu_panel_self_refresh in tweaks/power.management.graphics.json and tweaks/power.management.display.json
+- Duplicate tweak id: pm_registry_allow_standby_states in tweaks/power.management.sleep_hibernate_modern_standby.json and tweaks/power.management.buttons_lid.json
+- Duplicate tweak id: pm_registry_allow_wake_timers in tweaks/power.management.sleep_hibernate_modern_standby.json and tweaks/power.management.device_wake.json
+- Duplicate tweak id: pm_registry_fast_startup in tweaks/power.management.sleep_hibernate_modern_standby.json and tweaks/power.management.buttons_lid.json
+- Duplicate tweak id: pm_registry_connected_standby_policy in tweaks/power.management.sleep_hibernate_modern_standby.json and tweaks/power.management.buttons_lid.json
+- Duplicate tweak id: pm_registry_network_connectivity_in_standby in tweaks/power.management.sleep_hibernate_modern_standby.json and tweaks/power.management.device_wake.json
+- Duplicate tweak id: pm_nic_wake_on_magic_packet in tweaks/power.management.wireless_ethernet.json and tweaks/power.management.device_wake.json
+- Duplicate tweak id: pm_nic_wake_on_pattern_match in tweaks/power.management.wireless_ethernet.json and tweaks/power.management.device_wake.json
+
+Warnings (2):
+- tweaks/power.management.profiles.json :: tweak power_management_exhaustive_panel has no steps in apply/revert/check/fix/verify/steps
+- tweaks/power.management.overview.json :: tweak power_overview_summary has no steps in apply/revert/check/fix/verify/steps
