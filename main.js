@@ -29,6 +29,22 @@ async function runPowerShell(script) {
 }
 
 
+
+function detectCpuVendorFromName(name) {
+  const n = String(name || "").toLowerCase();
+  if (n.includes("intel")) return "intel";
+  if (n.includes("amd") || n.includes("ryzen") || n.includes("threadripper")) return "amd";
+  return "unknown";
+}
+
+function detectGpuVendorFromName(name) {
+  const lower = String(name || "").toLowerCase();
+  if (lower.includes("nvidia") || lower.includes("geforce") || lower.includes("rtx") || lower.includes("gtx")) return "nvidia";
+  if (lower.includes("amd") || lower.includes("radeon") || lower.includes(" rx ")) return "amd";
+  if (lower.includes("intel") || lower.includes("uhd") || lower.includes("iris")) return "intel";
+  return "unknown";
+}
+
 function canonicalGameId(raw) {
   const base = String(raw || '').toLowerCase().trim();
   const aliases = {
@@ -2777,3 +2793,53 @@ app.on("before-quit", () => {
     autoUpdateInterval = null;
   }
 });
+ipcMain.handle("falcon:getMachineProfile", async () => {
+  const cpus = (os.cpus && os.cpus()) || [];
+  const cpuName = String((cpus[0] && cpus[0].model) || "Unknown CPU");
+  let gpuName = "Unknown GPU";
+  let gpuVramGb = null;
+  try {
+    const psGpu = await runPowerShell("Get-CimInstance Win32_VideoController | Sort-Object AdapterRAM -Descending | Select-Object -First 1 Name,AdapterRAM | ConvertTo-Json -Compress");
+    const rawGpu = String((psGpu && psGpu.stdout) || "").trim();
+    if (rawGpu) {
+      const g = JSON.parse(rawGpu);
+      gpuName = String((g && (g.Name || g.name)) || gpuName);
+      const bytes = Number((g && (g.AdapterRAM || g.adapterRam)) || 0);
+      if (bytes > 0) gpuVramGb = Math.round(bytes / (1024 * 1024 * 1024));
+    }
+  } catch (_) {}
+  let buildNumber = null;
+  let isLaptop = false;
+  let hasBattery = false;
+  let hasModernStandby = false;
+  let isElevated = false;
+  try {
+    const ps = await runPowerShell("$os=Get-CimInstance Win32_OperatingSystem; $cs=Get-CimInstance Win32_ComputerSystem; $bat=Get-CimInstance Win32_Battery -ErrorAction SilentlyContinue; $m=(powercfg /a | Out-String); [pscustomobject]@{Build=[int]$os.BuildNumber; IsLaptop=($cs.PCSystemType -in 2,8,9,10,14); HasBattery=($null -ne $bat); HasModernStandby=($m -match 'Standby \(S0 Low Power Idle\)') } | ConvertTo-Json -Compress");
+    const raw = String((ps && ps.stdout) || '').trim();
+    if (raw) {
+      const obj = JSON.parse(raw);
+      buildNumber = Number(obj.Build || 0) || null;
+      isLaptop = !!obj.IsLaptop;
+      hasBattery = !!obj.HasBattery;
+      hasModernStandby = !!obj.HasModernStandby;
+    }
+  } catch (_) {}
+  try { isElevated = await isProcessElevatedAsync(); } catch (_) {}
+
+  return {
+    ok: true,
+    profile: {
+      cpu: { vendor: detectCpuVendorFromName(cpuName), name: cpuName },
+      gpu: { vendor: detectGpuVendorFromName(gpuName), name: gpuName, vramGb: gpuVramGb },
+      system: {
+        buildNumber,
+        isLaptop,
+        hasBattery,
+        hasModernStandby,
+        isElevated
+      }
+    }
+  };
+});
+
+

@@ -1,151 +1,6 @@
 {
   "services": [
     {
-      "id": "svc_import__svc_",
-      "serviceName": "!Svc!",
-      "displayName": "!Svc!",
-      "category": "General / Misc Services",
-      "tags": [
-        "FPS",
-        "Latency"
-      ],
-      "defaultModes": {
-        "safe": "unchanged",
-        "competitive": "manual",
-        "extreme": "disabled"
-      },
-      "revertStartType": "manual",
-      "riskLevel": "Warning",
-      "requiresAdmin": true,
-      "conditions": {
-        "requiresLocalAccount": false,
-        "breaksMicrosoftStore": false,
-        "breaksMicrosoftAccountLogin": false,
-        "laptopUnsafe": false,
-        "desktopOnly": false,
-        "minWindowsVersion": null,
-        "maxWindowsVersion": null
-      },
-      "description": "[Focus: FPS, Latency] Imported from your OneClick batch: available in Custom matrix for Safe/Competitive/Extreme tuning.",
-      "notes": "Imported automatically. Verify impact before using Competitive/Extreme on a primary system."
-    },
-    {
-      "id": "svc_import__svc_",
-      "serviceName": "!Svc!",
-      "displayName": "!Svc!",
-      "category": "General / Misc Services",
-      "tags": [
-        "FPS",
-        "Latency"
-      ],
-      "defaultModes": {
-        "safe": "unchanged",
-        "competitive": "manual",
-        "extreme": "disabled"
-      },
-      "revertStartType": "manual",
-      "riskLevel": "Warning",
-      "requiresAdmin": true,
-      "conditions": {
-        "requiresLocalAccount": false,
-        "breaksMicrosoftStore": false,
-        "breaksMicrosoftAccountLogin": false,
-        "laptopUnsafe": false,
-        "desktopOnly": false,
-        "minWindowsVersion": null,
-        "maxWindowsVersion": null
-      },
-      "description": "[Focus: FPS, Latency] Imported from your OneClick batch: available in Custom matrix for Safe/Competitive/Extreme tuning.",
-      "notes": "Imported automatically. Verify impact before using Competitive/Extreme on a primary system."
-    },
-    {
-      "id": "svc_import__svc_",
-      "serviceName": "!Svc!",
-      "displayName": "!Svc!",
-      "category": "General / Misc Services",
-      "tags": [
-        "FPS",
-        "Latency"
-      ],
-      "defaultModes": {
-        "safe": "unchanged",
-        "competitive": "manual",
-        "extreme": "disabled"
-      },
-      "revertStartType": "manual",
-      "riskLevel": "Warning",
-      "requiresAdmin": true,
-      "conditions": {
-        "requiresLocalAccount": false,
-        "breaksMicrosoftStore": false,
-        "breaksMicrosoftAccountLogin": false,
-        "laptopUnsafe": false,
-        "desktopOnly": false,
-        "minWindowsVersion": null,
-        "maxWindowsVersion": null
-      },
-      "description": "[Focus: FPS, Latency] Imported from your OneClick batch: available in Custom matrix for Safe/Competitive/Extreme tuning.",
-      "notes": "Imported automatically. Verify impact before using Competitive/Extreme on a primary system."
-    },
-    {
-      "id": "svc_import__svc_",
-      "serviceName": "!Svc!",
-      "displayName": "!Svc!",
-      "category": "General / Misc Services",
-      "tags": [
-        "FPS",
-        "Latency"
-      ],
-      "defaultModes": {
-        "safe": "unchanged",
-        "competitive": "manual",
-        "extreme": "disabled"
-      },
-      "revertStartType": "manual",
-      "riskLevel": "Warning",
-      "requiresAdmin": true,
-      "conditions": {
-        "requiresLocalAccount": false,
-        "breaksMicrosoftStore": false,
-        "breaksMicrosoftAccountLogin": false,
-        "laptopUnsafe": false,
-        "desktopOnly": false,
-        "minWindowsVersion": null,
-        "maxWindowsVersion": null
-      },
-      "description": "[Focus: FPS, Latency] Imported from your OneClick batch: available in Custom matrix for Safe/Competitive/Extreme tuning.",
-      "notes": "Imported automatically. Verify impact before using Competitive/Extreme on a primary system."
-    },
-    {
-      "id": "svc_import__svc_",
-      "serviceName": "!Svc!",
-      "displayName": "!Svc!",
-      "category": "General / Misc Services",
-      "tags": [
-        "FPS",
-        "Latency"
-      ],
-      "defaultModes": {
-        "safe": "unchanged",
-        "competitive": "manual",
-        "extreme": "disabled"
-      },
-      "revertStartType": "manual",
-      "riskLevel": "Warning",
-      "requiresAdmin": true,
-      "conditions": {
-        "requiresLocalAccount": false,
-        "breaksMicrosoftStore": false,
-        "breaksMicrosoftAccountLogin": false,
-        "laptopUnsafe": false,
-        "desktopOnly": false,
-        "minWindowsVersion": null,
-        "maxWindowsVersion": null
-      },
-      "description": "[Focus: FPS, Latency] Imported from your OneClick batch: available in Custom matrix for Safe/Competitive/Extreme tuning.",
-      "notes": "Imported automatically. Verify impact before using Competitive/Extreme on a primary system."
-    },
-    {
       "id": "svc_import_aarsvc",
       "serviceName": "AarSvc",
       "displayName": "AarSvc",
@@ -3954,7 +3809,7 @@
       "notes": "Imported automatically. Verify impact before using Competitive/Extreme on a primary system."
     },
     {
-      "id": "svc_import_netman",
+      "id": "svc_import_netman__dup1",
       "serviceName": "Netman",
       "displayName": "Netman",
       "category": "General / Misc Services",
@@ -6564,7 +6419,7 @@
       "notes": "Imported automatically. Verify impact before using Competitive/Extreme on a primary system."
     },
     {
-      "id": "svc_import_trustedinstaller",
+      "id": "svc_import_trustedinstaller__dup1",
       "serviceName": "TrustedInstaller",
       "displayName": "TrustedInstaller",
       "category": "Windows Update / Servicing",
@@ -7424,7 +7279,7 @@
       "notes": "Imported automatically. Verify impact before using Competitive/Extreme on a primary system."
     },
     {
-      "id": "svc_import_wcmsvc",
+      "id": "svc_import_wcmsvc__dup1",
       "serviceName": "Wcmsvc",
       "displayName": "Wcmsvc",
       "category": "General / Misc Services",
@@ -8497,7 +8352,7 @@
       "notes": "Imported automatically. Verify impact before using Competitive/Extreme on a primary system."
     },
     {
-      "id": "svc_import_wwansvc",
+      "id": "svc_import_wwansvc__dup1",
       "serviceName": "WwanSvc",
       "displayName": "WwanSvc",
       "category": "General / Misc Services",
@@ -8670,5 +8525,6 @@
       "description": "[Focus: Process Count] Disables XPS print pipeline helpers.",
       "notes": "Safe if you never use XPS printing."
     }
-  ]
+  ],
+  "items": []
 }
