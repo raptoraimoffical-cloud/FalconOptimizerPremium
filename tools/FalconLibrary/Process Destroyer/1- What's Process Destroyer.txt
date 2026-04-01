@@ -1,12 +1,12 @@
-What does Process Destroyer V2.5.bat do?
+What does Process Destroyer V2.6.bat do?
 
 :: Use case:
 It's a program that disables services using NSudo.
 However the Extreme version deletes services!
 
 :: Links:
-Process Destroyer Link: https://github.com/FalconK/Process-Destroyer/releases/download/WindowsServiceRemover/FalconLibrary-Process-Destroyer-V2.5.bat
-Process Destroyer Extreme Link: https://github.com/FalconK/Process-Destroyer/releases/download/WindowsServiceRemover/FalconLibrary-Process-Destroyer-Extreme-V2.5.bat
+Process Destroyer Link: https://github.com/FalconK/Process-Destroyer/releases/download/WindowsServiceRemover/FalconLibrary-Process-Destroyer-V2.6.bat
+Process Destroyer Extreme Link: https://github.com/FalconK/Process-Destroyer/releases/download/WindowsServiceRemover/FalconLibrary-Process-Destroyer-Extreme-V2.6.bat
 Process Destroyer Github: https://github.com/FalconK/Process-Destroyer
 
 

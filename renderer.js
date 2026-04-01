@@ -520,7 +520,10 @@ function adjustStepsForHwProfile(item, mode, steps, hwProfile) {
 
 // Wrapper to avoid per-tweak hangs: hard timeout so batch can continue
 async function runTweakWithTimeout(payload, timeoutMs){
-  const t = typeof timeoutMs === "number" && timeoutMs > 0 ? timeoutMs : 90000;
+  const metaTimeout = payload && payload.meta && Number(payload.meta.timeoutMs);
+  const t = (typeof timeoutMs === "number" && timeoutMs > 0)
+    ? timeoutMs
+    : ((Number.isFinite(metaTimeout) && metaTimeout > 0) ? metaTimeout : 90000);
   try{
     
 
@@ -536,6 +539,20 @@ try{
   if(payload) payload = Object.assign({}, payload, { steps: sp.runSteps });
 }catch(e){
   // fail-open: keep running non-tool steps
+}
+
+function classifyRunResult(res){
+  if (!res) return { status: "failed", reason: "empty-result" };
+  if (res.timeout) return { status: "timed_out", reason: "timeout" };
+  const steps = Array.isArray(res.stepResults) ? res.stepResults : [];
+  const skipped = steps.filter(s => s && s.verifyDetails && String(s.verifyDetails).includes('service-missing')).length;
+  const failed = steps.filter(s => s && s.ok === false).length;
+  if (res.ok) {
+    if (skipped > 0) return { status: "partial_success", reason: "skipped-not-applicable" };
+    return { status: "success", reason: "ok" };
+  }
+  if (skipped > 0 && failed === 0) return { status: "skipped", reason: "not-applicable" };
+  return { status: "failed", reason: (res.stderr ? String(res.stderr).trim().split('\n')[0] : "failed") };
 }
 
 const runPromise = window.falcon && typeof window.falcon.runTweak === "function"
@@ -3856,6 +3873,8 @@ ${topReasons}
         let attempted = 0;
         let okCount = 0;
         let failCount = 0;
+        let partialCount = 0;
+        let skippedCount = 0;
         let timeoutCount = 0;
         for(const it of finalList){
           idxRun++;
@@ -3903,9 +3922,13 @@ ${JSON.stringify(plan.plan,null,2)}
                 revertSteps,
                 meta: { profile: p.id, riskLevel: risk, hwProfile: currentHwProfile || 'auto' }
               }, 90000);
-              const okFlag = !!(res && res.ok);
-              if (okFlag) okCount++; else failCount++;
-              if (res && res.timeout) timeoutCount++;
+              const cls = classifyRunResult(res);
+              const okFlag = (cls.status === 'success');
+              if (cls.status === 'success') okCount++;
+              else if (cls.status === 'partial_success') partialCount++;
+              else if (cls.status === 'skipped') skippedCount++;
+              else failCount++;
+              if (cls.status === 'timed_out') timeoutCount++;
 
               out += `${res && res.ok ? "OK" : "ERR"} ${it.id}`;
               if (res && res.timeout) out += ' (timeout)';
@@ -3927,13 +3950,13 @@ ${itemMsg}
             console && console.error && console.error('profile item failed', it && it.id, itemErr);
           }
         }
-        const summaryLine = `SUMMARY Profile ${p.id || p.name || "(unnamed)"}: ${attempted} attempted, ${okCount} OK, ${failCount} failed, ${timeoutCount} timeouts.`;
+        const summaryLine = `SUMMARY Profile ${p.id || p.name || "(unnamed)"}: ${attempted} attempted, ${okCount} OK, ${partialCount} partial, ${skippedCount} skipped, ${failCount} failed, ${timeoutCount} timeouts.`;
         out += `
 ${summaryLine}
 `;
         try {
           const mpLabel = machineProfileForRun === "desktop" ? "Desktop" : "Laptop";
-          const toastText = `Profile ${p.name || p.id || "(unnamed)"} (${mpLabel}) completed: ${attempted} attempted, ${okCount} OK, ${failCount} failed, ${timeoutCount} timeouts.`;
+          const toastText = `Profile ${p.name || p.id || "(unnamed)"} (${mpLabel}) completed: ${attempted} attempted, ${okCount} OK, ${partialCount} partial, ${skippedCount} skipped, ${failCount} failed, ${timeoutCount} timeouts.`;
           const hasError = (failCount > 0 || timeoutCount > 0);
           showToast(toastText, hasError ? "error" : "success");
         } catch (e) {
@@ -6187,8 +6210,8 @@ try {
         mode: action,
         steps: applySteps,
         revertSteps,
-        meta: { riskLevel: risk, requiresSnapshot: !!item.requiresSnapshot }
-      }, 90000);
+        meta: { riskLevel: risk, requiresSnapshot: !!item.requiresSnapshot, timeoutMs: Number(item.timeoutMs) || 90000 }
+      }, Number(item.timeoutMs) || 90000);
 
       try {
         const ok = !!(res && res.ok);
@@ -6529,6 +6552,9 @@ try {
         let attempted = 0;
         let okCount = 0;
         let failCount = 0;
+        let partialCount = 0;
+        let skippedCount = 0;
+        let timeoutCount = 0;
 
         try {
           showRunPanel('Speed Core – running selected optimizations');
@@ -6549,7 +6575,11 @@ try {
             try {
               const res = await fn();
               attempted++;
-              if (res && res.ok) okCount++; else failCount++;
+              const cls = classifyRunResult(res);
+              if (cls.status === 'success') okCount++;
+              else if (cls.status === 'partial_success') partialCount++;
+              else if (cls.status === 'skipped') skippedCount++;
+              else { failCount++; if (cls.status === 'timed_out') timeoutCount++; }
             } catch(e){
               attempted++;
               failCount++;
@@ -6563,7 +6593,7 @@ try {
         } catch(_e) {}
 
         if (attempted > 0) {
-          const msg = 'Speed Core run: ' + attempted + ' item(s), ' + okCount + ' OK, ' + failCount + ' failed.';
+          const msg = 'Speed Core run: ' + attempted + ' item(s), ' + okCount + ' OK, ' + partialCount + ' partial, ' + skippedCount + ' skipped, ' + timeoutCount + ' timed out, ' + failCount + ' failed.';
           const kind = failCount > 0 ? 'error' : 'success';
           showToast(msg, kind);
         } else {

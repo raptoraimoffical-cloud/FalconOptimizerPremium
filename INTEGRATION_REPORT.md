@@ -27,8 +27,8 @@ Classification legend:
 | tools/FalconLibrary/Nvidia/Nvidia Profile Inspector/nvidiaProfileInspector.exe | Integrated |
 | tools/FalconLibrary/NSudo/NSudoLG.exe | Not linked (allowlisted runtime dependency for TI elevation) |
 | tools/FalconLibrary/OOshutup10/OOSU10.exe | Integrated |
-| tools/FalconLibrary/Process Destroyer/FalconLibrary Process Destroyer Extreme V2.5.bat | Integrated |
-| tools/FalconLibrary/Process Destroyer/FalconLibrary Process Destroyer V2.5.bat | Integrated |
+| tools/FalconLibrary/Process Destroyer/FalconLibrary Process Destroyer Extreme V2.6.bat | Integrated |
+| tools/FalconLibrary/Process Destroyer/FalconLibrary Process Destroyer V2.6.bat | Integrated |
 | tools/FalconLibrary/Task Destroyer/FalconLibrary Task Destroyer V1.3.bat | Integrated |
 | tools/FalconLibrary/Timer Resolution/SetTimerResolution.exe | Integrated |
 | tools/FalconLibrary/Update Disabler/FalconLibrary Update Disabler V1.2.bat | Integrated |
@@ -63,8 +63,8 @@ Examples of required duplicates detected:
 |---|---|---|---|---|---|
 | falcon.audio.bloat_remover.run | Audio Bloat Remover | Apps / Utilities | tools/FalconLibrary/Audio Bloat Remover/Audio Bloat Remover V1.0.bat | admin | tweaks/utilities.json |
 | falcon.timer_resolution.apply | Timer Resolution (Apply) | Apps / Utilities | tools/FalconLibrary/Timer Resolution/SetTimerResolution.exe | admin | tweaks/utilities.json |
-| processlab.process_destroyer.standard | Process Destroyer (Standard) | Process Lab | tools/FalconLibrary/Process Destroyer/FalconLibrary Process Destroyer V2.5.bat | trustedinstaller | tweaks/falconlibrary.integration.json |
-| processlab.process_destroyer.extreme | Process Destroyer (Extreme) | Process Lab | tools/FalconLibrary/Process Destroyer/FalconLibrary Process Destroyer Extreme V2.5.bat | trustedinstaller | tweaks/falconlibrary.integration.json |
+| processlab.process_destroyer.standard | Process Destroyer (Standard) | Process Lab | tools/FalconLibrary/Process Destroyer/FalconLibrary Process Destroyer V2.6.bat | trustedinstaller | tweaks/falconlibrary.integration.json |
+| processlab.process_destroyer.extreme | Process Destroyer (Extreme) | Process Lab | tools/FalconLibrary/Process Destroyer/FalconLibrary Process Destroyer Extreme V2.6.bat | trustedinstaller | tweaks/falconlibrary.integration.json |
 | processlab.task_destroyer.apply | Task Destroyer | Process Lab | tools/FalconLibrary/Task Destroyer/FalconLibrary Task Destroyer V1.3.bat | trustedinstaller | tweaks/falconlibrary.integration.json |
 | windows.update_disabler.apply | Update Disabler | Windows Updates | tools/FalconLibrary/Update Disabler/FalconLibrary Update Disabler V1.2.bat | trustedinstaller | tweaks/falconlibrary.integration.json |
 | privacy.autologger_destroyer.apply | Autologger Destroyer | Telemetry / Logging | tools/FalconLibrary/Autologger Destroyer/FalconLibrary Autologger Destroyer V1.0.bat | trustedinstaller | tweaks/falconlibrary.integration.json |

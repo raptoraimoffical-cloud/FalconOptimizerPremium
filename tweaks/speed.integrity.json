@@ -11,16 +11,8 @@
       "apply": {
         "steps": [
           {
-            "type": "shell.start",
-            "file": "powershell.exe",
-            "args": [
-              "-NoProfile",
-              "-ExecutionPolicy",
-              "Bypass",
-              "-Command",
-              "sfc /scannow"
-            ],
-            "wait": true
+            "type": "ps.run",
+            "command": "sfc /scannow"
           }
         ]
       },
@@ -30,7 +22,8 @@
       "type": "action",
       "riskLevel": "Safe",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "timeoutMs": 180000
     },
     {
       "id": "integrity.chkdsk_scan__speed.integrity",
@@ -43,16 +36,8 @@
       "apply": {
         "steps": [
           {
-            "type": "shell.start",
-            "file": "powershell.exe",
-            "args": [
-              "-NoProfile",
-              "-ExecutionPolicy",
-              "Bypass",
-              "-Command",
-              "chkdsk C: /scan"
-            ],
-            "wait": true
+            "type": "ps.run",
+            "command": "chkdsk C: /scan"
           }
         ]
       },
@@ -62,7 +47,8 @@
       "type": "action",
       "riskLevel": "Safe",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "timeoutMs": 180000
     },
     {
       "id": "integrity.chkdsk_fix__speed.integrity",
@@ -79,16 +65,8 @@
       "apply": {
         "steps": [
           {
-            "type": "shell.start",
-            "file": "powershell.exe",
-            "args": [
-              "-NoProfile",
-              "-ExecutionPolicy",
-              "Bypass",
-              "-Command",
-              "chkdsk C: /F /R /X"
-            ],
-            "wait": true
+            "type": "ps.run",
+            "command": "chkdsk C: /F /R /X"
           }
         ]
       },
@@ -98,7 +76,8 @@
       "type": "action",
       "riskLevel": "High",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "timeoutMs": 180000
     },
     {
       "id": "integrity.rebuild_icon_cache__speed.integrity",
@@ -111,16 +90,8 @@
       "apply": {
         "steps": [
           {
-            "type": "shell.start",
-            "file": "powershell.exe",
-            "args": [
-              "-NoProfile",
-              "-ExecutionPolicy",
-              "Bypass",
-              "-Command",
-              "Stop-Process -Name explorer -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Microsoft\\Windows\\Explorer\\iconcache*' -Force -ErrorAction SilentlyContinue; Start-Process explorer.exe"
-            ],
-            "wait": true
+            "type": "ps.run",
+            "command": "Stop-Process -Name explorer -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Microsoft\\Windows\\Explorer\\iconcache*' -Force -ErrorAction SilentlyContinue; Start-Process explorer.exe"
           }
         ]
       },
@@ -130,7 +101,8 @@
       "type": "action",
       "riskLevel": "Safe",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "timeoutMs": 180000
     },
     {
       "id": "integrity.rebuild_font_cache__speed.integrity",
@@ -143,16 +115,8 @@
       "apply": {
         "steps": [
           {
-            "type": "shell.start",
-            "file": "powershell.exe",
-            "args": [
-              "-NoProfile",
-              "-ExecutionPolicy",
-              "Bypass",
-              "-Command",
-              "Stop-Service -Name 'FontCache' -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Microsoft\\Windows\\FontCache\\*' -Recurse -Force -ErrorAction SilentlyContinue; Start-Service -Name 'FontCache' -ErrorAction SilentlyContinue"
-            ],
-            "wait": true
+            "type": "ps.run",
+            "command": "Stop-Service -Name 'FontCache' -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Microsoft\\Windows\\FontCache\\*' -Recurse -Force -ErrorAction SilentlyContinue; Start-Service -Name 'FontCache' -ErrorAction SilentlyContinue"
           }
         ]
       },
@@ -162,7 +126,8 @@
       "type": "action",
       "riskLevel": "Safe",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "timeoutMs": 180000
     },
     {
       "id": "integrity.dism_full_health__speed.integrity",
@@ -175,16 +140,8 @@
       "apply": {
         "steps": [
           {
-            "type": "shell.start",
-            "file": "powershell.exe",
-            "args": [
-              "-NoProfile",
-              "-ExecutionPolicy",
-              "Bypass",
-              "-Command",
-              "DISM /Online /Cleanup-Image /RestoreHealth"
-            ],
-            "wait": true
+            "type": "ps.run",
+            "command": "DISM /Online /Cleanup-Image /RestoreHealth"
           }
         ]
       },
@@ -194,7 +151,8 @@
       "type": "action",
       "riskLevel": "Safe",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "timeoutMs": 180000
     },
     {
       "id": "boost.scan_fix_drive_errors",
@@ -207,16 +165,8 @@
       "apply": {
         "steps": [
           {
-            "type": "shell.start",
-            "file": "powershell.exe",
-            "args": [
-              "-NoProfile",
-              "-ExecutionPolicy",
-              "Bypass",
-              "-Command",
-              "$ErrorActionPreference='SilentlyContinue'; $drives = Get-Volume | Where-Object { $_.DriveLetter -and $_.DriveType -eq 'Fixed' } | Select-Object -ExpandProperty DriveLetter; foreach($d in $drives){ try { Repair-Volume -DriveLetter $d -Scan } catch { } }"
-            ],
-            "wait": true
+            "type": "ps.run",
+            "command": "$ErrorActionPreference='SilentlyContinue'; $drives = Get-Volume | Where-Object { $_.DriveLetter -and $_.DriveType -eq 'Fixed' } | Select-Object -ExpandProperty DriveLetter; foreach($d in $drives){ try { Repair-Volume -DriveLetter $d -Scan } catch { } }"
           }
         ]
       },
@@ -224,7 +174,8 @@
       "riskLevel": "Safe",
       "note": "Converted from toggle (missing revert).",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "timeoutMs": 180000
     },
     {
       "id": "boost.scan_fix_system_errors",
@@ -237,22 +188,12 @@
       "apply": {
         "steps": [
           {
-            "type": "shell.start",
-            "file": "cmd.exe",
-            "args": [
-              "/c",
-              "sfc /scannow"
-            ],
-            "wait": true
+            "type": "cmd.run",
+            "command": "sfc /scannow"
           },
           {
-            "type": "shell.start",
-            "file": "cmd.exe",
-            "args": [
-              "/c",
-              "DISM /Online /Cleanup-Image /RestoreHealth"
-            ],
-            "wait": true
+            "type": "cmd.run",
+            "command": "DISM /Online /Cleanup-Image /RestoreHealth"
           }
         ]
       },
@@ -260,7 +201,8 @@
       "riskLevel": "Safe",
       "note": "Converted from toggle (missing revert).",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "timeoutMs": 180000
     }
   ]
 }

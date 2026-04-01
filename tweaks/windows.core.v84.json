@@ -1,0 +1,40 @@
+{
+  "items": [
+    {
+      "id": "windows.v84.cross_device_resume_override",
+      "name": "CrossDeviceResume Feature Override (V8.4 parity)",
+      "category": "General / Core",
+      "type": "toggle",
+      "riskLevel": "Warning",
+      "requiresAdmin": true,
+      "description": "Sets FeatureManagement override 1387020943 values used by Oneclick V8.4 parity for CrossDeviceResume behavior.",
+      "apply": {
+        "steps": [
+          { "type": "registry.set", "path": "HKLM\\System\\ControlSet001\\Control\\FeatureManagement\\Overrides\\8\\1387020943", "name": "EnabledStateOptions", "value": 0, "valueType": "DWord" },
+          { "type": "registry.set", "path": "HKLM\\System\\ControlSet001\\Control\\FeatureManagement\\Overrides\\8\\1387020943", "name": "EnabledState", "value": 1, "valueType": "DWord" },
+          { "type": "registry.set", "path": "HKLM\\System\\ControlSet001\\Control\\FeatureManagement\\Overrides\\8\\1387020943", "name": "Variant", "value": 0, "valueType": "DWord" },
+          { "type": "registry.set", "path": "HKLM\\System\\ControlSet001\\Control\\FeatureManagement\\Overrides\\8\\1387020943", "name": "VariantPayload", "value": 0, "valueType": "DWord" },
+          { "type": "registry.set", "path": "HKLM\\System\\ControlSet001\\Control\\FeatureManagement\\Overrides\\8\\1387020943", "name": "VariantPayloadKind", "value": 0, "valueType": "DWord" }
+        ]
+      },
+      "verify": {
+        "steps": [
+          { "type": "registry.check", "path": "HKLM\\System\\ControlSet001\\Control\\FeatureManagement\\Overrides\\8\\1387020943", "name": "EnabledStateOptions", "equals": 0, "valueType": "DWord" },
+          { "type": "registry.check", "path": "HKLM\\System\\ControlSet001\\Control\\FeatureManagement\\Overrides\\8\\1387020943", "name": "EnabledState", "equals": 1, "valueType": "DWord" },
+          { "type": "registry.check", "path": "HKLM\\System\\ControlSet001\\Control\\FeatureManagement\\Overrides\\8\\1387020943", "name": "Variant", "equals": 0, "valueType": "DWord" },
+          { "type": "registry.check", "path": "HKLM\\System\\ControlSet001\\Control\\FeatureManagement\\Overrides\\8\\1387020943", "name": "VariantPayload", "equals": 0, "valueType": "DWord" },
+          { "type": "registry.check", "path": "HKLM\\System\\ControlSet001\\Control\\FeatureManagement\\Overrides\\8\\1387020943", "name": "VariantPayloadKind", "equals": 0, "valueType": "DWord" }
+        ]
+      },
+      "revert": {
+        "steps": [
+          { "type": "registry.remove", "path": "HKLM\\System\\ControlSet001\\Control\\FeatureManagement\\Overrides\\8\\1387020943", "name": "EnabledStateOptions" },
+          { "type": "registry.remove", "path": "HKLM\\System\\ControlSet001\\Control\\FeatureManagement\\Overrides\\8\\1387020943", "name": "EnabledState" },
+          { "type": "registry.remove", "path": "HKLM\\System\\ControlSet001\\Control\\FeatureManagement\\Overrides\\8\\1387020943", "name": "Variant" },
+          { "type": "registry.remove", "path": "HKLM\\System\\ControlSet001\\Control\\FeatureManagement\\Overrides\\8\\1387020943", "name": "VariantPayload" },
+          { "type": "registry.remove", "path": "HKLM\\System\\ControlSet001\\Control\\FeatureManagement\\Overrides\\8\\1387020943", "name": "VariantPayloadKind" }
+        ]
+      }
+    }
+  ]
+}

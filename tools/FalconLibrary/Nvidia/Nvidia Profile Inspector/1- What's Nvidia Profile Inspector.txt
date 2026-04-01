@@ -1,11 +1,11 @@
 What does nvidiaProfileInspector.exe do?
 
 :: Use case:
-It changes Nvidia Control Panel settings and NovaOS.nip imports settings!
+It changes Nvidia Control Panel settings and QuakedV2.nip imports settings!
 
 :: Links:
 Nvidia Profile Inspector Link: https://github.com/Orbmu2k/nvidiaProfileInspector/releases
-Nvidia Profile Inspector Nip: https://github.com/FalconK/FalconLibrary/blob/main/Downloads/V8.0/NovaOS.nip
+Nvidia Profile Inspector Nip: https://github.com/FalconK/FalconLibrary/blob/main/Downloads/V8.0/QuakedV2.nip
 
 
 

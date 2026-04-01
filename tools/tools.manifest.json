@@ -28,13 +28,13 @@
       "id": "process_destroyer",
       "name": "Process Destroyer",
       "kind": "local",
-      "path": "tools/BoostPack/Process-Destroyer-V2.5.bat"
+      "path": "tools/BoostPack/Process-Destroyer-V2.6.bat"
     },
     {
       "id": "process_destroyer_extreme",
       "name": "Process Destroyer Extreme",
       "kind": "local",
-      "path": "tools/BoostPack/Process-Destroyer-Extreme-V2.5.bat"
+      "path": "tools/BoostPack/Process-Destroyer-Extreme-V2.6.bat"
     }
   ]
 }
