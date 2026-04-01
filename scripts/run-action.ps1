@@ -330,6 +330,51 @@ function Get-StepCommandSummary([object]$step) {
   } catch { return "unknown" }
 }
 
+
+function Parse-PowercfgValueFromQuery([string]$text, [string]$mode) {
+  if ([string]::IsNullOrWhiteSpace($text)) { return $null }
+  $rx = if ($mode -eq 'ac') { 'Current AC Power Setting Index:\s*0x([0-9a-fA-F]+)' } else { 'Current DC Power Setting Index:\s*0x([0-9a-fA-F]+)' }
+  $m = [regex]::Match($text, $rx)
+  if (-not $m.Success) { return $null }
+  return [Convert]::ToInt64($m.Groups[1].Value,16)
+}
+
+function Verify-PowercfgStep([object]$step) {
+  $guid = [string](Expand-String $step.guid)
+  $args = @()
+  if ($step.PSObject.Properties.Name -contains 'args' -and $null -ne $step.args) {
+    if ($step.args -is [System.Array]) { foreach($a in $step.args){ $args += (Expand-String ([string]$a)) } }
+    else { $args += (Expand-String ([string]$step.args)) }
+  }
+  if ($args.Count -gt 0) {
+    $verb = [string]$args[0]
+    if ($verb -ieq '/SETACTIVE') {
+      $target = if($args.Count -gt 1){ [string]$args[1] } else { '' }
+      $o = (powercfg /GETACTIVESCHEME | Out-String)
+      if ($target -ieq 'SCHEME_CURRENT') { return [pscustomobject]@{ verified = $true; verifyDetails = 'powercfg /SETACTIVE SCHEME_CURRENT applied' } }
+      $ok = (-not [string]::IsNullOrWhiteSpace($target)) -and $o.ToLowerInvariant().Contains($target.ToLowerInvariant())
+      return [pscustomobject]@{ verified = $ok; verifyDetails = ('activeScheme=' + $o.Trim()) }
+    }
+    if ($verb -ieq '/SETACVALUEINDEX' -or $verb -ieq '/SETDCVALUEINDEX') {
+      if ($args.Count -lt 5) { return [pscustomobject]@{ verified = $false; verifyDetails = 'powercfg args missing subgroup/setting/value' } }
+      $scheme = [string]$args[1]; if ([string]::IsNullOrWhiteSpace($scheme)) { $scheme = 'SCHEME_CURRENT' }
+      $sub = [string]$args[2]
+      $setting = [string]$args[3]
+      $expected = [int64]$args[4]
+      $mode = if($verb -ieq '/SETACVALUEINDEX'){'ac'}else{'dc'}
+      $q = (powercfg /Q $scheme $sub $setting | Out-String)
+      $actual = Parse-PowercfgValueFromQuery $q $mode
+      if ($null -eq $actual) { return [pscustomobject]@{ verified = $false; verifyDetails = 'powercfg verify parse failed' } }
+      return [pscustomobject]@{ verified = ($actual -eq $expected); verifyDetails = ('powercfg ' + $mode + ' expected=' + $expected + ' actual=' + $actual) }
+    }
+    return [pscustomobject]@{ verified = $false; unverified = $true; verifyDetails = ('powercfg verifier missing for args: ' + ($args -join ' ')) }
+  }
+  if ([string]::IsNullOrWhiteSpace($guid)) { return [pscustomobject]@{ verified = $false; unverified = $true; verifyDetails = 'powercfg.set missing guid/args' } }
+  $o = (powercfg /GETACTIVESCHEME | Out-String)
+  $ok = ($o.ToLowerInvariant().Contains($guid.ToLowerInvariant()))
+  return [pscustomobject]@{ verified = $ok; verifyDetails = ('activeScheme=' + $o.Trim()) }
+}
+
 function Verify-StepOutcome([object]$step) {
   $type = [string]$step.type
   try {
@@ -445,13 +490,9 @@ function Verify-StepOutcome([object]$step) {
         return [pscustomobject]@{ verified = ($enabled -eq $expectedEnabled); verifyDetails = ("task enabled=" + $enabled + " expected=" + $expectedEnabled) }
       }
       "powercfg.set" {
-        $guid = [string](Expand-String $step.guid)
-        if ([string]::IsNullOrWhiteSpace($guid)) { return [pscustomobject]@{ verified = $true; verifyDetails = "powercfg.set had no guid to verify" } }
-        $o = (powercfg /GETACTIVESCHEME | Out-String)
-        $ok = ($o.ToLowerInvariant().Contains($guid.ToLowerInvariant()))
-        return [pscustomobject]@{ verified = $ok; verifyDetails = ("activeScheme=" + $o.Trim()) }
+        return Verify-PowercfgStep $step
       }
-      default { return [pscustomobject]@{ verified = $true; verifyDetails = "verification not required for step type" } }
+      default { return [pscustomobject]@{ verified = $false; unverified = $true; verifyDetails = ("verification unsupported for step type: " + $type) } }
     }
   } catch {
     return [pscustomobject]@{ verified = $false; verifyDetails = ("verification failed: " + $_.Exception.Message) }
@@ -1088,10 +1129,20 @@ if ($fp.ToLower().EndsWith(".cpl")) {
       }
 
       "powercfg.set" {
-        $guid = Expand-String $s.guid
-        if ([string]::IsNullOrWhiteSpace($guid)) { throw "powercfg.set missing guid" }
-        Log "POWERCFG SET: $guid"
-        powercfg /S $guid | Out-Null
+        $args = @()
+        if ($s.PSObject.Properties.Name -contains "args" -and $null -ne $s.args) {
+          if ($s.args -is [System.Array]) { foreach($a in $s.args){ $args += (Expand-String ([string]$a)) } }
+          else { $args += (Expand-String ([string]$s.args)) }
+        }
+        if ($args.Count -gt 0) {
+          Log ("POWERCFG SET ARGS: " + ($args -join " "))
+          powercfg @args | Out-Null
+        } else {
+          $guid = Expand-String $s.guid
+          if ([string]::IsNullOrWhiteSpace($guid)) { throw "powercfg.set missing guid/args" }
+          Log "POWERCFG SET GUID: $guid"
+          powercfg /S $guid | Out-Null
+        }
       }
 
       "timer.set" {
@@ -1337,14 +1388,14 @@ default {
       }
     }
     $verifyResult = Verify-StepOutcome $s
-    if (-not $verifyResult.verified) {
+    if (($verifyResult.PSObject.Properties.Name -contains "unverified" -and [bool]$verifyResult.unverified) -eq $false -and -not $verifyResult.verified) {
       $stepOk = $false
       $stepExitCode = 2
       $stepStderr = [string]$verifyResult.verifyDetails
       $script:Errors.Add("$type verification failed: " + [string]$verifyResult.verifyDetails) | Out-Null
       Log ("VERIFY FAIL $type : " + [string]$verifyResult.verifyDetails)
       if (-not $continueOnError) {
-        Add-StepResult ([pscustomobject]@{ stepIndex=$i; type=$type; commandSummary=$commandSummary; exitCode=$stepExitCode; stdout=$stepStdout; stderr=$stepStderr; ok=$false; verified=$false; verifyDetails=[string]$verifyResult.verifyDetails })
+        Add-StepResult ([pscustomobject]@{ stepIndex=$i; type=$type; commandSummary=$commandSummary; exitCode=$stepExitCode; stdout=$stepStdout; stderr=$stepStderr; ok=$false; verified=$false; verifyDetails=[string]$verifyResult.verifyDetails; resultClass="failed" })
         break
       }
     }
@@ -1355,25 +1406,30 @@ default {
     Log ("ERROR step $type : " + $_.Exception.Message)
     $script:Errors.Add("$type : " + $_.Exception.Message) | Out-Null
     if (-not $continueOnError) {
-      Add-StepResult ([pscustomobject]@{ stepIndex=$i; type=$type; commandSummary=$commandSummary; exitCode=$stepExitCode; stdout=$stepStdout; stderr=$stepStderr; ok=$false; verified=$false; verifyDetails="not-verified" })
+      Add-StepResult ([pscustomobject]@{ stepIndex=$i; type=$type; commandSummary=$commandSummary; exitCode=$stepExitCode; stdout=$stepStdout; stderr=$stepStderr; ok=$false; verified=$false; verifyDetails="not-verified"; resultClass="failed" })
       break
     }
   }
 
-  Add-StepResult ([pscustomobject]@{ stepIndex=$i; type=$type; commandSummary=$commandSummary; exitCode=$stepExitCode; stdout=$stepStdout; stderr=$stepStderr; ok=$stepOk; verified=[bool]$verifyResult.verified; verifyDetails=[string]$verifyResult.verifyDetails })
+    $resultClass = "success_verified"
+  if (-not $stepOk) { $resultClass = "failed" }
+  elseif ($verifyResult.PSObject.Properties.Name -contains "unverified" -and [bool]$verifyResult.unverified) { $resultClass = "success_unverified" }
+  elseif (-not [bool]$verifyResult.verified) { $resultClass = "failed" }
+  Add-StepResult ([pscustomobject]@{ stepIndex=$i; type=$type; commandSummary=$commandSummary; exitCode=$stepExitCode; stdout=$stepStdout; stderr=$stepStderr; ok=$stepOk; verified=[bool]$verifyResult.verified; verifyDetails=[string]$verifyResult.verifyDetails; resultClass=$resultClass })
 }
 
 # write log and return
 $script:LogLines | Out-File -FilePath $logFile -Encoding UTF8 -Force
 $verifyTotal = @($script:StepResults | Where-Object { $_.verified -eq $true }).Count
 $failedTotal = @($script:StepResults | Where-Object { $_.ok -eq $false }).Count
+$unverifiedTotal = @($script:StepResults | Where-Object { $_.resultClass -eq "success_unverified" }).Count
 $out = [pscustomobject]@{
   ok = ($script:Errors.Count -eq 0)
   errors = $script:Errors
   warnings = $script:Warnings
   logFile = $logFile
   stepResults = $script:StepResults
-  verifySummary = [pscustomobject]@{ verified = $verifyTotal; failed = $failedTotal; total = $script:StepResults.Count }
+  verifySummary = [pscustomobject]@{ verified = $verifyTotal; unverified = $unverifiedTotal; failed = $failedTotal; total = $script:StepResults.Count }
 }
 
 if ($ResultFile -and $ResultFile.Trim().Length -gt 0) {

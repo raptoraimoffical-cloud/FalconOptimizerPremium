@@ -47,6 +47,7 @@ selfTest: () => ipcRenderer.invoke("falcon:selfTest"),
 
   // system info
   getSystemInfo: () => ipcRenderer.invoke("falcon:getSystemInfo"),
+  getMachineProfile: () => ipcRenderer.invoke("falcon:getMachineProfile"),
   getThermals: () => ipcRenderer.invoke("falcon:getThermals"),
   getBiosInfo: () => ipcRenderer.invoke("falcon:getBiosInfo"),
   saveTextFile: (name, text) => ipcRenderer.invoke("falcon:saveTextFile", { name, text }),

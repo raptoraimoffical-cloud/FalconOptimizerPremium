@@ -1,0 +1,38 @@
+{
+  "items": [
+    {
+      "id": "cpu.amd.disable_basic_cstates",
+      "name": "Disable Basic C-states (AMD)",
+      "category": "Hardware / CPU",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "description": "Reduces deep idle behavior on AMD systems for lower latency. Can increase heat and idle power.",
+      "type": "toggle",
+      "applicability": {
+        "cpuVendors": ["amd"],
+        "requiresAdmin": true
+      },
+      "warning": {
+        "level": "warning",
+        "title": "Can increase heat and battery drain",
+        "why": ["Reduces CPU idle states", "May raise idle temperatures"],
+        "whenToAvoid": ["Laptops on battery", "Thermally constrained systems"],
+        "requiresReboot": false,
+        "rollbackAvailable": true,
+        "badges": ["AMD_ONLY", "THERMAL_RISK", "BATTERY_RISK"]
+      },
+      "apply": {
+        "steps": [
+          { "type": "powercfg.set", "args": ["/SETACVALUEINDEX", "SCHEME_CURRENT", "SUB_PROCESSOR", "IDLEDISABLE", "1"] },
+          { "type": "powercfg.set", "args": ["/SETACTIVE", "SCHEME_CURRENT"] }
+        ]
+      },
+      "revert": {
+        "steps": [
+          { "type": "powercfg.set", "args": ["/SETACVALUEINDEX", "SCHEME_CURRENT", "SUB_PROCESSOR", "IDLEDISABLE", "0"] },
+          { "type": "powercfg.set", "args": ["/SETACTIVE", "SCHEME_CURRENT"] }
+        ]
+      }
+    }
+  ]
+}

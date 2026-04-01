@@ -68,7 +68,63 @@ let currentHwProfile = readSavedHwProfile();
 
 let gameModePhotoOptimizations = [];
 let navToken = 0;
+let machineProfileCache = null;
 
+
+
+
+function hasExecutableSteps(item){
+  const steps = getStepsFor(item, 'apply') || [];
+  return steps.some((s)=>isMeaningfulOptimizationStep(s));
+}
+
+async function ensureMachineProfile(){
+  if (machineProfileCache) return machineProfileCache;
+  try{
+    const res = await window.falcon.getMachineProfile();
+    if (res && res.ok && res.profile) { machineProfileCache = res.profile; return machineProfileCache; }
+  }catch(_e){}
+  machineProfileCache = { cpu:{vendor:'unknown'}, gpu:{vendor: currentGpuVendor || 'unknown'}, system:{ buildNumber:null, isLaptop:false, isElevated:false } };
+  return machineProfileCache;
+}
+
+function evaluateApplicability(item, profile){
+  const app = item && item.applicability;
+  if (!app) return { applicable:false, reason:'missing-applicability' };
+  const cpuVendor = String(profile?.cpu?.vendor || '').toLowerCase();
+  const gpuVendor = String(profile?.gpu?.vendor || currentGpuVendor || '').toLowerCase();
+  const build = Number(profile?.system?.buildNumber || 0) || null;
+  const isLaptop = !!profile?.system?.isLaptop;
+  const isElevated = !!profile?.system?.isElevated;
+  const listCheck = (arr, val) => !Array.isArray(arr) || !arr.length || arr.map(x=>String(x).toLowerCase()).includes(String(val||'').toLowerCase());
+  if (!listCheck(app.cpuVendors, cpuVendor)) return { applicable:false, reason:'cpu-vendor-mismatch' };
+  if (!listCheck(app.gpuVendors, gpuVendor)) return { applicable:false, reason:'gpu-vendor-mismatch' };
+  if (app.laptopOnly === true && !isLaptop) return { applicable:false, reason:'laptop-only' };
+  if (app.desktopOnly === true && isLaptop) return { applicable:false, reason:'desktop-only' };
+  if (app.requiresAdmin === true && !isElevated) return { applicable:false, reason:'admin-required' };
+  if (build && app.minWindowsBuild && build < Number(app.minWindowsBuild)) return { applicable:false, reason:'windows-build-too-old' };
+  if (build && app.maxWindowsBuild && build > Number(app.maxWindowsBuild)) return { applicable:false, reason:'windows-build-too-new' };
+  return { applicable:true, reason:'ok' };
+}
+
+function hasSupportedVerification(item){
+  const supported = new Set(['registry.set','registry.remove','service.disable','service.enable','service.startup','powercfg.set','task']);
+  const steps = getStepsFor(item, 'apply') || [];
+  if (!steps.length) return false;
+  return steps.every(st => !isMeaningfulOptimizationStep(st) || supported.has(String(st.type||'').toLowerCase()));
+}
+
+function resolveHardwareTabSource(tabId, profile){
+  const cpuVendor = String(profile?.cpu?.vendor || 'intel').toLowerCase();
+  const gpuVendor = String(profile?.gpu?.vendor || currentGpuVendor || 'nvidia').toLowerCase();
+  if (tabId === 'cpu') return cpuVendor === 'amd' ? 'tweaks/hardware.cpu.amd.json' : 'tweaks/hardware.cpu.intel.json';
+  if (tabId === 'gpu') {
+    if (gpuVendor === 'amd') return 'tweaks/hardware.gpu.amd.json';
+    if (gpuVendor === 'intel') return 'tweaks/hardware.gpu.intel.json';
+    return 'tweaks/hardware.gpu.nvidia.json';
+  }
+  return null;
+}
 
 function getStepsFor(item, mode) {
   // mode: "apply" or "revert"
@@ -1048,8 +1104,8 @@ const routes = {
     { id:'latencyLib', label:'Scheduler + Timer', source:'tweaks/performance.lib.latency.scheduler_timer.json' }
   ]},
   hardware: { title: 'Hardware', sub: 'Optimize your hardware performance.', tabs: [
-    { id:'gpu', label:'GPU', source:'tweaks/hardware.gpu.nvidia.json' },
-    { id:'cpu', label:'CPU', source:'tweaks/hardware.cpu.intel.json' },
+    { id:'gpu', label:'GPU', source:'tweaks/hardware.gpu.nvidia.json', dynamicSource: true },
+    { id:'cpu', label:'CPU', source:'tweaks/hardware.cpu.intel.json', dynamicSource: true },
     { id:'memory', label:'Memory', source:'tweaks/hardware.memory.json' },
     { id:'peripherals', label:'Peripherals', source:'tweaks/hardware.peripherals.json' },
     { id:'inputlab', label:'Input Latency Lab', source:'tweaks/input.latency.json' },
@@ -3709,6 +3765,7 @@ refreshSecurityHome();
         }
 
         const machineProfileForRun = await getStoredOrDetectedMachineProfile();
+        const machineProfileData = await ensureMachineProfile();
         const msg = machineProfileForRun === 'desktop'
           ? 'Machine profile: Desktop – maximum FPS and lowest latency.'
           : 'Machine profile: Laptop – balanced performance while respecting mobile power/thermals.';
@@ -3755,6 +3812,10 @@ refreshSecurityHome();
 
           const isPerformanceItem = hasFocusTag(it) || matchesPerformanceAllowlist(it);
           if(!isPerformanceItem) { bumpReason('not_performance'); return false; }
+
+          const app = evaluateApplicability(it, machineProfileData);
+          if (!app.applicable) { bumpReason(app.reason || 'not_applicable'); return false; }
+          if (!hasSupportedVerification(it)) { bumpReason('unsupported_verify'); return false; }
 
           if (currentGpuVendor && currentGpuVendor !== "auto" && currentGpuVendor !== "unknown") {
             const isNvidiaTweak = id.startsWith("gpu.nvidia");
@@ -7548,6 +7609,15 @@ async function refresh(resetTabs=true){
 
     els.pageTitle.textContent = cfg.title || 'Falcon Optimizer';
     els.pageSub.textContent = cfg.sub || '';
+
+    if (currentRoute === 'hardware' && cfg && Array.isArray(cfg.tabs)) {
+      const mp = await ensureMachineProfile();
+      cfg.tabs = cfg.tabs.map((t) => {
+        if (!t || !t.dynamicSource) return t;
+        const src = resolveHardwareTabSource(t.id, mp);
+        return src ? { ...t, source: src } : t;
+      });
+    }
 
     if (resetTabs) {
       if (cfg.tabs && cfg.tabs.length > 0) currentTab = cfg.tabs[0];
