@@ -200,9 +200,9 @@
   },
   "items": [
     {
-      "id": "power_management_exhaustive_panel",
+      "id": "power_management_exhaustive_panel_info_only",
       "type": "info",
-      "name": "Use the Exhaustive Power Management panel",
+      "name": "Power Management panel (Info only)",
       "category": "Power Management",
       "description": "Use categories for broad surfacing, then use Apply/Verify/Rollback per item with badges and support/proof labels."
     }

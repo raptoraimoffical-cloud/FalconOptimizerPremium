@@ -190,13 +190,6 @@
           },
           {
             "type": "registry.set",
-            "path": "HKCU\\Control Panel\\Desktop",
-            "name": "UserPreferencesMask",
-            "value": "9012038010000000",
-            "valueType": "Binary"
-          },
-          {
-            "type": "registry.set",
             "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
             "name": "ListviewAlphaSelect",
             "value": 0,
@@ -374,13 +367,6 @@
             "type": "registry.set",
             "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\GameDVR",
             "name": "AudioCaptureEnabled",
-            "value": 0,
-            "valueType": "DWord"
-          },
-          {
-            "type": "registry.set",
-            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\GameDVR",
-            "name": "CursorCaptureEnabled",
             "value": 0,
             "valueType": "DWord"
           },
@@ -708,13 +694,6 @@
           },
           {
             "type": "registry.set",
-            "path": "HKLM\\System\\CurrentControlSet\\Services\\AppXSvc",
-            "name": "Start",
-            "value": 4,
-            "valueType": "DWord"
-          },
-          {
-            "type": "registry.set",
             "path": "HKLM\\System\\CurrentControlSet\\Services\\BFE",
             "name": "Start",
             "value": 4,
@@ -772,13 +751,6 @@
           {
             "type": "registry.set",
             "path": "HKLM\\System\\CurrentControlSet\\Services\\SgrmBroker",
-            "name": "Start",
-            "value": 4,
-            "valueType": "DWord"
-          },
-          {
-            "type": "registry.set",
-            "path": "HKLM\\System\\CurrentControlSet\\Services\\TimeBrokerSvc",
             "name": "Start",
             "value": 4,
             "valueType": "DWord"
@@ -2668,13 +2640,6 @@
           },
           {
             "type": "registry.set",
-            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Power\\PowerThrottling",
-            "name": "PowerThrottlingOff",
-            "value": 1,
-            "valueType": "DWord"
-          },
-          {
-            "type": "registry.set",
             "path": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Windows",
             "name": "TimerCoalescing",
             "value": "0000000000000000000000000000000000000000000000000000000000000000",
@@ -3525,11 +3490,6 @@
           },
           {
             "type": "registry.remove",
-            "path": "HKCU\\Control Panel\\Desktop",
-            "name": "UserPreferencesMask"
-          },
-          {
-            "type": "registry.remove",
             "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
             "name": "ListviewAlphaSelect"
           },
@@ -3657,11 +3617,6 @@
             "type": "registry.remove",
             "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\GameDVR",
             "name": "AudioCaptureEnabled"
-          },
-          {
-            "type": "registry.remove",
-            "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\GameDVR",
-            "name": "CursorCaptureEnabled"
           },
           {
             "type": "registry.remove",
@@ -3895,11 +3850,6 @@
           },
           {
             "type": "registry.remove",
-            "path": "HKLM\\System\\CurrentControlSet\\Services\\AppXSvc",
-            "name": "Start"
-          },
-          {
-            "type": "registry.remove",
             "path": "HKLM\\System\\CurrentControlSet\\Services\\BFE",
             "name": "Start"
           },
@@ -3941,11 +3891,6 @@
           {
             "type": "registry.remove",
             "path": "HKLM\\System\\CurrentControlSet\\Services\\SgrmBroker",
-            "name": "Start"
-          },
-          {
-            "type": "registry.remove",
-            "path": "HKLM\\System\\CurrentControlSet\\Services\\TimeBrokerSvc",
             "name": "Start"
           },
           {
@@ -5287,11 +5232,6 @@
             "type": "registry.remove",
             "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Power",
             "name": "HibernateEnabledDefault"
-          },
-          {
-            "type": "registry.remove",
-            "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Power\\PowerThrottling",
-            "name": "PowerThrottlingOff"
           },
           {
             "type": "registry.remove",

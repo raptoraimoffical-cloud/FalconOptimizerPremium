@@ -11,16 +11,8 @@
       "apply": {
         "steps": [
           {
-            "type": "shell.start",
-            "file": "powershell.exe",
-            "args": [
-              "-NoProfile",
-              "-ExecutionPolicy",
-              "Bypass",
-              "-Command",
-              "$ErrorActionPreference='SilentlyContinue';\n$paths=@(\n  \"$env:TEMP\\*\",\n  \"$env:WINDIR\\Temp\\*\",\n  \"$env:LOCALAPPDATA\\Temp\\*\",\n  \"$env:LOCALAPPDATA\\D3DSCache\\*\",\n  \"$env:LOCALAPPDATA\\NVIDIA\\DXCache\\*\",\n  \"$env:LOCALAPPDATA\\NVIDIA\\GLCache\\*\",\n  \"$env:LOCALAPPDATA\\AMD\\DxCache\\*\",\n  \"$env:LOCALAPPDATA\\AMD\\GLCache\\*\",\n  \"$env:ProgramData\\NVIDIA Corporation\\NV_Cache\\*\",\n  \"$env:WINDIR\\SoftwareDistribution\\Download\\*\",\n  \"$env:LOCALAPPDATA\\Microsoft\\Windows\\Explorer\\thumbcache*\",\n  \"$env:WINDIR\\Prefetch\\*\"\n);\nforeach($p in $paths){ try { Remove-Item -LiteralPath $p -Recurse -Force -ErrorAction SilentlyContinue } catch {} }\ntry { ipconfig /flushdns | Out-Null } catch {}\ntry { wevtutil el | ForEach-Object { wevtutil cl $_ } } catch {}\ntry { Get-ChildItem \"$env:SystemDrive\\ProgramData\\Microsoft\\Windows\\DeliveryOptimization\\Cache\" -ErrorAction SilentlyContinue | Remove-Item -Recurse -Force -ErrorAction SilentlyContinue } catch {}\nexit 0"
-            ],
-            "wait": true
+            "type": "ps.run",
+            "command": "$ErrorActionPreference='SilentlyContinue';\n$paths=@(\n  \"$env:TEMP\\*\",\n  \"$env:WINDIR\\Temp\\*\",\n  \"$env:LOCALAPPDATA\\Temp\\*\",\n  \"$env:LOCALAPPDATA\\D3DSCache\\*\",\n  \"$env:LOCALAPPDATA\\NVIDIA\\DXCache\\*\",\n  \"$env:LOCALAPPDATA\\NVIDIA\\GLCache\\*\",\n  \"$env:LOCALAPPDATA\\AMD\\DxCache\\*\",\n  \"$env:LOCALAPPDATA\\AMD\\GLCache\\*\",\n  \"$env:ProgramData\\NVIDIA Corporation\\NV_Cache\\*\",\n  \"$env:WINDIR\\SoftwareDistribution\\Download\\*\",\n  \"$env:LOCALAPPDATA\\Microsoft\\Windows\\Explorer\\thumbcache*\",\n  \"$env:WINDIR\\Prefetch\\*\"\n);\nforeach($p in $paths){ try { Remove-Item -LiteralPath $p -Recurse -Force -ErrorAction SilentlyContinue } catch {} }\ntry { ipconfig /flushdns | Out-Null } catch {}\ntry { wevtutil el | ForEach-Object { wevtutil cl $_ } } catch {}\ntry { Get-ChildItem \"$env:SystemDrive\\ProgramData\\Microsoft\\Windows\\DeliveryOptimization\\Cache\" -ErrorAction SilentlyContinue | Remove-Item -Recurse -Force -ErrorAction SilentlyContinue } catch {}\nexit 0"
           }
         ]
       },
@@ -33,7 +25,8 @@
       "appTargets": [],
       "bulkSelectableGroups": [
         "non_app"
-      ]
+      ],
+      "timeoutMs": 120000
     },
     {
       "id": "boost.clean_network_stack",
@@ -46,16 +39,8 @@
       "apply": {
         "steps": [
           {
-            "type": "shell.start",
-            "file": "powershell.exe",
-            "args": [
-              "-NoProfile",
-              "-ExecutionPolicy",
-              "Bypass",
-              "-Command",
-              "netsh winsock reset; netsh int ip reset; ipconfig /flushdns; netsh advfirewall reset; exit 0"
-            ],
-            "wait": true
+            "type": "ps.run",
+            "command": "netsh winsock reset; netsh int ip reset; ipconfig /flushdns; netsh advfirewall reset; exit 0"
           }
         ]
       },
@@ -68,7 +53,8 @@
       "appTargets": [],
       "bulkSelectableGroups": [
         "non_app"
-      ]
+      ],
+      "timeoutMs": 120000
     },
     {
       "id": "boost.latency_registry_baseline",
@@ -81,16 +67,8 @@
       "apply": {
         "steps": [
           {
-            "type": "shell.start",
-            "file": "powershell.exe",
-            "args": [
-              "-NoProfile",
-              "-ExecutionPolicy",
-              "Bypass",
-              "-Command",
-              "$ErrorActionPreference='SilentlyContinue';\nreg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\PriorityControl\" /v Win32PrioritySeparation /t REG_DWORD /d 38 /f | Out-Null\nreg add \"HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\" /v NetworkThrottlingIndex /t REG_DWORD /d 4294967295 /f | Out-Null\nreg add \"HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\" /v SystemResponsiveness /t REG_DWORD /d 0 /f | Out-Null\n$ifBase='HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces'\nGet-ChildItem -Path Registry::$ifBase -ErrorAction SilentlyContinue | ForEach-Object {\n  reg add ($_.Name -replace 'HKEY_LOCAL_MACHINE','HKLM') /v TCPNoDelay /t REG_DWORD /d 1 /f | Out-Null\n  reg add ($_.Name -replace 'HKEY_LOCAL_MACHINE','HKLM') /v TcpAckFrequency /t REG_DWORD /d 1 /f | Out-Null\n}\nexit 0"
-            ],
-            "wait": true
+            "type": "ps.run",
+            "command": "$ErrorActionPreference='SilentlyContinue';\nreg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\PriorityControl\" /v Win32PrioritySeparation /t REG_DWORD /d 38 /f | Out-Null\nreg add \"HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\" /v NetworkThrottlingIndex /t REG_DWORD /d 4294967295 /f | Out-Null\nreg add \"HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\" /v SystemResponsiveness /t REG_DWORD /d 0 /f | Out-Null\n$ifBase='HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces'\nGet-ChildItem -Path Registry::$ifBase -ErrorAction SilentlyContinue | ForEach-Object {\n  reg add ($_.Name -replace 'HKEY_LOCAL_MACHINE','HKLM') /v TCPNoDelay /t REG_DWORD /d 1 /f | Out-Null\n  reg add ($_.Name -replace 'HKEY_LOCAL_MACHINE','HKLM') /v TcpAckFrequency /t REG_DWORD /d 1 /f | Out-Null\n}\nexit 0"
           }
         ]
       },
@@ -105,7 +83,8 @@
         "non_app",
         "latency_core"
       ],
-      "shortDescription": "Applies scheduler, MMCSS, and TCP latency-oriented registry values."
+      "shortDescription": "Applies scheduler, MMCSS, and TCP latency-oriented registry values.",
+      "timeoutMs": 120000
     },
     {
       "id": "boost.clear_cache__speed.boost",
@@ -118,16 +97,8 @@
       "apply": {
         "steps": [
           {
-            "type": "shell.start",
-            "file": "powershell.exe",
-            "args": [
-              "-NoProfile",
-              "-ExecutionPolicy",
-              "Bypass",
-              "-Command",
-              "Remove-Item -LiteralPath '$env:TEMP\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:WINDIR\\Temp\\*' -Recurse -Force -ErrorAction SilentlyContinue"
-            ],
-            "wait": true
+            "type": "ps.run",
+            "command": "Remove-Item -LiteralPath '$env:TEMP\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:WINDIR\\Temp\\*' -Recurse -Force -ErrorAction SilentlyContinue"
           }
         ]
       },
@@ -141,7 +112,8 @@
       "appTargets": [],
       "bulkSelectableGroups": [
         "non_app"
-      ]
+      ],
+      "timeoutMs": 120000
     },
     {
       "id": "boost.clear_chrome_temp__speed.boost",
@@ -154,16 +126,8 @@
       "apply": {
         "steps": [
           {
-            "type": "shell.start",
-            "file": "powershell.exe",
-            "args": [
-              "-NoProfile",
-              "-ExecutionPolicy",
-              "Bypass",
-              "-Command",
-              "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Google\\Chrome\\User Data\\Default\\Cache\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Google\\Chrome\\User Data\\Default\\Code Cache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
-            ],
-            "wait": true
+            "type": "ps.run",
+            "command": "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Google\\Chrome\\User Data\\Default\\Cache\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Google\\Chrome\\User Data\\Default\\Code Cache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
           }
         ]
       },
@@ -179,7 +143,8 @@
       ],
       "bulkSelectableGroups": [
         "app_specific"
-      ]
+      ],
+      "timeoutMs": 120000
     },
     {
       "id": "boost.clear_games_temp__speed.boost",
@@ -192,16 +157,8 @@
       "apply": {
         "steps": [
           {
-            "type": "shell.start",
-            "file": "powershell.exe",
-            "args": [
-              "-NoProfile",
-              "-ExecutionPolicy",
-              "Bypass",
-              "-Command",
-              "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Temp\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:ProgramData\\NVIDIA Corporation\\NV_Cache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
-            ],
-            "wait": true
+            "type": "ps.run",
+            "command": "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Temp\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:ProgramData\\NVIDIA Corporation\\NV_Cache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
           }
         ]
       },
@@ -215,7 +172,8 @@
       "appTargets": [],
       "bulkSelectableGroups": [
         "non_app"
-      ]
+      ],
+      "timeoutMs": 120000
     },
     {
       "id": "boost.clear_history_recent__speed.boost",
@@ -228,16 +186,8 @@
       "apply": {
         "steps": [
           {
-            "type": "shell.start",
-            "file": "powershell.exe",
-            "args": [
-              "-NoProfile",
-              "-ExecutionPolicy",
-              "Bypass",
-              "-Command",
-              "Remove-Item -LiteralPath '$env:APPDATA\\Microsoft\\Windows\\Recent\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:APPDATA\\Microsoft\\Windows\\Recent\\AutomaticDestinations\\*' -Recurse -Force -ErrorAction SilentlyContinue"
-            ],
-            "wait": true
+            "type": "ps.run",
+            "command": "Remove-Item -LiteralPath '$env:APPDATA\\Microsoft\\Windows\\Recent\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:APPDATA\\Microsoft\\Windows\\Recent\\AutomaticDestinations\\*' -Recurse -Force -ErrorAction SilentlyContinue"
           }
         ]
       },
@@ -251,7 +201,8 @@
       "appTargets": [],
       "bulkSelectableGroups": [
         "non_app"
-      ]
+      ],
+      "timeoutMs": 120000
     },
     {
       "id": "boost.clear_installer_caches__speed.boost",
@@ -264,16 +215,8 @@
       "apply": {
         "steps": [
           {
-            "type": "shell.start",
-            "file": "powershell.exe",
-            "args": [
-              "-NoProfile",
-              "-ExecutionPolicy",
-              "Bypass",
-              "-Command",
-              "Remove-Item -LiteralPath '$env:WINDIR\\SoftwareDistribution\\Download\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:ProgramData\\Package Cache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
-            ],
-            "wait": true
+            "type": "ps.run",
+            "command": "Remove-Item -LiteralPath '$env:WINDIR\\SoftwareDistribution\\Download\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:ProgramData\\Package Cache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
           }
         ]
       },
@@ -287,7 +230,8 @@
       "appTargets": [],
       "bulkSelectableGroups": [
         "non_app"
-      ]
+      ],
+      "timeoutMs": 120000
     },
     {
       "id": "boost.clear_prefetch__speed.boost",
@@ -300,16 +244,8 @@
       "apply": {
         "steps": [
           {
-            "type": "shell.start",
-            "file": "powershell.exe",
-            "args": [
-              "-NoProfile",
-              "-ExecutionPolicy",
-              "Bypass",
-              "-Command",
-              "Remove-Item -LiteralPath '$env:WINDIR\\Prefetch\\*' -Recurse -Force -ErrorAction SilentlyContinue"
-            ],
-            "wait": true
+            "type": "ps.run",
+            "command": "Remove-Item -LiteralPath '$env:WINDIR\\Prefetch\\*' -Recurse -Force -ErrorAction SilentlyContinue"
           }
         ]
       },
@@ -323,7 +259,8 @@
       "appTargets": [],
       "bulkSelectableGroups": [
         "non_app"
-      ]
+      ],
+      "timeoutMs": 120000
     },
     {
       "id": "boost.clear_thumbnail_cache__speed.boost",
@@ -336,16 +273,8 @@
       "apply": {
         "steps": [
           {
-            "type": "shell.start",
-            "file": "powershell.exe",
-            "args": [
-              "-NoProfile",
-              "-ExecutionPolicy",
-              "Bypass",
-              "-Command",
-              "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Microsoft\\Windows\\Explorer\\thumbcache*' -Force -ErrorAction SilentlyContinue"
-            ],
-            "wait": true
+            "type": "ps.run",
+            "command": "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Microsoft\\Windows\\Explorer\\thumbcache*' -Force -ErrorAction SilentlyContinue"
           }
         ]
       },
@@ -359,7 +288,8 @@
       "appTargets": [],
       "bulkSelectableGroups": [
         "non_app"
-      ]
+      ],
+      "timeoutMs": 120000
     },
     {
       "id": "boost.clear_font_cache__speed.boost",
@@ -372,16 +302,8 @@
       "apply": {
         "steps": [
           {
-            "type": "shell.start",
-            "file": "powershell.exe",
-            "args": [
-              "-NoProfile",
-              "-ExecutionPolicy",
-              "Bypass",
-              "-Command",
-              "Stop-Service -Name 'FontCache' -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Microsoft\\Windows\\FontCache\\*' -Recurse -Force -ErrorAction SilentlyContinue; Start-Service -Name 'FontCache' -ErrorAction SilentlyContinue"
-            ],
-            "wait": true
+            "type": "ps.run",
+            "command": "Stop-Service -Name 'FontCache' -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Microsoft\\Windows\\FontCache\\*' -Recurse -Force -ErrorAction SilentlyContinue; Start-Service -Name 'FontCache' -ErrorAction SilentlyContinue"
           }
         ]
       },
@@ -395,7 +317,8 @@
       "appTargets": [],
       "bulkSelectableGroups": [
         "non_app"
-      ]
+      ],
+      "timeoutMs": 120000
     },
     {
       "id": "boost.clear_discord_cache__speed.boost",
@@ -408,16 +331,8 @@
       "apply": {
         "steps": [
           {
-            "type": "shell.start",
-            "file": "powershell.exe",
-            "args": [
-              "-NoProfile",
-              "-ExecutionPolicy",
-              "Bypass",
-              "-Command",
-              "Remove-Item -LiteralPath '$env:APPDATA\\discord\\Cache\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:APPDATA\\discord\\GPUCache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
-            ],
-            "wait": true
+            "type": "ps.run",
+            "command": "Remove-Item -LiteralPath '$env:APPDATA\\discord\\Cache\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:APPDATA\\discord\\GPUCache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
           }
         ]
       },
@@ -433,7 +348,8 @@
       ],
       "bulkSelectableGroups": [
         "app_specific"
-      ]
+      ],
+      "timeoutMs": 120000
     },
     {
       "id": "boost.clear_steam_cache__speed.boost",
@@ -446,16 +362,8 @@
       "apply": {
         "steps": [
           {
-            "type": "shell.start",
-            "file": "powershell.exe",
-            "args": [
-              "-NoProfile",
-              "-ExecutionPolicy",
-              "Bypass",
-              "-Command",
-              "Remove-Item -LiteralPath '$env:PROGRAMFILES(x86)\\Steam\\appcache\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:PROGRAMFILES(x86)\\Steam\\steamapps\\downloading\\*' -Recurse -Force -ErrorAction SilentlyContinue"
-            ],
-            "wait": true
+            "type": "ps.run",
+            "command": "Remove-Item -LiteralPath '$env:PROGRAMFILES(x86)\\Steam\\appcache\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:PROGRAMFILES(x86)\\Steam\\steamapps\\downloading\\*' -Recurse -Force -ErrorAction SilentlyContinue"
           }
         ]
       },
@@ -471,7 +379,8 @@
       ],
       "bulkSelectableGroups": [
         "app_specific"
-      ]
+      ],
+      "timeoutMs": 120000
     },
     {
       "id": "boost.clear_epic_cache__speed.boost",
@@ -484,16 +393,8 @@
       "apply": {
         "steps": [
           {
-            "type": "shell.start",
-            "file": "powershell.exe",
-            "args": [
-              "-NoProfile",
-              "-ExecutionPolicy",
-              "Bypass",
-              "-Command",
-              "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\EpicGamesLauncher\\Saved\\Logs\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:LOCALAPPDATA\\EpicGamesLauncher\\Saved\\webcache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
-            ],
-            "wait": true
+            "type": "ps.run",
+            "command": "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\EpicGamesLauncher\\Saved\\Logs\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:LOCALAPPDATA\\EpicGamesLauncher\\Saved\\webcache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
           }
         ]
       },
@@ -510,7 +411,8 @@
       ],
       "bulkSelectableGroups": [
         "app_specific"
-      ]
+      ],
+      "timeoutMs": 120000
     },
     {
       "id": "boost.clear_temp_files_bundle__speed.boost",
@@ -523,16 +425,8 @@
       "apply": {
         "steps": [
           {
-            "type": "shell.start",
-            "file": "powershell.exe",
-            "args": [
-              "-NoProfile",
-              "-ExecutionPolicy",
-              "Bypass",
-              "-Command",
-              "Remove-Item -LiteralPath '$env:TEMP\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Temp\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:WINDIR\\Temp\\*' -Recurse -Force -ErrorAction SilentlyContinue"
-            ],
-            "wait": true
+            "type": "ps.run",
+            "command": "Remove-Item -LiteralPath '$env:TEMP\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Temp\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:WINDIR\\Temp\\*' -Recurse -Force -ErrorAction SilentlyContinue"
           }
         ]
       },
@@ -546,7 +440,8 @@
       "appTargets": [],
       "bulkSelectableGroups": [
         "non_app"
-      ]
+      ],
+      "timeoutMs": 120000
     },
     {
       "id": "boost.empty_recycle_bin__speed.boost",
@@ -559,16 +454,8 @@
       "apply": {
         "steps": [
           {
-            "type": "shell.start",
-            "file": "powershell.exe",
-            "args": [
-              "-NoProfile",
-              "-ExecutionPolicy",
-              "Bypass",
-              "-Command",
-              "Clear-RecycleBin -Force -ErrorAction SilentlyContinue"
-            ],
-            "wait": true
+            "type": "ps.run",
+            "command": "Clear-RecycleBin -Force -ErrorAction SilentlyContinue"
           }
         ]
       },
@@ -582,7 +469,8 @@
       "appTargets": [],
       "bulkSelectableGroups": [
         "non_app"
-      ]
+      ],
+      "timeoutMs": 120000
     },
     {
       "id": "boost.clear_directx_shader__speed.boost",
@@ -595,16 +483,8 @@
       "apply": {
         "steps": [
           {
-            "type": "shell.start",
-            "file": "powershell.exe",
-            "args": [
-              "-NoProfile",
-              "-ExecutionPolicy",
-              "Bypass",
-              "-Command",
-              "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\D3DSCache\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:LOCALAPPDATA\\NVIDIA\\DXCache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
-            ],
-            "wait": true
+            "type": "ps.run",
+            "command": "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\D3DSCache\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:LOCALAPPDATA\\NVIDIA\\DXCache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
           }
         ]
       },
@@ -618,7 +498,8 @@
       "appTargets": [],
       "bulkSelectableGroups": [
         "non_app"
-      ]
+      ],
+      "timeoutMs": 120000
     },
     {
       "id": "boost.clear_delivery_optimization__speed.boost",
@@ -631,16 +512,8 @@
       "apply": {
         "steps": [
           {
-            "type": "shell.start",
-            "file": "powershell.exe",
-            "args": [
-              "-NoProfile",
-              "-ExecutionPolicy",
-              "Bypass",
-              "-Command",
-              "Remove-Item -LiteralPath '$env:ProgramData\\Microsoft\\Windows\\DeliveryOptimization\\Cache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
-            ],
-            "wait": true
+            "type": "ps.run",
+            "command": "Remove-Item -LiteralPath '$env:ProgramData\\Microsoft\\Windows\\DeliveryOptimization\\Cache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
           }
         ]
       },
@@ -654,7 +527,8 @@
       "appTargets": [],
       "bulkSelectableGroups": [
         "non_app"
-      ]
+      ],
+      "timeoutMs": 120000
     },
     {
       "id": "boost.clear_crash_dumps__speed.boost",
@@ -667,16 +541,8 @@
       "apply": {
         "steps": [
           {
-            "type": "shell.start",
-            "file": "powershell.exe",
-            "args": [
-              "-NoProfile",
-              "-ExecutionPolicy",
-              "Bypass",
-              "-Command",
-              "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\CrashDumps\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:SYSTEMROOT\\Minidump\\*' -Recurse -Force -ErrorAction SilentlyContinue"
-            ],
-            "wait": true
+            "type": "ps.run",
+            "command": "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\CrashDumps\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:SYSTEMROOT\\Minidump\\*' -Recurse -Force -ErrorAction SilentlyContinue"
           }
         ]
       },
@@ -690,7 +556,8 @@
       "appTargets": [],
       "bulkSelectableGroups": [
         "non_app"
-      ]
+      ],
+      "timeoutMs": 120000
     },
     {
       "id": "boost.clear_wer_reports__speed.boost",
@@ -703,16 +570,8 @@
       "apply": {
         "steps": [
           {
-            "type": "shell.start",
-            "file": "powershell.exe",
-            "args": [
-              "-NoProfile",
-              "-ExecutionPolicy",
-              "Bypass",
-              "-Command",
-              "Remove-Item -LiteralPath '$env:ProgramData\\Microsoft\\Windows\\WER\\ReportQueue\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:ProgramData\\Microsoft\\Windows\\WER\\ReportArchive\\*' -Recurse -Force -ErrorAction SilentlyContinue"
-            ],
-            "wait": true
+            "type": "ps.run",
+            "command": "Remove-Item -LiteralPath '$env:ProgramData\\Microsoft\\Windows\\WER\\ReportQueue\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:ProgramData\\Microsoft\\Windows\\WER\\ReportArchive\\*' -Recurse -Force -ErrorAction SilentlyContinue"
           }
         ]
       },
@@ -726,7 +585,8 @@
       "appTargets": [],
       "bulkSelectableGroups": [
         "non_app"
-      ]
+      ],
+      "timeoutMs": 120000
     },
     {
       "id": "boost.clear_store_cache__speed.boost",
@@ -739,16 +599,8 @@
       "apply": {
         "steps": [
           {
-            "type": "shell.start",
-            "file": "powershell.exe",
-            "args": [
-              "-NoProfile",
-              "-ExecutionPolicy",
-              "Bypass",
-              "-Command",
-              "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Packages\\Microsoft.WindowsStore_*\\LocalCache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
-            ],
-            "wait": true
+            "type": "ps.run",
+            "command": "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Packages\\Microsoft.WindowsStore_*\\LocalCache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
           }
         ]
       },
@@ -762,7 +614,8 @@
       "appTargets": [],
       "bulkSelectableGroups": [
         "non_app"
-      ]
+      ],
+      "timeoutMs": 120000
     },
     {
       "id": "boost.clear_edge_cache__speed.boost",
@@ -775,16 +628,8 @@
       "apply": {
         "steps": [
           {
-            "type": "shell.start",
-            "file": "powershell.exe",
-            "args": [
-              "-NoProfile",
-              "-ExecutionPolicy",
-              "Bypass",
-              "-Command",
-              "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Microsoft\\Edge\\User Data\\Default\\Cache\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Microsoft\\Edge\\User Data\\Default\\Code Cache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
-            ],
-            "wait": true
+            "type": "ps.run",
+            "command": "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Microsoft\\Edge\\User Data\\Default\\Cache\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Microsoft\\Edge\\User Data\\Default\\Code Cache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
           }
         ]
       },
@@ -800,7 +645,8 @@
       ],
       "bulkSelectableGroups": [
         "app_specific"
-      ]
+      ],
+      "timeoutMs": 120000
     },
     {
       "id": "boost.clear_firefox_cache__speed.boost",
@@ -813,16 +659,8 @@
       "apply": {
         "steps": [
           {
-            "type": "shell.start",
-            "file": "powershell.exe",
-            "args": [
-              "-NoProfile",
-              "-ExecutionPolicy",
-              "Bypass",
-              "-Command",
-              "Remove-Item -Path '$env:APPDATA\\Mozilla\\Firefox\\Profiles\\*\\cache2\\*' -Recurse -Force -ErrorAction SilentlyContinue"
-            ],
-            "wait": true
+            "type": "ps.run",
+            "command": "Remove-Item -Path '$env:APPDATA\\Mozilla\\Firefox\\Profiles\\*\\cache2\\*' -Recurse -Force -ErrorAction SilentlyContinue"
           }
         ]
       },
@@ -838,7 +676,8 @@
       ],
       "bulkSelectableGroups": [
         "app_specific"
-      ]
+      ],
+      "timeoutMs": 120000
     },
     {
       "id": "boost.clear_webview2_cache__speed.boost",
@@ -851,16 +690,8 @@
       "apply": {
         "steps": [
           {
-            "type": "shell.start",
-            "file": "powershell.exe",
-            "args": [
-              "-NoProfile",
-              "-ExecutionPolicy",
-              "Bypass",
-              "-Command",
-              "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Microsoft\\EdgeWebView\\Cache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
-            ],
-            "wait": true
+            "type": "ps.run",
+            "command": "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Microsoft\\EdgeWebView\\Cache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
           }
         ]
       },
@@ -874,7 +705,8 @@
       "appTargets": [],
       "bulkSelectableGroups": [
         "non_app"
-      ]
+      ],
+      "timeoutMs": 120000
     },
     {
       "id": "boost.clear_quick_access__speed.boost",
@@ -887,16 +719,8 @@
       "apply": {
         "steps": [
           {
-            "type": "shell.start",
-            "file": "powershell.exe",
-            "args": [
-              "-NoProfile",
-              "-ExecutionPolicy",
-              "Bypass",
-              "-Command",
-              "Remove-Item -LiteralPath '$env:APPDATA\\Microsoft\\Windows\\Recent\\AutomaticDestinations\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:APPDATA\\Microsoft\\Windows\\Recent\\CustomDestinations\\*' -Recurse -Force -ErrorAction SilentlyContinue"
-            ],
-            "wait": true
+            "type": "ps.run",
+            "command": "Remove-Item -LiteralPath '$env:APPDATA\\Microsoft\\Windows\\Recent\\AutomaticDestinations\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:APPDATA\\Microsoft\\Windows\\Recent\\CustomDestinations\\*' -Recurse -Force -ErrorAction SilentlyContinue"
           }
         ]
       },
@@ -910,7 +734,8 @@
       "appTargets": [],
       "bulkSelectableGroups": [
         "non_app"
-      ]
+      ],
+      "timeoutMs": 120000
     },
     {
       "id": "boost.clear_spotify_cache__speed.boost",
@@ -923,16 +748,8 @@
       "apply": {
         "steps": [
           {
-            "type": "shell.start",
-            "file": "powershell.exe",
-            "args": [
-              "-NoProfile",
-              "-ExecutionPolicy",
-              "Bypass",
-              "-Command",
-              "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Spotify\\Storage\\*' -Recurse -Force -ErrorAction SilentlyContinue"
-            ],
-            "wait": true
+            "type": "ps.run",
+            "command": "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Spotify\\Storage\\*' -Recurse -Force -ErrorAction SilentlyContinue"
           }
         ]
       },
@@ -948,7 +765,8 @@
       ],
       "bulkSelectableGroups": [
         "app_specific"
-      ]
+      ],
+      "timeoutMs": 120000
     },
     {
       "id": "boost.clear_telegram_cache__speed.boost",
@@ -961,16 +779,8 @@
       "apply": {
         "steps": [
           {
-            "type": "shell.start",
-            "file": "powershell.exe",
-            "args": [
-              "-NoProfile",
-              "-ExecutionPolicy",
-              "Bypass",
-              "-Command",
-              "Remove-Item -LiteralPath '$env:APPDATA\\Telegram Desktop\\tdata\\*' -Recurse -Force -ErrorAction SilentlyContinue"
-            ],
-            "wait": true
+            "type": "ps.run",
+            "command": "Remove-Item -LiteralPath '$env:APPDATA\\Telegram Desktop\\tdata\\*' -Recurse -Force -ErrorAction SilentlyContinue"
           }
         ]
       },
@@ -986,7 +796,8 @@
       ],
       "bulkSelectableGroups": [
         "app_specific"
-      ]
+      ],
+      "timeoutMs": 120000
     },
     {
       "id": "boost.clear_temp_prefetch_mru__speed.boost",
@@ -999,16 +810,8 @@
       "apply": {
         "steps": [
           {
-            "type": "shell.start",
-            "file": "powershell.exe",
-            "args": [
-              "-NoProfile",
-              "-ExecutionPolicy",
-              "Bypass",
-              "-Command",
-              "Remove-Item -LiteralPath '$env:TEMP\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Temp\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:WINDIR\\Prefetch\\*' -Recurse -Force -ErrorAction SilentlyContinue"
-            ],
-            "wait": true
+            "type": "ps.run",
+            "command": "Remove-Item -LiteralPath '$env:TEMP\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Temp\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:WINDIR\\Prefetch\\*' -Recurse -Force -ErrorAction SilentlyContinue"
           }
         ]
       },
@@ -1022,7 +825,8 @@
       "appTargets": [],
       "bulkSelectableGroups": [
         "non_app"
-      ]
+      ],
+      "timeoutMs": 120000
     },
     {
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
@@ -1037,16 +841,8 @@
       "apply": {
         "steps": [
           {
-            "type": "shell.start",
-            "file": "powershell.exe",
-            "args": [
-              "-NoProfile",
-              "-ExecutionPolicy",
-              "Bypass",
-              "-Command",
-              "Remove-Item -LiteralPath '$env:PROGRAMDATA\\Battle.net\\Cache\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Battle.net\\Cache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
-            ],
-            "wait": true
+            "type": "ps.run",
+            "command": "Remove-Item -LiteralPath '$env:PROGRAMDATA\\Battle.net\\Cache\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Battle.net\\Cache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
           }
         ]
       },
@@ -1061,7 +857,8 @@
       ],
       "bulkSelectableGroups": [
         "app_specific"
-      ]
+      ],
+      "timeoutMs": 120000
     },
     {
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
@@ -1076,16 +873,8 @@
       "apply": {
         "steps": [
           {
-            "type": "shell.start",
-            "file": "powershell.exe",
-            "args": [
-              "-NoProfile",
-              "-ExecutionPolicy",
-              "Bypass",
-              "-Command",
-              "Remove-Item -Path '$env:LOCALAPPDATA\\Riot Games\\*\\Logs\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -Path '$env:LOCALAPPDATA\\Riot Games\\*\\Crash*\\*' -Recurse -Force -ErrorAction SilentlyContinue"
-            ],
-            "wait": true
+            "type": "ps.run",
+            "command": "Remove-Item -Path '$env:LOCALAPPDATA\\Riot Games\\*\\Logs\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -Path '$env:LOCALAPPDATA\\Riot Games\\*\\Crash*\\*' -Recurse -Force -ErrorAction SilentlyContinue"
           }
         ]
       },
@@ -1099,7 +888,8 @@
       ],
       "bulkSelectableGroups": [
         "app_specific"
-      ]
+      ],
+      "timeoutMs": 120000
     },
     {
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
@@ -1114,16 +904,8 @@
       "apply": {
         "steps": [
           {
-            "type": "shell.start",
-            "file": "powershell.exe",
-            "args": [
-              "-NoProfile",
-              "-ExecutionPolicy",
-              "Bypass",
-              "-Command",
-              "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Packages\\Microsoft.XboxGamingOverlay_*\\LocalCache\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Packages\\Microsoft.XboxGamingOverlay_*\\TempState\\*' -Recurse -Force -ErrorAction SilentlyContinue"
-            ],
-            "wait": true
+            "type": "ps.run",
+            "command": "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Packages\\Microsoft.XboxGamingOverlay_*\\LocalCache\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Packages\\Microsoft.XboxGamingOverlay_*\\TempState\\*' -Recurse -Force -ErrorAction SilentlyContinue"
           }
         ]
       },
@@ -1137,7 +919,8 @@
       ],
       "bulkSelectableGroups": [
         "app_specific"
-      ]
+      ],
+      "timeoutMs": 120000
     },
     {
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
@@ -1152,16 +935,8 @@
       "apply": {
         "steps": [
           {
-            "type": "shell.start",
-            "file": "powershell.exe",
-            "args": [
-              "-NoProfile",
-              "-ExecutionPolicy",
-              "Bypass",
-              "-Command",
-              "Remove-Item -LiteralPath '$env:APPDATA\\.minecraft\\logs\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:APPDATA\\.minecraft\\crash-reports\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:APPDATA\\.minecraft\\cache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
-            ],
-            "wait": true
+            "type": "ps.run",
+            "command": "Remove-Item -LiteralPath '$env:APPDATA\\.minecraft\\logs\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:APPDATA\\.minecraft\\crash-reports\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:APPDATA\\.minecraft\\cache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
           }
         ]
       },
@@ -1175,7 +950,8 @@
       ],
       "bulkSelectableGroups": [
         "app_specific"
-      ]
+      ],
+      "timeoutMs": 120000
     },
     {
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
@@ -1190,16 +966,8 @@
       "apply": {
         "steps": [
           {
-            "type": "shell.start",
-            "file": "powershell.exe",
-            "args": [
-              "-NoProfile",
-              "-ExecutionPolicy",
-              "Bypass",
-              "-Command",
-              "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\UnrealEngine\\*\\DerivedDataCache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
-            ],
-            "wait": true
+            "type": "ps.run",
+            "command": "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\UnrealEngine\\*\\DerivedDataCache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
           }
         ]
       },
@@ -1211,7 +979,8 @@
       "appTargets": [],
       "bulkSelectableGroups": [
         "non_app"
-      ]
+      ],
+      "timeoutMs": 120000
     },
     {
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
@@ -1226,16 +995,8 @@
       "apply": {
         "steps": [
           {
-            "type": "shell.start",
-            "file": "powershell.exe",
-            "args": [
-              "-NoProfile",
-              "-ExecutionPolicy",
-              "Bypass",
-              "-Command",
-              "Remove-Item -LiteralPath '$env:APPDATA\\Opera Software\\Opera Stable\\Cache\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:APPDATA\\Opera Software\\Opera Stable\\Code Cache\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:APPDATA\\Opera Software\\Opera Stable\\GPUCache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
-            ],
-            "wait": true
+            "type": "ps.run",
+            "command": "Remove-Item -LiteralPath '$env:APPDATA\\Opera Software\\Opera Stable\\Cache\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:APPDATA\\Opera Software\\Opera Stable\\Code Cache\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:APPDATA\\Opera Software\\Opera Stable\\GPUCache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
           }
         ]
       },
@@ -1250,7 +1011,8 @@
       ],
       "bulkSelectableGroups": [
         "app_specific"
-      ]
+      ],
+      "timeoutMs": 120000
     },
     {
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
@@ -1265,16 +1027,8 @@
       "apply": {
         "steps": [
           {
-            "type": "shell.start",
-            "file": "powershell.exe",
-            "args": [
-              "-NoProfile",
-              "-ExecutionPolicy",
-              "Bypass",
-              "-Command",
-              "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\BraveSoftware\\Brave-Browser\\User Data\\Default\\Cache\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:LOCALAPPDATA\\BraveSoftware\\Brave-Browser\\User Data\\Default\\Code Cache\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:LOCALAPPDATA\\BraveSoftware\\Brave-Browser\\User Data\\Default\\GPUCache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
-            ],
-            "wait": true
+            "type": "ps.run",
+            "command": "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\BraveSoftware\\Brave-Browser\\User Data\\Default\\Cache\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:LOCALAPPDATA\\BraveSoftware\\Brave-Browser\\User Data\\Default\\Code Cache\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:LOCALAPPDATA\\BraveSoftware\\Brave-Browser\\User Data\\Default\\GPUCache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
           }
         ]
       },
@@ -1289,7 +1043,8 @@
       ],
       "bulkSelectableGroups": [
         "app_specific"
-      ]
+      ],
+      "timeoutMs": 120000
     },
     {
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
@@ -1304,16 +1059,8 @@
       "apply": {
         "steps": [
           {
-            "type": "shell.start",
-            "file": "powershell.exe",
-            "args": [
-              "-NoProfile",
-              "-ExecutionPolicy",
-              "Bypass",
-              "-Command",
-              "Remove-Item -LiteralPath '$env:WINDIR\\Logs\\*' -Recurse -Force -ErrorAction SilentlyContinue"
-            ],
-            "wait": true
+            "type": "ps.run",
+            "command": "Remove-Item -LiteralPath '$env:WINDIR\\Logs\\*' -Recurse -Force -ErrorAction SilentlyContinue"
           }
         ]
       },
@@ -1325,7 +1072,8 @@
       "appTargets": [],
       "bulkSelectableGroups": [
         "non_app"
-      ]
+      ],
+      "timeoutMs": 120000
     },
     {
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
@@ -1340,16 +1088,8 @@
       "apply": {
         "steps": [
           {
-            "type": "shell.start",
-            "file": "powershell.exe",
-            "args": [
-              "-NoProfile",
-              "-ExecutionPolicy",
-              "Bypass",
-              "-Command",
-              "wevtutil el | ForEach-Object { wevtutil cl $_ }"
-            ],
-            "wait": true
+            "type": "ps.run",
+            "command": "wevtutil el | ForEach-Object { wevtutil cl $_ }"
           }
         ]
       },
@@ -1361,7 +1101,8 @@
       "appTargets": [],
       "bulkSelectableGroups": [
         "non_app"
-      ]
+      ],
+      "timeoutMs": 120000
     },
     {
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
@@ -1376,16 +1117,8 @@
       "apply": {
         "steps": [
           {
-            "type": "shell.start",
-            "file": "powershell.exe",
-            "args": [
-              "-NoProfile",
-              "-ExecutionPolicy",
-              "Bypass",
-              "-Command",
-              "Remove-Item -LiteralPath '$env:SystemRoot\\System32\\LogFiles\\*' -Recurse -Force -ErrorAction SilentlyContinue"
-            ],
-            "wait": true
+            "type": "ps.run",
+            "command": "Remove-Item -LiteralPath '$env:SystemRoot\\System32\\LogFiles\\*' -Recurse -Force -ErrorAction SilentlyContinue"
           }
         ]
       },
@@ -1397,7 +1130,8 @@
       "appTargets": [],
       "bulkSelectableGroups": [
         "non_app"
-      ]
+      ],
+      "timeoutMs": 120000
     },
     {
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
@@ -1412,16 +1146,8 @@
       "apply": {
         "steps": [
           {
-            "type": "shell.start",
-            "file": "powershell.exe",
-            "args": [
-              "-NoProfile",
-              "-ExecutionPolicy",
-              "Bypass",
-              "-Command",
-              "Remove-Item -LiteralPath 'C:\\NVIDIA\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:ProgramFiles\\NVIDIA Corporation\\Installer2\\*' -Recurse -Force -ErrorAction SilentlyContinue"
-            ],
-            "wait": true
+            "type": "ps.run",
+            "command": "Remove-Item -LiteralPath 'C:\\NVIDIA\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:ProgramFiles\\NVIDIA Corporation\\Installer2\\*' -Recurse -Force -ErrorAction SilentlyContinue"
           }
         ]
       },
@@ -1433,7 +1159,8 @@
       "appTargets": [],
       "bulkSelectableGroups": [
         "non_app"
-      ]
+      ],
+      "timeoutMs": 120000
     },
     {
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
@@ -1448,16 +1175,8 @@
       "apply": {
         "steps": [
           {
-            "type": "shell.start",
-            "file": "powershell.exe",
-            "args": [
-              "-NoProfile",
-              "-ExecutionPolicy",
-              "Bypass",
-              "-Command",
-              "Remove-Item -LiteralPath 'C:\\AMD\\*' -Recurse -Force -ErrorAction SilentlyContinue"
-            ],
-            "wait": true
+            "type": "ps.run",
+            "command": "Remove-Item -LiteralPath 'C:\\AMD\\*' -Recurse -Force -ErrorAction SilentlyContinue"
           }
         ]
       },
@@ -1469,7 +1188,8 @@
       "appTargets": [],
       "bulkSelectableGroups": [
         "non_app"
-      ]
+      ],
+      "timeoutMs": 120000
     },
     {
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
@@ -1484,16 +1204,8 @@
       "apply": {
         "steps": [
           {
-            "type": "shell.start",
-            "file": "powershell.exe",
-            "args": [
-              "-NoProfile",
-              "-ExecutionPolicy",
-              "Bypass",
-              "-Command",
-              "Remove-Item -LiteralPath '$env:SystemDrive\\$WINDOWS.~BT\\Sources\\Panther\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:SystemDrive\\$WINDOWS.~BT\\Sources\\Rollback\\*' -Recurse -Force -ErrorAction SilentlyContinue"
-            ],
-            "wait": true
+            "type": "ps.run",
+            "command": "Remove-Item -LiteralPath '$env:SystemDrive\\$WINDOWS.~BT\\Sources\\Panther\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:SystemDrive\\$WINDOWS.~BT\\Sources\\Rollback\\*' -Recurse -Force -ErrorAction SilentlyContinue"
           }
         ]
       },
@@ -1505,7 +1217,8 @@
       "appTargets": [],
       "bulkSelectableGroups": [
         "non_app"
-      ]
+      ],
+      "timeoutMs": 120000
     },
     {
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
@@ -1520,16 +1233,8 @@
       "apply": {
         "steps": [
           {
-            "type": "shell.start",
-            "file": "powershell.exe",
-            "args": [
-              "-NoProfile",
-              "-ExecutionPolicy",
-              "Bypass",
-              "-Command",
-              "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Microsoft\\Office\\16.0\\OfficeFileCache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
-            ],
-            "wait": true
+            "type": "ps.run",
+            "command": "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Microsoft\\Office\\16.0\\OfficeFileCache\\*' -Recurse -Force -ErrorAction SilentlyContinue"
           }
         ]
       },
@@ -1543,7 +1248,8 @@
       ],
       "bulkSelectableGroups": [
         "app_specific"
-      ]
+      ],
+      "timeoutMs": 120000
     },
     {
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
@@ -1558,16 +1264,8 @@
       "apply": {
         "steps": [
           {
-            "type": "shell.start",
-            "file": "powershell.exe",
-            "args": [
-              "-NoProfile",
-              "-ExecutionPolicy",
-              "Bypass",
-              "-Command",
-              "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Adobe\\Common\\Media Cache Files\\*' -Recurse -Force -ErrorAction SilentlyContinue"
-            ],
-            "wait": true
+            "type": "ps.run",
+            "command": "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Adobe\\Common\\Media Cache Files\\*' -Recurse -Force -ErrorAction SilentlyContinue"
           }
         ]
       },
@@ -1581,7 +1279,8 @@
       ],
       "bulkSelectableGroups": [
         "app_specific"
-      ]
+      ],
+      "timeoutMs": 120000
     },
     {
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
@@ -1596,16 +1295,8 @@
       "apply": {
         "steps": [
           {
-            "type": "shell.start",
-            "file": "powershell.exe",
-            "args": [
-              "-NoProfile",
-              "-ExecutionPolicy",
-              "Bypass",
-              "-Command",
-              "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Roblox\\logs\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Roblox\\downloads\\*' -Recurse -Force -ErrorAction SilentlyContinue"
-            ],
-            "wait": true
+            "type": "ps.run",
+            "command": "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Roblox\\logs\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Roblox\\downloads\\*' -Recurse -Force -ErrorAction SilentlyContinue"
           }
         ]
       },
@@ -1619,7 +1310,8 @@
       ],
       "bulkSelectableGroups": [
         "app_specific"
-      ]
+      ],
+      "timeoutMs": 120000
     },
     {
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
@@ -1634,16 +1326,8 @@
       "apply": {
         "steps": [
           {
-            "type": "shell.start",
-            "file": "powershell.exe",
-            "args": [
-              "-NoProfile",
-              "-ExecutionPolicy",
-              "Bypass",
-              "-Command",
-              "Remove-Item -LiteralPath '$env:PROGRAMDATA\\NVIDIA Corporation\\GeForce Experience\\logs\\*' -Recurse -Force -ErrorAction SilentlyContinue"
-            ],
-            "wait": true
+            "type": "ps.run",
+            "command": "Remove-Item -LiteralPath '$env:PROGRAMDATA\\NVIDIA Corporation\\GeForce Experience\\logs\\*' -Recurse -Force -ErrorAction SilentlyContinue"
           }
         ]
       },
@@ -1655,7 +1339,8 @@
       "appTargets": [],
       "bulkSelectableGroups": [
         "non_app"
-      ]
+      ],
+      "timeoutMs": 120000
     },
     {
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
@@ -1670,16 +1355,8 @@
       "apply": {
         "steps": [
           {
-            "type": "shell.start",
-            "file": "powershell.exe",
-            "args": [
-              "-NoProfile",
-              "-ExecutionPolicy",
-              "Bypass",
-              "-Command",
-              "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Microsoft\\OneDrive\\logs\\*' -Recurse -Force -ErrorAction SilentlyContinue"
-            ],
-            "wait": true
+            "type": "ps.run",
+            "command": "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\Microsoft\\OneDrive\\logs\\*' -Recurse -Force -ErrorAction SilentlyContinue"
           }
         ]
       },
@@ -1693,7 +1370,8 @@
       ],
       "bulkSelectableGroups": [
         "app_specific"
-      ]
+      ],
+      "timeoutMs": 120000
     },
     {
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
@@ -1708,16 +1386,8 @@
       "apply": {
         "steps": [
           {
-            "type": "shell.start",
-            "file": "powershell.exe",
-            "args": [
-              "-NoProfile",
-              "-ExecutionPolicy",
-              "Bypass",
-              "-Command",
-              "Remove-Item -Path '$env:LOCALAPPDATA\\Packages\\*\\AC\\Temp\\*' -Recurse -Force -ErrorAction SilentlyContinue"
-            ],
-            "wait": true
+            "type": "ps.run",
+            "command": "Remove-Item -Path '$env:LOCALAPPDATA\\Packages\\*\\AC\\Temp\\*' -Recurse -Force -ErrorAction SilentlyContinue"
           }
         ]
       },
@@ -1729,7 +1399,8 @@
       "appTargets": [],
       "bulkSelectableGroups": [
         "non_app"
-      ]
+      ],
+      "timeoutMs": 120000
     },
     {
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
@@ -1744,16 +1415,8 @@
       "apply": {
         "steps": [
           {
-            "type": "shell.start",
-            "file": "powershell.exe",
-            "args": [
-              "-NoProfile",
-              "-ExecutionPolicy",
-              "Bypass",
-              "-Command",
-              "Remove-Item -Path '$env:LOCALAPPDATA\\Google\\Chrome\\User Data\\Crashpad\\reports\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -Path '$env:LOCALAPPDATA\\Microsoft\\Edge\\User Data\\Crashpad\\reports\\*' -Recurse -Force -ErrorAction SilentlyContinue"
-            ],
-            "wait": true
+            "type": "ps.run",
+            "command": "Remove-Item -Path '$env:LOCALAPPDATA\\Google\\Chrome\\User Data\\Crashpad\\reports\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -Path '$env:LOCALAPPDATA\\Microsoft\\Edge\\User Data\\Crashpad\\reports\\*' -Recurse -Force -ErrorAction SilentlyContinue"
           }
         ]
       },
@@ -1768,7 +1431,8 @@
       ],
       "bulkSelectableGroups": [
         "app_specific"
-      ]
+      ],
+      "timeoutMs": 120000
     },
     {
       "id": "boost.junk_cleaner",
@@ -1781,16 +1445,8 @@
       "apply": {
         "steps": [
           {
-            "type": "shell.start",
-            "file": "powershell.exe",
-            "args": [
-              "-NoProfile",
-              "-ExecutionPolicy",
-              "Bypass",
-              "-Command",
-              "$ErrorActionPreference='SilentlyContinue'; Remove-Item -LiteralPath $env:TEMP\\* -Recurse -Force; Remove-Item -LiteralPath $env:WINDIR\\Temp\\* -Recurse -Force; Remove-Item -LiteralPath $env:WINDIR\\Prefetch\\* -Recurse -Force; Remove-Item -LiteralPath $env:LOCALAPPDATA\\CrashDumps\\* -Recurse -Force; Clear-RecycleBin -Force;"
-            ],
-            "wait": true
+            "type": "ps.run",
+            "command": "$ErrorActionPreference='SilentlyContinue'; Remove-Item -LiteralPath $env:TEMP\\* -Recurse -Force; Remove-Item -LiteralPath $env:WINDIR\\Temp\\* -Recurse -Force; Remove-Item -LiteralPath $env:WINDIR\\Prefetch\\* -Recurse -Force; Remove-Item -LiteralPath $env:LOCALAPPDATA\\CrashDumps\\* -Recurse -Force; Clear-RecycleBin -Force;"
           }
         ]
       },
@@ -1804,7 +1460,8 @@
       "appTargets": [],
       "bulkSelectableGroups": [
         "non_app"
-      ]
+      ],
+      "timeoutMs": 120000
     },
     {
       "id": "boost.optimize_defrag_drives",
@@ -1817,13 +1474,8 @@
       "apply": {
         "steps": [
           {
-            "type": "shell.start",
-            "file": "cmd.exe",
-            "args": [
-              "/c",
-              "defrag.exe /C /O /U /V"
-            ],
-            "wait": true
+            "type": "cmd.run",
+            "command": "defrag.exe /C /O /U /V"
           }
         ]
       },
@@ -1837,7 +1489,8 @@
       "appTargets": [],
       "bulkSelectableGroups": [
         "non_app"
-      ]
+      ],
+      "timeoutMs": 120000
     },
     {
       "id": "boost.clean_recent_documents",
@@ -1850,16 +1503,8 @@
       "apply": {
         "steps": [
           {
-            "type": "shell.start",
-            "file": "powershell.exe",
-            "args": [
-              "-NoProfile",
-              "-ExecutionPolicy",
-              "Bypass",
-              "-Command",
-              "$ErrorActionPreference='SilentlyContinue'; $recent = Join-Path $env:APPDATA 'Microsoft\\Windows\\Recent'; Remove-Item -LiteralPath (Join-Path $recent '*') -Recurse -Force; $ad = Join-Path $env:APPDATA 'Microsoft\\Windows\\Recent\\AutomaticDestinations'; $cd = Join-Path $env:APPDATA 'Microsoft\\Windows\\Recent\\CustomDestinations'; Remove-Item -LiteralPath (Join-Path $ad '*') -Recurse -Force; Remove-Item -LiteralPath (Join-Path $cd '*') -Recurse -Force;"
-            ],
-            "wait": true
+            "type": "ps.run",
+            "command": "$ErrorActionPreference='SilentlyContinue'; $recent = Join-Path $env:APPDATA 'Microsoft\\Windows\\Recent'; Remove-Item -LiteralPath (Join-Path $recent '*') -Recurse -Force; $ad = Join-Path $env:APPDATA 'Microsoft\\Windows\\Recent\\AutomaticDestinations'; $cd = Join-Path $env:APPDATA 'Microsoft\\Windows\\Recent\\CustomDestinations'; Remove-Item -LiteralPath (Join-Path $ad '*') -Recurse -Force; Remove-Item -LiteralPath (Join-Path $cd '*') -Recurse -Force;"
           }
         ]
       },
@@ -1873,7 +1518,8 @@
       "appTargets": [],
       "bulkSelectableGroups": [
         "non_app"
-      ]
+      ],
+      "timeoutMs": 120000
     },
     {
       "id": "boost.clean_discord_history",
@@ -1886,16 +1532,8 @@
       "apply": {
         "steps": [
           {
-            "type": "shell.start",
-            "file": "powershell.exe",
-            "args": [
-              "-NoProfile",
-              "-ExecutionPolicy",
-              "Bypass",
-              "-Command",
-              "$ErrorActionPreference='SilentlyContinue'; Get-Process discord,Discord,DiscordCanary,DiscordPTB -ErrorAction SilentlyContinue | Stop-Process -Force; $targets=@(Join-Path $env:APPDATA 'discord\\Local Storage\\leveldb',Join-Path $env:APPDATA 'discord\\logs',Join-Path $env:LOCALAPPDATA 'Discord\\Local Storage\\leveldb',Join-Path $env:LOCALAPPDATA 'Discord\\logs',Join-Path $env:APPDATA 'discordcanary\\Local Storage\\leveldb',Join-Path $env:APPDATA 'discordcanary\\logs',Join-Path $env:APPDATA 'discordptb\\Local Storage\\leveldb',Join-Path $env:APPDATA 'discordptb\\logs'); foreach($p in $targets){ if(Test-Path $p){ Remove-Item -LiteralPath $p -Recurse -Force } }"
-            ],
-            "wait": true
+            "type": "ps.run",
+            "command": "$ErrorActionPreference='SilentlyContinue'; Get-Process discord,Discord,DiscordCanary,DiscordPTB -ErrorAction SilentlyContinue | Stop-Process -Force; $targets=@(Join-Path $env:APPDATA 'discord\\Local Storage\\leveldb',Join-Path $env:APPDATA 'discord\\logs',Join-Path $env:LOCALAPPDATA 'Discord\\Local Storage\\leveldb',Join-Path $env:LOCALAPPDATA 'Discord\\logs',Join-Path $env:APPDATA 'discordcanary\\Local Storage\\leveldb',Join-Path $env:APPDATA 'discordcanary\\logs',Join-Path $env:APPDATA 'discordptb\\Local Storage\\leveldb',Join-Path $env:APPDATA 'discordptb\\logs'); foreach($p in $targets){ if(Test-Path $p){ Remove-Item -LiteralPath $p -Recurse -Force } }"
           }
         ]
       },
@@ -1911,7 +1549,8 @@
       ],
       "bulkSelectableGroups": [
         "app_specific"
-      ]
+      ],
+      "timeoutMs": 120000
     },
     {
       "id": "boost.steam_cache_cleaner",
@@ -1924,16 +1563,8 @@
       "apply": {
         "steps": [
           {
-            "type": "shell.start",
-            "file": "powershell.exe",
-            "args": [
-              "-NoProfile",
-              "-ExecutionPolicy",
-              "Bypass",
-              "-Command",
-              "$ErrorActionPreference='SilentlyContinue'; Get-Process steam -ErrorAction SilentlyContinue | Stop-Process -Force; $steamPath = (Get-ItemProperty -Path 'HKCU:\\Software\\Valve\\Steam' -Name 'SteamPath' -ErrorAction SilentlyContinue).SteamPath; if(-not $steamPath){ $steamPath = Join-Path ${env:ProgramFiles(x86)} 'Steam' } $targets=@(Join-Path $steamPath 'appcache\\httpcache',Join-Path $steamPath 'appcache\\librarycache',Join-Path $steamPath 'appcache\\shadercache',Join-Path $steamPath 'steamapps\\downloading',Join-Path $steamPath 'steamapps\\temp',Join-Path $steamPath 'dumps',Join-Path $steamPath 'logs',Join-Path $steamPath 'config\\htmlcache'); foreach($p in $targets){ if(Test-Path $p){ Remove-Item -LiteralPath $p -Recurse -Force } }"
-            ],
-            "wait": true
+            "type": "ps.run",
+            "command": "$ErrorActionPreference='SilentlyContinue'; Get-Process steam -ErrorAction SilentlyContinue | Stop-Process -Force; $steamPath = (Get-ItemProperty -Path 'HKCU:\\Software\\Valve\\Steam' -Name 'SteamPath' -ErrorAction SilentlyContinue).SteamPath; if(-not $steamPath){ $steamPath = Join-Path ${env:ProgramFiles(x86)} 'Steam' } $targets=@(Join-Path $steamPath 'appcache\\httpcache',Join-Path $steamPath 'appcache\\librarycache',Join-Path $steamPath 'appcache\\shadercache',Join-Path $steamPath 'steamapps\\downloading',Join-Path $steamPath 'steamapps\\temp',Join-Path $steamPath 'dumps',Join-Path $steamPath 'logs',Join-Path $steamPath 'config\\htmlcache'); foreach($p in $targets){ if(Test-Path $p){ Remove-Item -LiteralPath $p -Recurse -Force } }"
           }
         ]
       },
@@ -1949,7 +1580,8 @@
       ],
       "bulkSelectableGroups": [
         "app_specific"
-      ]
+      ],
+      "timeoutMs": 120000
     }
   ]
 }

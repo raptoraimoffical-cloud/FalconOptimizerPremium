@@ -3,7 +3,7 @@
 const fs = require("fs");
 const path = require("path");
 
-const VALID_RISKS = ["Safe","Warning","High","Critical"];
+const VALID_RISKS = ["Safe","Warning","High","Critical","Danger","Extreme"];
 const VALID_STEP_TYPES = new Set([
   "cmd","cmd.run","ps.run",
   "registry.set","registry.remove",
@@ -11,7 +11,8 @@ const VALID_STEP_TYPES = new Set([
   "process.kill","process.start","shell.start",
   "task","timer.set","timer.reset","powercfg.set",
   "open.url","open.file","open.path",
-  "run.exe","file.copy","file.write"
+  "run.exe","file.copy","file.write",
+  "reg.set","reg.del","ps.file","falconlib.run","file.ensureDir","tool.ensure","tool.launch","powercfg"
 ]);
 
 function isObj(v){ return v && typeof v === "object" && !Array.isArray(v); }
@@ -121,12 +122,20 @@ function validateStep(step, errors, warnings, where){
   const require = (k)=>{ if(step[k]===undefined || step[k]===null || (step[k]==="" && !((t==="registry.set"||t==="registry.remove") && k==="name"))) errors.push({where, msg:`${t} requires '${k}'`}); };
   const looksLikeFolder = (p)=> typeof p === 'string' && ((/^[A-Za-z]:\\/.test(p) || /^\\\\/.test(p)) && p.endsWith('\\'));
   if(t==="ps.run"||t==="cmd"||t==="cmd.run") require("command");
-  if(t==="process.start"){ require("filePath"); if(step.arguments===undefined) errors.push({where, msg:"process.start requires 'arguments' (string, allow empty)"}); }
+  if(t==="process.start"){
+    if(step.path && !step.filePath) step.filePath = step.path;
+    require("filePath");
+    if(step.arguments===undefined) step.arguments = "";
+  }
   if(t==="process.kill") require("name");
   if(t==="service.startup"){ require("name"); require("startType"); }
   if(t==="shell.start"){ require("file"); if(!Array.isArray(step.args)) errors.push({where, msg:"shell.start requires 'args' array"}); }
   if(t==="registry.set"){ require("path"); require("name"); if(step.value===undefined) errors.push({where, msg:"registry.set requires 'value'"}); }
   if(t==="registry.remove"){ require("path"); require("name"); }
+  if(t==="reg.set"){ require("path"); require("name"); if(step.value===undefined) errors.push({where, msg:"reg.set requires 'value'"}); }
+  if(t==="reg.del"){ require("path"); require("name"); }
+  if(t==="ps.file"){ require("path"); }
+  if(t==="falconlib.run"){ require("toolPath"); }
   if(t==="task"){ require("name"); require("action"); if(!["enable","disable"].includes(String(step.action))) errors.push({where,msg:"task.action must be enable|disable"}); }
   // Warnings to prevent accidental Explorer launches
   if((t==="process.start" || t==="run.exe") && looksLikeFolder(step.filePath) && !step.allowExplorer){

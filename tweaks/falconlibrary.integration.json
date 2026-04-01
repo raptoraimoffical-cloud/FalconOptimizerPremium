@@ -4,7 +4,7 @@
       "id": "processlab.process_destroyer.standard",
       "name": "Process Destroyer (Standard)",
       "category": "Process Lab",
-      "description": "Runs FalconLibrary Process Destroyer standard profile.",
+      "description": "Runs FalconLibrary Process Destroyer standard profile (V2.6 parity target).",
       "riskLevel": "Warning",
       "requiresAdmin": true,
       "requiresTrustedInstaller": true,
@@ -12,10 +12,15 @@
       "apply": {
         "steps": [
           {
+            "type": "ps.run",
+            "command": "$p=Join-Path $PWD 'tools/FalconLibrary/Process Destroyer/FalconLibrary Process Destroyer V2.6.bat'; if(-not (Test-Path $p)){ throw 'missing-asset: '+$p }"
+          },
+          {
             "type": "falconlib.run",
-            "toolPath": "tools/FalconLibrary/Process Destroyer/FalconLibrary Process Destroyer V2.5.bat",
+            "toolPath": "tools/FalconLibrary/Process Destroyer/FalconLibrary Process Destroyer V2.6.bat",
             "elevation": "trustedinstaller",
-            "wait": true
+            "wait": true,
+            "timeoutSec": 180
           }
         ]
       },
@@ -31,8 +36,8 @@
         "steps": [
           {
             "type": "process.start",
-            "path": "explorer.exe",
-            "wait": false
+            "wait": false,
+            "filePath": "explorer.exe"
           }
         ]
       }
@@ -41,7 +46,7 @@
       "id": "processlab.process_destroyer.extreme",
       "name": "Process Destroyer (Extreme)",
       "category": "Process Lab",
-      "description": "Runs FalconLibrary Process Destroyer extreme profile.",
+      "description": "Runs FalconLibrary Process Destroyer extreme profile (V2.6 parity target).",
       "riskLevel": "Extreme",
       "requiresAdmin": true,
       "requiresTrustedInstaller": true,
@@ -52,10 +57,15 @@
       "apply": {
         "steps": [
           {
+            "type": "ps.run",
+            "command": "$p=Join-Path $PWD 'tools/FalconLibrary/Process Destroyer/FalconLibrary Process Destroyer Extreme V2.6.bat'; if(-not (Test-Path $p)){ throw 'missing-asset: '+$p }"
+          },
+          {
             "type": "falconlib.run",
-            "toolPath": "tools/FalconLibrary/Process Destroyer/FalconLibrary Process Destroyer Extreme V2.5.bat",
+            "toolPath": "tools/FalconLibrary/Process Destroyer/FalconLibrary Process Destroyer Extreme V2.6.bat",
             "elevation": "trustedinstaller",
-            "wait": true
+            "wait": true,
+            "timeoutSec": 240
           }
         ]
       },
@@ -71,8 +81,8 @@
         "steps": [
           {
             "type": "process.start",
-            "path": "explorer.exe",
-            "wait": false
+            "wait": false,
+            "filePath": "explorer.exe"
           }
         ]
       }
@@ -616,17 +626,26 @@
       "id": "gpu.nvidia_profile_inspector.apply",
       "name": "NVIDIA Profile Inspector",
       "category": "GPU",
-      "description": "Launches NVIDIA Profile Inspector. Not applicable on systems without NVIDIA GPU.",
+      "description": "Applies NVIDIA Profile Inspector QuakedV2 profile via SilentImport (V8.4 parity target).",
       "riskLevel": "Warning",
       "requiresAdmin": false,
       "type": "action",
       "apply": {
         "steps": [
           {
+            "type": "ps.run",
+            "command": "$exe=Join-Path $PWD 'tools/FalconLibrary/Nvidia/Nvidia Profile Inspector/nvidiaProfileInspector.exe'; $nip=Join-Path $PWD 'tools/FalconLibrary/Nvidia/Nvidia Profile Inspector/QuakedV2.nip'; if(-not (Test-Path $exe)){ throw 'missing-asset: '+$exe }; if(-not (Test-Path $nip)){ throw 'missing-asset: '+$nip }"
+          },
+          {
             "type": "falconlib.run",
             "toolPath": "tools/FalconLibrary/Nvidia/Nvidia Profile Inspector/nvidiaProfileInspector.exe",
+            "args": [
+              "-SilentImport",
+              "tools/FalconLibrary/Nvidia/Nvidia Profile Inspector/QuakedV2.nip"
+            ],
             "elevation": "none",
-            "wait": false
+            "wait": true,
+            "timeoutSec": 45
           }
         ]
       },

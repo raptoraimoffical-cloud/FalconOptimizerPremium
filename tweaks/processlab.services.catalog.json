@@ -271,9 +271,9 @@
         "Latency"
       ],
       "defaultModes": {
-        "safe": "unchanged",
-        "competitive": "manual",
-        "extreme": "disabled"
+        "safe": "demand",
+        "competitive": "demand",
+        "extreme": "demand"
       },
       "revertStartType": "manual",
       "riskLevel": "Warning",
@@ -967,9 +967,9 @@
         "Latency"
       ],
       "defaultModes": {
-        "safe": "unchanged",
-        "competitive": "manual",
-        "extreme": "manual"
+        "safe": "disabled",
+        "competitive": "disabled",
+        "extreme": "disabled"
       },
       "revertStartType": "manual",
       "riskLevel": "Warning",
@@ -6882,9 +6882,9 @@
         "Latency"
       ],
       "defaultModes": {
-        "safe": "unchanged",
-        "competitive": "manual",
-        "extreme": "manual"
+        "safe": "disabled",
+        "competitive": "disabled",
+        "extreme": "disabled"
       },
       "revertStartType": "manual",
       "riskLevel": "Warning",

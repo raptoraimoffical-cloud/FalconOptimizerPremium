@@ -118,6 +118,7 @@
     "tweaks/power.management.sleep_hibernate_modern_standby.json",
     "tweaks/power.management.storage_disk.json",
     "tweaks/power.management.usb.json",
-    "tweaks/power.management.wireless_ethernet.json"
+    "tweaks/power.management.wireless_ethernet.json",
+    "tweaks/windows.core.v84.json"
   ]
 }
