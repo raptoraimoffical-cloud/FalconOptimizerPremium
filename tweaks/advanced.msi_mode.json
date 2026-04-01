@@ -22,7 +22,9 @@
       },
       "badges": [
         "BLUESCREEN_RISK",
-        "BOOT_RISK"
+        "BOOT_RISK",
+        "REQUIRES_TYPED_CONFIRM",
+        "NETWORK_REGRESSION_RISK"
       ],
       "warningText": "Changing MSI interrupt mode can trigger BSOD on unsupported GPU/USB/audio/storage drivers.",
       "riskNotes": [
@@ -54,7 +56,10 @@
         ]
       },
       "badges": [
-        "BLUESCREEN_RISK"
+        "BLUESCREEN_RISK",
+        "BOOT_RISK",
+        "REQUIRES_TYPED_CONFIRM",
+        "NETWORK_REGRESSION_RISK"
       ],
       "warningText": "Changing MSI interrupt mode can trigger BSOD on unsupported GPU/USB/audio/storage drivers.",
       "riskNotes": [
@@ -85,7 +90,9 @@
         ]
       },
       "badges": [
-        "BLUESCREEN_RISK"
+        "BLUESCREEN_RISK",
+        "BOOT_RISK",
+        "REQUIRES_TYPED_CONFIRM"
       ],
       "warningText": "Changing MSI interrupt mode can trigger BSOD on unsupported GPU/USB/audio/storage drivers.",
       "riskNotes": [
@@ -93,7 +100,8 @@
       ],
       "requiresTypedConfirm": true,
       "typedConfirmText": "I ACCEPT BSOD RISK",
-      "rollbackNotes": "Use paired Revert cards or safe mode rollback if the system becomes unstable."
+      "rollbackNotes": "Use paired Revert cards or safe mode rollback if the system becomes unstable.",
+      "manualOnly": true
     },
     {
       "id": "adv.msi.enable_gpu",
@@ -117,7 +125,8 @@
       },
       "badges": [
         "BLUESCREEN_RISK",
-        "BOOT_RISK"
+        "BOOT_RISK",
+        "REQUIRES_TYPED_CONFIRM"
       ],
       "warningText": "Changing MSI interrupt mode can trigger BSOD on unsupported GPU/USB/audio/storage drivers.",
       "riskNotes": [
@@ -149,7 +158,10 @@
         ]
       },
       "badges": [
-        "BLUESCREEN_RISK"
+        "BLUESCREEN_RISK",
+        "BOOT_RISK",
+        "REQUIRES_TYPED_CONFIRM",
+        "NETWORK_REGRESSION_RISK"
       ],
       "warningText": "Changing MSI interrupt mode can trigger BSOD on unsupported GPU/USB/audio/storage drivers.",
       "riskNotes": [
@@ -161,7 +173,7 @@
     },
     {
       "id": "adv.msi.auto_gpu_audio",
-      "name": "MSI Mode (GPU + Audio) — Guided Auto-Apply",
+      "name": "MSI Mode (GPU + Audio) \u2014 Guided Auto-Apply",
       "category": "Advanced / MSI Mode",
       "risk": "Warning",
       "description": "[Focus: FPS, Latency / Input Delay] Guided MSI Mode toggle that only targets devices that already expose MSI registry support (avoids line-based devices). Includes 'Priority: Undefined' behavior. Requires reboot.",
@@ -185,7 +197,8 @@
       "note": "Converted from toggle (missing revert).",
       "badges": [
         "BLUESCREEN_RISK",
-        "BOOT_RISK"
+        "BOOT_RISK",
+        "REQUIRES_TYPED_CONFIRM"
       ],
       "warningText": "Changing MSI interrupt mode can trigger BSOD on unsupported GPU/USB/audio/storage drivers.",
       "riskNotes": [
@@ -230,7 +243,9 @@
       },
       "riskLevel": "Warning",
       "badges": [
-        "BLUESCREEN_RISK"
+        "BLUESCREEN_RISK",
+        "BOOT_RISK",
+        "REQUIRES_TYPED_CONFIRM"
       ],
       "warningText": "Changing MSI interrupt mode can trigger BSOD on unsupported GPU/USB/audio/storage drivers.",
       "riskNotes": [
@@ -276,7 +291,8 @@
       "riskLevel": "Warning",
       "badges": [
         "BLUESCREEN_RISK",
-        "BOOT_RISK"
+        "BOOT_RISK",
+        "REQUIRES_TYPED_CONFIRM"
       ],
       "warningText": "Changing MSI interrupt mode can trigger BSOD on unsupported GPU/USB/audio/storage drivers.",
       "riskNotes": [
@@ -311,7 +327,8 @@
       },
       "badges": [
         "BLUESCREEN_RISK",
-        "BOOT_RISK"
+        "BOOT_RISK",
+        "REQUIRES_TYPED_CONFIRM"
       ],
       "warningText": "Changing MSI interrupt mode can trigger BSOD on unsupported GPU/USB/audio/storage drivers.",
       "riskNotes": [
@@ -358,7 +375,8 @@
       "riskLevel": "Warning",
       "badges": [
         "BLUESCREEN_RISK",
-        "BOOT_RISK"
+        "BOOT_RISK",
+        "REQUIRES_TYPED_CONFIRM"
       ],
       "warningText": "Changing MSI interrupt mode can trigger BSOD on unsupported GPU/USB/audio/storage drivers.",
       "riskNotes": [
@@ -393,7 +411,8 @@
       },
       "badges": [
         "BLUESCREEN_RISK",
-        "BOOT_RISK"
+        "BOOT_RISK",
+        "REQUIRES_TYPED_CONFIRM"
       ],
       "warningText": "Changing MSI interrupt mode can trigger BSOD on unsupported GPU/USB/audio/storage drivers.",
       "riskNotes": [
@@ -409,7 +428,7 @@
       "name": "Apply: Network Adapter (MSI toggle)",
       "category": "Advanced / MSI Mode",
       "risk": "Warning",
-      "description": "[Focus: Latency / Input Delay, Ping / Network] Enables MSI (Message Signaled Interrupts) for detected devices in this class (requires reboot).",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Enables MSI (Message Signaled Interrupts) for detected devices in this class (requires reboot). Maintenance-only: may cause first-run stutter while caches rebuild.",
       "requiresAdmin": true,
       "requiresReboot": true,
       "apply": {
@@ -449,7 +468,13 @@
       "kind": "tool",
       "manualOnly": true,
       "badges": [
-        "BLUESCREEN_RISK"
+        "BLUESCREEN_RISK",
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK",
+        "BOOT_RISK",
+        "REQUIRES_TYPED_CONFIRM",
+        "NETWORK_REGRESSION_RISK"
       ],
       "warningText": "Changing MSI interrupt mode can trigger BSOD on unsupported GPU/USB/audio/storage drivers.",
       "riskNotes": [
@@ -462,7 +487,7 @@
     {
       "category": "Advanced / MSI Mode",
       "risk": "Warning",
-      "description": "[Focus: Latency / Input Delay, Ping / Network] Enables MSI (Message Signaled Interrupts) for detected devices in this class (requires reboot).",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Enables MSI (Message Signaled Interrupts) for detected devices in this class (requires reboot). Maintenance-only: may cause first-run stutter while caches rebuild.",
       "requiresAdmin": true,
       "requiresReboot": true,
       "riskLevel": "Warning",
@@ -488,7 +513,13 @@
         ]
       },
       "badges": [
-        "BLUESCREEN_RISK"
+        "BLUESCREEN_RISK",
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK",
+        "BOOT_RISK",
+        "REQUIRES_TYPED_CONFIRM",
+        "NETWORK_REGRESSION_RISK"
       ],
       "warningText": "Changing MSI interrupt mode can trigger BSOD on unsupported GPU/USB/audio/storage drivers.",
       "riskNotes": [
@@ -503,7 +534,7 @@
       "name": "Apply: NVMe (MSI toggle)",
       "category": "Advanced / MSI Mode",
       "risk": "Warning",
-      "description": "[Focus: FPS, Latency / Input Delay] Enables MSI (Message Signaled Interrupts) for detected devices in this class (requires reboot).",
+      "description": "[Focus: FPS, Latency / Input Delay] Enables MSI (Message Signaled Interrupts) for detected devices in this class (requires reboot). Maintenance-only: may cause first-run stutter while caches rebuild.",
       "requiresAdmin": true,
       "requiresReboot": true,
       "apply": {
@@ -544,7 +575,11 @@
       "manualOnly": true,
       "badges": [
         "BLUESCREEN_RISK",
-        "BOOT_RISK"
+        "BOOT_RISK",
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK",
+        "REQUIRES_TYPED_CONFIRM"
       ],
       "warningText": "Changing MSI interrupt mode can trigger BSOD on unsupported GPU/USB/audio/storage drivers.",
       "riskNotes": [
@@ -558,7 +593,7 @@
     {
       "category": "Advanced / MSI Mode",
       "risk": "Warning",
-      "description": "[Focus: FPS, Latency / Input Delay] Enables MSI (Message Signaled Interrupts) for detected devices in this class (requires reboot).",
+      "description": "[Focus: FPS, Latency / Input Delay] Enables MSI (Message Signaled Interrupts) for detected devices in this class (requires reboot). Maintenance-only: may cause first-run stutter while caches rebuild.",
       "requiresAdmin": true,
       "requiresReboot": true,
       "riskLevel": "Warning",
@@ -585,7 +620,11 @@
       },
       "badges": [
         "BLUESCREEN_RISK",
-        "BOOT_RISK"
+        "BOOT_RISK",
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK",
+        "REQUIRES_TYPED_CONFIRM"
       ],
       "warningText": "Changing MSI interrupt mode can trigger BSOD on unsupported GPU/USB/audio/storage drivers.",
       "riskNotes": [
@@ -601,7 +640,7 @@
       "name": "Apply: SATA (MSI toggle)",
       "category": "Advanced / MSI Mode",
       "risk": "Warning",
-      "description": "[Focus: FPS, Latency / Input Delay] Enables MSI (Message Signaled Interrupts) for detected devices in this class (requires reboot).",
+      "description": "[Focus: FPS, Latency / Input Delay] Enables MSI (Message Signaled Interrupts) for detected devices in this class (requires reboot). Maintenance-only: may cause first-run stutter while caches rebuild.",
       "requiresAdmin": true,
       "requiresReboot": true,
       "apply": {
@@ -642,7 +681,11 @@
       "manualOnly": true,
       "badges": [
         "BLUESCREEN_RISK",
-        "BOOT_RISK"
+        "BOOT_RISK",
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK",
+        "REQUIRES_TYPED_CONFIRM"
       ],
       "warningText": "Changing MSI interrupt mode can trigger BSOD on unsupported GPU/USB/audio/storage drivers.",
       "riskNotes": [
@@ -656,7 +699,7 @@
     {
       "category": "Advanced / MSI Mode",
       "risk": "Warning",
-      "description": "[Focus: FPS, Latency / Input Delay] Enables MSI (Message Signaled Interrupts) for detected devices in this class (requires reboot).",
+      "description": "[Focus: FPS, Latency / Input Delay] Enables MSI (Message Signaled Interrupts) for detected devices in this class (requires reboot). Maintenance-only: may cause first-run stutter while caches rebuild.",
       "requiresAdmin": true,
       "requiresReboot": true,
       "riskLevel": "Warning",
@@ -683,7 +726,11 @@
       },
       "badges": [
         "BLUESCREEN_RISK",
-        "BOOT_RISK"
+        "BOOT_RISK",
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK",
+        "REQUIRES_TYPED_CONFIRM"
       ],
       "warningText": "Changing MSI interrupt mode can trigger BSOD on unsupported GPU/USB/audio/storage drivers.",
       "riskNotes": [

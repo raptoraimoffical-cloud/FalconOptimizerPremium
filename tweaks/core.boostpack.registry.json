@@ -5738,7 +5738,8 @@
       },
       "badges": [
         "UI_BUG_RISK",
-        "DEVICE_DISCONNECT_RISK"
+        "DEVICE_DISCONNECT_RISK",
+        "NETWORK_REGRESSION_RISK"
       ],
       "warningText": "Can break cursor visibility or shell/UI behavior because it overwrites UserPreferencesMask. This legacy form is quarantined from broad presets until bit-level safe editor support is implemented.",
       "riskNotes": [
@@ -5749,7 +5750,8 @@
       ],
       "requiresTypedConfirm": true,
       "typedConfirmText": "I ACCEPT UI RISK",
-      "rollbackNotes": "Back up the existing UserPreferencesMask before apply and restore it if cursor/UI issues appear."
+      "rollbackNotes": "Back up the existing UserPreferencesMask before apply and restore it if cursor/UI issues appear.",
+      "manualOnly": true
     }
   ]
 }

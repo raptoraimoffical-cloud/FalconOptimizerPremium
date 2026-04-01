@@ -1,14 +1,204 @@
 {
   "items": [
     {
-      "id": "imported.imported.clean_up",
+      "id": "gpu.amd.radeon_feature_status_reader",
       "type": "button",
-      "name": "Clean Up",
+      "name": "Radeon Feature Status Reader",
       "category": "Hardware / GPU (AMD)",
+      "riskLevel": "Safe",
+      "risk": "Safe",
+      "description": "Reads installed AMD Radeon Software state and reports available feature families (HYPR-RX/Anti-Lag/Chill/Boost/RSR/AFMF where detectable).",
+      "applicability": {
+        "gpuVendors": [
+          "amd"
+        ],
+        "requiresAdmin": false
+      },
+      "badges": [
+        "AMD_ONLY"
+      ],
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$p='HKLM:\\SOFTWARE\\AMD\\CN'; if(Test-Path $p){ Get-ItemProperty $p | Out-String | Write-Output } else { Write-Output 'AMD Adrenalin registry base not detected.' }; exit 0"
+          }
+        ]
+      }
+    },
+    {
+      "id": "gpu.amd.mpo_troubleshooting_toggle",
+      "type": "toggle",
+      "name": "AMD MPO Troubleshooting Toggle",
+      "category": "Hardware / GPU (AMD)",
+      "riskLevel": "Warning",
+      "risk": "Warning",
+      "description": "Troubleshooting-only MPO toggle for flicker/stutter diagnostics. Reversible and not guaranteed to improve FPS.",
+      "applicability": {
+        "gpuVendors": [
+          "amd"
+        ],
+        "requiresAdmin": true
+      },
+      "badges": [
+        "AMD_ONLY",
+        "STUTTER_RISK"
+      ],
+      "apply": {
+        "steps": [
+          {
+            "type": "reg.add",
+            "path": "HKLM\\SOFTWARE\\Microsoft\\Windows\\Dwm",
+            "name": "OverlayTestMode",
+            "valueType": "REG_DWORD",
+            "value": 5
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "reg.query",
+            "path": "HKLM\\SOFTWARE\\Microsoft\\Windows\\Dwm",
+            "name": "OverlayTestMode"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "reg.delete",
+            "path": "HKLM\\SOFTWARE\\Microsoft\\Windows\\Dwm",
+            "name": "OverlayTestMode"
+          }
+        ]
+      }
+    },
+    {
+      "id": "gpu.amd.ulps_handling_supported_only",
+      "type": "button",
+      "name": "AMD ULPS Handling (Supported Path Only)",
+      "category": "Hardware / GPU (AMD)",
+      "riskLevel": "Warning",
+      "risk": "Warning",
+      "description": "Checks exact ULPS registry paths before suggesting action; marks unsupported when exact path is absent.",
+      "applicability": {
+        "gpuVendors": [
+          "amd"
+        ],
+        "requiresAdmin": true
+      },
+      "badges": [
+        "AMD_ONLY",
+        "DRIVER_CONFLICT_RISK"
+      ],
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$k=Get-ChildItem 'HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Class' -Recurse -ErrorAction SilentlyContinue | Where-Object { $_.Name -match 'EnableUlps' } | Select-Object -First 1; if($k){ Write-Output \"ULPS path detected: $($k.Name)\" } else { Write-Output 'ULPS path unsupported on this system.' }; exit 0"
+          }
+        ]
+      }
+    },
+    {
+      "id": "gpu.amd.vrr_freesync_diagnostics",
+      "type": "button",
+      "name": "AMD FreeSync / VRR Diagnostics",
+      "category": "Hardware / GPU (AMD)",
+      "riskLevel": "Safe",
+      "risk": "Safe",
+      "description": "Diagnostic readout for VRR readiness and refresh mismatch conditions that often present as stutter.",
+      "applicability": {
+        "gpuVendors": [
+          "amd"
+        ],
+        "requiresAdmin": false
+      },
+      "badges": [
+        "AMD_ONLY"
+      ],
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Get-ItemProperty -Path 'HKCU:\\Software\\Microsoft\\DirectX\\UserGpuPreferences' -ErrorAction SilentlyContinue | Out-String | Write-Output; Write-Output 'Check monitor OSD FreeSync state + Windows refresh rate alignment.'; exit 0"
+          }
+        ]
+      }
+    },
+    {
+      "id": "gpu.amd.shader_cache_cleanup_warning",
+      "type": "button",
+      "name": "AMD Shader Cache Cleanup (Troubleshooting)",
+      "category": "Hardware / GPU (AMD)",
+      "riskLevel": "Warning",
+      "risk": "Warning",
+      "description": "Maintenance-only cleanup of AMD shader caches. First few launches may stutter more while caches rebuild.",
+      "applicability": {
+        "gpuVendors": [
+          "amd"
+        ],
+        "requiresAdmin": true
+      },
+      "badges": [
+        "AMD_ONLY",
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK"
+      ],
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Remove-Item -LiteralPath '$env:LOCALAPPDATA\\AMD\\DxCache\\*' -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath '$env:LOCALAPPDATA\\AMD\\GLCache\\*' -Recurse -Force -ErrorAction SilentlyContinue; exit 0"
+          }
+        ]
+      }
+    },
+    {
+      "id": "gpu.amd.driver_branch_helper",
+      "type": "button",
+      "name": "AMD Driver Branch Helper (Stable vs Latest)",
+      "category": "Hardware / GPU (AMD)",
+      "riskLevel": "Safe",
+      "risk": "Safe",
+      "description": "Reads installed AMD display driver version/date and provides stable-vs-latest decision guidance without forced updates.",
+      "applicability": {
+        "gpuVendors": [
+          "amd"
+        ],
+        "requiresAdmin": false
+      },
+      "badges": [
+        "AMD_ONLY"
+      ],
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Get-CimInstance Win32_PnPSignedDriver | Where-Object { $_.DeviceClass -eq 'DISPLAY' -and $_.Manufacturer -match 'AMD|Advanced Micro Devices' } | Select-Object DeviceName, DriverVersion, DriverDate | Format-Table -AutoSize | Out-String | Write-Output; exit 0"
+          }
+        ]
+      }
+    },
+    {
+      "id": "gpu.amd.imported_expert_pack",
+      "type": "button",
+      "name": "Imported AMD GPU Mega-Pack (Expert Lab)",
+      "category": "Hardware / GPU (AMD Expert Lab)",
       "riskLevel": "Danger",
       "risk": "Danger",
-      "description": "[Imported] Runnable tweak extracted from your V8.3. This runs a command pack under Admin. Risk: Danger.",
+      "description": "[Imported AMD Expert Lab] High-risk legacy AMD registry pack; desktop-only, hidden from Apply All, and requires backup + typed confirmation before apply.",
       "requiresAdmin": true,
+      "manualOnly": true,
+      "typedConfirmText": "I ACCEPT THERMAL AND INSTABILITY RISK",
+      "badges": [
+        "AMD_ONLY",
+        "THERMAL_RISK",
+        "DRIVER_CONFLICT_RISK",
+        "DESKTOP_ONLY",
+        "REQUIRES_TYPED_CONFIRM"
+      ],
       "apply": {
         "steps": [
           {

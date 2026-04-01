@@ -1,4 +1,8 @@
 @echo off
+REM FALCON SAFETY: AMD Expert Lab only. High thermal/instability risk. Not for Apply-All presets.
+REM Requires full backup + typed confirmation before execution.
+
+
 setlocal EnableExtensions EnableDelayedExpansion
 cd /d "%~dp0\..\.."
 echo [Falcon] Running imported tweak: AMD_GPU_Tweaks

@@ -41,7 +41,8 @@
             "equals": 0
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_windows.core_core.disable_bluetooth_services",
@@ -80,7 +81,11 @@
             "startupType": null
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_windows.core_core.disable_driver_searching",
@@ -123,7 +128,8 @@
             "equals": 0
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_windows.core_core.disable_gamedvr",
@@ -180,7 +186,8 @@
             "equals": 0
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_windows.core_core.disable_xbox_services",
@@ -255,7 +262,11 @@
             "startupType": null
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_windows.core_core.disable_edge",
@@ -308,7 +319,8 @@
             "equals": 0
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_windows.core_core.disable_search_indexing",
@@ -347,7 +359,11 @@
             "startupType": null
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_windows.core_core.disable_windows_updates",
@@ -422,7 +438,11 @@
             "startupType": null
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_windows.core_core.disable_scheduled_maintenance",
@@ -463,7 +483,8 @@
             "equals": 1
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_windows.core_core.disable_scheduled_tasks",
@@ -530,7 +551,8 @@
             "enabled": false
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_windows.core_core.optimize_hung_apps",
@@ -595,7 +617,8 @@
             "equals": "2000"
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_windows.core_core.set_win32_priority_sep",
@@ -636,7 +659,8 @@
             "equals": 38
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_windows.core_core.configure_tsync",
@@ -677,7 +701,14 @@
             "equals": 2
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "BLUESCREEN_RISK",
+        "BOOT_RISK",
+        "REQUIRES_TYPED_CONFIRM"
+      ],
+      "typedConfirmText": "I ACCEPT BOOT RISK"
     },
     {
       "id": "hc_windows.core_core.disable_hypervisor",
@@ -705,7 +736,14 @@
         ]
       },
       "riskLevel": "Danger",
-      "category": "Hardcore / General / Core"
+      "category": "Hardcore / General / Core",
+      "manualOnly": true,
+      "badges": [
+        "BLUESCREEN_RISK",
+        "BOOT_RISK",
+        "REQUIRES_TYPED_CONFIRM"
+      ],
+      "typedConfirmText": "I ACCEPT BOOT RISK"
     },
     {
       "risk": "Warning",
@@ -724,7 +762,14 @@
             "command": "bcdedit /set hypervisorlaunchtype auto"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "BLUESCREEN_RISK",
+        "BOOT_RISK",
+        "REQUIRES_TYPED_CONFIRM"
+      ],
+      "typedConfirmText": "I ACCEPT BOOT RISK"
     },
     {
       "id": "hc_windows.core_core.tweak_latency_tolerance",
@@ -777,7 +822,8 @@
             "equals": 10
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_windows.core_core.disable_device_power_saving",
@@ -825,7 +871,8 @@
       "warningText": "Can cause device disconnects or wake instability for USB/HID/Bluetooth/NIC hardware.",
       "riskNotes": [
         "Can cause USB/HID/Bluetooth/NIC disconnects, delayed reconnects, or wake failures."
-      ]
+      ],
+      "manualOnly": true
     },
     {
       "id": "hc_windows.core_core.timer_set",
@@ -849,7 +896,8 @@
         ]
       },
       "riskLevel": "Danger",
-      "category": "Hardcore / General / Core"
+      "category": "Hardcore / General / Core",
+      "manualOnly": true
     },
     {
       "risk": "Warning",
@@ -866,7 +914,8 @@
             "type": "timer.reset"
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_windows.core_core_bcd_disable_dynamic_tick",
@@ -892,7 +941,14 @@
         ]
       },
       "riskLevel": "Danger",
-      "category": "Hardcore / General / Core"
+      "category": "Hardcore / General / Core",
+      "manualOnly": true,
+      "badges": [
+        "BLUESCREEN_RISK",
+        "BOOT_RISK",
+        "REQUIRES_TYPED_CONFIRM"
+      ],
+      "typedConfirmText": "I ACCEPT BOOT RISK"
     },
     {
       "risk": "Warning",
@@ -910,7 +966,14 @@
             "command": "bcdedit /deletevalue disabledynamictick"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "BLUESCREEN_RISK",
+        "BOOT_RISK",
+        "REQUIRES_TYPED_CONFIRM"
+      ],
+      "typedConfirmText": "I ACCEPT BOOT RISK"
     },
     {
       "id": "hc_windows.core_core_bcd_tsc_sync_enhanced",
@@ -936,7 +999,14 @@
         ]
       },
       "riskLevel": "Danger",
-      "category": "Hardcore / General / Core"
+      "category": "Hardcore / General / Core",
+      "manualOnly": true,
+      "badges": [
+        "BLUESCREEN_RISK",
+        "BOOT_RISK",
+        "REQUIRES_TYPED_CONFIRM"
+      ],
+      "typedConfirmText": "I ACCEPT BOOT RISK"
     },
     {
       "risk": "Warning",
@@ -954,7 +1024,14 @@
             "command": "bcdedit /deletevalue tscsyncpolicy"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "BLUESCREEN_RISK",
+        "BOOT_RISK",
+        "REQUIRES_TYPED_CONFIRM"
+      ],
+      "typedConfirmText": "I ACCEPT BOOT RISK"
     },
     {
       "id": "hc_windows.core_core_disable_power_throttling",
@@ -995,7 +1072,8 @@
             "equals": 1
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_windows.core_core_disable_wer_service",
@@ -1033,7 +1111,11 @@
             "startupType": null
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_windows.core_core_disable_sysmain",
@@ -1072,7 +1154,8 @@
             "startupType": null
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_windows.core_core_disable_search_indexer",
@@ -1111,7 +1194,11 @@
             "startupType": null
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_windows.core_core_disable_diagnostics_tracking",
@@ -1149,7 +1236,11 @@
             "startupType": null
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_windows.core_core_disable_scheduled_maintenance",
@@ -1175,7 +1266,8 @@
         ]
       },
       "riskLevel": "Danger",
-      "category": "Hardcore / General / Core"
+      "category": "Hardcore / General / Core",
+      "manualOnly": true
     },
     {
       "risk": "Warning",
@@ -1193,7 +1285,8 @@
             "command": "Get-ScheduledTask | Where-Object {$_.TaskName -match 'Maintenance|Diagnostic|DiskDiagnostic|WinSAT'} | Enable-ScheduledTask -ErrorAction SilentlyContinue"
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_windows.core_core_disable_hibernation",
@@ -1219,7 +1312,8 @@
         ]
       },
       "riskLevel": "Danger",
-      "category": "Hardcore / General / Core"
+      "category": "Hardcore / General / Core",
+      "manualOnly": true
     },
     {
       "risk": "Warning",
@@ -1237,7 +1331,8 @@
             "command": "powercfg /hibernate on"
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_windows.core_core_disable_fast_startup",
@@ -1280,7 +1375,8 @@
             "equals": 0
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_windows.core_core_disable_delivery_optimization",
@@ -1318,7 +1414,11 @@
             "startupType": null
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_windows.core_core_disable_telemetry_policies",
@@ -1359,7 +1459,8 @@
             "equals": 0
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_windows.core_core_disable_windows_update_pauses",
@@ -1400,7 +1501,8 @@
             "equals": 1
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_windows.core_core.timer_start_persistent",
@@ -1421,7 +1523,8 @@
       },
       "revert": {
         "steps": []
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_windows.core_core.enable_hags",
@@ -1462,7 +1565,8 @@
             "equals": 2
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_windows.core_core.disable_mpo",
@@ -1503,7 +1607,8 @@
             "equals": 5
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_windows.privacy_privacy.disable_compat_telemetry",
@@ -1544,7 +1649,8 @@
             "equals": 0
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_windows.privacy_privacy.disable_diag_data_collection",
@@ -1597,7 +1703,8 @@
             "equals": 0
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_windows.privacy_privacy.disable_diag_tracking",
@@ -1636,7 +1743,11 @@
             "startupType": null
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_windows.privacy_privacy.disable_location_tracking",
@@ -1677,7 +1788,11 @@
             "equals": 1
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_windows.privacy_privacy.disable_advanced_telemetry",
@@ -1730,7 +1845,8 @@
             "equals": 0
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_windows.privacy_privacy.disable_auto_loggers",
@@ -1771,7 +1887,8 @@
             "equals": 0
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_windows.privacy_privacy.disable_cimom_events",
@@ -1799,7 +1916,8 @@
         ]
       },
       "riskLevel": "Danger",
-      "category": "Hardcore / General / Privacy"
+      "category": "Hardcore / General / Privacy",
+      "manualOnly": true
     },
     {
       "risk": "Warning",
@@ -1818,7 +1936,8 @@
             "command": "wevtutil sl Microsoft-Windows-WMI-Activity/Operational /e:true"
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_windows.privacy_privacy.disable_data_collection_hosts",
@@ -1846,7 +1965,8 @@
         ]
       },
       "riskLevel": "Danger",
-      "category": "Hardcore / General / Privacy"
+      "category": "Hardcore / General / Privacy",
+      "manualOnly": true
     },
     {
       "risk": "Warning",
@@ -1865,7 +1985,8 @@
             "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"((Get-Content $env:SystemRoot\\System32\\drivers\\etc\\hosts) | Where-Object {$_ -notmatch 'vortex\\.data\\.microsoft\\.com|settings-win\\.data\\.microsoft\\.com'}) | Set-Content $env:SystemRoot\\System32\\drivers\\etc\\hosts\""
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_windows.privacy_privacy.disable_ndu",
@@ -1904,7 +2025,11 @@
             "startupType": null
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "NETWORK_REGRESSION_RISK"
+      ]
     },
     {
       "id": "hc_windows.qol_qol.classic_right_click_menu",
@@ -1945,7 +2070,8 @@
             "equals": ""
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_windows.qol_qol.delete_default_power_plans",
@@ -1975,7 +2101,8 @@
       },
       "riskLevel": "Danger",
       "category": "Hardcore / General / QOL",
-      "note": "Converted from toggle (missing revert)."
+      "note": "Converted from toggle (missing revert).",
+      "manualOnly": true
     },
     {
       "id": "hc_windows.qol_qol.disable_widgets",
@@ -2028,7 +2155,8 @@
             "equals": 0
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_windows.power_power_disable_pci_aspm",
@@ -2070,7 +2198,14 @@
         ]
       },
       "riskLevel": "Danger",
-      "category": "Hardcore / General / Power"
+      "category": "Hardcore / General / Power",
+      "manualOnly": true,
+      "badges": [
+        "BLUESCREEN_RISK",
+        "BOOT_RISK",
+        "REQUIRES_TYPED_CONFIRM"
+      ],
+      "typedConfirmText": "I ACCEPT BOOT RISK"
     },
     {
       "risk": "Warning",
@@ -2096,7 +2231,14 @@
             "command": "powercfg /setactive SCHEME_CURRENT"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "BLUESCREEN_RISK",
+        "BOOT_RISK",
+        "REQUIRES_TYPED_CONFIRM"
+      ],
+      "typedConfirmText": "I ACCEPT BOOT RISK"
     },
     {
       "id": "hc_windows.power_power_min_processor_100",
@@ -2138,7 +2280,8 @@
         ]
       },
       "riskLevel": "Danger",
-      "category": "Hardcore / General / Power"
+      "category": "Hardcore / General / Power",
+      "manualOnly": true
     },
     {
       "risk": "Warning",
@@ -2164,7 +2307,8 @@
             "command": "powercfg /setactive SCHEME_CURRENT"
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_windows.power_power_disable_processor_idle",
@@ -2205,14 +2349,15 @@
             "equals": 0
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_windows.power_power_disable_modern_standby",
       "type": "toggle",
       "name": "Disable Modern Standby (S0)",
       "risk": "Warning",
-      "description": "[Focus: Latency / Input Delay] Attempts to disable Modern Standby (may require BIOS support).",
+      "description": "[Focus: Latency / Input Delay] Attempts to disable Modern Standby (may require BIOS support). Maintenance-only: may cause first-run stutter while caches rebuild.",
       "requiresAdmin": true,
       "apply": {
         "steps": [
@@ -2246,7 +2391,13 @@
             "equals": 0
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK"
+      ]
     },
     {
       "id": "hc_windows.power_power_disable_throttling",
@@ -2287,14 +2438,15 @@
             "equals": 1
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_hardware.cpu.intel_cpu.disable_basic_cstates",
       "name": "Disable Basic C-states",
       "category": "Hardcore / Hardware / CPU",
       "risk": "Warning",
-      "description": "[Focus: Latency / Input Delay] Sets the current power plan to reduce CPU idle states (may increase power/temps).",
+      "description": "[Focus: Latency / Input Delay] Sets the current power plan to reduce CPU idle states (may increase power/temps). Maintenance-only: may cause first-run stutter while caches rebuild.",
       "requiresAdmin": true,
       "requiresReboot": false,
       "apply": {
@@ -2348,7 +2500,13 @@
             "guid": null
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK"
+      ]
     },
     {
       "id": "hc_hardware.cpu.intel_cpu.disable_coalescable_timer",
@@ -2388,7 +2546,13 @@
       "type": "button",
       "riskLevel": "Danger",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "badges": [
+        "BLUESCREEN_RISK",
+        "BOOT_RISK",
+        "REQUIRES_TYPED_CONFIRM"
+      ],
+      "typedConfirmText": "I ACCEPT BOOT RISK"
     },
     {
       "category": "Hardcore / Hardware / CPU",
@@ -2414,7 +2578,13 @@
             "wait": true
           }
         ]
-      }
+      },
+      "badges": [
+        "BLUESCREEN_RISK",
+        "BOOT_RISK",
+        "REQUIRES_TYPED_CONFIRM"
+      ],
+      "typedConfirmText": "I ACCEPT BOOT RISK"
     },
     {
       "id": "hc_hardware.cpu.intel_cpu.disable_core_parking",
@@ -2495,7 +2665,8 @@
             "guid": null
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_hardware.cpu.intel_cpu.disable_power_throttling",
@@ -2537,7 +2708,8 @@
             "equals": 1
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_hardware.cpu.intel_cpu.disable_modern_standby",
@@ -2579,7 +2751,8 @@
             "equals": 0
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_hardware.cpu.intel_cpu.set_epp",
@@ -2640,7 +2813,8 @@
             "guid": null
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_hardware.cpu.intel_cpu.set_minmax_proc_state",
@@ -2721,7 +2895,8 @@
             "guid": null
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_hardware.cpu.intel_cpu.disable_eventprocessor",
@@ -2763,7 +2938,8 @@
             "equals": 0
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_hardware.cpu.intel_cpu.set_kernel_worker_threads",
@@ -2817,7 +2993,8 @@
             "equals": 4
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_hardware.cpu.intel_cpu_disable_core_parking",
@@ -2859,7 +3036,8 @@
         ]
       },
       "riskLevel": "Danger",
-      "category": "Hardcore / Hardware / CPU"
+      "category": "Hardcore / Hardware / CPU",
+      "manualOnly": true
     },
     {
       "risk": "Warning",
@@ -2885,7 +3063,8 @@
             "command": "powercfg /setactive SCHEME_CURRENT"
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_hardware.cpu.intel_cpu_disable_idle_disable",
@@ -2928,7 +3107,8 @@
             "equals": 2
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_hardware.cpu.intel_cpu_set_mmcss_games_priority",
@@ -2985,7 +3165,8 @@
             "equals": 6
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_hardware.cpu.intel_cpu_disable_system_responsiveness",
@@ -3026,7 +3207,8 @@
             "equals": 10
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_hardware.cpu.intel_cpu_set_foreground_boost",
@@ -3067,7 +3249,8 @@
             "equals": 38
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_hardware.gpu.nvidia_gpu.nvidia.clean.install",
@@ -3160,7 +3343,10 @@
       "type": "button",
       "riskLevel": "Danger",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "category": "Hardcore / Hardware / GPU",
@@ -3201,7 +3387,10 @@
             "wait": true
           }
         ]
-      }
+      },
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_hardware.gpu.nvidia_gpu.nvidia.disable_hdcp",
@@ -3243,7 +3432,8 @@
             "equals": 1
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_hardware.gpu.nvidia_gpu.nvidia.disable_dma_remapping",
@@ -3285,7 +3475,8 @@
             "equals": 0
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_hardware.gpu.nvidia_gpu.nvidia.disable_uvm",
@@ -3327,7 +3518,8 @@
             "equals": 1
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_hardware.gpu.nvidia_gpu.nvidia.disable_aspm",
@@ -3369,7 +3561,14 @@
             "equals": 1
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "BLUESCREEN_RISK",
+        "BOOT_RISK",
+        "REQUIRES_TYPED_CONFIRM"
+      ],
+      "typedConfirmText": "I ACCEPT BOOT RISK"
     },
     {
       "id": "hc_hardware.gpu.nvidia_gpu.nvidia.disable_display_power_saving",
@@ -3411,7 +3610,8 @@
             "equals": 1
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_hardware.gpu.nvidia_gpu.nvidia.disable_ecc",
@@ -3453,7 +3653,8 @@
             "equals": 1
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_hardware.gpu.nvidia_gpu.nvidia.disable_gc5_caching",
@@ -3495,7 +3696,8 @@
             "equals": 1
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_hardware.gpu.nvidia_gpu.nvidia.disable_misc_power",
@@ -3537,7 +3739,8 @@
             "equals": 1
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_hardware.gpu.nvidia_gpu.nvidia.disable_thermal_throttle",
@@ -3579,7 +3782,8 @@
             "equals": 1
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_hardware.gpu.nvidia_gpu.nvidia.disable_tcc",
@@ -3621,7 +3825,8 @@
             "equals": 1
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_hardware.gpu.nvidia_gpu.nvidia.force_contiguous_memory_allocation",
@@ -3663,7 +3868,8 @@
             "equals": 1
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_hardware.gpu.nvidia_gpu.nvidia.optimize_memory_latency_settings",
@@ -3705,7 +3911,8 @@
             "equals": 1
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_hardware.gpu.nvidia_gpu.nvidia.optimize_gpu_idle_thresholds",
@@ -3747,7 +3954,8 @@
             "equals": 1
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_hardware.gpu.nvidia_gpu.nvidia.optimize_nvidia_frame_scheduling",
@@ -3789,7 +3997,8 @@
             "equals": 1
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_hardware.gpu.nvidia_gpu.nvidia.optimize_nvidia_direct_flip_vrr",
@@ -3831,7 +4040,8 @@
             "equals": 1
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_hardware.gpu.nvidia_gpu.nvidia.optimize_nvidia_interrupts",
@@ -3873,7 +4083,14 @@
             "equals": 1
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "BLUESCREEN_RISK",
+        "BOOT_RISK",
+        "REQUIRES_TYPED_CONFIRM"
+      ],
+      "typedConfirmText": "I ACCEPT BOOT RISK"
     },
     {
       "id": "hc_hardware.gpu.nvidia_gpu.nvidia.reduce_nvidia_polling_latency",
@@ -3915,7 +4132,8 @@
             "equals": 1
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_hardware.gpu.nvidia_gpu.nvidia.optimize_nvidia_pci_latency_controller",
@@ -3957,7 +4175,8 @@
             "equals": 1
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_hardware.gpu.nvidia_gpu.nvidia.optimize_nvidia_bus_clocks",
@@ -3999,7 +4218,8 @@
             "equals": 1
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_hardware.gpu.nvidia_gpu.nvidia.optimize_nvidia_engine_clocks",
@@ -4041,7 +4261,8 @@
             "equals": 1
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_hardware.gpu.nvidia_gpu.nvidia.optimize_nvidia_acpi_d3",
@@ -4083,7 +4304,8 @@
             "equals": 1
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_hardware.gpu.nvidia_gpu.nvidia.optimize_nvidia_gc6_idle",
@@ -4125,7 +4347,8 @@
             "equals": 1
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_hardware.gpu.nvidia_gpu.nvidia.optimize_nvidia_power_features",
@@ -4167,7 +4390,8 @@
             "equals": 1
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_hardware.gpu.nvidia_gpu.nvidia.set_unrestricted_clock_policy",
@@ -4209,7 +4433,8 @@
             "equals": 1
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_hardware.gpu.nvidia_gpu.nvidia.force_p0_state",
@@ -4251,7 +4476,8 @@
             "equals": 1
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_hardware.gpu.nvidia_gpu.nvidia.keep_nvidia_dram_active",
@@ -4293,7 +4519,8 @@
             "equals": 1
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_hardware.gpu.nvidia_gpu.nvidia.optimize_nvidia_flpg",
@@ -4335,7 +4562,8 @@
             "equals": 1
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_hardware.gpu.nvidia_gpu.nvidia.streamline_nvidia_watchdog",
@@ -4377,7 +4605,8 @@
             "equals": 1
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_hardware.gpu.nvidia_gpu.nvidia.tune_nvidia_low_power",
@@ -4419,7 +4648,8 @@
             "equals": 1
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_hardware.gpu.nvidia_gpu.nvidia.unlock_nvidia_perf_limits",
@@ -4461,7 +4691,8 @@
             "equals": 1
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_hardware.gpu.nvidia_gpu.nvidia.optimize_geforce_experience",
@@ -4518,7 +4749,10 @@
       "type": "button",
       "riskLevel": "Danger",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "category": "Hardcore / Hardware / GPU",
@@ -4547,7 +4781,10 @@
             "wait": true
           }
         ]
-      }
+      },
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_hardware.gpu.nvidia_gpu_disable_mpo",
@@ -4588,7 +4825,8 @@
             "equals": 5
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_hardware.gpu.nvidia_gpu_disable_hags",
@@ -4629,7 +4867,8 @@
             "equals": 1
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_hardware.gpu.nvidia_gpu_disable_nvidia_telemetry_services",
@@ -4655,7 +4894,11 @@
         ]
       },
       "riskLevel": "Danger",
-      "category": "Hardcore / Hardware / GPU"
+      "category": "Hardcore / Hardware / GPU",
+      "manualOnly": true,
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "risk": "Warning",
@@ -4673,7 +4916,11 @@
             "command": "Get-Service | Where-Object {$_.Name -match 'NvTelemetry'} | ForEach-Object { Set-Service $_.Name -StartupType Manual }"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_hardware.gpu.nvidia_gpu_disable_nvidia_container_startup",
@@ -4711,7 +4958,8 @@
             "startupType": null
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_hardware.gpu.nvidia_gpu_disable_nvidia_frameview",
@@ -4749,7 +4997,11 @@
             "startupType": null
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_hardware.gpu.nvidia_gpu_disable_nvidia_crash_report",
@@ -4775,7 +5027,11 @@
         ]
       },
       "riskLevel": "Danger",
-      "category": "Hardcore / Hardware / GPU"
+      "category": "Hardcore / Hardware / GPU",
+      "manualOnly": true,
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "risk": "Warning",
@@ -4793,7 +5049,11 @@
             "command": "Get-ScheduledTask | Where-Object {$_.TaskName -match 'Nv.*Crash|CrashReport'} | Enable-ScheduledTask -ErrorAction SilentlyContinue"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_hardware.gpu.nvidia_gpu_disable_nvidia_update_tasks",
@@ -4819,7 +5079,8 @@
         ]
       },
       "riskLevel": "Danger",
-      "category": "Hardcore / Hardware / GPU"
+      "category": "Hardcore / Hardware / GPU",
+      "manualOnly": true
     },
     {
       "risk": "Warning",
@@ -4837,7 +5098,8 @@
             "command": "Get-ScheduledTask | Where-Object {$_.TaskName -match 'Nv.*Update|NVIDIA.*Update'} | Enable-ScheduledTask -ErrorAction SilentlyContinue"
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_hardware.gpu.nvidia_gpu_set_tdr_delay_10",
@@ -4878,7 +5140,8 @@
             "equals": 10
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_hardware.gpu.nvidia_gpu_disable_nvidia_overlay",
@@ -4919,7 +5182,8 @@
             "equals": 0
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_hardware.memory_mem_disable_memory_compression",
@@ -4945,7 +5209,8 @@
         ]
       },
       "riskLevel": "Danger",
-      "requiresAdmin": true
+      "requiresAdmin": true,
+      "manualOnly": true
     },
     {
       "category": "Hardcore / Hardware / Memory",
@@ -4963,7 +5228,8 @@
             "command": "Enable-MMAgent -MemoryCompression | Out-Null"
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_hardware.memory_mem_disable_sysmain",
@@ -4998,7 +5264,8 @@
             "startupType": "disabled"
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_hardware.memory_mem_disable_prefetch",
@@ -5006,7 +5273,7 @@
       "name": "Disable Prefetch",
       "category": "Hardcore / Hardware / Memory",
       "risk": "Warning",
-      "description": "[Focus: FPS, Latency / Input Delay] Disables Prefetcher.",
+      "description": "[Focus: FPS, Latency / Input Delay] Disables Prefetcher. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "apply": {
         "steps": [
           {
@@ -5041,7 +5308,13 @@
             "equals": 0
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK"
+      ]
     },
     {
       "id": "hc_hardware.memory_mem_disable_superfetch",
@@ -5084,7 +5357,8 @@
             "equals": 0
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_hardware.memory_mem_disable_page_combining",
@@ -5110,7 +5384,8 @@
         ]
       },
       "riskLevel": "Danger",
-      "category": "Hardcore / Hardware / Memory"
+      "category": "Hardcore / Hardware / Memory",
+      "manualOnly": true
     },
     {
       "risk": "Warning",
@@ -5128,14 +5403,15 @@
             "command": "Enable-MMAgent -PageCombining"
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_hardware.memory_mem_disable_standby_cache_trim",
       "type": "toggle",
       "name": "Disable Standby Cache Trimming (Policy)",
       "risk": "Warning",
-      "description": "[Focus: FPS, Latency / Input Delay] Reduces standby cache trimming aggressiveness.",
+      "description": "[Focus: FPS, Latency / Input Delay] Reduces standby cache trimming aggressiveness. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "requiresAdmin": true,
       "apply": {
         "steps": [
@@ -5169,7 +5445,13 @@
             "equals": 0
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK"
+      ]
     },
     {
       "id": "hc_hardware.memory_mem_disable_paging_executive",
@@ -5210,7 +5492,8 @@
             "equals": 1
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_hardware.memory_mem_disable_page_combining_v2",
@@ -5236,7 +5519,8 @@
         ]
       },
       "riskLevel": "Danger",
-      "category": "Hardcore / Hardware / Memory"
+      "category": "Hardcore / Hardware / Memory",
+      "manualOnly": true
     },
     {
       "risk": "Warning",
@@ -5254,7 +5538,8 @@
             "command": "Enable-MMAgent -PageCombining | Out-Null"
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_hardware.memory_mem_disable_paging_executive_v2",
@@ -5295,7 +5580,8 @@
             "equals": 1
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_hardware.peripherals_usb_disable_selective_suspend",
@@ -5343,7 +5629,8 @@
       "warningText": "Can cause device disconnects or wake instability for USB/HID/Bluetooth/NIC hardware.",
       "riskNotes": [
         "Can cause USB/HID/Bluetooth/NIC disconnects, delayed reconnects, or wake failures."
-      ]
+      ],
+      "manualOnly": true
     },
     {
       "id": "hc_hardware.peripherals_usb_disable_power_saving",
@@ -5369,7 +5656,8 @@
         ]
       },
       "riskLevel": "Danger",
-      "requiresAdmin": true
+      "requiresAdmin": true,
+      "manualOnly": true
     },
     {
       "category": "Hardcore / Hardware / Peripherals",
@@ -5387,7 +5675,8 @@
             "command": "powercfg -SETACVALUEINDEX SCHEME_CURRENT SUB_USB USBSELECTIVE 1 | Out-Null; powercfg -S SCHEME_CURRENT | Out-Null"
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_hardware.peripherals_per_disable_bluetooth_power_saving",
@@ -5430,7 +5719,8 @@
             "equals": 2
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_hardware.peripherals_per_disable_game_controller_services",
@@ -5501,7 +5791,11 @@
             "startupType": null
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_hardware.peripherals_per_disable_tablet_input",
@@ -5539,7 +5833,11 @@
             "startupType": null
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_hardware.storage_stor_disable_hibernate",
@@ -5565,7 +5863,8 @@
         ]
       },
       "riskLevel": "Danger",
-      "requiresAdmin": true
+      "requiresAdmin": true,
+      "manualOnly": true
     },
     {
       "category": "Hardcore / Hardware / Storage",
@@ -5583,7 +5882,8 @@
             "command": "powercfg -h on"
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_hardware.storage_stor_disable_compression_global",
@@ -5604,7 +5904,8 @@
         "steps": []
       },
       "riskLevel": "Danger",
-      "category": "Hardcore / Hardware / Storage"
+      "category": "Hardcore / Hardware / Storage",
+      "manualOnly": true
     },
     {
       "id": "hc_hardware.storage_stor_disable_windows_telemetry_loggers",
@@ -5642,7 +5943,8 @@
             "startupType": null
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_hardware.storage_stor_disable_usn_journal_c",
@@ -5663,7 +5965,8 @@
         "steps": []
       },
       "riskLevel": "Danger",
-      "category": "Hardcore / Hardware / Storage"
+      "category": "Hardcore / Hardware / Storage",
+      "manualOnly": true
     },
     {
       "id": "hc_network.adapter-tuner_net.disable_ipv6_system",
@@ -5712,7 +6015,11 @@
             "equals": 255
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "NETWORK_REGRESSION_RISK"
+      ]
     },
     {
       "id": "hc_network.adapter-tuner_net.reduce_telemetry_active_probing",
@@ -5849,7 +6156,11 @@
             "equals": 0
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "NETWORK_REGRESSION_RISK"
+      ]
     },
     {
       "id": "hc_network.bufferbloat_net.bufferbloat.ultralow",
@@ -5874,7 +6185,11 @@
       },
       "riskLevel": "Danger",
       "category": "Hardcore / Network",
-      "note": "Converted from toggle (missing revert)."
+      "note": "Converted from toggle (missing revert).",
+      "manualOnly": true,
+      "badges": [
+        "NETWORK_REGRESSION_RISK"
+      ]
     },
     {
       "id": "hc_network.priority_net.priority.dscp46",
@@ -5902,7 +6217,11 @@
         ]
       },
       "riskLevel": "Danger",
-      "category": "Hardcore / Network"
+      "category": "Hardcore / Network",
+      "manualOnly": true,
+      "badges": [
+        "NETWORK_REGRESSION_RISK"
+      ]
     },
     {
       "risk": "Warning",
@@ -5921,7 +6240,11 @@
             "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"Remove-NetQosPolicy -Name \\\"Falcon UDP DSCP46\\\" -PolicyStore ActiveStore -Confirm:$false -ErrorAction SilentlyContinue\""
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "NETWORK_REGRESSION_RISK"
+      ]
     },
     {
       "id": "hc_cleanup.services_cleanup.services.basic",
@@ -5990,7 +6313,11 @@
             "startupType": null
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_cleanup.autoruns_cleanup.autoruns.edge_autolaunch",
@@ -6069,7 +6396,8 @@
             "equals": 0
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_utilities_util.autoruns.run",
@@ -6186,14 +6514,17 @@
       "requiresAdmin": true,
       "note": "Converted from toggle (missing revert).",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_network.tweaks_net.optimize_network_priority",
       "type": "button",
       "name": "Optimize Network Priority",
       "risk": "Warning",
-      "description": "[Focus: Latency / Input Delay, Ping / Network] Optimizes network provider order (Local → Hosts → DNS → NetBT).",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Optimizes network provider order (Local \u2192 Hosts \u2192 DNS \u2192 NetBT).",
       "requiresAdmin": true,
       "apply": {
         "steps": [
@@ -6229,7 +6560,11 @@
       },
       "riskLevel": "Danger",
       "category": "Hardcore / Network",
-      "note": "Converted from toggle (missing revert)."
+      "note": "Converted from toggle (missing revert).",
+      "manualOnly": true,
+      "badges": [
+        "NETWORK_REGRESSION_RISK"
+      ]
     },
     {
       "id": "hc_network.tweaks_net.optimize_smb_lan",
@@ -6258,7 +6593,11 @@
       },
       "riskLevel": "Danger",
       "category": "Hardcore / Network",
-      "note": "Converted from toggle (missing revert)."
+      "note": "Converted from toggle (missing revert).",
+      "manualOnly": true,
+      "badges": [
+        "NETWORK_REGRESSION_RISK"
+      ]
     },
     {
       "id": "hc_network.tweaks_net.tune_tcp_acks",
@@ -6311,14 +6650,18 @@
             "equals": 1
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "NETWORK_REGRESSION_RISK"
+      ]
     },
     {
       "id": "hc_network.tweaks_net_disable_nagle",
       "type": "button",
       "name": "Apply: Disable Nagle (All Interfaces)",
       "risk": "Warning",
-      "description": "[Focus: Latency / Input Delay, Ping / Network] Disables Nagle algorithm for all interfaces (low latency).",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Disables Nagle algorithm for all interfaces (low latency). Maintenance-only: may cause first-run stutter while caches rebuild.",
       "requiresAdmin": true,
       "apply": {
         "steps": [
@@ -6337,11 +6680,19 @@
         ]
       },
       "riskLevel": "Danger",
-      "category": "Hardcore / Network"
+      "category": "Hardcore / Network",
+      "manualOnly": true,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK",
+        "NETWORK_REGRESSION_RISK",
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "risk": "Warning",
-      "description": "[Focus: Latency / Input Delay, Ping / Network] Disables Nagle algorithm for all interfaces (low latency).",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Disables Nagle algorithm for all interfaces (low latency). Maintenance-only: may cause first-run stutter while caches rebuild.",
       "requiresAdmin": true,
       "riskLevel": "Danger",
       "category": "Hardcore / Network",
@@ -6355,14 +6706,22 @@
             "command": "$ifs=Get-ChildItem 'HKLM:\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces'; foreach($i in $ifs){ Remove-ItemProperty -Path $i.PSPath -Name TcpNoDelay -ErrorAction SilentlyContinue }"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK",
+        "NETWORK_REGRESSION_RISK",
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_network.tweaks_net_disable_delayed_ack",
       "type": "button",
       "name": "Apply: Disable Delayed ACK (All Interfaces)",
       "risk": "Warning",
-      "description": "[Focus: Latency / Input Delay, Ping / Network] Reduces ACK delay for lower latency.",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Reduces ACK delay for lower latency. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "requiresAdmin": true,
       "apply": {
         "steps": [
@@ -6381,11 +6740,19 @@
         ]
       },
       "riskLevel": "Danger",
-      "category": "Hardcore / Network"
+      "category": "Hardcore / Network",
+      "manualOnly": true,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK",
+        "NETWORK_REGRESSION_RISK",
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "risk": "Warning",
-      "description": "[Focus: Latency / Input Delay, Ping / Network] Reduces ACK delay for lower latency.",
+      "description": "[Focus: Latency / Input Delay, Ping / Network] Reduces ACK delay for lower latency. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "requiresAdmin": true,
       "riskLevel": "Danger",
       "category": "Hardcore / Network",
@@ -6399,7 +6766,15 @@
             "command": "$ifs=Get-ChildItem 'HKLM:\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces'; foreach($i in $ifs){ Remove-ItemProperty -Path $i.PSPath -Name TcpAckFrequency -ErrorAction SilentlyContinue; Remove-ItemProperty -Path $i.PSPath -Name TCPDelAckTicks -ErrorAction SilentlyContinue }"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK",
+        "NETWORK_REGRESSION_RISK",
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_services_disable_diagtrack",
@@ -6424,7 +6799,11 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_services_disable_dmwappushservice",
@@ -6449,14 +6828,18 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_services_disable_sysmain",
       "name": "Kill service: SysMain",
       "category": "Hardcore / Services Deep Strip",
       "type": "action",
-      "description": "[Hardcore] Disable and stop Superfetch / SysMain prefetching (SysMain) for maximum background trimming. May break related features.",
+      "description": "[Hardcore] Disable and stop Superfetch / SysMain prefetching (SysMain) for maximum background trimming. May break related features. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "riskLevel": "Danger",
       "requiresAdmin": true,
       "apply": {
@@ -6474,7 +6857,14 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK",
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_services_disable_wsearch",
@@ -6499,7 +6889,11 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_services_disable_mapsbroker",
@@ -6524,7 +6918,11 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_services_disable_dosvc",
@@ -6549,7 +6947,11 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_services_disable_wmpnetworksvc",
@@ -6574,7 +6976,12 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "NETWORK_REGRESSION_RISK",
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_services_disable_pcasvc",
@@ -6599,7 +7006,11 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_services_disable_retaildemo",
@@ -6624,7 +7035,11 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_services_disable_lfsvc",
@@ -6649,7 +7064,11 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_services_disable_seclogon",
@@ -6674,7 +7093,11 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_services_disable_remoteregistry",
@@ -6699,7 +7122,11 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_services_disable_tabletinputservice",
@@ -6724,7 +7151,11 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_services_disable_xblgamesave",
@@ -6749,7 +7180,11 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_services_disable_xboxgipsvc",
@@ -6774,7 +7209,11 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_services_disable_xboxnetapisvc",
@@ -6799,7 +7238,12 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "NETWORK_REGRESSION_RISK",
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_services_disable_w32time",
@@ -6824,7 +7268,11 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_services_disable_wbiosrvc",
@@ -6849,14 +7297,18 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_services_disable_wlansvc",
       "name": "Kill service: WlanSvc",
       "category": "Hardcore / Services Deep Strip",
       "type": "action",
-      "description": "[Hardcore] Disable and stop WLAN AutoConfig (Wi‑Fi) (WlanSvc) for maximum background trimming. May break related features.",
+      "description": "[Hardcore] Disable and stop WLAN AutoConfig (Wi\u2011Fi) (WlanSvc) for maximum background trimming. May break related features.",
       "riskLevel": "Danger",
       "requiresAdmin": true,
       "apply": {
@@ -6874,7 +7326,11 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_services_disable_fax",
@@ -6899,7 +7355,11 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_services_disable_spooler",
@@ -6924,7 +7384,11 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_services_disable_sharedaccess",
@@ -6949,7 +7413,11 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_services_disable_trkwks",
@@ -6974,7 +7442,11 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_services_disable_wcmsvc",
@@ -6999,7 +7471,11 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_services_disable_wersvc",
@@ -7024,7 +7500,11 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_power_ultimate_plan",
@@ -7049,14 +7529,15 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_sched_win32priority_max_fg",
       "name": "Boost foreground quantum (Win32PrioritySeparation)",
       "category": "Hardcore / Kernel / Power / Mitigations",
       "type": "action",
-      "description": "[Hardcore] Adjusts Win32PrioritySeparation so foreground apps get more CPU time slices.",
+      "description": "[Hardcore] Adjusts Win32PrioritySeparation so foreground apps get more CPU time slices. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "riskLevel": "Danger",
       "requiresAdmin": true,
       "apply": {
@@ -7074,14 +7555,20 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK"
+      ]
     },
     {
       "id": "hc_game_bar_dvr_off",
       "name": "Disable Game DVR & Game Bar (global)",
       "category": "Hardcore / Kernel / Power / Mitigations",
       "type": "action",
-      "description": "[Hardcore] Disables Xbox Game Bar and Game DVR overlays globally via registry for minimal overlay impact.",
+      "description": "[Hardcore] Disables Xbox Game Bar and Game DVR overlays globally via registry for minimal overlay impact. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "riskLevel": "Danger",
       "requiresAdmin": true,
       "apply": {
@@ -7099,14 +7586,20 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK"
+      ]
     },
     {
       "id": "hc_mitigations_disable_spectre",
       "name": "Disable CPU speculative execution mitigations (Spectre/Meltdown)",
       "category": "Hardcore / Kernel / Power / Mitigations",
       "type": "action",
-      "description": "[Hardcore] Tries to disable speculative execution mitigations for lower overhead at the cost of security. Only for offline / trusted machines.",
+      "description": "[Hardcore] Tries to disable speculative execution mitigations for lower overhead at the cost of security. Only for offline / trusted machines. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "riskLevel": "Danger",
       "requiresAdmin": true,
       "apply": {
@@ -7124,14 +7617,21 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK",
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_mmcss_limit",
       "name": "Harden MMCSS (Multimedia Class Scheduler) limits",
       "category": "Hardcore / Kernel / Power / Mitigations",
       "type": "action",
-      "description": "[Hardcore] Tweaks Multimedia Class Scheduler to reduce time reserved for multimedia and free more CPU slices.",
+      "description": "[Hardcore] Tweaks Multimedia Class Scheduler to reduce time reserved for multimedia and free more CPU slices. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "riskLevel": "Danger",
       "requiresAdmin": true,
       "apply": {
@@ -7149,7 +7649,14 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK",
+        "NETWORK_REGRESSION_RISK"
+      ]
     },
     {
       "id": "hc_cpu_min_perf_1",
@@ -7174,7 +7681,8 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_cpu_min_perf_2",
@@ -7199,7 +7707,8 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_cpu_min_perf_3",
@@ -7224,7 +7733,8 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_cpu_min_perf_4",
@@ -7249,7 +7759,8 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_cpu_min_perf_5",
@@ -7274,14 +7785,15 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_disable_core_isolation",
       "name": "Disable Core Isolation / Memory Integrity",
       "category": "Hardcore / Kernel / Power / Mitigations",
       "type": "action",
-      "description": "[Hardcore] Disables Core Isolation Memory Integrity for lower virtualization overhead.",
+      "description": "[Hardcore] Disables Core Isolation Memory Integrity for lower virtualization overhead. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "riskLevel": "Danger",
       "requiresAdmin": true,
       "apply": {
@@ -7299,14 +7811,20 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK"
+      ]
     },
     {
       "id": "hc_disable_virtualization_based_security",
       "name": "Disable VBS (Virtualization Based Security)",
       "category": "Hardcore / Kernel / Power / Mitigations",
       "type": "action",
-      "description": "[Hardcore] Disables virtualization-based security for lower kernel overhead (requires reboot).",
+      "description": "[Hardcore] Disables virtualization-based security for lower kernel overhead (requires reboot). Maintenance-only: may cause first-run stutter while caches rebuild.",
       "riskLevel": "Danger",
       "requiresAdmin": true,
       "apply": {
@@ -7324,7 +7842,14 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK",
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_disable_hpet",
@@ -7349,7 +7874,14 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "BLUESCREEN_RISK",
+        "BOOT_RISK",
+        "REQUIRES_TYPED_CONFIRM"
+      ],
+      "typedConfirmText": "I ACCEPT BOOT RISK"
     },
     {
       "id": "hc_disable_dynamic_tick",
@@ -7374,7 +7906,14 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "BLUESCREEN_RISK",
+        "BOOT_RISK",
+        "REQUIRES_TYPED_CONFIRM"
+      ],
+      "typedConfirmText": "I ACCEPT BOOT RISK"
     },
     {
       "id": "hc_disable_c_states_hint",
@@ -7399,14 +7938,15 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_net_disable_nagle_global",
       "name": "Disable Nagle's Algorithm globally",
       "category": "Hardcore / Network / Latency",
       "type": "action",
-      "description": "[Hardcore] Disables Nagle's algorithm on all active IPv4 interfaces to reduce small-packet latency at the cost of efficiency.",
+      "description": "[Hardcore] Disables Nagle's algorithm on all active IPv4 interfaces to reduce small-packet latency at the cost of efficiency. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "riskLevel": "Danger",
       "requiresAdmin": true,
       "apply": {
@@ -7424,7 +7964,15 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK",
+        "NETWORK_REGRESSION_RISK",
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_net_disable_ecns",
@@ -7449,7 +7997,11 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "NETWORK_REGRESSION_RISK"
+      ]
     },
     {
       "id": "hc_net_disable_auto_tuning",
@@ -7474,7 +8026,11 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "NETWORK_REGRESSION_RISK"
+      ]
     },
     {
       "id": "hc_net_disable_heuristics",
@@ -7499,7 +8055,11 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "NETWORK_REGRESSION_RISK"
+      ]
     },
     {
       "id": "hc_net_ctcp",
@@ -7524,14 +8084,18 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "NETWORK_REGRESSION_RISK"
+      ]
     },
     {
       "id": "hc_net_udp_buffer_1",
       "name": "Tighten UDP buffer sizing profile 1",
       "category": "Hardcore / Network / Buffers",
       "type": "action",
-      "description": "[Hardcore] Sets small send/receive UDP buffers profile 1 to reduce latency spikes (may hurt throughput).",
+      "description": "[Hardcore] Sets small send/receive UDP buffers profile 1 to reduce latency spikes (may hurt throughput). Maintenance-only: may cause first-run stutter while caches rebuild.",
       "riskLevel": "Danger",
       "requiresAdmin": true,
       "apply": {
@@ -7549,14 +8113,22 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK",
+        "NETWORK_REGRESSION_RISK",
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_net_udp_buffer_2",
       "name": "Tighten UDP buffer sizing profile 2",
       "category": "Hardcore / Network / Buffers",
       "type": "action",
-      "description": "[Hardcore] Sets small send/receive UDP buffers profile 2 to reduce latency spikes (may hurt throughput).",
+      "description": "[Hardcore] Sets small send/receive UDP buffers profile 2 to reduce latency spikes (may hurt throughput). Maintenance-only: may cause first-run stutter while caches rebuild.",
       "riskLevel": "Danger",
       "requiresAdmin": true,
       "apply": {
@@ -7574,14 +8146,22 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK",
+        "NETWORK_REGRESSION_RISK",
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_net_udp_buffer_3",
       "name": "Tighten UDP buffer sizing profile 3",
       "category": "Hardcore / Network / Buffers",
       "type": "action",
-      "description": "[Hardcore] Sets small send/receive UDP buffers profile 3 to reduce latency spikes (may hurt throughput).",
+      "description": "[Hardcore] Sets small send/receive UDP buffers profile 3 to reduce latency spikes (may hurt throughput). Maintenance-only: may cause first-run stutter while caches rebuild.",
       "riskLevel": "Danger",
       "requiresAdmin": true,
       "apply": {
@@ -7599,14 +8179,22 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK",
+        "NETWORK_REGRESSION_RISK",
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_net_udp_buffer_4",
       "name": "Tighten UDP buffer sizing profile 4",
       "category": "Hardcore / Network / Buffers",
       "type": "action",
-      "description": "[Hardcore] Sets small send/receive UDP buffers profile 4 to reduce latency spikes (may hurt throughput).",
+      "description": "[Hardcore] Sets small send/receive UDP buffers profile 4 to reduce latency spikes (may hurt throughput). Maintenance-only: may cause first-run stutter while caches rebuild.",
       "riskLevel": "Danger",
       "requiresAdmin": true,
       "apply": {
@@ -7624,14 +8212,22 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK",
+        "NETWORK_REGRESSION_RISK",
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_net_udp_buffer_5",
       "name": "Tighten UDP buffer sizing profile 5",
       "category": "Hardcore / Network / Buffers",
       "type": "action",
-      "description": "[Hardcore] Sets small send/receive UDP buffers profile 5 to reduce latency spikes (may hurt throughput).",
+      "description": "[Hardcore] Sets small send/receive UDP buffers profile 5 to reduce latency spikes (may hurt throughput). Maintenance-only: may cause first-run stutter while caches rebuild.",
       "riskLevel": "Danger",
       "requiresAdmin": true,
       "apply": {
@@ -7649,7 +8245,15 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK",
+        "NETWORK_REGRESSION_RISK",
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_net_disable_large_send_offload",
@@ -7674,7 +8278,11 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "NETWORK_REGRESSION_RISK"
+      ]
     },
     {
       "id": "hc_net_disable_interrupt_moderation_hint",
@@ -7699,7 +8307,15 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "BLUESCREEN_RISK",
+        "BOOT_RISK",
+        "REQUIRES_TYPED_CONFIRM",
+        "NETWORK_REGRESSION_RISK"
+      ],
+      "typedConfirmText": "I ACCEPT BOOT RISK"
     },
     {
       "id": "hc_net_disable_offloads_hint",
@@ -7724,7 +8340,11 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "NETWORK_REGRESSION_RISK"
+      ]
     },
     {
       "id": "hc_net_disable_auto_proxy",
@@ -7749,7 +8369,11 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "NETWORK_REGRESSION_RISK"
+      ]
     },
     {
       "id": "hc_net_disable_peer_name_resolution",
@@ -7774,7 +8398,12 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "NETWORK_REGRESSION_RISK",
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_net_disable_teredo",
@@ -7799,7 +8428,11 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "NETWORK_REGRESSION_RISK"
+      ]
     },
     {
       "id": "hc_net_disable_isatap",
@@ -7824,7 +8457,11 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "NETWORK_REGRESSION_RISK"
+      ]
     },
     {
       "id": "hc_net_disable_6to4",
@@ -7849,7 +8486,11 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "NETWORK_REGRESSION_RISK"
+      ]
     },
     {
       "id": "hc_net_disable_netbios",
@@ -7874,7 +8515,11 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "NETWORK_REGRESSION_RISK"
+      ]
     },
     {
       "id": "hc_net_disable_llmnr_hint",
@@ -7899,14 +8544,19 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "NETWORK_REGRESSION_RISK",
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_net_flush_dns_on_boot_hint",
       "name": "Hint: Flush DNS on boot",
       "category": "Hardcore / Network / Hardcore",
       "type": "action",
-      "description": "[Hardcore] Advisory tweak to schedule DNS flush on boot for clean name resolution state.",
+      "description": "[Hardcore] Advisory tweak to schedule DNS flush on boot for clean name resolution state. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "riskLevel": "Danger",
       "requiresAdmin": true,
       "apply": {
@@ -7924,7 +8574,14 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK",
+        "NETWORK_REGRESSION_RISK"
+      ]
     },
     {
       "id": "hc_net_disable_qos_hint",
@@ -7949,7 +8606,11 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "NETWORK_REGRESSION_RISK"
+      ]
     },
     {
       "id": "hc_net_disable_autometric",
@@ -7974,7 +8635,11 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "NETWORK_REGRESSION_RISK"
+      ]
     },
     {
       "id": "hc_net_disable_ipv6_hint",
@@ -7999,7 +8664,11 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "NETWORK_REGRESSION_RISK"
+      ]
     },
     {
       "id": "hc_net_force_dns_manual_hint",
@@ -8024,14 +8693,18 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "NETWORK_REGRESSION_RISK"
+      ]
     },
     {
       "id": "hc_ui_disable_transparency",
       "name": "Disable all transparency effects",
       "category": "Hardcore / UI / Shell",
       "type": "action",
-      "description": "[Hardcore] Disables Windows transparency and acrylic effects to reduce compositor work.",
+      "description": "[Hardcore] Disables Windows transparency and acrylic effects to reduce compositor work. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "riskLevel": "Danger",
       "requiresAdmin": true,
       "apply": {
@@ -8049,14 +8722,20 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK"
+      ]
     },
     {
       "id": "hc_ui_disable_animations",
       "name": "Disable most UI animations",
       "category": "Hardcore / UI / Shell",
       "type": "action",
-      "description": "[Hardcore] Disables animation effects via registry to reduce UX transitions and free compositor time.",
+      "description": "[Hardcore] Disables animation effects via registry to reduce UX transitions and free compositor time. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "riskLevel": "Danger",
       "requiresAdmin": true,
       "apply": {
@@ -8074,14 +8753,20 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK"
+      ]
     },
     {
       "id": "hc_ui_disable_start_recommendations",
       "name": "Disable Start menu recommendations",
       "category": "Hardcore / UI / Shell",
       "type": "action",
-      "description": "[Hardcore] Reduces Start menu background activity by disabling recommendations.",
+      "description": "[Hardcore] Reduces Start menu background activity by disabling recommendations. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "riskLevel": "Danger",
       "requiresAdmin": true,
       "apply": {
@@ -8099,14 +8784,20 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK"
+      ]
     },
     {
       "id": "hc_ui_explorer_classic_view",
       "name": "Force more classic Explorer view settings",
       "category": "Hardcore / UI / Shell",
       "type": "action",
-      "description": "[Hardcore] Tweaks Explorer to use more classic behavior and less clutter.",
+      "description": "[Hardcore] Tweaks Explorer to use more classic behavior and less clutter. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "riskLevel": "Danger",
       "requiresAdmin": true,
       "apply": {
@@ -8124,7 +8815,13 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK"
+      ]
     },
     {
       "id": "hc_bg_disable_live_tiles_hint",
@@ -8149,14 +8846,15 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_bg_disable_background_apps",
       "name": "Disable background apps (global setting)",
       "category": "Hardcore / Background Apps",
       "type": "action",
-      "description": "[Hardcore] Disables background apps globally via registry (impacting UWP background tasks).",
+      "description": "[Hardcore] Disables background apps globally via registry (impacting UWP background tasks). Maintenance-only: may cause first-run stutter while caches rebuild.",
       "riskLevel": "Danger",
       "requiresAdmin": true,
       "apply": {
@@ -8174,14 +8872,20 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK"
+      ]
     },
     {
       "id": "hc_bg_disable_one_drive_startup",
       "name": "Disable OneDrive auto-start",
       "category": "Hardcore / Background Apps",
       "type": "action",
-      "description": "[Hardcore] Kills OneDrive auto-start entry and attempts to stop OneDrive client.",
+      "description": "[Hardcore] Kills OneDrive auto-start entry and attempts to stop OneDrive client. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "riskLevel": "Danger",
       "requiresAdmin": true,
       "apply": {
@@ -8199,14 +8903,20 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK"
+      ]
     },
     {
       "id": "hc_bg_disable_teams_startup",
       "name": "Disable Microsoft Teams auto-start",
       "category": "Hardcore / Background Apps",
       "type": "action",
-      "description": "[Hardcore] Removes common Microsoft Teams auto-start entries and stops running processes.",
+      "description": "[Hardcore] Removes common Microsoft Teams auto-start entries and stops running processes. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "riskLevel": "Danger",
       "requiresAdmin": true,
       "apply": {
@@ -8224,14 +8934,20 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK"
+      ]
     },
     {
       "id": "hc_bg_disable_spotlight",
       "name": "Disable Windows Spotlight",
       "category": "Hardcore / Background Apps / UI",
       "type": "action",
-      "description": "[Hardcore] Disables Windows Spotlight on lock screen and Start.",
+      "description": "[Hardcore] Disables Windows Spotlight on lock screen and Start. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "riskLevel": "Danger",
       "requiresAdmin": true,
       "apply": {
@@ -8249,14 +8965,20 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK"
+      ]
     },
     {
       "id": "hc_bg_disable_tips",
       "name": "Disable tips, tricks and suggestions",
       "category": "Hardcore / Background Apps / UI",
       "type": "action",
-      "description": "[Hardcore] Disables tips and suggestions notifications.",
+      "description": "[Hardcore] Disables tips and suggestions notifications. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "riskLevel": "Danger",
       "requiresAdmin": true,
       "apply": {
@@ -8274,14 +8996,20 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK"
+      ]
     },
     {
       "id": "hc_bg_disable_news_interests",
       "name": "Disable News and Interests / Widgets",
       "category": "Hardcore / Background Apps / UI",
       "type": "action",
-      "description": "[Hardcore] Attempts to disable taskbar news / interests feed.",
+      "description": "[Hardcore] Attempts to disable taskbar news / interests feed. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "riskLevel": "Danger",
       "requiresAdmin": true,
       "apply": {
@@ -8299,7 +9027,13 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK"
+      ]
     },
     {
       "id": "hc_bg_disable_onedrive_sync_hint",
@@ -8324,7 +9058,11 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "NETWORK_REGRESSION_RISK"
+      ]
     },
     {
       "id": "hc_bg_disable_cloud_clipboard_hint",
@@ -8349,7 +9087,8 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_storage_disable_defrag_sched",
@@ -8374,14 +9113,15 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_storage_disable_sysmain_prefetch",
       "name": "Disable prefetch parameters",
       "category": "Hardcore / Storage / Disk",
       "type": "action",
-      "description": "[Hardcore] Tweaks prefetcher parameters to minimum/preload off.",
+      "description": "[Hardcore] Tweaks prefetcher parameters to minimum/preload off. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "riskLevel": "Danger",
       "requiresAdmin": true,
       "apply": {
@@ -8399,7 +9139,13 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK"
+      ]
     },
     {
       "id": "hc_storage_disable_drive_indexing_hint",
@@ -8424,7 +9170,8 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_storage_disable_sysrestore",
@@ -8449,7 +9196,8 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_storage_disable_scheduled_maintenance",
@@ -8474,7 +9222,8 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_update_disable_waasmedicsvc",
@@ -8499,7 +9248,11 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_update_disable_usosvc",
@@ -8524,7 +9277,11 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_update_disable_wuauserv",
@@ -8549,7 +9306,11 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_update_disable_bits",
@@ -8574,7 +9335,11 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_update_disable_dosvc",
@@ -8599,7 +9364,11 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_update_task_disable__microsoft_windows_windowsupdate_scheduled_start",
@@ -8624,7 +9393,8 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_update_task_disable__microsoft_windows_updateorchestrator_schedule_scan",
@@ -8649,7 +9419,8 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_update_task_disable__microsoft_windows_updateorchestrator_uso_uxbroker",
@@ -8674,7 +9445,8 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_update_task_disable__microsoft_windows_updateorchestrator_reboot",
@@ -8699,7 +9471,8 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_update_task_disable__microsoft_windows_application_experience_microsoft_compatibility_appraiser",
@@ -8724,7 +9497,8 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_update_task_disable__microsoft_windows_application_experience_programdataupdater",
@@ -8749,7 +9523,8 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_update_task_disable__microsoft_windows_customer_experience_improvement_program_consolidator",
@@ -8774,7 +9549,8 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_update_task_disable__microsoft_windows_customer_experience_improvement_program_usbceip",
@@ -8799,7 +9575,8 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_update_task_disable__microsoft_windows_customer_experience_improvement_program_kernelceiptask",
@@ -8824,7 +9601,8 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_update_task_disable__microsoft_windows_autochk_proxy",
@@ -8849,14 +9627,15 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_defender_disable_realtime",
       "name": "Attempt to disable Defender real-time protection",
       "category": "Hardcore / Defender / SmartScreen",
       "type": "action",
-      "description": "[Hardcore] Tries to disable Microsoft Defender real-time monitoring using PowerShell (may be overridden by policies / Tamper Protection).",
+      "description": "[Hardcore] Tries to disable Microsoft Defender real-time monitoring using PowerShell (may be overridden by policies / Tamper Protection). Maintenance-only: may cause first-run stutter while caches rebuild.",
       "riskLevel": "Danger",
       "requiresAdmin": true,
       "apply": {
@@ -8874,7 +9653,14 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK",
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_defender_disable_cloud",
@@ -8899,14 +9685,18 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_smartscreen_disable_apps",
       "name": "Disable SmartScreen for apps",
       "category": "Hardcore / Defender / SmartScreen",
       "type": "action",
-      "description": "[Hardcore] Disables SmartScreen for apps and files (reduces some security checks at the cost of safety).",
+      "description": "[Hardcore] Disables SmartScreen for apps and files (reduces some security checks at the cost of safety). Maintenance-only: may cause first-run stutter while caches rebuild.",
       "riskLevel": "Danger",
       "requiresAdmin": true,
       "apply": {
@@ -8924,7 +9714,14 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK",
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_defender_exclusion_hint",
@@ -8949,7 +9746,11 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_defender_disable_pua",
@@ -8974,7 +9775,11 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_services_extra_disable_pfalconsvc",
@@ -8999,7 +9804,12 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "NETWORK_REGRESSION_RISK",
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_services_extra_disable_workfolderssvc",
@@ -9024,7 +9834,12 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "NETWORK_REGRESSION_RISK",
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_services_extra_disable_wpnservice",
@@ -9049,7 +9864,12 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "NETWORK_REGRESSION_RISK",
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_services_extra_disable_wpnuserservice",
@@ -9074,7 +9894,12 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "NETWORK_REGRESSION_RISK",
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_services_extra_disable_cscservice",
@@ -9099,7 +9924,12 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "NETWORK_REGRESSION_RISK",
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_services_extra_disable_sharedrealitysvc",
@@ -9124,7 +9954,12 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "NETWORK_REGRESSION_RISK",
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_services_extra_disable_remoteaccess",
@@ -9149,7 +9984,12 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "NETWORK_REGRESSION_RISK",
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_services_extra_disable_sessionenv",
@@ -9174,7 +10014,12 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "NETWORK_REGRESSION_RISK",
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_services_extra_disable_termservice",
@@ -9199,7 +10044,12 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "NETWORK_REGRESSION_RISK",
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_services_extra_disable_graphicsperfsvc",
@@ -9224,7 +10074,12 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "NETWORK_REGRESSION_RISK",
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_services_extra_disable_diagnosticshub.standardcollector.service",
@@ -9249,7 +10104,12 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "NETWORK_REGRESSION_RISK",
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_services_extra_disable_hvhost",
@@ -9274,7 +10134,12 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "NETWORK_REGRESSION_RISK",
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_services_extra_disable_lfsvc",
@@ -9299,7 +10164,12 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "NETWORK_REGRESSION_RISK",
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_services_extra_disable_lanmanserver",
@@ -9324,7 +10194,12 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "NETWORK_REGRESSION_RISK",
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_services_extra_disable_scardsvr",
@@ -9349,14 +10224,19 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "NETWORK_REGRESSION_RISK",
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_gpu_hags_on",
       "name": "Enable Hardware Accelerated GPU Scheduling (HAGS)",
       "category": "Hardcore / GPU / Graphics",
       "type": "action",
-      "description": "[Hardcore] Forces HAGS ON via registry. Behavior and benefit depend on GPU/driver.",
+      "description": "[Hardcore] Forces HAGS ON via registry. Behavior and benefit depend on GPU/driver. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "riskLevel": "Danger",
       "requiresAdmin": true,
       "apply": {
@@ -9374,14 +10254,20 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK"
+      ]
     },
     {
       "id": "hc_gpu_hags_off",
       "name": "Disable Hardware Accelerated GPU Scheduling (HAGS)",
       "category": "Hardcore / GPU / Graphics",
       "type": "action",
-      "description": "[Hardcore] Forces HAGS OFF via registry for systems where it causes stutter.",
+      "description": "[Hardcore] Forces HAGS OFF via registry for systems where it causes stutter. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "riskLevel": "Danger",
       "requiresAdmin": true,
       "apply": {
@@ -9399,14 +10285,20 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK"
+      ]
     },
     {
       "id": "hc_gpu_tdr_delay",
       "name": "Adjust TDR delay for GPU",
       "category": "Hardcore / GPU / Graphics",
       "type": "action",
-      "description": "[Hardcore] Increases TDR (Timeout Detection and Recovery) delay to reduce driver resets under heavy load.",
+      "description": "[Hardcore] Increases TDR (Timeout Detection and Recovery) delay to reduce driver resets under heavy load. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "riskLevel": "Danger",
       "requiresAdmin": true,
       "apply": {
@@ -9424,7 +10316,13 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK"
+      ]
     },
     {
       "id": "hc_gpu_hint_prefer_max_perf",
@@ -9449,7 +10347,8 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_gpu_hint_disable_overlays",
@@ -9474,7 +10373,8 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_boot_hint_bar",
@@ -9499,7 +10399,8 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_boot_hint_xmp",
@@ -9524,14 +10425,15 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_boot_bcd_disable_cmitigation",
       "name": "Disable control flow guard at boot (CFG)",
       "category": "Hardcore / Boot / Firmware",
       "type": "action",
-      "description": "[Hardcore] Attempts to disable control flow guard via bcdedit (very high risk, security impact, may not be honored).",
+      "description": "[Hardcore] Attempts to disable control flow guard via bcdedit (very high risk, security impact, may not be honored). Maintenance-only: may cause first-run stutter while caches rebuild.",
       "riskLevel": "Danger",
       "requiresAdmin": true,
       "apply": {
@@ -9549,7 +10451,18 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK",
+        "BLUESCREEN_RISK",
+        "BOOT_RISK",
+        "REQUIRES_TYPED_CONFIRM",
+        "DRIVER_CONFLICT_RISK"
+      ],
+      "typedConfirmText": "I ACCEPT BOOT RISK"
     },
     {
       "id": "hc_boot_increase_irql_budget_hint",
@@ -9574,7 +10487,14 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "BLUESCREEN_RISK",
+        "BOOT_RISK",
+        "REQUIRES_TYPED_CONFIRM"
+      ],
+      "typedConfirmText": "I ACCEPT BOOT RISK"
     },
     {
       "id": "hc_boot_fast_startup_off",
@@ -9599,7 +10519,8 @@
             "command": "Write-Output @\"\nThis hardcore tweak does not yet have an automatic revert. Use a backup/restore point or manually undo the changes if needed.\n\"@"
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_overlay_disable_gamebar",
@@ -9624,7 +10545,8 @@
             "command": "reg add \"HKCU\\SOFTWARE\\Microsoft\\GameBar\" /v UseNexusForGameBarEnabled /t REG_DWORD /d 1 /f | Out-Null\nreg add \"HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\GameDVR\" /v AppCaptureEnabled /t REG_DWORD /d 1 /f | Out-Null\nWrite-Output \"Reverted Game Bar keys (best-effort).\" "
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_overlay_disable_gamedvr_policy",
@@ -9649,7 +10571,8 @@
             "command": "reg delete \"HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\GameDVR\" /v AllowGameDVR /f 2>$null\nreg add \"HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\GameDVR\" /v GameDVR_Enabled /t REG_DWORD /d 1 /f | Out-Null\nWrite-Output \"Reverted Game DVR policy (best-effort).\" "
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_overlay_disable_captures_ui",
@@ -9674,14 +10597,15 @@
             "command": "reg add \"HKCU\\System\\GameConfigStore\" /v GameDVR_Enabled /t REG_DWORD /d 1 /f | Out-Null\nreg add \"HKCU\\System\\GameConfigStore\" /v GameDVR_FSEBehaviorMode /t REG_DWORD /d 0 /f | Out-Null\nWrite-Output \"Reverted capture UI toggles (best-effort).\" "
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "hc_overlay_kill_overlay_processes",
       "name": "Close common overlay processes (Discord/Overwolf/Medal/Xbox)",
       "category": "Hardcore / UI / Overlays",
       "type": "action",
-      "description": "[Hardcore] Attempts to close common overlay/background capture processes (does not uninstall).",
+      "description": "[Hardcore] Attempts to close common overlay/background capture processes (does not uninstall). Maintenance-only: may cause first-run stutter while caches rebuild.",
       "riskLevel": "Warning",
       "requiresAdmin": true,
       "apply": {
@@ -9699,7 +10623,13 @@
             "command": "Write-Output \"No automatic revert for closing processes. Relaunch apps if needed.\" "
           }
         ]
-      }
+      },
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK",
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_overlay_disable_focusassist_tips",
@@ -9868,7 +10798,7 @@
       "name": "Disable Start suggestions",
       "category": "Hardcore / UI / Background Apps",
       "type": "action",
-      "description": "[Hardcore] Disables Start menu suggestions/recommendations.",
+      "description": "[Hardcore] Disables Start menu suggestions/recommendations. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "riskLevel": "Warning",
       "requiresAdmin": false,
       "apply": {
@@ -9886,7 +10816,12 @@
             "command": "reg add \"HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager\" /v SystemPaneSuggestionsEnabled /t REG_DWORD /d 1 /f | Out-Null\nWrite-Output \"Start suggestions enabled.\" "
           }
         ]
-      }
+      },
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK"
+      ]
     },
     {
       "id": "hc_ui_disable_lock_screen_tips",
@@ -10061,14 +10996,18 @@
             "command": "schtasks /Change /TN \"\\Microsoft\\Windows\\Windows Defender\\Windows Defender Scheduled Scan\" /ENABLE | Out-Null; Write-Output \"Enabled: \\Microsoft\\Windows\\Windows Defender\\Windows Defender Scheduled Scan\" "
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_defender_disable_task_2",
       "name": "Disable Defender Task: Windows Defender Cache Maintenance",
       "category": "Hardcore / Security / Defender",
       "type": "action",
-      "description": "[Hardcore] Disables this Windows Defender scheduled task (reduces background scans).",
+      "description": "[Hardcore] Disables this Windows Defender scheduled task (reduces background scans). Maintenance-only: may cause first-run stutter while caches rebuild.",
       "riskLevel": "Danger",
       "requiresAdmin": true,
       "apply": {
@@ -10086,7 +11025,14 @@
             "command": "schtasks /Change /TN \"\\Microsoft\\Windows\\Windows Defender\\Windows Defender Cache Maintenance\" /ENABLE | Out-Null; Write-Output \"Enabled: \\Microsoft\\Windows\\Windows Defender\\Windows Defender Cache Maintenance\" "
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK",
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_defender_disable_task_3",
@@ -10111,7 +11057,11 @@
             "command": "schtasks /Change /TN \"\\Microsoft\\Windows\\Windows Defender\\Windows Defender Verification\" /ENABLE | Out-Null; Write-Output \"Enabled: \\Microsoft\\Windows\\Windows Defender\\Windows Defender Verification\" "
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_defender_disable_task_4",
@@ -10136,14 +11086,18 @@
             "command": "schtasks /Change /TN \"\\Microsoft\\Windows\\Windows Defender\\Windows Defender Cleanup\" /ENABLE | Out-Null; Write-Output \"Enabled: \\Microsoft\\Windows\\Windows Defender\\Windows Defender Cleanup\" "
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "hc_defender_restore_tasks",
       "name": "Restore all Defender scheduled tasks",
       "category": "Hardcore / Security / Defender",
       "type": "action",
-      "description": "[Hardcore] Re-enables core Defender tasks (Scheduled Scan, Cache Maintenance, Verification, Cleanup).",
+      "description": "[Hardcore] Re-enables core Defender tasks (Scheduled Scan, Cache Maintenance, Verification, Cleanup). Maintenance-only: may cause first-run stutter while caches rebuild.",
       "riskLevel": "Warning",
       "requiresAdmin": true,
       "apply": {
@@ -10161,7 +11115,13 @@
             "command": "Write-Output \"Restore action.\" "
           }
         ]
-      }
+      },
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK",
+        "DRIVER_CONFLICT_RISK"
+      ]
     }
   ]
 }

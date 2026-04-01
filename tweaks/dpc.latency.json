@@ -19,7 +19,13 @@
             }
           }
         ]
-      }
+      },
+      "badges": [
+        "BLUESCREEN_RISK",
+        "BOOT_RISK",
+        "REQUIRES_TYPED_CONFIRM"
+      ],
+      "typedConfirmText": "I ACCEPT BOOT RISK"
     },
     {
       "id": "dpc_latency_overview",
@@ -44,7 +50,13 @@
             "command": "Write-Output @\"\nDPC snapshot is read-only and needs no revert.\n\"@"
           }
         ]
-      }
+      },
+      "badges": [
+        "BLUESCREEN_RISK",
+        "BOOT_RISK",
+        "REQUIRES_TYPED_CONFIRM"
+      ],
+      "typedConfirmText": "I ACCEPT BOOT RISK"
     },
     {
       "id": "dpc_bcd_disable_dynamic_tick",
@@ -69,7 +81,14 @@
             "command": "bcdedit /deletevalue disabledynamictick"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "BLUESCREEN_RISK",
+        "BOOT_RISK",
+        "REQUIRES_TYPED_CONFIRM"
+      ],
+      "typedConfirmText": "I ACCEPT BOOT RISK"
     },
     {
       "description": "May reduce latency spikes; can increase idle power.",
@@ -86,7 +105,14 @@
             "command": "bcdedit /deletevalue disabledynamictick"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "BLUESCREEN_RISK",
+        "BOOT_RISK",
+        "REQUIRES_TYPED_CONFIRM"
+      ],
+      "typedConfirmText": "I ACCEPT BOOT RISK"
     },
     {
       "id": "dpc_bcd_use_platform_tick",
@@ -111,7 +137,14 @@
             "command": "bcdedit /deletevalue useplatformtick"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "BLUESCREEN_RISK",
+        "BOOT_RISK",
+        "REQUIRES_TYPED_CONFIRM"
+      ],
+      "typedConfirmText": "I ACCEPT BOOT RISK"
     },
     {
       "description": "Forces platform tick; only helps on some systems.",
@@ -128,7 +161,14 @@
             "command": "bcdedit /deletevalue useplatformtick"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "BLUESCREEN_RISK",
+        "BOOT_RISK",
+        "REQUIRES_TYPED_CONFIRM"
+      ],
+      "typedConfirmText": "I ACCEPT BOOT RISK"
     },
     {
       "id": "dpc_bcd_tsc_sync_policy_enhanced",
@@ -153,7 +193,13 @@
             "command": "bcdedit /deletevalue tscsyncpolicy"
           }
         ]
-      }
+      },
+      "badges": [
+        "BLUESCREEN_RISK",
+        "BOOT_RISK",
+        "REQUIRES_TYPED_CONFIRM"
+      ],
+      "typedConfirmText": "I ACCEPT BOOT RISK"
     },
     {
       "description": "May improve timer stability on some platforms.",
@@ -170,7 +216,13 @@
             "command": "bcdedit /deletevalue tscsyncpolicy"
           }
         ]
-      }
+      },
+      "badges": [
+        "BLUESCREEN_RISK",
+        "BOOT_RISK",
+        "REQUIRES_TYPED_CONFIRM"
+      ],
+      "typedConfirmText": "I ACCEPT BOOT RISK"
     },
     {
       "id": "dpc_bcd_platform_clock_true",
@@ -195,7 +247,14 @@
             "command": "bcdedit /deletevalue useplatformclock"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "BLUESCREEN_RISK",
+        "BOOT_RISK",
+        "REQUIRES_TYPED_CONFIRM"
+      ],
+      "typedConfirmText": "I ACCEPT BOOT RISK"
     },
     {
       "description": "HPET/platform clock forcing (often worse; use carefully).",
@@ -212,7 +271,14 @@
             "command": "bcdedit /deletevalue useplatformclock"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "BLUESCREEN_RISK",
+        "BOOT_RISK",
+        "REQUIRES_TYPED_CONFIRM"
+      ],
+      "typedConfirmText": "I ACCEPT BOOT RISK"
     },
     {
       "id": "dpc_usb_selective_suspend_off",
@@ -252,7 +318,8 @@
             "equals": 1
           }
         ]
-      }
+      },
+      "manualOnly": true
     },
     {
       "id": "dpc_netsh_disable_tcp_chimney_offload",
@@ -277,7 +344,10 @@
             "command": "netsh int tcp set global chimney=default"
           }
         ]
-      }
+      },
+      "badges": [
+        "NETWORK_REGRESSION_RISK"
+      ]
     },
     {
       "description": "Reduce offload variability; may help latency.",
@@ -294,7 +364,10 @@
             "command": "netsh int tcp set global chimney=default"
           }
         ]
-      }
+      },
+      "badges": [
+        "NETWORK_REGRESSION_RISK"
+      ]
     },
     {
       "id": "dpc_netsh_disable_rss",
@@ -319,7 +392,11 @@
             "command": "netsh int tcp set global rss=enabled"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "NETWORK_REGRESSION_RISK"
+      ]
     },
     {
       "description": "Disables RSS (can help on some CPUs; can hurt throughput).",
@@ -336,7 +413,11 @@
             "command": "netsh int tcp set global rss=enabled"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "NETWORK_REGRESSION_RISK"
+      ]
     },
     {
       "id": "dpc_netsh_disable_rsc",
@@ -361,7 +442,10 @@
             "command": "netsh int tcp set global rsc=enabled"
           }
         ]
-      }
+      },
+      "badges": [
+        "NETWORK_REGRESSION_RISK"
+      ]
     },
     {
       "description": "Disables receive segment coalescing (lower latency).",
@@ -378,7 +462,10 @@
             "command": "netsh int tcp set global rsc=enabled"
           }
         ]
-      }
+      },
+      "badges": [
+        "NETWORK_REGRESSION_RISK"
+      ]
     }
   ]
 }

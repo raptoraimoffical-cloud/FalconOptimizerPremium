@@ -19,7 +19,10 @@
       },
       "revert": {
         "steps": []
-      }
+      },
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "adv.security.defender.disable_core",
@@ -30,7 +33,7 @@
       ],
       "risk": "medium",
       "requiresAdmin": true,
-      "description": "Disables Defender using reversible policy + stops Defender services. Does not disable SecurityHealthService or Security Center UI.",
+      "description": "Disables Defender using reversible policy + stops Defender services. Does not disable SecurityHealthService or Security Center UI. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "apply": {
         "steps": [
           {
@@ -75,7 +78,13 @@
           }
         ]
       },
-      "category": "Advanced / Security"
+      "category": "Advanced / Security",
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK",
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "adv.security.defender.permanent_disable_advanced",
@@ -109,7 +118,11 @@
             "command": "net start WinDefend >nul 2>&1"
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "adv.security.windows_installer.repair",
@@ -161,7 +174,14 @@
       "revert": {
         "steps": []
       },
-      "category": "Advanced / Security"
+      "category": "Advanced / Security",
+      "badges": [
+        "BLUESCREEN_RISK",
+        "BOOT_RISK",
+        "REQUIRES_TYPED_CONFIRM",
+        "DRIVER_CONFLICT_RISK"
+      ],
+      "typedConfirmText": "I ACCEPT BOOT RISK"
     },
     {
       "id": "adv.security.allow_dynamic_code",
@@ -206,7 +226,10 @@
       "type": "button",
       "riskLevel": "Safe",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "category": "Advanced / Security",
@@ -235,7 +258,10 @@
             "wait": true
           }
         ]
-      }
+      },
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "adv.security.disable_bottomup_high_entropy_aslr",
@@ -280,7 +306,10 @@
       "type": "button",
       "riskLevel": "Safe",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "category": "Advanced / Security",
@@ -309,7 +338,10 @@
             "wait": true
           }
         ]
-      }
+      },
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "adv.security.disable_code_signing_requirements",
@@ -354,7 +386,10 @@
       "type": "button",
       "riskLevel": "Safe",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "category": "Advanced / Security",
@@ -383,7 +418,10 @@
             "wait": true
           }
         ]
-      }
+      },
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "adv.security.disable_control_flow_guard_cfg",
@@ -428,7 +466,10 @@
       "type": "button",
       "riskLevel": "Safe",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "category": "Advanced / Security",
@@ -457,14 +498,17 @@
             "wait": true
           }
         ]
-      }
+      },
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "adv.security.disable_core_isolation_memory_integrity",
       "name": "Apply: Disable Core Isolation (Memory Integrity)",
       "category": "Advanced / Security",
       "risk": "Extreme",
-      "description": "[Focus: FPS, Latency / Input Delay] Changes Windows exploit mitigation/security settings. Use only if you understand the risk.",
+      "description": "[Focus: FPS, Latency / Input Delay] Changes Windows exploit mitigation/security settings. Use only if you understand the risk. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "requiresAdmin": true,
       "requiresReboot": true,
       "apply": {
@@ -502,12 +546,18 @@
       "type": "button",
       "riskLevel": "Safe",
       "kind": "tool",
-      "manualOnly": true
+      "manualOnly": true,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK",
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "category": "Advanced / Security",
       "risk": "Extreme",
-      "description": "[Focus: FPS, Latency / Input Delay] Changes Windows exploit mitigation/security settings. Use only if you understand the risk.",
+      "description": "[Focus: FPS, Latency / Input Delay] Changes Windows exploit mitigation/security settings. Use only if you understand the risk. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "requiresAdmin": true,
       "requiresReboot": true,
       "riskLevel": "Safe",
@@ -531,7 +581,13 @@
             "wait": true
           }
         ]
-      }
+      },
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK",
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "imported.imported.rtp_tpr_disable",
@@ -552,7 +608,11 @@
       },
       "revert": {
         "steps": []
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "imported.imported.dcontrol_run_check",
@@ -573,7 +633,11 @@
       },
       "revert": {
         "steps": []
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "imported.imported.system_visual_perferences",
@@ -594,7 +658,11 @@
       },
       "revert": {
         "steps": []
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "adv.security.defender.disableantispyware_policy",
@@ -664,7 +732,11 @@
             "wait": true
           }
         ]
-      }
+      },
+      "manualOnly": true,
+      "badges": [
+        "DRIVER_CONFLICT_RISK"
+      ]
     }
   ]
 }
