@@ -5,7 +5,7 @@
       "name": "Speed Boost \u2013 Full Cleanup (non app-specific)",
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
       "risk": "Safe",
-      "description": "Runs all major system cleanup operations (non app-specific): temp, shader caches, update cache, DNS, event logs, thumbnail cache, and prefetch.",
+      "description": "Runs all major system cleanup operations (non app-specific): temp, shader caches, update cache, DNS, event logs, thumbnail cache, and prefetch. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "requiresAdmin": true,
       "requiresReboot": false,
       "apply": {
@@ -26,14 +26,19 @@
       "bulkSelectableGroups": [
         "non_app"
       ],
-      "timeoutMs": 120000
+      "timeoutMs": 120000,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK"
+      ]
     },
     {
       "id": "boost.clean_network_stack",
       "name": "Clean Network Stack (Winsock/IP/DNS)",
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
       "risk": "Safe",
-      "description": "Resets Winsock, IP stack, and DNS cache as part of speed cleanup maintenance.",
+      "description": "Resets Winsock, IP stack, and DNS cache as part of speed cleanup maintenance. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "requiresAdmin": true,
       "requiresReboot": false,
       "apply": {
@@ -54,21 +59,28 @@
       "bulkSelectableGroups": [
         "non_app"
       ],
-      "timeoutMs": 120000
+      "timeoutMs": 120000,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK",
+        "NETWORK_REGRESSION_RISK",
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "boost.latency_registry_baseline",
       "name": "Apply Latency Registry Optimization Bundle",
       "category": "Falcon Speed & Integrity Core / Latency & Scheduler",
       "risk": "Warning",
-      "description": "Writes a latency-focused registry bundle (Win32PrioritySeparation, NetworkThrottlingIndex, SystemResponsiveness, TCPNoDelay, TcpAckFrequency). Not a reset action.",
+      "description": "Latency Core Bundle: applies Win32PrioritySeparation, SystemResponsiveness, NetworkThrottlingIndex, TCPNoDelay, and TcpAckFrequency. Workload-dependent and not a gain when GPU-bound/thermal/network-limited.",
       "requiresAdmin": true,
       "requiresReboot": false,
       "apply": {
         "steps": [
           {
             "type": "ps.run",
-            "command": "$ErrorActionPreference='SilentlyContinue';\nreg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\PriorityControl\" /v Win32PrioritySeparation /t REG_DWORD /d 38 /f | Out-Null\nreg add \"HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\" /v NetworkThrottlingIndex /t REG_DWORD /d 4294967295 /f | Out-Null\nreg add \"HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\" /v SystemResponsiveness /t REG_DWORD /d 0 /f | Out-Null\n$ifBase='HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces'\nGet-ChildItem -Path Registry::$ifBase -ErrorAction SilentlyContinue | ForEach-Object {\n  reg add ($_.Name -replace 'HKEY_LOCAL_MACHINE','HKLM') /v TCPNoDelay /t REG_DWORD /d 1 /f | Out-Null\n  reg add ($_.Name -replace 'HKEY_LOCAL_MACHINE','HKLM') /v TcpAckFrequency /t REG_DWORD /d 1 /f | Out-Null\n}\nexit 0"
+            "command": "$ErrorActionPreference='SilentlyContinue';\nreg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\PriorityControl\" /v Win32PrioritySeparation /t REG_DWORD /d 36 /f | Out-Null\nreg add \"HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\" /v NetworkThrottlingIndex /t REG_DWORD /d 4294967295 /f | Out-Null\nreg add \"HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\" /v SystemResponsiveness /t REG_DWORD /d 0 /f | Out-Null\n$ifBase='HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces'\nGet-ChildItem -Path Registry::$ifBase -ErrorAction SilentlyContinue | ForEach-Object {\n  reg add ($_.Name -replace 'HKEY_LOCAL_MACHINE','HKLM') /v TCPNoDelay /t REG_DWORD /d 1 /f | Out-Null\n  reg add ($_.Name -replace 'HKEY_LOCAL_MACHINE','HKLM') /v TcpAckFrequency /t REG_DWORD /d 1 /f | Out-Null\n}\nexit 0"
           }
         ]
       },
@@ -80,18 +92,41 @@
       "isSystemWide": true,
       "appTargets": [],
       "bulkSelectableGroups": [
-        "non_app",
-        "latency_core"
+        "non_app"
       ],
       "shortDescription": "Applies scheduler, MMCSS, and TCP latency-oriented registry values.",
-      "timeoutMs": 120000
+      "timeoutMs": 120000,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK",
+        "NETWORK_REGRESSION_RISK",
+        "DRIVER_CONFLICT_RISK",
+        "REQUIRES_REBOOT"
+      ],
+      "verify": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "reg query \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\PriorityControl\" /v Win32PrioritySeparation; reg query \"HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\" /v NetworkThrottlingIndex; reg query \"HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\" /v SystemResponsiveness; exit 0"
+          }
+        ]
+      },
+      "revert": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\PriorityControl\" /v Win32PrioritySeparation /t REG_DWORD /d 2 /f | Out-Null; reg add \"HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\" /v NetworkThrottlingIndex /t REG_DWORD /d 10 /f | Out-Null; reg add \"HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\" /v SystemResponsiveness /t REG_DWORD /d 20 /f | Out-Null; exit 0"
+          }
+        ]
+      }
     },
     {
       "id": "boost.clear_cache__speed.boost",
       "name": "Clear Cache",
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
       "risk": "Safe",
-      "description": "[Focus: FPS, Latency / Input Delay] Clears common Windows temp and cache folders to free space and reduce stutter.",
+      "description": "[Focus: FPS, Latency / Input Delay] Clears common Windows temp and cache folders to free space and reduce stutter. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "requiresAdmin": true,
       "requiresReboot": false,
       "apply": {
@@ -113,14 +148,19 @@
       "bulkSelectableGroups": [
         "non_app"
       ],
-      "timeoutMs": 120000
+      "timeoutMs": 120000,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK"
+      ]
     },
     {
       "id": "boost.clear_chrome_temp__speed.boost",
       "name": "Clear Chrome Temp Files",
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
       "risk": "Safe",
-      "description": "[Focus: FPS, Latency / Input Delay] Clears Google Chrome cache and code cache to improve responsiveness.",
+      "description": "[Focus: FPS, Latency / Input Delay] Clears Google Chrome cache and code cache to improve responsiveness. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "requiresAdmin": true,
       "requiresReboot": false,
       "apply": {
@@ -144,14 +184,19 @@
       "bulkSelectableGroups": [
         "app_specific"
       ],
-      "timeoutMs": 120000
+      "timeoutMs": 120000,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK"
+      ]
     },
     {
       "id": "boost.clear_games_temp__speed.boost",
       "name": "Clear Games Temp Files",
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
       "risk": "Safe",
-      "description": "[Focus: FPS] Clears common game temp folders and NVIDIA cache to reduce hitching.",
+      "description": "[Focus: FPS] Clears common game temp folders and NVIDIA cache to reduce hitching. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "requiresAdmin": true,
       "requiresReboot": false,
       "apply": {
@@ -173,7 +218,12 @@
       "bulkSelectableGroups": [
         "non_app"
       ],
-      "timeoutMs": 120000
+      "timeoutMs": 120000,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK"
+      ]
     },
     {
       "id": "boost.clear_history_recent__speed.boost",
@@ -209,7 +259,7 @@
       "name": "Clear Installer & App Caches",
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
       "risk": "Safe",
-      "description": "[Focus: FPS] Removes leftover installer caches and Windows Update downloads to recover space.",
+      "description": "[Focus: FPS] Removes leftover installer caches and Windows Update downloads to recover space. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "requiresAdmin": true,
       "requiresReboot": false,
       "apply": {
@@ -231,14 +281,19 @@
       "bulkSelectableGroups": [
         "non_app"
       ],
-      "timeoutMs": 120000
+      "timeoutMs": 120000,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK"
+      ]
     },
     {
       "id": "boost.clear_prefetch__speed.boost",
       "name": "Clear Prefetch",
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
       "risk": "Safe",
-      "description": "[Focus: FPS] Clears Windows Prefetch to regenerate fresh launch data for games and apps.",
+      "description": "[Focus: FPS] Clears Windows Prefetch to regenerate fresh launch data for games and apps. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "requiresAdmin": true,
       "requiresReboot": false,
       "apply": {
@@ -260,14 +315,19 @@
       "bulkSelectableGroups": [
         "non_app"
       ],
-      "timeoutMs": 120000
+      "timeoutMs": 120000,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK"
+      ]
     },
     {
       "id": "boost.clear_thumbnail_cache__speed.boost",
       "name": "Clean Thumbnail Cache",
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
       "risk": "Safe",
-      "description": "[Focus: Latency / Input Delay] Resets Explorer thumbnail cache to fix slow folders and glitches.",
+      "description": "[Focus: Latency / Input Delay] Resets Explorer thumbnail cache to fix slow folders and glitches. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "requiresAdmin": true,
       "requiresReboot": false,
       "apply": {
@@ -289,14 +349,19 @@
       "bulkSelectableGroups": [
         "non_app"
       ],
-      "timeoutMs": 120000
+      "timeoutMs": 120000,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK"
+      ]
     },
     {
       "id": "boost.clear_font_cache__speed.boost",
       "name": "Clean Font Cache",
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
       "risk": "Safe",
-      "description": "[Focus: Latency / Input Delay] Refreshes Windows font cache to avoid UI slowdowns and glitches.",
+      "description": "[Focus: Latency / Input Delay] Refreshes Windows font cache to avoid UI slowdowns and glitches. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "requiresAdmin": true,
       "requiresReboot": false,
       "apply": {
@@ -318,14 +383,20 @@
       "bulkSelectableGroups": [
         "non_app"
       ],
-      "timeoutMs": 120000
+      "timeoutMs": 120000,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK",
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "id": "boost.clear_discord_cache__speed.boost",
       "name": "Clean Discord Cache",
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
       "risk": "Safe",
-      "description": "[Focus: Latency / Input Delay] Clears Discord cache and GPU cache to free space and reduce background I/O.",
+      "description": "[Focus: Latency / Input Delay] Clears Discord cache and GPU cache to free space and reduce background I/O. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "requiresAdmin": true,
       "requiresReboot": false,
       "apply": {
@@ -349,14 +420,19 @@
       "bulkSelectableGroups": [
         "app_specific"
       ],
-      "timeoutMs": 120000
+      "timeoutMs": 120000,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK"
+      ]
     },
     {
       "id": "boost.clear_steam_cache__speed.boost",
       "name": "Clean Steam Cache",
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
       "risk": "Safe",
-      "description": "[Focus: FPS] Cleans Steam download and HTML cache which can slow down library and updates.",
+      "description": "[Focus: FPS] Cleans Steam download and HTML cache which can slow down library and updates. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "requiresAdmin": true,
       "requiresReboot": false,
       "apply": {
@@ -380,14 +456,19 @@
       "bulkSelectableGroups": [
         "app_specific"
       ],
-      "timeoutMs": 120000
+      "timeoutMs": 120000,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK"
+      ]
     },
     {
       "id": "boost.clear_epic_cache__speed.boost",
       "name": "Clean Epic Games Cache",
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
       "risk": "Safe",
-      "description": "[Focus: FPS] Clears Epic Games launcher cache to keep game installs and updates snappy.",
+      "description": "[Focus: FPS] Clears Epic Games launcher cache to keep game installs and updates snappy. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "requiresAdmin": true,
       "requiresReboot": false,
       "apply": {
@@ -412,14 +493,19 @@
       "bulkSelectableGroups": [
         "app_specific"
       ],
-      "timeoutMs": 120000
+      "timeoutMs": 120000,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK"
+      ]
     },
     {
       "id": "boost.clear_temp_files_bundle__speed.boost",
       "name": "Temp Files Bundle",
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
       "risk": "Safe",
-      "description": "[Focus: FPS, Latency / Input Delay] Aggressively clears multiple temp locations in one pass for maximum cleanup.",
+      "description": "[Focus: FPS, Latency / Input Delay] Aggressively clears multiple temp locations in one pass for maximum cleanup. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "requiresAdmin": true,
       "requiresReboot": false,
       "apply": {
@@ -441,7 +527,12 @@
       "bulkSelectableGroups": [
         "non_app"
       ],
-      "timeoutMs": 120000
+      "timeoutMs": 120000,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK"
+      ]
     },
     {
       "id": "boost.empty_recycle_bin__speed.boost",
@@ -477,7 +568,7 @@
       "name": "Clear DirectX Shader Cache",
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
       "risk": "Safe",
-      "description": "[Focus: FPS] Clears DirectX and GPU shader cache so games can rebuild clean pipelines.",
+      "description": "[Focus: FPS] Clears DirectX and GPU shader cache so games can rebuild clean pipelines. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "requiresAdmin": true,
       "requiresReboot": false,
       "apply": {
@@ -499,14 +590,19 @@
       "bulkSelectableGroups": [
         "non_app"
       ],
-      "timeoutMs": 120000
+      "timeoutMs": 120000,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK"
+      ]
     },
     {
       "id": "boost.clear_delivery_optimization__speed.boost",
       "name": "Clear Delivery Optimization Cache",
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
       "risk": "Safe",
-      "description": "[Focus: Latency / Input Delay] Clears Windows Delivery Optimization cache to reduce background disk I/O.",
+      "description": "[Focus: Latency / Input Delay] Clears Windows Delivery Optimization cache to reduce background disk I/O. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "requiresAdmin": true,
       "requiresReboot": false,
       "apply": {
@@ -528,7 +624,12 @@
       "bulkSelectableGroups": [
         "non_app"
       ],
-      "timeoutMs": 120000
+      "timeoutMs": 120000,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK"
+      ]
     },
     {
       "id": "boost.clear_crash_dumps__speed.boost",
@@ -593,7 +694,7 @@
       "name": "Clear Microsoft Store Cache",
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
       "risk": "Safe",
-      "description": "[Focus: Latency / Input Delay] Resets Microsoft Store temp and cache data for faster app installs.",
+      "description": "[Focus: Latency / Input Delay] Resets Microsoft Store temp and cache data for faster app installs. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "requiresAdmin": true,
       "requiresReboot": false,
       "apply": {
@@ -615,14 +716,19 @@
       "bulkSelectableGroups": [
         "non_app"
       ],
-      "timeoutMs": 120000
+      "timeoutMs": 120000,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK"
+      ]
     },
     {
       "id": "boost.clear_edge_cache__speed.boost",
       "name": "Clear Edge Temp Files",
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
       "risk": "Safe",
-      "description": "[Focus: Latency / Input Delay] Clears Microsoft Edge cache and code cache to improve browsing responsiveness.",
+      "description": "[Focus: Latency / Input Delay] Clears Microsoft Edge cache and code cache to improve browsing responsiveness. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "requiresAdmin": true,
       "requiresReboot": false,
       "apply": {
@@ -646,14 +752,19 @@
       "bulkSelectableGroups": [
         "app_specific"
       ],
-      "timeoutMs": 120000
+      "timeoutMs": 120000,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK"
+      ]
     },
     {
       "id": "boost.clear_firefox_cache__speed.boost",
       "name": "Clear Firefox Temp Files",
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
       "risk": "Safe",
-      "description": "[Focus: Latency / Input Delay] Clears Firefox cache folders for all profiles to reduce disk usage.",
+      "description": "[Focus: Latency / Input Delay] Clears Firefox cache folders for all profiles to reduce disk usage. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "requiresAdmin": true,
       "requiresReboot": false,
       "apply": {
@@ -677,14 +788,19 @@
       "bulkSelectableGroups": [
         "app_specific"
       ],
-      "timeoutMs": 120000
+      "timeoutMs": 120000,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK"
+      ]
     },
     {
       "id": "boost.clear_webview2_cache__speed.boost",
       "name": "Clear WebView2 Cache",
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
       "risk": "Safe",
-      "description": "[Focus: Latency / Input Delay] Clears WebView2 cache used by modern Windows apps for snappier UI.",
+      "description": "[Focus: Latency / Input Delay] Clears WebView2 cache used by modern Windows apps for snappier UI. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "requiresAdmin": true,
       "requiresReboot": false,
       "apply": {
@@ -706,7 +822,12 @@
       "bulkSelectableGroups": [
         "non_app"
       ],
-      "timeoutMs": 120000
+      "timeoutMs": 120000,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK"
+      ]
     },
     {
       "id": "boost.clear_quick_access__speed.boost",
@@ -742,7 +863,7 @@
       "name": "Clean Spotify Cache",
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
       "risk": "Safe",
-      "description": "[Focus: Latency / Input Delay] Clears Spotify cache to free SSD space and reduce background I/O.",
+      "description": "[Focus: Latency / Input Delay] Clears Spotify cache to free SSD space and reduce background I/O. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "requiresAdmin": true,
       "requiresReboot": false,
       "apply": {
@@ -766,14 +887,19 @@
       "bulkSelectableGroups": [
         "app_specific"
       ],
-      "timeoutMs": 120000
+      "timeoutMs": 120000,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK"
+      ]
     },
     {
       "id": "boost.clear_telegram_cache__speed.boost",
       "name": "Clean Telegram Cache",
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
       "risk": "Safe",
-      "description": "[Focus: Latency / Input Delay] Clears Telegram Desktop cache so it stops hoarding disk space.",
+      "description": "[Focus: Latency / Input Delay] Clears Telegram Desktop cache so it stops hoarding disk space. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "requiresAdmin": true,
       "requiresReboot": false,
       "apply": {
@@ -797,14 +923,19 @@
       "bulkSelectableGroups": [
         "app_specific"
       ],
-      "timeoutMs": 120000
+      "timeoutMs": 120000,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK"
+      ]
     },
     {
       "id": "boost.clear_temp_prefetch_mru__speed.boost",
       "name": "Temp + Prefetch MRU Bundle",
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
       "risk": "Safe",
-      "description": "[Focus: FPS, Latency / Input Delay] Aggressively clears temp, prefetch, and MRU-style recent files for a fresh start.",
+      "description": "[Focus: FPS, Latency / Input Delay] Aggressively clears temp, prefetch, and MRU-style recent files for a fresh start. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "requiresAdmin": true,
       "requiresReboot": false,
       "apply": {
@@ -826,7 +957,12 @@
       "bulkSelectableGroups": [
         "non_app"
       ],
-      "timeoutMs": 120000
+      "timeoutMs": 120000,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK"
+      ]
     },
     {
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
@@ -837,7 +973,7 @@
       "riskLevel": "Safe",
       "id": "boost.clear_battlenet_cache__speed.boost",
       "name": "Clean Battle.net Cache",
-      "description": "[Focus: FPS] Clears Battle.net cache to speed up launcher and downloads.",
+      "description": "[Focus: FPS] Clears Battle.net cache to speed up launcher and downloads. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "apply": {
         "steps": [
           {
@@ -858,7 +994,12 @@
       "bulkSelectableGroups": [
         "app_specific"
       ],
-      "timeoutMs": 120000
+      "timeoutMs": 120000,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK"
+      ]
     },
     {
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
@@ -869,7 +1010,7 @@
       "riskLevel": "Safe",
       "id": "boost.clear_riot_cache__speed.boost",
       "name": "Clean Riot Games Cache",
-      "description": "[Focus: FPS] Removes Riot client logs and temp data to reduce background I/O.",
+      "description": "[Focus: FPS] Removes Riot client logs and temp data to reduce background I/O. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "apply": {
         "steps": [
           {
@@ -889,7 +1030,12 @@
       "bulkSelectableGroups": [
         "app_specific"
       ],
-      "timeoutMs": 120000
+      "timeoutMs": 120000,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK"
+      ]
     },
     {
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
@@ -900,7 +1046,7 @@
       "riskLevel": "Safe",
       "id": "boost.clear_xbox_cache__speed.boost",
       "name": "Clean Xbox Game Bar Cache",
-      "description": "[Focus: Latency / Input Delay] Clears Xbox Game Bar cache for smoother overlays.",
+      "description": "[Focus: Latency / Input Delay] Clears Xbox Game Bar cache for smoother overlays. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "apply": {
         "steps": [
           {
@@ -920,7 +1066,12 @@
       "bulkSelectableGroups": [
         "app_specific"
       ],
-      "timeoutMs": 120000
+      "timeoutMs": 120000,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK"
+      ]
     },
     {
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
@@ -931,7 +1082,7 @@
       "riskLevel": "Safe",
       "id": "boost.clear_minecraft_cache__speed.boost",
       "name": "Clean Minecraft Cache & Logs",
-      "description": "[Focus: FPS] Clears Minecraft logs, crash reports, and cache to reduce stutter.",
+      "description": "[Focus: FPS] Clears Minecraft logs, crash reports, and cache to reduce stutter. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "apply": {
         "steps": [
           {
@@ -951,7 +1102,12 @@
       "bulkSelectableGroups": [
         "app_specific"
       ],
-      "timeoutMs": 120000
+      "timeoutMs": 120000,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK"
+      ]
     },
     {
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
@@ -962,7 +1118,7 @@
       "riskLevel": "Safe",
       "id": "boost.clear_unreal_ddc__speed.boost",
       "name": "Clean Unreal Derived Data Cache",
-      "description": "[Focus: FPS] Clears Unreal Engine derived data cache used by many modern games.",
+      "description": "[Focus: FPS] Clears Unreal Engine derived data cache used by many modern games. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "apply": {
         "steps": [
           {
@@ -980,7 +1136,12 @@
       "bulkSelectableGroups": [
         "non_app"
       ],
-      "timeoutMs": 120000
+      "timeoutMs": 120000,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK"
+      ]
     },
     {
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
@@ -991,7 +1152,7 @@
       "riskLevel": "Safe",
       "id": "boost.clear_opera_cache__speed.boost",
       "name": "Clear Opera Browser Cache",
-      "description": "[Focus: Latency / Input Delay] Clears Opera cache, code, and GPU cache.",
+      "description": "[Focus: Latency / Input Delay] Clears Opera cache, code, and GPU cache. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "apply": {
         "steps": [
           {
@@ -1012,7 +1173,12 @@
       "bulkSelectableGroups": [
         "app_specific"
       ],
-      "timeoutMs": 120000
+      "timeoutMs": 120000,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK"
+      ]
     },
     {
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
@@ -1023,7 +1189,7 @@
       "riskLevel": "Safe",
       "id": "boost.clear_brave_cache__speed.boost",
       "name": "Clear Brave Browser Cache",
-      "description": "[Focus: Latency / Input Delay] Clears Brave browser cache to free space and speed up browsing.",
+      "description": "[Focus: Latency / Input Delay] Clears Brave browser cache to free space and speed up browsing. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "apply": {
         "steps": [
           {
@@ -1044,7 +1210,12 @@
       "bulkSelectableGroups": [
         "app_specific"
       ],
-      "timeoutMs": 120000
+      "timeoutMs": 120000,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK"
+      ]
     },
     {
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
@@ -1084,7 +1255,7 @@
       "riskLevel": "Safe",
       "id": "boost.clear_event_logs__speed.boost",
       "name": "Clear Windows Event Logs",
-      "description": "[Focus: Latency / Input Delay] Clears Windows event logs to shrink system log databases.",
+      "description": "[Focus: Latency / Input Delay] Clears Windows event logs to shrink system log databases. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "apply": {
         "steps": [
           {
@@ -1102,7 +1273,12 @@
       "bulkSelectableGroups": [
         "non_app"
       ],
-      "timeoutMs": 120000
+      "timeoutMs": 120000,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK"
+      ]
     },
     {
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
@@ -1131,7 +1307,11 @@
       "bulkSelectableGroups": [
         "non_app"
       ],
-      "timeoutMs": 120000
+      "timeoutMs": 120000,
+      "badges": [
+        "NETWORK_REGRESSION_RISK",
+        "DRIVER_CONFLICT_RISK"
+      ]
     },
     {
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
@@ -1200,7 +1380,7 @@
       "riskLevel": "Safe",
       "id": "boost.clear_windows_upgrade_logs__speed.boost",
       "name": "Clear Windows Upgrade Logs",
-      "description": "[Focus: Latency / Input Delay] Clears Windows upgrade temporary logs that can grow very large.",
+      "description": "[Focus: Latency / Input Delay] Clears Windows upgrade temporary logs that can grow very large. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "apply": {
         "steps": [
           {
@@ -1218,7 +1398,12 @@
       "bulkSelectableGroups": [
         "non_app"
       ],
-      "timeoutMs": 120000
+      "timeoutMs": 120000,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK"
+      ]
     },
     {
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
@@ -1229,7 +1414,7 @@
       "riskLevel": "Safe",
       "id": "boost.clear_office_cache__speed.boost",
       "name": "Clean Microsoft Office Cache",
-      "description": "[Focus: Latency / Input Delay] Clears Microsoft Office file cache to free SSD space.",
+      "description": "[Focus: Latency / Input Delay] Clears Microsoft Office file cache to free SSD space. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "apply": {
         "steps": [
           {
@@ -1249,7 +1434,12 @@
       "bulkSelectableGroups": [
         "app_specific"
       ],
-      "timeoutMs": 120000
+      "timeoutMs": 120000,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK"
+      ]
     },
     {
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
@@ -1260,7 +1450,7 @@
       "riskLevel": "Safe",
       "id": "boost.clear_adobe_cache__speed.boost",
       "name": "Clean Adobe Media Cache",
-      "description": "[Focus: Latency / Input Delay] Clears Adobe media caches used by Premiere, After Effects, and others.",
+      "description": "[Focus: Latency / Input Delay] Clears Adobe media caches used by Premiere, After Effects, and others. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "apply": {
         "steps": [
           {
@@ -1280,7 +1470,12 @@
       "bulkSelectableGroups": [
         "app_specific"
       ],
-      "timeoutMs": 120000
+      "timeoutMs": 120000,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK"
+      ]
     },
     {
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
@@ -1291,7 +1486,7 @@
       "riskLevel": "Safe",
       "id": "boost.clear_roblox_cache__speed.boost",
       "name": "Clean Roblox Cache & Logs",
-      "description": "[Focus: FPS] Clears Roblox logs and download cache to smooth load times.",
+      "description": "[Focus: FPS] Clears Roblox logs and download cache to smooth load times. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "apply": {
         "steps": [
           {
@@ -1311,7 +1506,12 @@
       "bulkSelectableGroups": [
         "app_specific"
       ],
-      "timeoutMs": 120000
+      "timeoutMs": 120000,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK"
+      ]
     },
     {
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
@@ -1382,7 +1582,7 @@
       "riskLevel": "Safe",
       "id": "boost.clear_msix_temp__speed.boost",
       "name": "Clear Store App Temp Files",
-      "description": "[Focus: Latency / Input Delay] Clears temporary folders used by modern Store apps.",
+      "description": "[Focus: Latency / Input Delay] Clears temporary folders used by modern Store apps. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "apply": {
         "steps": [
           {
@@ -1400,7 +1600,16 @@
       "bulkSelectableGroups": [
         "non_app"
       ],
-      "timeoutMs": 120000
+      "timeoutMs": 120000,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK",
+        "BLUESCREEN_RISK",
+        "BOOT_RISK",
+        "REQUIRES_TYPED_CONFIRM"
+      ],
+      "typedConfirmText": "I ACCEPT BOOT RISK"
     },
     {
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
@@ -1439,7 +1648,7 @@
       "name": "Junk Cleaner",
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
       "risk": "Safe",
-      "description": "[Focus: FPS, Latency / Input Delay] Cleans common junk locations (Temp, Windows Temp, Prefetch, Recycle Bin, crash dumps) to free space and reduce stutter from bloated caches.",
+      "description": "[Focus: FPS, Latency / Input Delay] Cleans common junk locations (Temp, Windows Temp, Prefetch, Recycle Bin, crash dumps) to free space and reduce stutter from bloated caches. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "requiresAdmin": true,
       "requiresReboot": false,
       "apply": {
@@ -1461,7 +1670,12 @@
       "bulkSelectableGroups": [
         "non_app"
       ],
-      "timeoutMs": 120000
+      "timeoutMs": 120000,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK"
+      ]
     },
     {
       "id": "boost.optimize_defrag_drives",
@@ -1497,7 +1711,7 @@
       "name": "Clean Recent Documents List",
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
       "risk": "Safe",
-      "description": "[Focus: Privacy + Snappiness] Clears Windows 'Recent' documents and jump-list caches.",
+      "description": "[Focus: Privacy + Snappiness] Clears Windows 'Recent' documents and jump-list caches. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "requiresAdmin": true,
       "requiresReboot": false,
       "apply": {
@@ -1519,14 +1733,19 @@
       "bulkSelectableGroups": [
         "non_app"
       ],
-      "timeoutMs": 120000
+      "timeoutMs": 120000,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK"
+      ]
     },
     {
       "id": "boost.clean_discord_history",
       "name": "Clean Discord History",
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
       "risk": "Medium",
-      "description": "[Focus: Privacy] Clears local Discord storage (logs, local storage, cache). Note: may log you out; server chat history is not deleted.",
+      "description": "[Focus: Privacy] Clears local Discord storage (logs, local storage, cache). Note: may log you out; server chat history is not deleted. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "requiresAdmin": true,
       "requiresReboot": false,
       "apply": {
@@ -1550,14 +1769,19 @@
       "bulkSelectableGroups": [
         "app_specific"
       ],
-      "timeoutMs": 120000
+      "timeoutMs": 120000,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK"
+      ]
     },
     {
       "id": "boost.steam_cache_cleaner",
       "name": "Steam Cleaner",
       "category": "Falcon Speed & Integrity Core / Speed Boost Cleanup",
       "risk": "Safe",
-      "description": "[Focus: Storage + Snappiness] Cleans Steam download/cache folders (appcache/httpcache, htmlcache, dumps). Does not uninstall games.",
+      "description": "[Focus: Storage + Snappiness] Cleans Steam download/cache folders (appcache/httpcache, htmlcache, dumps). Does not uninstall games. Maintenance-only: may cause first-run stutter while caches rebuild.",
       "requiresAdmin": true,
       "requiresReboot": false,
       "apply": {
@@ -1581,7 +1805,12 @@
       "bulkSelectableGroups": [
         "app_specific"
       ],
-      "timeoutMs": 120000
+      "timeoutMs": 120000,
+      "badges": [
+        "MAINTENANCE_ONLY",
+        "FIRST_RUN_STUTTER_RISK",
+        "STUTTER_RISK"
+      ]
     }
   ]
 }

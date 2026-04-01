@@ -1,36 +1,233 @@
 {
   "items": [
     {
+      "id": "cpu.amd.cppc_awareness_check",
+      "name": "AMD CPPC / Preferred Cores Awareness",
+      "category": "Hardware / CPU (AMD)",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "type": "button",
+      "description": "Detects CPPC/preferred cores capability exposure and reports support state. BIOS/firmware-aware check only; no blind registry writes.",
+      "applicability": {
+        "cpuVendors": [
+          "amd"
+        ],
+        "requiresAdmin": false
+      },
+      "badges": [
+        "AMD_ONLY",
+        "REQUIRES_BIOS_SUPPORT"
+      ],
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "$c=(powercfg /qh SCHEME_CURRENT SUB_PROCESSOR 75b0ae3f-bce0-45a7-8c89-c9611c25e100 2>$null | Out-String); if([string]::IsNullOrWhiteSpace($c)){ Write-Output 'CPPC preferred cores: unsupported/not exposed'; exit 0 } else { Write-Output 'CPPC preferred cores: exposed'; exit 0 }"
+          }
+        ]
+      }
+    },
+    {
       "id": "cpu.amd.disable_basic_cstates",
-      "name": "Disable Basic C-states (AMD)",
-      "category": "Hardware / CPU",
+      "name": "AMD Idle Policy - Safe Gaming (AC)",
+      "category": "Hardware / CPU (AMD)",
       "risk": "Warning",
       "riskLevel": "Warning",
-      "description": "Reduces deep idle behavior on AMD systems for lower latency. Can increase heat and idle power.",
       "type": "toggle",
+      "description": "Reduces deep idle behavior on AMD systems for lower latency in gaming sessions on AC power.",
       "applicability": {
-        "cpuVendors": ["amd"],
+        "cpuVendors": [
+          "amd"
+        ],
         "requiresAdmin": true
       },
       "warning": {
         "level": "warning",
-        "title": "Can increase heat and battery drain",
-        "why": ["Reduces CPU idle states", "May raise idle temperatures"],
-        "whenToAvoid": ["Laptops on battery", "Thermally constrained systems"],
+        "title": "Thermal and battery impact possible",
+        "why": [
+          "Reduces CPU idle residency",
+          "May increase idle/package power"
+        ],
+        "whenToAvoid": [
+          "Battery operation",
+          "Thin-and-light thermally constrained laptops"
+        ],
         "requiresReboot": false,
         "rollbackAvailable": true,
-        "badges": ["AMD_ONLY", "THERMAL_RISK", "BATTERY_RISK"]
+        "badges": [
+          "AMD_ONLY",
+          "THERMAL_RISK",
+          "BATTERY_RISK",
+          "LAPTOP_UNSAFE"
+        ]
       },
+      "badges": [
+        "AMD_ONLY",
+        "THERMAL_RISK",
+        "BATTERY_RISK",
+        "LAPTOP_UNSAFE"
+      ],
       "apply": {
         "steps": [
-          { "type": "powercfg.set", "args": ["/SETACVALUEINDEX", "SCHEME_CURRENT", "SUB_PROCESSOR", "IDLEDISABLE", "1"] },
-          { "type": "powercfg.set", "args": ["/SETACTIVE", "SCHEME_CURRENT"] }
+          {
+            "type": "powercfg.set",
+            "args": [
+              "/SETACVALUEINDEX",
+              "SCHEME_CURRENT",
+              "SUB_PROCESSOR",
+              "IDLEDISABLE",
+              "1"
+            ]
+          },
+          {
+            "type": "powercfg.set",
+            "args": [
+              "/SETACTIVE",
+              "SCHEME_CURRENT"
+            ]
+          }
+        ]
+      },
+      "verify": {
+        "steps": [
+          {
+            "type": "powercfg.set",
+            "args": [
+              "/QUERY",
+              "SCHEME_CURRENT",
+              "SUB_PROCESSOR",
+              "IDLEDISABLE"
+            ]
+          }
         ]
       },
       "revert": {
         "steps": [
-          { "type": "powercfg.set", "args": ["/SETACVALUEINDEX", "SCHEME_CURRENT", "SUB_PROCESSOR", "IDLEDISABLE", "0"] },
-          { "type": "powercfg.set", "args": ["/SETACTIVE", "SCHEME_CURRENT"] }
+          {
+            "type": "powercfg.set",
+            "args": [
+              "/SETACVALUEINDEX",
+              "SCHEME_CURRENT",
+              "SUB_PROCESSOR",
+              "IDLEDISABLE",
+              "0"
+            ]
+          },
+          {
+            "type": "powercfg.set",
+            "args": [
+              "/SETACTIVE",
+              "SCHEME_CURRENT"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "cpu.amd.pbo_curve_optimizer_guide",
+      "name": "AMD PBO / Curve Optimizer Guide",
+      "category": "Hardware / CPU (AMD)",
+      "risk": "Caution",
+      "riskLevel": "Caution",
+      "type": "button",
+      "description": "Guide-only page launcher for BIOS tuning (PBO/Curve Optimizer). No direct BIOS writes from Windows.",
+      "applicability": {
+        "cpuVendors": [
+          "amd"
+        ],
+        "requiresAdmin": false
+      },
+      "badges": [
+        "AMD_ONLY",
+        "REQUIRES_BIOS_SUPPORT",
+        "PLACEBO_OR_UNPROVEN"
+      ],
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output 'BIOS_ONLY_GUIDE: Tune PBO/CO in BIOS. Validate WHEA stability with OCCT/y-cruncher and monitor thermals.'; exit 0"
+          }
+        ]
+      }
+    },
+    {
+      "id": "cpu.amd.ftpm_stutter_guidance",
+      "name": "AMD fTPM Stutter Mitigation Guidance",
+      "category": "Hardware / CPU (AMD)",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "type": "button",
+      "description": "Guidance-only helper: advises AGESA/BIOS update path for historical AMD fTPM stutter scenarios. Does not disable TPM automatically.",
+      "applicability": {
+        "cpuVendors": [
+          "amd"
+        ],
+        "requiresAdmin": false
+      },
+      "badges": [
+        "AMD_ONLY",
+        "REQUIRES_BIOS_SUPPORT"
+      ],
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output 'Check motherboard vendor BIOS changelog for AGESA/fTPM fixes. On Windows 11, do not disable TPM casually.'; exit 0"
+          }
+        ]
+      }
+    },
+    {
+      "id": "cpu.amd.chipset_powerplan_health",
+      "name": "AMD Chipset + Power Plan Health Check",
+      "category": "Hardware / CPU (AMD)",
+      "risk": "Safe",
+      "riskLevel": "Safe",
+      "type": "button",
+      "description": "Reads active power plan and processor policy exposure to verify AMD chipset/power readiness.",
+      "applicability": {
+        "cpuVendors": [
+          "amd"
+        ],
+        "requiresAdmin": true
+      },
+      "badges": [
+        "AMD_ONLY"
+      ],
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "powercfg /getactivescheme; powercfg /qh SCHEME_CURRENT SUB_PROCESSOR; exit 0"
+          }
+        ]
+      }
+    },
+    {
+      "id": "cpu.amd.smt_toggle_guidance",
+      "name": "AMD SMT Toggle Guidance (Workload Dependent)",
+      "category": "Hardware / CPU (AMD)",
+      "risk": "Warning",
+      "riskLevel": "Warning",
+      "type": "button",
+      "description": "Guide-only recommendation for BIOS SMT testing per game/workload. Does not perform in-OS SMT force toggles.",
+      "applicability": {
+        "cpuVendors": [
+          "amd"
+        ],
+        "requiresAdmin": false
+      },
+      "badges": [
+        "AMD_ONLY",
+        "PLACEBO_OR_UNPROVEN"
+      ],
+      "apply": {
+        "steps": [
+          {
+            "type": "ps.run",
+            "command": "Write-Output 'WORKLOAD_DEPENDENT: test SMT ON vs OFF in BIOS per title; keep whichever improves 1% lows + frametime stability.'; exit 0"
+          }
         ]
       }
     }
