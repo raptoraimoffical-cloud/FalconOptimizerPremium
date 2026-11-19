@@ -1,8 +1,0 @@
-[
-  "NIC AllowComputerToTurnOffDevice",
-  "USB Hub AllowComputerToTurnOffDevice",
-  "USB Controller AllowComputerToTurnOffDevice",
-  "Bluetooth Radio AllowComputerToTurnOffDevice",
-  "HID Keyboard AllowComputerToTurnOffDevice",
-  "HID Mouse AllowComputerToTurnOffDevice"
-]
