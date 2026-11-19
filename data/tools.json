@@ -1,0 +1,82 @@
+{
+  "tools": [
+    {
+      "id": "latencymon",
+      "name": "LatencyMon",
+      "group": "Measure",
+      "summary": "Measures DPC/ISR latency and names the driver responsible for spikes. Run it for 5+ minutes while idle and while gaming.",
+      "url": "https://www.resplendence.com/latencymon"
+    },
+    {
+      "id": "capframex",
+      "name": "CapFrameX",
+      "group": "Measure",
+      "summary": "Frametime and 1%/0.1% low capture and comparison. Benchmark before and after changes — trust your own numbers over any guide.",
+      "url": "https://www.capframex.com/"
+    },
+    {
+      "id": "nvidia_reflex_analyzer",
+      "name": "NVIDIA FrameView",
+      "group": "Measure",
+      "summary": "Frametimes plus PC latency (with Reflex-enabled games) for NVIDIA GPUs.",
+      "url": "https://www.nvidia.com/en-us/geforce/technologies/frameview/"
+    },
+    {
+      "id": "bufferbloat",
+      "name": "Bufferbloat test",
+      "group": "Measure",
+      "summary": "Shows how much your ping rises under load. Grade B or worse: enable SQM/Smart Queue on your router.",
+      "url": "https://www.waveform.com/tools/bufferbloat"
+    },
+    {
+      "id": "npi",
+      "name": "NVIDIA Profile Inspector",
+      "group": "GPU",
+      "summary": "Edits driver settings NVIDIA Control Panel hides. \"Import Falcon profile\" loads Falcon's competitive base profile: low-latency mode, highest refresh rate, unlimited shader cache, prefer max performance, V-Sync forced off (G-SYNC users: set V-Sync On in NVIDIA Control Panel afterwards).",
+      "url": "https://github.com/Orbmu2k/nvidiaProfileInspector/releases",
+      "importNip": true
+    },
+    {
+      "id": "ddu",
+      "name": "Display Driver Uninstaller",
+      "group": "GPU",
+      "summary": "Fully removes GPU drivers for a clean install. Run in Safe Mode when switching GPU brands or fixing driver problems.",
+      "url": "https://www.wagnardsoft.com/display-driver-uninstaller-ddu"
+    },
+    {
+      "id": "nvcleanstall",
+      "name": "NVCleanstall",
+      "group": "GPU",
+      "summary": "Installs NVIDIA drivers without telemetry and bundled extras you do not want.",
+      "url": "https://www.techpowerup.com/nvcleanstall/"
+    },
+    {
+      "id": "msi_util",
+      "name": "MSI Mode Utility v3",
+      "group": "Devices",
+      "summary": "Shows interrupt mode and priority for every device. Falcon already handles the GPU; use this for advanced per-device tuning.",
+      "url": "https://forums.guru3d.com/threads/windows-line-based-vs-message-signaled-based-interrupts-msi-tool.378044/"
+    },
+    {
+      "id": "hidusbf",
+      "name": "hidusbf (USB polling rate)",
+      "group": "Devices",
+      "summary": "Overclocks the USB polling rate of controllers (e.g. DualShock 4 / DualSense to 1000 Hz). Bundled — read the included README before installing the driver.",
+      "folder": "tools/hidusbf"
+    },
+    {
+      "id": "autoruns",
+      "name": "Autoruns",
+      "group": "Windows",
+      "summary": "Microsoft Sysinternals' complete view of everything that starts with Windows. The right way to trim startup apps.",
+      "url": "https://learn.microsoft.com/sysinternals/downloads/autoruns"
+    },
+    {
+      "id": "fancontrol",
+      "name": "FanControl",
+      "group": "Windows",
+      "summary": "Custom fan curves from any temperature sensor. Keeps boost clocks up by keeping temps down.",
+      "url": "https://getfancontrol.com/"
+    }
+  ]
+}
